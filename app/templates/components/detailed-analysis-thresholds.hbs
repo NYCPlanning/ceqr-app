@@ -1,3 +1,4 @@
+<h4>Minimum Number of Residential Units that Trigger Detailed Analysis</h4>
 <table class="ui definition table">
   <thead>
     <tr><th></th>
@@ -5,15 +6,22 @@
     <th>High School</th>
   </tr></thead>
   <tbody>
-    <tr>
-      <td>Bronx</td>
-      <td>90</td>
-      <td>787</td>
-    </tr>
-    <tr>
-      <td>Brooklyn</td>
-      <td>121</td>
-      <td>1068</td>
-    </tr>
+    {{#each analysisThreshold as |boro|}}
+      <tr class={{boro.name}}>
+        {{#if (eq boro.name model.borough)}}
+          <td class= "active">{{boro.name}}</td>
+          <td class={{if model.esEffect "negative" "positive"}}>
+            <i class={{if model.esEffect "icon close" "icon check"}}></i> {{boro.es}}
+          </td>
+          <td class={{if model.hsEffect "negative" "positive"}}>
+            <i class={{if model.hsEffect "icon close" "icon check"}}></i> {{boro.hs}}
+          </td>
+        {{else}}
+          <td>{{boro.name}}</td>
+          <td>{{boro.es}}</td>
+          <td>{{boro.hs}}</td>
+        {{/if}}
+      </tr>
+    {{/each}}
   </tbody>
 </table>

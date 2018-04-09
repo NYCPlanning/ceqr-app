@@ -1,27 +1,28 @@
-<div class="field">
-  <div class="ui two column divided grid">
-    <div class="row">
-      <div class="column">
-        <div class="field">
-          <label>Total Units</label>
-          {{input type="text" value=totalUnits placeholder="Total Units"}}
-        </div>
-        <div class="field">
-          <label>Senior Units</label>
-          {{input type="text" value=seniorUnits placeholder="Senior Units"}}
-        </div>
-      </div>
-      <div class="column">
-        <div class="ui statistic">
-          <div class="value">
-            {{netUnits}}
+<form class="ui form">
+  <div class="field">
+    <div class="ui two column divided grid">
+      <div class="row">
+        <div class="column">
+          <div class="field">
+            <label>Total Units</label>
+            {{input type="text" value=model.totalUnits placeholder="Total Units"}}
           </div>
-          <div class="label">
-            Net Units
+          <div class="field">
+            <label>Senior Units</label>
+            {{input type="text" value=model.seniorUnits placeholder="Senior Units"}}
+          </div>
+        </div>
+        <div class="column">
+          <div class="ui statistic">
+            <div class="value">
+              {{model.netUnits}}
+            </div>
+            <div class="label">
+              Net Units
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-  
-</div>
+</form>
