@@ -8,6 +8,7 @@ export default Route.extend({
       yearBuilt: 2019,
       totalUnits: 0,
       seniorUnits: 0,
+      bbls: [],
     });
   }
 });

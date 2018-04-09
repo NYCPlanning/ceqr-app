@@ -9,12 +9,11 @@
       <form class="ui form">
         <div class="field">
           <label>Building Address and BBL</label>
-          <div class="field"><input type="text" name="address" placeholder="Address"></div>
           <div class="two fields">
-            <div class="field"><input type="text" name="bbl" placeholder="BBL"></div>
-            <div class="field"><input type="text" name="year-built" placeholder="Est. Year Built"></div>
+            <div class="field">{{input type="text" value=model.address placeholder="Address"}}</div>
+            <div class="field">{{input type="text" value=model.yearBuilt placeholder="Year Built"}}</div>
           </div>
-          
+          {{bbl-list model=model}}
         </div>
       </form>
 
@@ -23,7 +22,7 @@
 
   <h3 class="ui top attached header">
     <div class="ui blue label">Step 2</div>
-    Direct & Indirect Effects
+    Preliminary Analysis
   </h3>
   <div class="ui attached segment">
     <div class="ui two column internally celled grid">
@@ -87,5 +86,17 @@
     Since high school-level students can usually elect to attend high schools outside their neighborhood,
     an analysis of high school impacts is rarely necessary. However, if the project would generate 150 or
     more high school students, there may be an impact on borough high schools, and further analysis may be appropriate.</p>
+  </div>
+
+  <h3 class="ui top attached header">
+    <div class="ui blue label">Step 3</div>
+    Detailed Analysis
+  </h3>
+  <div class="ui attached segment">
+    <h4>300. Assessment Methods</h4>
+    <p>If the preliminary analysis (Section 200) indicates that more detailed analyses are necessary for certain community facilities,
+    the following approach may be used. This approach generally consists of delineating one or more study areas
+    for the potentially affected community facilities, gathering information on current and future utilization levels and any
+    plans for expansion, and, finally, assessing the potential impact of the project on community facilities.</p>
   </div>
 </div>
