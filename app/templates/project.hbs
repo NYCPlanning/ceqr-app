@@ -1,72 +1,83 @@
 {{top-bar projectId=model.project.projectId}}
 
-<div class="ui container site">
-  <h3 class="ui top attached header">
-    <div class="ui blue label">Step 1</div>
-    Project Details
-  </h3>
-  <div class="ui attached segment">
-      <form class="ui form">
-        <div class="field">
-          <label>Building Address and BBL</label>
-          <div class="two fields">
-            <div class="field">{{input type="text" value=model.project.address placeholder="Address"}}</div>
-            <div class="field">{{input type="text" value=model.project.yearBuilt placeholder="Year Built"}}</div>
-          </div>
-          {{bbl-list model=model}}
-        </div>
-      </form>
-
-      {{total-unit-count model=model.project}}
+<div class="ui column grid container site">
+  <div class="sixteen wide column">
+    <h2 class="ui dividing header">
+      <div class="ui blue label">Step 1</div>
+      Project Details & Preliminary Analysis
+    </h2>
   </div>
 
-  <h3 class="ui top attached header">
-    <div class="ui blue label">Step 2</div>
-    Preliminary Analysis
-  </h3>
-  <div class="ui attached segment">
-    <div class="ui two column internally celled grid">
-      <div class="row">
-        <div class="column">
-           <h4>210. Direct Effects</h4>
-            <p>If a project would physically alter a community facility, whether by displacement of the facility or other physical
-            change, this "direct" effect triggers the need to assess the service delivery of the facility and the potential effect
-            that the physical change may have on that service delivery. Temporary direct effects should also be considered
-            (for example, the temporary closing of a facility during a phase of construction). See Section 300, “Assessment
-            Methods and Detailed Analysis Techniques”.</p>
-        </div>
+  <div class="row">
+    <div class="ten wide column">
+      <div class="ui segment">
+        <form class="ui form">
+          <div class="field">
+            <div class="two fields">
+              <div class="twelve wide field">
+                <label>Address</label>
+                {{input type="text" value=model.project.address placeholder="Address"}}
+              </div>
+              <div class="four wide field">
+                <label>Estimated Build Year</label>
+                {{input type="text" value=model.project.yearBuilt placeholder="Year Built"}}
+              </div>
+            </div>
+          </div>
+        </form>
 
-        <div class="column">
-          <h4>220. Indirect Effects</h4>
-          <p>Increased population in an area caused by a project would increase demand for existing services, which may result
-          in potential "indirect" effects on service delivery. Depending on the size, income characteristics, and age distribution
-          of the new population, there may be effects on public schools, libraries, or child care centers.
-          In general, the following thresholds may be used to make an initial determination of whether detailed studies are
-          necessary to determine potential indirect impacts. </p>
-        </div>
+        {{total-unit-count model=model.project}}
       </div>
 
-      <div class="row">
-        <div class="right floated eight wide column">
-          {{detailed-analysis-thresholds model=model.project}}
-        </div>
+      <div class="ui segment">
+        {{bbl-list model=model.project}}
       </div>
+    </div>
 
-      <div class="row">
-        <div class="column">
-          <div class="ui label {{if model.project.directEffect "red" "green"}}">
-            {{ui-checkbox label="Causes Direct Effect" checked=model.project.directEffect onChange=(action (mut model.project.directEffect))}}
-          </div>
+    <div class="six wide column">
+      <h4>100. Intro</h4>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="ten wide column">
+      <div class="ui segment">
+        <div class="ui label {{if model.project.directEffect "red" "green"}}">
+          {{ui-checkbox label="Causes Direct Effect" checked=model.project.directEffect onChange=(action (mut model.project.directEffect))}}
         </div>
+        
+        {{detailed-analysis-thresholds model=model.project}}
 
-        <div class="column">
-          <div class="ui large label {{if model.project.indirectEffect "red" "green"}}">
-            Causes Indirect Effect
-          </div>
+        <div class="ui large label {{if model.project.indirectEffect "red" "green"}}">
+          Causes Indirect Effect
         </div>
       </div>
     </div>
+
+    <div class="six wide column">
+      <h4>210. Direct Effects</h4>
+      <p>If a project would physically alter a community facility, whether by displacement of the facility or other physical
+      change, this "direct" effect triggers the need to assess the service delivery of the facility and the potential effect
+      that the physical change may have on that service delivery. Temporary direct effects should also be considered
+      (for example, the temporary closing of a facility during a phase of construction). See Section 300, “Assessment
+      Methods and Detailed Analysis Techniques”.</p>
+      
+      <h4>220. Indirect Effects</h4>
+      <p>Increased population in an area caused by a project would increase demand for existing services, which may result
+      in potential "indirect" effects on service delivery. Depending on the size, income characteristics, and age distribution
+      of the new population, there may be effects on public schools, libraries, or child care centers.
+      In general, the following thresholds may be used to make an initial determination of whether detailed studies are
+      necessary to determine potential indirect impacts. </p>
+    </div>
   </div>
+
+  <div class="sixteen wide column">
+    <h2 class="ui dividing header">
+      <div class="ui blue label">Step 2</div>
+      Detailed Analysis
+    </h2>
+  </div>
+
   <div class="ui attached segment">
     <h4>221. Public Schools</h4>
     <p>Potential impacts on schools may result if there would be insufficient seats available to serve the population.

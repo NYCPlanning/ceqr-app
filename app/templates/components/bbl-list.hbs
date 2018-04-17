@@ -1,6 +1,18 @@
-{{input type="text" value=bbl placeholder="BBL"}}
-<button {{action 'addBbl' bbl}}>Add</button>
+<div class="ui grid">
+  <div class="six wide column">
+    <div class="ui action input">
+      {{input type="text" value=bbl placeholder="BBL" enter="addBbl"}}
+      <button class="ui button" {{action 'addBbl' bbl}}>Add</button>
+    </div>
+  </div>
 
-{{#each model.bbls as |bbl|}}
-  {{bbl}}
-{{/each}}
+  <div class="eight wide column right floated">
+    <div class="ui list">
+      {{#each model.bbls as |bbl|}}
+        <div class="item">
+          {{bbl}} <i class="close link icon" {{action 'removeBbl' bbl}}></i>
+        </div>
+      {{/each}}
+    </div>
+  </div>
+</div>
