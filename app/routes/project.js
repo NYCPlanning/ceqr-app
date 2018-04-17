@@ -1,8 +1,13 @@
 import Route from '@ember/routing/route';
+import normalizeCartoVectors from 'carto-promises-utility/utils/normalize-carto-vectors';
+import { hash } from 'rsvp';
 
-export default Route.extend({  
-  model(params) {
-    return this.get('store').createRecord('project', {
+export default class ProjectRoute extends Route {
+  model = async function(params) {
+    const sources = await this.store.findAll('source')
+      .then(sourceModels => normalizeCartoVectors(sourceModels.toArray()));
+
+    const project = this.get('store').createRecord('project', {
       projectId: params.project_id,
       address: "120 Broadway",
       yearBuilt: 2019,
@@ -10,5 +15,7 @@ export default Route.extend({
       seniorUnits: 0,
       bbls: [],
     });
+
+    return hash({ sources, project });
   }
-});
+}

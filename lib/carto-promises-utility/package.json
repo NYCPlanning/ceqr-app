@@ -1,0 +1,9 @@
+{
+  "name": "carto-promises-utility",
+  "keywords": [
+    "ember-addon"
+  ],
+  "dependencies": {
+    "ember-cli-babel": "^6.6.0"
+  }
+}

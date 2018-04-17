@@ -1,3 +1,7 @@
 .site {
   padding: 25px 0;
 }
+
+#study-area-map {
+  height: 400px;
+}

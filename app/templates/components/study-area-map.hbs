@@ -1,0 +1,46 @@
+{{!-- 
+Map should have
+- School Subdistricts
+- Boroughs
+- All elementary and intermediate schools
+- Toggle to turn on high schools
+- 
+
+ --}}
+
+
+{{#mapbox-gl 
+  id='study-area-map' mapLoaded=(action 'handleMapLoad') initOptions=(hash
+    style='mapbox://styles/mapbox/light-v9'
+    zoom=9.2
+    center=(array -74 40.7071266)
+  ) as |map| }}
+
+  {{#each sources as |source|}}
+    {{#map.source options=source as |source|}}
+      {{source.layer layer=(hash
+        source='schools-analysis'
+        source-layer='subdistricts'
+        filter=(array "all"
+          (array "==" (array "get" "district") 14)
+          (array "==" (array "get" "subdistrict") 1)
+        )
+        type='line'
+        paint=(hash line-color='#000000' line-width=2 line-blur=1))
+      }}
+
+      {{source.layer layer=(hash
+        id="bluebook"
+        source='schools-analysis'
+        source-layer='bluebook'
+        filter=(array "all"
+          (array "==" (array "get" "district") 14)
+          (array "==" (array "get" "subdistrict") 1)
+        )
+        type='circle'
+        paint=(hash circle-color=(array "rgb" 247 202 0)))
+      }}
+    {{/map.source}}
+  {{/each}}
+
+{{/mapbox-gl}}

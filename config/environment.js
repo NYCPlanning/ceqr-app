@@ -2,6 +2,9 @@
 
 module.exports = function(environment) {
   let ENV = {
+    'mapbox-gl': {
+      accessToken: 'pk.eyJ1IjoiY2FwaXRhbHBsYW5uaW5nbnljIiwiYSI6ImNqODUwYmxyYzBnY3AycW9hOXA5NDE2eDQifQ.HYuWjTiwSoTu-QLWo0D76w'
+    },
     modulePrefix: 'cp-ceqr-schools',
     environment,
     rootURL: '/',

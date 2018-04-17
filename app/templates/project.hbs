@@ -1,4 +1,4 @@
-{{top-bar projectId=model.projectId}}
+{{top-bar projectId=model.project.projectId}}
 
 <div class="ui container site">
   <h3 class="ui top attached header">
@@ -10,14 +10,14 @@
         <div class="field">
           <label>Building Address and BBL</label>
           <div class="two fields">
-            <div class="field">{{input type="text" value=model.address placeholder="Address"}}</div>
-            <div class="field">{{input type="text" value=model.yearBuilt placeholder="Year Built"}}</div>
+            <div class="field">{{input type="text" value=model.project.address placeholder="Address"}}</div>
+            <div class="field">{{input type="text" value=model.project.yearBuilt placeholder="Year Built"}}</div>
           </div>
           {{bbl-list model=model}}
         </div>
       </form>
 
-      {{total-unit-count model=model}}
+      {{total-unit-count model=model.project}}
   </div>
 
   <h3 class="ui top attached header">
@@ -48,19 +48,19 @@
 
       <div class="row">
         <div class="right floated eight wide column">
-          {{detailed-analysis-thresholds model=model}}
+          {{detailed-analysis-thresholds model=model.project}}
         </div>
       </div>
 
       <div class="row">
         <div class="column">
-          <div class="ui label {{if model.directEffect "red" "green"}}">
-            {{ui-checkbox label="Causes Direct Effect" checked=model.directEffect onChange=(action (mut model.directEffect))}}
+          <div class="ui label {{if model.project.directEffect "red" "green"}}">
+            {{ui-checkbox label="Causes Direct Effect" checked=model.project.directEffect onChange=(action (mut model.project.directEffect))}}
           </div>
         </div>
 
         <div class="column">
-          <div class="ui large label {{if model.indirectEffect "red" "green"}}">
+          <div class="ui large label {{if model.project.indirectEffect "red" "green"}}">
             Causes Indirect Effect
           </div>
         </div>
@@ -98,5 +98,9 @@
     the following approach may be used. This approach generally consists of delineating one or more study areas
     for the potentially affected community facilities, gathering information on current and future utilization levels and any
     plans for expansion, and, finally, assessing the potential impact of the project on community facilities.</p>
+  </div>
+
+  <div class="ui attached segment">
+    {{study-area-map sources=model.sources project=model.project}}
   </div>
 </div>
