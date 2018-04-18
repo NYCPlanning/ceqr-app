@@ -26,10 +26,6 @@
           </div>
         </form>
 
-        {{total-unit-count model=model.project}}
-      </div>
-
-      <div class="ui segment">
         {{bbl-list model=model.project}}
       </div>
     </div>
@@ -42,14 +38,17 @@
   <div class="row">
     <div class="ten wide column">
       <div class="ui segment">
-        <div class="ui label {{if model.project.directEffect "red" "green"}}">
-          {{ui-checkbox label="Causes Direct Effect" checked=model.project.directEffect onChange=(action (mut model.project.directEffect))}}
+        {{!-- {{ui-checkbox label="Causes Direct Effect" checked=model.project.directEffect onChange=(action (mut model.project.directEffect))}} --}}
+        <h3>Does the project cause a Direct Effect?</h3>
+        {{!-- <div class="ui toggle checkbox">
+          No
+          {{ui-checkbox checked=model.project.directEffect onChange=(action (mut model.project.directEffect))}}
+          Yes
         </div>
-        
-        {{detailed-analysis-thresholds model=model.project}}
-
-        <div class="ui large label {{if model.project.indirectEffect "red" "green"}}">
-          Causes Indirect Effect
+         --}}
+        <div class="ui two buttons">
+          <div class="ui {{unless model.project.directEffect "basic"}} large primary button" {{action (mut model.project.directEffect) true}}>Yes</div>
+          <div class="ui {{if (or model.project.directEffect (eq model.project.directEffect null)) "basic"}} large primary button" {{action (mut model.project.directEffect) false}}>No</div>
         </div>
       </div>
     </div>
@@ -59,9 +58,24 @@
       <p>If a project would physically alter a community facility, whether by displacement of the facility or other physical
       change, this "direct" effect triggers the need to assess the service delivery of the facility and the potential effect
       that the physical change may have on that service delivery. Temporary direct effects should also be considered
-      (for example, the temporary closing of a facility during a phase of construction). See Section 300, “Assessment
-      Methods and Detailed Analysis Techniques”.</p>
-      
+      (for example, the temporary closing of a facility during a phase of construction).</p>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="ten wide column">
+      <div class="ui segment">        
+        {{total-unit-count model=model.project}}
+        
+        {{detailed-analysis-thresholds model=model.project}}
+
+        <div class="ui large label {{if model.project.indirectEffect "red" "green"}}">
+          Causes Indirect Effect
+        </div>
+      </div>
+    </div>
+
+    <div class="six wide column">      
       <h4>220. Indirect Effects</h4>
       <p>Increased population in an area caused by a project would increase demand for existing services, which may result
       in potential "indirect" effects on service delivery. Depending on the size, income characteristics, and age distribution
