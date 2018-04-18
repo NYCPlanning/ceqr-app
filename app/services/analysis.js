@@ -1,4 +1,5 @@
 import Service from '@ember/service';
+import { isEmpty } from '@ember/utils';
 
 export default Service.extend({
   analysisThreshold: () => ([
@@ -15,9 +16,10 @@ export default Service.extend({
       Brooklyn: {es: 121, hs: 1068},
       Manhattan: {es: 310, hs: 2492},
       Queens: {es: 124, hs: 1068},
-      "Staten Island": {es: 165, hs: 1068},
+      "Staten Island": {es: 165, hs: 1068}
     }
 
+    if (isEmpty(boro)) return {es: 0, hs: 0};
     return boroughs[boro];
   },
 });

@@ -1,5 +1,9 @@
-.site {
-  padding: 25px 0;
+.top-bar {
+  margin-bottom: 25px;
+}
+
+.ui.selection.dropdown {
+  min-width: 8em;
 }
 
 #study-area-map {

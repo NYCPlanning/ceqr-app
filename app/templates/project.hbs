@@ -13,13 +13,27 @@
       <div class="ui segment">
         <form class="ui form">
           <div class="field">
-            <div class="two fields">
-              <div class="twelve wide field">
+            <div class="three fields">
+              <div class="nine wide field">
                 <label>Address</label>
                 {{input type="text" value=model.project.address placeholder="Address"}}
               </div>
               <div class="four wide field">
-                <label>Estimated Build Year</label>
+                <label>Borough</label>
+                {{#ui-dropdown class="selection" onChange=(action (mut model.project.borough))}}
+                  <div class="default text">Borough</div>
+                  <i class="dropdown icon"></i>
+                  <div class="menu">
+                    <div data-value="Bronx" class="item">Bronx</div>
+                    <div data-value="Brooklyn" class="item">Brooklyn</div>
+                    <div data-value="Manhattan" class="item">Manhattan</div>
+                    <div data-value="Queens" class="item">Queens</div>
+                    <div data-value="Staten Island" class="item">Staten Island</div>
+                  </div>
+                {{/ui-dropdown}}
+              </div>
+              <div class="three wide field">
+                <label>Est. Build Year</label>
                 {{input type="text" value=model.project.yearBuilt placeholder="Year Built"}}
               </div>
             </div>
@@ -31,21 +45,18 @@
     </div>
 
     <div class="six wide column">
-      <h4>100. Intro</h4>
+      <h4>100. Definitions</h4>
+      <p><em>PUBLIC SCHOOLS.</em> CEQR analyzes potential impacts only on public schools operated and funded by the New York City
+      Department of Education. This analysis generally relates only to public elementary and intermediate schools, which serve a
+      local population, and rarely to high schools, which have a borough-wide or citywide population base. Schools are analyzed based
+      on the potential for the project to cause overcrowding (i.e., a shortage of seats for an age group within the district).</p>
     </div>
   </div>
 
   <div class="row">
     <div class="ten wide column">
       <div class="ui segment">
-        {{!-- {{ui-checkbox label="Causes Direct Effect" checked=model.project.directEffect onChange=(action (mut model.project.directEffect))}} --}}
         <h3>Does the project cause a Direct Effect?</h3>
-        {{!-- <div class="ui toggle checkbox">
-          No
-          {{ui-checkbox checked=model.project.directEffect onChange=(action (mut model.project.directEffect))}}
-          Yes
-        </div>
-         --}}
         <div class="ui two buttons">
           <div class="ui {{unless model.project.directEffect "basic"}} large primary button" {{action (mut model.project.directEffect) true}}>Yes</div>
           <div class="ui {{if (or model.project.directEffect (eq model.project.directEffect null)) "basic"}} large primary button" {{action (mut model.project.directEffect) false}}>No</div>
@@ -64,13 +75,21 @@
 
   <div class="row">
     <div class="ten wide column">
-      <div class="ui segment">        
-        {{total-unit-count model=model.project}}
-        
-        {{detailed-analysis-thresholds model=model.project}}
+      <div class="ui segments">
+        <div class="ui segment">
+          {{total-unit-count model=model.project}}
+        </div>
 
-        <div class="ui large label {{if model.project.indirectEffect "red" "green"}}">
-          Causes Indirect Effect
+        <div class="ui segment">
+          {{detailed-analysis-thresholds model=model.project}}
+        </div>
+
+        <div class="ui segment">
+          <h3>Does the project cause a Indirect Effect?</h3>
+          <div class="ui two buttons">
+            <div class="ui {{unless model.project.indirectEffect "basic"}} large primary button">Yes</div>
+            <div class="ui {{if (or model.project.indirectEffect (eq model.project.indirectEffect null)) "basic"}} large primary button">No</div>
+          </div>
         </div>
       </div>
     </div>

@@ -8,7 +8,7 @@ export default DS.Model.extend({
   address: DS.attr('string'),
   bbls: DS.attr(),
   yearBuilt: DS.attr('number'),
-  borough: "Brooklyn",
+  borough: DS.attr('string'),
   totalUnits: DS.attr('number'),
   seniorUnits: DS.attr('number'),
   
