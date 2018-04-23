@@ -5,7 +5,7 @@
     <th>High School</th>
   </tr></thead>
   <tbody>
-    {{#each analysisThreshold as |boro|}}
+    {{#each ceqr-manual.minResidentialUnits as |boro|}}
       <tr class={{boro.name}}>
         {{#if (eq boro.name model.borough)}}
           <td class= "active">{{boro.name}}</td>

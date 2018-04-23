@@ -14,7 +14,7 @@ export default class ProjectRoute extends Route {
       totalUnits: 0,
       seniorUnits: 0,
       bbls: [],
-      directEffect: null,
+      directEffect: false,
     });
 
     return hash({ sources, project });

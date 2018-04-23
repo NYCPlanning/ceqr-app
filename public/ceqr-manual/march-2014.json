@@ -1,0 +1,19 @@
+{
+  "id": "march-2014",
+  "minResidentialUnits": [
+    {"name": "Bronx", "es": 90, "hs": 787},
+    {"name": "Brooklyn", "es": 121, "hs": 1068},
+    {"name": "Manhattan", "es": 310, "hs": 2492},
+    {"name": "Queens", "es": 124, "hs": 1068},
+    {"name": "Staten Island", "es": 165, "hs": 1068} 
+  ],
+  "studentMultipliers": [
+    {"name": "Bronx", "es": 0.39, "ms": 0.16, "hs": 0.19},
+    {"name": "Brooklyn", "es": 0.29, "ms": 0.12, "hs": 0.14},
+    {"name": "Manhattan", "es": 0.12, "ms": 0.04, "hs": 0.06},
+    {"name": "Queens", "es": 0.28, "ms": 0.12, "hs": 0.14},
+    {"name": "Staten Island", "es": 0.21, "ms": 0.09, "hs": 0.14} 
+  ],
+  "thresholdEsMsStudents": 50,
+  "thresholdHsStudents": 150
+}
