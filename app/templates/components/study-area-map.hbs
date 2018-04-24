@@ -1,10 +1,11 @@
 {{!-- 
 Map should have
-- School Subdistricts
-- Boroughs
+
+- Grey out other boroughs
+
+- LCGMS data
 - All elementary and intermediate schools
 - Toggle to turn on high schools
-- 
 
  --}}
 
@@ -16,31 +17,72 @@ Map should have
     center=(array -74 40.7071266)
   ) as |map| }}
 
-  {{#each sources as |source|}}
-    {{#map.source options=source as |source|}}
+  {{#if bblsPresent}}
+    {{#map.source options=(hash type='geojson' data=(await subdistrictGeojson)) as |source|}}
       {{source.layer layer=(hash
-        source='schools-analysis'
-        source-layer='subdistricts'
-        filter=(array "all"
-          (array "==" (array "get" "district") 14)
-          (array "==" (array "get" "subdistrict") 1)
-        )
-        type='line'
-        paint=(hash line-color='#000000' line-width=2 line-blur=1))
+        id='subdistricts'
+        type='fill'
+        paint=(hash fill-color='#2c7bb6' fill-opacity=0.6))
       }}
+    {{/map.source}}
 
+    {{#if (eq zoneDisplay 'es')}}
+      {{#map.source options=(hash type='geojson' data=(await esZonesGeojson)) as |source|}}
+        {{source.layer layer=(hash
+          id='es-zones'
+          type='line'
+          paint=(hash
+            line-color='#000000'
+            line-width=2
+            line-dasharray=(array 1 1)
+          ))
+        }}
+      {{/map.source}}
+    {{/if}}
+
+    {{#if (eq zoneDisplay 'ms')}}
+      {{#map.source options=(hash type='geojson' data=(await msZonesGeojson)) as |source|}}
+        {{source.layer layer=(hash
+          id='ms-zones'
+          type='line'
+          paint=(hash
+            line-color='#000000'
+            line-width=2
+            line-dasharray=(array 1 1)
+          ))
+        }}
+      {{/map.source}}
+    {{/if}}
+
+    {{#if hsAnalysis}}
+      {{#map.source options=(hash type='geojson' data=(await hsZonesGeojson)) as |source|}}
+        {{source.layer layer=(hash
+          id='hs-zones'
+          type='line'
+          paint=(hash
+            line-color='#000000'
+            line-width=2
+            line-dasharray=(array 1 1)
+          ))
+        }}
+      {{/map.source}}
+    {{/if}}
+
+    {{#map.source options=(hash type='geojson' data=(await bblGeojson)) as |source|}}
+      {{source.layer layer=(hash 
+        id='bbls'
+        type='line'
+        paint=(hash line-color='#d7191c' line-width=4 line-blur=1)
+      )}}
+    {{/map.source}}
+
+    {{#map.source options=(hash type='geojson' data=(await bluebookGeojson)) as |source|}}
       {{source.layer layer=(hash
-        id="bluebook"
-        source='schools-analysis'
-        source-layer='bluebook'
-        filter=(array "all"
-          (array "==" (array "get" "district") 14)
-          (array "==" (array "get" "subdistrict") 1)
-        )
+        id='bluebook'
         type='circle'
         paint=(hash circle-color=(array "rgb" 247 202 0)))
       }}
     {{/map.source}}
-  {{/each}}
-
+  {{/if}}
 {{/mapbox-gl}}
+
