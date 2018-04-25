@@ -1,56 +1,54 @@
 <table class="ui collapsing celled table">
   <thead>
-      <thead>
-        <tr>
-          <th></th>
-          <th>Net Units</th>
-          <th>Multiplier</th>
-          <th colspan=2>Estimated Number<br />of Students</th>
-          <th>Threshold for Indirect Effect</th>
-        </tr>
-      </thead>
-
-      <tbody>
-        <tr>
-          <td>Elementary</td>
-          <td rowspan="3">{{project.netUnits}}</td>
-          <td>x {{project.studentMultipliers.es}}</td>
-          <td>{{project.estEsStudents}}</td>
-          <td class={{if project.esEffect "warning"}} rowspan="2">
-            {{#if project.esEffect}}
-              {{#ui-popup title="Causes an Indirect Effect" content=esMsEffectPopupText}}
-                {{project.estEsMsStudents}} <i class="attention icon"></i>
-              {{/ui-popup}}
-            {{else}}
-              {{project.estEsMsStudents}}
-            {{/if}}
-          </td>
-          <td rowspan="2">
-            {{ceqr-manual.thresholdEsMsStudents}}
-          </td>
-        </tr>
-        <tr>
-          <td>Middle School</td>
-          <td>x {{project.studentMultipliers.ms}}</td>
-          <td>{{project.estMsStudents}}</td>
-        </tr>
-        <tr>
-          <td>High School</td>
-          <td>x {{project.studentMultipliers.hs}}</td>
-          <td class={{if project.hsEffect "warning"}} colspan="2">
-            {{#if project.hsEffect}}
-              {{#ui-popup title="Causes an Indirect Effect" content="Greater than {{ceqr-manual.thresholdHsStudents}} high school students causes an Indirect Effect"}}
-                {{project.estHsStudents}} <i class="attention icon"></i>
-              {{/ui-popup}}
-            {{else}}
-              {{project.estHsStudents}}
-            {{/if}}
-          </td>
-          <td>
-            {{ceqr-manual.thresholdHsStudents}}
-          </td>
-        </tr>
-      </tbody>
+    <tr>
+      <th></th>
+      <th>Net Units</th>
+      <th>Multiplier</th>
+      <th colspan=2>Estimated Number<br />of Students</th>
+      <th>Threshold for Indirect Effect</th>
+    </tr>
   </thead>
+
+  <tbody>
+    <tr>
+      <td>Elementary</td>
+      <td rowspan="3">{{project.netUnits}}</td>
+      <td>x {{project.studentMultipliers.es}}</td>
+      <td>{{project.estEsStudents}}</td>
+      <td class={{if project.esEffect "warning"}} rowspan="2">
+        {{#if project.esEffect}}
+          {{#ui-popup title="Causes an Indirect Effect" content=esMsEffectPopupText}}
+            {{project.estEsMsStudents}} <i class="attention icon"></i>
+          {{/ui-popup}}
+        {{else}}
+          {{project.estEsMsStudents}}
+        {{/if}}
+      </td>
+      <td rowspan="2">
+        {{ceqr-manual.thresholdEsMsStudents}}
+      </td>
+    </tr>
+    <tr>
+      <td>Middle School</td>
+      <td>x {{project.studentMultipliers.ms}}</td>
+      <td>{{project.estMsStudents}}</td>
+    </tr>
+    <tr>
+      <td>High School</td>
+      <td>x {{project.studentMultipliers.hs}}</td>
+      <td class={{if project.hsEffect "warning"}} colspan="2">
+        {{#if project.hsEffect}}
+          {{#ui-popup title="Causes an Indirect Effect" content="Greater than {{ceqr-manual.thresholdHsStudents}} high school students causes an Indirect Effect"}}
+            {{project.estHsStudents}} <i class="attention icon"></i>
+          {{/ui-popup}}
+        {{else}}
+          {{project.estHsStudents}}
+        {{/if}}
+      </td>
+      <td>
+        {{ceqr-manual.thresholdHsStudents}}
+      </td>
+    </tr>
+  </tbody>
 </table>
 

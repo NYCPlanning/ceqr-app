@@ -16,7 +16,7 @@
       },
       {
         "id": "bluebook",
-        "sql": "SELECT the_geom_webmercator, district, subd AS subdistrict FROM doe_bluebook_organization_20162017 WHERE charter != 'Charter'"
+        "sql": "SELECT the_geom_webmercator, district, subd AS subdistrict FROM doe_bluebook_v1617 WHERE charter != 'Charter'"
       }
     ]
   }

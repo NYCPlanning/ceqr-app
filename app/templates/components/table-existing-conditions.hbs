@@ -1,0 +1,65 @@
+{{!-- 
+Force Mona to include correct grades served and citywide & alternative schools
+ --}}
+
+<div class="ui basic segment">
+  <h4>Primary Schools</h4>
+  <table class="ui collapsing celled table">
+    <thead>
+      <tr>
+        <th>School Name</th>
+        <th>Address</th>
+        <th>Grades<br />Served</th>
+        <th>Enrollment</th>
+        <th>Target<br />Capacity</th>
+        <th>Available<br />Seats</th>
+        <th>Utilization (%)</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      {{#each (await psBuildings) as |b|}}
+        <tr>
+          <td>{{b.name}}</td>
+          <td>{{b.address}}</td>
+          <td>{{b.grades}}</td>
+          <td>{{b.enroll}}</td>
+          <td>{{if b.capacity b.capacity "N/A"}}</td>
+          <td>{{b.seats}}</td>
+          <td>{{if b.utilization b.utilization "N/A"}}</td>
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</div>
+
+<div class="ui basic segment">
+  <h4>Intermediate Schools</h4>
+  <table class="ui collapsing celled table">
+    <thead>
+      <tr>
+        <th>School Name</th>
+        <th>Address</th>
+        <th>Grades<br />Served</th>
+        <th>Enrollment</th>
+        <th>Target<br />Capacity</th>
+        <th>Available<br />Seats</th>
+        <th>Utilization (%)</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      {{#each (await msBuildings) as |b|}}
+        <tr>
+          <td>{{b.name}}</td>
+          <td>{{b.address}}</td>
+          <td>{{b.grades}}</td>
+          <td>{{b.enroll}}</td>
+          <td>{{if b.capacity b.capacity "N/A"}}</td>
+          <td>{{b.seats}}</td>
+          <td>{{if b.utilization b.utilization "N/A"}}</td>
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</div>

@@ -13,7 +13,7 @@ export default class ProjectRoute extends Route {
       yearBuilt: 2019,
       totalUnits: 0,
       seniorUnits: 0,
-      bbls: [3019260010],
+      bbls: [4000720001],
       directEffect: false,
     });
 

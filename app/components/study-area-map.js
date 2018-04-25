@@ -3,13 +3,25 @@ import carto from 'carto-promises-utility/utils/carto';
 import { computed } from '@ember/object';
 import { isEmpty } from '@ember/utils';
 import { task, waitForProperty } from 'ember-concurrency';
+// import bbox from 'npm:@turf/bbox';
 
-export default Component.extend({
+export default Component.extend({  
+  // UI attributes
+  zoneDisplay: 'es',
+  hsAnalysis: false,
+  
+  // Map attributes
+  map: null,
+  mapZoomTo(geojson) {
+    // let extent = bbox(geojson);
+    // console.log(extent);
+    // this.get('map').fitBounds(bbox);
+  },
+
   // District attributes
   subdistrictPairs: null,
   subdistrictIds: null,
-  zoneDisplay: 'es',
-  hsAnalysis: false,
+  schoolIds: null,
 
   bblsPresent: computed('bbls.[]', function() {
     return !isEmpty(this.get('bbls'));
@@ -59,23 +71,34 @@ export default Component.extend({
     `, 'geojson');
 
     this.set('subdistrictPairs', subdistricts.features.map(
-      (f) => `(${f.properties.district}, ${f.properties.subdistrict})`)
-    );
+      (f) => `(${f.properties.district}, ${f.properties.subdistrict})`
+    ));
 
     this.set('subdistrictIds', subdistricts.features.map(
-      (f) => f.properties.cartodb_id)
-    );
+      (f) => f.properties.cartodb_id
+    ));
 
     return subdistricts;
   }),
   fetchBluebook: task(function*() {
     yield waitForProperty(this, 'subdistrictPairs');
-    return yield carto.SQL(`
-      SELECT the_geom, district, subd AS subdistrict
-      FROM doe_bluebook_organization_20162017
+    let schools = yield carto.SQL(`
+      SELECT the_geom, district, subd AS subdistrict, cartodb_id
+      FROM doe_bluebook_v1617
       WHERE charter != 'Charter'
+        AND org_enroll is not null
+        AND x_citywide = ''
+        AND x_alternative = ''
+        AND organization_name not like '%25ALTERNATIVE LEARNING CENTER%25'
+        AND organization_name not like '%25YOUNG ADULT BORO CENTER%25'
         AND (district, subd) IN (VALUES ${this.get('subdistrictPairs').join(',')})
     `, 'geojson');
+
+    this.set('schoolIds', schools.features.map(
+      (f) => f.properties.cartodb_id
+    ));
+
+    return schools;
   }),
   fetchEsZones: task(function*() {
     yield waitForProperty(this, 'subdistrictPairs');
@@ -116,6 +139,7 @@ export default Component.extend({
 
   actions: {
     handleMapLoad(map) {
+      this.set('map', map);
       window.map = map;
     },
   }
