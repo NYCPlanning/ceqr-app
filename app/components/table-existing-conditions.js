@@ -14,6 +14,34 @@ export default Component.extend({
   //   return this.get('fetchHsBuildings').perform();
   // }),
 
+  // Found online: http://www.jacklmoore.com/notes/rounding-in-javascript/
+  round: function(value, decimals) {
+    return Number(Math.round(value+'e'+decimals)+'e-'+decimals);
+  },
+
+  // Totals
+  psEnrollment: computed.mapBy('psBuildings.value', 'enroll'),
+  psSeats: computed.mapBy('psBuildings.value', 'seats'),
+  psCapacity: computed.mapBy('psBuildings.value', 'capacity'),
+  msEnrollment: computed.mapBy('msBuildings.value', 'enroll'),
+  msSeats: computed.mapBy('msBuildings.value', 'seats'),
+  msCapacity: computed.mapBy('msBuildings.value', 'capacity'),
+
+  psEnrollmentTotal: computed.sum('psEnrollment'),
+  psCapacityTotal: computed.sum('psCapacity'),
+  psSeatsTotal: computed.sum('psSeats'),
+  psUtilization: computed('psEnrollmentTotal', 'psCapacityTotal', function() {
+    return this.round(this.get('psEnrollmentTotal') / this.get('psCapacityTotal'), 3);
+  }),
+
+  msEnrollmentTotal: computed.sum('msEnrollment'),
+  msCapacityTotal: computed.sum('msCapacity'),
+  msSeatsTotal: computed.sum('msSeats'),
+  msUtilization: computed('msEnrollmentTotal', 'msCapacityTotal', function() {
+    return this.round(this.get('msEnrollmentTotal') / this.get('msCapacityTotal'), 3);
+  }),
+
+  // Ember concurrency tasks
   fetchPsBuildings: task(function*() {
     yield waitForProperty(this, 'schoolIds');
     return yield carto.SQL(`
