@@ -5,6 +5,12 @@ module.exports = function(environment) {
     'mapbox-gl': {
       accessToken: 'pk.eyJ1IjoiY2FwaXRhbHBsYW5uaW5nbnljIiwiYSI6ImNqODUwYmxyYzBnY3AycW9hOXA5NDE2eDQifQ.HYuWjTiwSoTu-QLWo0D76w'
     },
+    firebase: {
+      apiKey: 'AIzaSyAfWajzce_AdQKIsjWMfWgbx5ZKGKEVMtk',
+      authDomain: 'ceqr-schools-analysis.firebaseapp.com',
+      databaseURL: 'https://ceqr-schools-analysis.firebaseio.com',
+      storageBucket: 'ceqr-schools-analysis.appspot.com',
+    },
     modulePrefix: 'cp-ceqr-schools',
     environment,
     rootURL: '/',

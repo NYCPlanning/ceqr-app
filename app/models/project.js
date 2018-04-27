@@ -5,6 +5,7 @@ import { inject as service } from '@ember/service';
 export default DS.Model.extend({
   "ceqr-manual": service(),
   
+  projectId: DS.attr('number'),
   address: DS.attr('string'),
   bbls: DS.attr(),
   yearBuilt: DS.attr('number'),
