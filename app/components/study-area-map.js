@@ -1,8 +1,4 @@
 import Component from '@ember/component';
-import carto from 'carto-promises-utility/utils/carto';
-import { computed } from '@ember/object';
-import { isEmpty } from '@ember/utils';
-import { task, waitForProperty } from 'ember-concurrency';
 import { inject as service } from '@ember/service';
 // import bbox from 'npm:@turf/bbox';
 

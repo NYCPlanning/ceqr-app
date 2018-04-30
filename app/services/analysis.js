@@ -29,6 +29,7 @@ export default Service.extend({
   subdistrictGeojson: computed('bbls.[]', function() {
     return this.get('fetchSubdistricts').perform();
   }),
+
   bluebookGeojson: computed('_subdistrictSqlPairs.[]', function() {
     return this.get('fetchBluebook').perform();
   }),
@@ -42,6 +43,16 @@ export default Service.extend({
     return this.get('fetchHsZones').perform();
   }),
 
+  psBuildings: computed('_bluebookCartoIds', function() {
+    return this.get('fetchPsBluebook').perform();
+  }),
+  msBuildings: computed('_bluebookCartoIds', function() {
+    return this.get('fetchMsBluebook').perform();
+  }),
+  // hsBuildings: computed('schoolIds', function() {
+  //   return this.get('fetchHsBuildings').perform();
+  // }),
+
   // Internal state transfer
   _subdistrictSqlPairs: null,
   _subdistrictCartoIds: null,
@@ -54,7 +65,7 @@ export default Service.extend({
       FROM mappluto_v1711
       WHERE bbl IN (${this.get('bbls').join(',')})
     `, 'geojson');
-  }),
+  }).restartable(),
   fetchSubdistricts: task(function*() {
     let subdistricts = yield carto.SQL(`
       SELECT DISTINCT
@@ -79,7 +90,7 @@ export default Service.extend({
     ));
 
     return subdistricts;
-  }),
+  }).restartable(),
   fetchBluebook: task(function*() {
     yield waitForProperty(this, '_subdistrictSqlPairs');
     let bluebook = yield carto.SQL(`
@@ -97,7 +108,7 @@ export default Service.extend({
     this.set('_bluebookCartoIds', bluebook.features.mapBy('properties.cartodb_id'));
 
     return bluebook;
-  }),
+  }).restartable(),
   fetchEsZones: task(function*() {
     yield waitForProperty(this, '_subdistrictCartoIds');
     return yield carto.SQL(`
@@ -109,7 +120,7 @@ export default Service.extend({
       ) subdistricts
       WHERE ST_Intersects(subdistricts.the_geom, eszones.the_geom)
     `, 'geojson')
-  }),
+  }).restartable(),
   fetchMsZones: task(function*() {
     yield waitForProperty(this, '_subdistrictCartoIds');
     return yield carto.SQL(`
@@ -121,7 +132,7 @@ export default Service.extend({
       ) subdistricts
       WHERE ST_Intersects(subdistricts.the_geom, mszones.the_geom)
     `, 'geojson')
-  }),
+  }).restartable(),
   fetchHsZones: task(function*() {
     yield waitForProperty(this, '_subdistrictCartoIds');
     return yield carto.SQL(`
@@ -133,6 +144,50 @@ export default Service.extend({
       ) subdistricts
       WHERE ST_Intersects(subdistricts.the_geom, hszones.the_geom)
     `, 'geojson')
-  }),
+  }).restartable(),
+  fetchPsBluebook: task(function*() {
+    yield waitForProperty(this, '_bluebookCartoIds');
+    return yield carto.SQL(`
+      SELECT
+        organization_name AS name,
+        address,
+        org_level AS grades,
+        ROUND(ps_enroll) AS enroll,
+        CASE WHEN bldg_excl is null THEN ps_capacity
+             ELSE null END
+             AS capacity,
+        CASE WHEN bldg_excl is null THEN ROUND(ps_capacity - ps_enroll)
+             ELSE ROUND(0 - ps_enroll) END
+             AS seats,
+        CASE WHEN bldg_excl is null THEN ROUND((ps_enroll / ps_capacity)::numeric, 3)
+             ELSE null END
+             AS utilization
+      FROM doe_bluebook_v1617
+      WHERE cartodb_id IN (${this.get('_bluebookCartoIds').join(',')})
+        AND org_level like '%25PS%25'
+    `);
+  }).restartable(),
+  fetchMsBluebook: task(function*() {
+    yield waitForProperty(this, '_bluebookCartoIds');
+    return yield carto.SQL(`
+      SELECT
+        organization_name AS name,
+        address,
+        org_level AS grades,
+        ROUND(ms_enroll) AS enroll,
+        CASE WHEN bldg_excl is null THEN ms_capacity
+             ELSE null END
+             AS capacity,
+        CASE WHEN bldg_excl is null THEN ROUND(ms_capacity - ms_enroll)
+             ELSE ROUND(0 - ms_enroll) END
+             AS seats,
+        CASE WHEN bldg_excl is null THEN ROUND((ms_enroll / ms_capacity)::numeric, 3)
+             ELSE null END
+             AS utilization
+      FROM doe_bluebook_v1617
+      WHERE cartodb_id IN (${this.get('_bluebookCartoIds').join(',')})
+        AND org_level like '%25IS%25'
+    `);
+  }).restartable(),
   
 });

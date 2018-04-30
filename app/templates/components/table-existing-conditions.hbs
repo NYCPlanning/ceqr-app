@@ -18,7 +18,7 @@ Force Mona to include correct grades served and citywide & alternative schools
     </thead>
 
     <tbody>
-      {{#each (await psBuildings) as |b|}}
+      {{#each (await analysis.psBuildings) as |b|}}
         <tr>
           <td>{{b.name}}</td>
           <td>{{b.address}}</td>
@@ -59,7 +59,7 @@ Force Mona to include correct grades served and citywide & alternative schools
     </thead>
 
     <tbody>
-      {{#each (await msBuildings) as |b|}}
+      {{#each (await analysis.msBuildings) as |b|}}
         <tr>
           <td>{{b.name}}</td>
           <td>{{b.address}}</td>
