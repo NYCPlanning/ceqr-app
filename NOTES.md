@@ -5,7 +5,7 @@ Caveat: Sometimes assume a percent of seats serve the students from that subdist
 
 # No Action
 
-- Enrolment changes
+- Enrollment changes
 1. Demographic enrolment projections (school district level)
 percent allocations from school districts to subdistricts (ceqr_sf_projection_2016_2025)
 

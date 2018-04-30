@@ -8,8 +8,15 @@ export default DS.Model.extend({
   projectId: DS.attr('number'),
   address: DS.attr('string'),
   bbls: DS.attr(),
-  yearBuilt: DS.attr('number'),
+  buildYear: DS.attr('number'),
   borough: DS.attr('string'),
+
+  // Set by study-area-map component
+  subdistrictSqlPairs: computed('subdistricts', function() {
+    return this.get('subdistricts').map((f) => `(${f.properties.district}, ${f.properties.subdistrict})`);
+  }),
+  subdistricts: DS.attr('array', { defaultValue: () => [] }),
+  districts: DS.attr('array', { defaultValue: () => [] }),
 
   // Units
   totalUnits: DS.attr('number'),

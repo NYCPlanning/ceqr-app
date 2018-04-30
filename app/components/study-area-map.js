@@ -19,7 +19,7 @@ export default Component.extend({
   },
 
   // District attributes
-  subdistrictPairs: null,
+  subdistrictSqlPairs: null,
   subdistrictIds: null,
   schoolIds: null,
 
@@ -34,16 +34,16 @@ export default Component.extend({
   subdistrictGeojson: computed('bbls.[]', function() {
     return this.get('fetchSubdistricts').perform();
   }),
-  esZonesGeojson: computed('subdistrictPairs', function() {
+  esZonesGeojson: computed('project.subdistrictSqlPairs', function() {
     return this.get('fetchEsZones').perform();
   }),
-  msZonesGeojson: computed('subdistrictPairs', function() {
+  msZonesGeojson: computed('project.subdistrictSqlPairs', function() {
     return this.get('fetchMsZones').perform();
   }),
-  hsZonesGeojson: computed('subdistrictPairs', function() {
+  hsZonesGeojson: computed('project.subdistrictSqlPairs', function() {
     return this.get('fetchHsZones').perform();
   }),
-  bluebookGeojson: computed('subdistrictPairs', function() {
+  bluebookGeojson: computed('project.subdistrictSqlPairs', function() {
     return this.get('fetchBluebook').perform();
   }),
 
@@ -70,7 +70,10 @@ export default Component.extend({
       WHERE ST_Intersects(pluto.the_geom, subdistricts.the_geom)
     `, 'geojson');
 
-    this.set('subdistrictPairs', subdistricts.features.map(
+    this.set('project.subdistricts', subdistricts.features.map((f) => ({district: f.properties.district, subdistrict: f.properties.subdistrict})));
+    this.set('project.districts', subdistricts.features.map((f) => f.properties.district));
+
+    this.set('subdistrictSqlPairs', subdistricts.features.map(
       (f) => `(${f.properties.district}, ${f.properties.subdistrict})`
     ));
 
@@ -81,7 +84,7 @@ export default Component.extend({
     return subdistricts;
   }),
   fetchBluebook: task(function*() {
-    yield waitForProperty(this, 'subdistrictPairs');
+    yield waitForProperty(this, 'subdistrictSqlPairs');
     let schools = yield carto.SQL(`
       SELECT the_geom, district, subd AS subdistrict, cartodb_id
       FROM doe_bluebook_v1617
@@ -91,7 +94,7 @@ export default Component.extend({
         AND x_alternative = ''
         AND organization_name not like '%25ALTERNATIVE LEARNING CENTER%25'
         AND organization_name not like '%25YOUNG ADULT BORO CENTER%25'
-        AND (district, subd) IN (VALUES ${this.get('subdistrictPairs').join(',')})
+        AND (district, subd) IN (VALUES ${this.get('subdistrictSqlPairs').join(',')})
     `, 'geojson');
 
     this.set('schoolIds', schools.features.map(
@@ -101,7 +104,7 @@ export default Component.extend({
     return schools;
   }),
   fetchEsZones: task(function*() {
-    yield waitForProperty(this, 'subdistrictPairs');
+    yield waitForProperty(this, 'subdistrictIds');
     return yield carto.SQL(`
       SELECT DISTINCT eszones.the_geom, eszones.remarks, eszones.esid_no AS id  
       FROM support_school_zones_es AS eszones, (
@@ -113,7 +116,7 @@ export default Component.extend({
     `, 'geojson')
   }),
   fetchMsZones: task(function*() {
-    yield waitForProperty(this, 'subdistrictPairs');
+    yield waitForProperty(this, 'subdistrictIds');
     return yield carto.SQL(`
       SELECT DISTINCT mszones.the_geom, mszones.remarks, mszones.msid_no AS id  
       FROM support_school_zones_ms AS mszones, (
@@ -125,7 +128,7 @@ export default Component.extend({
     `, 'geojson')
   }),
   fetchHsZones: task(function*() {
-    yield waitForProperty(this, 'subdistrictPairs');
+    yield waitForProperty(this, 'subdistrictIds');
     return yield carto.SQL(`
       SELECT DISTINCT hszones.the_geom, hszones.remarks, hszones.hsid_no AS id  
       FROM support_school_zones_hs AS hszones, (

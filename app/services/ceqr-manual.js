@@ -18,12 +18,12 @@ export default Service.extend({
   thresholdHsStudents: alias('manual.thresholdHsStudents'),
 
   minResidentialUnitsFor(boro) {
-    if (isEmpty(boro)) return {es: 0, hs: 0};
+    if (isEmpty(boro) || isEmpty(this.get('minResidentialUnits'))) return {es: 0, hs: 0};
     return this.get('minResidentialUnits').findBy('name', boro);
   },
 
   studentMultipliersFor(boro) {
-    if (isEmpty(boro)) return {es: 0, ms: 0, hs: 0};
+    if (isEmpty(boro) || isEmpty(this.get('studentMultipliers'))) return {es: 0, ms: 0, hs: 0};
     return this.get('studentMultipliers').findBy('name', boro);
   }
 });

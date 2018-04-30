@@ -1,0 +1,26 @@
+<h3>Estimated No-Action Elementary and Intermediate School Enrollment, Capacity and Utilization</h3>
+<table class="ui collapsing celled table">
+  <thead>
+    <tr>
+      <th>Study Area</th>
+      <th>Projected {{project.buildYear}} Enrollment</th>
+      <th>Students Introducted by No-Action Residential Development</th>
+      <th>Total No-Action Enrollment</th>
+      <th>Capacity</th>
+      <th>Available Seats</th>
+      <th>Utilization (%)</th>
+    </tr>
+    <tr>
+      <th colspan=7>Elementary Schools</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    {{#each (await esNoActionTotals) as |p|}}
+      <tr>
+        <th>{{p.area}}</th>
+      </tr>
+    {{/each}}
+  </tbody>
+</table>
+
