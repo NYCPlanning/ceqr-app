@@ -17,8 +17,8 @@ Map should have
     center=(array -74 40.7071266)
   ) as |map| }}
 
-  {{#if bblsPresent}}
-    {{#map.source options=(hash type='geojson' data=(await subdistrictGeojson)) as |source|}}
+  {{#if analysis.bblsPresent}}
+    {{#map.source options=(hash type='geojson' data=(await analysis.subdistrictGeojson)) as |source|}}
       {{source.layer layer=(hash
         id='subdistricts'
         type='fill'
@@ -27,7 +27,7 @@ Map should have
     {{/map.source}}
 
     {{#if (eq zoneDisplay 'es')}}
-      {{#map.source options=(hash type='geojson' data=(await esZonesGeojson)) as |source|}}
+      {{#map.source options=(hash type='geojson' data=(await analysis.esZonesGeojson)) as |source|}}
         {{source.layer layer=(hash
           id='es-zones'
           type='line'
@@ -41,7 +41,7 @@ Map should have
     {{/if}}
 
     {{#if (eq zoneDisplay 'ms')}}
-      {{#map.source options=(hash type='geojson' data=(await msZonesGeojson)) as |source|}}
+      {{#map.source options=(hash type='geojson' data=(await analysis.msZonesGeojson)) as |source|}}
         {{source.layer layer=(hash
           id='ms-zones'
           type='line'
@@ -55,7 +55,7 @@ Map should have
     {{/if}}
 
     {{#if hsAnalysis}}
-      {{#map.source options=(hash type='geojson' data=(await hsZonesGeojson)) as |source|}}
+      {{#map.source options=(hash type='geojson' data=(await analysis.hsZonesGeojson)) as |source|}}
         {{source.layer layer=(hash
           id='hs-zones'
           type='line'
@@ -68,7 +68,7 @@ Map should have
       {{/map.source}}
     {{/if}}
 
-    {{#map.source options=(hash type='geojson' data=(await bblGeojson)) as |source|}}
+    {{#map.source options=(hash type='geojson' data=(await analysis.bblGeojson)) as |source|}}
       {{source.layer layer=(hash 
         id='bbls'
         type='line'
@@ -76,7 +76,7 @@ Map should have
       )}}
     {{/map.source}}
 
-    {{#map.source options=(hash type='geojson' data=(await bluebookGeojson)) as |source|}}
+    {{#map.source options=(hash type='geojson' data=(await analysis.bluebookGeojson)) as |source|}}
       {{source.layer layer=(hash
         id='bluebook'
         type='circle'

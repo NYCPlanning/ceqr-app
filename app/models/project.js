@@ -1,22 +1,20 @@
 import DS from 'ember-data';
-import { computed } from '@ember/object';
+import { computed, observer } from '@ember/object';
 import { inject as service } from '@ember/service';
 
 export default DS.Model.extend({
   "ceqr-manual": service(),
+  analysis: service(),
+
+  setBblsOnAnalysis: observer('bbls', function() {
+    this.get('analysis').setBbls(this.get('bbls'));
+  }),
   
   projectId: DS.attr('number'),
   address: DS.attr('string'),
   bbls: DS.attr(),
   buildYear: DS.attr('number'),
   borough: DS.attr('string'),
-
-  // Set by study-area-map component
-  subdistrictSqlPairs: computed('subdistricts', function() {
-    return this.get('subdistricts').map((f) => `(${f.properties.district}, ${f.properties.subdistrict})`);
-  }),
-  subdistricts: DS.attr('array', { defaultValue: () => [] }),
-  districts: DS.attr('array', { defaultValue: () => [] }),
 
   // Units
   totalUnits: DS.attr('number'),
