@@ -1,4 +1,4 @@
-<h3>Estimated No-Action Elementary and Intermediate School Enrollment, Capacity and Utilization</h3>
+<h3>Estimated No-Action Primary and Intermediate School Enrollment, Capacity and Utilization</h3>
 <table class="ui collapsing celled table">
   <thead>
     <tr>
@@ -11,14 +11,38 @@
       <th>Utilization (%)</th>
     </tr>
     <tr>
-      <th colspan=7>Elementary Schools</th>
+      <th colspan=7>Primary Schools</th>
     </tr>
   </thead>
 
   <tbody>
-    {{#each (await esNoActionTotals) as |p|}}
+    {{#each (await analysis.psNoActionTotals) as |p|}}
       <tr>
         <td>{{p.area}}</td>
+        <td>{{p.psCurrentEnroll}}</td>
+        <td>{{p.psNewStudents}}</td>
+        <td>{{p.psTotalEnroll}}</td>
+        <td></td>
+        <td></td>
+      </tr>
+    {{/each}}
+  </tbody>
+
+  <thead>
+    <tr>
+      <th colspan=7>Intermediate Schools</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    {{#each (await analysis.psNoActionTotals) as |p|}}
+      <tr>
+        <td>{{p.area}}</td>
+        <td>{{p.isCurrentEnroll}}</td>
+        <td>{{p.isNewStudents}}</td>
+        <td>{{p.isTotalEnroll}}</td>
+        <td></td>
+        <td></td>
       </tr>
     {{/each}}
   </tbody>

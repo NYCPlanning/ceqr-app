@@ -7,22 +7,29 @@ import { task, waitForProperty } from 'ember-concurrency';
 // Give service bbls, 
 // returns a promise on everything else, allowing template to use await on all attributes
 
+// Always refer to Primary and Intermediate schools
+
 export default Service.extend({  
   bbls: null,
+  buildYear: null,
 
   init() {
     this._super(...arguments);
     this.set('bbls', []);
+    this.set('buildYear', 2019);
   },
 
+  setBuildYear(buildYear) {
+    this.set('buildYear', buildYear);
+  },
   setBbls(bbls) {
     this.set('bbls', bbls);
   },
-
   bblsPresent() {
     return !isEmpty(this.get('bbls'));
   },
 
+  // Geojson
   bblGeojson: computed('bbls.[]', function() {
     return this.get('fetchBbls').perform();
   }),
@@ -43,18 +50,52 @@ export default Service.extend({
     return this.get('fetchHsZones').perform();
   }),
 
-  psBuildings: computed('_bluebookCartoIds', function() {
+  // Table Arrays
+  psBuildings: computed('_bluebookCartoIds.[]', function() {
     return this.get('fetchPsBluebook').perform();
   }),
-  msBuildings: computed('_bluebookCartoIds', function() {
+  msBuildings: computed('_bluebookCartoIds.[]', function() {
     return this.get('fetchMsBluebook').perform();
   }),
   // hsBuildings: computed('schoolIds', function() {
   //   return this.get('fetchHsBuildings').perform();
   // }),
+  psNoActionTotals: computed('buildYear', '_subdistrictSqlPairs.[]', function() {
+    return this.get('buildNoActionTotals').perform();
+  }),
+  isNoActionTotals: null,
+  hsNoActionTotals: null,
+
+  // Found online: http://www.jacklmoore.com/notes/rounding-in-javascript/
+  round: function(value, decimals) {
+    return Number(Math.round(value+'e'+decimals)+'e-'+decimals);
+  },
+
+  // Totals
+  _psEnrollment: computed.mapBy('psBuildings.value', 'enroll'),
+  _psSeats: computed.mapBy('psBuildings.value', 'seats'),
+  _psCapacity: computed.mapBy('psBuildings.value', 'capacity'),
+  _msEnrollment: computed.mapBy('msBuildings.value', 'enroll'),
+  _msSeats: computed.mapBy('msBuildings.value', 'seats'),
+  _msCapacity: computed.mapBy('msBuildings.value', 'capacity'),
+
+  psEnrollmentTotal: computed.sum('_psEnrollment'),
+  psCapacityTotal: computed.sum('_psCapacity'),
+  psSeatsTotal: computed.sum('_psSeats'),
+  psUtilization: computed('psEnrollmentTotal', 'psCapacityTotal', function() {
+    return this.round(this.get('psEnrollmentTotal') / this.get('psCapacityTotal'), 3);
+  }),
+
+  msEnrollmentTotal: computed.sum('_msEnrollment'),
+  msCapacityTotal: computed.sum('_msCapacity'),
+  msSeatsTotal: computed.sum('_msSeats'),
+  msUtilization: computed('msEnrollmentTotal', 'msCapacityTotal', function() {
+    return this.round(this.get('msEnrollmentTotal') / this.get('msCapacityTotal'), 3);
+  }),
 
   // Internal state transfer
   _subdistrictSqlPairs: null,
+  _subdistrictObjectPairs: null,
   _subdistrictCartoIds: null,
   _bluebookCartoIds: null,
 
@@ -81,12 +122,13 @@ export default Service.extend({
       WHERE ST_Intersects(pluto.the_geom, subdistricts.the_geom)
     `, 'geojson');
 
-    // this.set('project.subdistricts', subdistricts.features.map((f) => ({district: f.properties.district, subdistrict: f.properties.subdistrict})));
-    // this.set('project.districts', subdistricts.features.map((f) => f.properties.district));
     
     this.set('_subdistrictCartoIds', subdistricts.features.mapBy('properties.cartodb_id'));
     this.set('_subdistrictSqlPairs', subdistricts.features.map(
       (f) => `(${f.properties.district}, ${f.properties.subdistrict})`
+    ));
+    this.set('_subdistrictObjectPairs', subdistricts.features.map(
+      (f) => ({district: f.properties.district, subdistrict: f.properties.subdistrict})
     ));
 
     return subdistricts;
@@ -189,5 +231,56 @@ export default Service.extend({
         AND org_level like '%25IS%25'
     `);
   }).restartable(),
-  
+  buildNoActionTotals: task(function*() {
+    yield waitForProperty(this, 'buildYear');
+    let enrollmentProjections = yield carto.SQL(`
+      SELECT projected_ps_dist, projected_ms_dist, CAST(district AS numeric)
+      FROM ceqr_sf_projection_2016_2025
+      WHERE school_year LIKE '${this.get('buildYear')}%25'
+        AND district IN (${this.get('_subdistrictObjectPairs').map((d) => `'${d.district}'`).join(',')})
+    `);
+
+    yield waitForProperty(this, '_subdistrictSqlPairs');
+    let enrollmentMultipliers = yield carto.SQL(`
+      SELECT zone_of_dist AS multiplier, disgeo AS district, zone AS subdistrict, TRIM(level) AS level
+      FROM ceqr_2019_enrollment_by_zone
+      WHERE (disgeo, zone) IN (VALUES ${this.get('_subdistrictSqlPairs').join(',')})
+    `);
+
+    let studentsFromNewHousing = yield carto.SQL(`
+      SELECT students_from_new_housing AS students, dist AS district, zone AS subdistrict, TRIM(grade_level) AS level
+      FROM ceqr_housing_by_sd_2016
+      WHERE (dist, zone) IN (VALUES ${this.get('_subdistrictSqlPairs').join(',')})
+    `);
+
+    return this.get('_subdistrictObjectPairs').map((s) => {
+      let dEnrollmentProjection = enrollmentProjections.findBy('district', s.district);
+      let sdPsEnrollment = enrollmentMultipliers.find(
+        (i) => (i.district === s.district && i.subdistrict === s.subdistrict && i.level === 'PS')
+      );
+      let sdIsEnrollment = enrollmentMultipliers.find(
+        (i) => (i.district === s.district && i.subdistrict === s.subdistrict && i.level === 'MS')
+      );
+
+      let psCurrentEnroll = Math.round(dEnrollmentProjection.projected_ps_dist * sdPsEnrollment.multiplier);
+      let isCurrentEnroll = Math.round(dEnrollmentProjection.projected_ms_dist * sdIsEnrollment.multiplier);
+
+      let psNewStudents = studentsFromNewHousing.find(
+        (i) => (i.district === s.district && i.subdistrict === s.subdistrict && i.level === 'PS')
+      ).students;
+      let isNewStudents = studentsFromNewHousing.find(
+        (i) => (i.district === s.district && i.subdistrict === s.subdistrict && i.level === 'MS')
+      ).students;
+
+      return {
+        area: `CSD ${s.district} Subdistrict ${s.subdistrict}`,
+        psCurrentEnroll,
+        isCurrentEnroll,
+        psNewStudents,
+        isNewStudents,
+        psTotalEnroll: psCurrentEnroll + psNewStudents,
+        isTotalEnroll: isCurrentEnroll + isNewStudents
+      };
+    });
+  }).restartable(),
 });
