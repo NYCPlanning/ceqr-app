@@ -16,7 +16,7 @@
   </thead>
 
   <tbody>
-    {{#each (await analysis.psNoActionTotals) as |p|}}
+    {{#each (await analysis.noActionTotals) as |p|}}
       <tr>
         <td>{{p.area}}</td>
         <td>{{p.psCurrentEnroll}}</td>
@@ -35,7 +35,7 @@
   </thead>
 
   <tbody>
-    {{#each (await analysis.psNoActionTotals) as |p|}}
+    {{#each (await analysis.noActionTotals) as |p|}}
       <tr>
         <td>{{p.area}}</td>
         <td>{{p.isCurrentEnroll}}</td>

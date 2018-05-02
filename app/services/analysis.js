@@ -4,19 +4,15 @@ import { isEmpty } from '@ember/utils';
 import { computed } from '@ember/object';
 import { task, waitForProperty } from 'ember-concurrency';
 
-// Give service bbls, 
-// returns a promise on everything else, allowing template to use await on all attributes
-
-// Always refer to Primary and Intermediate schools
 
 export default Service.extend({  
+  // BBLs and Build Year are set by observers on the project model
   bbls: null,
   buildYear: null,
 
   init() {
     this._super(...arguments);
     this.set('bbls', []);
-    this.set('buildYear', 2019);
   },
 
   setBuildYear(buildYear) {
@@ -28,6 +24,11 @@ export default Service.extend({
   bblsPresent() {
     return !isEmpty(this.get('bbls'));
   },
+  // Found online: http://www.jacklmoore.com/notes/rounding-in-javascript/
+  round: function(value, decimals) {
+    return Number(Math.round(value+'e'+decimals)+'e-'+decimals);
+  },
+
 
   // Geojson
   bblGeojson: computed('bbls.[]', function() {
@@ -38,66 +39,40 @@ export default Service.extend({
   }),
 
   bluebookGeojson: computed('_subdistrictSqlPairs.[]', function() {
-    return this.get('fetchBluebook').perform();
+    return this.get('fetchBluebookGeojson').perform();
   }),
   esZonesGeojson: computed('_subdistrictCartoIds.[]', function() {
     return this.get('fetchEsZones').perform();
   }),
   msZonesGeojson: computed('_subdistrictCartoIds.[]', function() {
-    return this.get('fetchMsZones').perform();
+    return this.get('fetchIsZones').perform();
   }),
   hsZonesGeojson: computed('_subdistrictCartoIds.[]', function() {
     return this.get('fetchHsZones').perform();
   }),
 
+
   // Table Arrays
   psBuildings: computed('_bluebookCartoIds.[]', function() {
     return this.get('fetchPsBluebook').perform();
   }),
-  msBuildings: computed('_bluebookCartoIds.[]', function() {
-    return this.get('fetchMsBluebook').perform();
+  isBuildings: computed('_bluebookCartoIds.[]', function() {
+    return this.get('fetchIsBluebook').perform();
   }),
   // hsBuildings: computed('schoolIds', function() {
   //   return this.get('fetchHsBuildings').perform();
   // }),
-  psNoActionTotals: computed('buildYear', '_subdistrictSqlPairs.[]', function() {
+  noActionTotals: computed('buildYear', '_subdistrictSqlPairs.[]', function() {
     return this.get('buildNoActionTotals').perform();
   }),
-  isNoActionTotals: null,
-  hsNoActionTotals: null,
 
-  // Found online: http://www.jacklmoore.com/notes/rounding-in-javascript/
-  round: function(value, decimals) {
-    return Number(Math.round(value+'e'+decimals)+'e-'+decimals);
-  },
-
-  // Totals
-  _psEnrollment: computed.mapBy('psBuildings.value', 'enroll'),
-  _psSeats: computed.mapBy('psBuildings.value', 'seats'),
-  _psCapacity: computed.mapBy('psBuildings.value', 'capacity'),
-  _msEnrollment: computed.mapBy('msBuildings.value', 'enroll'),
-  _msSeats: computed.mapBy('msBuildings.value', 'seats'),
-  _msCapacity: computed.mapBy('msBuildings.value', 'capacity'),
-
-  psEnrollmentTotal: computed.sum('_psEnrollment'),
-  psCapacityTotal: computed.sum('_psCapacity'),
-  psSeatsTotal: computed.sum('_psSeats'),
-  psUtilization: computed('psEnrollmentTotal', 'psCapacityTotal', function() {
-    return this.round(this.get('psEnrollmentTotal') / this.get('psCapacityTotal'), 3);
-  }),
-
-  msEnrollmentTotal: computed.sum('_msEnrollment'),
-  msCapacityTotal: computed.sum('_msCapacity'),
-  msSeatsTotal: computed.sum('_msSeats'),
-  msUtilization: computed('msEnrollmentTotal', 'msCapacityTotal', function() {
-    return this.round(this.get('msEnrollmentTotal') / this.get('msCapacityTotal'), 3);
-  }),
 
   // Internal state transfer
   _subdistrictSqlPairs: null,
   _subdistrictObjectPairs: null,
   _subdistrictCartoIds: null,
   _bluebookCartoIds: null,
+
 
   // Tasks (ember-concurrency)
   fetchBbls: task(function*() {
@@ -133,7 +108,7 @@ export default Service.extend({
 
     return subdistricts;
   }).restartable(),
-  fetchBluebook: task(function*() {
+  fetchBluebookGeojson: task(function*() {
     yield waitForProperty(this, '_subdistrictSqlPairs');
     let bluebook = yield carto.SQL(`
       SELECT the_geom, district, subd AS subdistrict, cartodb_id
@@ -163,7 +138,7 @@ export default Service.extend({
       WHERE ST_Intersects(subdistricts.the_geom, eszones.the_geom)
     `, 'geojson')
   }).restartable(),
-  fetchMsZones: task(function*() {
+  fetchIsZones: task(function*() {
     yield waitForProperty(this, '_subdistrictCartoIds');
     return yield carto.SQL(`
       SELECT DISTINCT mszones.the_geom, mszones.remarks, mszones.msid_no AS id  
@@ -187,10 +162,13 @@ export default Service.extend({
       WHERE ST_Intersects(subdistricts.the_geom, hszones.the_geom)
     `, 'geojson')
   }).restartable(),
+  
   fetchPsBluebook: task(function*() {
     yield waitForProperty(this, '_bluebookCartoIds');
-    return yield carto.SQL(`
+    let bluebook = yield carto.SQL(`
       SELECT
+        district,
+        subd AS subdistrict,
         organization_name AS name,
         address,
         org_level AS grades,
@@ -208,11 +186,34 @@ export default Service.extend({
       WHERE cartodb_id IN (${this.get('_bluebookCartoIds').join(',')})
         AND org_level like '%25PS%25'
     `);
+
+    return this.get('_subdistrictObjectPairs').map((s) => {
+      let buildings = bluebook.filter(
+        (b) => (b.district === s.district && b.subdistrict === s.subdistrict)
+      );
+
+      let enrollmentTotal = buildings.mapBy('enroll').reduce((acc, value) => acc + value);
+      let capacityTotal = buildings.mapBy('capacity').reduce((acc, value) => acc + value);
+      let seatsTotal = buildings.mapBy('seats').reduce((acc, value) => acc + value);
+      let utilization = this.round((enrollmentTotal / capacityTotal), 3);
+
+      return {
+        district: s.district,
+        subdistrict: s.subdistrict,
+        enrollmentTotal,
+        capacityTotal,
+        seatsTotal,
+        utilization,
+        buildings
+      }
+    });
   }).restartable(),
-  fetchMsBluebook: task(function*() {
+  fetchIsBluebook: task(function*() {
     yield waitForProperty(this, '_bluebookCartoIds');
-    return yield carto.SQL(`
+    let bluebook = yield carto.SQL(`
       SELECT
+        district,
+        subd AS subdistrict,
         organization_name AS name,
         address,
         org_level AS grades,
@@ -230,6 +231,27 @@ export default Service.extend({
       WHERE cartodb_id IN (${this.get('_bluebookCartoIds').join(',')})
         AND org_level like '%25IS%25'
     `);
+
+    return this.get('_subdistrictObjectPairs').map((s) => {
+      let buildings = bluebook.filter(
+        (b) => (b.district === s.district && b.subdistrict === s.subdistrict)
+      );
+
+      let enrollmentTotal = buildings.mapBy('enroll').reduce((acc, value) => acc + value);
+      let capacityTotal = buildings.mapBy('capacity').reduce((acc, value) => acc + value);
+      let seatsTotal = buildings.mapBy('seats').reduce((acc, value) => acc + value);
+      let utilization = this.round((enrollmentTotal / capacityTotal), 3);
+
+      return {
+        district: s.district,
+        subdistrict: s.subdistrict,
+        enrollmentTotal,
+        capacityTotal,
+        seatsTotal,
+        utilization,
+        buildings
+      }
+    });
   }).restartable(),
   buildNoActionTotals: task(function*() {
     yield waitForProperty(this, 'buildYear');
@@ -271,6 +293,12 @@ export default Service.extend({
       let isNewStudents = studentsFromNewHousing.find(
         (i) => (i.district === s.district && i.subdistrict === s.subdistrict && i.level === 'MS')
       ).students;
+
+      // let psCapacity = this.get('psBuildings')
+      // let isCapacity =
+
+      // let psSeats
+      // let isSeats =
 
       return {
         area: `CSD ${s.district} Subdistrict ${s.subdistrict}`,

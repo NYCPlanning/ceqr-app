@@ -9,7 +9,10 @@ export default DS.Model.extend({
   setBblsOnAnalysis: observer('bbls', function() {
     this.get('analysis').setBbls(this.get('bbls'));
   }),
-
+  setBuildYearOnAnalysis: observer('buildYear', function() {
+    this.get('analysis').setBuildYear(this.get('buildYear'));
+  }),
+  
   projectId: DS.attr('number'),
   address: DS.attr('string'),
   bbls: DS.attr(),

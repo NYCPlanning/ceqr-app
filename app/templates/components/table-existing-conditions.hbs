@@ -17,29 +17,35 @@ Get Mona to include correct grades served and citywide & alternative schools
       </tr>
     </thead>
 
-    <tbody>
-      {{#each (await analysis.psBuildings) as |b|}}
-        <tr>
-          <td>{{b.name}}</td>
-          <td>{{b.address}}</td>
-          <td>{{b.grades}}</td>
-          <td>{{b.enroll}}</td>
-          <td>{{if b.capacity b.capacity "N/A"}}</td>
-          <td>{{b.seats}}</td>
-          <td>{{if b.utilization b.utilization "N/A"}}</td>
-        </tr>
-      {{/each}}
-    </tbody>
+    {{#each (await analysis.psBuildings) as |sd|}}
+      <thead>
+        <th colspan="7">District {{sd.district}} - Subdistrict {{sd.subdistrict}}</th>
+      </thead>
 
-    <tfoot>
-      <tr>
-        <th colspan="3"></th>
-        <th>{{analysis.psEnrollmentTotal}}</th>
-        <th>{{analysis.psCapacityTotal}}</th>
-        <th>{{analysis.psSeatsTotal}}</th>
-        <th>{{analysis.psUtilization}}</th>
-      </tr>
-    </tfoot>
+      <tbody>
+        {{#each sd.buildings as |b|}}
+          <tr>
+            <td>{{b.name}}</td>
+            <td>{{b.address}}</td>
+            <td>{{b.grades}}</td>
+            <td>{{b.enroll}}</td>
+            <td>{{if b.capacity b.capacity "N/A"}}</td>
+            <td>{{b.seats}}</td>
+            <td>{{if b.utilization b.utilization "N/A"}}</td>
+          </tr>
+        {{/each}}
+      </tbody>
+
+      <tfoot>
+        <tr>
+          <th colspan="3"></th>
+          <th>{{sd.enrollmentTotal}}</th>
+          <th>{{sd.capacityTotal}}</th>
+          <th>{{sd.seatsTotal}}</th>
+          <th>{{sd.utilization}}</th>
+        </tr>
+      </tfoot>
+    {{/each}}
   </table>
 </div>
 
@@ -58,28 +64,34 @@ Get Mona to include correct grades served and citywide & alternative schools
       </tr>
     </thead>
 
-    <tbody>
-      {{#each (await analysis.msBuildings) as |b|}}
-        <tr>
-          <td>{{b.name}}</td>
-          <td>{{b.address}}</td>
-          <td>{{b.grades}}</td>
-          <td>{{b.enroll}}</td>
-          <td>{{if b.capacity b.capacity "N/A"}}</td>
-          <td>{{b.seats}}</td>
-          <td>{{if b.utilization b.utilization "N/A"}}</td>
-        </tr>
-      {{/each}}
-    </tbody>
+    {{#each (await analysis.isBuildings) as |sd|}}
+      <thead>
+        <th colspan="7">District {{sd.district}} - Subdistrict {{sd.subdistrict}}</th>
+      </thead>
 
-    <tfoot>
-      <tr>
-        <th colspan="3"></th>
-        <th>{{analysis.msEnrollmentTotal}}</th>
-        <th>{{analysis.msCapacityTotal}}</th>
-        <th>{{analysis.msSeatsTotal}}</th>
-        <th>{{analysis.msUtilization}}</th>
-      </tr>
-    </tfoot>
+      <tbody>
+        {{#each sd.buildings as |b|}}
+          <tr>
+            <td>{{b.name}}</td>
+            <td>{{b.address}}</td>
+            <td>{{b.grades}}</td>
+            <td>{{b.enroll}}</td>
+            <td>{{if b.capacity b.capacity "N/A"}}</td>
+            <td>{{b.seats}}</td>
+            <td>{{if b.utilization b.utilization "N/A"}}</td>
+          </tr>
+        {{/each}}
+      </tbody>
+
+      <tfoot>
+        <tr>
+          <th colspan="3"></th>
+          <th>{{sd.enrollmentTotal}}</th>
+          <th>{{sd.capacityTotal}}</th>
+          <th>{{sd.seatsTotal}}</th>
+          <th>{{sd.utilization}}</th>
+        </tr>
+      </tfoot>
+    {{/each}}
   </table>
 </div>
