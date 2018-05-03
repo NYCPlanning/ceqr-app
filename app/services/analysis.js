@@ -4,6 +4,10 @@ import { isEmpty } from '@ember/utils';
 import { computed } from '@ember/object';
 import { task, waitForProperty } from 'ember-concurrency';
 
+/*
+  TODO:
+  - LCGMS data 
+*/
 
 export default Service.extend({  
   // BBLs and Build Year are set by observers on the project model
@@ -37,14 +41,13 @@ export default Service.extend({
   subdistrictGeojson: computed('bbls.[]', function() {
     return this.get('fetchSubdistricts').perform();
   }),
-
   bluebookGeojson: computed('_subdistrictSqlPairs.[]', function() {
     return this.get('fetchBluebookGeojson').perform();
   }),
   esZonesGeojson: computed('_subdistrictCartoIds.[]', function() {
     return this.get('fetchEsZones').perform();
   }),
-  msZonesGeojson: computed('_subdistrictCartoIds.[]', function() {
+  isZonesGeojson: computed('_subdistrictCartoIds.[]', function() {
     return this.get('fetchIsZones').perform();
   }),
   hsZonesGeojson: computed('_subdistrictCartoIds.[]', function() {
@@ -52,18 +55,9 @@ export default Service.extend({
   }),
 
 
-  // Table Arrays
-  psBuildings: computed('_bluebookCartoIds.[]', function() {
-    return this.get('fetchPsBluebook').perform();
-  }),
-  isBuildings: computed('_bluebookCartoIds.[]', function() {
-    return this.get('fetchIsBluebook').perform();
-  }),
-  // hsBuildings: computed('schoolIds', function() {
-  //   return this.get('fetchHsBuildings').perform();
-  // }),
-  noActionTotals: computed('buildYear', '_subdistrictSqlPairs.[]', function() {
-    return this.get('buildNoActionTotals').perform();
+  // Result objects
+  resultsNoAction: computed('buildYear', '_bluebookCartoIds.[]', '_subdistrictSqlPairs.[]', function() {
+    return this.get('generateNoActionResults').perform();
   }),
 
 
@@ -162,10 +156,10 @@ export default Service.extend({
       WHERE ST_Intersects(subdistricts.the_geom, hszones.the_geom)
     `, 'geojson')
   }).restartable(),
-  
-  fetchPsBluebook: task(function*() {
+
+  generateNoActionResults: task(function*() {
     yield waitForProperty(this, '_bluebookCartoIds');
-    let bluebook = yield carto.SQL(`
+    let psBluebook = yield carto.SQL(`
       SELECT
         district,
         subd AS subdistrict,
@@ -187,30 +181,7 @@ export default Service.extend({
         AND org_level like '%25PS%25'
     `);
 
-    return this.get('_subdistrictObjectPairs').map((s) => {
-      let buildings = bluebook.filter(
-        (b) => (b.district === s.district && b.subdistrict === s.subdistrict)
-      );
-
-      let enrollmentTotal = buildings.mapBy('enroll').reduce((acc, value) => acc + value);
-      let capacityTotal = buildings.mapBy('capacity').reduce((acc, value) => acc + value);
-      let seatsTotal = buildings.mapBy('seats').reduce((acc, value) => acc + value);
-      let utilization = this.round((enrollmentTotal / capacityTotal), 3);
-
-      return {
-        district: s.district,
-        subdistrict: s.subdistrict,
-        enrollmentTotal,
-        capacityTotal,
-        seatsTotal,
-        utilization,
-        buildings
-      }
-    });
-  }).restartable(),
-  fetchIsBluebook: task(function*() {
-    yield waitForProperty(this, '_bluebookCartoIds');
-    let bluebook = yield carto.SQL(`
+    let isBluebook = yield carto.SQL(`
       SELECT
         district,
         subd AS subdistrict,
@@ -219,41 +190,19 @@ export default Service.extend({
         org_level AS grades,
         ROUND(ms_enroll) AS enroll,
         CASE WHEN bldg_excl is null THEN ms_capacity
-             ELSE null END
-             AS capacity,
+            ELSE null END
+            AS capacity,
         CASE WHEN bldg_excl is null THEN ROUND(ms_capacity - ms_enroll)
-             ELSE ROUND(0 - ms_enroll) END
-             AS seats,
+            ELSE ROUND(0 - ms_enroll) END
+            AS seats,
         CASE WHEN bldg_excl is null THEN ROUND((ms_enroll / ms_capacity)::numeric, 3)
-             ELSE null END
-             AS utilization
+            ELSE null END
+            AS utilization
       FROM doe_bluebook_v1617
       WHERE cartodb_id IN (${this.get('_bluebookCartoIds').join(',')})
         AND org_level like '%25IS%25'
     `);
 
-    return this.get('_subdistrictObjectPairs').map((s) => {
-      let buildings = bluebook.filter(
-        (b) => (b.district === s.district && b.subdistrict === s.subdistrict)
-      );
-
-      let enrollmentTotal = buildings.mapBy('enroll').reduce((acc, value) => acc + value);
-      let capacityTotal = buildings.mapBy('capacity').reduce((acc, value) => acc + value);
-      let seatsTotal = buildings.mapBy('seats').reduce((acc, value) => acc + value);
-      let utilization = this.round((enrollmentTotal / capacityTotal), 3);
-
-      return {
-        district: s.district,
-        subdistrict: s.subdistrict,
-        enrollmentTotal,
-        capacityTotal,
-        seatsTotal,
-        utilization,
-        buildings
-      }
-    });
-  }).restartable(),
-  buildNoActionTotals: task(function*() {
     yield waitForProperty(this, 'buildYear');
     let enrollmentProjections = yield carto.SQL(`
       SELECT projected_ps_dist, projected_ms_dist, CAST(district AS numeric)
@@ -276,6 +225,25 @@ export default Service.extend({
     `);
 
     return this.get('_subdistrictObjectPairs').map((s) => {
+      // Primary Schools
+      let psBuildings = psBluebook.filter(
+        (b) => (b.district === s.district && b.subdistrict === s.subdistrict)
+      );
+      let psEnrollmentTotal = psBuildings.mapBy('enroll').reduce((acc, value) => acc + value);
+      let psCapacityTotal = psBuildings.mapBy('capacity').reduce((acc, value) => acc + value);
+      let psSeatsTotal = psBuildings.mapBy('seats').reduce((acc, value) => acc + value);
+      let psUtilization = this.round((psEnrollmentTotal / psCapacityTotal), 3);
+
+      // Intermediary Schools
+      let isBuildings = isBluebook.filter(
+        (b) => (b.district === s.district && b.subdistrict === s.subdistrict)
+      );
+      let isEnrollmentTotal = isBuildings.mapBy('enroll').reduce((acc, value) => acc + value);
+      let isCapacityTotal = isBuildings.mapBy('capacity').reduce((acc, value) => acc + value);
+      let isSeatsTotal = isBuildings.mapBy('seats').reduce((acc, value) => acc + value);
+      let isUtilization = this.round((isEnrollmentTotal / isCapacityTotal), 3);
+
+  
       let dEnrollmentProjection = enrollmentProjections.findBy('district', s.district);
       let sdPsEnrollment = enrollmentMultipliers.find(
         (i) => (i.district === s.district && i.subdistrict === s.subdistrict && i.level === 'PS')
@@ -284,31 +252,55 @@ export default Service.extend({
         (i) => (i.district === s.district && i.subdistrict === s.subdistrict && i.level === 'MS')
       );
 
-      let psCurrentEnroll = Math.round(dEnrollmentProjection.projected_ps_dist * sdPsEnrollment.multiplier);
-      let isCurrentEnroll = Math.round(dEnrollmentProjection.projected_ms_dist * sdIsEnrollment.multiplier);
-
-      let psNewStudents = studentsFromNewHousing.find(
-        (i) => (i.district === s.district && i.subdistrict === s.subdistrict && i.level === 'PS')
-      ).students;
-      let isNewStudents = studentsFromNewHousing.find(
-        (i) => (i.district === s.district && i.subdistrict === s.subdistrict && i.level === 'MS')
-      ).students;
-
-      // let psCapacity = this.get('psBuildings')
-      // let isCapacity =
-
-      // let psSeats
-      // let isSeats =
-
-      return {
-        area: `CSD ${s.district} Subdistrict ${s.subdistrict}`,
-        psCurrentEnroll,
-        isCurrentEnroll,
-        psNewStudents,
-        isNewStudents,
-        psTotalEnroll: psCurrentEnroll + psNewStudents,
-        isTotalEnroll: isCurrentEnroll + isNewStudents
+      // Future No Action
+      let projectedEnroll = {
+        ps: Math.round(dEnrollmentProjection.projected_ps_dist * sdPsEnrollment.multiplier),
+        is: Math.round(dEnrollmentProjection.projected_ms_dist * sdIsEnrollment.multiplier)
       };
+      let projectedNewStudents = {
+        ps: studentsFromNewHousing.find(
+          (i) => (i.district === s.district && i.subdistrict === s.subdistrict && i.level === 'PS')
+        ).students,
+        is: studentsFromNewHousing.find(
+          (i) => (i.district === s.district && i.subdistrict === s.subdistrict && i.level === 'MS')
+        ).students
+      };
+      return {
+        district: s.district,
+        subdistrict: s.subdistrict,
+        sdId: parseInt(`${s.district}${s.subdistrict}`),
+
+        psBuildings,
+        psEnrollmentTotal,
+        psCapacityTotal,
+        psSeatsTotal,
+        psUtilization,
+
+        isBuildings,
+        isEnrollmentTotal,
+        isCapacityTotal,
+        isSeatsTotal,
+        isUtilization,
+
+        futureNoAction: {
+          ps: {
+            projectedEnroll: projectedEnroll.ps,
+            projectedNewStudents: projectedNewStudents.ps,
+            projectedTotalEnroll: projectedEnroll.ps + projectedNewStudents.ps,
+            projectedCapacity: psCapacityTotal,
+            projectedAvailSeats: psCapacityTotal - (projectedEnroll.ps + projectedNewStudents.ps),
+            projectedUtilization: this.round(((projectedEnroll.ps + projectedNewStudents.ps) / psCapacityTotal), 3)
+          },
+          is: {
+            projectedEnroll: projectedEnroll.is,
+            projectedNewStudents: projectedNewStudents.is, 
+            projectedTotalEnroll: projectedEnroll.is + projectedNewStudents.is,
+            projectedCapacity: isCapacityTotal,
+            projectedAvailSeats: isCapacityTotal - (projectedEnroll.is + projectedNewStudents.is),
+            projectedUtilization: this.round(((projectedEnroll.is + projectedNewStudents.is) / isCapacityTotal), 3)
+          }
+        }
+      }
     });
   }).restartable(),
 });

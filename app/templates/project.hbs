@@ -151,19 +151,25 @@
 
 <div class="row">
   <div class="sixteen wide column">
+    <h3 class="ui top attached header">
+      Existing Conditions
+    </h3>
     <div class="ui attached segment">
       {{study-area-map}}
-    </div>
 
-    <div class="ui attached segment">
-      {{table-existing-conditions}}
+      {{table-existing-conditions results=(await model.analysis.resultsNoAction)}}
     </div>
   </div>
 </div>
 
 <div class="row">
   <div class="sixteen wide column">
-    {{table-projected-enrollment project=model}}
+    <h3 class="ui top attached header">
+      Future Conditions: No-Action
+    </h3>
+    <div class="ui attached segment">
+      {{table-projected-enrollment project=model}}
+    </div>
   </div>
 </div>
 

@@ -1,4 +1,4 @@
-<h3>Estimated No-Action Primary and Intermediate School Enrollment, Capacity and Utilization</h3>
+<h4>Estimated No-Action Primary and Intermediate School Enrollment, Capacity and Utilization</h4>
 <table class="ui collapsing celled table">
   <thead>
     <tr>
@@ -16,14 +16,15 @@
   </thead>
 
   <tbody>
-    {{#each (await analysis.noActionTotals) as |p|}}
+    {{#each (await analysis.resultsNoAction) as |p|}}
       <tr>
-        <td>{{p.area}}</td>
-        <td>{{p.psCurrentEnroll}}</td>
-        <td>{{p.psNewStudents}}</td>
-        <td>{{p.psTotalEnroll}}</td>
-        <td></td>
-        <td></td>
+        <td>District {{p.district}} - Subdistrict {{p.subdistrict}}</td>
+        <td>{{p.futureNoAction.ps.projectedEnroll}}</td>
+        <td>{{p.futureNoAction.ps.projectedNewStudents}}</td>
+        <td>{{p.futureNoAction.ps.projectedTotalEnroll}}</td>
+        <td>{{p.futureNoAction.ps.projectedCapacity}}</td>
+        <td>{{p.futureNoAction.ps.projectedAvailSeats}}</td>
+        <td>{{p.futureNoAction.ps.projectedUtilization}}</td>
       </tr>
     {{/each}}
   </tbody>
@@ -35,14 +36,15 @@
   </thead>
 
   <tbody>
-    {{#each (await analysis.noActionTotals) as |p|}}
+    {{#each (await analysis.resultsNoAction) as |p|}}
       <tr>
-        <td>{{p.area}}</td>
-        <td>{{p.isCurrentEnroll}}</td>
-        <td>{{p.isNewStudents}}</td>
-        <td>{{p.isTotalEnroll}}</td>
-        <td></td>
-        <td></td>
+        <td>District {{p.district}} - Subdistrict {{p.subdistrict}}</td>
+        <td>{{p.futureNoAction.is.projectedEnroll}}</td>
+        <td>{{p.futureNoAction.is.projectedNewStudents}}</td>
+        <td>{{p.futureNoAction.is.projectedTotalEnroll}}</td>
+        <td>{{p.futureNoAction.is.projectedCapacity}}</td>
+        <td>{{p.futureNoAction.is.projectedAvailSeats}}</td>
+        <td>{{p.futureNoAction.is.projectedUtilization}}</td>
       </tr>
     {{/each}}
   </tbody>

@@ -2,8 +2,6 @@
 Map should have
 
 - Grey out other boroughs
-
-- LCGMS data
 - All elementary and intermediate schools
 - Toggle to turn on high schools
 
@@ -40,8 +38,8 @@ Map should have
       {{/map.source}}
     {{/if}}
 
-    {{#if (eq zoneDisplay 'ms')}}
-      {{#map.source options=(hash type='geojson' data=(await analysis.msZonesGeojson)) as |source|}}
+    {{#if (eq zoneDisplay 'is')}}
+      {{#map.source options=(hash type='geojson' data=(await analysis.isZonesGeojson)) as |source|}}
         {{source.layer layer=(hash
           id='ms-zones'
           type='line'
