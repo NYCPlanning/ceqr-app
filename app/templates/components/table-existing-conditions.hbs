@@ -39,8 +39,11 @@ Get Mona to include correct grades served and citywide & alternative schools
   {{#if (eq activeSchoolsLevel 'ps')}}
     <tbody>
       {{#each activeSdId.psBuildings as |b|}}
-        <tr>
-          <td>{{b.name}}</td>
+        <tr class={{b.type}}>
+          <td>
+            <i class="circle icon"></i>
+            {{b.name}}
+          </td>
           <td>{{b.address}}</td>
           <td>{{b.grades}}</td>
           <td>{{b.enroll}}</td>
@@ -65,8 +68,11 @@ Get Mona to include correct grades served and citywide & alternative schools
   {{#if (eq activeSchoolsLevel 'is')}}
     <tbody>
       {{#each activeSdId.isBuildings as |b|}}
-        <tr>
-          <td>{{b.name}}</td>
+        <tr class={{b.type}}>
+          <td>
+            <i class="circle icon"></i>
+            {{b.name}}
+          </td>
           <td>{{b.address}}</td>
           <td>{{b.grades}}</td>
           <td>{{b.enroll}}</td>

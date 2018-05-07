@@ -7,5 +7,13 @@
 }
 
 #study-area-map {
-  height: 450px;
+  height: 600px;
+}
+
+.lcgms .circle.icon {
+  color: #1a9850;
+}
+
+.bluebook .circle.icon {
+  color: rgb(247, 202, 0);
 }

@@ -4,10 +4,6 @@ import { isEmpty } from '@ember/utils';
 import { computed } from '@ember/object';
 import { task, waitForProperty } from 'ember-concurrency';
 
-/*
-  TODO:
-  - LCGMS data 
-*/
 
 export default Service.extend({  
   // BBLs and Build Year are set by observers on the project model
@@ -53,6 +49,12 @@ export default Service.extend({
   hsZonesGeojson: computed('_subdistrictCartoIds.[]', function() {
     return this.get('fetchHsZones').perform();
   }),
+  scaProjectsGeojson: computed('_subdistrictSqlPairs.[]', function() {
+    return this.get('fetchScaProjects').perform();
+  }),
+  lcgmsGeojson: computed('_subdistrictCartoIds.[]', function() {
+    return this.get('fetchLcgmsGeojson').perform();
+  }),
 
 
   // Result objects
@@ -66,10 +68,12 @@ export default Service.extend({
   _subdistrictObjectPairs: null,
   _subdistrictCartoIds: null,
   _bluebookCartoIds: null,
+  _lcgms: null,
 
 
   // Tasks (ember-concurrency)
   fetchBbls: task(function*() {
+    yield waitForProperty(this, 'bbls');
     return yield carto.SQL(`
       SELECT cartodb_id, the_geom, bbl
       FROM mappluto_v1711
@@ -120,6 +124,32 @@ export default Service.extend({
 
     return bluebook;
   }).restartable(),
+
+  // Attribute: school year not captured in Bluebook
+  fetchLcgmsGeojson: task(function*() {
+    yield waitForProperty(this, '_subdistrictCartoIds');
+    let lcgms = yield carto.SQL(`
+      SELECT
+        lcgms.the_geom,
+        lcgms.open_date,
+      lcgms.location_name AS name,
+        lcgms.grades,
+        subdistricts.schooldist AS district,
+        subdistricts.zone AS subdistrict
+      FROM doe_lcgms_v201718 AS lcgms, (
+        SELECT the_geom, schooldist, zone
+        FROM doe_schoolsubdistricts_v2017
+        WHERE cartodb_id IN (${this.get('_subdistrictCartoIds').join(',')})
+      ) subdistricts
+      WHERE open_date LIKE '%252017'
+        AND managed_by_name = 'DOE'
+        AND ST_Intersects(subdistricts.the_geom, lcgms.the_geom)   
+    `, 'geojson');
+
+    this.set('_lcgms', lcgms.features.map((b) => b.properties));
+
+    return lcgms;
+  }).restartable(),
   fetchEsZones: task(function*() {
     yield waitForProperty(this, '_subdistrictCartoIds');
     return yield carto.SQL(`
@@ -156,6 +186,23 @@ export default Service.extend({
       WHERE ST_Intersects(subdistricts.the_geom, hszones.the_geom)
     `, 'geojson')
   }).restartable(),
+  fetchScaProjects: task(function*() {
+    yield waitForProperty(this, '_subdistrictCartoIds');    
+    let projects = yield carto.SQL(`
+      SELECT projects.the_geom, projects.bbl, projects.school
+      FROM sca_project_sites_v03222018 AS projects, (
+        SELECT the_geom
+        FROM doe_schoolsubdistricts_v2017
+        WHERE cartodb_id IN (${this.get('_subdistrictCartoIds').join(',')})
+      ) subdistricts
+      WHERE ST_Intersects(subdistricts.the_geom, projects.the_geom)
+    `, 'geojson')
+
+    console.log(projects);
+
+    return projects;
+  }).restartable(),
+
 
   generateNoActionResults: task(function*() {
     yield waitForProperty(this, '_bluebookCartoIds');
@@ -180,6 +227,7 @@ export default Service.extend({
       WHERE cartodb_id IN (${this.get('_bluebookCartoIds').join(',')})
         AND org_level like '%25PS%25'
     `);
+    psBluebook.map((school) => school.type = 'bluebook');
 
     let isBluebook = yield carto.SQL(`
       SELECT
@@ -202,6 +250,7 @@ export default Service.extend({
       WHERE cartodb_id IN (${this.get('_bluebookCartoIds').join(',')})
         AND org_level like '%25IS%25'
     `);
+    isBluebook.map((school) => school.type = 'bluebook');
 
     yield waitForProperty(this, 'buildYear');
     let enrollmentProjections = yield carto.SQL(`
@@ -224,11 +273,39 @@ export default Service.extend({
       WHERE (dist, zone) IN (VALUES ${this.get('_subdistrictSqlPairs').join(',')})
     `);
 
+    yield waitForProperty(this, '_lcgms');
+    let lcgmsSchools = {
+      ps: [],
+      is: [],
+      hs: [],
+    };
+
+    this.get('_lcgms').forEach((school) => {
+      school.type = 'lcgms';
+      
+      let grades = school.grades.split(',');
+      
+      let isPs = grades.some(g => ['0K','01','02','03','04','05'].includes(g));
+      let isIs = grades.some(g => ['06','07','08'].includes(g));
+      let isHs = grades.some(g => ['09','10','11','12'].includes(g));
+
+      if (isPs) lcgmsSchools.ps.push(school);
+      if (isIs) lcgmsSchools.is.push(school);
+      if (isHs) lcgmsSchools.hs.push(school);
+    });
+
+
     return this.get('_subdistrictObjectPairs').map((s) => {
       // Primary Schools
-      let psBuildings = psBluebook.filter(
+      let psBluebookBuildings = psBluebook.filter(
         (b) => (b.district === s.district && b.subdistrict === s.subdistrict)
       );
+      let psLcgmsBuildings = lcgmsSchools.ps.filter(
+        (b) => (b.district === s.district && b.subdistrict === s.subdistrict)
+      )
+      let psBuildings = psBluebookBuildings.concat(psLcgmsBuildings);
+      console.log(psBuildings);
+
       let psEnrollmentTotal = psBuildings.mapBy('enroll').reduce((acc, value) => acc + value);
       let psCapacityTotal = psBuildings.mapBy('capacity').reduce((acc, value) => acc + value);
       let psSeatsTotal = psBuildings.mapBy('seats').reduce((acc, value) => acc + value);

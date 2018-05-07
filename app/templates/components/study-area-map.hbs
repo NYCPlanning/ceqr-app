@@ -74,6 +74,22 @@ Map should have
       )}}
     {{/map.source}}
 
+    {{#map.source options=(hash type='geojson' data=(await analysis.scaProjectsGeojson)) as |source|}}
+      {{source.layer layer=(hash 
+        id='sca-projects'
+        type='circle'
+        paint=(hash circle-color='#fc8d59')
+      )}}
+    {{/map.source}}
+
+    {{#map.source options=(hash type='geojson' data=(await analysis.lcgmsGeojson)) as |source|}}
+      {{source.layer layer=(hash 
+        id='lcgms'
+        type='circle'
+        paint=(hash circle-color='#1a9850')
+      )}}
+    {{/map.source}}
+
     {{#map.source options=(hash type='geojson' data=(await analysis.bluebookGeojson)) as |source|}}
       {{source.layer layer=(hash
         id='bluebook'
