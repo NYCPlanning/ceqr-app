@@ -6,8 +6,9 @@
   min-width: 8em;
 }
 
-#study-area-map {
-  height: 600px;
+#study-area-map,
+#map-future-no-action {
+  height: 550px;
 }
 
 .lcgms .circle.icon {

@@ -43,6 +43,9 @@ Get Mona to include correct grades served and citywide & alternative schools
           <td>
             <i class="circle icon"></i>
             {{b.name}}
+            {{#if (not-eq b.name b.bldg_name)}}
+              <br /><em>{{b.bldg_name}}</em>
+            {{/if}}
           </td>
           <td>{{b.address}}</td>
           <td>{{b.grades}}</td>
@@ -72,6 +75,7 @@ Get Mona to include correct grades served and citywide & alternative schools
           <td>
             <i class="circle icon"></i>
             {{b.name}}
+            <em>{{b.bldg_name}}</em>
           </td>
           <td>{{b.address}}</td>
           <td>{{b.grades}}</td>

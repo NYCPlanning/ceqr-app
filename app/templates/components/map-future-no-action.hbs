@@ -1,0 +1,32 @@
+{{#mapbox-gl 
+  id='map-future-no-action' initOptions=(hash
+    style='mapbox://styles/mapbox/light-v9'
+    zoom=9.2
+    center=(array -74 40.7071266)
+  ) as |map| }}
+
+  {{#map.source options=(hash type='geojson' data=(await analysis.subdistrictGeojson)) as |source|}}
+    {{source.layer layer=(hash
+      id='subdistricts'
+      type='fill'
+      paint=(hash fill-color='#2c7bb6' fill-opacity=0.6))
+    }}
+  {{/map.source}}
+  
+  {{#map.source options=(hash type='geojson' data=(await analysis.scaProjectsGeojson)) as |source|}}
+    {{source.layer layer=(hash 
+      id='sca-projects'
+      type='circle'
+      paint=(hash circle-color='#fc8d59')
+    )}}
+  {{/map.source}}
+
+  {{#map.source options=(hash type='geojson' data=(await analysis.bblGeojson)) as |source|}}
+    {{source.layer layer=(hash 
+      id='bbls'
+      type='line'
+      paint=(hash line-color='#d7191c' line-width=4 line-blur=1)
+    )}}
+  {{/map.source}}
+
+{{/mapbox-gl}}

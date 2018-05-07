@@ -74,14 +74,6 @@ Map should have
       )}}
     {{/map.source}}
 
-    {{#map.source options=(hash type='geojson' data=(await analysis.scaProjectsGeojson)) as |source|}}
-      {{source.layer layer=(hash 
-        id='sca-projects'
-        type='circle'
-        paint=(hash circle-color='#fc8d59')
-      )}}
-    {{/map.source}}
-
     {{#map.source options=(hash type='geojson' data=(await analysis.lcgmsGeojson)) as |source|}}
       {{source.layer layer=(hash 
         id='lcgms'

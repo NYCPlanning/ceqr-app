@@ -69,6 +69,7 @@ export default Service.extend({
   _subdistrictCartoIds: null,
   _bluebookCartoIds: null,
   _lcgms: null,
+  _scaProjects: null,
 
 
   // Tasks (ember-concurrency)
@@ -189,20 +190,32 @@ export default Service.extend({
   fetchScaProjects: task(function*() {
     yield waitForProperty(this, '_subdistrictCartoIds');    
     let projects = yield carto.SQL(`
-      SELECT projects.the_geom, projects.bbl, projects.school
-      FROM sca_project_sites_v03222018 AS projects, (
-        SELECT the_geom
-        FROM doe_schoolsubdistricts_v2017
-        WHERE cartodb_id IN (${this.get('_subdistrictCartoIds').join(',')})
-      ) subdistricts
+      SELECT
+        projects.the_geom,
+        projects.bbl,
+        projects.school,
+        construction.data_as_of,
+        subdistricts.schooldist AS district,
+        subdistricts.zone AS subdistrict
+      FROM (
+          SELECT the_geom, schooldist, zone
+          FROM doe_schoolsubdistricts_v2017
+          WHERE cartodb_id IN (${this.get('_subdistrictCartoIds').join(',')})
+        ) AS subdistricts,
+        sca_project_sites_v03222018 AS projects
+      JOIN (
+        SELECT bbl, MAX(to_timestamp(data_as_of, 'MM/DD/YYYY')) AS data_as_of
+        FROM sca_project_construction_v02222018
+        GROUP BY bbl
+      ) construction 
+      ON projects.bbl = construction.bbl
       WHERE ST_Intersects(subdistricts.the_geom, projects.the_geom)
     `, 'geojson')
 
-    console.log(projects);
+    this.set('_scaProjects', projects.features.map((b) => b.properties));
 
     return projects;
   }).restartable(),
-
 
   generateNoActionResults: task(function*() {
     yield waitForProperty(this, '_bluebookCartoIds');
@@ -210,6 +223,7 @@ export default Service.extend({
       SELECT
         district,
         subd AS subdistrict,
+        bldg_name,
         organization_name AS name,
         address,
         org_level AS grades,
@@ -294,6 +308,7 @@ export default Service.extend({
       if (isHs) lcgmsSchools.hs.push(school);
     });
 
+    yield waitForProperty(this, '_scaProjects');
 
     return this.get('_subdistrictObjectPairs').map((s) => {
       // Primary Schools
@@ -304,7 +319,6 @@ export default Service.extend({
         (b) => (b.district === s.district && b.subdistrict === s.subdistrict)
       )
       let psBuildings = psBluebookBuildings.concat(psLcgmsBuildings);
-      console.log(psBuildings);
 
       let psEnrollmentTotal = psBuildings.mapBy('enroll').reduce((acc, value) => acc + value);
       let psCapacityTotal = psBuildings.mapBy('capacity').reduce((acc, value) => acc + value);
@@ -342,6 +356,11 @@ export default Service.extend({
           (i) => (i.district === s.district && i.subdistrict === s.subdistrict && i.level === 'MS')
         ).students
       };
+      let scaUnderConstruction = this.get('_scaProjects').filter(
+        (b) => (b.district === s.district && b.subdistrict === s.subdistrict)
+      );
+
+
       return {
         district: s.district,
         subdistrict: s.subdistrict,
@@ -360,6 +379,7 @@ export default Service.extend({
         isUtilization,
 
         futureNoAction: {
+          scaUnderConstruction,
           ps: {
             projectedEnroll: projectedEnroll.ps,
             projectedNewStudents: projectedNewStudents.ps,

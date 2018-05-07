@@ -18,7 +18,7 @@ est. at subdistric level
 primary school vs middle school
 
 Caveats: including additional developments – make adjustments to enrollment projections
-(specifically to #2)
+(specifically to #2) -- Future Feature
 
 - Capacity changes (most annoying)
 1. Is SCA adding a new school in this area? Construction status?
