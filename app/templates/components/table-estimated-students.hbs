@@ -17,7 +17,7 @@
       <td>{{project.estEsStudents}}</td>
       <td class={{if project.esEffect "warning"}} rowspan="2">
         {{#if project.esEffect}}
-          {{#ui-popup title="Causes an Indirect Effect" content=esMsEffectPopupText}}
+          {{#ui-popup title="Triggers a Detailed Analysis" content=esMsEffectPopupText}}
             {{project.estEsMsStudents}} <i class="attention icon"></i>
           {{/ui-popup}}
         {{else}}
@@ -25,7 +25,7 @@
         {{/if}}
       </td>
       <td rowspan="2">
-        {{ceqr-manual.thresholdEsMsStudents}}
+        {{ceqrManual.thresholdEsMsStudents}}
       </td>
     </tr>
     <tr>
@@ -38,7 +38,7 @@
       <td>x {{project.studentMultipliers.hs}}</td>
       <td class={{if project.hsEffect "warning"}} colspan="2">
         {{#if project.hsEffect}}
-          {{#ui-popup title="Causes an Indirect Effect" content="Greater than {{ceqr-manual.thresholdHsStudents}} high school students causes an Indirect Effect"}}
+          {{#ui-popup title="Triggers a Detailed Analysis" content=hsEffectPopupText}}
             {{project.estHsStudents}} <i class="attention icon"></i>
           {{/ui-popup}}
         {{else}}
@@ -46,7 +46,7 @@
         {{/if}}
       </td>
       <td>
-        {{ceqr-manual.thresholdHsStudents}}
+        {{ceqrManual.thresholdHsStudents}}
       </td>
     </tr>
   </tbody>

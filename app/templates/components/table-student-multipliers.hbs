@@ -6,8 +6,8 @@
     <th>High School<br />level per unit<br />(Age 14-17)</th>
   </tr></thead>
   <tbody>
-    {{#each ceqr-manual.studentMultipliers as |boro|}}
-      <tr class="{{boro.name}} {{if (eq boro.name model.borough) "active"}}">
+    {{#each ceqrManual.studentMultipliers as |boro|}}
+      <tr class="{{boro.name}} {{if (eq boro.name project.borough) "active"}}">
         <td>{{boro.name}}</td>
         <td>{{boro.es}}</td>
         <td>{{boro.ms}}</td>

@@ -1,5 +1,11 @@
-{{top-bar projectId=model.id}}
-
 <div class="ui column grid container site">
-  {{outlet}}
+  <div class="row">
+    {{outlet}}
+  </div>
+
+  <div class="row">
+    <button class="ui green button" {{action "newProject"}}>
+      New Project
+    </button>
+  </div>
 </div>

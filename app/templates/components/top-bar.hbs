@@ -1,10 +1,11 @@
-<div class="ui attached stackable menu top-bar">
+<div class="ui top fixed menu top-bar">
   <div class="ui container">
     <div class="item">
-      Seeker
+      {{#link-to "index"}}Seeker{{/link-to}}
     </div>
+    
     <div class="item">
-      ID: {{projectId}}
+      ID: {{project.id}}
     </div>
     {{!-- <a class="item">
       <i class="home icon"></i> Home
@@ -23,10 +24,12 @@
         <a class="item"><i class="globe icon"></i> Choose Language</a>
         <a class="item"><i class="settings icon"></i> Account Settings</a>
       </div>
-    </div>
-    <div class="right item">
-      <div class="ui input"><input type="text" placeholder="Search..."></div>
     </div> --}}
+    <div class="right item">
+      <button class="ui primary button" {{action "saveProject"}}>
+        <i class="save icon"></i>Save
+      </button>
+    </div>
   </div>
 </div>
 

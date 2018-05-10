@@ -1,10 +1,15 @@
 import Component from '@ember/component';
-import { inject as service } from '@ember/service';
 import { computed } from '@ember/object';
+import { alias } from '@ember/object/computed';
 
-export default Component.extend({
-  'ceqr-manual': service(),
-  esMsEffectPopupText: computed('ceqr-manual.thresholdEsMsStudents', function() {
-    return `Greater than ${this.get('ceqr-manual').thresholdEsMsStudents} elementary and middle school students causes an Indirect Effect`;
+export default Component.extend({  
+  thresholdEsMsStudents: alias('ceqrManual.thresholdEsMsStudents'),
+  thresholdHsStudents: alias('ceqrManual.thresholdHsStudents'),
+
+  esMsEffectPopupText: computed('ceqrManual', function() {
+    return `Greater than ${this.get('thresholdEsMsStudents')} elementary and middle school students triggers a detailed analysis.`;
   }),
+  hsEffectPopupText: computed('ceqrManual', function() {
+    return `Greater than ${this.get('thresholdHsStudents')} high school students causes a detailed analysis.`;
+  })
 });

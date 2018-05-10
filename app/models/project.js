@@ -3,8 +3,8 @@ import { computed, observer } from '@ember/object';
 import { inject as service } from '@ember/service';
 
 export default DS.Model.extend({
-  "ceqr-manual": service(),
   analysis: service(),
+  ceqrManual: null,
 
   setBblsOnAnalysis: observer('bbls', function() {
     this.get('analysis').setBbls(this.get('bbls'));
@@ -12,8 +12,11 @@ export default DS.Model.extend({
   setBuildYearOnAnalysis: observer('buildYear', function() {
     this.get('analysis').setBuildYear(this.get('buildYear'));
   }),
+
+  setCeqrManual(manual) {
+    this.set('ceqrManual', manual);
+  },
   
-  projectId: DS.attr('number'),
   address: DS.attr('string'),
   bbls: DS.attr(),
   buildYear: DS.attr('number'),
@@ -28,10 +31,10 @@ export default DS.Model.extend({
 
   // CEQR Manual
   minResidentialUnits: computed('borough', function() {
-    return this.get("ceqr-manual").minResidentialUnitsFor(this.get('borough'));
+    return this.get('ceqrManual').minResidentialUnitsFor(this.get('borough'));
   }),
   studentMultipliers: computed('borough', function() {
-    return this.get('ceqr-manual').studentMultipliersFor(this.get('borough'));
+    return this.get('ceqrManual').studentMultipliersFor(this.get('borough'));
   }),
 
   // Effects

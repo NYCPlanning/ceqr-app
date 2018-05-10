@@ -5,15 +5,15 @@
     <th>High School</th>
   </tr></thead>
   <tbody>
-    {{#each ceqr-manual.minResidentialUnits as |boro|}}
+    {{#each ceqrManual.minResidentialUnits as |boro|}}
       <tr class={{boro.name}}>
-        {{#if (eq boro.name model.borough)}}
+        {{#if (eq boro.name project.borough)}}
           <td class= "active">{{boro.name}}</td>
-          <td class={{if model.esEffect "negative" "positive"}}>
-            <i class={{if model.esEffect "icon close" "icon check"}}></i> {{boro.es}}
+          <td class={{if project.esEffect "negative" "positive"}}>
+            <i class={{if project.esEffect "icon close" "icon check"}}></i> {{boro.es}}
           </td>
-          <td class={{if model.hsEffect "negative" "positive"}}>
-            <i class={{if model.hsEffect "icon close" "icon check"}}></i> {{boro.hs}}
+          <td class={{if project.hsEffect "negative" "positive"}}>
+            <i class={{if project.hsEffect "icon close" "icon check"}}></i> {{boro.hs}}
           </td>
         {{else}}
           <td>{{boro.name}}</td>
