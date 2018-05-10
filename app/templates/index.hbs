@@ -1,5 +1,15 @@
-<ul>
-  {{#each model as |project|}}
-    <li>{{#link-to 'project' project}}{{project.id}}{{/link-to}}</li>
-  {{/each}}
-</ul>
+<div class="ui column grid container site">
+  <div class="row">
+    <ul>
+      {{#each model as |project|}}
+        <li>{{#link-to 'project' project}}{{project.id}}{{/link-to}}</li>
+      {{/each}}
+    </ul>
+  </div>
+
+  <div class="row">
+    <button class="ui green button" {{action "newProject"}}>
+      New Project
+    </button>
+  </div>
+</div>

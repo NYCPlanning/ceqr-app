@@ -6,7 +6,8 @@ export default Component.extend({
   analysis: service(),
   
   // UI attributes
-  zoneDisplay: 'es',
+  showZones: false,
+  schoolZone: 'es',
   hsAnalysis: false,
   
   // Map attributes
