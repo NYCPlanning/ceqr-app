@@ -1,13 +1,3 @@
-{{!-- 
-Map should have
-
-- Grey out other boroughs
-- Toggle to turn on high schools
-
- --}}
-
-
-
 {{#mapbox-gl 
   id='study-area-map' mapLoaded=(action 'handleMapLoad') initOptions=(hash
     style='mapbox://styles/mapbox/light-v9'
@@ -99,7 +89,7 @@ Map should have
       {{source.layer layer=(hash 
         id='lcgms'
         type='circle'
-        paint=(hash circle-color='#abdda4')
+        paint=(hash circle-color='#2b83ba')
       )}}
     {{/map.source}}
 

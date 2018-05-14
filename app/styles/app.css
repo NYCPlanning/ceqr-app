@@ -12,7 +12,7 @@
 }
 
 .lcgms .circle.icon {
-  color: #abdda4;
+  color: #2b83ba;
 }
 
 .bluebook .circle.icon {
@@ -28,4 +28,8 @@
   border-radius: 2px;
   box-shadow: 1px 2px 2px rgba(100, 100, 100, 0.4);
   font-size: 14px;
+}
+
+.edit-cell input {
+  width: 50px;
 }

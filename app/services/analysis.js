@@ -4,6 +4,9 @@ import { isEmpty } from '@ember/utils';
 import { computed } from '@ember/object';
 import { task, waitForProperty } from 'ember-concurrency';
 
+import ExistingConditions from '../analysis/existingConditions';
+
+import round from '../utils/round';
 
 export default Service.extend({  
   // BBLs and Build Year are set by observers on the project model
@@ -21,12 +24,10 @@ export default Service.extend({
   setBbls(bbls) {
     this.set('bbls', bbls);
   },
+
+
   bblsPresent() {
     return !isEmpty(this.get('bbls'));
-  },
-  // Found online: http://www.jacklmoore.com/notes/rounding-in-javascript/
-  round: function(value, decimals) {
-    return Number(Math.round(value+'e'+decimals)+'e-'+decimals);
   },
 
 
@@ -217,30 +218,31 @@ export default Service.extend({
     return projects;
   }).restartable(),
 
+  generateExistingConditions: task(function*() {
+
+  }),
+
   generateNoActionResults: task(function*() {
     yield waitForProperty(this, '_bluebookCartoIds');
     let psBluebook = yield carto.SQL(`
-      SELECT
-        district,
-        subd AS subdistrict,
-        bldg_name,
-        organization_name AS name,
-        address,
-        org_level AS grades,
-        ROUND(ps_enroll) AS enroll,
-        CASE WHEN bldg_excl is null THEN ps_capacity
-             ELSE null END
-             AS capacity,
-        CASE WHEN bldg_excl is null THEN ROUND(ps_capacity - ps_enroll)
-             ELSE ROUND(0 - ps_enroll) END
-             AS seats,
-        CASE WHEN bldg_excl is null THEN ROUND((ps_enroll / ps_capacity)::numeric, 3)
-             ELSE null END
-             AS utilization
-      FROM doe_bluebook_v1617
-      WHERE cartodb_id IN (${this.get('_bluebookCartoIds').join(',')})
-        AND org_level like '%25PS%25'
-    `);
+    SELECT
+      district,
+      subd AS subdistrict,
+      bldg_name,
+      CASE WHEN bldg_excl is null THEN false 
+           ELSE true END
+           AS excluded,
+      bldg_id,
+      org_level,
+      organization_name AS name,
+      address,
+      org_level AS grades,
+      ps_capacity AS capacity,
+      ROUND(ps_enroll) AS enroll
+    FROM doe_bluebook_v1617
+    WHERE cartodb_id IN (${this.get('_bluebookCartoIds').join(',')})
+      AND org_level like '%25PS%25'
+  `);
     psBluebook.map((school) => school.type = 'bluebook');
 
     let isBluebook = yield carto.SQL(`
@@ -312,29 +314,26 @@ export default Service.extend({
 
     return this.get('_subdistrictObjectPairs').map((s) => {
       // Primary Schools
-      let psBluebookBuildings = psBluebook.filter(
-        (b) => (b.district === s.district && b.subdistrict === s.subdistrict)
-      );
-      let psLcgmsBuildings = lcgmsSchools.ps.filter(
-        (b) => (b.district === s.district && b.subdistrict === s.subdistrict)
-      )
-      let psBuildings = psBluebookBuildings.concat(psLcgmsBuildings);
 
-      let psEnrollmentTotal = psBuildings.mapBy('enroll').reduce((acc, value) => acc + value);
-      let psCapacityTotal = psBuildings.mapBy('capacity').reduce((acc, value) => acc + value);
-      let psSeatsTotal = psBuildings.mapBy('seats').reduce((acc, value) => acc + value);
-      let psUtilization = this.round((psEnrollmentTotal / psCapacityTotal), 3);
+      let ps = ExistingConditions.create({
+        bluebookBuildings: psBluebook.filter(
+          (b) => (b.district === s.district && b.subdistrict === s.subdistrict)
+        ),
+        lcgmsBuildings: lcgmsSchools.ps.filter(
+          (b) => (b.district === s.district && b.subdistrict === s.subdistrict)
+        ),
+      })
+      let psCapacityTotal = ps.buildings.mapBy('capacity').reduce((acc, value) => acc + value);
+
 
       // Intermediary Schools
       let isBuildings = isBluebook.filter(
         (b) => (b.district === s.district && b.subdistrict === s.subdistrict)
       );
-      let isEnrollmentTotal = isBuildings.mapBy('enroll').reduce((acc, value) => acc + value);
       let isCapacityTotal = isBuildings.mapBy('capacity').reduce((acc, value) => acc + value);
-      let isSeatsTotal = isBuildings.mapBy('seats').reduce((acc, value) => acc + value);
-      let isUtilization = this.round((isEnrollmentTotal / isCapacityTotal), 3);
 
   
+      // Future No Action
       let dEnrollmentProjection = enrollmentProjections.findBy('district', s.district);
       let sdPsEnrollment = enrollmentMultipliers.find(
         (i) => (i.district === s.district && i.subdistrict === s.subdistrict && i.level === 'PS')
@@ -343,7 +342,6 @@ export default Service.extend({
         (i) => (i.district === s.district && i.subdistrict === s.subdistrict && i.level === 'MS')
       );
 
-      // Future No Action
       let projectedEnroll = {
         ps: Math.round(dEnrollmentProjection.projected_ps_dist * sdPsEnrollment.multiplier),
         is: Math.round(dEnrollmentProjection.projected_ms_dist * sdIsEnrollment.multiplier)
@@ -366,17 +364,24 @@ export default Service.extend({
         subdistrict: s.subdistrict,
         sdId: parseInt(`${s.district}${s.subdistrict}`),
 
-        psBuildings,
-        psEnrollmentTotal,
-        psCapacityTotal,
-        psSeatsTotal,
-        psUtilization,
-
-        isBuildings,
-        isEnrollmentTotal,
-        isCapacityTotal,
-        isSeatsTotal,
-        isUtilization,
+        existingConditions: {
+          ps: ExistingConditions.create({
+            bluebookBuildings: psBluebook.filter(
+              (b) => (b.district === s.district && b.subdistrict === s.subdistrict)
+            ),
+            lcgmsBuildings: lcgmsSchools.ps.filter(
+              (b) => (b.district === s.district && b.subdistrict === s.subdistrict)
+            ),
+          }),
+          is: ExistingConditions.create({
+            bluebookBuildings: isBluebook.filter(
+              (b) => (b.district === s.district && b.subdistrict === s.subdistrict)
+            ),
+            lcgmsBuildings: lcgmsSchools.is.filter(
+              (b) => (b.district === s.district && b.subdistrict === s.subdistrict)
+            ),
+          }),
+        },
 
         futureNoAction: {
           scaUnderConstruction,
@@ -386,7 +391,7 @@ export default Service.extend({
             projectedTotalEnroll: projectedEnroll.ps + projectedNewStudents.ps,
             projectedCapacity: psCapacityTotal,
             projectedAvailSeats: psCapacityTotal - (projectedEnroll.ps + projectedNewStudents.ps),
-            projectedUtilization: this.round(((projectedEnroll.ps + projectedNewStudents.ps) / psCapacityTotal), 3)
+            projectedUtilization: round(((projectedEnroll.ps + projectedNewStudents.ps) / psCapacityTotal), 3)
           },
           is: {
             projectedEnroll: projectedEnroll.is,
@@ -394,7 +399,7 @@ export default Service.extend({
             projectedTotalEnroll: projectedEnroll.is + projectedNewStudents.is,
             projectedCapacity: isCapacityTotal,
             projectedAvailSeats: isCapacityTotal - (projectedEnroll.is + projectedNewStudents.is),
-            projectedUtilization: this.round(((projectedEnroll.is + projectedNewStudents.is) / isCapacityTotal), 3)
+            projectedUtilization: round(((projectedEnroll.is + projectedNewStudents.is) / isCapacityTotal), 3)
           }
         }
       }

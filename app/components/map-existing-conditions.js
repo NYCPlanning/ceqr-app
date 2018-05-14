@@ -2,6 +2,12 @@ import Component from '@ember/component';
 import { inject as service } from '@ember/service';
 // import bbox from 'npm:@turf/bbox';
 
+/*
+TODO:
+- Center on extent of geometries
+- Popups on map for: bbl, subdistrict, schools
+*/
+
 export default Component.extend({  
   analysis: service(),
   
