@@ -7,7 +7,10 @@ const Router = EmberRouter.extend({
 });
 
 Router.map(function() {
-  this.route('project', {path: '/project/:project_id'});
+  this.route('project', {path: '/project/:project_id'}, function() {
+    this.route('existing-conditions');
+    this.route('no-action');
+  });
 });
 
 export default Router;

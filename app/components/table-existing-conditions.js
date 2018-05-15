@@ -1,18 +1,19 @@
 import Component from '@ember/component';
-import { computed, observer } from '@ember/object';
-import { isEmpty } from '@ember/utils';
+import { computed } from '@ember/object';
 
-export default Component.extend({
+import ExistingConditions from '../analysis/existingConditions';
+
+export default Component.extend({  
   activeSchoolsLevel: 'ps',
   activeSdId: null,
   defaultText: null,
-  
+
   didReceiveAttrs() {
     this._super(...arguments);
-    const results = this.get('results');
-    if (results) {
-      this.set('activeSdId', (results[0].sdId).toString());
-      this.set('defaultText', `District ${results[0].district} - Subdistrict ${results[0].subdistrict}`);
+    const data = this.get('data');
+    if (data) {
+      this.set('activeSdId', (data[0].sdId).toString());
+      this.set('defaultText', `District ${data[0].district} - Subdistrict ${data[0].subdistrict}`);
     }
   },
 
@@ -22,8 +23,9 @@ export default Component.extend({
   //   if (results) this.set('activeSdId', (results[0].sdId).toString());
   // },
 
-  table: computed('activeSdId', function() {
-    if (isEmpty(this.get('results'))) return {};
-    return this.get('results').findBy('sdId', parseInt(this.get('activeSdId')));
-  })
+  table: computed('activeSdId', 'activeSchoolsLevel', function() {
+    let subdistrict = this.get('data').findBy('sdId', parseInt(this.get('activeSdId')));    
+    return subdistrict[this.get('activeSchoolsLevel')];
+  }),
+
 });

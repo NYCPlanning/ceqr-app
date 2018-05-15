@@ -2,7 +2,7 @@
   <div class="row">
     <ul>
       {{#each model as |project|}}
-        <li>{{#link-to 'project' project}}{{project.id}}{{/link-to}}</li>
+        <li>{{#link-to 'project' project.id}}{{project.id}}{{/link-to}}</li>
       {{/each}}
     </ul>
   </div>

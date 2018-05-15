@@ -1,0 +1,23 @@
+<div class="sixteen wide column">
+  <h2 class="ui dividing header">
+    <div class="ui blue label">Step 2</div>
+    Detailed Analysis for Indirect Effect
+  </h2>
+</div>
+
+<div class="row">
+  <div class="sixteen wide column">
+    <h3 class="ui top attached header">
+      Existing Conditions <em>Bluebook 2016-17</em>
+    </h3>
+    <div class="ui attached segment">        
+      {{map-existing-conditions}}
+
+      {{table-existing-conditions data=project.existingConditions}}
+    </div>
+  </div>
+</div>
+
+<button class="ui primary button" {{action "saveExistingConditions"}}>
+  Next <i class="arrow right icon"></i>
+</button>

@@ -7,7 +7,7 @@ Get Mona to include correct grades served and citywide & alternative schools
     <div class="default text">{{defaultText}}</div>
     <i class="dropdown icon"></i>
     <div class="menu">
-      {{#each results as |sd|}}
+      {{#each data as |sd|}}
         <div data-value={{sd.sdId}} class="item">
           District {{sd.district}} - Subdistrict {{sd.subdistrict}}
         </div>
@@ -36,119 +36,59 @@ Get Mona to include correct grades served and citywide & alternative schools
     </tr>
   </thead>
 
-  {{#if (eq activeSchoolsLevel 'ps')}}
-    <tbody>
-      {{#each table.existingConditions.ps.buildings as |b|}}
-        {{#if (eq b.type 'lcgms')}}
-          <tr class="{{b.type}} warning">
-            <td>
-              <i class="circle icon"></i>
-              {{b.name}}
-              {{#if (not-eq b.name b.bldg_name)}}
-                <br /><em>{{b.bldg_name}}</em>
-              {{/if}}
-            </td>
-            <td>{{b.address}}</td>
-            <td>{{b.grades}}</td>
-            <td>
-              <div class="ui input transparent edit-cell">
-                {{input type="number" value=b.enroll placeholder="0"}}
-              </div>
-            </td>
-            <td>
-              <div class="ui input transparent edit-cell">
-                {{input type="number" value=b.capacity placeholder="0"}}
-              </div>
-            </td>
-            <td>{{b.seats}}</td>
-            <td>{{if b.excluded "N/A" b.utilization}}</td>
-          </tr>
-        {{else}}
-          <tr class={{b.type}}>
-            <td>
-              <i class="circle icon"></i>
-              {{b.name}}
-              {{#if (not-eq b.name b.bldg_name)}}
-                <br /><em>{{b.bldg_name}}</em>
-              {{/if}}
-            </td>
-            <td>{{b.address}}</td>
-            <td>{{b.grades}}</td>
-            <td>{{b.enroll}}</td>
-            <td>{{if b.excluded "N/A" b.capacity}}</td>
-            <td>{{b.seats}}</td>
-            <td>{{if b.excluded "N/A" b.utilization}}</td>
-          </tr>
-        {{/if}}
-      {{/each}}
-    </tbody>
+  <tbody>
+    {{#each table.buildings as |b|}}
+      {{#if (eq b.type 'lcgms')}}
+        <tr class="{{b.type}} warning">
+          <td>
+            <i class="circle icon"></i>
+            {{b.name}}
+            {{#if (not-eq b.name b.bldg_name)}}
+              <br /><em>{{b.bldg_name}}</em>
+            {{/if}}
+          </td>
+          <td>{{b.address}}</td>
+          <td>{{b.grades}}</td>
+          <td>
+            <div class="ui input transparent edit-cell">
+              {{input type="number" value=b.enroll placeholder="0"}}
+            </div>
+          </td>
+          <td>
+            <div class="ui input transparent edit-cell">
+              {{input type="number" value=b.capacity placeholder="0"}}
+            </div>
+          </td>
+          <td>{{b.seats}}</td>
+          <td>{{if b.excluded "N/A" b.utilization}}</td>
+        </tr>
+      {{else}}
+        <tr class={{b.type}}>
+          <td>
+            <i class="circle icon"></i>
+            {{b.name}}
+            {{#if (not-eq b.name b.bldg_name)}}
+              <br /><em>{{b.bldg_name}}</em>
+            {{/if}}
+          </td>
+          <td>{{b.address}}</td>
+          <td>{{b.grades}}</td>
+          <td>{{b.enroll}}</td>
+          <td>{{if b.excluded "N/A" b.capacity}}</td>
+          <td>{{b.seats}}</td>
+          <td>{{if b.excluded "N/A" b.utilization}}</td>
+        </tr>
+      {{/if}}
+    {{/each}}
+  </tbody>
 
-    <tfoot>
-      <tr>
-        <th colspan="3"><em>Totals</em></th>
-        <th>{{table.existingConditions.ps.enrollmentTotal}}</th>
-        <th>{{table.existingConditions.ps.capacityTotal}}</th>
-        <th>{{table.existingConditions.ps.seatsTotal}}</th>
-        <th>{{table.existingConditions.ps.utilizationTotal}}</th>
-      </tr>
-    </tfoot>
-  {{/if}}
-
-  {{#if (eq activeSchoolsLevel 'is')}}
-    <tbody>
-      {{#each table.existingConditions.is.buildings as |b|}}
-        {{#if (eq b.type 'lcgms')}}
-          <tr class="{{b.type}} warning">
-            <td>
-              <i class="circle icon"></i>
-              {{b.name}}
-              {{#if (not-eq b.name b.bldg_name)}}
-                <br /><em>{{b.bldg_name}}</em>
-              {{/if}}
-            </td>
-            <td>{{b.address}}</td>
-            <td>{{b.grades}}</td>
-            <td>
-              <div class="ui input transparent edit-cell">
-                {{input type="number" value=b.enroll placeholder="0"}}
-              </div>
-            </td>
-            <td>
-              <div class="ui input transparent edit-cell">
-                {{input type="number" value=b.capacity placeholder="0"}}
-              </div>
-            </td>
-            <td>{{b.seats}}</td>
-            <td>{{if b.excluded "N/A" b.utilization}}</td>
-          </tr>
-        {{else}}
-          <tr class={{b.type}}>
-            <td>
-              <i class="circle icon"></i>
-              {{b.name}}
-              {{#if (not-eq b.name b.bldg_name)}}
-                <br /><em>{{b.bldg_name}}</em>
-              {{/if}}
-            </td>
-            <td>{{b.address}}</td>
-            <td>{{b.grades}}</td>
-            <td>{{b.enroll}}</td>
-            <td>{{if b.excluded "N/A" b.capacity}}</td>
-            <td>{{b.seats}}</td>
-            <td>{{if b.excluded "N/A" b.utilization}}</td>
-          </tr>
-        {{/if}}
-      {{/each}}
-    </tbody>
-
-    <tfoot>
-      <tr>
-        <th colspan="3"><em>Totals</em></th>
-        <th>{{table.existingConditions.is.enrollmentTotal}}</th>
-        <th>{{table.existingConditions.is.capacityTotal}}</th>
-        <th>{{table.existingConditions.is.seatsTotal}}</th>
-        <th>{{table.existingConditions.is.utilizationTotal}}</th>
-      </tr>
-    </tfoot>
-  {{/if}}
+  <tfoot>
+    <tr>
+      <th colspan="3"><em>Totals</em></th>
+      <th>{{table.enrollmentTotal}}</th>
+      <th>{{table.capacityTotal}}</th>
+      <th>{{table.seatsTotal}}</th>
+      <th>{{table.utilizationTotal}}</th>
+    </tr>
+  </tfoot>
 </table>

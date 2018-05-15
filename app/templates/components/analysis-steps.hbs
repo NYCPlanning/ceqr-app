@@ -1,0 +1,34 @@
+<div class="ui tiny steps stackable">
+  {{#link-to "project.index" class="step"}}  
+    <i class="building icon"></i>
+    <div class="content">
+      <div class="title">Project Details</div>
+      <div class="description">Determine need for<br />detailed analysis</div>
+    </div>
+  {{/link-to}}
+  {{#link-to "project.existing-conditions" class="step"}} 
+    <div class="content">
+      <div class="title">Existing Conditions</div>
+      <div class="description">Confirm current<br />school conditions</div>
+    </div>
+  {{/link-to}}
+  {{#link-to "project.no-action" class="step"}} 
+    <div class="content">
+      <div class="title">Future Conditions:<br />No Action</div>
+      <div class="description">Confirm future school<br />conditions with no action</div>
+    </div>
+  {{/link-to}}
+  <div class="link step disabled">
+    <div class="content">
+      <div class="title">Future Conditions:<br />With Action</div>
+      <div class="description">Confirm future school<br />conditions with action</div>
+    </div>
+  </div>
+  <div class="link step disabled">
+    <i class="info icon"></i>
+    <div class="content">
+      <div class="title">Results</div>
+      <div class="description">Detailed analysis outcome</div>
+    </div>
+  </div>
+</div>

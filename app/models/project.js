@@ -22,6 +22,23 @@ export default DS.Model.extend({
   buildYear: DS.attr('number'),
   borough: DS.attr('string'),
 
+  // Analysis
+  subdistrictCartoIds: computed('subdistricts', function() {
+    return this.get('subdistricts').mapBy('cartodb_id');
+  }),
+  subdistrictSqlPairs: computed('subdistricts', function() {
+    return this.get('subdistricts').map(
+      (f) => `(${f.district}, ${f.subdistrict})`
+    );
+  }),
+  subdistricts: DS.attr(),
+  bluebook: DS.attr(),
+  bluebookCartoIds: computed('bluebook', function() {
+    return this.get('bluebook').mapBy('cartodb_id');
+  }),
+  lcgms: DS.attr(),
+  existingConditions: DS.attr('existing-conditions'),
+
   // Units
   totalUnits: DS.attr('number'),
   seniorUnits: DS.attr('number'),

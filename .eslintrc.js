@@ -29,8 +29,11 @@ module.exports = {
         'lib/*/index.js'
       ],
       parserOptions: {
-        sourceType: 'script',
-        ecmaVersion: 2015
+        ecmaVersion: 2017,
+        sourceType: 'module',
+        ecmaFeatures: {
+          experimentalObjectRestSpread: true
+        }
       },
       env: {
         browser: false,

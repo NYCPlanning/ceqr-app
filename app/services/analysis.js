@@ -59,6 +59,9 @@ export default Service.extend({
 
 
   // Result objects
+  existingConditions: computed('_bluebookCartoIds.[]', '_subdistrictSqlPairs.[]', function() {
+    return this.get('generateExistingConditions').perform();
+  }),
   resultsNoAction: computed('buildYear', '_bluebookCartoIds.[]', '_subdistrictSqlPairs.[]', function() {
     return this.get('generateNoActionResults').perform();
   }),
@@ -134,7 +137,7 @@ export default Service.extend({
       SELECT
         lcgms.the_geom,
         lcgms.open_date,
-      lcgms.location_name AS name,
+        lcgms.location_name AS name,
         lcgms.grades,
         subdistricts.schooldist AS district,
         subdistricts.zone AS subdistrict
@@ -218,56 +221,109 @@ export default Service.extend({
     return projects;
   }).restartable(),
 
-  generateExistingConditions: task(function*() {
+  // generateExistingConditions: task(function*() {
+  //   console.log('generating...')
+  //   this.get('fetchBluebookGeojson').perform();
+  //   yield waitForProperty(this, '_bluebookCartoIds');
+  //   console.log('have bb');
+  //   let psBluebook = yield carto.SQL(`
+  //   SELECT
+  //     district,
+  //     subd AS subdistrict,
+  //     bldg_name,
+  //     CASE WHEN bldg_excl is null THEN false 
+  //          ELSE true END
+  //          AS excluded,
+  //     bldg_id,
+  //     org_level,
+  //     organization_name AS name,
+  //     address,
+  //     org_level AS grades,
+  //     ps_capacity AS capacity,
+  //     ROUND(ps_enroll) AS enroll
+  //   FROM doe_bluebook_v1617
+  //   WHERE cartodb_id IN (${this.get('_bluebookCartoIds').join(',')})
+  //     AND org_level like '%25PS%25'
+  // `);
+  //   psBluebook.map((school) => school.type = 'bluebook');
 
-  }),
+  //   let isBluebook = yield carto.SQL(`
+  //     SELECT
+  //       district,
+  //       subd AS subdistrict,
+  //       organization_name AS name,
+  //       address,
+  //       org_level AS grades,
+  //       ROUND(ms_enroll) AS enroll,
+  //       CASE WHEN bldg_excl is null THEN ms_capacity
+  //           ELSE null END
+  //           AS capacity,
+  //       CASE WHEN bldg_excl is null THEN ROUND(ms_capacity - ms_enroll)
+  //           ELSE ROUND(0 - ms_enroll) END
+  //           AS seats,
+  //       CASE WHEN bldg_excl is null THEN ROUND((ms_enroll / ms_capacity)::numeric, 3)
+  //           ELSE null END
+  //           AS utilization
+  //     FROM doe_bluebook_v1617
+  //     WHERE cartodb_id IN (${this.get('_bluebookCartoIds').join(',')})
+  //       AND org_level like '%25IS%25'
+  //   `);
+  //   isBluebook.map((school) => school.type = 'bluebook');
+
+  //   yield waitForProperty(this, '_lcgms');
+  //   console.log('have lcgms');
+  //   let lcgmsSchools = {
+  //     ps: [],
+  //     is: [],
+  //     hs: [],
+  //   };
+
+  //   this.get('_lcgms').forEach((school) => {
+  //     school.type = 'lcgms';
+      
+  //     let grades = school.grades.split(',');
+      
+  //     let isPs = grades.some(g => ['0K','01','02','03','04','05'].includes(g));
+  //     let isIs = grades.some(g => ['06','07','08'].includes(g));
+  //     let isHs = grades.some(g => ['09','10','11','12'].includes(g));
+
+  //     if (isPs) lcgmsSchools.ps.push(school);
+  //     if (isIs) lcgmsSchools.is.push(school);
+  //     if (isHs) lcgmsSchools.hs.push(school);
+  //   });
+
+  //   let ec = this.get('_subdistrictObjectPairs').map((s) => {
+  //     return {
+  //       district: s.district,
+  //       subdistrict: s.subdistrict,
+  //       sdId: parseInt(`${s.district}${s.subdistrict}`),
+
+  //       ps: ExistingConditions.create({
+  //         bluebookBuildings: psBluebook.filter(
+  //           (b) => (b.district === s.district && b.subdistrict === s.subdistrict)
+  //         ),
+  //         lcgmsBuildings: lcgmsSchools.ps.filter(
+  //           (b) => (b.district === s.district && b.subdistrict === s.subdistrict)
+  //         ),
+  //       }),
+  //       is: ExistingConditions.create({
+  //         bluebookBuildings: isBluebook.filter(
+  //           (b) => (b.district === s.district && b.subdistrict === s.subdistrict)
+  //         ),
+  //         lcgmsBuildings: lcgmsSchools.is.filter(
+  //           (b) => (b.district === s.district && b.subdistrict === s.subdistrict)
+  //         ),
+  //       }),
+  //     }
+  //   });
+
+  //   console.log(ec);
+
+  //   this.set('existingConditionsObject', ec)
+  //   return ec;
+  // }).drop(),
 
   generateNoActionResults: task(function*() {
-    yield waitForProperty(this, '_bluebookCartoIds');
-    let psBluebook = yield carto.SQL(`
-    SELECT
-      district,
-      subd AS subdistrict,
-      bldg_name,
-      CASE WHEN bldg_excl is null THEN false 
-           ELSE true END
-           AS excluded,
-      bldg_id,
-      org_level,
-      organization_name AS name,
-      address,
-      org_level AS grades,
-      ps_capacity AS capacity,
-      ROUND(ps_enroll) AS enroll
-    FROM doe_bluebook_v1617
-    WHERE cartodb_id IN (${this.get('_bluebookCartoIds').join(',')})
-      AND org_level like '%25PS%25'
-  `);
-    psBluebook.map((school) => school.type = 'bluebook');
-
-    let isBluebook = yield carto.SQL(`
-      SELECT
-        district,
-        subd AS subdistrict,
-        organization_name AS name,
-        address,
-        org_level AS grades,
-        ROUND(ms_enroll) AS enroll,
-        CASE WHEN bldg_excl is null THEN ms_capacity
-            ELSE null END
-            AS capacity,
-        CASE WHEN bldg_excl is null THEN ROUND(ms_capacity - ms_enroll)
-            ELSE ROUND(0 - ms_enroll) END
-            AS seats,
-        CASE WHEN bldg_excl is null THEN ROUND((ms_enroll / ms_capacity)::numeric, 3)
-            ELSE null END
-            AS utilization
-      FROM doe_bluebook_v1617
-      WHERE cartodb_id IN (${this.get('_bluebookCartoIds').join(',')})
-        AND org_level like '%25IS%25'
-    `);
-    isBluebook.map((school) => school.type = 'bluebook');
-
     yield waitForProperty(this, 'buildYear');
     let enrollmentProjections = yield carto.SQL(`
       SELECT projected_ps_dist, projected_ms_dist, CAST(district AS numeric)
@@ -289,51 +345,13 @@ export default Service.extend({
       WHERE (dist, zone) IN (VALUES ${this.get('_subdistrictSqlPairs').join(',')})
     `);
 
-    yield waitForProperty(this, '_lcgms');
-    let lcgmsSchools = {
-      ps: [],
-      is: [],
-      hs: [],
-    };
-
-    this.get('_lcgms').forEach((school) => {
-      school.type = 'lcgms';
-      
-      let grades = school.grades.split(',');
-      
-      let isPs = grades.some(g => ['0K','01','02','03','04','05'].includes(g));
-      let isIs = grades.some(g => ['06','07','08'].includes(g));
-      let isHs = grades.some(g => ['09','10','11','12'].includes(g));
-
-      if (isPs) lcgmsSchools.ps.push(school);
-      if (isIs) lcgmsSchools.is.push(school);
-      if (isHs) lcgmsSchools.hs.push(school);
-    });
-
     yield waitForProperty(this, '_scaProjects');
 
+    let ec = this.get('existingConditionsObject');
+    console.log(ec);
+
     return this.get('_subdistrictObjectPairs').map((s) => {
-      // Primary Schools
 
-      let ps = ExistingConditions.create({
-        bluebookBuildings: psBluebook.filter(
-          (b) => (b.district === s.district && b.subdistrict === s.subdistrict)
-        ),
-        lcgmsBuildings: lcgmsSchools.ps.filter(
-          (b) => (b.district === s.district && b.subdistrict === s.subdistrict)
-        ),
-      })
-      let psCapacityTotal = ps.buildings.mapBy('capacity').reduce((acc, value) => acc + value);
-
-
-      // Intermediary Schools
-      let isBuildings = isBluebook.filter(
-        (b) => (b.district === s.district && b.subdistrict === s.subdistrict)
-      );
-      let isCapacityTotal = isBuildings.mapBy('capacity').reduce((acc, value) => acc + value);
-
-  
-      // Future No Action
       let dEnrollmentProjection = enrollmentProjections.findBy('district', s.district);
       let sdPsEnrollment = enrollmentMultipliers.find(
         (i) => (i.district === s.district && i.subdistrict === s.subdistrict && i.level === 'PS')
@@ -358,30 +376,10 @@ export default Service.extend({
         (b) => (b.district === s.district && b.subdistrict === s.subdistrict)
       );
 
-
       return {
         district: s.district,
         subdistrict: s.subdistrict,
         sdId: parseInt(`${s.district}${s.subdistrict}`),
-
-        existingConditions: {
-          ps: ExistingConditions.create({
-            bluebookBuildings: psBluebook.filter(
-              (b) => (b.district === s.district && b.subdistrict === s.subdistrict)
-            ),
-            lcgmsBuildings: lcgmsSchools.ps.filter(
-              (b) => (b.district === s.district && b.subdistrict === s.subdistrict)
-            ),
-          }),
-          is: ExistingConditions.create({
-            bluebookBuildings: isBluebook.filter(
-              (b) => (b.district === s.district && b.subdistrict === s.subdistrict)
-            ),
-            lcgmsBuildings: lcgmsSchools.is.filter(
-              (b) => (b.district === s.district && b.subdistrict === s.subdistrict)
-            ),
-          }),
-        },
 
         futureNoAction: {
           scaUnderConstruction,
@@ -389,17 +387,17 @@ export default Service.extend({
             projectedEnroll: projectedEnroll.ps,
             projectedNewStudents: projectedNewStudents.ps,
             projectedTotalEnroll: projectedEnroll.ps + projectedNewStudents.ps,
-            projectedCapacity: psCapacityTotal,
-            projectedAvailSeats: psCapacityTotal - (projectedEnroll.ps + projectedNewStudents.ps),
-            projectedUtilization: round(((projectedEnroll.ps + projectedNewStudents.ps) / psCapacityTotal), 3)
+            projectedCapacity: ec.ps.capacityTotal,
+            projectedAvailSeats: ec.ps.capacityTotal - (projectedEnroll.ps + projectedNewStudents.ps),
+            projectedUtilization: round(((projectedEnroll.ps + projectedNewStudents.ps) / ec.ps.capacityTotal), 3)
           },
           is: {
             projectedEnroll: projectedEnroll.is,
             projectedNewStudents: projectedNewStudents.is, 
             projectedTotalEnroll: projectedEnroll.is + projectedNewStudents.is,
-            projectedCapacity: isCapacityTotal,
-            projectedAvailSeats: isCapacityTotal - (projectedEnroll.is + projectedNewStudents.is),
-            projectedUtilization: round(((projectedEnroll.is + projectedNewStudents.is) / isCapacityTotal), 3)
+            projectedCapacity: ec.is.capacityTotal,
+            projectedAvailSeats: ec.is.capacityTotal - (projectedEnroll.is + projectedNewStudents.is),
+            projectedUtilization: round(((projectedEnroll.is + projectedNewStudents.is) / ec.is.capacityTotal), 3)
           }
         }
       }
