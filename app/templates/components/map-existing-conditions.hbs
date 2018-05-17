@@ -24,81 +24,79 @@
     {{/ui-dropdown}}
   </div>
 
-  {{#if analysis.bblsPresent}}
-    {{#map.source options=(hash type='geojson' data=(await analysis.subdistrictGeojson)) as |source|}}
-      {{source.layer layer=(hash
-        id='subdistricts'
-        type='fill'
-        paint=(hash fill-color='#ffffbf' fill-opacity=0.6))
-      }}
-    {{/map.source}}
+  {{#map.source options=(hash type='geojson' data=(await mapdata.subdistrictGeojson)) as |source|}}
+    {{source.layer layer=(hash
+      id='subdistricts'
+      type='fill'
+      paint=(hash fill-color='#ffffbf' fill-opacity=0.6))
+    }}
+  {{/map.source}}
 
-    {{#if showZones}}
-      {{#if (eq schoolZone 'es')}}
-        {{#map.source options=(hash type='geojson' data=(await analysis.esZonesGeojson)) as |source|}}
-          {{source.layer layer=(hash
-            id='es-zones'
-            type='line'
-            paint=(hash
-              line-color='#000000'
-              line-width=2
-              line-dasharray=(array 1 1)
-            ))
-          }}
-        {{/map.source}}
-      {{/if}}
-
-      {{#if (eq schoolZone 'is')}}
-        {{#map.source options=(hash type='geojson' data=(await analysis.isZonesGeojson)) as |source|}}
-          {{source.layer layer=(hash
-            id='ms-zones'
-            type='line'
-            paint=(hash
-              line-color='#000000'
-              line-width=2
-              line-dasharray=(array 1 1)
-            ))
-          }}
-        {{/map.source}}
-      {{/if}}
-
-      {{#if (eq schoolZone 'hs')}}
-        {{#map.source options=(hash type='geojson' data=(await analysis.hsZonesGeojson)) as |source|}}
-          {{source.layer layer=(hash
-            id='hs-zones'
-            type='line'
-            paint=(hash
-              line-color='#000000'
-              line-width=2
-              line-dasharray=(array 1 1)
-            ))
-          }}
-        {{/map.source}}
-      {{/if}}
+  {{#if showZones}}
+    {{#if (eq schoolZone 'es')}}
+      {{#map.source options=(hash type='geojson' data=(await mapdata.esZonesGeojson)) as |source|}}
+        {{source.layer layer=(hash
+          id='es-zones'
+          type='line'
+          paint=(hash
+            line-color='#000000'
+            line-width=2
+            line-dasharray=(array 1 1)
+          ))
+        }}
+      {{/map.source}}
     {{/if}}
 
-    {{#map.source options=(hash type='geojson' data=(await analysis.bblGeojson)) as |source|}}
-      {{source.layer layer=(hash 
-        id='bbls'
-        type='line'
-        paint=(hash line-color='#d7191c' line-width=4 line-blur=1)
-      )}}
-    {{/map.source}}
+    {{#if (eq schoolZone 'is')}}
+      {{#map.source options=(hash type='geojson' data=(await mapdata.isZonesGeojson)) as |source|}}
+        {{source.layer layer=(hash
+          id='ms-zones'
+          type='line'
+          paint=(hash
+            line-color='#000000'
+            line-width=2
+            line-dasharray=(array 1 1)
+          ))
+        }}
+      {{/map.source}}
+    {{/if}}
 
-    {{#map.source options=(hash type='geojson' data=(await analysis.lcgmsGeojson)) as |source|}}
-      {{source.layer layer=(hash 
-        id='lcgms'
-        type='circle'
-        paint=(hash circle-color='#2b83ba')
-      )}}
-    {{/map.source}}
-
-    {{#map.source options=(hash type='geojson' data=(await analysis.bluebookGeojson)) as |source|}}
-      {{source.layer layer=(hash
-        id='bluebook'
-        type='circle'
-        paint=(hash circle-color='#2b83ba'))
-      }}
-    {{/map.source}}
+    {{#if (eq schoolZone 'hs')}}
+      {{#map.source options=(hash type='geojson' data=(await mapdata.hsZonesGeojson)) as |source|}}
+        {{source.layer layer=(hash
+          id='hs-zones'
+          type='line'
+          paint=(hash
+            line-color='#000000'
+            line-width=2
+            line-dasharray=(array 1 1)
+          ))
+        }}
+      {{/map.source}}
+    {{/if}}
   {{/if}}
+
+  {{#map.source options=(hash type='geojson' data=(await mapdata.bblGeojson)) as |source|}}
+    {{source.layer layer=(hash 
+      id='bbls'
+      type='line'
+      paint=(hash line-color='#d7191c' line-width=4 line-blur=1)
+    )}}
+  {{/map.source}}
+
+  {{#map.source options=(hash type='geojson' data=(await mapdata.lcgmsGeojson)) as |source|}}
+    {{source.layer layer=(hash 
+      id='lcgms'
+      type='circle'
+      paint=(hash circle-color='#2b83ba')
+    )}}
+  {{/map.source}}
+
+  {{#map.source options=(hash type='geojson' data=(await mapdata.bluebookGeojson)) as |source|}}
+    {{source.layer layer=(hash
+      id='bluebook'
+      type='circle'
+      paint=(hash circle-color='#2b83ba'))
+    }}
+  {{/map.source}}
 {{/mapbox-gl}}

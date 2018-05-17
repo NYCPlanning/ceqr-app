@@ -1,15 +1,19 @@
 <div class="row">
     <div class="sixteen wide column">
       <h3 class="ui top attached header">
-        Future Conditions: No-Action
+        Future Conditions: No-Action Scenario
       </h3>
       <div class="ui attached segment">
-        {{map-future-no-action}}
+        {{map-future-no-action project=project}}
 
-        {{table-sca-under-construction}}
-        
-        {{table-projected-enrollment project=project}}
+        {{table-sca-under-construction project=project}}
       </div>
+
+      <h4 class="ui top attached header">
+        Estimated No-Action Primary and Intermediate School Enrollment, Capacity and Utilization
+      </h4>
+
+      {{table-projected-enrollment project=project}}
     </div>
   </div>
 

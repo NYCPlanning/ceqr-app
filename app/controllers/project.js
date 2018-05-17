@@ -3,6 +3,8 @@ import { alias } from '@ember/object/computed';
 import carto from 'carto-promises-utility/utils/carto';
 import ExistingConditions from '../analysis/existingConditions';
 
+import round from '../utils/round';
+
 export default Controller.extend({  
   project: alias('model.project'),
   ceqrManual: alias('model.ceqrManual'),
@@ -56,6 +58,7 @@ export default Controller.extend({
           lcgms.open_date,
           lcgms.location_name AS name,
           lcgms.grades,
+          lcgms.cartodb_id,
           subdistricts.schooldist AS district,
           subdistricts.zone AS subdistrict
         FROM doe_lcgms_v201718 AS lcgms, (
@@ -165,9 +168,115 @@ export default Controller.extend({
       this.transitionToRoute('project.existing-conditions');
     },
 
-    saveExistingConditions() {
-      // Get Capacity for 
-      console.log(this.get('model.project.existingConditions.0.ps.capacityTotal'));
+    saveExistingConditions: async function() {
+      let enrollmentProjections = await carto.SQL(`
+        SELECT projected_ps_dist, projected_ms_dist, CAST(district AS numeric)
+        FROM ceqr_sf_projection_2016_2025
+        WHERE school_year LIKE '${this.get('model.project.buildYear')}%25'
+          AND district IN (${this.get('model.project.subdistricts').map((d) => `'${d.district}'`).join(',')})
+      `);
+
+      let enrollmentMultipliers = await carto.SQL(`
+        SELECT zone_of_dist AS multiplier, disgeo AS district, zone AS subdistrict, TRIM(level) AS level
+        FROM ceqr_2019_enrollment_by_zone
+        WHERE (disgeo, zone) IN (VALUES ${this.get('model.project.subdistrictSqlPairs').join(',')})
+      `);
+
+      let studentsFromNewHousing = await carto.SQL(`
+        SELECT students_from_new_housing AS students, dist AS district, zone AS subdistrict, TRIM(grade_level) AS level
+        FROM ceqr_housing_by_sd_2016
+        WHERE (dist, zone) IN (VALUES ${this.get('model.project.subdistrictSqlPairs').join(',')})
+      `);
+
+      let scaProjects = await carto.SQL(`
+        SELECT
+          projects.the_geom,
+          projects.bbl,
+          projects.school,
+          projects.cartodb_id,
+          construction.data_as_of,
+          subdistricts.schooldist AS district,
+          subdistricts.zone AS subdistrict
+        FROM (
+            SELECT the_geom, schooldist, zone
+            FROM doe_schoolsubdistricts_v2017
+            WHERE cartodb_id IN (${this.get('model.project.subdistrictCartoIds').join(',')})
+          ) AS subdistricts,
+          sca_project_sites_v03222018 AS projects
+        JOIN (
+          SELECT bbl, MAX(to_timestamp(data_as_of, 'MM/DD/YYYY')) AS data_as_of
+          FROM sca_project_construction_v02222018
+          GROUP BY bbl
+        ) construction 
+        ON projects.bbl = construction.bbl
+        WHERE ST_Intersects(subdistricts.the_geom, projects.the_geom)
+      `);
+      this.set('model.project.scaProjects', scaProjects);
+
+      let futureNoAction = this.get('model.project.subdistricts').map((s) => {
+
+        let dEnrollmentProjection = enrollmentProjections.findBy('district', s.district);
+        let sdPsEnrollment = enrollmentMultipliers.find(
+          (i) => (i.district === s.district && i.subdistrict === s.subdistrict && i.level === 'PS')
+        );
+        let sdIsEnrollment = enrollmentMultipliers.find(
+          (i) => (i.district === s.district && i.subdistrict === s.subdistrict && i.level === 'MS')
+        );
+
+        let projectedEnroll = {
+          ps: Math.round(dEnrollmentProjection.projected_ps_dist * sdPsEnrollment.multiplier),
+          is: Math.round(dEnrollmentProjection.projected_ms_dist * sdIsEnrollment.multiplier)
+        };
+        let projectedNewStudents = {
+          ps: studentsFromNewHousing.find(
+            (i) => (i.district === s.district && i.subdistrict === s.subdistrict && i.level === 'PS')
+          ).students,
+          is: studentsFromNewHousing.find(
+            (i) => (i.district === s.district && i.subdistrict === s.subdistrict && i.level === 'MS')
+          ).students
+        };
+        let scaUnderConstruction = scaProjects.filter(
+          (b) => (b.district === s.district && b.subdistrict === s.subdistrict)
+        );
+
+        let capacityTotal = {
+          ps: this.get('model.project.existingConditions').find(
+            (b) => (b.district === s.district && b.subdistrict === s.subdistrict)
+          ).ps.get('capacityTotal'),
+  
+          is: this.get('model.project.existingConditions').find(
+            (b) => (b.district === s.district && b.subdistrict === s.subdistrict)
+          ).is.get('capacityTotal')
+        }
+
+        return {
+          district: s.district,
+          subdistrict: s.subdistrict,
+          sdId: parseInt(`${s.district}${s.subdistrict}`),
+
+          scaUnderConstruction,
+          ps: {
+            projectedEnroll: projectedEnroll.ps,
+            projectedNewStudents: projectedNewStudents.ps,
+            projectedTotalEnroll: projectedEnroll.ps + projectedNewStudents.ps,
+            projectedCapacity: capacityTotal.ps,
+            projectedAvailSeats: capacityTotal.ps - (projectedEnroll.ps + projectedNewStudents.ps),
+            projectedUtilization: round(((projectedEnroll.ps + projectedNewStudents.ps) / capacityTotal.ps), 3)
+          },
+          is: {
+            projectedEnroll: projectedEnroll.is,
+            projectedNewStudents: projectedNewStudents.is, 
+            projectedTotalEnroll: projectedEnroll.is + projectedNewStudents.is,
+            projectedCapacity: capacityTotal.is,
+            projectedAvailSeats: capacityTotal.is - (projectedEnroll.is + projectedNewStudents.is),
+            projectedUtilization: round(((projectedEnroll.is + projectedNewStudents.is) / capacityTotal.is), 3)
+          }
+        }
+      });
+      this.set('model.project.futureNoAction', futureNoAction);
+
+      await this.get('model.project').save();
+      this.transitionToRoute('project.no-action');
     }
   }
 });

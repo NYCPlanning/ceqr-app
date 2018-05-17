@@ -1,8 +1,6 @@
 import Component from '@ember/component';
 import { computed } from '@ember/object';
 
-import ExistingConditions from '../analysis/existingConditions';
-
 export default Component.extend({  
   activeSchoolsLevel: 'ps',
   activeSdId: null,

@@ -1,18 +1,23 @@
 <table class="ui celled table">
   <thead>
     <tr>
-      <th>Study Area</th>
       <th>School Under Construction</th>
+      <th>Estimated Capacity</th>
+      <th>Estimated Completion Date</th>
       <th>Data as Of</th>
     </tr>
   </thead>
 
   <tbody>
-    {{#each (await analysis.resultsNoAction) as |p|}}
+    {{#each project.futureNoAction as |p|}}
+      <thead>
+        <th colspan="4">District {{p.district}} - Subdistrict {{p.subdistrict}}</th>
+      </thead>
       <tr>
-        {{#each p.futureNoAction.scaUnderConstruction as |b|}}
-          <td>District {{p.district}} - Subdistrict {{p.subdistrict}}</td>
+        {{#each p.scaUnderConstruction as |b|}}
           <td>{{b.school}}</td>
+          <td></td>
+          <td></td>
           <td>{{moment-format b.data_as_of 'MM/DD/YYYY'}}</td>
         {{/each}}
       </tr>

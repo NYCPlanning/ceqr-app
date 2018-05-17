@@ -13,6 +13,12 @@ export default DS.Transform.extend({
   },
 
   serialize(deserialized) {
-    return deserialized;
+    return deserialized.map(
+      (s) => ({
+        ...s,
+        ps: {...s.ps},
+        is: {...s.is}
+      })
+    );
   }
 });

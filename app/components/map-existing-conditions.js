@@ -9,8 +9,13 @@ TODO:
 */
 
 export default Component.extend({  
-  analysis: service(),
+  mapdata: service(),
   
+  didReceiveAttrs() {
+    this._super(...arguments);
+    this.get('mapdata').setProject(this.get('project'));
+  }, 
+
   // UI attributes
   showZones: false,
   schoolZone: 'es',
@@ -18,11 +23,11 @@ export default Component.extend({
   
   // Map attributes
   map: null,
-  mapZoomTo(geojson) {
-    // let extent = bbox(geojson);
-    // console.log(extent);
-    // this.get('map').fitBounds(bbox);
-  },
+  // mapZoomTo(geojson) {
+  //   let extent = bbox(geojson);
+  //   console.log(extent);
+  //   this.get('map').fitBounds(bbox);
+  // },
 
   actions: {
     handleMapLoad(map) {
