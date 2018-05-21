@@ -12,22 +12,26 @@
       paint=(hash fill-color='#ffffbf' fill-opacity=0.6))
     }}
   {{/map.source}}
-  
-  {{#map.source options=(hash type='geojson' data=(await mapdata.scaProjectsGeojson)) as |source|}}
-    {{source.layer layer=(hash 
-      id='sca-projects'
-      type='circle'
-      paint=(hash circle-color='#fc8d59')
-    )}}
-  {{/map.source}}
 
-  {{#map.source options=(hash type='geojson' data=(await mapdata.lcgmsGeojson)) as |source|}}
-    {{source.layer layer=(hash 
-      id='lcgms'
-      type='circle'
-      paint=(hash circle-color='#2b83ba')
-    )}}
-  {{/map.source}}
+  {{#if project.scaProjects}}  
+    {{#map.source options=(hash type='geojson' data=(await mapdata.scaProjectsGeojson)) as |source|}}
+      {{source.layer layer=(hash 
+        id='sca-projects'
+        type='circle'
+        paint=(hash circle-color='#fc8d59')
+      )}}
+    {{/map.source}}
+  {{/if}}
+
+  {{#if project.lcgms}}
+    {{#map.source options=(hash type='geojson' data=(await mapdata.lcgmsGeojson)) as |source|}}
+      {{source.layer layer=(hash 
+        id='lcgms'
+        type='circle'
+        paint=(hash circle-color='#2b83ba')
+      )}}
+    {{/map.source}}
+  {{/if}}
 
   {{#map.source options=(hash type='geojson' data=(await mapdata.bluebookGeojson)) as |source|}}
     {{source.layer layer=(hash

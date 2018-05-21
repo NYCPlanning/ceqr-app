@@ -6,14 +6,16 @@ export default DS.Model.extend({
     this.set('ceqrManual', manual);
   },
   
+  step: DS.attr('string', { defaultValue: 'new' }),
+
   address: DS.attr('string'),
-  bbls: DS.attr(),
+  bbls: DS.attr('', { defaultValue() { return []; } }),
   buildYear: DS.attr('number'),
-  borough: DS.attr('string'),
+  borough: DS.attr('string', { defaultValue: 'Bronx' }),
 
   // Units
-  totalUnits: DS.attr('number'),
-  seniorUnits: DS.attr('number'),
+  totalUnits: DS.attr('number', { defaultValue: 0 }),
+  seniorUnits: DS.attr('number', { defaultValue: 0 }),
   netUnits: computed('totalUnits', 'seniorUnits', function() {
     return this.get('totalUnits') - this.get('seniorUnits');
   }),
@@ -54,7 +56,7 @@ export default DS.Model.extend({
 
 
   // Analysis
-  subdistricts: DS.attr(),
+  subdistricts: DS.attr('', { defaultValue() { return []; } }),
   subdistrictCartoIds: computed('subdistricts', function() {
     return this.get('subdistricts').mapBy('cartodb_id');
   }),
@@ -64,24 +66,22 @@ export default DS.Model.extend({
     );
   }),
 
-  bluebook: DS.attr(),
+  bluebook: DS.attr('', { defaultValue() { return []; } }),
   bluebookCartoIds: computed('bluebook', function() {
     return this.get('bluebook').mapBy('cartodb_id');
   }),
 
-  lcgms: DS.attr(),
+  lcgms: DS.attr('', { defaultValue() { return []; } }),
   lcgmsCartoIds: computed('lcgms', function() {
     return this.get('lcgms').mapBy('cartodb_id');
   }),
 
-  scaProjects: DS.attr(),
+  scaProjects: DS.attr('', { defaultValue() { return []; } }),
   scaProjectsCartoIds: computed('scaProjects', function() {
     return this.get('scaProjects').mapBy('cartodb_id');
   }),
   
   // Tables
   existingConditions: DS.attr('existing-conditions'),
-  futureNoAction: DS.attr('', {
-    defaultValue() { return []; }
-  })
+  futureNoAction: DS.attr('', { defaultValue() { return []; } })
 });

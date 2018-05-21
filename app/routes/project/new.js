@@ -1,10 +1,9 @@
 import Route from '@ember/routing/route';
-// import normalizeCartoVectors from 'carto-promises-utility/utils/normalize-carto-vectors';
 import RSVP from 'rsvp';
 
-export default class ProjectRoute extends Route {
+export default class ProjectNewRoute extends Route {
   model = async function(params) {
-    const project = await this.store.findRecord('project', params.project_id);
+    const project = await this.store.createRecord('project');
     const ceqrManual = await this.get('store').findRecord('ceqr-manual', 'march-2014');
 
     project.setCeqrManual(ceqrManual);
@@ -14,4 +13,6 @@ export default class ProjectRoute extends Route {
       ceqrManual,
     });
   }
+  
+  controllerName = 'project';
 };

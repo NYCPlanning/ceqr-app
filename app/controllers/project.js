@@ -164,8 +164,11 @@ export default Controller.extend({
       this.set('model.project.existingConditions', ec);
 
 
-      await this.get('model.project').save();
-      this.transitionToRoute('project.existing-conditions');
+      await this.get('model.project').save().catch(error => {
+        console.log(error);
+      }).then((project) => {
+        this.transitionToRoute('project.show.existing-conditions', project.id);
+      });
     },
 
     saveExistingConditions: async function() {
@@ -275,8 +278,11 @@ export default Controller.extend({
       });
       this.set('model.project.futureNoAction', futureNoAction);
 
-      await this.get('model.project').save();
-      this.transitionToRoute('project.no-action');
+      await this.get('model.project').save().catch(error => {
+        console.log(error);
+      }).then((project) => {
+        this.transitionToRoute('project.show.no-action', project.id);
+      });
     }
   }
 });

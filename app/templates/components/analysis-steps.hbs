@@ -1,23 +1,46 @@
-<div class="ui tiny steps stackable">
-  {{#link-to "project.index" class="step"}}  
-    <i class="building icon"></i>
-    <div class="content">
-      <div class="title">Project Details</div>
-      <div class="description">Determine need for<br />detailed analysis</div>
+<div class="ui tiny steps stackable">  
+  {{#if project.isNew}}
+    <div class="step disabled">  
+      <i class="building icon"></i>
+      <div class="content">
+        <div class="title">Project Details</div>
+        <div class="description">Determine need for<br />detailed analysis</div>
+      </div>
     </div>
-  {{/link-to}}
-  {{#link-to "project.existing-conditions" class="step"}} 
-    <div class="content">
-      <div class="title">Existing Conditions</div>
-      <div class="description">Confirm current<br />school conditions</div>
+    <div class="step disabled"> 
+      <div class="content">
+        <div class="title">Existing Conditions</div>
+        <div class="description">Confirm current<br />school conditions</div>
+      </div>
     </div>
-  {{/link-to}}
-  {{#link-to "project.no-action" class="step"}} 
-    <div class="content">
-      <div class="title">Future Conditions:<br />No Action</div>
-      <div class="description">Confirm future school<br />conditions with no action</div>
+    <div class="step disabled"> 
+      <div class="content">
+        <div class="title">Future Conditions:<br />No Action</div>
+        <div class="description">Confirm future school<br />conditions with no action</div>
+      </div>
     </div>
-  {{/link-to}}
+  {{else}}
+    {{#link-to "project.show.project-details" class="step"}}  
+      <i class="building icon"></i>
+      <div class="content">
+        <div class="title">Project Details</div>
+        <div class="description">Determine need for<br />detailed analysis</div>
+      </div>
+    {{/link-to}}
+    {{#link-to "project.show.existing-conditions" class="step {{if project.isNew 'disabled'}}"}} 
+      <div class="content">
+        <div class="title">Existing Conditions</div>
+        <div class="description">Confirm current<br />school conditions</div>
+      </div>
+    {{/link-to}}
+    {{#link-to "project.show.no-action" class="step {{if project.isNew 'disabled'}}"}} 
+      <div class="content">
+        <div class="title">Future Conditions:<br />No Action</div>
+        <div class="description">Confirm future school<br />conditions with no action</div>
+      </div>
+    {{/link-to}}
+  {{/if}}
+
   <div class="link step disabled">
     <div class="content">
       <div class="title">Future Conditions:<br />With Action</div>
