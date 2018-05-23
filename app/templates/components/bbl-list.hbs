@@ -1,18 +1,26 @@
 <div class="ui grid">
-  <div class="six wide column">
-    <div class="ui action input">
-      {{input type="text" value=bbl placeholder="BBL" enter="addBbl"}}
-      <button class="ui button" {{action 'addBbl' bbl}}>Add</button>
+  <div class="row">
+    <div class="four wide column">
+      <div class="ui action input">
+        {{input type="text" value=bbl placeholder="BBL" enter="addBbl"}}
+        <button class="ui button" {{action 'addBbl' bbl}}>Add</button>
+      </div>
     </div>
+
   </div>
 
-  <div class="eight wide column right floated">
-    <div class="ui list">
-      {{#each model.bbls as |bbl|}}
-        <div class="item">
-          {{bbl}} <i class="close link icon" {{action 'removeBbl' bbl}}></i>
+  {{#if model.bbls}}
+    <div class="row">
+      <div class="sixteen wide column">
+        <div class="ui horizontal list">
+          <div class="ui basic large label">{{model.borough}}</div>
+          {{#each model.bbls as |bbl|}}
+            <div class="item">
+              {{bbl}} <i class="close link icon" {{action 'removeBbl' bbl}}></i>
+            </div>
+          {{/each}}
         </div>
-      {{/each}}
+      </div>
     </div>
-  </div>
+  {{/if}}
 </div>

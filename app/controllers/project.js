@@ -82,6 +82,7 @@ export default Controller.extend({
               ELSE true END
               AS excluded,
           bldg_id,
+          org_id,
           org_level,
           organization_name AS name,
           address,
@@ -98,19 +99,18 @@ export default Controller.extend({
         SELECT
           district,
           subd AS subdistrict,
+          bldg_name,
+          CASE WHEN bldg_excl is null THEN false 
+            ELSE true END
+            AS excluded,
+          bldg_id,
+          org_id,
+          org_level,
           organization_name AS name,
           address,
           org_level AS grades,
-          ROUND(ms_enroll) AS enroll,
-          CASE WHEN bldg_excl is null THEN ms_capacity
-              ELSE null END
-              AS capacity,
-          CASE WHEN bldg_excl is null THEN ROUND(ms_capacity - ms_enroll)
-              ELSE ROUND(0 - ms_enroll) END
-              AS seats,
-          CASE WHEN bldg_excl is null THEN ROUND((ms_enroll / ms_capacity)::numeric, 3)
-              ELSE null END
-              AS utilization
+          ms_capacity AS capacity,
+          ROUND(ms_enroll) AS enroll
         FROM doe_bluebook_v1617
         WHERE cartodb_id IN (${this.get('model.project.bluebookCartoIds').join(',')})
           AND org_level like '%25IS%25'

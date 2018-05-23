@@ -1,8 +1,18 @@
 {{top-bar project=project}}
 
 <div class="ui grid container site">
-  {{analysis-steps project=project}}
-
+  <div class="row">
+    <div class="sixteen wide column">
+      <h1 class="ui dividing header">{{project.project_id}} - {{project.name}}</h1>
+    </div>
+  </div>
+  
+  <div class="row">
+    <div class="sixteen wide column">
+        {{analysis-steps project=project}}
+    </div>
+  </div>
+  
   {{outlet}}
 </div>
 

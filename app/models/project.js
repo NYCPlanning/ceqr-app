@@ -8,7 +8,8 @@ export default DS.Model.extend({
   
   step: DS.attr('string', { defaultValue: 'new' }),
 
-  address: DS.attr('string'),
+  project_id: DS.attr('string'),
+  name: DS.attr('string'),
   bbls: DS.attr('', { defaultValue() { return []; } }),
   buildYear: DS.attr('number'),
   borough: DS.attr('string', { defaultValue: 'Bronx' }),

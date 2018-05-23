@@ -2,7 +2,7 @@
   <div class="row">
     <ul>
       {{#each model as |project|}}
-        <li>{{#link-to 'project.show' project.id}}{{project.address}} ({{project.id}}){{/link-to}}</li>
+        <li>{{#link-to 'project.show' project.id}}{{project.name}} ({{project.project_id}}){{/link-to}}</li>
       {{/each}}
     </ul>
   </div>
