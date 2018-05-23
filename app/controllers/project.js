@@ -10,6 +10,14 @@ export default Controller.extend({
   ceqrManual: alias('model.ceqrManual'),
   
   actions: {
+    createProject: function() {
+      this.get('model.project').save().catch(error => {
+        console.log(error);
+      }).then((project) => {
+        this.transitionToRoute('project.show.project-details', project.id);
+      });
+    },
+    
     saveProject: function() {
       this.get('model.project').save();
     },

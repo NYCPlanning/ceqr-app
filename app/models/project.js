@@ -83,6 +83,6 @@ export default DS.Model.extend({
   }),
   
   // Tables
-  existingConditions: DS.attr('existing-conditions'),
+  existingConditions: DS.attr('existing-conditions', { defaultValue() { return []; } }),
   futureNoAction: DS.attr('', { defaultValue() { return []; } })
 });

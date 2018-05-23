@@ -1,158 +1,65 @@
 <div class="ui grid">
-  <div class="sixteen wide column">
-    <h2 class="ui dividing header">
-      <div class="ui blue label">Step 1</div>
-      Project Details & Preliminary Analysis
-    </h2>
-  </div>
-
-  <div class="row">
-    <div class="ten wide column">
-      <div class="ui segments">
-        <div class="ui segment">
-          <form class="ui form">
-            <div class="field">
-              <div class="two fields">
-                <div class="six wide field">
-                  <label>Project ID</label>
-                  {{input type="text" value=project.project_id placeholder="Project ID"}}
-                </div>
-                <div class="twelve wide field">
-                  <label>Project Name</label>
-                  {{input type="text" value=project.name placeholder="Project Name"}}
-                </div>
-                <div class="four wide field">
-                  <label>Est. Build Year</label>
-                  {{input type="text" value=project.buildYear placeholder="Year Built"}}
-                </div>
+  <div class="ten wide column">
+    <div class="ui segments">
+      <div class="ui segment">
+        <form class="ui form">
+          <div class="field">
+            <div class="two fields">
+              <div class="six wide field">
+                <label>Project ID</label>
+                {{input type="text" value=project.project_id placeholder="Project ID"}}
+              </div>
+              <div class="twelve wide field">
+                <label>Project Name</label>
+                {{input type="text" value=project.name placeholder="Project Name"}}
+              </div>
+              <div class="four wide field">
+                <label>Est. Build Year</label>
+                {{input type="text" value=project.buildYear placeholder="Year Built"}}
               </div>
             </div>
-          </form>
-
-          {{bbl-list model=project}}
-        </div>
-
-        <div class="ui segment">
-          {{total-unit-count model=project}}
-        </div>
-
-        <div class="ui {{if project.directEffect "yellow" "grey"}} segment">
-          <h3>Does this project require a detailed analysis of Direct Effect?</h3>
-          <p>Would the project directly eliminate, displace, or alter public or publicly funded educational facilities?</p>
-          <div class="ui huge label {{if project.directEffect "yellow" "grey"}}">
-            {{if project.directEffect "Yes" "No"}}
           </div>
-          <a href {{action (toggle "project.directEffect" this)}}>change to {{if project.directEffect "No" "Yes"}}</a>
-        </div>
+        </form>
+
+        {{bbl-list model=project}}
       </div>
-    </div>
 
-    <div class="six wide column">
-      {{#ui-accordion}}
-        <div class="title">
-          <h4><i class="dropdown icon"></i>100. Definitions</h4>
-        </div>
-        <div class="content">
-          <p><em>PUBLIC SCHOOLS.</em> CEQR analyzes potential impacts only on public schools operated and funded by the New York City
-          Department of Education. This analysis generally relates only to public elementary and intermediate schools, which serve a
-          local population, and rarely to high schools, which have a borough-wide or citywide population base. Schools are analyzed based
-          on the potential for the project to cause overcrowding (i.e., a shortage of seats for an age group within the district).</p>
-        </div>
+      <div class="ui segment">
+        {{total-unit-count model=project}}
+      </div>
 
-        <div class="title">
-          <h4><i class="dropdown icon"></i>210. Direct Effects</h4>
+      <div class="ui {{if project.directEffect "yellow" "grey"}} segment">
+        <h3>Does this project require a detailed analysis of Direct Effect?</h3>
+        <p>Would the project directly eliminate, displace, or alter public or publicly funded educational facilities?</p>
+        <div class="ui huge label {{if project.directEffect "yellow" "grey"}}">
+          {{if project.directEffect "Yes" "No"}}
         </div>
-        <div class="content">
-          <p>If a project would physically alter a community facility, whether by displacement of the facility or other physical
-          change, this "direct" effect triggers the need to assess the service delivery of the facility and the potential effect
-          that the physical change may have on that service delivery. Temporary direct effects should also be considered
-          (for example, the temporary closing of a facility during a phase of construction).</p>
-        </div>
-      {{/ui-accordion}}
+        <a href {{action (toggle "project.directEffect" this)}}>change to {{if project.directEffect "No" "Yes"}}</a>
+      </div>
     </div>
   </div>
 
-  <div class="row">
-    <div class="ten wide column">
-      <div class="ui segments">        
-        <div class="ui {{if project.indirectEffect "yellow" "grey"}} segment">
-          <h3>Does this project require a detailed analysis of Indirect Effect?</h3>
-          <div class="ui huge label {{if project.indirectEffect "yellow" "grey"}}">
-            {{if project.indirectEffect "Yes" "No"}}
-          </div>
-        </div>
-
-        <div class="ui segment">
-          {{table-estimated-students ceqrManual=ceqrManual project=project}}
-        </div>
-
-        <div class="ui basic segment">
-          {{#ui-accordion}}
-            <div class="title">
-              <h4><i class="dropdown icon"></i>Table 6-1: Community Facility Thresholds for Detailed Analyses</h4>
-            </div>
-            <div class="content">
-              {{detailed-analysis-thresholds ceqrManual=ceqrManual project=project}}
-            </div>
-            <div class="title">
-              <h4><i class="dropdown icon"></i>Table 6-1a: Estimated Public School Students Generated by New Residential Units</h4>
-            </div>
-            <div class="content">
-              {{table-student-multipliers ceqrManual=ceqrManual project=project}}
-            </div>
-          {{/ui-accordion}}
-        </div>
+  <div class="six wide column">
+    {{#ui-accordion}}
+      <div class="title">
+        <h4><i class="dropdown icon"></i>100. Definitions</h4>
       </div>
-    </div>
-    <div class="six wide column">
-      {{#ui-accordion}}
-        <div class="title">
-          <h4><i class="dropdown icon"></i>220. Indirect Effects</h4>
-        </div>
-        <div class="content">
-          <p>Increased population in an area caused by a project would increase demand for existing services, which may result
-          in potential "indirect" effects on service delivery. Depending on the size, income characteristics, and age distribution
-          of the new population, there may be effects on public schools, libraries, or child care centers.
-          In general, the following thresholds may be used to make an initial determination of whether detailed studies are
-          necessary to determine potential indirect impacts.</p>
-        </div>
-
-        <div class="title">
-          <h4><i class="dropdown icon"></i>221. Public Schools</h4>
-        </div>
-        <div class="content">
-          <p>Potential impacts on schools may result if there would be insufficient seats available to serve the population.
-          Because it is rare that a project physically displaces an operating school, impacts are more likely to occur
-          when a project introduces school-age children to an area.</p>
-
-          <p>The basic analysis begins with a calculation of the additional school-age population that would be introduced
-          by a project. Table 6-1 above calculates by borough the minimum number of residential units that could yield
-          at least 50 elementary/intermediate school children, based on Table 6-1a. To estimate the student age population
-          of a project, first determine the number of residential units of the project. Projects that would add residential
-          units designed exclusively for seniors or single adults (HPD supportive housing) need not assess public
-          school impacts. If appropriate, Table 6-1a should be used to estimate the number of elementary, middle, and
-          high school students likely to be generated by the proposed project.</p>
-
-          <p>In general, if a project would introduce more than 50 school-age children (elementary and intermediate
-          school students), significant impacts on public schools may occur and further analysis of schools may be appropriate.
-          Since high school-level students can usually elect to attend high schools outside their neighborhood,
-          an analysis of high school impacts is rarely necessary. However, if the project would generate 150 or
-          more high school students, there may be an impact on borough high schools, and further analysis may be appropriate.</p>
-        </div>
-      {{/ui-accordion}}
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="sixteen wide column">
-      <div class="ui menu">
-        <div class="right item">
-          <button class="ui primary button" {{action "next"}}>
-            Next <i class="arrow right icon"></i>
-          </button>
-        </div>
+      <div class="content">
+        <p><em>PUBLIC SCHOOLS.</em> CEQR analyzes potential impacts only on public schools operated and funded by the New York City
+        Department of Education. This analysis generally relates only to public elementary and intermediate schools, which serve a
+        local population, and rarely to high schools, which have a borough-wide or citywide population base. Schools are analyzed based
+        on the potential for the project to cause overcrowding (i.e., a shortage of seats for an age group within the district).</p>
       </div>
-    </div>
+
+      <div class="title">
+        <h4><i class="dropdown icon"></i>210. Direct Effects</h4>
+      </div>
+      <div class="content">
+        <p>If a project would physically alter a community facility, whether by displacement of the facility or other physical
+        change, this "direct" effect triggers the need to assess the service delivery of the facility and the potential effect
+        that the physical change may have on that service delivery. Temporary direct effects should also be considered
+        (for example, the temporary closing of a facility during a phase of construction).</p>
+      </div>
+    {{/ui-accordion}}
   </div>
 </div>
-

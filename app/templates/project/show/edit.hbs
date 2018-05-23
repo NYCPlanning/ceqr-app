@@ -1,0 +1,13 @@
+<div class="sixteen wide column">
+  {{project-details project=project ceqrManual=ceqrManual nextAction=(action 'saveProjectDetails')}}
+</div>
+
+<div class="sixteen wide column">
+  {{#link-to "project.show.analysis-threshold" class="ui button"}}
+    Back
+  {{/link-to}}
+  
+  <button class="ui primary button" {{action "saveProject"}}>
+    Save Project
+  </button>
+</div>

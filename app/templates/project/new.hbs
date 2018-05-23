@@ -1,1 +1,17 @@
-{{project-details project=project nextAction=(action 'saveProjectDetails')}}
+<div class="ui grid">
+  <div class="sixteen wide column">
+    <h2 class="ui dividing header">
+      New Project
+    </h2>
+  </div>
+
+  <div class="sixteen wide column">
+    {{project-details project=project nextAction=(action 'saveProjectDetails')}}
+  </div>
+
+  <div class="sixteen wide column">
+    <button class="ui primary button" {{action "createProject"}}>
+      Create Project <i class="arrow right icon"></i>
+    </button>
+  </div>
+</div>

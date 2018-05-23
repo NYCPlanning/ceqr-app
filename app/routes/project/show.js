@@ -13,4 +13,6 @@ export default class ProjectRoute extends Route {
       ceqrManual,
     });
   }
+
+  controllerName = 'project';
 };
