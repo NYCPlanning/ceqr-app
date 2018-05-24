@@ -1,6 +1,8 @@
 import DS from 'ember-data';
 import { computed } from '@ember/object';
 
+import ExistingSchoolTotals from '../decorators/ExistingSchoolTotals';
+
 export default DS.Model.extend({
   setCeqrManual(manual) {
     this.set('ceqrManual', manual);
@@ -67,22 +69,33 @@ export default DS.Model.extend({
     );
   }),
 
-  bluebook: DS.attr('', { defaultValue() { return []; } }),
-  bluebookCartoIds: computed('bluebook', function() {
-    return this.get('bluebook').mapBy('cartodb_id');
-  }),
+  bluebook: DS.attr('buildings', { defaultValue() {
+    return { ps: [], is: [], hs: [] };
+  } }),
+  bluebookCartoIds: DS.attr('', { defaultValue() { return []; } }),
 
-  lcgms: DS.attr('', { defaultValue() { return []; } }),
-  lcgmsCartoIds: computed('lcgms', function() {
-    return this.get('lcgms').mapBy('cartodb_id');
-  }),
+  lcgms: DS.attr('buildings', { defaultValue() {
+    return { ps: [], is: [], hs: [] };
+  } }),
+  lcgmsCartoIds: DS.attr('', { defaultValue() { return []; } }),
 
   scaProjects: DS.attr('', { defaultValue() { return []; } }),
   scaProjectsCartoIds: computed('scaProjects', function() {
     return this.get('scaProjects').mapBy('cartodb_id');
   }),
   
+  capacityTotals: computed('bluebook', 'lcgms', function() {
+
+  }),
+
   // Tables
-  existingConditions: DS.attr('existing-conditions', { defaultValue() { return []; } }),
+
+
+  existingSchoolTotals: computed('lcgms', 'bluebook', function() {
+    return ExistingSchoolTotals.create({
+      lcgms: this.get('project').get('lcgms')[this.get('activeSchoolsLevel')],
+      bluebook: this.get('project').get('bluebook')[this.get('activeSchoolsLevel')]
+    })
+  }),
   futureNoAction: DS.attr('', { defaultValue() { return []; } })
 });

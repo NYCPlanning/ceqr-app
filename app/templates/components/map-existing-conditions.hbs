@@ -84,7 +84,7 @@
     )}}
   {{/map.source}}
 
-  {{#if project.lcgms}}
+  {{#if project.lcgmsCartoIds}}
     {{#map.source options=(hash type='geojson' data=(await mapdata.lcgmsGeojson)) as |source|}}
       {{source.layer layer=(hash 
         id='lcgms'

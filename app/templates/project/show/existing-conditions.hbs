@@ -1,8 +1,8 @@
-<div class="sixteen wide column">
-  <h2 class="ui dividing header">
-    <div class="ui blue label">Step 2</div>
-    Detailed Analysis for Indirect Effect
-  </h2>
+<div class="row">
+  <div class="sixteen wide column">
+    {{!-- will need to add `success` status --}}
+    {{recently-built-schools project=project}}
+  </div>
 </div>
 
 <div class="row">
@@ -12,9 +12,9 @@
     </h3>
     <div class="ui attached segment">        
       {{map-existing-conditions project=project}}
-
-      {{table-existing-conditions data=project.existingConditions}}
     </div>
+
+    {{table-existing-conditions project=project}}
   </div>
 </div>
 

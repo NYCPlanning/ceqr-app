@@ -2,6 +2,7 @@ import Controller from '@ember/controller';
 import { alias } from '@ember/object/computed';
 import carto from 'carto-promises-utility/utils/carto';
 import ExistingConditions from '../analysis/existingConditions';
+import Building from '../analysis/building';
 
 import round from '../utils/round';
 
@@ -14,7 +15,7 @@ export default Controller.extend({
       this.get('model.project').save().catch(error => {
         console.log(error);
       }).then((project) => {
-        this.transitionToRoute('project.show.project-details', project.id);
+        this.transitionToRoute('project.show.analysis-threshold', this.get('model.project.id'));
       });
     },
     
@@ -40,7 +41,12 @@ export default Controller.extend({
         WHERE ST_Intersects(pluto.the_geom, subdistricts.the_geom)
       `);
       this.set('model.project.subdistricts', subdistricts.map(
-        (f) => ({district: f.district, subdistrict: f.subdistrict, cartodb_id: f.cartodb_id})
+        (f) => ({
+          district: f.district,
+          subdistrict: f.subdistrict,
+          cartodb_id: f.cartodb_id,
+          id: parseInt(`${f.district}${f.subdistrict}`)
+        })
       ));
 
       // Set bluebook
@@ -55,9 +61,8 @@ export default Controller.extend({
           AND organization_name not like '%25YOUNG ADULT BORO CENTER%25'
           AND (district, subd) IN (VALUES ${this.get('model.project.subdistrictSqlPairs').join(',')})
       `);
-      this.set('model.project.bluebook', bluebook.map(
-        (b) => ({cartodb_id: b.cartodb_id})
-      ));
+      this.set('model.project.bluebookCartoIds', bluebook.mapBy('cartodb_id'))
+
 
       // Set LCGMS
       let lcgms = await carto.SQL(`
@@ -65,6 +70,9 @@ export default Controller.extend({
           lcgms.the_geom,
           lcgms.open_date,
           lcgms.location_name AS name,
+          lcgms.primary_address AS address,
+          lcgms.building_code AS bldg_id,
+          lcgms.location_code AS org_id,
           lcgms.grades,
           lcgms.cartodb_id,
           subdistricts.schooldist AS district,
@@ -78,9 +86,34 @@ export default Controller.extend({
           AND managed_by_name = 'DOE'
           AND ST_Intersects(subdistricts.the_geom, lcgms.the_geom)   
       `);
-      this.set('model.project.lcgms', lcgms.map((b) => b));
+      this.set('model.project.lcgmsCartoIds', lcgms.mapBy('cartodb_id'))
 
-      // Existing conditions
+      let lcgmsBuildings = {
+        ps: [],
+        is: [],
+        hs: [],
+      };
+
+      lcgms.forEach((b) => {
+        let school = Building.create({
+          ...b,
+          type: 'lcgms'
+        }) 
+        
+        let grades = school.grades.split(',');
+        
+        let isPs = grades.some(g => ['0K','01','02','03','04','05'].includes(g));
+        let isIs = grades.some(g => ['06','07','08'].includes(g));
+        let isHs = grades.some(g => ['09','10','11','12'].includes(g));
+
+        if (isPs) lcgmsBuildings.ps.push(school);
+        if (isIs) lcgmsBuildings.is.push(school);
+        if (isHs) lcgmsBuildings.hs.push(school);
+      });
+
+      this.set('model.project.lcgms', lcgmsBuildings);
+
+      // Set Bluebook
       let psBluebook = await carto.SQL(`
         SELECT
           district,
@@ -101,7 +134,7 @@ export default Controller.extend({
         WHERE cartodb_id IN (${this.get('model.project.bluebookCartoIds').join(',')})
           AND org_level like '%25PS%25'
       `);
-      psBluebook.map((school) => school.type = 'bluebook');
+
 
       let isBluebook = await carto.SQL(`
         SELECT
@@ -123,54 +156,20 @@ export default Controller.extend({
         WHERE cartodb_id IN (${this.get('model.project.bluebookCartoIds').join(',')})
           AND org_level like '%25IS%25'
       `);
-      isBluebook.map((school) => school.type = 'bluebook');
 
-      let lcgmsSchools = {
-        ps: [],
-        is: [],
+      let bluebookBuildings = {
+        ps: psBluebook.map((b) => Building.create({
+          ...b,
+          type: 'bluebook'
+        })),
+        is: isBluebook.map((b) => Building.create({
+          ...b,
+          type: 'bluebook'
+        })),
         hs: [],
-      };
+      }
 
-      this.get('model.project.lcgms').forEach((school) => {
-        school.type = 'lcgms';
-        
-        let grades = school.grades.split(',');
-        
-        let isPs = grades.some(g => ['0K','01','02','03','04','05'].includes(g));
-        let isIs = grades.some(g => ['06','07','08'].includes(g));
-        let isHs = grades.some(g => ['09','10','11','12'].includes(g));
-
-        if (isPs) lcgmsSchools.ps.push(school);
-        if (isIs) lcgmsSchools.is.push(school);
-        if (isHs) lcgmsSchools.hs.push(school);
-      });
-
-      let ec = this.get('model.project.subdistricts').map((s) => {
-        return {
-          district: s.district,
-          subdistrict: s.subdistrict,
-          sdId: parseInt(`${s.district}${s.subdistrict}`),
-
-          ps: ExistingConditions.create({
-            bluebookBuildings: psBluebook.filter(
-              (b) => (b.district === s.district && b.subdistrict === s.subdistrict)
-            ),
-            lcgmsBuildings: lcgmsSchools.ps.filter(
-              (b) => (b.district === s.district && b.subdistrict === s.subdistrict)
-            ),
-          }),
-          is: ExistingConditions.create({
-            bluebookBuildings: isBluebook.filter(
-              (b) => (b.district === s.district && b.subdistrict === s.subdistrict)
-            ),
-            lcgmsBuildings: lcgmsSchools.is.filter(
-              (b) => (b.district === s.district && b.subdistrict === s.subdistrict)
-            ),
-          }),
-        }
-      });
-      this.set('model.project.existingConditions', ec);
-
+      this.set('model.project.bluebook', bluebookBuildings);
 
       await this.get('model.project').save().catch(error => {
         console.log(error);

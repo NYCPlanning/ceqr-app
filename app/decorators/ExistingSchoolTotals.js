@@ -2,7 +2,7 @@ import EmberObject from '@ember/object';
 import { computed } from '@ember/object';
 import round from '../utils/round';
 
-export default EmberObject.extend({  
+export default EmberObject.extend({
   buildings: computed('bluebook.@each', 'lcgms.@each', function() {
     return (
       this.get('bluebook')

@@ -1,0 +1,61 @@
+<div class="ui attached icon warning message">
+  <i class="exclamation icon"></i>
+  <div class="content">
+    <div class="header">
+      Missing data
+    </div>
+    <p>Please filling in the missing fields below</p>
+  </div>
+</div>
+
+<h3 class="ui attached segment">
+  <div class="ui green ribbon label">Action 1</div> Recently Built Schools [from: LCMGS]
+</h3>
+
+<table class="ui celled attached sortable table">
+  <thead>
+    <tr>
+      <th class="one wide">Org. ID</th>
+      <th class="five wide">School Name</th>
+      <th class="five wide">Address</th>
+      <th class="one wide">Grades<br />Served</th>
+      <th class="one wide">Enrollment</th>
+      <th class="one wide">Target<br />Capacity</th>
+      <th class="one wide">Available<br />Seats</th>
+      <th class="one wide">Utilization (%)</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    {{#each buildings as |b|}}
+      <tr class="{{b.type}}">
+        <td>{{b.org_id}}</td>
+        <td>
+          <i class="circle icon"></i>
+          {{b.name}}
+          {{#if (not-eq b.name b.bldg_name)}}
+            <br /><em>{{b.bldg_name}}</em>
+          {{/if}}
+        </td>
+        <td>{{b.address}}</td>
+        <td>{{b.grades}}</td>
+        <td class="warning">
+          <div class="ui input transparent edit-cell">
+            {{input type="number" value=b.enroll placeholder="0"}}
+          </div>
+        </td>
+        <td class="warning">
+          <div class="ui input transparent warning edit-cell">
+            {{input type="number" value=b.capacity placeholder="0"}}
+          </div>
+        </td>
+        <td>{{b.seats}}</td>
+        <td>{{if b.excluded "N/A" b.utilization}}</td>
+      </tr>
+    {{/each}}
+  </tbody>
+</table>
+
+<div class="ui segment bottom attached">
+  <button class="ui primary button" onClick={{action "saveProject"}}>Save</button>
+</div>

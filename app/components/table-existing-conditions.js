@@ -1,6 +1,8 @@
 import Component from '@ember/component';
 import { computed } from '@ember/object';
 
+import ExistingConditions from '../analysis/existingConditions';
+
 export default Component.extend({  
   activeSchoolsLevel: 'ps',
   activeSdId: null,
@@ -8,16 +10,17 @@ export default Component.extend({
 
   didReceiveAttrs() {
     this._super(...arguments);
-    const data = this.get('data');
-    if (data) {
-      this.set('activeSdId', (data[0].sdId).toString());
-      this.set('defaultText', `District ${data[0].district} - Subdistrict ${data[0].subdistrict}`);
+    const project = this.get('project');
+    if (project) {
+      this.set('activeSdId', (project.get('subdistricts')[0].id).toString());
+      this.set('defaultText', `District ${project.get('subdistricts')[0].district} - Subdistrict ${project.get('subdistricts')[0].subdistrict}`);
     }
   },
 
   table: computed('activeSdId', 'activeSchoolsLevel', function() {
-    let subdistrict = this.get('data').findBy('sdId', parseInt(this.get('activeSdId')));    
-    return subdistrict[this.get('activeSchoolsLevel')];
+    return ExistingConditions.create({
+      lcgms: this.get('project').get('lcgms')[this.get('activeSchoolsLevel')],
+      bluebook: this.get('project').get('bluebook')[this.get('activeSchoolsLevel')]
+    })
   }),
-
 });

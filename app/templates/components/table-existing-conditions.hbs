@@ -2,13 +2,13 @@
 Get Mona to include correct grades served and citywide & alternative schools
  --}}
 
-<div class="ui secondary pointing menu">
+<div class="ui secondary pointing menu attached">
   {{#ui-dropdown class="item" selected=activeSdId onChange=(action (mut activeSdId))}}
     <div class="default text">{{defaultText}}</div>
     <i class="dropdown icon"></i>
     <div class="menu">
-      {{#each data as |sd|}}
-        <div data-value={{sd.sdId}} class="item">
+      {{#each project.subdistricts as |sd|}}
+        <div data-value={{sd.id}} class="item">
           District {{sd.district}} - Subdistrict {{sd.subdistrict}}
         </div>
       {{/each}}
@@ -23,7 +23,7 @@ Get Mona to include correct grades served and citywide & alternative schools
   </a>
 </div>
 
-<table class="ui celled sortable table">
+<table class="ui celled sortable table attached bottom">
   <thead>
     <tr>
       <th class="one wide">Org. ID</th>
@@ -39,49 +39,22 @@ Get Mona to include correct grades served and citywide & alternative schools
 
   <tbody>
     {{#each table.buildings as |b|}}
-      {{#if (eq b.type 'lcgms')}}
-        <tr class="{{b.type}} warning">
-          <td>{{b.org_id}}</td>
-          <td>
-            <i class="circle icon"></i>
-            {{b.name}}
-            {{#if (not-eq b.name b.bldg_name)}}
-              <br /><em>{{b.bldg_name}}</em>
-            {{/if}}
-          </td>
-          <td>{{b.address}}</td>
-          <td>{{b.grades}}</td>
-          <td>
-            <div class="ui input transparent edit-cell">
-              {{input type="number" value=b.enroll placeholder="0"}}
-            </div>
-          </td>
-          <td>
-            <div class="ui input transparent edit-cell">
-              {{input type="number" value=b.capacity placeholder="0"}}
-            </div>
-          </td>
-          <td>{{b.seats}}</td>
-          <td>{{if b.excluded "N/A" b.utilization}}</td>
-        </tr>
-      {{else}}
-        <tr class={{b.type}}>
-          <td>{{b.org_id}}</td>
-          <td>
-            <i class="circle icon"></i>
-            {{b.name}}
-            {{#if (not-eq b.name b.bldg_name)}}
-              <br /><em>{{b.bldg_name}}</em>
-            {{/if}}
-          </td>
-          <td>{{b.address}}</td>
-          <td>{{b.grades}}</td>
-          <td>{{b.enroll}}</td>
-          <td>{{if b.excluded "N/A" b.capacity}}</td>
-          <td>{{b.seats}}</td>
-          <td>{{if b.excluded "N/A" b.utilization}}</td>
-        </tr>
-      {{/if}}
+      <tr class={{b.type}}>
+        <td>{{b.org_id}}</td>
+        <td>
+          <i class="circle icon"></i>
+          {{b.name}}
+          {{#if (not-eq b.name b.bldg_name)}}
+            <br /><em>{{b.bldg_name}}</em>
+          {{/if}}
+        </td>
+        <td>{{b.address}}</td>
+        <td>{{b.grades}}</td>
+        <td>{{b.enroll}}</td>
+        <td>{{if b.excluded "N/A" b.capacity}}</td>
+        <td>{{b.seats}}</td>
+        <td>{{if b.excluded "N/A" b.utilization}}</td>
+      </tr>
     {{/each}}
   </tbody>
 
