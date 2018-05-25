@@ -219,7 +219,8 @@ export default Controller.extend({
         ON projects.bbl = construction.bbl
         WHERE ST_Intersects(subdistricts.the_geom, projects.the_geom)
       `);
-      this.set('model.project.scaProjects', scaProjects);
+
+      this.set('model.project.scaProjects', scaProjects.map((b) => Building.create(b)));
 
       let futureNoAction = this.get('model.project.subdistricts').map((s) => {
 
@@ -248,13 +249,23 @@ export default Controller.extend({
         );
 
         let capacityTotal = {
-          ps: this.get('model.project.existingConditions').find(
-            (b) => (b.district === s.district && b.subdistrict === s.subdistrict)
-          ).ps.get('capacityTotal'),
+          ps: this.get('model.project.existingSchoolTotals').filter(
+            (b) => (b.level === 'ps')
+          ).reduce(function(acc, value) {
+            return acc + value.get('capacityTotal');
+          }, 0),
   
-          is: this.get('model.project.existingConditions').find(
-            (b) => (b.district === s.district && b.subdistrict === s.subdistrict)
-          ).is.get('capacityTotal')
+          is: this.get('model.project.existingSchoolTotals').filter(
+            (b) => (b.level === 'is')
+          ).reduce(function(acc, value) {
+            return acc + value.get('capacityTotal');
+          }, 0),
+
+          hs: this.get('model.project.existingSchoolTotals').filter(
+            (b) => (b.level === 'hs')
+          ).reduce(function(acc, value) {
+            return acc + value.get('capacityTotal');
+          }, 0),
         }
 
         return {

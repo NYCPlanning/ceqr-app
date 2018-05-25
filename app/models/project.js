@@ -80,7 +80,7 @@ export default DS.Model.extend({
     return this.get('lcgms').mapBy('cartodb_id');
   }),
 
-  scaProjects: DS.attr('', { defaultValue() { return []; } }),
+  scaProjects: DS.attr('buildings', { defaultValue() { return []; } }),
   scaProjectsCartoIds: computed('scaProjects', function() {
     return this.get('scaProjects').mapBy('cartodb_id');
   }),
