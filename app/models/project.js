@@ -58,7 +58,7 @@ export default DS.Model.extend({
   }),
 
 
-  // Analysis
+  // Subdistricts
   subdistricts: DS.attr('', { defaultValue() { return []; } }),
   subdistrictCartoIds: computed('subdistricts', function() {
     return this.get('subdistricts').mapBy('cartodb_id');
@@ -69,33 +69,63 @@ export default DS.Model.extend({
     );
   }),
 
-  bluebook: DS.attr('buildings', { defaultValue() {
-    return { ps: [], is: [], hs: [] };
-  } }),
-  bluebookCartoIds: DS.attr('', { defaultValue() { return []; } }),
+  // By Subdistrict
+  bluebook: DS.attr('buildings', { defaultValue() { return []; } }),
+  bluebookCartoIds: computed('bluebook', function() {
+    return this.get('bluebook').mapBy('cartodb_id');
+  }),
 
-  lcgms: DS.attr('buildings', { defaultValue() {
-    return { ps: [], is: [], hs: [] };
-  } }),
-  lcgmsCartoIds: DS.attr('', { defaultValue() { return []; } }),
+  lcgms: DS.attr('buildings', { defaultValue() { return []; } }),
+  lcgmsCartoIds: computed('lcgms', function() {
+    return this.get('lcgms').mapBy('cartodb_id');
+  }),
 
   scaProjects: DS.attr('', { defaultValue() { return []; } }),
   scaProjectsCartoIds: computed('scaProjects', function() {
     return this.get('scaProjects').mapBy('cartodb_id');
   }),
-  
-  capacityTotals: computed('bluebook', 'lcgms', function() {
-
-  }),
 
   // Tables
+  existingSchoolTotals: computed('subdistricts', 'lcgms', 'bluebook', function() {
+    let tables = [];
 
+    this.get('subdistricts').map((sd) => {
+      tables.push(ExistingSchoolTotals.create({
+        ...sd,
+        level: 'ps',
+        lcgms: this.get('lcgms').filter(
+          (b) => (b.district === sd.district && b.subdistrict === sd.subdistrict && b.level === 'ps')
+        ),
+        bluebook: this.get('bluebook').filter(
+          (b) => (b.district === sd.district && b.subdistrict === sd.subdistrict && b.level === 'ps')
+        )
+      }));
 
-  existingSchoolTotals: computed('lcgms', 'bluebook', function() {
-    return ExistingSchoolTotals.create({
-      lcgms: this.get('project').get('lcgms')[this.get('activeSchoolsLevel')],
-      bluebook: this.get('project').get('bluebook')[this.get('activeSchoolsLevel')]
-    })
+      tables.push(ExistingSchoolTotals.create({
+        ...sd,
+        level: 'is',
+        lcgms: this.get('lcgms').filter(
+          (b) => (b.district === sd.district && b.subdistrict === sd.subdistrict && b.level === 'is')
+        ),
+        bluebook: this.get('bluebook').filter(
+          (b) => (b.district === sd.district && b.subdistrict === sd.subdistrict && b.level === 'is')
+        )
+      }));
+
+      tables.push(ExistingSchoolTotals.create({
+        ...sd,
+        level: 'hs',
+        lcgms: this.get('lcgms').filter(
+          (b) => (b.district === sd.district && b.subdistrict === sd.subdistrict && b.level === 'hs')
+        ),
+        bluebook: this.get('bluebook').filter(
+          (b) => (b.district === sd.district && b.subdistrict === sd.subdistrict && b.level === 'hs')
+        )
+      }));
+    });
+
+    return tables;
   }),
+
   futureNoAction: DS.attr('', { defaultValue() { return []; } })
 });

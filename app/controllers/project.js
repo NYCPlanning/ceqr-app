@@ -1,8 +1,8 @@
 import Controller from '@ember/controller';
 import { alias } from '@ember/object/computed';
 import carto from 'carto-promises-utility/utils/carto';
-import ExistingConditions from '../analysis/existingConditions';
-import Building from '../analysis/building';
+
+import Building from '../decorators/Building';
 
 import round from '../utils/round';
 
@@ -49,9 +49,30 @@ export default Controller.extend({
         })
       ));
 
-      // Set bluebook
+
+      // Set Bluebook
       let bluebook = await carto.SQL(`
-        SELECT the_geom, district, subd AS subdistrict, cartodb_id
+        SELECT
+          cartodb_id,
+          district,
+          subd AS subdistrict,
+          bldg_name,
+          CASE WHEN bldg_excl is null THEN false 
+              ELSE true END
+              AS excluded,
+          bldg_id,
+          org_id,
+          org_level,
+          organization_name AS name,
+          address,
+          org_level AS grades,
+
+          ps_capacity,
+          ROUND(ps_enroll) AS ps_enroll,
+          ms_capacity,
+          ROUND(ms_enroll) AS ms_enroll,
+          hs_capacity,
+          ROUND(hs_enroll) AS hs_enroll
         FROM doe_bluebook_v1617
         WHERE charter != 'Charter'
           AND org_enroll is not null
@@ -61,7 +82,36 @@ export default Controller.extend({
           AND organization_name not like '%25YOUNG ADULT BORO CENTER%25'
           AND (district, subd) IN (VALUES ${this.get('model.project.subdistrictSqlPairs').join(',')})
       `);
-      this.set('model.project.bluebookCartoIds', bluebook.mapBy('cartodb_id'))
+
+      let bluebookBuildings = [];
+
+      bluebook.forEach((b) => {
+        if (/PS/.test(b.org_level)) bluebookBuildings.push(Building.create({
+          ...b,
+          level: 'ps',
+          type: 'bluebook',
+          capacity: b.ps_capacity,
+          enroll: b.ps_enroll
+        }));
+
+        if (/IS/.test(b.org_level)) bluebookBuildings.push(Building.create({
+          ...b,
+          level: 'is',
+          type: 'bluebook',
+          capacity: b.ms_capacity,
+          enroll: b.ms_enroll
+        }));
+
+        if (/HS/.test(b.org_level)) bluebookBuildings.push(Building.create({
+          ...b,
+          level: 'hs',
+          type: 'bluebook',
+          capacity: b.hs_capacity,
+          enroll: b.hs_enroll
+        }));
+      });
+
+      this.set('model.project.bluebook', bluebookBuildings);
 
 
       // Set LCGMS
@@ -86,95 +136,43 @@ export default Controller.extend({
           AND managed_by_name = 'DOE'
           AND ST_Intersects(subdistricts.the_geom, lcgms.the_geom)   
       `);
-      this.set('model.project.lcgmsCartoIds', lcgms.mapBy('cartodb_id'))
 
-      let lcgmsBuildings = {
-        ps: [],
-        is: [],
-        hs: [],
-      };
+      let lcgmsBuildings = [];
 
       lcgms.forEach((b) => {
-        let school = Building.create({
-          ...b,
-          type: 'lcgms'
-        }) 
-        
-        let grades = school.grades.split(',');
+        let grades = b.grades.split(',');
         
         let isPs = grades.some(g => ['0K','01','02','03','04','05'].includes(g));
         let isIs = grades.some(g => ['06','07','08'].includes(g));
         let isHs = grades.some(g => ['09','10','11','12'].includes(g));
 
-        if (isPs) lcgmsBuildings.ps.push(school);
-        if (isIs) lcgmsBuildings.is.push(school);
-        if (isHs) lcgmsBuildings.hs.push(school);
+        if (isPs) lcgmsBuildings.push(Building.create({
+          ...b,
+          level: 'ps',
+          type: 'lcgms'
+        }));
+        
+        if (isIs) lcgmsBuildings.push(Building.create({
+          ...b,
+          level: 'is',
+          type: 'lcgms'
+        }));
+        
+        if (isHs) lcgmsBuildings.push(Building.create({
+          ...b,
+          level: 'hs',
+          type: 'lcgms'
+        }));
       });
 
       this.set('model.project.lcgms', lcgmsBuildings);
 
-      // Set Bluebook
-      let psBluebook = await carto.SQL(`
-        SELECT
-          district,
-          subd AS subdistrict,
-          bldg_name,
-          CASE WHEN bldg_excl is null THEN false 
-              ELSE true END
-              AS excluded,
-          bldg_id,
-          org_id,
-          org_level,
-          organization_name AS name,
-          address,
-          org_level AS grades,
-          ps_capacity AS capacity,
-          ROUND(ps_enroll) AS enroll
-        FROM doe_bluebook_v1617
-        WHERE cartodb_id IN (${this.get('model.project.bluebookCartoIds').join(',')})
-          AND org_level like '%25PS%25'
-      `);
 
-
-      let isBluebook = await carto.SQL(`
-        SELECT
-          district,
-          subd AS subdistrict,
-          bldg_name,
-          CASE WHEN bldg_excl is null THEN false 
-            ELSE true END
-            AS excluded,
-          bldg_id,
-          org_id,
-          org_level,
-          organization_name AS name,
-          address,
-          org_level AS grades,
-          ms_capacity AS capacity,
-          ROUND(ms_enroll) AS enroll
-        FROM doe_bluebook_v1617
-        WHERE cartodb_id IN (${this.get('model.project.bluebookCartoIds').join(',')})
-          AND org_level like '%25IS%25'
-      `);
-
-      let bluebookBuildings = {
-        ps: psBluebook.map((b) => Building.create({
-          ...b,
-          type: 'bluebook'
-        })),
-        is: isBluebook.map((b) => Building.create({
-          ...b,
-          type: 'bluebook'
-        })),
-        hs: [],
-      }
-
-      this.set('model.project.bluebook', bluebookBuildings);
-
+      // Save Project
       await this.get('model.project').save().catch(error => {
         console.log(error);
       }).then((project) => {
-        this.transitionToRoute('project.show.existing-conditions', project.id);
+        this.transitionToRoute('project.show.existing-conditions', this.get('model.project.id'));
       });
     },
 
