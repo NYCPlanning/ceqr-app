@@ -36,7 +36,6 @@ export default Service.extend({
     `, 'geojson');
   }).drop(),
 
-
   bluebookGeojson: computed('project.bluebookCartoIds.[]', function() {
     return this.get('fetchBluebookGeojson').perform();
   }),

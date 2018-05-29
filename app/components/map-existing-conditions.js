@@ -1,10 +1,9 @@
 import Component from '@ember/component';
 import { inject as service } from '@ember/service';
-// import bbox from 'npm:@turf/bbox';
+import bbox from 'npm:@turf/bbox';
 
 /*
 TODO:
-- Center on extent of geometries
 - Popups on map for: bbl, subdistrict, schools
 */
 
@@ -22,17 +21,13 @@ export default Component.extend({
   hsAnalysis: false,
   
   // Map attributes
-  map: null,
-  // mapZoomTo(geojson) {
-  //   let extent = bbox(geojson);
-  //   console.log(extent);
-  //   this.get('map').fitBounds(bbox);
-  // },
+  // map: null,
 
   actions: {
     handleMapLoad(map) {
-      this.set('map', map);
-      window.map = map;
+      this.get('mapdata.subdistrictGeojson').then(
+        (g) => map.fitBounds(bbox.default(g))
+      );
     },
   }
 });

@@ -177,10 +177,12 @@ export default Controller.extend({
     },
 
     saveExistingConditions: async function() {
+      // TODO: Add caveat to projections over 2025
+      
       let enrollmentProjections = await carto.SQL(`
         SELECT projected_ps_dist, projected_ms_dist, CAST(district AS numeric)
         FROM ceqr_sf_projection_2016_2025
-        WHERE school_year LIKE '${this.get('model.project.buildYear')}%25'
+        WHERE school_year LIKE '${this.get('model.project.buildYearCalculated')}%25'
           AND district IN (${this.get('model.project.subdistricts').map((d) => `'${d.district}'`).join(',')})
       `);
 
@@ -273,7 +275,6 @@ export default Controller.extend({
           subdistrict: s.subdistrict,
           sdId: parseInt(`${s.district}${s.subdistrict}`),
 
-          scaUnderConstruction,
           ps: {
             projectedEnroll: projectedEnroll.ps,
             projectedNewStudents: projectedNewStudents.ps,

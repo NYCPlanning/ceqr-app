@@ -14,6 +14,10 @@ export default DS.Model.extend({
   name: DS.attr('string'),
   bbls: DS.attr('', { defaultValue() { return []; } }),
   buildYear: DS.attr('number'),
+  buildYearCalculated: computed('buildYearCalculated', function() {
+    return (parseInt(this.get('buildYear')) > 2025) ? 2025 : this.get('buildYear');
+  }),
+  
   borough: DS.attr('string', { defaultValue: 'Bronx' }),
 
   // Units

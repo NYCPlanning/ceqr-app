@@ -2,29 +2,26 @@
   <div class="ui green ribbon label">Action 1</div>SCA Schools Under Construction [from: SCA Construction]
 </h3>
 
-<table class="ui attached celled table">
-  <thead>
-    <tr>
-      <th>School Under Construction</th>
-      <th>Estimated Capacity</th>
-      <th>Estimated Completion Date</th>
-      <th>Data as Of</th>
-    </tr>
-  </thead>
-
-  <tbody>
-    {{#each project.futureNoAction as |p|}}
-      <thead>
-        <th colspan="4">District {{p.district}} - Subdistrict {{p.subdistrict}}</th>
-      </thead>
+{{#each project.futureNoAction as |p|}}
+  <table class="ui attached celled table">
+    <thead>
+      <th colspan="4">District {{p.district}} - Subdistrict {{p.subdistrict}}</th>
       <tr>
-        {{#each p.scaUnderConstruction as |b|}}
-          <td>{{b.school}}</td>
+        <th>School Under Construction</th>
+        <th>Estimated Capacity</th>
+        <th>Estimated Completion Date</th>
+        <th>Data as Of</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each project.scaProjects as |b|}}
+        <tr>
+          <td>{{b.name}}</td>
           <td></td>
           <td></td>
           <td>{{moment-format b.data_as_of 'MM/DD/YYYY'}}</td>
-        {{/each}}
-      </tr>
-    {{/each}}
-  </tbody>
-</table>
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
+{{/each}}
