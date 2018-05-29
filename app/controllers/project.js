@@ -200,11 +200,13 @@ export default Controller.extend({
 
       let scaProjects = await carto.SQL(`
         SELECT
-          projects.the_geom,
           projects.bbl,
-          projects.school,
+          projects.name,
           projects.cartodb_id,
-          construction.data_as_of,
+          projects.bldg_id,
+          projects.capacity,
+          projects.start_date,
+          projects.planned_end_date,
           subdistricts.schooldist AS district,
           subdistricts.zone AS subdistrict
         FROM (
@@ -212,13 +214,7 @@ export default Controller.extend({
             FROM doe_schoolsubdistricts_v2017
             WHERE cartodb_id IN (${this.get('model.project.subdistrictCartoIds').join(',')})
           ) AS subdistricts,
-          sca_project_sites_v03222018 AS projects
-        JOIN (
-          SELECT bbl, MAX(to_timestamp(data_as_of, 'MM/DD/YYYY')) AS data_as_of
-          FROM sca_project_construction_v02222018
-          GROUP BY bbl
-        ) construction 
-        ON projects.bbl = construction.bbl
+          sca_capital_projects_v032018 AS projects
         WHERE ST_Intersects(subdistricts.the_geom, projects.the_geom)
       `);
 
@@ -246,9 +242,6 @@ export default Controller.extend({
             (i) => (i.district === s.district && i.subdistrict === s.subdistrict && i.level === 'MS')
           ).students
         };
-        let scaUnderConstruction = scaProjects.filter(
-          (b) => (b.district === s.district && b.subdistrict === s.subdistrict)
-        );
 
         let capacityTotal = {
           ps: this.get('model.project.existingSchoolTotals').filter(

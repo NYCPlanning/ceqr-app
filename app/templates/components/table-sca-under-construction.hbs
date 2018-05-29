@@ -17,8 +17,8 @@
       {{#each project.scaProjects as |b|}}
         <tr>
           <td>{{b.name}}</td>
-          <td></td>
-          <td></td>
+          <td>{{b.capacity}}</td>
+          <td>{{moment-format b.planned_end_date 'MM/DD/YYYY'}}</td>
           <td>{{moment-format b.data_as_of 'MM/DD/YYYY'}}</td>
         </tr>
       {{/each}}
