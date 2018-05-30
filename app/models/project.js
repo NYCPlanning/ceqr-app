@@ -89,6 +89,19 @@ export default DS.Model.extend({
     return this.get('scaProjects').mapBy('cartodb_id');
   }),
 
+  buildings: computed('bluebook', 'lcgms', 'scaProjects', function() {
+    return this.get('bluebook').concat(
+      this.get('lcgms')
+    ).concat(
+      this.get('scaProjects')
+    ).compact();
+  }),
+  buildingsBldgIds: computed('buildings', function() {
+    return this.get('buildings').mapBy('bldg_id').uniq();
+  }),
+
+  doeUtilChanges: DS.attr('', { defaultValue() { return []; } }),
+
   // Tables
   existingSchoolTotals: computed('subdistricts', 'lcgms', 'bluebook', function() {
     let tables = [];

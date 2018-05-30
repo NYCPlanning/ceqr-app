@@ -220,6 +220,18 @@ export default Controller.extend({
 
       this.set('model.project.scaProjects', scaProjects.map((b) => Building.create(b)));
 
+      let doeUtilChanges = await carto.SQL(`
+        SELECT
+          at_scale_year,
+          bldg_id,
+          bup_url,
+          eis_url,
+          title
+        FROM doe_significant_utilization_changes_v022018
+        WHERE bldg_id IN (${this.get('model.project.buildingsBldgIds').map(b => `'${b}'`).join(',')})
+      `);
+      this.set('model.project.doeUtilChanges', doeUtilChanges);
+
       let futureNoAction = this.get('model.project.subdistricts').map((s) => {
 
         let dEnrollmentProjection = enrollmentProjections.findBy('district', s.district);

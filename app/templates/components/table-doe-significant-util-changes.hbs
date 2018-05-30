@@ -1,3 +1,35 @@
 <h3 class="ui attached segment">
   <div class="ui green ribbon label">Action 2</div>DOE Significant Utilitization Changes
 </h3>
+
+{{#if project.doeUtilChanges}}
+  <table class="ui attached celled table">
+    <thead>
+      <tr>
+        <th class="one wide">Bldg. ID</th>
+        <th class="one wide">At Scale Year</th>
+        <th class="eight wide">Proposal Title</th>
+        <th class="two wide">Links</th>
+        <th class="two wide">Future Capacity</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each project.doeUtilChanges as |b|}}
+        <tr>
+          <td>{{b.bldg_id}}</td>
+          <td>{{b.at_scale_year}}</td>
+          <td>{{b.title}}</td>
+          <td>
+            {{#if b.bup_url}}<a href={{b.bup_url}} target="_blank">BUP <i class="external alternate icon"></i></a>{{/if}}
+            {{#if b.eis_url}}<a href={{b.eis_url}} target="_blank">EIS <i class="external alternate icon"></i></a>{{/if}}
+          </td>
+          <td class="warning">
+            <div class="ui input transparent edit-cell">
+              {{input type="number" value=b.capacity placeholder="0"}}
+            </div>
+          </td>
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
+{{/if}}
