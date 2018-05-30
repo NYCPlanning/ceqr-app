@@ -1,3 +1,77 @@
 <h3 class="ui attached segment">
   <div class="ui green ribbon label">Action 3</div>Additional No-Action Residential Development
 </h3>
+
+<div class="ui attached segment">
+  <form class="ui form" {{action 'addResDev' resdev on='submit'}}>
+    <div class="inline fields">
+      <div class="field">
+        {{input type="string" value=resdev.name placeholder="Project Name"}}
+      </div>
+      <div class="field">
+        {{input type="number" value=resdev.year placeholder="Est. Built Year"}}
+      </div>
+      <div class="field">
+        {{input type="number" value=resdev.total_units placeholder="Total Units"}}
+      </div>
+
+      <button type="submit" class="ui button primary">Add</button>
+    </div>
+  </form>
+</div>
+
+{{!-- <table class="ui attached celled table">
+  <tbody>
+    <tr class="warning">
+      <td class="eight wide">
+        <div class="ui input transparent">
+          {{input type="string" value=resdev.name placeholder="Project Name"}}
+        </div>
+      </td>
+
+      <td class="two wide">
+        <div class="ui input transparent">
+          {{input type="number" value=resdev.year placeholder="Est. Built Year"}}
+        </div>
+      </td>
+
+      <td class="two wide">
+        <div class="ui input transparent">
+          {{input type="number" value=resdev.total_units placeholder="Total Units"}}
+        </div>
+      </td>
+
+      <td>
+        <button class="ui button primary" {{action 'addResDev' resdev}}>Add</button>
+      </td>
+    </tr>
+  </tbody>
+</table> --}}
+
+{{#if project.futureResidentialDev}}
+  <table class="ui attached celled table">
+    <thead>
+      <tr>
+        <th class="seven wide">Project Name</th>
+        <th class="two wide">Est. Build Year</th>
+        <th class="two wide">Total Units</th>
+        <th class="two wide">PS Students</th>
+        <th class="two wide">IS Students</th>
+        <th></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      {{#each project.futureResidentialDev as |r|}}
+        <tr>
+          <td>{{r.name}}</td>
+          <td>{{r.year}}</td>
+          <td>{{r.total_units}}</td>
+          <td></td>
+          <td></td>
+          <td><button class="ui button red" {{action 'removeResDev' r}}>Delete</button></td>
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
+{{/if}}

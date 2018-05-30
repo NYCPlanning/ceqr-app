@@ -102,6 +102,8 @@ export default DS.Model.extend({
 
   doeUtilChanges: DS.attr('', { defaultValue() { return []; } }),
 
+  futureResidentialDev: DS.attr('', { defaultValue() { return []; } }),
+
   // Tables
   existingSchoolTotals: computed('subdistricts', 'lcgms', 'bluebook', function() {
     let tables = [];

@@ -3,33 +3,57 @@
 </h3>
 
 {{#if project.doeUtilChanges}}
-  <table class="ui attached celled table">
-    <thead>
-      <tr>
-        <th class="one wide">Bldg. ID</th>
-        <th class="one wide">At Scale Year</th>
-        <th class="eight wide">Proposal Title</th>
-        <th class="two wide">Links</th>
-        <th class="two wide">Future Capacity</th>
-      </tr>
-    </thead>
-    <tbody>
-      {{#each project.doeUtilChanges as |b|}}
+  {{#each tables as |t|}}
+    <h3 class="ui attached header">Building ID{{t.bldg_id}}</h3>
+    
+    <table class="ui attached celled table">
+      <thead>
         <tr>
-          <td>{{b.bldg_id}}</td>
-          <td>{{b.at_scale_year}}</td>
-          <td>{{b.title}}</td>
-          <td>
-            {{#if b.bup_url}}<a href={{b.bup_url}} target="_blank">BUP <i class="external alternate icon"></i></a>{{/if}}
-            {{#if b.eis_url}}<a href={{b.eis_url}} target="_blank">EIS <i class="external alternate icon"></i></a>{{/if}}
-          </td>
-          <td class="warning">
-            <div class="ui input transparent edit-cell">
-              {{input type="number" value=b.capacity placeholder="0"}}
-            </div>
-          </td>
+          <th class="eight wide">School Name</th>
+          <th class="one wide">Level</th>
+          <th class="two wide">Links</th>
+          <th class="two wide">Future Capacity</th>
         </tr>
-      {{/each}}
-    </tbody>
-  </table>
+      </thead>
+      <tbody>
+        {{#each t.buildings as |b|}}
+          <tr>
+            <td>{{b.name}}</td>
+            <td>{{b.level}}</td>
+            <td>{{b.bldg_name}}</td>
+            <td class="warning">
+              <div class="ui input transparent edit-cell">
+                {{input type="number" value=b.capacity placeholder="0"}}
+              </div>
+            </td>
+          </tr>
+        {{/each}}
+      </tbody>
+    </table>
+
+    <h4 class="ui attached header">DOE Utilization Change Notices</h4>
+
+    <table class="ui attached celled table">
+      <thead>
+        <tr>
+          <th class="one wide">At Scale Year</th>
+          <th class="eight wide">Proposal Title</th>
+          <th class="two wide">Links</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each t.doe_notices as |n|}}
+          <tr>
+            <td>{{n.at_scale_year}}</td>
+            <td>{{n.title}}</td>
+            <td>
+              {{#if n.bup_url}}<a href={{n.bup_url}} target="_blank">BUP <i class="external alternate icon"></i></a>{{/if}}
+              {{#if n.eis_url}}<a href={{n.eis_url}} target="_blank">EIS <i class="external alternate icon"></i></a>{{/if}}
+            </td>
+          </tr>
+        {{/each}}
+      </tbody>
+    </table>
+
+  {{/each}}
 {{/if}}

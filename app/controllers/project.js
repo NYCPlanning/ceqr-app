@@ -217,7 +217,6 @@ export default Controller.extend({
           sca_capital_projects_v032018 AS projects
         WHERE ST_Intersects(subdistricts.the_geom, projects.the_geom)
       `);
-
       this.set('model.project.scaProjects', scaProjects.map((b) => Building.create(b)));
 
       let doeUtilChanges = await carto.SQL(`
