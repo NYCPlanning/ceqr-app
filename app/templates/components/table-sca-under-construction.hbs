@@ -1,27 +1,33 @@
-<h3 class="ui attached segment">
+<h3 class="ui segment">
   <div class="ui green ribbon label">Action 1</div>SCA Schools Under Construction [from: SCA Construction]
 </h3>
 
-{{#each project.futureNoAction as |p|}}
-  <table class="ui attached celled table">
+{{#each project.subdistricts as |p|}}
+  <table class="ui celled table">
     <thead>
       <th colspan="4">District {{p.district}} - Subdistrict {{p.subdistrict}}</th>
       <tr>
-        <th>School Under Construction</th>
-        <th>Estimated Capacity</th>
-        <th>Estimated Completion Date</th>
-        <th>Data as Of</th>
+        <th class="six wide">School Under Construction</th>
+        <th class="four wide">Estimated Completion Date</th>
+        <th class="three wide">Data as Of</th>
+        <th class="three wide">Future Capacity</th>
       </tr>
     </thead>
     <tbody>
       {{#each project.scaProjects as |b|}}
         <tr>
           <td>{{b.name}}</td>
-          <td>{{b.capacity}}</td>
           <td>{{moment-format b.planned_end_date 'MM/DD/YYYY'}}</td>
           <td>{{moment-format b.data_as_of 'MM/DD/YYYY'}}</td>
+          <td>{{b.capacity}}</td>
         </tr>
       {{/each}}
     </tbody>
+
+    <tfoot>
+      <tr>
+        <td>Work?</td>
+      </tr>
+    </tfoot>
   </table>
 {{/each}}

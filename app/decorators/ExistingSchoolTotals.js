@@ -3,7 +3,7 @@ import { computed } from '@ember/object';
 import round from '../utils/round';
 
 export default EmberObject.extend({
-  buildings: computed('bluebook.@each', 'lcgms.@each', function() {
+  buildings: computed('bluebook', 'lcgms', function() {
     return (
       this.get('bluebook')
     ).concat(
@@ -20,6 +20,13 @@ export default EmberObject.extend({
 
   capacityTotal: computed('buildings.@each.capacity', function() {
     return this.get('buildings').mapBy('capacity').reduce((acc, value) => {
+      if (value === undefined) return acc;
+      return acc + parseInt(value);
+    });
+  }),
+
+  capacityTotalNoAction: computed('buildings.@each.capacityFuture', function() {
+    return this.get('buildings').mapBy('capacityFuture').reduce((acc, value) => {
       if (value === undefined) return acc;
       return acc + parseInt(value);
     });

@@ -6,7 +6,7 @@ export default Component.extend({
     return this.get('project.doeUtilChanges').mapBy('bldg_id').uniq();
   }),
   
-  tables: computed('project.{doeUtilChanges,buildings}.[]', function() {    
+  tables: computed('project.{doeUtilChanges,buildings}', function() {    
     return this.get('buildingIds').map(bldg_id => {
       return ({
         bldg_id,

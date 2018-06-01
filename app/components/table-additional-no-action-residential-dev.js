@@ -7,8 +7,18 @@ export default Component.extend({
   },
   
   actions: {
-    addResDev(resdev) {
-      this.get('project.futureResidentialDev').pushObject(resdev);
+    addResDev({ name, total_units, year, subdistrict }) {      
+      let multipliers = this.get('project.studentMultipliers');
+      
+      this.get('project.futureResidentialDev').pushObject({
+        ...subdistrict,
+        name,
+        total_units,
+        year,
+        ps_students: Math.round(total_units * multipliers.es),
+        is_students: Math.round(total_units * multipliers.ms),
+        hs_students: Math.round(total_units * multipliers.hs)
+      });
       this.get('project').save();
       this.set('resdev', {});
     },

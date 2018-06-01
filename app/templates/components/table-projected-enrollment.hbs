@@ -9,43 +9,71 @@
       <th class="one wide">Available Seats</th>
       <th class="one wide">Utilization (%)</th>
     </tr>
-    <tr>
-      <th colspan=7>Primary Schools</th>
-    </tr>
   </thead>
 
-  <tbody>
-    {{#each project.futureNoAction as |p|}}
+  {{#if psTable}}
+    <thead>
       <tr>
-        <td>District {{p.district}} - Subdistrict {{p.subdistrict}}</td>
-        <td>{{p.ps.projectedEnroll}}</td>
-        <td>{{p.ps.projectedNewStudents}}</td>
-        <td>{{p.ps.projectedTotalEnroll}}</td>
-        <td>{{p.ps.projectedCapacity}}</td>
-        <td>{{p.ps.projectedAvailSeats}}</td>
-        <td>{{p.ps.projectedUtilization}}</td>
+        <th colspan=7>Primary Schools</th>
       </tr>
-    {{/each}}
-  </tbody>
+    </thead>
 
-  <thead>
-    <tr>
-      <th colspan=7>Intermediate Schools</th>
-    </tr>
-  </thead>
+    <tbody>
+      {{#each psTable as |p|}}
+        <tr>
+          <td>District {{p.district}} - Subdistrict {{p.subdistrict}}</td>
+          <td>{{p.enroll}}</td>
+          <td>{{p.students}}</td>
+          <td>{{p.enrollTotal}}</td>
+          <td>{{p.capacityTotal}}</td>
+          <td>{{p.seats}}</td>
+          <td>{{p.utilization}}</td>
+        </tr>
+      {{/each}}
+    </tbody>
+  {{/if}}
 
-  <tbody>
-    {{#each project.futureNoAction as |p|}}
+  {{#if isTable}}
+    <thead>
       <tr>
-        <td>District {{p.district}} - Subdistrict {{p.subdistrict}}</td>
-        <td>{{p.is.projectedEnroll}}</td>
-        <td>{{p.is.projectedNewStudents}}</td>
-        <td>{{p.is.projectedTotalEnroll}}</td>
-        <td>{{p.is.projectedCapacity}}</td>
-        <td>{{p.is.projectedAvailSeats}}</td>
-        <td>{{p.is.projectedUtilization}}</td>
+        <th colspan=7>Intermediate Schools</th>
       </tr>
-    {{/each}}
-  </tbody>
+    </thead>
+
+    <tbody>
+      {{#each isTable as |p|}}
+        <tr>
+          <td>District {{p.district}} - Subdistrict {{p.subdistrict}}</td>
+          <td>{{p.enroll}}</td>
+          <td>{{p.students}}</td>
+          <td>{{p.enrollTotal}}</td>
+          <td>{{p.capacityTotal}}</td>
+          <td>{{p.seats}}</td>
+          <td>{{p.utilization}}</td>
+        </tr>
+      {{/each}}
+    </tbody>
+  {{/if}}
+
+  {{#if hsTable}}
+    <thead>
+      <tr>
+        <th colspan=7>High Schools</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      {{#each hsTable as |p|}}
+        <tr>
+          <td>District {{p.district}} - Subdistrict {{p.subdistrict}}</td>
+          <td>{{p.enroll}}</td>
+          <td>{{p.students}}</td>
+          <td>{{p.enrollTotal}}</td>
+          <td>{{p.capacityTotal}}</td>
+          <td>{{p.seats}}</td>
+          <td>{{p.utilization}}</td>
+        </tr>
+      {{/each}}
+    </tbody>
+  {{/if}}
 </table>
-

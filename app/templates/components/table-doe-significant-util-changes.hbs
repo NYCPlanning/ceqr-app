@@ -1,4 +1,4 @@
-<h3 class="ui attached segment">
+<h3 class="ui segment">
   <div class="ui green ribbon label">Action 2</div>DOE Significant Utilitization Changes
 </h3>
 
@@ -9,21 +9,21 @@
     <table class="ui attached celled table">
       <thead>
         <tr>
-          <th class="eight wide">School Name</th>
-          <th class="one wide">Level</th>
-          <th class="two wide">Links</th>
-          <th class="two wide">Future Capacity</th>
+          <th class="six wide">School Name</th>
+          <th class="five wide">Building Name</th>
+          <th class="two wide">Level</th>
+          <th class="three wide">Future Capacity</th>
         </tr>
       </thead>
       <tbody>
         {{#each t.buildings as |b|}}
           <tr>
             <td>{{b.name}}</td>
-            <td>{{b.level}}</td>
             <td>{{b.bldg_name}}</td>
+            <td>{{b.level}}</td>
             <td class="warning">
               <div class="ui input transparent edit-cell">
-                {{input type="number" value=b.capacity placeholder="0"}}
+                {{input type="number" value=b.capacityFuture placeholder="0"}}
               </div>
             </td>
           </tr>
@@ -36,9 +36,9 @@
     <table class="ui attached celled table">
       <thead>
         <tr>
-          <th class="one wide">At Scale Year</th>
-          <th class="eight wide">Proposal Title</th>
-          <th class="two wide">Links</th>
+          <th class="two wide">At Scale Year</th>
+          <th class="eleven wide">Proposal Title</th>
+          <th class="three wide">Links</th>
         </tr>
       </thead>
       <tbody>

@@ -91,6 +91,7 @@ export default Controller.extend({
           level: 'ps',
           type: 'bluebook',
           capacity: b.ps_capacity,
+          capacityFuture: b.ps_capacity,
           enroll: b.ps_enroll
         }));
 
@@ -99,6 +100,7 @@ export default Controller.extend({
           level: 'is',
           type: 'bluebook',
           capacity: b.ms_capacity,
+          capacityFuture: b.ms_capacity,
           enroll: b.ms_enroll
         }));
 
@@ -107,6 +109,7 @@ export default Controller.extend({
           level: 'hs',
           type: 'bluebook',
           capacity: b.hs_capacity,
+          capacityFuture: b.hs_capacity,
           enroll: b.hs_enroll
         }));
       });
@@ -180,23 +183,29 @@ export default Controller.extend({
       // TODO: Add caveat to projections over 2025
       
       let enrollmentProjections = await carto.SQL(`
-        SELECT projected_ps_dist, projected_ms_dist, CAST(district AS numeric)
+        SELECT
+          projected_ps_dist AS ps,
+          projected_ms_dist AS ms,
+          CAST(district AS numeric)
         FROM ceqr_sf_projection_2016_2025
         WHERE school_year LIKE '${this.get('model.project.buildYearCalculated')}%25'
           AND district IN (${this.get('model.project.subdistricts').map((d) => `'${d.district}'`).join(',')})
       `);
+      this.set('model.project.futureEnrollmentProjections', enrollmentProjections);
 
       let enrollmentMultipliers = await carto.SQL(`
         SELECT zone_of_dist AS multiplier, disgeo AS district, zone AS subdistrict, TRIM(level) AS level
         FROM ceqr_2019_enrollment_by_zone
         WHERE (disgeo, zone) IN (VALUES ${this.get('model.project.subdistrictSqlPairs').join(',')})
       `);
+      this.set('model.project.futureEnrollmentMultipliers', enrollmentMultipliers);
 
       let studentsFromNewHousing = await carto.SQL(`
         SELECT students_from_new_housing AS students, dist AS district, zone AS subdistrict, TRIM(grade_level) AS level
         FROM ceqr_housing_by_sd_2016
         WHERE (dist, zone) IN (VALUES ${this.get('model.project.subdistrictSqlPairs').join(',')})
       `);
+      this.set('model.project.futureEnrollmentNewHousing', studentsFromNewHousing);
 
       let scaProjects = await carto.SQL(`
         SELECT
@@ -230,74 +239,6 @@ export default Controller.extend({
         WHERE bldg_id IN (${this.get('model.project.buildingsBldgIds').map(b => `'${b}'`).join(',')})
       `);
       this.set('model.project.doeUtilChanges', doeUtilChanges);
-
-      let futureNoAction = this.get('model.project.subdistricts').map((s) => {
-
-        let dEnrollmentProjection = enrollmentProjections.findBy('district', s.district);
-        let sdPsEnrollment = enrollmentMultipliers.find(
-          (i) => (i.district === s.district && i.subdistrict === s.subdistrict && i.level === 'PS')
-        );
-        let sdIsEnrollment = enrollmentMultipliers.find(
-          (i) => (i.district === s.district && i.subdistrict === s.subdistrict && i.level === 'MS')
-        );
-
-        let projectedEnroll = {
-          ps: Math.round(dEnrollmentProjection.projected_ps_dist * sdPsEnrollment.multiplier),
-          is: Math.round(dEnrollmentProjection.projected_ms_dist * sdIsEnrollment.multiplier)
-        };
-        let projectedNewStudents = {
-          ps: studentsFromNewHousing.find(
-            (i) => (i.district === s.district && i.subdistrict === s.subdistrict && i.level === 'PS')
-          ).students,
-          is: studentsFromNewHousing.find(
-            (i) => (i.district === s.district && i.subdistrict === s.subdistrict && i.level === 'MS')
-          ).students
-        };
-
-        let capacityTotal = {
-          ps: this.get('model.project.existingSchoolTotals').filter(
-            (b) => (b.level === 'ps')
-          ).reduce(function(acc, value) {
-            return acc + value.get('capacityTotal');
-          }, 0),
-  
-          is: this.get('model.project.existingSchoolTotals').filter(
-            (b) => (b.level === 'is')
-          ).reduce(function(acc, value) {
-            return acc + value.get('capacityTotal');
-          }, 0),
-
-          hs: this.get('model.project.existingSchoolTotals').filter(
-            (b) => (b.level === 'hs')
-          ).reduce(function(acc, value) {
-            return acc + value.get('capacityTotal');
-          }, 0),
-        }
-
-        return {
-          district: s.district,
-          subdistrict: s.subdistrict,
-          sdId: parseInt(`${s.district}${s.subdistrict}`),
-
-          ps: {
-            projectedEnroll: projectedEnroll.ps,
-            projectedNewStudents: projectedNewStudents.ps,
-            projectedTotalEnroll: projectedEnroll.ps + projectedNewStudents.ps,
-            projectedCapacity: capacityTotal.ps,
-            projectedAvailSeats: capacityTotal.ps - (projectedEnroll.ps + projectedNewStudents.ps),
-            projectedUtilization: round(((projectedEnroll.ps + projectedNewStudents.ps) / capacityTotal.ps), 3)
-          },
-          is: {
-            projectedEnroll: projectedEnroll.is,
-            projectedNewStudents: projectedNewStudents.is, 
-            projectedTotalEnroll: projectedEnroll.is + projectedNewStudents.is,
-            projectedCapacity: capacityTotal.is,
-            projectedAvailSeats: capacityTotal.is - (projectedEnroll.is + projectedNewStudents.is),
-            projectedUtilization: round(((projectedEnroll.is + projectedNewStudents.is) / capacityTotal.is), 3)
-          }
-        }
-      });
-      this.set('model.project.futureNoAction', futureNoAction);
 
       await this.get('model.project').save().catch(error => {
         console.log(error);

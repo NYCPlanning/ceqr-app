@@ -12,6 +12,19 @@
         {{input type="number" value=resdev.year placeholder="Est. Built Year"}}
       </div>
       <div class="field">
+        {{#ui-dropdown class="selection" selected=resdev.subdistrict onChange=(action (mut resdev.subdistrict)) as |execute mapper|}}
+          <div class="default text">Subdistrict</div>
+          <i class="dropdown icon"></i>
+          <div class="menu">
+            {{#each project.subdistricts as |sd|}}
+              <div data-value="{{map-value mapper sd}}" class="item">
+                District {{sd.district}} - Subdistrict {{sd.subdistrict}}
+              </div>
+            {{/each}}
+          </div>
+        {{/ui-dropdown}}
+      </div>
+      <div class="field">
         {{input type="number" value=resdev.total_units placeholder="Total Units"}}
       </div>
 
@@ -20,43 +33,16 @@
   </form>
 </div>
 
-{{!-- <table class="ui attached celled table">
-  <tbody>
-    <tr class="warning">
-      <td class="eight wide">
-        <div class="ui input transparent">
-          {{input type="string" value=resdev.name placeholder="Project Name"}}
-        </div>
-      </td>
-
-      <td class="two wide">
-        <div class="ui input transparent">
-          {{input type="number" value=resdev.year placeholder="Est. Built Year"}}
-        </div>
-      </td>
-
-      <td class="two wide">
-        <div class="ui input transparent">
-          {{input type="number" value=resdev.total_units placeholder="Total Units"}}
-        </div>
-      </td>
-
-      <td>
-        <button class="ui button primary" {{action 'addResDev' resdev}}>Add</button>
-      </td>
-    </tr>
-  </tbody>
-</table> --}}
-
 {{#if project.futureResidentialDev}}
   <table class="ui attached celled table">
     <thead>
       <tr>
-        <th class="seven wide">Project Name</th>
-        <th class="two wide">Est. Build Year</th>
+        <th class="five wide">Project Name (Build Year)</th>
+        <th class="two wide">Subdistrict</th>
         <th class="two wide">Total Units</th>
-        <th class="two wide">PS Students</th>
-        <th class="two wide">IS Students</th>
+        <th class="two wide">Est. PS Students</th>
+        <th class="two wide">Est. IS Students</th>
+        <th class="two wide">Est. HS Students</th>
         <th></th>
       </tr>
     </thead>
@@ -64,11 +50,12 @@
     <tbody>
       {{#each project.futureResidentialDev as |r|}}
         <tr>
-          <td>{{r.name}}</td>
-          <td>{{r.year}}</td>
+          <td>{{r.name}} ({{r.year}})</td>
+          <td>District {{r.district}} - Subdistrict {{r.subdistrict}}</td>
           <td>{{r.total_units}}</td>
-          <td></td>
-          <td></td>
+          <td>{{r.ps_students}}</td>
+          <td>{{r.is_students}}</td>
+          <td>{{r.hs_students}}</td>
           <td><button class="ui button red" {{action 'removeResDev' r}}>Delete</button></td>
         </tr>
       {{/each}}
