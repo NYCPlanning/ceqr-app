@@ -161,6 +161,7 @@ export default DS.Model.extend({
     'futureEnrollmentMultipliers',
     'futureEnrollmentNewHousing',
     'existingSchoolTotals.@each.capacityTotalNoAction',
+    'scaProjects.@each.{includeInCapacity,ps_capacity,is_capacity,hs_capacity}',
     function() {
       let tables = [];
       
@@ -195,7 +196,15 @@ export default DS.Model.extend({
             (b) => (b.district === sd.district && b.subdistrict === sd.subdistrict && b.level === 'ps')
           ).reduce(function(acc, value) {
             return acc + value.get('capacityTotalNoAction');
-          }, 0)
+          }, 0),
+
+          scaCapacityIncrease: this.get('scaProjects').filter(
+            (b) => (b.district === sd.district && b.subdistrict === sd.subdistrict && b.includeInCapacity === true)
+          ).reduce(function(acc, value) {
+            let v = parseInt(value.get('ps_capacity'));
+            if (v) return acc + v;
+            else return 0;
+          }, 0),
         }));
 
         tables.push(NoActionTotals.create({
@@ -228,7 +237,15 @@ export default DS.Model.extend({
             (b) => (b.district === sd.district && b.subdistrict === sd.subdistrict && b.level === 'is')
           ).reduce(function(acc, value) {
             return acc + value.get('capacityTotalNoAction');
-          }, 0)
+          }, 0),
+
+          scaCapacityIncrease: this.get('scaProjects').filter(
+            (b) => (b.district === sd.district && b.subdistrict === sd.subdistrict && b.includeInCapacity === true)
+          ).reduce(function(acc, value) {
+            let v = parseInt(value.get('is_capacity'));
+            if (v) return acc + v;
+            else return 0;
+          }, 0),
         }));
       });
 

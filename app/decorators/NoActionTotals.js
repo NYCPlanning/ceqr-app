@@ -7,15 +7,15 @@ export default EmberObject.extend({
     return this.get('enroll') + this.get('students');
   }),
 
-  capacityTotal: computed('capacityExisting', function() {
-    return this.get('capacityExisting');
+  capacityFuture: computed('capacityExisting', 'scaCapacityIncrease', function() {
+    return this.get('capacityExisting') + this.get('scaCapacityIncrease');
   }),
 
-  seats: computed('capacityTotal', 'enrollTotal', function() {
-    return this.get('capacityTotal') - this.get('enrollTotal');
+  seats: computed('capacityFuture', 'enrollTotal', function() {
+    return this.get('capacityFuture') - this.get('enrollTotal');
   }),
 
   utilization: computed('', function() {
-    return round(this.get('enrollTotal') / this.get('capacityTotal'), 3);
+    return round(this.get('enrollTotal') / this.get('capacityFuture'), 3);
   })
 });
