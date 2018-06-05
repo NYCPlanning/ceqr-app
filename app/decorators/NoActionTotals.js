@@ -31,7 +31,15 @@ export default EmberObject.extend({
     return round(this.get('enrollWithAction') / this.get('capacityNoAction'), 3);
   }),
 
-  utilizationChange: computed('', function() {
+  utilizationChange: computed('utilizationWithAction', 'utilizationNoAction', function() {
     return round(this.get('utilizationWithAction') - this.get('utilizationNoAction'), 3);
+  }),
+
+  impact: computed('utilizationChange', 'utilizationWithAction', function() {
+    return (
+      (this.get('utilizationChange') >= 0.05)
+      &&
+      (this.get('utilizationWithAction') >= 1)
+    );
   })
 });

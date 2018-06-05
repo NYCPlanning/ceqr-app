@@ -50,11 +50,11 @@ export default DS.Model.extend({
   estEsStudents: computed('netUnits', 'borough', function() {
     return Math.ceil(this.get('studentMultipliers').es * this.get('netUnits'));
   }),
-  estMsStudents: computed('netUnits', 'borough', function() {
+  estIsStudents: computed('netUnits', 'borough', function() {
     return Math.ceil(this.get('studentMultipliers').ms * this.get('netUnits'));
   }),
-  estEsMsStudents: computed('estEsStudents', 'estMsStudents', function() {
-    return this.get('estEsStudents') + this.get('estMsStudents');
+  estEsMsStudents: computed('estEsStudents', 'estIsStudents', function() {
+    return this.get('estEsStudents') + this.get('estIsStudents');
   }),
   estHsStudents: computed('netUnits', 'borough', function() {
     return Math.ceil(this.get('studentMultipliers').hs * this.get('netUnits'));

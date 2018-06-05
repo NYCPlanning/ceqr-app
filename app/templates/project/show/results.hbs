@@ -1,1 +1,40 @@
-{{outlet}}
+<div class="row">
+  <div class="sixteen wide column">
+    {{#ui-accordion}}
+      <div class="title">
+        <h4><i class="dropdown icon"></i>400. Determing Impact Significance</h4>
+      </div>
+      <div class="content">
+        <p>The determination of whether an impact on a community facility would be significant is based on whether the people in
+        the area would have adequate service delivery in the future with the project. Generally, the same assessment of service
+        delivery is appropriate whether the potential effects of the project would be direct or indirect. If service deliv- ery
+        would deteriorate to unacceptable levels as a result of a substantial (more than five percent) increase in population served
+        by a facility, a significant impact may result.</p>
+      </div>
+
+      <div class="title">
+        <h4><i class="dropdown icon"></i>410. Public Schools</h4>
+      </div>
+      <div class="content">
+        <p>For the purposes of CEQR analysis, a utilization rate of 100 percent is the threshold for overcrowding.</p>
+        <p>A significant adverse impact may result, warranting consideration of mitigation, if the proposed project would result in both of the following:</p>
+        <ul>
+          <li>A collective utilization rate of the elementary or intermediate schools that is equal to or greater than 100 percent in the With-Action Condition; and</li>
+          <li>An increase of five percent or more in the collective utilization rate between the No-Action and With- Action conditions.</li>
+        </ul>
+        <p>To illustrate, if the collective utilization rate in the No-Action condition is 98% and the collective utilization
+        rate in the With-Action condition is 103%, the project would result in a significant adverse schools impact. However,
+        if a project includes components which do not provide additional capacity but are intended to reduce school capacity
+        constraints, the lead agency, in consultation with DOE and SCA, may take these project components into account to determine
+        whether an increase in the collective utilization rate under the above standards would cause a significant adverse impact.</p> 
+        <p><em>NOTE:</em> Elementary and intermediate schools should be handled separately. In addition, a determination of impact significance for high schools is conducted at the borough level.</p>
+      </div>
+    {{/ui-accordion}}
+  </div>
+</div>
+
+<div class="row">
+  <div class="sixteen wide column">    
+    {{table-results project=project}}
+  </div>
+</div>
