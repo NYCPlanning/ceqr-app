@@ -8,8 +8,6 @@ export default DS.Model.extend({
   setCeqrManual(manual) {
     this.set('ceqrManual', manual);
   },
-  
-  step: DS.attr('string', { defaultValue: 'new' }),
 
   project_id: DS.attr('string'),
   name: DS.attr('string'),
@@ -91,7 +89,6 @@ export default DS.Model.extend({
   }),
 
   buildings: computed('bluebook', 'lcgms', 'scaProjects', function() {
-    console.log('project.buildings trigger');
     return (
       this.get('bluebook')
     ).concat(
@@ -205,6 +202,8 @@ export default DS.Model.extend({
             if (v) return acc + v;
             else return 0;
           }, 0),
+
+          studentsWithAction: this.get('estEsStudents') || 0,
         }));
 
         tables.push(NoActionTotals.create({
@@ -246,6 +245,8 @@ export default DS.Model.extend({
             if (v) return acc + v;
             else return 0;
           }, 0),
+
+          studentsWithAction: this.get('estIsStudents') || 0,
         }));
       });
 

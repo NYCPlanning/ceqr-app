@@ -1,15 +1,24 @@
 <div class="row">
   <div class="sixteen wide column">
-    {{!-- will need to add `success` status --}}
+    {{!-- <div class="ui icon warning message">
+      <i class="exclamation icon"></i>
+      <div class="content">
+        <div class="header">
+          Missing data
+        </div>
+        <p>Please filling in the missing fields below</p>
+      </div>
+    </div> --}}
+
     {{recently-built-schools project=project}}
   </div>
 </div>
 
 <div class="row">
   <div class="sixteen wide column">
-    <h3 class="ui top attached header">
-      Existing Conditions <em>Bluebook 2016-17</em>
-    </h3>
+    <div class="ui top attached header">
+      <h3>Existing Conditions</h3>
+    </div>
     <div class="ui attached segment">        
       {{map-existing-conditions project=project}}
     </div>

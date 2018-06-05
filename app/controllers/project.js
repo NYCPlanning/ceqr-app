@@ -4,8 +4,6 @@ import carto from 'carto-promises-utility/utils/carto';
 
 import Building from '../decorators/Building';
 
-import round from '../utils/round';
-
 export default Controller.extend({  
   project: alias('model.project'),
   ceqrManual: alias('model.ceqrManual'),
@@ -45,7 +43,8 @@ export default Controller.extend({
           district: f.district,
           subdistrict: f.subdistrict,
           cartodb_id: f.cartodb_id,
-          id: parseInt(`${f.district}${f.subdistrict}`)
+          id: parseInt(`${f.district}${f.subdistrict}`),
+          sdName: `District ${f.district} - Subdistrict ${f.subdistrict}`
         })
       ));
 
@@ -244,6 +243,14 @@ export default Controller.extend({
         console.log(error);
       }).then((project) => {
         this.transitionToRoute('project.show.no-action', project.id);
+      });
+    },
+
+    saveNoAction: function() {
+      this.get('model.project').save().catch(error => {
+        console.log(error);
+      }).then((project) => {
+        this.transitionToRoute('project.show.with-action', project.id);
       });
     }
   }

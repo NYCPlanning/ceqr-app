@@ -1,0 +1,23 @@
+<table class="ui celled table">
+  <thead>
+    <tr>
+      <th>Study Area</th>
+      <th>Housing Units</th>
+      <th>PS Students</th>
+      <th>IS Students</th>
+      <th>HS Students</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    {{#each tables as |t|}}
+      <tr>
+        <td>{{t.sdName}}</td>
+        <td>{{t.netUnits}}</td>
+        <td>{{t.estEsStudents}}</td>
+        <td>{{t.estIsStudents}}</td>
+        <td>{{t.estHsStudents}}</td>
+      </tr>
+    {{/each}}
+  </tbody>
+</table>

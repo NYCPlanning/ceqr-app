@@ -53,7 +53,7 @@ Get Mona to include correct grades served and citywide & alternative schools
         <td>{{b.enroll}}</td>
         <td>{{if b.excluded "N/A" b.capacity}}</td>
         <td>{{b.seats}}</td>
-        <td>{{if b.excluded "N/A" b.utilization}}</td>
+        <td>{{if b.excluded "N/A" (percentage b.utilization)}}</td>
       </tr>
     {{/each}}
   </tbody>
@@ -64,7 +64,7 @@ Get Mona to include correct grades served and citywide & alternative schools
       <th>{{table.enrollmentTotal}}</th>
       <th>{{table.capacityTotal}}</th>
       <th>{{table.seatsTotal}}</th>
-      <th>{{table.utilizationTotal}}</th>
+      <th>{{percentage table.utilizationTotal}}</th>
     </tr>
   </tfoot>
 </table>

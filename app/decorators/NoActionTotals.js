@@ -3,19 +3,35 @@ import { computed } from '@ember/object';
 import round from '../utils/round';
 
 export default EmberObject.extend({
-  enrollTotal: computed('enroll', 'students', function() {
+  enrollNoAction: computed('enroll', 'students', function() {
     return this.get('enroll') + this.get('students');
   }),
 
-  capacityFuture: computed('capacityExisting', 'scaCapacityIncrease', function() {
+  enrollWithAction: computed('studentsWithAction', function() {
+    return this.get('enrollNoAction') + this.get('studentsWithAction');
+  }),
+
+  capacityNoAction: computed('capacityExisting', 'scaCapacityIncrease', function() {
     return this.get('capacityExisting') + this.get('scaCapacityIncrease');
   }),
 
-  seats: computed('capacityFuture', 'enrollTotal', function() {
-    return this.get('capacityFuture') - this.get('enrollTotal');
+  seatsNoAction: computed('capacityNoAction', 'enrollNoAction', function() {
+    return this.get('capacityNoAction') - this.get('enrollNoAction');
   }),
 
-  utilization: computed('', function() {
-    return round(this.get('enrollTotal') / this.get('capacityFuture'), 3);
+  seatsWithAction: computed('capacityNoAction', 'enrollWithAction', function() {
+    return this.get('capacityNoAction') - this.get('enrollWithAction');
+  }),
+
+  utilizationNoAction: computed('enrollNoAction', function() {
+    return round(this.get('enrollNoAction') / this.get('capacityNoAction'), 3);
+  }),
+
+  utilizationWithAction: computed('enrollWithAction', function() {
+    return round(this.get('enrollWithAction') / this.get('capacityNoAction'), 3);
+  }),
+
+  utilizationChange: computed('', function() {
+    return round(this.get('utilizationWithAction') - this.get('utilizationNoAction'), 3);
   })
 });

@@ -1,0 +1,87 @@
+<h3 class="ui header attached top">
+  {{project.buildYear}} Estimated With-Action Elementary and Intermediate School Enrollment, Capacity, and Utilization
+</h3>
+
+<table class="ui attached bottom celled table">
+  <thead>
+    <tr>
+      <th class="three wide">Study Area</th>
+      <th class="two wide">Projected Enrollment without action</th>
+      <th class="two wide">Students Introduced by With-Action Development</th>
+      <th class="one wide">Projected Enrollment with action</th>
+      <th class="one wide">Capacity</th>
+      <th class="one wide">Available Seats</th>
+      <th class="one wide">Utilization (%)</th>
+      <th class="one wide">Change in Utilization (%) from No-Action Condition</th>
+    </tr>
+  </thead>
+
+  {{#if psTable}}
+    <thead>
+      <tr>
+        <th colspan=8>Primary Schools</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      {{#each psTable as |p|}}
+        <tr>
+          <td>{{p.sdName}}</td>
+          <td>{{p.enrollNoAction}}</td>
+          <td>{{p.studentsWithAction}}</td>
+          <td>{{p.enrollWithAction}}</td>
+          <td>{{p.capacityNoAction}}</td>
+          <td>{{p.seatsWithAction}}</td>
+          <td>{{percentage p.utilizationWithAction}}</td>
+          <td>{{percentage p.utilizationChange}}</td>
+        </tr>
+      {{/each}}
+    </tbody>
+  {{/if}}
+
+  {{#if isTable}}
+    <thead>
+      <tr>
+        <th colspan=8>Intermediate Schools</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      {{#each isTable as |p|}}
+        <tr>
+          <td>{{p.sdName}}</td>
+          <td>{{p.enrollNoAction}}</td>
+          <td>{{p.studentsWithAction}}</td>
+          <td>{{p.enrollWithAction}}</td>
+          <td>{{p.capacityNoAction}}</td>
+          <td>{{p.seatsWithAction}}</td>
+          <td>{{percentage p.utilizationWithAction}}</td>
+          <td>{{percentage p.utilizationChange}}</td>
+        </tr>
+      {{/each}}
+    </tbody>
+  {{/if}}
+
+  {{#if hsTable}}
+    <thead>
+      <tr>
+        <th colspan=8>High Schools</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      {{#each hsTable as |p|}}
+        <tr>
+          <td>{{p.sdName}}</td>
+          <td>{{p.enrollNoAction}}</td>
+          <td>{{p.studentsWithAction}}</td>
+          <td>{{p.enrollWithAction}}</td>
+          <td>{{p.capacityNoAction}}</td>
+          <td>{{p.seatsWithAction}}</td>
+          <td>{{percentage p.utilizationWithAction}}</td>
+          <td>{{percentage p.utilizationChange}}</td>
+        </tr>
+      {{/each}}
+    </tbody>
+  {{/if}}
+</table>

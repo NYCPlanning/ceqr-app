@@ -1,6 +1,6 @@
 <div class="row">
   <div class="sixteen wide column">
-    <div class="ui icon warning message">
+    {{!-- <div class="ui icon warning message">
       <i class="exclamation icon"></i>
       <div class="content">
         <div class="header">
@@ -8,39 +8,27 @@
         </div>
         <p>Please filling in the missing fields below</p>
       </div>
-    </div>
+    </div> --}}
     
     {{table-sca-under-construction project=project}}
-    
-    {{table-doe-significant-util-changes project=project}}
+  </div>
+</div>
 
+<div class="row">
+  <div class="sixteen wide column">
+    {{table-doe-significant-util-changes project=project}}
+  </div>
+</div>
+
+<div class="row">
+  <div class="sixteen wide column">
     {{table-additional-no-action-residential-dev project=project}}
   </div>
 </div>
 
 <div class="row">
   <div class="sixteen wide column">
-    <h3 class="ui top attached header">
-      Future Conditions: No-Action Scenario
-    </h3>
-    <div class="ui attached segment">
-      {{map-future-no-action project=project}}
-    </div>
-
-    <h4 class="ui attached header">
-      Estimated No-Action Primary and Intermediate School Enrollment, Capacity and Utilization
-    </h4>
-
-    {{table-projected-enrollment project=project}}
-  </div>
-</div>
-
-<div class="row">
-  <div class="ten wide column">
-  </div>
-
-  <div class="six wide column">
-    {{#ui-accordion}}
+     {{#ui-accordion}}
       <div class="title">
         <h4><i class="dropdown icon"></i>300. Assessment Methods</h4>
       </div>
@@ -83,5 +71,26 @@
         should also be shown.</p>
       </div>
     {{/ui-accordion}}
+    
+    <h3 class="ui top attached header">
+      Future Conditions: No-Action Scenario
+    </h3>
+    <div class="ui attached segment">
+      {{map-future-no-action project=project}}
+    </div>
+
+    {{table-projected-enrollment project=project}}
+  </div>
+</div>
+
+<div class="row">
+  <div class="sixteen wide column">
+    <div class="ui menu">
+      <div class="right item">
+        <button class="ui primary button" {{action "saveNoAction"}}>
+          Next <i class="arrow right icon"></i>
+        </button>
+      </div>
+    </div>
   </div>
 </div>

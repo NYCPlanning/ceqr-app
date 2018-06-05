@@ -14,6 +14,8 @@ Router.map(function() {
       this.route('analysis-threshold', {path: '/'});
       this.route('existing-conditions');
       this.route('no-action');
+      this.route('with-action');
+      this.route('results');
     });
   });
 });

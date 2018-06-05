@@ -1,10 +1,10 @@
-<h3 class="ui segment">
+<h3 class="ui teal segment">
   <div class="ui green ribbon label">Action 2</div>DOE Significant Utilitization Changes
 </h3>
 
 {{#if project.doeUtilChanges}}
   {{#each tables as |t|}}
-    <h3 class="ui top attached header">Building ID{{t.bldg_id}}</h3>
+    <div class="ui teal top attached segment"><h3>Building ID{{t.bldg_id}}</h3></div>
     
     <table class="ui attached celled table">
       <thead>

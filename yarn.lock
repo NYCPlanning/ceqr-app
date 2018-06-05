@@ -1285,7 +1285,7 @@ broccoli-asset-rewrite@^1.1.0:
   dependencies:
     broccoli-filter "^1.2.3"
 
-broccoli-babel-transpiler@^5.4.5:
+broccoli-babel-transpiler@^5.4.5, broccoli-babel-transpiler@^5.6.2:
   version "5.7.4"
   resolved "https://registry.yarnpkg.com/broccoli-babel-transpiler/-/broccoli-babel-transpiler-5.7.4.tgz#2b0611ce9e5d98b8d8d2b49ae1219af2f52767e3"
   dependencies:
@@ -2814,6 +2814,16 @@ ember-cli-babel@5.1.6:
     ember-cli-version-checker "^1.0.2"
     resolve "^1.1.2"
 
+ember-cli-babel@^5.1.5:
+  version "5.2.8"
+  resolved "https://registry.yarnpkg.com/ember-cli-babel/-/ember-cli-babel-5.2.8.tgz#0356b03cc3fdff5d0f2ecaa46a0e1cfaebffd876"
+  dependencies:
+    broccoli-babel-transpiler "^5.6.2"
+    broccoli-funnel "^1.0.0"
+    clone "^2.0.0"
+    ember-cli-version-checker "^1.0.2"
+    resolve "^1.1.2"
+
 ember-cli-babel@^6.0.0, ember-cli-babel@^6.0.0-beta.4, ember-cli-babel@^6.0.0-beta.7, ember-cli-babel@^6.10.0, ember-cli-babel@^6.11.0, ember-cli-babel@^6.12.0, ember-cli-babel@^6.6.0, ember-cli-babel@^6.7.2, ember-cli-babel@^6.8.1, ember-cli-babel@^6.8.2, ember-cli-babel@^6.9.0:
   version "6.13.0"
   resolved "https://registry.yarnpkg.com/ember-cli-babel/-/ember-cli-babel-6.13.0.tgz#8d7de3e75ff3bd70938ced6804d7bbe03dd7d326"
@@ -3238,6 +3248,12 @@ ember-moment@^7.7.0:
     ember-cli-babel "^6.7.2"
     ember-getowner-polyfill "^2.0.1"
     ember-macro-helpers "^0.17.0"
+
+ember-percentages@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/ember-percentages/-/ember-percentages-2.0.0.tgz#8ec1505368c5ee30a2061068de016da41f80eb6b"
+  dependencies:
+    ember-cli-babel "^5.1.5"
 
 ember-promise-helpers@^1.0.6:
   version "1.0.6"

@@ -1,4 +1,4 @@
-<table class="ui attached celled table">
+<table class="ui attached bottom celled table">
   <thead>
     <tr>
       <th class="three wide">Study Area</th>
@@ -21,13 +21,13 @@
     <tbody>
       {{#each psTable as |p|}}
         <tr>
-          <td>District {{p.district}} - Subdistrict {{p.subdistrict}}</td>
+          <td>{{p.sdName}}</td>
           <td>{{p.enroll}}</td>
           <td>{{p.students}}</td>
-          <td>{{p.enrollTotal}}</td>
-          <td>{{p.capacityFuture}}</td>
-          <td>{{p.seats}}</td>
-          <td>{{p.utilization}}</td>
+          <td>{{p.enrollNoAction}}</td>
+          <td>{{p.capacityNoAction}}</td>
+          <td>{{p.seatsNoAction}}</td>
+          <td>{{percentage p.utilizationNoAction}}</td>
         </tr>
       {{/each}}
     </tbody>
@@ -43,13 +43,13 @@
     <tbody>
       {{#each isTable as |p|}}
         <tr>
-          <td>District {{p.district}} - Subdistrict {{p.subdistrict}}</td>
+          <td>{{p.sdName}}</td>
           <td>{{p.enroll}}</td>
           <td>{{p.students}}</td>
-          <td>{{p.enrollTotal}}</td>
-          <td>{{p.capacityFuture}}</td>
-          <td>{{p.seats}}</td>
-          <td>{{p.utilization}}</td>
+          <td>{{p.enrollNoAction}}</td>
+          <td>{{p.capacityNoAction}}</td>
+          <td>{{p.seatsNoAction}}</td>
+          <td>{{percentage p.utilizationNoAction}}</td>
         </tr>
       {{/each}}
     </tbody>
@@ -65,13 +65,13 @@
     <tbody>
       {{#each hsTable as |p|}}
         <tr>
-          <td>District {{p.district}} - Subdistrict {{p.subdistrict}}</td>
+          <td>{{p.sdName}}</td>
           <td>{{p.enroll}}</td>
           <td>{{p.students}}</td>
-          <td>{{p.enrollTotal}}</td>
-          <td>{{p.capacityFuture}}</td>
-          <td>{{p.seats}}</td>
-          <td>{{p.utilization}}</td>
+          <td>{{p.enrollNoAction}}</td>
+          <td>{{p.capacityNoAction}}</td>
+          <td>{{p.seatsNoAction}}</td>
+          <td>{{percentage p.utilizationNoAction}}</td>
         </tr>
       {{/each}}
     </tbody>
