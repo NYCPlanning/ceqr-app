@@ -11,6 +11,9 @@ module.exports = function(environment) {
       databaseURL: 'https://ceqr-schools-analysis.firebaseio.com',
       storageBucket: 'ceqr-schools-analysis.appspot.com',
     },
+    torii: {
+      sessionServiceName: 'session'
+    },
     modulePrefix: 'cp-ceqr-schools',
     environment,
     rootURL: '/',

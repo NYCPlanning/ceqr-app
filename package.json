@@ -57,7 +57,8 @@
     "loader.js": "^4.2.3",
     "mapbox-gl": "^0.44.2",
     "rsvp": "^4.8.2",
-    "semantic-ui-ember": "^3.0.0"
+    "semantic-ui-ember": "^3.0.0",
+    "torii": "^0.10.1"
   },
   "dependencies": {
     "@turf/bbox": "^6.0.1"
