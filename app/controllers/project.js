@@ -7,7 +7,7 @@ import Building from '../decorators/Building';
 export default Controller.extend({  
   project: alias('model.project'),
   ceqrManual: alias('model.ceqrManual'),
-  
+
   actions: {
     createProject: function() {
       this.get('model.project').save().catch(error => {

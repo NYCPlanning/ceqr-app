@@ -1,0 +1,31 @@
+<div class="ui middle aligned center aligned grid login">
+  <div class="column">
+    <h2 class="ui teal header">
+      <div class="content">
+        Log-in to your account
+      </div>
+    </h2>
+      
+      <div class="ui segment">
+        <form class="ui large form" {{action 'logIn' user on='submit'}}>
+          <div class="field">
+            <div class="ui left icon input">
+              <i class="user icon"></i>
+              {{input type="text" value=user.email placeholder="Email"}}
+            </div>
+          </div>
+          <div class="field">
+            <div class="ui left icon input">
+              <i class="lock icon"></i>
+              {{input type="password" value=user.password placeholder="Password"}}
+            </div>
+          </div>
+          <button type="submit" class="ui fluid large teal submit button">Log In</button>
+        </form>
+      </div>
+
+      <div class="ui message">
+        New to us? {{#link-to 'signup'}}Sign Up{{/link-to}}
+      </div>
+  </div>
+</div>

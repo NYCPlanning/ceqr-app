@@ -33,3 +33,17 @@
 .edit-cell input {
   width: 50px;
 }
+
+.login, .signup {
+  .ui.header {
+    margin-top: 100px;
+  }
+
+  &.grid {
+    height: 100%; 
+  }
+
+  .column {
+    max-width: 450px;
+  }
+}

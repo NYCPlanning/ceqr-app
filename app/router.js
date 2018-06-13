@@ -7,7 +7,10 @@ const Router = EmberRouter.extend({
 });
 
 Router.map(function() {
-  this.route('project', function() {
+  this.route('login');
+  this.route('signup');
+  
+  this.authenticatedRoute('project', function() {
     this.route('new');
     this.route('show', {path: '/:project_id'}, function() {
       this.route('edit');
@@ -17,6 +20,10 @@ Router.map(function() {
       this.route('with-action');
       this.route('results');
     });
+  });
+
+  this.authenticatedRoute('user', function() {
+    this.route('projects');
   });
 });
 

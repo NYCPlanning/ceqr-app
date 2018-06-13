@@ -1,7 +1,8 @@
-<div class="ui top fixed menu top-bar">
+<div class="ui fixed menu inverted top-bar">
   <div class="ui container">
-    <div class="item">
-      {{#link-to "index"}}Seeker{{/link-to}}
+    <div class="header item">
+      <i class="building icon"></i>
+      {{#link-to "user.projects"}}CEQR Schools{{/link-to}}
     </div>
     
     {{!-- <div class="item">
@@ -16,18 +17,24 @@
     <a class="item">
       <i class="mail icon"></i> Messages
     </a>
-    <div class="ui simple dropdown item">
-      More
-      <i class="dropdown icon"></i>
-      <div class="menu">
-        <a class="item"><i class="edit icon"></i> Edit Profile</a>
-        <a class="item"><i class="globe icon"></i> Choose Language</a>
-        <a class="item"><i class="settings icon"></i> Account Settings</a>
-      </div>
-    </div> --}}
-    {{!-- <div class="right item">
+    --}}
 
-    </div> --}}
+    {{#if session.isAuthenticated}}
+      <div class="ui right simple dropdown item">
+        {{session.currentUser.email}}
+        <i class="dropdown icon"></i>
+        <div class="menu">
+          <a class="item" {{action 'logOut'}}><i class="sign out alternate icon"></i>Log Out</a>
+          {{!-- <a class="item"><i class="edit icon"></i> Edit Profile</a>
+          <a class="item"><i class="globe icon"></i> Choose Language</a>
+          <a class="item"><i class="settings icon"></i> Account Settings</a> --}}
+        </div>
+      </div>
+    {{else}}
+      <div class="right item">
+        {{#link-to 'login'}}Log In{{/link-to}}
+      </div>
+    {{/if}}
   </div>
 </div>
 
