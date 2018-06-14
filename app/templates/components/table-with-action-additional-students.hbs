@@ -1,5 +1,13 @@
+
 <table class="ui celled table">
   <thead>
+    <tr>
+      <th colspan=5><h3 class="inline-header">{{project.project_id}} - {{project.name}}</h3>
+        <div class="ui label large" data-tooltip="Build Year" data-position="bottom center" data-inverted="">
+          <i class="calendar alternate icon"></i>{{project.buildYear}}
+        </div>
+      </th>
+    </tr>
     <tr>
       <th>Study Area</th>
       <th>Housing Units</th>
@@ -14,10 +22,11 @@
       <tr>
         <td>{{t.sdName}}</td>
         <td>{{t.netUnits}}</td>
-        <td>{{t.estEsStudents}}</td>
+        {{!-- <td {{action 'cellHover' on='mouseover'}} data-sdid={{t.id}} data-level="ps">{{t.estEsStudents}}</td> --}}
+        {{#td-hover sdid=t.id level='ps'}}{{t.estEsStudents}}{{/td-hover}}
         <td>{{t.estIsStudents}}</td>
         <td>{{t.estHsStudents}}</td>
       </tr>
     {{/each}}
   </tbody>
-</table>
+</table> 

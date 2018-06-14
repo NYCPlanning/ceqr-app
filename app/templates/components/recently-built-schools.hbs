@@ -1,8 +1,19 @@
-<h3 class="ui top attached segment">
-  <div class="ui green ribbon label">Action 1</div> Recently Built Schools [from: LCMGS]
-</h3>
-
 {{#if project.lcgms}}
+  <div class="ui top attached segment">
+    <div class="ui orange ribbon label">Needs Input</div> <h3 class="action-title">Recently Built Schools</h3>
+  </div>
+  
+  <div class="ui attached icon message">
+    <i class="database icon"></i>
+    <div class="content">
+      <div class="header"><a target="_blank" href="https://data.cityofnewyork.us/Education/LCGMS-DOE-School-Information-Report/3bkj-34v2">DOE School Information Report (LCGMS) <i class="external alternate icon"></i></a></div>
+      <p>
+      The Department of Education does not include schools built in the current year in Bluebook. For such schools,
+      data from the Department of Education's School Information report is used.
+      </p>
+    </div>
+  </div>
+  
   <table class="ui celled attached sortable table">
     <thead>
       <tr>
@@ -47,6 +58,10 @@
     </tbody>
   </table>
 {{else}}
+  <div class="ui top attached segment">
+    <div class="ui green ribbon label">Complete</div> <h3 class="action-title">Recently Built Schools</h3>
+  </div>
+
   <div class="ui secondary bottom attached segment">
     There are no schools needing further information in your current study area.
   </div>

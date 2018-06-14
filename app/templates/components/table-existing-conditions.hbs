@@ -2,25 +2,27 @@
 Get Mona to include correct grades served and citywide & alternative schools
  --}}
 
-<div class="ui secondary pointing menu attached">
-  {{#ui-dropdown class="item" selected=activeSdId onChange=(action (mut activeSdId))}}
-    <div class="default text">{{defaultText}}</div>
-    <i class="dropdown icon"></i>
-    <div class="menu">
-      {{#each project.subdistricts as |sd|}}
-        <div data-value={{sd.id}} class="item">
-          District {{sd.district}} - Subdistrict {{sd.subdistrict}}
-        </div>
-      {{/each}}
+<div class="ui segment attached">
+  <div class="ui secondary menu">
+    <div class="ui simple dropdown item">
+      <strong>{{sd.sdName}}</strong>
+      <i class="dropdown icon"></i>
+
+      <div class="menu">
+        {{#each project.subdistricts as |sd|}}
+          <a class="item" {{action 'setSdId' sd.id}}>{{sd.sdName}}</a>
+        {{/each}}
+      </div>
+
     </div>
-  {{/ui-dropdown}}
-  
-  <a class="item {{if (eq activeSchoolsLevel 'ps') 'active'}}" {{action (mut activeSchoolsLevel) 'ps'}}>
-    Primary Schools
-  </a>
-  <a class="item {{if (eq activeSchoolsLevel 'is') 'active'}}" {{action (mut activeSchoolsLevel) 'is'}}>
-    Intermediate Schools
-  </a>
+    
+    <a class="item {{if (eq activeSchoolsLevel 'ps') 'active'}}" {{action (mut activeSchoolsLevel) 'ps'}}>
+      Primary Schools
+    </a>
+    <a class="item {{if (eq activeSchoolsLevel 'is') 'active'}}" {{action (mut activeSchoolsLevel) 'is'}}>
+      Intermediate Schools
+    </a>
+  </div>
 </div>
 
 <table class="ui celled sortable table attached bottom">

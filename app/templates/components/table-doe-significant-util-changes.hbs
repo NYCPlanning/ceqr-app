@@ -1,6 +1,18 @@
-<h3 class="ui teal segment">
-  <div class="ui green ribbon label">Action 2</div>DOE Significant Utilitization Changes
-</h3>
+<div class="ui top attached segment">
+  <div class="ui orange ribbon label">Need Action</div> <h3 class="action-title">DOE Significant Utilitization Changes</h3>
+</div>
+
+<div class="ui attached icon message">
+  <i class="database icon"></i>
+  <div class="content">
+    <div class="header">
+      <a target="_blank" href="https://github.com/NYCPlanning/cp-ceqr-schools/blob/master/notebooks/data/All%20Proposals%20Database_02.02.18.xlsx?raw=true">
+        DOE Significant Utilization Proposals [Feb 2, 2018] <i class="external alternate icon"></i>
+      </a>
+    </div>
+    <p>List of proposed Department of Education utilization changes.</p>
+  </div>
+</div>
 
 {{#if project.doeUtilChanges}}
   {{#each tables as |t|}}
@@ -37,8 +49,8 @@
       <thead>
         <tr>
           <th class="two wide">At Scale Year</th>
-          <th class="eleven wide">Proposal Title</th>
-          <th class="three wide">Links</th>
+          <th class="ten wide">Proposal Title</th>
+          <th class="four wide">Links</th>
         </tr>
       </thead>
       <tbody>
@@ -47,8 +59,10 @@
             <td>{{n.at_scale_year}}</td>
             <td>{{n.title}}</td>
             <td>
-              {{#if n.bup_url}}<a href={{n.bup_url}} target="_blank">BUP <i class="external alternate icon"></i></a>{{/if}}
-              {{#if n.eis_url}}<a href={{n.eis_url}} target="_blank">EIS <i class="external alternate icon"></i></a>{{/if}}
+              <div class="ui list">
+                {{#if n.bup_url}}<div class="item"><a href={{n.bup_url}} target="_blank">Building Utilization Plan <i class="external alternate icon"></i></a></div>{{/if}}
+                {{#if n.eis_url}}<div class="item"><a href={{n.eis_url}} target="_blank">Educational Impact Statement <i class="external alternate icon"></i></a></div>{{/if}}
+              </div>
             </td>
           </tr>
         {{/each}}

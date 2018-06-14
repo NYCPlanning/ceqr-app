@@ -1,29 +1,33 @@
 <div class="row">
   <div class="sixteen wide column">
-    {{!-- <div class="ui icon warning message">
-      <i class="exclamation icon"></i>
-      <div class="content">
-        <div class="header">
-          Missing data
-        </div>
-        <p>Please filling in the missing fields below</p>
-      </div>
-    </div> --}}
+    <div class="ui top attached header">
+      <h3>Existing Conditions</h3>
+    </div>
 
-    {{recently-built-schools project=project}}
+    <div class="ui attached segment">        
+      {{map-existing-conditions project=project}}
+    </div>
+
+    <div class="ui attached icon message">
+      <i class="database icon"></i>
+      <div class="content">
+        <div class="header"><a target="_blank" href="http://www.nycsca.org/Community/Capital-Plan-Reports-Data#Enrollment-Capacity-Utilization-69">SCA Enrollment, Capacity, and Utilization (Blue Book) [2016-17] <i class="external alternate icon"></i></a></div>
+        <p>
+        The Enrollment, Capacity & Utilization Report is an annual document that provides information
+        on school organization and school building utilization. 
+        </p>
+      </div>
+    </div>
+
+    {{table-existing-conditions project=project}}
   </div>
 </div>
 
 <div class="row">
   <div class="sixteen wide column">
-    <div class="ui top attached header">
-      <h3>Existing Conditions</h3>
+    <div class="row">
+      {{recently-built-schools project=project}}
     </div>
-    <div class="ui attached segment">        
-      {{map-existing-conditions project=project}}
-    </div>
-
-    {{table-existing-conditions project=project}}
   </div>
 </div>
 

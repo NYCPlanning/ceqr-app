@@ -1,15 +1,18 @@
 <div class="row">
   <div class="sixteen wide column">
-    {{!-- <div class="ui icon warning message">
-      <i class="exclamation icon"></i>
-      <div class="content">
-        <div class="header">
-          Missing data
-        </div>
-        <p>Please filling in the missing fields below</p>
-      </div>
-    </div> --}}
-    
+    <h3 class="ui top attached header">
+      Future Conditions: No-Action Scenario
+    </h3>
+    <div class="ui attached segment">
+      {{map-future-no-action project=project}}
+    </div>
+
+    {{table-projected-enrollment project=project}}
+  </div>
+</div>
+
+<div class="row">
+  <div class="sixteen wide column">    
     {{table-sca-under-construction project=project}}
   </div>
 </div>
@@ -71,15 +74,6 @@
         should also be shown.</p>
       </div>
     {{/ui-accordion}}
-    
-    <h3 class="ui top attached header">
-      Future Conditions: No-Action Scenario
-    </h3>
-    <div class="ui attached segment">
-      {{map-future-no-action project=project}}
-    </div>
-
-    {{table-projected-enrollment project=project}}
   </div>
 </div>
 

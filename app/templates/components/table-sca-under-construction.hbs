@@ -1,49 +1,86 @@
-<h3 class="ui orange segment">
-  <div class="ui green ribbon label">Action 1</div>SCA Schools Under Construction [from: SCA Construction]
-</h3>
+{{#if tables}}
+  <div class="ui top attached segment">
+    <div class="ui orange ribbon label">Needs Input</div> <h3 class="action-title">SCA Schools Under Construction</h3>
+  </div>
 
-{{#each tables as |t|}}
-  <table class="ui orange bottom celled table">
-    <thead>
-      <th colspan="8">District {{t.district}} - Subdistrict {{t.subdistrict}}</th>
-      <tr>
-        <th class="six wide">School Under Construction</th>
-        <th class="two wide">Estimated Completion Date</th>
-        <th class="two wide">Data as Of</th>
-        <th class="one wide">Future Capacity</th>
-        <th class="one wide">PS Capacity</th>
-        <th class="one wide">IS Capacity</th>
-        <th class="one wide">HS Capacity</th>
-        <th class="two wide">Include?</th>
-      </tr>
-    </thead>
-    <tbody>
-      {{#each t.buildings as |b|}}
+  <div class="ui attached bottom icon message">
+    <i class="database icon"></i>
+    <div class="content">
+      <div class="header">
+        <a target="_blank" href="https://data.cityofnewyork.us/Housing-Development/Capital-Project-Schedules-and-Budgets/2xh6-psuq">
+          Capital Project Schedules and Budgets [Feb 9, 2018] <i class="external alternate icon"></i>
+        </a>
+      </div>
+      <p>List of capital projects with managing organization, phase status and project costs.</p>
+
+      <div class="header">
+        <a target="_blank" href="https://data.cityofnewyork.us/Education/Capacity-Projects-by-schools/a94k-kjys">
+          Capacity Projects by schools [Mar 21, 2018] <i class="external alternate icon"></i>
+        </a>
+      </div>
+      <p>Capacity project details by school.</p>
+
+      <div class="header">
+        <a target="_blank" href="https://data.cityofnewyork.us/Housing-Development/Active-Projects-Under-Construction/8586-3zfm">
+          Active Projects Under Construction [Feb 22, 2018] <i class="external alternate icon"></i>
+        </a>
+      </div>
+      <p>New school projects (Capacity) and Capital Improvement Projects (CIP) currently under Construction.</p>
+    </div>
+  </div>
+
+  {{#each tables as |t|}}
+    <table class="ui orange bottom celled table">
+      <thead>
+        <th colspan="8">District {{t.district}} - Subdistrict {{t.subdistrict}}</th>
         <tr>
-          <td>{{b.name}}</td>
-          <td>{{moment-format b.planned_end_date 'MM/DD/YYYY'}}</td>
-          <td>{{moment-format b.data_as_of 'MM/DD/YYYY'}}</td>
-          <td>{{b.capacity}}</td>
-          <td>
-            <div class="ui input transparent edit-cell">
-              {{input type="number" value=b.ps_capacity placeholder="0"}}
-            </div>
-          </td>
-          <td>
-            <div class="ui input transparent edit-cell">
-              {{input type="number" value=b.is_capacity placeholder="0"}}
-            </div>
-          </td>
-          <td>
-            <div class="ui input transparent edit-cell">
-              {{input type="number" value=b.hs_capacity placeholder="0"}}
-            </div>
-          </td>
-          <td>
-            {{ui-checkbox checked=b.includeInCapacity onChange=(action (mut b.includeInCapacity))}}
-          </td>
+          <th class="six wide">School Under Construction</th>
+          <th class="two wide">Estimated Completion Date</th>
+          <th class="two wide">Data as Of</th>
+          <th class="one wide">Future Capacity</th>
+          <th class="one wide">PS Capacity</th>
+          <th class="one wide">IS Capacity</th>
+          <th class="one wide">HS Capacity</th>
+          <th class="two wide">Include?</th>
         </tr>
-      {{/each}}
-    </tbody>
-  </table>
-{{/each}}
+      </thead>
+      <tbody>
+        {{#each t.buildings as |b|}}
+          <tr>
+            <td>{{b.name}}</td>
+            <td>{{moment-format b.planned_end_date 'MM/DD/YYYY'}}</td>
+            <td>{{moment-format b.data_as_of 'MM/DD/YYYY'}}</td>
+            <td>{{b.capacity}}</td>
+            <td>
+              <div class="ui input transparent edit-cell">
+                {{input type="number" value=b.ps_capacity placeholder="0"}}
+              </div>
+            </td>
+            <td>
+              <div class="ui input transparent edit-cell">
+                {{input type="number" value=b.is_capacity placeholder="0"}}
+              </div>
+            </td>
+            <td>
+              <div class="ui input transparent edit-cell">
+                {{input type="number" value=b.hs_capacity placeholder="0"}}
+              </div>
+            </td>
+            <td>
+              {{ui-checkbox checked=b.includeInCapacity onChange=(action (mut b.includeInCapacity))}}
+            </td>
+          </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  {{/each}}
+{{else}}
+  <div class="ui top attached segment">
+    <div class="ui green ribbon label">Complete</div> <h3 class="action-title">SCA Schools Under Construction</h3>
+  </div>
+  
+  <div class="ui secondary bottom attached segment">
+    There are no schools under construction in your current study area.
+  </div>
+{{/if}}
+
