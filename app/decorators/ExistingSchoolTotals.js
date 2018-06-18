@@ -19,7 +19,9 @@ export default EmberObject.extend({
   }),
 
   capacityTotal: computed('buildings.@each.capacity', function() {
-    return this.get('buildings').mapBy('capacity').reduce((acc, value) => {
+    return this.get('buildings').map(
+      (b) => b.excluded ? 0 : b.capacity
+    ).reduce((acc, value) => {
       if (value === undefined) return acc;
       return acc + parseInt(value);
     }, 0);
