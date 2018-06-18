@@ -44,7 +44,7 @@ Get Mona to include correct grades served and citywide & alternative schools
   </thead>
 
   <tbody>
-    {{#each table.buildings as |b|}}
+    {{#each buildings as |b|}}
       {{#tr-hover class=b.grades source='bluebook' id=b.cartodb_id}}
         <td>{{b.org_id}}</td>
         <td>{{b.bldg_id}}</td>
@@ -59,8 +59,8 @@ Get Mona to include correct grades served and citywide & alternative schools
         <td>{{b.grades}}</td>
         <td>{{b.enroll}}</td>
         <td>{{if b.excluded "N/A" b.capacity}}</td>
-        <td>{{b.seats}}</td>
-        <td>{{if b.excluded "N/A" (percentage b.utilization)}}</td>
+        <td data-sort-value={{b.seats}}>{{b.seats}}</td>
+        <td data-sort-value={{b.utilization}}>{{if b.excluded "N/A" (percentage b.utilization)}}</td>
       {{/tr-hover}}
     {{/each}}
   </tbody>

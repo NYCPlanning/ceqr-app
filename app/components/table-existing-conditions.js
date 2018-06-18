@@ -13,10 +13,18 @@ export default Component.extend({
     }
   },
 
+  didInsertElement() {
+    // this.$('table').tablesort();
+  },
+
   table: computed('activeSdId', 'activeSchoolsLevel', function() {
     return this.get('project.existingSchoolTotals').find(
       (total) => (total.id === parseInt(this.get('activeSdId')) && total.level === this.get('activeSchoolsLevel'))
-    )
+    );
+  }),
+
+  buildings: computed('table', function() {
+    return this.get('table.buildings').sortBy('org_id');
   }),
 
   sd: computed('activeSdId', function() {
