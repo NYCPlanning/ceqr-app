@@ -10,6 +10,6 @@ export default Component.extend({
     return `Greater than ${this.get('thresholdEsMsStudents')} elementary and middle school students triggers a detailed analysis.`;
   }),
   hsEffectPopupText: computed('ceqrManual', function() {
-    return `Greater than ${this.get('thresholdHsStudents')} high school students causes a detailed analysis.`;
+    return `Greater than ${this.get('thresholdHsStudents')} high school students triggers a detailed analysis.`;
   })
 });

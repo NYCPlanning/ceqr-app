@@ -24,6 +24,31 @@
     {{/ui-dropdown}}
   </div>
 
+  <div class="map-legend">
+    <div class="ui list">
+      <div class="item">
+        <i class="circle icon" style="color: #7fcdbb;"></i>
+        <div class="content">Primary School</div>
+      </div>
+      <div class="item">
+        <i class="circle icon" style="color: #41b6c4;"></i>
+        <div class="content">Primary/Intermediate School</div>
+      </div>
+      <div class="item">
+        <i class="circle icon" style="color: #1d91c0;"></i>
+        <div class="content">Intermediate School</div>
+      </div>
+      <div class="item">
+        <i class="circle icon" style="color: #225ea8;"></i>
+        <div class="content">Intermediate/High School</div>
+      </div>
+      <div class="item">
+        <i class="circle icon" style="color: #0c2c84;"></i>
+        <div class="content">High School</div>
+      </div>
+    </div>
+  </div>
+
   {{#map.source options=(hash type='geojson' data=(await mapdata.subdistrictGeojson)) as |source|}}
     {{source.layer layer=(hash
       id='subdistricts'
@@ -96,9 +121,29 @@
 
   {{#map.source options=(hash type='geojson' data=(await mapdata.bluebookGeojson)) as |source|}}
     {{source.layer layer=(hash
+        id='bluebook-hover'
+        type='circle'
+        paint=(hash circle-color='#A0A0A0' circle-radius=12 circle-opacity=0.7)
+        filter=(array "==" (array "get" "cartodb_id") 0)
+      )
+    }}
+
+    {{source.layer layer=(hash
       id='bluebook'
       type='circle'
-      paint=(hash circle-color='#2b83ba'))
+      paint=(hash 
+        circle-color=(array "case"
+          (array "==" (array "get" "level") "PS") "#7fcdbb"
+          (array "==" (array "get" "level") "PSIS") "#41b6c4"
+          (array "==" (array "get" "level") "IS") "#1d91c0"
+          (array "==" (array "get" "level") "ISHS") "#225ea8"
+          (array "==" (array "get" "level") "HS") "#0c2c84"
+          "#333333"
+        )
+      ))
     }}
   {{/map.source}}
+
+  {{map.on 'mouseenter' 'bluebook' (action 'schoolHover')}}
+  {{map.on 'mouseleave' 'bluebook' (action 'schoolUnhover')}}
 {{/mapbox-gl}}

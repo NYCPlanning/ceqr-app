@@ -15,28 +15,28 @@ export default EmberObject.extend({
     return this.get('buildings').mapBy('enroll').reduce((acc, value) => {
       if (value === undefined) return acc;
       return acc + parseInt(value);
-    });
+    }, 0);
   }),
 
   capacityTotal: computed('buildings.@each.capacity', function() {
     return this.get('buildings').mapBy('capacity').reduce((acc, value) => {
       if (value === undefined) return acc;
       return acc + parseInt(value);
-    });
+    }, 0);
   }),
 
   capacityTotalNoAction: computed('buildings.@each.capacityFuture', function() {
     return this.get('buildings').mapBy('capacityFuture').reduce((acc, value) => {
       if (value === undefined) return acc;
       return acc + parseInt(value);
-    });
+    }, 0);
   }),
 
   seatsTotal: computed('buildings.@each.seats', function() {
     return this.get('buildings').mapBy('seats').reduce((acc, value) => {
       if (value === undefined) return acc;
       return acc + parseInt(value);
-    });
+    }, 0);
   }),
 
   utilizationTotal: computed('enrollmentTotal', 'capacityTotal', function() {

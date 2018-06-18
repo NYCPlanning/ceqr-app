@@ -22,6 +22,9 @@ Get Mona to include correct grades served and citywide & alternative schools
     <a class="item {{if (eq activeSchoolsLevel 'is') 'active'}}" {{action (mut activeSchoolsLevel) 'is'}}>
       Intermediate Schools
     </a>
+    <a class="item {{if (eq activeSchoolsLevel 'hs') 'active'}}" {{action (mut activeSchoolsLevel) 'hs'}}>
+      High Schools
+    </a>
   </div>
 </div>
 
@@ -29,8 +32,9 @@ Get Mona to include correct grades served and citywide & alternative schools
   <thead>
     <tr>
       <th class="one wide">Org. ID</th>
+      <th class="one wide">Bldg. ID</th>
       <th class="five wide">School Name</th>
-      <th class="five wide">Address</th>
+      <th class="four wide">Address</th>
       <th class="one wide">Grades<br />Served</th>
       <th class="one wide">Enrollment</th>
       <th class="one wide">Target<br />Capacity</th>
@@ -41,8 +45,9 @@ Get Mona to include correct grades served and citywide & alternative schools
 
   <tbody>
     {{#each table.buildings as |b|}}
-      <tr class={{b.type}}>
+      {{#tr-hover class=b.grades source='bluebook' id=b.cartodb_id}}
         <td>{{b.org_id}}</td>
+        <td>{{b.bldg_id}}</td>
         <td>
           <i class="circle icon"></i>
           {{b.name}}
@@ -56,13 +61,13 @@ Get Mona to include correct grades served and citywide & alternative schools
         <td>{{if b.excluded "N/A" b.capacity}}</td>
         <td>{{b.seats}}</td>
         <td>{{if b.excluded "N/A" (percentage b.utilization)}}</td>
-      </tr>
+      {{/tr-hover}}
     {{/each}}
   </tbody>
 
   <tfoot>
     <tr>
-      <th colspan="4"><em>Totals</em></th>
+      <th colspan="5"><em>Totals</em></th>
       <th>{{table.enrollmentTotal}}</th>
       <th>{{table.capacityTotal}}</th>
       <th>{{table.seatsTotal}}</th>

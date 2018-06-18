@@ -20,17 +20,15 @@
   display: inline;
 }
 
-.lcgms .circle.icon {
-  color: #2b83ba;
-}
-
-.bluebook .circle.icon {
-  color: #2b83ba;
-}
+.PS .circle.icon {  color: #7fcdbb; }
+.PSIS .circle.icon {  color: #41b6c4; }
+.IS .circle.icon {  color: #1d91c0; }
+.ISHS .circle.icon {  color: #225ea8; }
+.HS .circle.icon {  color: #0c2c84; }
 
 .map-ui {
   position: absolute;
-  z-index: 10;
+  z-index: 1;
   background: white;
   margin: 5px;
   padding: 5px;
@@ -39,8 +37,37 @@
   font-size: 14px;
 }
 
+.map-legend {
+  position: absolute;
+  bottom: 2.5em;
+  z-index: 1;
+  background: white;
+  margin: 5px;
+  padding: 5px;
+  border-radius: 2px;
+  box-shadow: 1px 2px 2px rgba(100, 100, 100, 0.4);
+  font-size: 12px;
+}
+
+.mapboxgl-popup {
+  z-index: 2;
+}
+
+.mapboxgl-popup-anchor-top .mapboxgl-popup-tip { border-bottom-color: #333333; }
+.mapboxgl-popup-anchor-bottom .mapboxgl-popup-tip { border-top-color: #333333; }
+.mapboxgl-popup-anchor-left .mapboxgl-popup-tip { border-right-color: #333333; }
+.mapboxgl-popup-anchor-right .mapboxgl-popup-tip { border-left-color: #333333; }
+
+.mapboxgl-popup-content {
+  padding: 0;
+}
+
 .edit-cell input {
   width: 50px;
+}
+
+tr.hover, td.hover {
+  background: #A0A0A0;
 }
 
 .login, .signup {

@@ -23,8 +23,8 @@
       {{#each psTable as |p|}}
         <tr>
           <td>{{p.sdName}}</td>
-          <td>{{percentage p.utilizationWithAction}}</td>
-          <td>{{percentage p.utilizationChange}}</td>
+          {{#td-hover name='utilizationWithAction' sdid=p.id level='ps'}}{{percentage p.utilizationWithAction}}{{/td-hover}}
+          {{#td-hover name='utilizationChange' sdid=p.id level='ps'}}{{percentage p.utilizationChange}}{{/td-hover}}
           {{#if p.impact}}
             <td class="negative"><strong>Likely</strong></td>
           {{else}}
@@ -46,8 +46,8 @@
       {{#each isTable as |p|}}
         <tr>
           <td>{{p.sdName}}</td>
-          <td>{{percentage p.utilizationWithAction}}</td>
-          <td>{{percentage p.utilizationChange}}</td>
+          {{#td-hover name='utilizationWithAction' sdid=p.id level='is'}}{{percentage p.utilizationWithAction}}{{/td-hover}}
+          {{#td-hover name='utilizationChange' sdid=p.id level='is'}}{{percentage p.utilizationChange}}{{/td-hover}}
           {{#if p.impact}}
             <td class="negative"><strong>Likely</strong></td>
           {{else}}
@@ -69,8 +69,8 @@
       {{#each hsTable as |p|}}
         <tr>
           <td>{{p.sdName}}</td>
-          <td>{{percentage p.utilizationWithAction}}</td>
-          <td>{{percentage p.utilizationChange}}</td>
+          {{#td-hover name='utilizationWithAction' sdid=p.id level='hs'}}{{percentage p.utilizationWithAction}}{{/td-hover}}
+          {{#td-hover name='utilizationChange' sdid=p.id level='hs'}}{{percentage p.utilizationChange}}{{/td-hover}}
           {{#if p.impact}}
             <td class="negative"><strong>Likely</strong></td>
           {{else}}

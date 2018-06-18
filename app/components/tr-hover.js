@@ -3,10 +3,10 @@ import { inject as service } from '@ember/service';
 
 export default Component.extend({
   tablehover: service(),
-  tagName: 'td',
+  tagName: 'tr',
   classNameBindings: ['hover'],
   hover: false,
-  
+
   init() {
     this._super(...arguments);
     this.get('tablehover').on('hover', this, 'setHover');
@@ -18,35 +18,28 @@ export default Component.extend({
     this.get('tablehover').off('unhover', this, 'removeHover');
   },
 
-  setHover({ sdid, level, name }) {
+  setHover({ source, id }) {
     if (
-      sdid === this.get('sdid') &&
-      level === this.get('level') &&
-      name === this.get('name')
+      id === this.get('id') &&
+      source === this.get('source')
     ) this.set('hover', true);
   },
 
-  removeHover({ sdid, level, name }) {
-    if (
-      sdid === this.get('sdid') &&
-      level === this.get('level') &&
-      name === this.get('name')
-    ) this.set('hover', false);
+  removeHover() {
+    this.set('hover', false);
   },
 
   mouseEnter() {
     this.get('tablehover').trigger('hover', {
-      sdid: this.get('sdid'),
-      level: this.get('level'),
-      name: this.get('name')
+      source: this.get('source'),
+      id: this.get('id'),
     })
   },
 
   mouseLeave() {
     this.get('tablehover').trigger('unhover', {
-      sdid: this.get('sdid'),
-      level: this.get('level'),
-      name: this.get('name')
-    })
+      source: this.get('source'),
+      id: this.get('id'),
+    });
   },
 });

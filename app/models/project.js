@@ -191,8 +191,8 @@ export default DS.Model.extend({
           
           capacityExisting: this.get('existingSchoolTotals').filter(
             (b) => (b.district === sd.district && b.subdistrict === sd.subdistrict && b.level === 'ps')
-          ).reduce(function(acc, value) {
-            return acc + value.get('capacityTotalNoAction');
+          ).reduce(function(acc, value) {            
+            return acc + parseInt(value.get('capacityTotalNoAction'));
           }, 0),
 
           scaCapacityIncrease: this.get('scaProjects').filter(
@@ -234,8 +234,8 @@ export default DS.Model.extend({
           
           capacityExisting: this.get('existingSchoolTotals').filter(
             (b) => (b.district === sd.district && b.subdistrict === sd.subdistrict && b.level === 'is')
-          ).reduce(function(acc, value) {
-            return acc + value.get('capacityTotalNoAction');
+          ).reduce(function(acc, value) {            
+            return acc + parseInt(value.get('capacityTotalNoAction'));
           }, 0),
 
           scaCapacityIncrease: this.get('scaProjects').filter(

@@ -41,7 +41,7 @@ export default Service.extend({
   }),
   fetchBluebookGeojson: task(function*() {
     return yield carto.SQL(`
-      SELECT the_geom, district, subd AS subdistrict, cartodb_id
+      SELECT the_geom, district, subd AS subdistrict, cartodb_id, bldg_id, org_id, org_level AS level, organization_name AS org_name
       FROM doe_bluebook_v1617
       WHERE cartodb_id IN (${this.get('project.bluebookCartoIds').join(',')})
     `, 'geojson');
