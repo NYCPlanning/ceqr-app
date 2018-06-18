@@ -230,6 +230,7 @@ export default Controller.extend({
       let doeUtilChanges = await carto.SQL(`
         SELECT
           at_scale_year,
+          at_scale_enroll,
           bldg_id,
           bup_url,
           eis_url,

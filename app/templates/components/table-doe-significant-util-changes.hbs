@@ -32,7 +32,7 @@
           <tr>
             <td>{{b.name}}</td>
             <td>{{b.bldg_name}}</td>
-            <td>{{b.level}}</td>
+            <td>{{uppercase b.level}}</td>
             <td class="warning">
               <div class="ui input transparent edit-cell">
                 {{input type="number" value=b.capacityFuture placeholder="0"}}
@@ -49,14 +49,16 @@
       <thead>
         <tr>
           <th class="two wide">At Scale Year</th>
-          <th class="ten wide">Proposal Title</th>
-          <th class="four wide">Links</th>
+          <th class="one wide">At Scale Enrollment</th>
+          <th class="eight wide">Proposal Title</th>
+          <th class="five wide">Links</th>
         </tr>
       </thead>
       <tbody>
         {{#each t.doe_notices as |n|}}
           <tr>
             <td>{{n.at_scale_year}}</td>
+            <td>{{n.at_scale_enroll}}</td>
             <td>{{n.title}}</td>
             <td>
               <div class="ui list">
