@@ -67,7 +67,11 @@
 }
 
 tr.hover, td.hover {
-  background: #A0A0A0;
+  background: rgb(233, 234, 235);
+}
+
+table.row-highlight {
+  border-collapse: collapse !important;
 }
 
 .login, .signup {
