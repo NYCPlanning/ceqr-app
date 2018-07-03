@@ -9,7 +9,7 @@ export default DS.Model.extend({
     this.set('ceqrManual', manual);
   },
 
-  project_id: DS.attr('string'),
+  ceqr_number: DS.attr('string'),
   name: DS.attr('string'),
   bbls: DS.attr('', { defaultValue() { return []; } }),
   buildYear: DS.attr('number'),

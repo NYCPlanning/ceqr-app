@@ -1,4 +1,59 @@
-<div class="two fields">
+<table class="ui very basic celled table">
+  <tbody>
+    <tr>
+      <td>
+        <h4 class="ui image header">
+          <div class="content">
+            Total Units
+            <div class="sub header">Incremental</div>
+          </div>
+        </h4>
+      </td>
+
+      <td class="math--bottom positive">
+        <div class="ui input transparent edit-cell">
+          {{input id="total" min=0 max=9999 type="number" value=model.totalUnits placeholder=0}}
+        </div>  
+        <i class="minus circle icon"></i>
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        <h4 class="ui image header">
+          <div class="content">
+            Senior Units
+          </div>
+        </h4>
+      </td>
+
+      <td class="positive">
+        <div class="ui input transparent edit-cell">
+          {{input id="senior" min=0 max=9999 type="number" value=model.seniorUnits placeholder=0}}
+        </div>
+      </td>
+    </tr>
+</tbody>
+
+  <tfoot>
+    <th>
+      <h4 class="ui image header">
+        <i class="building icon"></i>
+        <div class="content">
+          Units for Analysis
+          <div class="sub header">excluding Senior Units</div>
+        </div>
+      </h4>
+    </th>
+
+    <th>
+      <h4>{{model.netUnits}}</h4>
+    </th>
+  </tfoot>
+</table>
+
+
+{{!-- <div class="two fields">
     <div class="ui labeled input field">
       <label for="total" class="ui label">Total Incremental Units</label>
       {{input id="total" min=0 max=9999 type="number" value=model.totalUnits placeholder=0}}
@@ -14,8 +69,8 @@
         {{model.netUnits}}
       </div>
       <div class="label">
-        Net Units
+        Units for analysis (excluding senior)
       </div>
     </div>
-</div>
+</div> --}}
 

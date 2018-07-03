@@ -1,13 +1,13 @@
 <div class="ui grid">
   <div class="ten wide column">
     <div class="ui segments">
-      <div class="ui segment">
+      <div class="ui grey segment">
         <form class="ui form">
           <div class="field">
             <div class="two fields">
               <div class="six wide field">
-                <label>Project ID</label>
-                {{input type="text" value=project.project_id placeholder="Project ID"}}
+                <label>CEQR Number</label>
+                {{input type="text" value=project.ceqr_number placeholder="CEQR Number"}}
               </div>
               <div class="twelve wide field">
                 <label>Project Name</label>
@@ -24,42 +24,32 @@
         {{bbl-list model=project}}
       </div>
 
-      <div class="ui segment">
+      <div class="ui grey segment">
         {{total-unit-count model=project}}
       </div>
 
-      <div class="ui {{if project.directEffect "yellow" "grey"}} segment">
-        <h3>Does this project require a detailed analysis of Direct Effect?</h3>
+      <div class="ui grey segment">
+        <h4>Does this project require a detailed analysis of Direct Effect?</h4>
+
         <p>Would the project directly eliminate, displace, or alter public or publicly funded educational facilities?</p>
-        <div class="ui huge label {{if project.directEffect "yellow" "grey"}}">
-          {{if project.directEffect "Yes" "No"}}
+
+        <div class="ui buttons">
+          <button class="ui {{if project.directEffect "blue" "grey basic"}} button" onclick={{action "directEffectTrue"}}>Yes</button>
+          <button class="ui {{if project.directEffect "grey basic" "blue"}} button" onclick={{action "directEffectFalse"}}>No</button>
         </div>
-        <a href {{action (toggle "project.directEffect" this)}}>change to {{if project.directEffect "No" "Yes"}}</a>
       </div>
     </div>
   </div>
 
   <div class="six wide column">
-    {{#ui-accordion}}
-      <div class="title">
-        <h4><i class="dropdown icon"></i>100. Definitions</h4>
-      </div>
-      <div class="content">
-        <p><em>PUBLIC SCHOOLS.</em> CEQR analyzes potential impacts only on public schools operated and funded by the New York City
-        Department of Education. This analysis generally relates only to public elementary and intermediate schools, which serve a
-        local population, and rarely to high schools, which have a borough-wide or citywide population base. Schools are analyzed based
-        on the potential for the project to cause overcrowding (i.e., a shortage of seats for an age group within the district).</p>
-      </div>
-
-      <div class="title">
-        <h4><i class="dropdown icon"></i>210. Direct Effects</h4>
-      </div>
-      <div class="content">
-        <p>If a project would physically alter a community facility, whether by displacement of the facility or other physical
-        change, this "direct" effect triggers the need to assess the service delivery of the facility and the potential effect
-        that the physical change may have on that service delivery. Temporary direct effects should also be considered
-        (for example, the temporary closing of a facility during a phase of construction).</p>
-      </div>
-    {{/ui-accordion}}
+    <div class="title">
+      <h4>210. Direct Effects</h4>
+    </div>
+    <div class="content">
+      <p>If a project would physically alter a community facility, whether by displacement of the facility or other physical
+      change, this "direct" effect triggers the need to assess the service delivery of the facility and the potential effect
+      that the physical change may have on that service delivery. Temporary direct effects should also be considered
+      (for example, the temporary closing of a facility during a phase of construction).</p>
+    </div>
   </div>
 </div>

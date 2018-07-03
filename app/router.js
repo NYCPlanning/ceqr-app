@@ -12,13 +12,13 @@ Router.map(function() {
   
   this.authenticatedRoute('project', function() {
     this.route('new');
-    this.route('show', {path: '/:project_id'}, function() {
+    this.route('show', {path: '/:ceqr_number'}, function() {
       this.route('edit');
       this.route('analysis-threshold', {path: '/'});
       this.route('existing-conditions');
       this.route('no-action');
       this.route('with-action');
-      this.route('results');
+      this.route('mitigation');
     });
   });
 

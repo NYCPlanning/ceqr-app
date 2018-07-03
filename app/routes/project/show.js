@@ -3,7 +3,7 @@ import RSVP from 'rsvp';
 
 export default class ProjectRoute extends Route {
   model = async function(params) {
-    const project = await this.get('store').findRecord('project', params.project_id);
+    const project = await this.get('store').findRecord('project', params.ceqr_number);
     const ceqrManual = await this.get('store').findRecord('ceqr-manual', 'march-2014');
 
     project.setCeqrManual(ceqrManual);

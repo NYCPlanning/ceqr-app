@@ -6,6 +6,13 @@ module.exports = function(defaults) {
   let app = new EmberApp(defaults, {
     babel: {
       plugins: ['transform-object-rest-spread']
+    },
+    fontawesome: {
+      icons: {
+        'free-solid-svg-icons': [
+          'equals'
+         ]
+      }
     }
   });
 

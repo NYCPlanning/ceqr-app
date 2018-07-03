@@ -2,39 +2,40 @@
   <div class="ui container">
     <div class="header item">
       <i class="building icon"></i>
-      {{#link-to "user.projects"}}CEQR Schools{{/link-to}}
+      {{#link-to "user.projects"}}CEQR Community Facilities - Public Schools{{/link-to}}
     </div>
-    
-    {{!-- <div class="item">
-      Project ID: {{project.project_id}}
-    </div> --}}
-    {{!-- <a class="item">
-      <i class="home icon"></i> Home
-    </a>
-    <a class="item">
-      <i class="grid layout icon"></i> Browse
-    </a>
-    <a class="item">
-      <i class="mail icon"></i> Messages
-    </a>
-    --}}
 
-    {{#if session.isAuthenticated}}
-      <div class="ui right simple dropdown item">
-        {{session.currentUser.email}}
+    <div class="right menu">
+      <div class="ui simple dropdown item">
+        Technical Manual
         <i class="dropdown icon"></i>
         <div class="menu">
-          <a class="item" {{action 'logOut'}}><i class="sign out alternate icon"></i>Log Out</a>
-          {{!-- <a class="item"><i class="edit icon"></i> Edit Profile</a>
-          <a class="item"><i class="globe icon"></i> Choose Language</a>
-          <a class="item"><i class="settings icon"></i> Account Settings</a> --}}
+          <a class="item" href="https://www1.nyc.gov/assets/oec/technical-manual/2014_ceqr_technical_manual_rev_04_27_2016.pdf" target="_blank"><i class="file pdf icon"></i> Full CEQR Technical Manual</a>
+          <div class="divider"></div>
+          <div class="header">
+            Chapters
+          </div>
+          <a class="item" href="https://www1.nyc.gov/assets/oec/technical-manual/06_Community_Facilities_2014.pdf" target="_blank"><i class="file pdf icon"></i> 6: Community Facilities and Services</a>
         </div>
       </div>
-    {{else}}
-      <div class="right item">
-        {{#link-to 'login'}}Log In{{/link-to}}
-      </div>
-    {{/if}}
+
+      {{#if session.isAuthenticated}}
+        <div class="ui simple dropdown item">
+          {{session.currentUser.email}}
+          <i class="dropdown icon"></i>
+          <div class="menu">
+            <a class="item" {{action 'logOut'}}><i class="sign out alternate icon"></i>Log Out</a>
+            {{!-- <a class="item"><i class="edit icon"></i> Edit Profile</a>
+            <a class="item"><i class="globe icon"></i> Choose Language</a>
+            <a class="item"><i class="settings icon"></i> Account Settings</a> --}}
+          </div>
+        </div>
+      {{else}}
+        <div class="item">
+          {{#link-to 'login'}}Log In{{/link-to}}
+        </div>
+      {{/if}}
+    </div>
   </div>
 </div>
 
