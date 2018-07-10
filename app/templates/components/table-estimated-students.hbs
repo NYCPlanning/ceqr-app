@@ -13,7 +13,7 @@
   <tbody>
     <tr>
       <td>Elementary</td>
-      {{#td-hover rowspan="3" name='housingFromDev' sdid=t.id}}{{project.netUnits}}{{/td-hover}}
+      {{#td-hover rowspan="3" payload=(hash name='housingFromDev')}}{{project.netUnits}}{{/td-hover}}
       {{!-- <td rowspan="3">{{project.netUnits}}</td> --}}
       <td class="math--left"><i class="times circle icon"></i> {{project.studentMultipliers.es}}</td>
       <td>{{project.estEsStudents}}</td>

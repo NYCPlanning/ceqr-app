@@ -28,12 +28,12 @@
         <tr>
           <td>{{p.sdName}}</td>
           <td>{{p.enrollNoAction}}</td>
-          {{#td-hover name='studentsFromDev' sdid=p.id level='ps'}}{{p.studentsWithAction}}{{/td-hover}}
+          {{#td-hover payload=(hash name='studentsFromDev' sdid=p.id level='ps')}}{{p.studentsWithAction}}{{/td-hover}}
           <td>{{p.enrollWithAction}}</td>
           <td>{{p.capacityNoAction}}</td>
           <td>{{p.seatsWithAction}}</td>
-          {{#td-hover name='utilizationWithAction' sdid=p.id level='ps'}}{{percentage p.utilizationWithAction}}{{/td-hover}}
-          {{#td-hover name='utilizationChange' sdid=p.id level='ps'}}{{percentage p.utilizationChange}}{{/td-hover}}
+          {{#td-hover payload=(hash name='utilizationWithAction' sdid=p.id level='ps')}}{{percentage p.utilizationWithAction}}{{/td-hover}}
+          {{#td-hover payload=(hash name='utilizationChange' sdid=p.id level='ps')}}{{percentage p.utilizationChange}}{{/td-hover}}
         </tr>
       {{/each}}
     </tbody>
@@ -51,12 +51,12 @@
         <tr>
           <td>{{p.sdName}}</td>
           <td>{{p.enrollNoAction}}</td>
-          {{#td-hover name='studentsFromDev' sdid=p.id level='is'}}{{p.studentsWithAction}}{{/td-hover}}
+          {{#td-hover payload=(hash name='studentsFromDev' sdid=p.id level='is')}}{{p.studentsWithAction}}{{/td-hover}}
           <td>{{p.enrollWithAction}}</td>
           <td>{{p.capacityNoAction}}</td>
           <td>{{p.seatsWithAction}}</td>
-          {{#td-hover name='utilizationWithAction' sdid=p.id level='is'}}{{percentage p.utilizationWithAction}}{{/td-hover}}
-          {{#td-hover name='utilizationChange' sdid=p.id level='is'}}{{percentage p.utilizationChange}}{{/td-hover}}
+          {{#td-hover payload=(hash name='utilizationWithAction' sdid=p.id level='is')}}{{percentage p.utilizationWithAction}}{{/td-hover}}
+          {{#td-hover payload=(hash name='utilizationChange' sdid=p.id level='is')}}{{percentage p.utilizationChange}}{{/td-hover}}
         </tr>
       {{/each}}
     </tbody>

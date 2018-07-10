@@ -1,6 +1,6 @@
 import Component from '@ember/component';
 import { inject as service } from '@ember/service';
-import { isEqual } from '@ember/utils';
+import { isEqual } from 'lodash';
 
 export default Component.extend({
   tablehover: service(),
@@ -20,35 +20,19 @@ export default Component.extend({
     this.get('tablehover').off('unhover', this, 'removeHover');
   },
 
-  setHover({ sdid, level, name }) {
-    if (
-      sdid === this.get('sdid') &&
-      level === this.get('level') &&
-      name === this.get('name')
-    ) this.set('hover', true);
+  setHover(payload) {
+    if (isEqual(payload, this.get('payload'))) this.set('hover', true);
   },
 
-  removeHover({ sdid, level, name }) {
-    if (
-      sdid === this.get('sdid') &&
-      level === this.get('level') &&
-      name === this.get('name')
-    ) this.set('hover', false);
+  removeHover(payload) {
+    if (isEqual(payload, this.get('payload'))) this.set('hover', false);
   },
 
   mouseEnter() {
-    this.get('tablehover').trigger('hover', {
-      sdid: this.get('sdid'),
-      level: this.get('level'),
-      name: this.get('name')
-    })
+    this.get('tablehover').trigger('hover', this.get('payload'))
   },
 
   mouseLeave() {
-    this.get('tablehover').trigger('unhover', {
-      sdid: this.get('sdid'),
-      level: this.get('level'),
-      name: this.get('name')
-    })
+    this.get('tablehover').trigger('unhover', this.get('payload'))
   },
 });

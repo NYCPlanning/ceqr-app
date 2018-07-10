@@ -25,10 +25,10 @@
     {{#each tables as |t|}}
       <tr>
         <td>{{t.sdName}}</td>
-        {{#td-hover name='housingFromDev' sdid=t.id}}{{t.netUnits}}{{/td-hover}}
-        {{#td-hover name='studentsFromDev' sdid=t.id level='ps'}}{{t.estEsStudents}}{{/td-hover}}
-        {{#td-hover name='studentsFromDev' sdid=t.id level='is'}}{{t.estIsStudents}}{{/td-hover}}
-        {{#td-hover name='studentsFromDev' sdid=t.id level='hs'}}{{t.estHsStudents}}{{/td-hover}}
+        {{#td-hover payload=(hash name='housingFromDev')}}{{t.netUnits}}{{/td-hover}}
+        {{#td-hover payload=(hash name='studentsFromDev' sdid=t.id level='ps')}}{{t.estEsStudents}}{{/td-hover}}
+        {{#td-hover payload=(hash name='studentsFromDev' sdid=t.id level='is')}}{{t.estIsStudents}}{{/td-hover}}
+        {{#td-hover payload=(hash name='studentsFromDev' sdid=t.id level='hs')}}{{t.estHsStudents}}{{/td-hover}}
       </tr>
     {{/each}}
   </tbody>
