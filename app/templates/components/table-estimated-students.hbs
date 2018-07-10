@@ -1,19 +1,21 @@
 <table class="ui collapsing celled table">
   <thead>
     <tr>
-      <th></th>
-      <th>Net Units</th>
-      <th>Public school students per unit</th>
-      <th colspan=2>Estimated Number<br />of Students</th>
-      <th>Threshold for triggering detailed analysis</th>
+      <th class="two wide"></th>
+      <th class="two wide">Units for Analysis</th>
+      <th class="two wide">Public school students per unit</th>
+      <th class="three wide" colspan=2>Estimated Number<br />of Students</th>
+      <th class="three wide">Threshold for triggering detailed analysis</th>
+      <th>Triggers detailed analysis</th>
     </tr>
   </thead>
 
   <tbody>
     <tr>
       <td>Elementary</td>
-      <td rowspan="3">{{project.netUnits}}</td>
-      <td>x {{project.studentMultipliers.es}}</td>
+      {{#td-hover rowspan="3" name='housingFromDev' sdid=t.id}}{{project.netUnits}}{{/td-hover}}
+      {{!-- <td rowspan="3">{{project.netUnits}}</td> --}}
+      <td class="math--left"><i class="times circle icon"></i> {{project.studentMultipliers.es}}</td>
       <td>{{project.estEsStudents}}</td>
       <td class={{if project.esEffect "warning"}} rowspan="2">
         {{#if project.esEffect}}
@@ -27,15 +29,20 @@
       <td rowspan="2">
         {{ceqrManual.thresholdEsMsStudents}}
       </td>
+      <td rowspan="2">
+        <div style="display: inline-block;" class="ui medium label {{if project.esEffect "yellow" "grey"}}">
+          {{if project.esEffect "Yes" "No"}}
+        </div>
+      </td>
     </tr>
     <tr>
       <td>Middle School</td>
-      <td>x {{project.studentMultipliers.ms}}</td>
+      <td class="math--left"><i class="times circle icon"></i> {{project.studentMultipliers.ms}}</td>
       <td>{{project.estIsStudents}}</td>
     </tr>
     <tr>
       <td>High School</td>
-      <td>x {{project.studentMultipliers.hs}}</td>
+      <td class="math--left"><i class="times circle icon"></i> {{project.studentMultipliers.hs}}</td>
       <td class={{if project.hsEffect "warning"}} colspan="2">
         {{#if project.hsEffect}}
           {{#ui-popup title="Triggers a Detailed Analysis" content=hsEffectPopupText}}
@@ -47,6 +54,11 @@
       </td>
       <td>
         {{ceqrManual.thresholdHsStudents}}
+      </td>
+      <td>
+        <div style="display: inline-block;" class="ui medium label {{if project.hsEffect "yellow" "grey"}}">
+          {{if project.hsEffect "Yes" "No"}}
+        </div>
       </td>
     </tr>
   </tbody>

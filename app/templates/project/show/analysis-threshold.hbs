@@ -1,11 +1,17 @@
   <div class="row">
     <div class="sixteen wide column">     
       <div class="ui grey segment">
-        <h3 style="display: inline;">Does this project require a detailed analysis of Indirect Effect?</h3>
+        <h3 style="display: inline;">Does this project require a detailed schools capacity analysis of Indirect Effect?</h3>
         <div style="display: inline-block;" class="ui big label {{if project.indirectEffect "yellow" "grey"}}">
           {{if project.indirectEffect "Yes" "No"}}
         </div>
       </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="sixteen wide column">
+      {{table-project-card project=project}}
     </div>
   </div>
 

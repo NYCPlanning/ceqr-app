@@ -1,10 +1,12 @@
 import Component from '@ember/component';
 import { inject as service } from '@ember/service';
+import { isEqual } from '@ember/utils';
 
 export default Component.extend({
   tablehover: service(),
   tagName: 'td',
   classNameBindings: ['hover'],
+  attributeBindings: ['rowspan'],
   hover: false,
   
   init() {

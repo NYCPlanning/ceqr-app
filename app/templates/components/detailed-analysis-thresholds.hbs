@@ -15,20 +15,10 @@
   </tr></thead>
   <tbody>
     {{#each ceqrManual.minResidentialUnits as |boro|}}
-      <tr class={{boro.name}}>
-        {{#if (eq boro.name project.borough)}}
-          <td class= "active">{{boro.name}}</td>
-          <td class={{if project.esEffect "negative" "positive"}}>
-            <i class={{if project.esEffect "icon close" "icon check"}}></i> {{boro.es}}
-          </td>
-          <td class={{if project.hsEffect "negative" "positive"}}>
-            <i class={{if project.hsEffect "icon close" "icon check"}}></i> {{boro.hs}}
-          </td>
-        {{else}}
-          <td>{{boro.name}}</td>
-          <td>{{boro.es}}</td>
-          <td>{{boro.hs}}</td>
-        {{/if}}
+      <tr class={{if (eq boro.name project.borough) "active"}}>
+        <td>{{boro.name}}</td>
+        <td>{{boro.es}}</td>
+        <td>{{boro.hs}}</td>
       </tr>
     {{/each}}
   </tbody>

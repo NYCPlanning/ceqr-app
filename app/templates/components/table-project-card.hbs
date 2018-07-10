@@ -1,5 +1,9 @@
+<h4 class="ui top attached header">
+  <i class="building icon"></i>
+  <div class="content">Project Overview</div>
+</h4>
 
-<table class="ui celled table">
+<table class="ui attached celled table">
   <thead>
     <tr>
       <th colspan=5><h3 class="inline-header">{{project.ceqr_number}} - {{project.name}}</h3>
@@ -10,7 +14,7 @@
     </tr>
     <tr>
       <th>Study Area</th>
-      <th>Housing Units</th>
+      <th>Units for Analysis</th>
       <th>PS Students</th>
       <th>IS Students</th>
       <th>HS Students</th>
@@ -21,7 +25,7 @@
     {{#each tables as |t|}}
       <tr>
         <td>{{t.sdName}}</td>
-        <td>{{t.netUnits}}</td>
+        {{#td-hover name='housingFromDev' sdid=t.id}}{{t.netUnits}}{{/td-hover}}
         {{#td-hover name='studentsFromDev' sdid=t.id level='ps'}}{{t.estEsStudents}}{{/td-hover}}
         {{#td-hover name='studentsFromDev' sdid=t.id level='is'}}{{t.estIsStudents}}{{/td-hover}}
         {{#td-hover name='studentsFromDev' sdid=t.id level='hs'}}{{t.estHsStudents}}{{/td-hover}}
