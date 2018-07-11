@@ -6,22 +6,30 @@
   ) as |map| }}
 
   <div class="map-ui">
-    {{ui-checkbox label="Show" checked=showZones onChange=(action (mut showZones))}}
-    {{#ui-dropdown selected="es" onChange=(action (mut schoolZone))}}
-      <div class="default text"></div>
-      <i class="dropdown icon"></i>
-      <div class="menu">
-        <div data-value="es" class="item">
-          Elementary School Zones
+    <div class="zone-dropdown">
+      {{ui-checkbox label="Show" checked=showZones onChange=(action (mut showZones))}}
+      {{#ui-dropdown selected="es" onChange=(action (mut schoolZone))}}
+        <div class="default text"></div>
+        <i class="dropdown icon"></i>
+        <div class="menu">
+          <div data-value="es" class="item">
+            Elementary School Zones
+          </div>
+          <div data-value="is" class="item">
+            Intermediate School Zones
+          </div>
+          <div data-value="hs" class="item">
+            High School Zones
+          </div>
         </div>
-        <div data-value="is" class="item">
-          Intermediate School Zones
-        </div>
-        <div data-value="hs" class="item">
-          High School Zones
-        </div>
+      {{/ui-dropdown}}
+    </div>
+
+    {{#if zoneName}}
+      <div class="zone-text">
+        {{zoneName}}
       </div>
-    {{/ui-dropdown}}
+    {{/if}}
   </div>
 
   <div class="map-legend">
@@ -56,6 +64,39 @@
       paint=(hash fill-color='#ffffbf' fill-opacity=0.6))
     }}
   {{/map.source}}
+
+  {{!-- Map Layers for Hovering --}}
+  {{#map.source options=(hash type='geojson' data=(await mapdata.esZonesGeojson)) as |source|}}
+    {{source.layer layer=(hash
+      id='es-zones-hover'
+      type='fill'
+      paint=(hash fill-opacity=0)
+    )
+    }}
+  {{/map.source}}
+  {{#map.source options=(hash type='geojson' data=(await mapdata.isZonesGeojson)) as |source|}}
+    {{source.layer layer=(hash
+      id='is-zones-hover'
+      type='fill'
+      paint=(hash fill-opacity=0)
+    )
+    }}
+  {{/map.source}}
+  {{#map.source options=(hash type='geojson' data=(await mapdata.hsZonesGeojson)) as |source|}}
+    {{source.layer layer=(hash
+      id='hs-zones-hover'
+      type='fill'
+      paint=(hash fill-opacity=0)
+    )
+    }}
+  {{/map.source}}
+  {{map.on 'mousemove' 'es-zones-hover' (action 'zoneHover')}}
+  {{map.on 'mousemove' 'is-zones-hover' (action 'zoneHover')}}
+  {{map.on 'mousemove' 'hs-zones-hover' (action 'zoneHover')}}
+
+  {{map.on 'mouseleave' 'es-zones-hover' (action 'zoneUnhover')}}
+  {{map.on 'mouseleave' 'is-zones-hover' (action 'zoneUnhover')}}
+  {{map.on 'mouseleave' 'hs-zones-hover' (action 'zoneUnhover')}}
 
   {{#if showZones}}
     {{#if (eq schoolZone 'es')}}

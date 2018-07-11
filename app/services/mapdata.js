@@ -65,7 +65,7 @@ export default Service.extend({
   }),
   fetchEsZones: task(function*() {
     return yield carto.SQL(`
-      SELECT DISTINCT eszones.the_geom, eszones.remarks, eszones.esid_no AS id  
+      SELECT DISTINCT eszones.the_geom, eszones.remarks, eszones.dbn, eszones.esid_no AS id  
       FROM support_school_zones_es AS eszones, (
         SELECT the_geom
         FROM doe_schoolsubdistricts_v2017
@@ -81,7 +81,7 @@ export default Service.extend({
   }),
   fetchIsZones: task(function*() {
     return yield carto.SQL(`
-      SELECT DISTINCT mszones.the_geom, mszones.remarks, mszones.msid_no AS id  
+      SELECT DISTINCT mszones.the_geom, mszones.remarks, mszones.dbn, mszones.msid_no AS id  
       FROM support_school_zones_ms AS mszones, (
         SELECT the_geom
         FROM doe_schoolsubdistricts_v2017
@@ -97,7 +97,7 @@ export default Service.extend({
   }),
   fetchHsZones: task(function*() {
     return yield carto.SQL(`
-      SELECT DISTINCT hszones.the_geom, hszones.remarks, hszones.hsid_no AS id  
+      SELECT DISTINCT hszones.the_geom, hszones.remarks, mszones.dbn, hszones.hsid_no AS id  
       FROM support_school_zones_hs AS hszones, (
         SELECT the_geom
         FROM doe_schoolsubdistricts_v2017

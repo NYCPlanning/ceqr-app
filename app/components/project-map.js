@@ -35,6 +35,7 @@ export default Component.extend({
   showZones: false,
   schoolZone: 'es',
   hsAnalysis: false,
+  zoneName: null,
 
   dotHover({source, id}) {
     this.get('map').setFilter(`${source}-hover`, ["==", ["get", "cartodb_id"], id]);
@@ -45,6 +46,20 @@ export default Component.extend({
   },
 
   actions: {
+    zoneHover(e) {
+      if (this.get('showZones') && `${this.get('schoolZone')}-zones-hover` === e.features[0].layer.id) {
+        if (e.features[0].properties.remarks === "null") {
+          this.set('zoneName', e.features[0].properties.dbn)
+        } else {
+          this.set('zoneName', e.features[0].properties.remarks)
+        }
+      }
+    },
+
+    zoneUnhover() {
+      this.set('zoneName', null);
+    },
+    
     schoolHover(e) {
       this.get('map').getCanvas().style.cursor = 'default';
       this.dotHover({source: 'bluebook', id: e.features[0].properties.cartodb_id})
