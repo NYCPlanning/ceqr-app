@@ -12,6 +12,7 @@ export default DS.Model.extend({
   ceqr_number: DS.attr('string'),
   name: DS.attr('string'),
   bbls: DS.attr('', { defaultValue() { return []; } }),
+  user: DS.attr('string'),
   buildYear: DS.attr('number'),
   buildYearCalculated: computed('buildYearCalculated', function() {
     return (parseInt(this.get('buildYear')) > 2025) ? 2025 : this.get('buildYear');

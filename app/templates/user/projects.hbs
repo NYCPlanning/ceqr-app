@@ -1,15 +1,60 @@
 <div class="ui column grid container site">
   <div class="row">
-    <ul>
-      {{#each model as |project|}}
-        <li>{{#link-to 'project.show' project.id}}{{project.name}} ({{project.ceqr_number}}){{/link-to}}</li>
-      {{/each}}
-    </ul>
+    <table class="ui basic celled table">
+      <thead><tr>
+        <th class="two wide">CEQR ID</th>
+        <th>Project Name</th>
+        <th class="one wide"></th>
+        <th class="one wide"></th>
+      </tr></thead>
+
+      {{#if model}}
+        {{#each model as |project|}}
+          <tr>
+            <td>{{project.ceqr_number}}</td>
+            <td>{{#link-to 'project.show' project.id}}{{project.name}}{{/link-to}}</td>
+            <td>
+              {{#link-to 'project.show.edit' project.id class="ui compact small labeled primary icon button"}}
+                <i class="edit icon"></i>
+                Edit
+              {{/link-to}}
+            </td>
+            <td>
+              <button class="ui compact small negative icon button" {{action 'deleteModal' project.id}}>
+                <i class="trash icon"></i>
+              </button>
+            </td>
+          </tr>
+        {{/each}}
+      {{else}}
+        <tr>
+          <td colspan=4>You have no projects assigned to you. Create a {{#link-to "project.new"}}new project{{/link-to}}.</td>
+        </tr>
+      {{/if}}
+
+    </table>
   </div>
 
   <div class="row">
     {{#link-to "project.new" class="ui green button"}}
       New Project
     {{/link-to}}
+  </div>
+</div>
+
+<div class="ui mini modal">
+  <div class="header">Delete Project?</div>
+  <div class="content">
+    <p>Test Modal</p>
+  </div>
+
+  <div class="actions">
+    <div class="ui positive button">
+      Cancel
+    </div>
+    <div class="ui negative right labeled icon button" {{action 'deleteProject'}}>
+      Delete
+      <i class="trash icon"></i>
+    </div>
   </div>
 </div>
