@@ -9,16 +9,22 @@ const Router = EmberRouter.extend({
 Router.map(function() {
   this.route('login');
   this.route('signup');
-  
+
   this.authenticatedRoute('project', function() {
     this.route('new');
     this.route('show', {path: '/:ceqr_number'}, function() {
       this.route('edit');
-      this.route('analysis-threshold', {path: '/'});
-      this.route('existing-conditions');
-      this.route('no-action');
-      this.route('with-action');
-      this.route('mitigation');
+
+      // CEQR chapter routes
+      this.route('schools-capacity', function() {
+        this.route('analysis-threshold', {path: '/'});
+        this.route('existing-conditions');
+        this.route('no-action');
+        this.route('with-action');
+        this.route('mitigation');
+      });
+
+      this.route('transportation');
     });
   });
 

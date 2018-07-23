@@ -1,15 +1,14 @@
 <div class="row">
   <div class="sixteen wide column">
-    <h1 class="ui dividing header">{{project.ceqr_number}} - {{project.name}}
-    <div class="ui label large" data-tooltip="Build Year" data-position="bottom center" data-inverted="">
-      <i class="calendar alternate icon"></i>{{project.buildYear}}
-    </div> {{#link-to "project.show.edit"}}Edit{{/link-to}}</h1> 
-  </div>
-</div>
-
-<div class="row">
-  <div class="sixteen wide column">
-      {{analysis-steps project=project}}
+    <h1 class="ui dividing header">
+      {{#link-to "project.show" project.id}}
+        {{project.ceqr_number}} - {{project.name}}
+      {{/link-to}}
+      
+      <div class="ui label large" data-tooltip="Build Year" data-position="bottom center" data-inverted="">
+        <i class="calendar alternate icon"></i>{{project.buildYear}}
+      </div> {{#link-to "project.show.edit"}}Edit{{/link-to}}
+    </h1> 
   </div>
 </div>
 

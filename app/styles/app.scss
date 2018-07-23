@@ -11,9 +11,12 @@
   vertical-align: inherit; 
 }
 
-#study-area-map,
-#map-future-no-action {
+#study-area-map {
   height: 550px;
+}
+
+#transportation-zone-map {
+  height: 750px;
 }
 
 .action-title {

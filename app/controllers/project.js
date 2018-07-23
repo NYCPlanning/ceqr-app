@@ -13,16 +13,25 @@ export default Controller.extend({
       this.get('model.project').save().catch(error => {
         console.log(error);
       }).then((project) => {
-        this.transitionToRoute('project.show.analysis-threshold', this.get('model.project.id'));
+        this.transitionToRoute('project.show.schools-capacity.analysis-threshold', this.get('model.project.id'));
       });
-    },
-    
-    saveProject: function() {
-      this.get('model.project').save();
     },
     
     saveProjectDetails: async function() {
       let bbls = this.get('model.project.bbls');
+
+      // Set Traffic Zone
+      let trafficZones = await carto.SQL(`
+        SELECT DISTINCT
+          traffic_zones.ceqrzone
+        FROM ceqr_transportation_zones_v2015 AS traffic_zones, (
+          SELECT the_geom, bbl
+          FROM mappluto_v1711
+          WHERE bbl IN (${bbls.join(',')})
+        ) pluto
+        WHERE ST_Intersects(pluto.the_geom, traffic_zones.the_geom)
+      `)
+      this.set('model.project.trafficZone', trafficZones[0].ceqrzone);
 
       // Set subdistricts
       let subdistricts = await carto.SQL(`
@@ -174,7 +183,7 @@ export default Controller.extend({
       await this.get('model.project').save().catch(error => {
         console.log(error);
       }).then((project) => {
-        this.transitionToRoute('project.show.existing-conditions', this.get('model.project.id'));
+        this.transitionToRoute('project.show.schools-capacity.existing-conditions', this.get('model.project.id'));
       });
     },
 
@@ -243,7 +252,7 @@ export default Controller.extend({
       await this.get('model.project').save().catch(error => {
         console.log(error);
       }).then((project) => {
-        this.transitionToRoute('project.show.no-action', project.id);
+        this.transitionToRoute('project.show.schools-capacity.no-action', project.id);
       });
     },
 
@@ -251,7 +260,7 @@ export default Controller.extend({
       this.get('model.project').save().catch(error => {
         console.log(error);
       }).then((project) => {
-        this.transitionToRoute('project.show.with-action', project.id);
+        this.transitionToRoute('project.show.schools-capacity.with-action', project.id);
       });
     }
   }

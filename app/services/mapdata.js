@@ -118,5 +118,34 @@ export default Service.extend({
       WHERE cartodb_id IN (${this.get('project.scaProjectsCartoIds').join(',')})
     `, 'geojson')
   }).drop(),
-  
+
+
+  subwayRoutesGeojson: computed('', function() {
+    return this.get('fetchSubwayRoutes').perform();
+  }),
+  fetchSubwayRoutes: task(function*() {
+    return yield carto.SQL('SELECT the_geom, rt_symbol FROM mta_subway_routes_v0', 'geojson');
+  }).drop(),
+
+  subwayStopsGeojson: computed('', function() {
+    return this.get('fetchSubwayStops').perform();
+  }),
+  fetchSubwayStops: task(function*() {
+    return yield carto.SQL('SELECT the_geom, name FROM mta_subway_stops_v0', 'geojson');
+  }).drop(),
+
+  subwayEntrancesGeojson: computed('', function() {
+    return this.get('fetchSubwayEntrances').perform();
+  }),
+  fetchSubwayEntrances: task(function*() {
+    return yield carto.SQL('SELECT the_geom FROM mta_subway_entrances_v0', 'geojson');
+  }).drop(),
+
+  transportationZonesMvt: null,
+  fetchTransportationZones: computed('', function() {
+    return carto.getVectorTileTemplate([{
+      id: 'transportation-zones',
+      sql: 'SELECT the_geom_webmercator, the_geom, ceqrzone FROM ceqr_transportation_zones_v2015' }
+    ]).then((url) => this.set('transportationZonesMvt', url));
+  }),
 });

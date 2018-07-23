@@ -1,0 +1,36 @@
+<div class="row">
+  <div class="ui two column grid">
+    <div class="column">
+      <div class="ui link cards">
+        {{#link-to 'project.show.schools-capacity' class="ui fluid card"}}
+          <div class="content">
+            <div class="header">
+              <i class="building icon"></i>
+              Schools Capacity
+            </div>
+          </div>
+
+          <div class="extra content">
+            Detailed Analysis
+            <div style="display: inline-block;" class="ui small label {{if model.project.indirectEffect "yellow" "grey"}}">
+              {{if model.project.indirectEffect "Yes" "No"}}
+            </div>
+          </div>
+        {{/link-to}}
+
+        {{#link-to 'project.show.transportation' class="ui fluid card"}}
+          <div class="content">
+            <div class="header">
+              <i class="subway icon"></i>
+              Transportation
+            </div>
+          </div>
+
+          <div class="extra content">
+            Traffic Zone <div class="ui grey circular label">{{model.project.trafficZone}}</div>
+          </div>
+        {{/link-to}}
+      </div>
+    </div>
+  </div>
+</div>
