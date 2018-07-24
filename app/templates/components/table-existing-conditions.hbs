@@ -22,9 +22,13 @@ Get Mona to include correct grades served and citywide & alternative schools
     <a class="item {{if (eq activeSchoolsLevel 'is') 'active'}}" {{action (mut activeSchoolsLevel) 'is'}}>
       Intermediate Schools
     </a>
-    <a class="item {{if (eq activeSchoolsLevel 'hs') 'active'}}" {{action (mut activeSchoolsLevel) 'hs'}}>
-      High Schools
-    </a>
+    <div class="ui divider"></div>
+    <div class="right menu">
+      <a class="item {{if (eq activeSchoolsLevel 'hs') 'active'}}" {{action (mut activeSchoolsLevel) 'hs'}}>
+        High Schools ({{project.borough}})
+      </a>
+    </div>
+
   </div>
 </div>
 
