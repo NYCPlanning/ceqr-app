@@ -26,6 +26,9 @@
         )
       )}}
     {{/map.source}}
+
+    {{map.on 'mousemove' 'transportation-zones' (action 'zoneHover')}}
+    {{map.on 'mouseleave' 'transportation-zones' (action 'zoneUnhover')}}
   {{/if}}
 
   {{#map.source options=(hash type='geojson' data=(await mapdata.bblGeojson)) as |source|}}

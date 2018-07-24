@@ -67,7 +67,13 @@
 .mapboxgl-popup-anchor-right .mapboxgl-popup-tip { border-left-color: #333333; }
 
 .mapboxgl-popup-content {
+  background-color: #333333;
+  color: white;
   padding: 0;
+}
+
+.traffic-zone-popup {
+  margin: 5px 7px;
 }
 
 .edit-cell input {
