@@ -19,7 +19,12 @@ export default DS.Model.extend({
   }),
   
   borough: DS.attr('string', { defaultValue: 'Bronx' }),
+
+  // - Tranpsortation -
   trafficZone: DS.attr('number'),
+
+  // - Schools Capacity -
+  hsAnalysis: false,
 
   // Units
   totalUnits: DS.attr('number', { defaultValue: 0 }),

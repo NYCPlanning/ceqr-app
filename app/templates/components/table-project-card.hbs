@@ -1,19 +1,11 @@
-<h4 class="ui top attached header">
-  <i class="building icon"></i>
-  <div class="content">Project Overview</div>
-</h4>
-
-<table class="ui attached celled table">
+<table class="ui celled table">
   <thead>
     <tr>
-      <th colspan=5><h3 class="inline-header">{{project.ceqr_number}} - {{project.name}}</h3>
-        <div class="ui label large" data-tooltip="Build Year" data-position="bottom center" data-inverted="">
-          <i class="calendar alternate icon"></i>{{project.buildYear}}
-        </div>
+      <th>
+        <i class="building icon"></i>
+        Project Name
       </th>
-    </tr>
-    <tr>
-      <th>Study Area</th>
+      <th>Build Year</th>
       <th>Units for Analysis</th>
       <th>PS Students</th>
       <th>IS Students</th>
@@ -22,14 +14,19 @@
   </thead>
 
   <tbody>
-    {{#each tables as |t|}}
-      <tr>
-        <td>{{t.sdName}}</td>
-        {{#td-hover payload=(hash name='housingFromDev')}}{{t.netUnits}}{{/td-hover}}
-        {{#td-hover payload=(hash name='studentsFromDev' sdid=t.id level='ps')}}{{t.estEsStudents}}{{/td-hover}}
-        {{#td-hover payload=(hash name='studentsFromDev' sdid=t.id level='is')}}{{t.estIsStudents}}{{/td-hover}}
-        {{#td-hover payload=(hash name='studentsFromDev' sdid=t.id level='hs')}}{{t.estHsStudents}}{{/td-hover}}
-      </tr>
-    {{/each}}
+    <tr>
+      <td>
+        <h3 class="inline-header">{{project.ceqr_number}} - {{project.name}}</h3>
+      </td>
+      <td>        
+        <div class="ui label large" data-tooltip="Build Year" data-position="bottom center" data-inverted="">
+          <i class="calendar alternate icon"></i>{{project.buildYear}}
+        </div>
+      </td>
+      {{#td-hover payload=(hash name='housingFromDev')}}{{project.netUnits}}{{/td-hover}}
+      {{#td-hover payload=(hash name='studentsFromDev' level='ps')}}{{project.estEsStudents}}{{/td-hover}}
+      {{#td-hover payload=(hash name='studentsFromDev' level='is')}}{{project.estIsStudents}}{{/td-hover}}
+      {{#td-hover payload=(hash name='studentsFromDev' level='hs')}}{{project.estHsStudents}}{{/td-hover}}
+    </tr>
   </tbody>
 </table> 

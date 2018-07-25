@@ -5,7 +5,7 @@
 <table class="ui attached bottom celled table">
   <thead>
     <tr>
-      <th>Study Area</th>
+      <th>School Level</th>
       <th>Utilization (%)</th>
       <th>Change in Utilization (%)</th>
       <th>Triggers a Significant Adverse Impact</th>
@@ -13,71 +13,47 @@
   </thead>
 
   {{#if psTable}}
-    <thead>
-      <tr>
-        <th colspan=4>Primary Schools</th>
-      </tr>
-    </thead>
-
     <tbody>
-      {{#each psTable as |p|}}
-        <tr>
-          <td>{{p.sdName}}</td>
-          {{#td-hover payload=(hash name='utilizationWithAction' sdid=p.id level='ps')}}{{percentage p.utilizationWithAction}}{{/td-hover}}
-          {{#td-hover payload=(hash name='utilizationChange' sdid=p.id level='ps')}}{{percentage p.utilizationChange}}{{/td-hover}}
-          {{#if p.impact}}
-            <td class="negative"><strong>Likely</strong></td>
-          {{else}}
-            <td class="positive">No</td>
-          {{/if}}
-        </tr>
-      {{/each}}
+      <tr>
+        <td>Primary Schools</td>
+        {{#td-hover payload=(hash name='utilizationWithAction' level='ps')}}{{percentage psTable.utilizationWithActionTotal}}{{/td-hover}}
+        {{#td-hover payload=(hash name='utilizationChange' level='ps')}}{{percentage psTable.utilizationChangeTotal}}{{/td-hover}}
+        {{#if psTable.impact}}
+          <td class="negative"><strong>Likely</strong></td>
+        {{else}}
+          <td class="positive">No</td>
+        {{/if}}
+      </tr>
     </tbody>
   {{/if}}
 
   {{#if isTable}}
-    <thead>
-      <tr>
-        <th colspan=4>Intermediate Schools</th>
-      </tr>
-    </thead>
-
     <tbody>
-      {{#each isTable as |p|}}
-        <tr>
-          <td>{{p.sdName}}</td>
-          {{#td-hover payload=(hash name='utilizationWithAction' sdid=p.id level='is')}}{{percentage p.utilizationWithAction}}{{/td-hover}}
-          {{#td-hover payload=(hash name='utilizationChange' sdid=p.id level='is')}}{{percentage p.utilizationChange}}{{/td-hover}}
-          {{#if p.impact}}
-            <td class="negative"><strong>Likely</strong></td>
-          {{else}}
-            <td class="positive">No</td>
-          {{/if}}
-        </tr>
-      {{/each}}
+      <tr>
+        <td>Intermediate Schools</td>
+        {{#td-hover payload=(hash name='utilizationWithAction' level='is')}}{{percentage isTable.utilizationWithActionTotal}}{{/td-hover}}
+        {{#td-hover payload=(hash name='utilizationChange' level='is')}}{{percentage isTable.utilizationChangeTotal}}{{/td-hover}}
+        {{#if isTable.impact}}
+          <td class="negative"><strong>Likely</strong></td>
+        {{else}}
+          <td class="positive">No</td>
+        {{/if}}
+      </tr>
     </tbody>
   {{/if}}
 
-  {{#if hsTable}}
-    <thead>
-      <tr>
-        <th colspan=4>High Schools</th>
-      </tr>
-    </thead>
-
+  {{#if project.hsAnalysis}}
     <tbody>
-      {{#each hsTable as |p|}}
-        <tr>
-          <td>{{p.sdName}}</td>
-          {{#td-hover payload=(hash name='utilizationWithAction' sdid=p.id level='hs')}}{{percentage p.utilizationWithAction}}{{/td-hover}}
-          {{#td-hover payload=(hash name='utilizationChange' sdid=p.id level='hs')}}{{percentage p.utilizationChange}}{{/td-hover}}
-          {{#if p.impact}}
-            <td class="negative"><strong>Likely</strong></td>
-          {{else}}
-            <td class="positive">No</td>
-          {{/if}}
-        </tr>
-      {{/each}}
+      <tr>
+        <td>High Schools</td>
+        {{#td-hover payload=(hash name='utilizationWithAction' level='hs')}}{{percentage hsTable.utilizationWithActionTotal}}{{/td-hover}}
+        {{#td-hover payload=(hash name='utilizationChange' level='hs')}}{{percentage hsTable.utilizationChangeTotal}}{{/td-hover}}
+        {{#if hsTable.impact}}
+          <td class="negative"><strong>Likely</strong></td>
+        {{else}}
+          <td class="positive">No</td>
+        {{/if}}
+      </tr>
     </tbody>
   {{/if}}
 </table>

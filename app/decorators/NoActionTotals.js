@@ -32,7 +32,7 @@ export default EmberObject.extend({
   }),
 
   utilizationChange: computed('utilizationWithAction', 'utilizationNoAction', function() {
-    return round(this.get('utilizationWithAction') - this.get('utilizationNoAction'), 3);
+    return round(this.get('utilizationWithAction') - this.get('utilizationNoAction'), 4);
   }),
 
   impact: computed('utilizationChange', 'utilizationWithAction', function() {
