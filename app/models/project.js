@@ -65,6 +65,9 @@ export default DS.Model.extend({
 
   // Subdistricts
   subdistricts: DS.attr('', { defaultValue() { return []; } }),
+  multiSubdistrict: computed('subdistricts', function() {
+    return (this.get('subdistricts').length > 1)
+  }),
   subdistrictCartoIds: computed('subdistricts', function() {
     return this.get('subdistricts').mapBy('cartodb_id');
   }),
@@ -120,34 +123,31 @@ export default DS.Model.extend({
       tables.push(ExistingSchoolTotals.create({
         ...sd,
         level: 'ps',
-        lcgms: this.get('lcgms').filter(
-          (b) => (b.district === sd.district && b.subdistrict === sd.subdistrict && b.level === 'ps')
-        ),
-        bluebook: this.get('bluebook').filter(
-          (b) => (b.district === sd.district && b.subdistrict === sd.subdistrict && b.level === 'ps')
-        )
+        allBuildings: (
+            this.get('bluebook')
+          ).concat(
+            this.get('lcgms')
+          ).compact(),
       }));
 
       tables.push(ExistingSchoolTotals.create({
         ...sd,
         level: 'is',
-        lcgms: this.get('lcgms').filter(
-          (b) => (b.district === sd.district && b.subdistrict === sd.subdistrict && b.level === 'is')
-        ),
-        bluebook: this.get('bluebook').filter(
-          (b) => (b.district === sd.district && b.subdistrict === sd.subdistrict && b.level === 'is')
-        )
+        allBuildings: (
+          this.get('bluebook')
+        ).concat(
+          this.get('lcgms')
+        ).compact(),
       }));
 
       tables.push(ExistingSchoolTotals.create({
         ...sd,
         level: 'hs',
-        lcgms: this.get('lcgms').filter(
-          (b) => (b.district === sd.district && b.subdistrict === sd.subdistrict && b.level === 'hs')
-        ),
-        bluebook: this.get('bluebook').filter(
-          (b) => (b.district === sd.district && b.subdistrict === sd.subdistrict && b.level === 'hs')
-        )
+        allBuildings: (
+          this.get('bluebook')
+        ).concat(
+          this.get('lcgms')
+        ).compact(),
       }));
     });
 

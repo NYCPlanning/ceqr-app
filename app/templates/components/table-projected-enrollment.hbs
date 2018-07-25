@@ -31,6 +31,18 @@
         </tr>
       {{/each}}
     </tbody>
+
+    {{#if project.multiSubdistrict}}
+      <tr>
+        <td><em>Totals across study area</em></td>
+        <td><em>{{psTableTotals.enrollTotal}}</em></td>
+        <td><em>{{psTableTotals.studentsTotal}}</em></td>
+        <td><em>{{psTableTotals.enrollNoActionTotal}}</em></td>
+        <td><em>{{psTableTotals.capacityNoActionTotal}}</em></td>
+        <td><em>{{psTableTotals.seatsNoActionTotal}}</em></td>
+        <td><em>{{percentage psTableTotals.utilizationNoActionTotal}}</em></td>
+      </tr>
+    {{/if}}
   {{/if}}
 
   {{#if isTable}}
@@ -53,6 +65,18 @@
         </tr>
       {{/each}}
     </tbody>
+
+    {{#if project.multiSubdistrict}}
+      <tr>
+        <td><em>Totals across study area</em></td>
+        <td><em>{{isTableTotals.enrollTotal}}</em></td>
+        <td><em>{{isTableTotals.studentsTotal}}</em></td>
+        <td><em>{{isTableTotals.enrollNoActionTotal}}</em></td>
+        <td><em>{{isTableTotals.capacityNoActionTotal}}</em></td>
+        <td><em>{{isTableTotals.seatsNoActionTotal}}</em></td>
+        <td><em>{{percentage isTableTotals.utilizationNoActionTotal}}</em></td>
+      </tr>
+    {{/if}}
   {{/if}}
 
   {{#if hsTable}}
@@ -75,6 +99,18 @@
         </tr>
       {{/each}}
     </tbody>
+
+    {{#if project.multiSubdistrict}}
+      <tr>
+        <td><em>Totals across study area</em></td>
+        <td><em>{{hsTableTotals.enrollTotal}}</em></td>
+        <td><em>{{hsTableTotals.studentsTotal}}</em></td>
+        <td><em>{{hsTableTotals.enrollNoActionTotal}}</em></td>
+        <td><em>{{hsTableTotals.capacityNoActionTotal}}</em></td>
+        <td><em>{{hsTableTotals.seatsNoActionTotal}}</em></td>
+        <td><em>{{percentage hsTableTotals.utilizationNoActionTotal}}</em></td>
+      </tr>
+    {{/if}}
   {{/if}}
 </table>
 
