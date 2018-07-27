@@ -79,7 +79,7 @@
     {{/if}}
   {{/if}}
 
-  {{#if hsTable}}
+  {{#if project.hsAnalysis}}
     <thead>
       <tr>
         <th colspan=7>High Schools</th>
@@ -89,7 +89,7 @@
     <tbody>
       {{#each hsTable as |p|}}
         <tr>
-          <td>{{p.sdName}}</td>
+          <td>{{project.borough}}</td>
           <td>{{p.enroll}}</td>
           <td>{{p.students}}</td>
           <td>{{p.enrollNoAction}}</td>
@@ -99,18 +99,6 @@
         </tr>
       {{/each}}
     </tbody>
-
-    {{#if project.multiSubdistrict}}
-      <tr>
-        <td><em>Totals across study area</em></td>
-        <td><em>{{hsTableTotals.enrollTotal}}</em></td>
-        <td><em>{{hsTableTotals.studentsTotal}}</em></td>
-        <td><em>{{hsTableTotals.enrollNoActionTotal}}</em></td>
-        <td><em>{{hsTableTotals.capacityNoActionTotal}}</em></td>
-        <td><em>{{hsTableTotals.seatsNoActionTotal}}</em></td>
-        <td><em>{{percentage hsTableTotals.utilizationNoActionTotal}}</em></td>
-      </tr>
-    {{/if}}
   {{/if}}
 </table>
 

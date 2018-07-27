@@ -18,9 +18,13 @@ export default Component.extend({
   },
 
   table: computed('activeSdId', 'activeSchoolsLevel', function() {
-    return this.get('project.existingSchoolTotals').find(
-      (total) => (total.id === parseInt(this.get('activeSdId')) && total.level === this.get('activeSchoolsLevel'))
-    );
+    if (this.get('activeSchoolsLevel') === 'hs') {
+      return this.get('project.existingSchoolTotals').findBy('level', 'hs');
+    } else {
+      return this.get('project.existingSchoolTotals').find(
+        (total) => (total.id === parseInt(this.get('activeSdId')) && total.level === this.get('activeSchoolsLevel'))
+      );
+    }
   }),
 
   buildings: computed('table', function() {

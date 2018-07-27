@@ -97,13 +97,9 @@ export default Service.extend({
   }),
   fetchHsZones: task(function*() {
     return yield carto.SQL(`
-      SELECT DISTINCT hszones.the_geom, hszones.remarks, mszones.dbn, hszones.hsid_no AS id  
-      FROM support_school_zones_hs AS hszones, (
-        SELECT the_geom
-        FROM doe_schoolsubdistricts_v2017
-        WHERE cartodb_id IN (${this.get('project.subdistrictCartoIds').join(',')})
-      ) subdistricts
-      WHERE ST_Intersects(subdistricts.the_geom, hszones.the_geom)
+      SELECT DISTINCT hszones.the_geom, hszones.remarks, hszones.dbn, hszones.hsid_no AS id  
+      FROM support_school_zones_hs AS hszones
+      WHERE boro = ${this.get('project.boroCode')}
     `, 'geojson')
   }).drop(),
 

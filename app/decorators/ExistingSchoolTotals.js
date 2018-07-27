@@ -4,13 +4,17 @@ import round from '../utils/round';
 
 export default EmberObject.extend({
   buildings: computed('allBuildings', function() {
-    return this.get('allBuildings').filter(
-      (b) => (
-        b.district === this.get('district') &&
-        b.subdistrict === this.get('subdistrict') &&
-        b.level === this.get('level')
-      )
-    );
+    if (this.get('level') === 'hs') {
+      return this.get('allBuildings').filter((b) => b.level === 'hs');
+    } else {
+      return this.get('allBuildings').filter(
+        (b) => (
+          b.district === this.get('district') &&
+          b.subdistrict === this.get('subdistrict') &&
+          b.level === this.get('level')
+        )
+      );
+    }
   }),
 
   enrollmentTotal: computed('buildings.@each.enroll', function() {

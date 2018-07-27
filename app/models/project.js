@@ -19,12 +19,22 @@ export default DS.Model.extend({
   }),
   
   borough: DS.attr('string', { defaultValue: 'Bronx' }),
+  boroCode: computed('borough', function() {
+    switch (this.get('borough')) {
+      case 'Manhattan': return 1;
+      case 'Bronx': return 2;
+      case 'Brooklyn': return 3;
+      case 'Queens': return 4;
+      case 'Staten Island': return 5;
+      default: return null;
+    }
+  }),
 
   // - Tranpsortation -
   trafficZone: DS.attr('number'),
 
   // - Schools Capacity -
-  hsAnalysis: false,
+  hsAnalysis: computed.alias('totalUnits'),
 
   // Units
   totalUnits: DS.attr('number', { defaultValue: 0 }),
@@ -116,6 +126,7 @@ export default DS.Model.extend({
 
   futureResidentialDev: DS.attr('', { defaultValue() { return []; } }),
 
+  hsProjections: DS.attr('', { defaultValue() { return []; } }),
   futureEnrollmentProjections: DS.attr('', { defaultValue() { return []; } }),
   futureEnrollmentMultipliers: DS.attr('', { defaultValue() { return []; } }),
   futureEnrollmentNewHousing: DS.attr('', { defaultValue() { return []; } }),
@@ -144,17 +155,16 @@ export default DS.Model.extend({
           this.get('lcgms')
         ).compact(),
       }));
-
-      tables.push(ExistingSchoolTotals.create({
-        ...sd,
-        level: 'hs',
-        allBuildings: (
-          this.get('bluebook')
-        ).concat(
-          this.get('lcgms')
-        ).compact(),
-      }));
     });
+
+    tables.push(ExistingSchoolTotals.create({
+      level: 'hs',
+      allBuildings: (
+        this.get('bluebook')
+      ).concat(
+        this.get('lcgms')
+      ).compact(),
+    }));
 
     return tables;
   }),
@@ -169,6 +179,28 @@ export default DS.Model.extend({
     function() {
       let tables = [];
       
+      tables.push(NoActionTotals.create({
+        borough: this.get('borough'),
+        level: 'hs',
+
+        enroll: this.get('hsProjections')[0].hs,
+        students: this.get('futureResidentialDev').reduce(function(acc, value) {
+          return acc + value.hs_students;
+        }, 0),
+
+        capacityExisting: this.get('existingSchoolTotals').findBy('level', 'hs').get('capacityTotalNoAction'),
+        scaCapacityIncrease: this.get('scaProjects')
+          .filterBy('includeInCapacity', true)
+          .reduce(function(acc, value) {
+            let v = parseInt(value.get('hs_capacity'));
+            if (v) return acc + v;
+            else return 0;
+          }, 0),
+
+        studentsWithAction: this.get('estHsStudents') || 0,
+      }));
+
+
       this.get('subdistricts').map((sd) => {
         tables.push(NoActionTotals.create({
           ...sd,

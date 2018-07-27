@@ -23,12 +23,13 @@ Get Mona to include correct grades served and citywide & alternative schools
       Intermediate Schools
     </a>
     <div class="ui divider"></div>
-    <div class="right menu">
-      <a class="item {{if (eq activeSchoolsLevel 'hs') 'active'}}" {{action (mut activeSchoolsLevel) 'hs'}}>
-        High Schools ({{project.borough}})
-      </a>
-    </div>
-
+    {{#if project.hsAnalysis}}    
+      <div class="right menu">
+        <a class="item {{if (eq activeSchoolsLevel 'hs') 'active'}}" {{action (mut activeSchoolsLevel) 'hs'}}>
+          High Schools ({{project.borough}})
+        </a>
+      </div>
+    {{/if}}
   </div>
 </div>
 
@@ -81,21 +82,31 @@ Get Mona to include correct grades served and citywide & alternative schools
   </tbody>
 
   <tfoot>
-    <tr>
-      <th colspan="5"><em>Totals ({{sd.sdName}})</em></th>
-      <th>{{table.enrollmentTotal}}</th>
-      <th>{{table.capacityTotal}}</th>
-      <th>{{table.seatsTotal}}</th>
-      <th>{{percentage table.utilizationTotal}}</th>
-    </tr>
-    {{#if project.multiSubdistrict}}
+    {{#if (eq activeSchoolsLevel 'hs')}}
       <tr>
-        <th colspan="5"><em>Totals across study area</em></th>
-        <th>{{table.enrollmentMetaTotal}}</th>
-        <th>{{table.capacityMetaTotal}}</th>
-        <th>{{table.seatsMetaTotal}}</th>
-        <th>{{percentage table.utilizationMetaTotal}}</th>
+        <th colspan="5"><em>Totals ({{project.borough}})</em></th>
+        <th>{{table.enrollmentTotal}}</th>
+        <th>{{table.capacityTotal}}</th>
+        <th>{{table.seatsTotal}}</th>
+        <th>{{percentage table.utilizationTotal}}</th>
       </tr>
+    {{else}}
+      <tr>
+        <th colspan="5"><em>Totals ({{sd.sdName}})</em></th>
+        <th>{{table.enrollmentTotal}}</th>
+        <th>{{table.capacityTotal}}</th>
+        <th>{{table.seatsTotal}}</th>
+        <th>{{percentage table.utilizationTotal}}</th>
+      </tr>
+      {{#if project.multiSubdistrict}}
+        <tr>
+          <th colspan="5"><em>Totals across study area</em></th>
+          <th>{{table.enrollmentMetaTotal}}</th>
+          <th>{{table.capacityMetaTotal}}</th>
+          <th>{{table.seatsMetaTotal}}</th>
+          <th>{{percentage table.utilizationMetaTotal}}</th>
+        </tr>
+      {{/if}}
     {{/if}}
   </tfoot>
 </table>

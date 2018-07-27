@@ -57,6 +57,35 @@ export default Controller.extend({
         })
       ));
 
+      // Set Bluebook (High School)
+
+      let bluebookHs = await carto.SQL(`
+      SELECT
+        cartodb_id,
+        district,
+        subd AS subdistrict,
+        bldg_name,
+        CASE WHEN bldg_excl is null THEN false 
+            ELSE true END
+            AS excluded,
+        bldg_id,
+        org_id,
+        org_level,
+        organization_name AS name,
+        address,
+        org_level AS grades,
+
+        hs_capacity,
+        ROUND(hs_enroll) AS hs_enroll
+      FROM doe_bluebook_v1617
+      WHERE charter != 'Charter'
+        AND org_enroll is not null
+        AND x_citywide = ''
+        AND x_alternative = ''
+        AND organization_name not like '%25ALTERNATIVE LEARNING CENTER%25'
+        AND organization_name not like '%25YOUNG ADULT BORO CENTER%25'
+        AND left(geo_borocd::text, 1) = '${this.get('model.project.boroCode')}'
+    `);
 
       // Set Bluebook
       let bluebook = await carto.SQL(`
@@ -111,7 +140,9 @@ export default Controller.extend({
           capacityFuture: b.ms_capacity,
           enroll: b.ms_enroll
         }));
+      });
 
+      bluebookHs.forEach((b) => {
         if (/HS/.test(b.org_level)) bluebookBuildings.push(Building.create({
           ...b,
           level: 'hs',
@@ -169,6 +200,7 @@ export default Controller.extend({
           type: 'lcgms'
         }));
         
+        // Still need to deal with HS from LCGMS; will wait until LCGMS data issues are addressed
         if (isHs) lcgmsBuildings.push(Building.create({
           ...b,
           level: 'hs',
@@ -188,8 +220,17 @@ export default Controller.extend({
     },
 
     saveExistingConditions: async function() {
-      // TODO: Add caveat to projections over 2025
-      
+      // TODO: caveat to projections over 2025
+      // PS/MS max: 2025 
+      // HS max: 2025
+      let hsProjections = await carto.SQL(`
+        SELECT borough, year, hs
+        FROM hs_sca_projections_2025_v1
+        WHERE year = ${this.get('model.project.buildYearCalculated')} AND
+          LOWER(borough) = LOWER('${this.get('model.project.borough')}')
+      `);
+      this.set('model.project.hsProjections', hsProjections);
+
       let enrollmentProjections = await carto.SQL(`
         SELECT
           projected_ps_dist AS ps,
