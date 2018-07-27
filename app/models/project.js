@@ -14,9 +14,6 @@ export default DS.Model.extend({
   bbls: DS.attr('', { defaultValue() { return []; } }),
   user: DS.attr('string'),
   buildYear: DS.attr('number'),
-  buildYearCalculated: computed('buildYearCalculated', function() {
-    return (parseInt(this.get('buildYear')) > 2025) ? 2025 : this.get('buildYear');
-  }),
   
   borough: DS.attr('string', { defaultValue: 'Bronx' }),
   boroCode: computed('borough', function() {
@@ -122,6 +119,14 @@ export default DS.Model.extend({
   }),
 
   // Future
+  maxProjection: 2025,
+  minProjection: 2018,
+  projectionOverMax: computed('buildYear', function() {
+    return this.get('buildYear') > this.get('maxProjection')
+  }),
+  buildYearMaxed: computed('projectionOverMax', function() {
+    return this.get('projectionOverMax') ? this.get('maxProjection') : this.get('buildYear');
+  }),
   doeUtilChanges: DS.attr('', { defaultValue() { return []; } }),
 
   futureResidentialDev: DS.attr('', { defaultValue() { return []; } }),

@@ -226,7 +226,7 @@ export default Controller.extend({
       let hsProjections = await carto.SQL(`
         SELECT borough, year, hs
         FROM hs_sca_projections_2025_v1
-        WHERE year = ${this.get('model.project.buildYearCalculated')} AND
+        WHERE year = ${this.get('model.project.buildYearMaxed')} AND
           LOWER(borough) = LOWER('${this.get('model.project.borough')}')
       `);
       this.set('model.project.hsProjections', hsProjections);
@@ -237,7 +237,7 @@ export default Controller.extend({
           projected_ms_dist AS ms,
           CAST(district AS numeric)
         FROM ceqr_sf_projection_2016_2025
-        WHERE school_year LIKE '${this.get('model.project.buildYearCalculated')}%25'
+        WHERE school_year LIKE '${this.get('model.project.buildYearMaxed')}%25'
           AND district IN (${this.get('model.project.subdistricts').map((d) => `'${d.district}'`).join(',')})
       `);
       this.set('model.project.futureEnrollmentProjections', enrollmentProjections);

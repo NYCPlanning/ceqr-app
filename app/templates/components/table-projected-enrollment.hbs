@@ -2,7 +2,14 @@
   <thead>
     <tr>
       <th class="three wide">Study Area</th>
-      <th class="two wide">Projected {{project.buildYear}} Enrollment</th>
+      <th class="two wide">
+        Projected {{project.buildYear}} Enrollment
+        {{#if project.projectionOverMax}}
+          <div data-tooltip="Build year beyond maximum projections available. Using {{project.maxProjection}} enrollment projection." data-inverted="" class="ui orange label">
+            <i class="warning icon"></i> {{project.maxProjection}}
+          </div>
+        {{/if}}
+      </th>
       <th class="two wide">Students Introduced by No-Action Residential Development</th>
       <th class="two wide">Total No-Action Enrollment</th>
       <th class="one wide">Capacity</th>
