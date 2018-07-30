@@ -1,5 +1,5 @@
 <h3 class="ui header attached top">
-  Estimated Results
+  Impact & Mitigation
 </h3>
 
 <table class="ui attached bottom celled table">
@@ -8,36 +8,63 @@
       <th>School Level</th>
       <th>Utilization (%)</th>
       <th>Change in Utilization (%)</th>
+      <th>Seats to Mitigate</th>
+      <th>Units to Mitigate</th>
       <th>Triggers a Significant Adverse Impact</th>
     </tr>
   </thead>
 
-  {{#if psTable}}
+  {{#if ps}}
     <tbody>
-      <tr>
+      <tr class={{if ps.impact "negative"}}>
         <td>Primary Schools</td>
-        {{#td-hover payload=(hash name='utilizationWithAction' level='ps')}}{{percentage psTable.utilizationWithActionTotal}}{{/td-hover}}
-        {{#td-hover payload=(hash name='utilizationChange' level='ps')}}{{percentage psTable.utilizationChangeTotal}}{{/td-hover}}
-        {{#if psTable.impact}}
-          <td class="negative"><strong>Likely</strong></td>
-        {{else}}
-          <td class="positive">No</td>
-        {{/if}}
+        {{#td-hover payload=(hash name='utilizationWithAction' level='ps')}}{{percentage ps.utilizationWithActionTotal}}{{/td-hover}}
+        {{#td-hover payload=(hash name='utilizationChange' level='ps')}}{{percentage ps.utilizationChangeTotal decimals=2}}{{/td-hover}}
+        
+        <td>{{if ps.impact ps.mitigateSeatCount "n/a"}}</td>
+        <td>{{if ps.impact ps.mitigateUnitCount "n/a"}}</td>
+
+
+        <td>
+          {{#if ps.impact}}
+            <div 
+              class="ui red label" 
+              data-tooltip="Utilization is over 100% (at {{percentage ps.utilizationWithActionTotal}}) and Change in Utilization is over 5% (at {{percentage ps.utilizationChangeTotal decimals=2}})"
+              data-inverted=""
+            >
+              <i class="warning icon"></i> Likely
+            </div>
+          {{else}}
+            <div class="ui green label">
+              <i class="check icon"></i> No
+            </div>
+          {{/if}}
+        </td>
       </tr>
     </tbody>
   {{/if}}
 
-  {{#if isTable}}
+  {{#if is}}
     <tbody>
       <tr>
         <td>Intermediate Schools</td>
-        {{#td-hover payload=(hash name='utilizationWithAction' level='is')}}{{percentage isTable.utilizationWithActionTotal}}{{/td-hover}}
-        {{#td-hover payload=(hash name='utilizationChange' level='is')}}{{percentage isTable.utilizationChangeTotal}}{{/td-hover}}
-        {{#if isTable.impact}}
-          <td class="negative"><strong>Likely</strong></td>
-        {{else}}
-          <td class="positive">No</td>
-        {{/if}}
+        {{#td-hover payload=(hash name='utilizationWithAction' level='is')}}{{percentage is.utilizationWithActionTotal}}{{/td-hover}}
+        {{#td-hover payload=(hash name='utilizationChange' level='is')}}{{percentage is.utilizationChangeTotal decimals=2}}{{/td-hover}}
+
+        <td>{{if is.impact is.mitigateSeatCount "n/a"}}</td>
+        <td>{{if is.impact is.mitigateUnitCount "n/a"}}</td>
+
+        <td>
+          {{#if is.impact}}
+            <div class="ui red label">
+              <i class="warning icon"></i> Likely
+            </div>
+          {{else}}
+            <div class="ui green label">
+              <i class="check icon"></i> No
+            </div>
+          {{/if}}
+        </td>
       </tr>
     </tbody>
   {{/if}}
@@ -46,13 +73,23 @@
     <tbody>
       <tr>
         <td>High Schools</td>
-        {{#td-hover payload=(hash name='utilizationWithAction' level='hs')}}{{percentage hsTable.utilizationWithActionTotal}}{{/td-hover}}
-        {{#td-hover payload=(hash name='utilizationChange' level='hs')}}{{percentage hsTable.utilizationChangeTotal}}{{/td-hover}}
-        {{#if hsTable.impact}}
-          <td class="negative"><strong>Likely</strong></td>
-        {{else}}
-          <td class="positive">No</td>
-        {{/if}}
+        {{#td-hover payload=(hash name='utilizationWithAction' level='hs')}}{{percentage hs.utilizationWithActionTotal}}{{/td-hover}}
+        {{#td-hover payload=(hash name='utilizationChange' level='hs')}}{{percentage hs.utilizationChangeTotal decimals=2}}{{/td-hover}}
+
+        <td>{{if hs.impact hs.mitigateSeatCount "n/a"}}</td>
+        <td>{{if hs.impact hs.mitigateUnitCount "n/a"}}</td>
+
+        <td>
+          {{#if hs.impact}}
+            <div class="ui red label">
+              <i class="warning icon"></i> Likely
+            </div>
+          {{else}}
+            <div class="ui green label">
+              <i class="check icon"></i> No
+            </div>
+          {{/if}}
+        </td>
       </tr>
     </tbody>
   {{/if}}

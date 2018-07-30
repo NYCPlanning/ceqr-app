@@ -10,14 +10,14 @@
 <table class="ui attached bottom table">
   <thead>
     <tr><th></th>
-    <th>Elementary/<br />Intermediate</th>
+    <th>Primary/<br />Intermediate</th>
     <th>High School</th>
   </tr></thead>
   <tbody>
     {{#each ceqrManual.minResidentialUnits as |boro|}}
       <tr class={{if (eq boro.name project.borough) "active"}}>
         <td>{{boro.name}}</td>
-        <td>{{boro.es}}</td>
+        <td>{{boro.ps}}</td>
         <td>{{boro.hs}}</td>
       </tr>
     {{/each}}

@@ -3,33 +3,33 @@ import { computed } from '@ember/object';
 import SchoolLevelTotals from '../decorators/SchoolLevelTotals';
 
 export default Component.extend({
-  psTable: computed('project.noActionTotals.@each', function() {
-    return this.get('project.noActionTotals').filterBy('level', 'ps');
+  psTable: computed('project.aggregateTotals.@each', function() {
+    return this.get('project.aggregateTotals').filterBy('level', 'ps');
   }),
 
-  psTableTotals: computed('project.noActionTotals.@each', function() {
+  psTableTotals: computed('project.aggregateTotals.@each', function() {
     return SchoolLevelTotals.create({
-      subdistricts: this.get('project.noActionTotals').filterBy('level', 'ps')
+      subdistricts: this.get('project.aggregateTotals').filterBy('level', 'ps')
     });
   }),
 
-  isTable: computed('project.noActionTotals.@each', function() {
-    return this.get('project.noActionTotals').filterBy('level', 'is');
+  isTable: computed('project.aggregateTotals.@each', function() {
+    return this.get('project.aggregateTotals').filterBy('level', 'is');
   }),
 
-  isTableTotals: computed('project.noActionTotals.@each', function() {
+  isTableTotals: computed('project.aggregateTotals.@each', function() {
     return SchoolLevelTotals.create({
-      subdistricts: this.get('project.noActionTotals').filterBy('level', 'is')
+      subdistricts: this.get('project.aggregateTotals').filterBy('level', 'is')
     });
   }),
 
-  hsTable: computed('project.noActionTotals.@each', function() {
-    return this.get('project.noActionTotals').filterBy('level', 'hs');
+  hsTable: computed('project.aggregateTotals.@each', function() {
+    return this.get('project.aggregateTotals').filterBy('level', 'hs');
   }),
 
-  hsTableTotals: computed('project.noActionTotals.@each', function() {
+  hsTableTotals: computed('project.aggregateTotals.@each', function() {
     return SchoolLevelTotals.create({
-      subdistricts: this.get('project.noActionTotals').filterBy('level', 'hs')
+      subdistricts: this.get('project.aggregateTotals').filterBy('level', 'hs')
     });
   }),
 });

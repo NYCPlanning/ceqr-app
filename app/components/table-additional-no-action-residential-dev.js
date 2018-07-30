@@ -15,8 +15,8 @@ export default Component.extend({
         name,
         total_units,
         year,
-        ps_students: Math.round(total_units * multipliers.es),
-        is_students: Math.round(total_units * multipliers.ms),
+        ps_students: Math.round(total_units * multipliers.ps),
+        is_students: Math.round(total_units * multipliers.is),
         hs_students: Math.round(total_units * multipliers.hs)
       });
       this.get('project').save();

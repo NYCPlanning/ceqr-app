@@ -19,9 +19,9 @@ export default Component.extend({
 
   table: computed('activeSdId', 'activeSchoolsLevel', function() {
     if (this.get('activeSchoolsLevel') === 'hs') {
-      return this.get('project.existingSchoolTotals').findBy('level', 'hs');
+      return this.get('project.schoolTotals').findBy('level', 'hs');
     } else {
-      return this.get('project.existingSchoolTotals').find(
+      return this.get('project.schoolTotals').find(
         (total) => (total.id === parseInt(this.get('activeSdId')) && total.level === this.get('activeSchoolsLevel'))
       );
     }

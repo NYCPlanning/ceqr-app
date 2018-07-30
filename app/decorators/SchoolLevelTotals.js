@@ -44,11 +44,11 @@ export default EmberObject.extend({
   }),
 
   utilizationNoActionTotal: computed('enrollNoActionTotal', 'capacityNoActionTotal', function() {
-    return round(this.get('enrollNoActionTotal') / this.get('capacityNoActionTotal'), 3);
+    return round(this.get('enrollNoActionTotal') / this.get('capacityNoActionTotal'), 4);
   }),
 
   utilizationWithActionTotal: computed('enrollWithActionTotal', 'capacityNoActionTotal', function() {
-    return round(this.get('enrollWithActionTotal') / this.get('capacityWithActionTotal'), 3);
+    return round(this.get('enrollWithActionTotal') / this.get('capacityWithActionTotal'), 4);
   }),
 
   utilizationChangeTotal: computed('utilizationWithActionTotal', 'utilizationNoActionTotal', function() {
@@ -61,5 +61,16 @@ export default EmberObject.extend({
       &&
       (this.get('utilizationWithActionTotal') >= 1)
     );
-  })
+  }),
+
+  // Mitigation
+  mitigateSeatCount: computed('enrollWithActionTotal', 'utilizationNoActionTotal', 'capacityWithActionTotal', function() {    
+    return round(
+      (this.get('enrollWithActionTotal') / (this.get('utilizationNoActionTotal') + 0.05))
+      - this.get('capacityWithActionTotal')
+    , 2);
+  }),
+  mitigateUnitCount: computed('mitigateSeatCount', function() {
+    return Math.ceil(this.get('mitigateSeatCount') / this.get('subdistricts')[0].get('studentMultiplier'));
+  }),
 });

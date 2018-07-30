@@ -1,8 +1,8 @@
 import DS from 'ember-data';
 import { computed } from '@ember/object';
 
-import ExistingSchoolTotals from '../decorators/ExistingSchoolTotals';
-import NoActionTotals from '../decorators/NoActionTotals';
+import SchoolTotals from '../decorators/SchoolTotals';
+import AggregateTotals from '../decorators/AggregateTotals';
 
 export default DS.Model.extend({  
   setCeqrManual(manual) {
@@ -50,7 +50,7 @@ export default DS.Model.extend({
 
   // Effects
   esEffect: computed('netUnits', 'borough', function() {
-    return this.get('minResidentialUnits').es < this.get('netUnits');
+    return this.get('minResidentialUnits').ps < this.get('netUnits');
   }),
   hsEffect: computed('netUnits', 'borough', function() {
     return this.get('minResidentialUnits').hs < this.get('netUnits');
@@ -62,10 +62,10 @@ export default DS.Model.extend({
 
   // Estimated Students
   estEsStudents: computed('netUnits', 'borough', function() {
-    return Math.ceil(this.get('studentMultipliers').es * this.get('netUnits'));
+    return Math.ceil(this.get('studentMultipliers').ps * this.get('netUnits'));
   }),
   estIsStudents: computed('netUnits', 'borough', function() {
-    return Math.ceil(this.get('studentMultipliers').ms * this.get('netUnits'));
+    return Math.ceil(this.get('studentMultipliers').is * this.get('netUnits'));
   }),
   estEsMsStudents: computed('estEsStudents', 'estIsStudents', function() {
     return this.get('estEsStudents') + this.get('estIsStudents');
@@ -138,11 +138,11 @@ export default DS.Model.extend({
   futureEnrollmentNewHousing: DS.attr('', { defaultValue() { return []; } }),
 
   // Tables
-  existingSchoolTotals: computed('subdistricts', 'lcgms', 'bluebook', function() {
+  schoolTotals: computed('subdistricts', 'lcgms', 'bluebook', function() {
     let tables = [];
 
     this.get('subdistricts').map((sd) => {
-      tables.push(ExistingSchoolTotals.create({
+      tables.push(SchoolTotals.create({
         ...sd,
         level: 'ps',
         allBuildings: (
@@ -152,7 +152,7 @@ export default DS.Model.extend({
           ).compact(),
       }));
 
-      tables.push(ExistingSchoolTotals.create({
+      tables.push(SchoolTotals.create({
         ...sd,
         level: 'is',
         allBuildings: (
@@ -163,7 +163,7 @@ export default DS.Model.extend({
       }));
     });
 
-    tables.push(ExistingSchoolTotals.create({
+    tables.push(SchoolTotals.create({
       level: 'hs',
       allBuildings: (
         this.get('bluebook')
@@ -175,18 +175,19 @@ export default DS.Model.extend({
     return tables;
   }),
 
-  noActionTotals: computed(
+  aggregateTotals: computed(
     'subdistricts',
     'futureEnrollmentProjections',
     'futureEnrollmentMultipliers',
     'futureEnrollmentNewHousing',
-    'existingSchoolTotals.@each.capacityTotalNoAction',
+    'schoolTotals.@each.capacityTotalNoAction',
     'scaProjects.@each.{includeInCapacity,ps_capacity,is_capacity,hs_capacity}',
     function() {
       let tables = [];
-      
-      tables.push(NoActionTotals.create({
+
+      tables.push(AggregateTotals.create({
         borough: this.get('borough'),
+        studentMultiplier: this.get('ceqrManual').studentMultipliersFor(this.get('borough')).hs,
         level: 'hs',
 
         enroll: this.get('hsProjections')[0].hs,
@@ -194,7 +195,7 @@ export default DS.Model.extend({
           return acc + value.hs_students;
         }, 0),
 
-        capacityExisting: this.get('existingSchoolTotals').findBy('level', 'hs').get('capacityTotalNoAction'),
+        capacityExisting: this.get('schoolTotals').findBy('level', 'hs').get('capacityTotalNoAction'),
         scaCapacityIncrease: this.get('scaProjects')
           .filterBy('includeInCapacity', true)
           .reduce(function(acc, value) {
@@ -208,9 +209,10 @@ export default DS.Model.extend({
 
 
       this.get('subdistricts').map((sd) => {
-        tables.push(NoActionTotals.create({
+        tables.push(AggregateTotals.create({
           ...sd,
           level: 'ps',
+          studentMultiplier: this.get('ceqrManual').studentMultipliersFor(this.get('borough')).ps,
           
           enroll: Math.round(
             this.get('futureEnrollmentProjections').findBy('district', sd.district).ps
@@ -234,7 +236,7 @@ export default DS.Model.extend({
             }, 0)
           ),
           
-          capacityExisting: this.get('existingSchoolTotals').filter(
+          capacityExisting: this.get('schoolTotals').filter(
             (b) => (b.district === sd.district && b.subdistrict === sd.subdistrict && b.level === 'ps')
           ).reduce(function(acc, value) {            
             return acc + parseInt(value.get('capacityTotalNoAction'));
@@ -251,9 +253,10 @@ export default DS.Model.extend({
           studentsWithAction: this.get('estEsStudents') || 0,
         }));
 
-        tables.push(NoActionTotals.create({
+        tables.push(AggregateTotals.create({
           ...sd,
           level: 'is',
+          studentMultiplier: this.get('ceqrManual').studentMultipliersFor(this.get('borough')).is,
           
           enroll: Math.round(
             this.get('futureEnrollmentProjections').findBy('district', sd.district).ms
@@ -277,7 +280,7 @@ export default DS.Model.extend({
             }, 0)
           ),
           
-          capacityExisting: this.get('existingSchoolTotals').filter(
+          capacityExisting: this.get('schoolTotals').filter(
             (b) => (b.district === sd.district && b.subdistrict === sd.subdistrict && b.level === 'is')
           ).reduce(function(acc, value) {            
             return acc + parseInt(value.get('capacityTotalNoAction'));

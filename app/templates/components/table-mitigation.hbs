@@ -1,10 +1,5 @@
 <h3 class="ui header attached top">
-  With Action: Estimated Elementary and Intermediate School Enrollment, Capacity, and Utilization
-  {{#if project.projectionOverMax}}
-    <div data-tooltip="Build year beyond maximum projections available. Using {{project.maxProjection}} enrollment projection." data-inverted="" class="ui orange label">
-      <i class="warning icon"></i> {{project.maxProjection}}
-    </div>
-  {{/if}} 
+  Mitigation
 </h3>
 
 <table class="ui attached bottom celled table">
@@ -31,7 +26,7 @@
         <td>{{psTable.capacityWithActionTotal}}</td>
         <td>{{psTable.seatsWithActionTotal}}</td>
         {{#td-hover payload=(hash name='utilizationWithAction' level='ps')}}{{percentage psTable.utilizationWithActionTotal}}{{/td-hover}}
-        {{#td-hover payload=(hash name='utilizationChange' level='ps')}}{{percentage psTable.utilizationChangeTotal decimals=2}}{{/td-hover}}
+        {{#td-hover payload=(hash name='utilizationChange' level='ps')}}{{percentage psTable.utilizationChangeTotal}}{{/td-hover}}
       </tr>
     </tbody>
   {{/if}}
@@ -46,7 +41,7 @@
         <td>{{isTable.capacityWithActionTotal}}</td>
         <td>{{isTable.seatsWithActionTotal}}</td>
         {{#td-hover payload=(hash name='utilizationWithAction' level='is')}}{{percentage isTable.utilizationWithActionTotal}}{{/td-hover}}
-        {{#td-hover payload=(hash name='utilizationChange' level='is')}}{{percentage isTable.utilizationChangeTotal decimals=2}}{{/td-hover}}
+        {{#td-hover payload=(hash name='utilizationChange' level='is')}}{{percentage isTable.utilizationChangeTotal}}{{/td-hover}}
       </tr>
     </tbody>
   {{/if}}
@@ -61,7 +56,7 @@
         <td>{{hsTable.capacityWithActionTotal}}</td>
         <td>{{hsTable.seatsWithActionTotal}}</td>
         {{#td-hover payload=(hash name='utilizationWithAction' level='hs')}}{{percentage hsTable.utilizationWithActionTotal}}{{/td-hover}}
-        {{#td-hover payload=(hash name='utilizationChange' level='hs')}}{{percentage hsTable.utilizationChangeTotal decimals=2}}{{/td-hover}}
+        {{#td-hover payload=(hash name='utilizationChange' level='hs')}}{{percentage hsTable.utilizationChangeTotal}}{{/td-hover}}
       </tr>
     </tbody>
   {{/if}}
