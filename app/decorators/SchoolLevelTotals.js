@@ -31,14 +31,16 @@ export default EmberObject.extend({
     }, 0);
   }),
 
+  capacityWithActionTotal: computed('capacityNoActionTotal', function() {
+    return this.get('capacityNoActionTotal') + this.get('newSchoolSeats');
+  }),
+
   seatsNoActionTotal: computed('enrollNoActionTotal', 'capacityNoActionTotal', function() {
-    return  this.get('capacityNoActionTotal') - this.get('enrollNoActionTotal');
+    return this.get('capacityNoActionTotal') - this.get('enrollNoActionTotal');
   }),
 
   seatsWithActionTotal: computed('subdistricts', function() {
-    return this.get('subdistricts').mapBy('seatsWithAction').reduce(function(acc, value) {            
-      return acc + parseInt(value);
-    }, 0);
+    return this.get('capacityWithActionTotal') - this.get('enrollWithActionTotal');
   }),
 
   utilizationNoActionTotal: computed('enrollNoActionTotal', 'capacityNoActionTotal', function() {
@@ -46,7 +48,7 @@ export default EmberObject.extend({
   }),
 
   utilizationWithActionTotal: computed('enrollWithActionTotal', 'capacityNoActionTotal', function() {
-    return round(this.get('enrollWithActionTotal') / this.get('capacityNoActionTotal'), 3);
+    return round(this.get('enrollWithActionTotal') / this.get('capacityWithActionTotal'), 3);
   }),
 
   utilizationChangeTotal: computed('utilizationWithActionTotal', 'utilizationNoActionTotal', function() {

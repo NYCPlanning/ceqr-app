@@ -130,6 +130,7 @@ export default DS.Model.extend({
   doeUtilChanges: DS.attr('', { defaultValue() { return []; } }),
 
   futureResidentialDev: DS.attr('', { defaultValue() { return []; } }),
+  schoolsWithAction: DS.attr('', { defaultValue() { return []; } }),
 
   hsProjections: DS.attr('', { defaultValue() { return []; } }),
   futureEnrollmentProjections: DS.attr('', { defaultValue() { return []; } }),

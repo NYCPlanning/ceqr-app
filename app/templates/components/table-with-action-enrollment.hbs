@@ -1,5 +1,5 @@
 <h3 class="ui header attached top">
-  {{project.buildYear}} Estimated With-Action Elementary and Intermediate School Enrollment, Capacity, and Utilization
+  With Action: Estimated Elementary and Intermediate School Enrollment, Capacity, and Utilization
   {{#if project.projectionOverMax}}
     <div data-tooltip="Build year beyond maximum projections available. Using {{project.maxProjection}} enrollment projection." data-inverted="" class="ui orange label">
       <i class="warning icon"></i> {{project.maxProjection}}
@@ -28,7 +28,7 @@
         <td>{{psTable.enrollNoActionTotal}}</td>
         {{#td-hover payload=(hash name='studentsFromDev' level='ps')}}{{project.estEsStudents}}{{/td-hover}}
         <td>{{psTable.enrollWithActionTotal}}</td>
-        <td>{{psTable.capacityNoActionTotal}}</td>
+        <td>{{psTable.capacityWithActionTotal}}</td>
         <td>{{psTable.seatsWithActionTotal}}</td>
         {{#td-hover payload=(hash name='utilizationWithAction' level='ps')}}{{percentage psTable.utilizationWithActionTotal}}{{/td-hover}}
         {{#td-hover payload=(hash name='utilizationChange' level='ps')}}{{percentage psTable.utilizationChangeTotal}}{{/td-hover}}
@@ -43,7 +43,7 @@
         <td>{{isTable.enrollNoActionTotal}}</td>
         {{#td-hover payload=(hash name='studentsFromDev' level='is')}}{{project.estIsStudents}}{{/td-hover}}
         <td>{{isTable.enrollWithActionTotal}}</td>
-        <td>{{isTable.capacityNoActionTotal}}</td>
+        <td>{{isTable.capacityWithActionTotal}}</td>
         <td>{{isTable.seatsWithActionTotal}}</td>
         {{#td-hover payload=(hash name='utilizationWithAction' level='is')}}{{percentage isTable.utilizationWithActionTotal}}{{/td-hover}}
         {{#td-hover payload=(hash name='utilizationChange' level='is')}}{{percentage isTable.utilizationChangeTotal}}{{/td-hover}}
@@ -58,7 +58,7 @@
         <td>{{hsTable.enrollNoActionTotal}}</td>
         {{#td-hover payload=(hash name='studentsFromDev' level='hs')}}{{project.estHsStudents}}{{/td-hover}}
         <td>{{hsTable.enrollWithActionTotal}}</td>
-        <td>{{hsTable.capacityNoActionTotal}}</td>
+        <td>{{hsTable.capacityWithActionTotal}}</td>
         <td>{{hsTable.seatsWithActionTotal}}</td>
         {{#td-hover payload=(hash name='utilizationWithAction' level='hs')}}{{percentage hsTable.utilizationWithActionTotal}}{{/td-hover}}
         {{#td-hover payload=(hash name='utilizationChange' level='hs')}}{{percentage hsTable.utilizationChangeTotal}}{{/td-hover}}

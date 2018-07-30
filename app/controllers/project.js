@@ -220,9 +220,6 @@ export default Controller.extend({
     },
 
     saveExistingConditions: async function() {
-      // TODO: caveat to projections over 2025
-      // PS/MS max: 2025 
-      // HS max: 2025
       let hsProjections = await carto.SQL(`
         SELECT borough, year, hs
         FROM hs_sca_projections_2025_v1
