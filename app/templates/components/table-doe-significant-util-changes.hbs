@@ -16,21 +16,25 @@
 
 {{#if project.doeUtilChanges}}
   {{#each tables as |t|}}
-    <div class="ui teal top attached segment"><h3>Building ID{{t.bldg_id}}</h3></div>
+    <div class="ui teal top attached segment"><h3>Building ID {{t.bldg_id}}</h3></div>
     
     <table class="ui attached celled table">
       <thead>
         <tr>
-          <th class="six wide">School Name</th>
+          <th class="two wide">Org. ID</th>
+          <th class="five wide">School Name</th>
+          <th class="two wide">Building ID</th>
           <th class="five wide">Building Name</th>
-          <th class="two wide">Level</th>
-          <th class="three wide">Future Capacity</th>
+          <th class="one wide">Level</th>
+          <th class="one wide">Future Capacity</th>
         </tr>
       </thead>
       <tbody>
         {{#each t.buildings as |b|}}
           <tr>
+            <td>{{b.org_id}}</td>
             <td>{{b.name}}</td>
+            <td>{{b.bldg_id}}</td>
             <td>{{b.bldg_name}}</td>
             <td>{{uppercase b.level}}</td>
             <td class="warning">
