@@ -177,6 +177,7 @@ export default DS.Model.extend({
 
   aggregateTotals: computed(
     'subdistricts',
+    'hsProjections',
     'futureEnrollmentProjections',
     'futureEnrollmentMultipliers',
     'futureEnrollmentNewHousing',
@@ -190,7 +191,7 @@ export default DS.Model.extend({
         studentMultiplier: this.get('ceqrManual').studentMultipliersFor(this.get('borough')).hs,
         level: 'hs',
 
-        enroll: this.get('hsProjections')[0].hs,
+        enroll: this.get('hsProjections')[0] ? this.get('hsProjections')[0].hs : 0,
         students: this.get('futureResidentialDev').reduce(function(acc, value) {
           return acc + value.hs_students;
         }, 0),

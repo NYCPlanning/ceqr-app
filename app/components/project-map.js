@@ -38,11 +38,11 @@ export default Component.extend({
   zoneName: null,
 
   dotHover({source, id}) {
-    this.get('map').setFilter(`${source}-hover`, ["==", ["get", "cartodb_id"], id]);
+    if (this.get('map')) this.get('map').setFilter(`${source}-hover`, ["==", ["get", "cartodb_id"], id])
   },
 
   dotUnhover({source}) {
-    this.get('map').setFilter(`${source}-hover`, ["==", ["get", "cartodb_id"], 0])
+    if (this.get('map')) this.get('map').setFilter(`${source}-hover`, ["==", ["get", "cartodb_id"], 0])
   },
 
   actions: {
