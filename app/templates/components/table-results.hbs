@@ -46,7 +46,7 @@
 
   {{#if is}}
     <tbody>
-      <tr>
+      <tr class={{if is.impact "negative"}}>
         <td>Intermediate Schools</td>
         {{#td-hover payload=(hash name='utilizationWithAction' level='is')}}{{percentage is.utilizationWithActionTotal}}{{/td-hover}}
         {{#td-hover payload=(hash name='utilizationChange' level='is')}}{{percentage is.utilizationChangeTotal decimals=2}}{{/td-hover}}
@@ -56,7 +56,11 @@
 
         <td>
           {{#if is.impact}}
-            <div class="ui red label">
+            <div 
+              class="ui red label" 
+              data-tooltip="Utilization is over 100% (at {{percentage is.utilizationWithActionTotal}}) and Change in Utilization is over 5% (at {{percentage is.utilizationChangeTotal decimals=2}})"
+              data-inverted=""
+            >
               <i class="warning icon"></i> Likely
             </div>
           {{else}}
@@ -71,7 +75,7 @@
 
   {{#if project.hsAnalysis}}
     <tbody>
-      <tr>
+      <tr class={{if hs.impact "negative"}}>
         <td>High Schools</td>
         {{#td-hover payload=(hash name='utilizationWithAction' level='hs')}}{{percentage hs.utilizationWithActionTotal}}{{/td-hover}}
         {{#td-hover payload=(hash name='utilizationChange' level='hs')}}{{percentage hs.utilizationChangeTotal decimals=2}}{{/td-hover}}
@@ -81,7 +85,11 @@
 
         <td>
           {{#if hs.impact}}
-            <div class="ui red label">
+            <div 
+              class="ui red label" 
+              data-tooltip="Utilization is over 100% (at {{percentage hs.utilizationWithActionTotal}}) and Change in Utilization is over 5% (at {{percentage hs.utilizationChangeTotal decimals=2}})"
+              data-inverted=""
+            >
               <i class="warning icon"></i> Likely
             </div>
           {{else}}
