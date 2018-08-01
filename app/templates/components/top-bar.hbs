@@ -1,8 +1,8 @@
 <div class="ui fixed menu inverted top-bar">
   <div class="ui container">
     <div class="header item">
-      <i class="building icon"></i>
-      {{#link-to "user.projects"}}CEQR Community Facilities - Public Schools{{/link-to}}
+      <i class="table icon"></i>
+      {{#link-to "user.projects"}}CEQR Insight{{/link-to}}
     </div>
 
     <div class="right menu">
@@ -20,15 +20,21 @@
         </div>
       </div>
 
-      {{#if session.isAuthenticated}}
+      <div class="ui simple dropdown item">
+        <i class="question circle icon"></i>
+        Help
+        <i class="dropdown icon"></i>
+        <div class="menu">
+          <a class="item" href="mailto:jpichot@planning.nyc.gov"><i class="envelope icon"></i>Contact Us</a>
+        </div>
+      </div>
+
+      {{#if session.isAuthenticated}}        
         <div class="ui simple dropdown item">
           {{session.currentUser.email}}
           <i class="dropdown icon"></i>
           <div class="menu">
             <a class="item" {{action 'logOut'}}><i class="sign out alternate icon"></i>Log Out</a>
-            {{!-- <a class="item"><i class="edit icon"></i> Edit Profile</a>
-            <a class="item"><i class="globe icon"></i> Choose Language</a>
-            <a class="item"><i class="settings icon"></i> Account Settings</a> --}}
           </div>
         </div>
       {{else}}

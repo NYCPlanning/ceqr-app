@@ -3,6 +3,7 @@ import { inject as service } from '@ember/service';
 
 export default Component.extend({
   session: service(),
+  router: service(),
 
   actions: {
     saveProject: function() {
@@ -11,7 +12,7 @@ export default Component.extend({
 
     logOut: function() {
       this.get('session').close();
-      this.transitionToRoute('index');
+      this.get('router').transitionTo('login');
     },
   }
 });

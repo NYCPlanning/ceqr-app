@@ -9,16 +9,4 @@ export default Route.extend({
       this.transitionTo('index');
     }
   },
-
-  actions: {
-    logIn: function(user) {
-      this.get('session').open('firebase', {
-        provider: 'password',
-        email: user.email,
-        password: user.password
-      }).then(() => {
-        this.transitionTo('user.projects');
-      });
-    },
-  }
 });
