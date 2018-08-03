@@ -8,15 +8,7 @@ export default Controller.extend({
   project: alias('model.project'),
   ceqrManual: alias('model.ceqrManual'),
 
-  actions: {
-    createProject: function() {
-      this.get('model.project').save().catch(error => {
-        console.log(error);
-      }).then((project) => {
-        this.transitionToRoute('project.show.schools-capacity.analysis-threshold', this.get('model.project.id'));
-      });
-    },
-    
+  actions: {    
     saveProjectDetails: async function() {
       let bbls = this.get('model.project.bbls');
 

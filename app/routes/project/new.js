@@ -17,6 +17,16 @@ export default class ProjectNewRoute extends Route {
       ceqrManual,
     });
   };
+
+  actions = {
+    createProject: function() {
+      this.get('model.project').save().catch(error => {
+        console.log(error);
+      }).then((project) => {
+        this.transitionToRoute('project.show', this.get('model.project.id'));
+      });
+    },
+  };
   
   controllerName = 'project';
 };

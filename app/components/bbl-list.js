@@ -1,6 +1,7 @@
 import Component from '@ember/component';
 import { task } from 'ember-concurrency';
 import carto from 'carto-promises-utility/utils/carto';
+import $ from 'jquery';
 
 export default Component.extend({
   fetchBorough: task(function*() {
@@ -20,6 +21,14 @@ export default Component.extend({
 
     this.model.set('borough', boroughMap[results[0].borough]);
   }).restartable(),
+
+  didInsertElement() {
+    $('.ui.form').form({
+      fields: {
+        bbl: ['empty', 'exactLength[10]', 'integer'] 
+      }
+    });
+  },
   
   actions: {
     addBbl(bbl) {

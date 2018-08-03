@@ -1,9 +1,20 @@
 <div class="ui grid">
   <div class="row">
-    <div class="four wide column">
+    <div class="sixteen wide column">
       <div class="ui action input">
-        {{input type="text" value=bbl placeholder="BBL" enter="addBbl"}}
-        <button class="ui button" {{action 'addBbl' bbl}}>Add</button>
+        <form class="ui form" {{action 'addBbl' bbl on='submit'}}>
+          <div class="two fields">
+            <div class="field">
+              {{input type="text" name="bbl" value=bbl placeholder="BBL" maxlength=10 enter="addBbl"}}
+            </div>
+            <div class="field">
+              <button type="submit" class="ui button">Add</button>
+            </div>
+          </div>
+
+          <div class="ui error message">
+          </div>
+        </form>
       </div>
     </div>
 
