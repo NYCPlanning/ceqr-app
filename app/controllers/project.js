@@ -8,7 +8,7 @@ export default Controller.extend({
   project: alias('model.project'),
   ceqrManual: alias('model.ceqrManual'),
 
-  actions: {    
+  actions: {        
     saveProjectDetails: async function() {
       let bbls = this.get('model.project.bbls');
 

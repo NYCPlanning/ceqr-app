@@ -5,17 +5,26 @@
         <form class="ui form">
           <div class="field">
             <div class="two fields">
-              <div class="six wide field">
-                <label>CEQR Number</label>
-                {{input type="text" value=project.ceqr_number placeholder="CEQR Number"}}
-              </div>
               <div class="twelve wide field">
                 <label>Project Name</label>
-                {{input type="text" value=project.name placeholder="Project Name"}}
+                {{input type="text" name="name" value=project.name placeholder="Project Name"}}
+              </div>
+              <div class="six wide field">
+                <label>CEQR Number</label>
+                {{input type="text" name="ceqr_number" value=project.ceqr_number placeholder="CEQR Number"}}
               </div>
               <div class="four wide field">
                 <label>Est. Build Year</label>
-                {{input type="text" value=project.buildYear placeholder="Year Built"}}
+
+                {{#ui-dropdown class="selection" selected=project.buildYear onChange=(action (mut project.buildYear))}}
+                  <div class="default text">Build Year</div>
+                  <i class="dropdown icon"></i>
+                  <div class="menu">
+                    {{#each buildYearRange as |year|}}
+                      <div data-value={{year}} class="item">{{year}}</div>
+                    {{/each}}
+                  </div>
+                {{/ui-dropdown}}
               </div>
             </div>
           </div>
@@ -41,7 +50,7 @@
     </div>
   </div>
 
-  <div class="six wide column">
+  {{!-- <div class="six wide column">
     <div class="title">
       <h4>210. Direct Effects</h4>
     </div>
@@ -51,5 +60,15 @@
       that the physical change may have on that service delivery. Temporary direct effects should also be considered
       (for example, the temporary closing of a facility during a phase of construction).</p>
     </div>
-  </div>
+  </div> --}}
+
+  {{#if project.isNew}}
+    <div class="sixteen wide column">
+      <button class="ui primary button" {{action "next"}}>
+        Create Project <i class="arrow right icon"></i>
+      </button>
+    </div>
+  {{else}}
+
+  {{/if}}
 </div>

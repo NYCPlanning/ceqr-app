@@ -19,7 +19,7 @@ export default Component.extend({
       'SI': 'Staten Island'
     };
 
-    this.model.set('borough', boroughMap[results[0].borough]);
+    if (results[0]) this.model.set('borough', boroughMap[results[0].borough]);
   }).restartable(),
 
   didInsertElement() {

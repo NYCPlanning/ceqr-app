@@ -6,12 +6,6 @@
   </div>
 
   <div class="sixteen wide column">
-    {{project-details project=project nextAction=(action 'saveProjectDetails')}}
-  </div>
-
-  <div class="sixteen wide column">
-    <button class="ui primary button" {{action "createProject"}}>
-      Create Project <i class="arrow right icon"></i>
-    </button>
+    {{project-details isNew=model.project.isNew project=model.project nextAction=(route-action 'createProject')}}
   </div>
 </div>
