@@ -20,6 +20,9 @@ export default Component.extend({
     rollback() {
       this.get('rollback')(this.get('project'));
     },
+    back() {
+      history.back();
+    },
 
     directEffectTrue() {
       this.set('project.directEffect', true);

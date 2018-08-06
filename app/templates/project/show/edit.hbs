@@ -1,3 +1,7 @@
 <div class="sixteen wide column">
-  {{project-details project=(changeset model.project ProjectValidations) save=(route-action 'saveProject')}}
+  {{project-details 
+      project=(changeset model.project ProjectValidations)
+      save=(route-action 'save')
+      rollback=(route-action 'rollback')
+  }}
 </div>

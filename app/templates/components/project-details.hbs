@@ -82,9 +82,13 @@
     </div>
   {{else}}
     <div class="sixteen wide column">
-      {{#link-to "project.show.schools-capacity.analysis-threshold" class="ui button"}}
+      <button class="ui button" {{action "back"}}>
         Back
-      {{/link-to}}
+      </button>
+
+      <button class="ui button" {{action "rollback"}}>
+        Reset
+      </button>
       
       <button class="ui primary button" {{action "save"}}>
         Save Project
