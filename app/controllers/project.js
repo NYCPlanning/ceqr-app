@@ -23,7 +23,9 @@ export default Controller.extend({
         ) pluto
         WHERE ST_Intersects(pluto.the_geom, traffic_zones.the_geom)
       `)
-      this.set('model.project.trafficZone', trafficZones[0].ceqrzone);
+      if (trafficZones[0]) {
+        this.set('model.project.trafficZone', trafficZones[0].ceqrzone);
+      }
 
       // Set subdistricts
       let subdistricts = await carto.SQL(`

@@ -3,6 +3,8 @@ import RSVP from 'rsvp';
 import { inject as service } from '@ember/service';
 
 export default Route.extend({
+  controllerName: 'edit-project',
+  
   session: service(),
   
   async model() {
@@ -19,13 +21,15 @@ export default Route.extend({
   },
 
   actions: {
-    createProject: function() {
-      const project = this.get('controller.model.project');
-      
-      project.save().catch(error => {
-        console.log(error);
-      }).then(() => {
-        this.transitionTo('project.show', project.id);
+    createProject: function(changeset) {      
+      changeset.validate().then(() => {
+        if (changeset.get("isValid")) {
+          changeset.save().catch(error => {
+            console.log(error);
+          }).then(() => {
+            this.transitionTo('project.show', this.get('controller.model.project').id);
+          });
+        }
       });
     },
   }

@@ -14,8 +14,11 @@ export default Component.extend({
   },
 
   actions: {
-    next() {
-      this.get('nextAction')();
+    save() {
+      this.get('save')(this.get('project'));
+    },
+    rollback() {
+      this.get('rollback')(this.get('project'));
     },
 
     directEffectTrue() {
