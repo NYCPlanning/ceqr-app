@@ -31,7 +31,7 @@ export default DS.Model.extend({
   trafficZone: DS.attr('number'),
 
   // - Schools Capacity -
-  hsAnalysis: computed.alias('totalUnits'),
+  hsAnalysis: computed.alias('hsEffect'),
 
   // Units
   totalUnits: DS.attr('number', { defaultValue: 0 }),

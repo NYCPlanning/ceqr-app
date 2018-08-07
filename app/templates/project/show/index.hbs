@@ -16,6 +16,10 @@
               {{if model.project.indirectEffect "Yes" "No"}}
             </div>
           </div>
+
+          <div class="ui inverted dimmer {{if schools-capacity.initialLoad.isRunning "active"}}">
+            <div class="ui text loader">Loading</div>
+          </div>
         {{/link-to}}
 
         {{#link-to 'project.show.transportation' class="ui fluid card"}}
@@ -28,6 +32,10 @@
 
           <div class="extra content">
             Traffic Zone <div class="ui grey circular label">{{model.project.trafficZone}}</div>
+          </div>
+
+          <div class="ui inverted dimmer {{if transportation.initialLoad.isRunning "active"}}">
+            <div class="ui text loader">Loading</div>
           </div>
         {{/link-to}}
       </div>

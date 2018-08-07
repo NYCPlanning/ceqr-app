@@ -6,6 +6,8 @@ export default Route.extend({
   controllerName: 'edit-project',
   
   session: service(),
+  transportation: service(),
+  'schools-capacity': service(),
   
   async model() {
     const project = await this.store.createRecord('project');
@@ -27,6 +29,12 @@ export default Route.extend({
           changeset.save().catch(error => {
             console.log(error);
           }).then(() => {
+            this.get('transportation').set('project', this.get('controller.model.project'));
+            this.get('transportation.initialLoad').perform();
+
+            this.get('schools-capacity').set('project', this.get('controller.model.project'));
+            this.get('schools-capacity.initialLoad').perform();
+            
             this.transitionTo('project.show', this.get('controller.model.project').id);
           });
         }
