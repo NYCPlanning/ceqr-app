@@ -15,6 +15,8 @@ export default Service.extend({
     yield this.get('setStudentsFromNewHousing').perform();
     yield this.get('setSCAProjects').perform();
     yield this.get('setDOEUtilChanges').perform();
+
+    this.get('project').save();
   }),
 
   // Individual tasks

@@ -18,5 +18,7 @@ export default Service.extend({
     `)
 
     this.set('project.trafficZone', trafficZones[0].ceqrzone)
+
+    this.get('project').save();
   })
 });
