@@ -17,7 +17,6 @@
         </form>
       </div>
     </div>
-
   </div>
 
   {{#if model.bbls}}
@@ -27,7 +26,9 @@
           <div class="ui basic large label">{{model.borough}}</div>
           {{#each model.bbls as |bbl|}}
             <div class="item">
-              {{bbl}} <i class="close link icon" {{action 'removeBbl' bbl}}></i>
+              <div class="ui label">
+                <a href="https://zola.planning.nyc.gov/bbl/{{bbl}}" target="_blank">{{bbl}}</a> <i class="close link icon" {{action 'removeBbl' bbl}}></i>
+              </div>
             </div>
           {{/each}}
         </div>
