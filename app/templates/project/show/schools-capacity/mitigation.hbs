@@ -1,4 +1,4 @@
-<div class="row">
+{{!-- <div class="row">
   <div class="sixteen wide column">
     {{#ui-accordion}}
       <div class="title">
@@ -31,10 +31,12 @@
       </div>
     {{/ui-accordion}}
   </div>
-</div>
+</div> --}}
 
-<div class="row">
-  <div class="sixteen wide column">    
-    {{table-results project=project}}
+{{#if schools-capacity.initialLoad.isIdle}}
+  <div class="row">
+    <div class="sixteen wide column">    
+      {{table-results project=project}}
+    </div>
   </div>
-</div>
+{{/if}}

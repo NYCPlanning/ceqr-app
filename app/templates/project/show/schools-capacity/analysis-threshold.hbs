@@ -1,3 +1,4 @@
+{{#if schools-capacity.initialLoad.isIdle}}
   <div class="row">
     <div class="sixteen wide column">     
       <div class="ui grey segment">
@@ -30,6 +31,7 @@
       {{detailed-analysis-thresholds ceqrManual=ceqrManual project=project}}
     </div>
   </div>
+{{/if}}
 
   {{!-- <div class="row">
     <div class="sixteen wide column">
@@ -71,14 +73,14 @@
     </div>
   </div> --}}
 
-  <div class="row">
-    <div class="sixteen wide column">
-      <div class="ui menu">
-        <div class="right item">
-          <button class="ui primary button" {{action "saveProjectDetails"}}>
-            Next <i class="arrow right icon"></i>
-          </button>
-        </div>
+<div class="row">
+  <div class="sixteen wide column">
+    <div class="ui menu">
+      <div class="right item">
+        <button class="ui primary button" {{action "saveProjectDetails"}}>
+          Next <i class="arrow right icon"></i>
+        </button>
       </div>
     </div>
   </div>
+</div>

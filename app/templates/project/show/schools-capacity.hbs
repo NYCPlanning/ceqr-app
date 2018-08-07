@@ -2,6 +2,10 @@
   <div class="sixteen wide column">
       {{analysis-steps project=project}}
   </div>
+
+  <div class="ui inverted dimmer {{if schools-capacity.initialLoad.isRunning "active"}}">
+    <div class="ui text loader">Loading</div>
+  </div>
 </div>
 
 {{outlet}}

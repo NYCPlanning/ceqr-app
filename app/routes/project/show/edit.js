@@ -4,6 +4,7 @@ import { inject as service } from '@ember/service';
 export default Route.extend({
   controllerName: 'edit-project',
   transportation: service(),
+  'schools-capacity': service(),
 
   actions: {
     save: function(changeset) {                  
