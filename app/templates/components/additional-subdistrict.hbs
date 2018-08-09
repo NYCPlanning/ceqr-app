@@ -1,0 +1,72 @@
+<div class="ui divided grid">
+  <div class="eight wide column">
+    <h4 class="ui header" data-tooltip="Subdistrict defined by project BBL. Cannot delete." data-inverted="">
+      Subdistricts set by BBL
+    </h4>
+
+    <div class="ui list">
+      {{#each project.subdistrictsFromDB as |sd|}}  
+        <div class="item">
+          <div class="ui label">
+            {{sd.sdName}}
+          </div>
+        </div>
+      {{/each}}
+    </div>
+  </div>
+  <div class="eight wide column">
+    <h4 class="ui header" data-tooltip="Subdistrict defined by project BBL. Cannot delete." data-inverted="">
+      Additional Subdistricts
+    </h4>
+    
+    <div class="ui list">
+      {{#each project.subdistrictsFromUser as |sd|}}  
+        <div class="item">
+          <div class="ui blue label">
+            {{sd.sdName}}
+            <i class="delete icon" {{action 'removeSubdistrict' sd}}></i>
+          </div>
+        </div>
+      {{/each}}
+    </div>
+
+    {{#ui-dropdown 
+      class="selection"
+      selected=district
+      onChange=(action 'setDistrict')
+    }}
+      <div class="default text">District</div>
+        <i class="dropdown icon"></i>
+        <div class="menu">
+          {{#each districts as |d|}}
+            <div data-value={{d.district}} class="item">
+              District {{d.district}}
+            </div>
+          {{/each}}
+      </div>
+    {{/ui-dropdown}}
+
+
+    {{#ui-dropdown 
+      class=(if district (if fetchSubdistricts.isRunning "disabled loading selection" "selection") "selection disabled")
+      selected=subdistrict 
+      onChange=(action 'setSubdistrict')
+    }}
+      <div class="default text">Subdistrict</div>
+        <i class="dropdown icon"></i>
+        <div class="menu">
+          {{#each subdistricts as |d|}}
+            <div data-value={{d.subdistrict}} class="item">
+              Subdistrict {{d.subdistrict}}
+            </div>
+          {{/each}}
+      </div>
+    {{/ui-dropdown}}
+
+    <button class="ui button" {{action 'addSubdistrict'}}>Add</button>
+  </div>
+</div>
+
+<div class="ui inverted dimmer {{if schools-capacity.addSubdistrict.isRunning "active"}}">
+  <div class="ui text loader">Loading</div>
+</div>

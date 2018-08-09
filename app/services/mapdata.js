@@ -23,7 +23,7 @@ export default Service.extend({
   }).drop(),
 
 
-  subdistrictGeojson: computed('project.subdistrictCartoIds.[]', function() {
+  subdistrictGeojson: computed('project.subdistrictCartoIds.[]', function() {    
     return this.get('fetchSubdistricts').perform();
   }),
   fetchSubdistricts: task(function*() {

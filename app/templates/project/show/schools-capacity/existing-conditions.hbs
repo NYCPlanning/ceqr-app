@@ -1,40 +1,10 @@
 {{#if schools-capacity.initialLoad.isIdle}}
-  <div class="row">
-    <div class="sixteen wide column">
-      <div class="ui top attached header">
-        <h3>Public schools serving the study area</h3>
-      </div>
-
-      <div class="ui attached segment">        
-        {{project-map project=project}}
-      </div>
-
-      {{table-existing-conditions project=project}}
-
-      <div class="ui bottom attached icon message">
-        <i class="database icon"></i>
-        <div class="content">
-          <div class="header"><a target="_blank" href="http://www.nycsca.org/Community/Capital-Plan-Reports-Data#Enrollment-Capacity-Utilization-69">SCA Enrollment, Capacity, and Utilization (Blue Book) [2016-17] <i class="external alternate icon"></i></a></div>
-          <p>
-          The Enrollment, Capacity & Utilization Report is an annual document that provides information
-          on school organization and school building utilization. 
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="sixteen wide column">
-      <div class="row">
-        {{recently-built-schools project=project}}
-      </div>
-    </div>
-  </div>
-{{/if}}
-
-<div class="row">
   <div class="sixteen wide column">
+    {{project-map project=project}}
+  </div>
+
+  <div class="sixteen wide column">
+<<<<<<< HEAD
     <div class="ui menu">
       <div class="right item">
         {{#link-to "project.show.schools-capacity.no-action" project.id class="ui primary button"}}
@@ -42,5 +12,8 @@
         {{/link-to}}
       </div>
     </div>
+=======
+    {{existing-conditions-steps project=project}}
+>>>>>>> define study area wip
   </div>
-</div>
+{{/if}}

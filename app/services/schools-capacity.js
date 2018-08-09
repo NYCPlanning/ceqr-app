@@ -7,6 +7,13 @@ export default Service.extend({
   project: null,
 
   initialLoad: task(function*() {
+    yield this.get('fullReload').perform();
+  }),
+  addSubdistrict: task(function*() {
+    yield this.get('fullReload').perform();
+  }),
+
+  fullReload: task(function*() {
     yield this.get('setSubdistricts').perform();
     yield this.get('setBluebook').perform();
     yield this.get('setLCGMS').perform();
@@ -35,7 +42,7 @@ export default Service.extend({
       WHERE ST_Intersects(pluto.the_geom, subdistricts.the_geom)
     `);
 
-    this.set('project.subdistricts', subdistricts.map(
+    this.set('project.subdistrictsFromDB', subdistricts.map(
       (f) => ({
         district: f.district,
         subdistrict: f.subdistrict,

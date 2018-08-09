@@ -1,0 +1,25 @@
+<div class="ui top attached pointing menu">
+  <a class="item {{if (eq tab 'schools') "active"}}" {{action 'setTab' 'schools'}}>
+    Public Schools serving Study Area
+  </a>
+  <a class="item {{if (eq tab 'newschools') "active"}}" {{action 'setTab' 'newschools'}}>
+    New Schools
+    <div class="ui label {{if (gt project.lcgms.length 0) "orange" "green"}}">{{project.lcgms.length}}</div>
+  </a>
+  <div class="right menu">
+    <a class="item {{if (eq tab 'studyarea') "active"}}" {{action 'setTab' 'studyarea'}}>
+      Define Study Area
+    </a>
+  </div>
+</div>
+
+{{#if (eq tab 'schools')}}
+  {{table-existing-conditions project=project}}
+{{else if (eq tab 'newschools')}}
+  {{recently-built-schools project=project}}
+{{else if (eq tab 'studyarea')}}
+  <div class="ui attached segment">
+    {{additional-subdistrict project=project}}
+  </div>
+{{/if}}
+
