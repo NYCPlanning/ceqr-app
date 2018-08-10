@@ -5,6 +5,7 @@ import { inject as service } from '@ember/service';
 
 export default Component.extend({
   'schools-capacity': service(),
+  mapservice: service(),
   
   init() {
     this._super(...arguments);
@@ -46,7 +47,7 @@ export default Component.extend({
     });
 
     this.set('project.subdistrictsFromUser', subdistricts);
-    this.get('schools-capacity.addSubdistrict').perform();
+    yield this.get('schools-capacity.addSubdistrict').perform();
 
     this.set('subdistrict', null);
   }),
@@ -54,6 +55,8 @@ export default Component.extend({
   actions: {
     setDistrict(district) {
       this.set('district', district);
+
+      this.set('subdistrict', null);
       this.get('fetchSubdistricts').perform();
     },
 
@@ -62,14 +65,18 @@ export default Component.extend({
     },
 
     addSubdistrict() {
-      this.get('addSubdistrict').perform();
+      this.get('addSubdistrict').perform().then(
+        () => this.get('mapservice').fitToSubdistricts()
+      );
     },
 
     removeSubdistrict(sd) {
       const subdistricts = this.get('project.subdistrictsFromUser');
       this.set('project.subdistrictsFromUser', subdistricts.removeObject(sd));
 
-      this.get('schools-capacity.addSubdistrict').perform();
+      this.get('schools-capacity.addSubdistrict').perform().then(
+        () => this.get('mapservice').fitToSubdistricts()
+      );
     },
   }
 });

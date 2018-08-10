@@ -1,6 +1,5 @@
 import Component from '@ember/component';
 import { inject as service } from '@ember/service';
-import bbox from 'npm:@turf/bbox';
 import mapboxgl from 'mapbox-gl';
 
 /*
@@ -11,6 +10,7 @@ TODO:
 export default Component.extend({  
   tablehover: service(),
   mapdata: service(),
+  mapservice: service(),
   map: null,
   
   didReceiveAttrs() {
@@ -96,9 +96,8 @@ export default Component.extend({
     handleMapLoad(map) {
       map.addControl(new mapboxgl.ScaleControl({ unit: 'imperial' }), 'bottom-right');
 
-      this.get('mapdata.subdistrictGeojson').then(
-        (g) => map.fitBounds(bbox.default(g))
-      );
+      this.set('mapservice.map', map);
+      this.get('mapservice').fitToSubdistricts();
 
       this.set('map', map);
     },

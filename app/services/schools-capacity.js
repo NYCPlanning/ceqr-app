@@ -54,7 +54,10 @@ export default Service.extend({
   }),
 
   setBluebook: task(function*() {
-    let bluebookHs = yield carto.SQL(`
+    
+    let bluebookHs = [];
+    if (this.get('project.hsAnalysis')) {
+      bluebookHs = yield carto.SQL(`
       SELECT
         cartodb_id,
         district,
@@ -81,6 +84,7 @@ export default Service.extend({
         AND organization_name not like '%25YOUNG ADULT BORO CENTER%25'
         AND left(geo_borocd::text, 1) = '${this.get('project.boroCode')}'
     `);
+    }
 
     let bluebook = yield carto.SQL(`
       SELECT
