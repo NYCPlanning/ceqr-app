@@ -2,7 +2,7 @@ import Component from '@ember/component';
 
 export default Component.extend({
   actions: {
-    saveProject: function() {
+    save: function() {
       this.get('project').save();
     },
   }

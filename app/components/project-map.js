@@ -2,11 +2,6 @@ import Component from '@ember/component';
 import { inject as service } from '@ember/service';
 import mapboxgl from 'mapbox-gl';
 
-/*
-TODO:
-- Popups on map for: bbl, subdistrict
-*/
-
 export default Component.extend({  
   tablehover: service(),
   mapdata: service(),
