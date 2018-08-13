@@ -81,7 +81,19 @@
 }
 
 .project.title {
-  color: white;
+  color: black;
+
+  h1 {
+    display: inherit;
+  }
+}
+
+.chapter-dropdown {
+  margin-top: 4px;
+
+  h3 {
+    font-weight: 400;
+  }
 }
 
 tr.hover, td.hover {

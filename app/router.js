@@ -21,10 +21,13 @@ Router.map(function() {
         this.route('existing-conditions');
         this.route('no-action');
         this.route('with-action');
-        this.route('mitigation');
       });
 
       this.route('transportation');
+
+      this.route('summary', function() {
+        this.route('schools-capacity');
+      });
     });
   });
 

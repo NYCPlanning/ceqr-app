@@ -1,8 +1,10 @@
 import Route from '@ember/routing/route';
 import RSVP from 'rsvp';
 
-export default class ProjectRoute extends Route {
-  model = async function(params) {
+export default Route.extend({
+  controllerName: 'project',
+
+  async model(params) {
     const project = await this.get('store').findRecord('project', params.ceqr_number);
     const ceqrManual = await this.get('store').findRecord('ceqr-manual', 'march-2014');
 
@@ -12,7 +14,5 @@ export default class ProjectRoute extends Route {
       project,
       ceqrManual,
     });
-  }
-
-  controllerName = 'project';
-};
+  },
+});
