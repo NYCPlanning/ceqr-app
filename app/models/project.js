@@ -134,6 +134,9 @@ export default DS.Model.extend({
     return this.get('projectionOverMax') ? this.get('maxProjection') : this.get('buildYear');
   }),
   doeUtilChanges: DS.attr('', { defaultValue() { return []; } }),
+  doeUtilChangesCount: computed('doeUtilChanges', function() {
+    return this.get('doeUtilChanges').mapBy('bldg_id').uniq().length;
+  }),
 
   futureResidentialDev: DS.attr('', { defaultValue() { return []; } }),
   schoolsWithAction: DS.attr('', { defaultValue() { return []; } }),

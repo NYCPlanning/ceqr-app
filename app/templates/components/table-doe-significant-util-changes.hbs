@@ -1,8 +1,92 @@
-<div class="ui top attached segment">
-  <div class="ui orange ribbon label">Need Action</div> <h3 class="action-title">DOE Significant Utilitization Changes</h3>
+<div class="ui segment">
+  <div class="ui orange ribbon label">Needs Input</div> <h3 class="action-title">DOE Significant Utilitization Changes</h3>
 </div>
 
-<div class="ui attached icon message">
+{{#if project.doeUtilChanges}}
+  <div class="ui grid">
+    <div class="three wide column">
+      <div class="ui vertical fluid tabular menu">
+        <div class="header item">Building ID</div>
+        {{#each tables as |t|}}
+          <a class="item {{if (eq bldg_id t.bldg_id) "active"}}" {{action 'showBldg' t.bldg_id}}>
+            {{t.bldg_id}}
+          </a>
+        {{/each}}
+      </div>
+    </div>
+
+    <div class="thirteen wide column">
+      {{#each tables as |t|}}
+        {{#if (eq bldg_id t.bldg_id)}}
+          <div class="ui teal top attached segment"><h3>Building ID {{t.bldg_id}}</h3></div>
+          
+          <table class="ui attached celled table">
+            <thead>
+              <tr>
+                <th class="two wide">Org. ID</th>
+                <th class="five wide">School Name</th>
+                <th class="two wide">Building ID</th>
+                <th class="five wide">Building Name</th>
+                <th class="one wide">Level</th>
+                <th class="one wide">Future Capacity</th>
+              </tr>
+            </thead>
+            <tbody>
+              {{#each t.buildings as |b|}}
+                <tr>
+                  <td>{{b.org_id}}</td>
+                  <td>{{b.name}}</td>
+                  <td>{{b.bldg_id}}</td>
+                  <td>{{b.bldg_name}}</td>
+                  <td>{{uppercase b.level}}</td>
+                  <td class="warning">
+                    <div class="ui input transparent edit-cell">
+                      {{input type="number" value=b.capacityFuture placeholder="0"}}
+                    </div>
+                  </td>
+                </tr>
+              {{/each}}
+            </tbody>
+          </table>
+
+          <div class="ui clearing attached segment">
+            <div class="ui right floated button compact primary {{if saving "loading"}}" {{action 'save'}}>Save</div>
+          </div>
+
+          <h4 class="ui attached header">DOE Utilization Change Notices</h4>
+
+          <table class="ui bottom attached celled table">
+            <thead>
+              <tr>
+                <th class="two wide">At Scale Year</th>
+                <th class="one wide">At Scale Enrollment</th>
+                <th class="eight wide">Proposal Title</th>
+                <th class="five wide">Links</th>
+              </tr>
+            </thead>
+            <tbody>
+              {{#each t.doe_notices as |n|}}
+                <tr>
+                  <td>{{n.at_scale_year}}</td>
+                  <td>{{n.at_scale_enroll}}</td>
+                  <td>{{n.title}}</td>
+                  <td>
+                    <div class="ui list">
+                      {{#if n.bup_url}}<div class="item"><a href={{n.bup_url}} target="_blank">Building Utilization Plan <i class="external alternate icon"></i></a></div>{{/if}}
+                      {{#if n.eis_url}}<div class="item"><a href={{n.eis_url}} target="_blank">Educational Impact Statement <i class="external alternate icon"></i></a></div>{{/if}}
+                    </div>
+                  </td>
+                </tr>
+              {{/each}}
+            </tbody>
+          </table>
+        {{/if}}
+      {{/each}}
+    </div>
+  </div>
+{{/if}}
+
+<div class="ui icon message">
   <i class="database icon"></i>
   <div class="content">
     <div class="header">
@@ -13,67 +97,3 @@
     <p>List of proposed Department of Education utilization changes.</p>
   </div>
 </div>
-
-{{#if project.doeUtilChanges}}
-  {{#each tables as |t|}}
-    <div class="ui teal top attached segment"><h3>Building ID {{t.bldg_id}}</h3></div>
-    
-    <table class="ui attached celled table">
-      <thead>
-        <tr>
-          <th class="two wide">Org. ID</th>
-          <th class="five wide">School Name</th>
-          <th class="two wide">Building ID</th>
-          <th class="five wide">Building Name</th>
-          <th class="one wide">Level</th>
-          <th class="one wide">Future Capacity</th>
-        </tr>
-      </thead>
-      <tbody>
-        {{#each t.buildings as |b|}}
-          <tr>
-            <td>{{b.org_id}}</td>
-            <td>{{b.name}}</td>
-            <td>{{b.bldg_id}}</td>
-            <td>{{b.bldg_name}}</td>
-            <td>{{uppercase b.level}}</td>
-            <td class="warning">
-              <div class="ui input transparent edit-cell">
-                {{input type="number" value=b.capacityFuture placeholder="0"}}
-              </div>
-            </td>
-          </tr>
-        {{/each}}
-      </tbody>
-    </table>
-
-    <h4 class="ui attached header">DOE Utilization Change Notices</h4>
-
-    <table class="ui bottom attached celled table">
-      <thead>
-        <tr>
-          <th class="two wide">At Scale Year</th>
-          <th class="one wide">At Scale Enrollment</th>
-          <th class="eight wide">Proposal Title</th>
-          <th class="five wide">Links</th>
-        </tr>
-      </thead>
-      <tbody>
-        {{#each t.doe_notices as |n|}}
-          <tr>
-            <td>{{n.at_scale_year}}</td>
-            <td>{{n.at_scale_enroll}}</td>
-            <td>{{n.title}}</td>
-            <td>
-              <div class="ui list">
-                {{#if n.bup_url}}<div class="item"><a href={{n.bup_url}} target="_blank">Building Utilization Plan <i class="external alternate icon"></i></a></div>{{/if}}
-                {{#if n.eis_url}}<div class="item"><a href={{n.eis_url}} target="_blank">Educational Impact Statement <i class="external alternate icon"></i></a></div>{{/if}}
-              </div>
-            </td>
-          </tr>
-        {{/each}}
-      </tbody>
-    </table>
-
-  {{/each}}
-{{/if}}

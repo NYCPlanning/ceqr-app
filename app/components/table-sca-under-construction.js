@@ -17,7 +17,15 @@ export default Component.extend({
     });
     
     return tables.compact();
-  })
+  }),
+
+  actions: {
+    save: function() {
+      this.set('saving', true);
+      this.get('project').save().then(() => this.set('saving', false));
+    },
+  }
+
   /* 
   [
     {

@@ -1,4 +1,8 @@
-<table class="ui attached celled table">
+<div class="ui top attached segment">
+  <h3 class="action-title">Future Conditions: No-Action Scenario</h3>
+</div>
+
+<table class="ui bottom attached celled table">
   <thead>
     <tr>
       <th class="three wide">Study Area</th>
@@ -30,7 +34,7 @@
         <tr>
           <td>{{p.sdName}}</td>
           <td>{{p.enroll}}</td>
-          <td>{{p.students}}</td>
+          <td class="math--left"><i class="plus circle icon"></i>{{p.students}}</td>
           <td>{{p.enrollNoAction}}</td>
           <td>{{p.capacityNoAction}}</td>
           <td>{{p.seatsNoAction}}</td>
@@ -43,7 +47,7 @@
       <tr>
         <td><em>Totals across study area</em></td>
         <td><em>{{psTableTotals.enrollTotal}}</em></td>
-        <td><em>{{psTableTotals.studentsTotal}}</em></td>
+        <td class="math--left"><i class="plus circle icon"></i><em>{{psTableTotals.studentsTotal}}</em></td>
         <td><em>{{psTableTotals.enrollNoActionTotal}}</em></td>
         <td><em>{{psTableTotals.capacityNoActionTotal}}</em></td>
         <td><em>{{psTableTotals.seatsNoActionTotal}}</em></td>
@@ -64,7 +68,7 @@
         <tr>
           <td>{{p.sdName}}</td>
           <td>{{p.enroll}}</td>
-          <td>{{p.students}}</td>
+          <td class="math--left"><i class="plus circle icon"></i>{{p.students}}</td>
           <td>{{p.enrollNoAction}}</td>
           <td>{{p.capacityNoAction}}</td>
           <td>{{p.seatsNoAction}}</td>
@@ -77,7 +81,7 @@
       <tr>
         <td><em>Totals across study area</em></td>
         <td><em>{{isTableTotals.enrollTotal}}</em></td>
-        <td><em>{{isTableTotals.studentsTotal}}</em></td>
+        <td class="math--left"><i class="plus circle icon"></i><em>{{isTableTotals.studentsTotal}}</em></td>
         <td><em>{{isTableTotals.enrollNoActionTotal}}</em></td>
         <td><em>{{isTableTotals.capacityNoActionTotal}}</em></td>
         <td><em>{{isTableTotals.seatsNoActionTotal}}</em></td>
@@ -98,7 +102,7 @@
         <tr>
           <td>{{project.borough}}</td>
           <td>{{p.enroll}}</td>
-          <td>{{p.students}}</td>
+          <td class="math--left"><i class="plus circle icon"></i>{{p.students}}</td>
           <td>{{p.enrollNoAction}}</td>
           <td>{{p.capacityNoAction}}</td>
           <td>{{p.seatsNoAction}}</td>
@@ -109,7 +113,7 @@
   {{/if}}
 </table>
 
-<div class="ui attached icon message">
+<div class="ui icon message">
   <i class="database icon"></i>
   <div class="content">
     <div class="header">
@@ -119,12 +123,6 @@
     </div>
     <p>The demographic projections take into account the birth, enrollment, and migration trends for five and ten years into the future.
       The enrollment projection is then combined with projected housing growth to derive the total projected enrollment.</p>
-  </div>
-</div>
-
-<div class="ui attached bottom icon message">
-  <i class="database icon"></i>
-  <div class="content">
     <div class="header">
       <a target="_blank" href="http://www.nycsca.org/Community/Capital-Plan-Reports-Data#Housing-Projections-70">
        Projected New Housing Starts as Used in 2016-2005 Enrollment Projection <i class="external alternate icon"></i>

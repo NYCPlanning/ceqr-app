@@ -1,35 +1,12 @@
 {{#if schools-capacity.initialLoad.isIdle}}
-  <div class="row">
-    <div class="sixteen wide column">
-      <h3 class="ui top attached header">
-        Future Conditions: No-Action Scenario
-      </h3>
-      <div class="ui attached segment">
-        {{project-map project=project}}
-      </div>
-
-      {{table-projected-enrollment project=project}}
-    </div>
+  <div class="sixteen wide column">
+    {{project-map project=project}}
   </div>
 
-  <div class="row">
-    <div class="sixteen wide column">    
-      {{table-sca-under-construction project=project}}
-    </div>
+  <div class="sixteen wide column">
+    {{no-action-steps project=project}}
   </div>
-
-  <div class="row">
-    <div class="sixteen wide column">
-      {{table-doe-significant-util-changes project=project}}
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="sixteen wide column">
-      {{table-additional-no-action-residential-dev project=project}}
-    </div>
-  </div>
-
+  
   {{!-- <div class="row">
     <div class="sixteen wide column">
       {{#ui-accordion}}
@@ -78,15 +55,3 @@
     </div>
   </div> --}}
 {{/if}}
-
-<div class="row">
-  <div class="sixteen wide column">
-    <div class="ui menu">
-      <div class="right item">
-        {{#link-to "project.show.schools-capacity.with-action" project.id class="ui primary button"}}
-          Next <i class="arrow right icon"></i>
-        {{/link-to}}
-      </div>
-    </div>
-  </div>
-</div>

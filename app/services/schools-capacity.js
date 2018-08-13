@@ -121,12 +121,16 @@ export default Service.extend({
     let bluebookBuildings = [];
 
     bluebook.forEach((b) => {
+      const existing = this.get('project.bluebook').filter(
+        (e) => e.org_id === b.org_id && e.bldg_id === b.bldg_id
+      )[0];
+      
       if (/PS/.test(b.org_level)) bluebookBuildings.push(Building.create({
         ...b,
         level: 'ps',
         type: 'bluebook',
         capacity: b.ps_capacity,
-        capacityFuture: b.ps_capacity,
+        capacityFuture: existing ? existing.capacityFuture : b.ps_capacity,
         enroll: b.ps_enroll
       }));
 
@@ -135,18 +139,22 @@ export default Service.extend({
         level: 'is',
         type: 'bluebook',
         capacity: b.ms_capacity,
-        capacityFuture: b.ms_capacity,
+        capacityFuture: existing ? existing.capacityFuture : b.ms_capacity,
         enroll: b.ms_enroll
       }));
     });
 
     bluebookHs.forEach((b) => {
+      const existing = this.get('project.buildings').filter(
+        (e) => e.org_id === b.org_id && e.bldg_id === b.bldg_id
+      )[0];
+      
       if (/HS/.test(b.org_level)) bluebookBuildings.push(Building.create({
         ...b,
         level: 'hs',
         type: 'bluebook',
         capacity: b.hs_capacity,
-        capacityFuture: b.hs_capacity,
+        capacityFuture: existing ? existing.capacityFuture : b.hs_capacity,
         enroll: b.hs_enroll
       }));
     });
@@ -276,7 +284,17 @@ export default Service.extend({
         sca_capital_projects_v032018 AS projects
       WHERE ST_Intersects(subdistricts.the_geom, projects.the_geom)
     `);
-    this.set('project.scaProjects', scaProjects.map((b) => Building.create(b)));
+    this.set('project.scaProjects', scaProjects.map((b) => {
+      const existing = this.get('project.scaProjects').findBy('bldg_id', b.bldg_id);
+      return Building.create({
+        ...b,
+        data_as_of: '2018-03-21', // Hard coded for now. Not good.
+        ps_capacity: existing ? existing.ps_capacity : '',
+        is_capacity: existing ? existing.is_capacity : '',
+        hs_capacity: existing ? existing.hs_capacity : '',
+        includeInCapacity: existing ? existing.includeInCapacity : false,
+      })
+    }));
   }),
 
   setDOEUtilChanges: task(function*() {

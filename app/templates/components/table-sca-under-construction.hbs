@@ -1,36 +1,10 @@
 {{#if tables}}
-  <div class="ui top attached segment">
+  <div class="ui segment">
     <div class="ui orange ribbon label">Needs Input</div> <h3 class="action-title">SCA Schools Under Construction</h3>
   </div>
 
-  <div class="ui attached bottom icon message">
-    <i class="database icon"></i>
-    <div class="content">
-      <div class="header">
-        <a target="_blank" href="https://data.cityofnewyork.us/Housing-Development/Capital-Project-Schedules-and-Budgets/2xh6-psuq">
-          Capital Project Schedules and Budgets [Feb 9, 2018] <i class="external alternate icon"></i>
-        </a>
-      </div>
-      <p>List of capital projects with managing organization, phase status and project costs.</p>
-
-      <div class="header">
-        <a target="_blank" href="https://data.cityofnewyork.us/Education/Capacity-Projects-by-schools/a94k-kjys">
-          Capacity Projects by schools [Mar 21, 2018] <i class="external alternate icon"></i>
-        </a>
-      </div>
-      <p>Capacity project details by school.</p>
-
-      <div class="header">
-        <a target="_blank" href="https://data.cityofnewyork.us/Housing-Development/Active-Projects-Under-Construction/8586-3zfm">
-          Active Projects Under Construction [Feb 22, 2018] <i class="external alternate icon"></i>
-        </a>
-      </div>
-      <p>New school projects (Capacity) and Capital Improvement Projects (CIP) currently under Construction.</p>
-    </div>
-  </div>
-
   {{#each tables as |t|}}
-    <table class="ui orange bottom celled table">
+    <table class="ui top attached orange celled table">
       <thead>
         <th colspan="8">District {{t.district}} - Subdistrict {{t.subdistrict}}</th>
         <tr>
@@ -74,6 +48,36 @@
       </tbody>
     </table>
   {{/each}}
+
+  <div class="ui clearing bottom attached segment">
+    <div class="ui right floated button compact primary {{if saving "loading"}}" {{action 'save'}}>Save</div>
+  </div>
+
+  <div class="ui icon message">
+    <i class="database icon"></i>
+    <div class="content">
+      <div class="header">
+        <a target="_blank" href="https://data.cityofnewyork.us/Housing-Development/Capital-Project-Schedules-and-Budgets/2xh6-psuq">
+          Capital Project Schedules and Budgets [Feb 9, 2018] <i class="external alternate icon"></i>
+        </a>
+      </div>
+      <p>List of capital projects with managing organization, phase status and project costs.</p>
+
+      <div class="header">
+        <a target="_blank" href="https://data.cityofnewyork.us/Education/Capacity-Projects-by-schools/a94k-kjys">
+          Capacity Projects by schools [Mar 21, 2018] <i class="external alternate icon"></i>
+        </a>
+      </div>
+      <p>Capacity project details by school.</p>
+
+      <div class="header">
+        <a target="_blank" href="https://data.cityofnewyork.us/Housing-Development/Active-Projects-Under-Construction/8586-3zfm">
+          Active Projects Under Construction [Feb 22, 2018] <i class="external alternate icon"></i>
+        </a>
+      </div>
+      <p>New school projects (Capacity) and Capital Improvement Projects (CIP) currently under Construction.</p>
+    </div>
+  </div>
 {{else}}
   <div class="ui top attached segment">
     <div class="ui green ribbon label">Complete</div> <h3 class="action-title">SCA Schools Under Construction</h3>
