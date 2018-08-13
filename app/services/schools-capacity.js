@@ -186,23 +186,31 @@ export default Service.extend({
       let isIs = grades.some(g => ['06','07','08'].includes(g));
       let isHs = grades.some(g => ['09','10','11','12'].includes(g));
 
+      const existing = this.get('project.lcgms').findBy('org_id', b.org_id);
+
       if (isPs) lcgmsBuildings.push(Building.create({
         ...b,
         level: 'ps',
-        type: 'lcgms'
+        type: 'lcgms',
+        enroll: existing ? existing.enroll : '',
+        capacity: existing ? existing.capacity : '',
       }));
       
       if (isIs) lcgmsBuildings.push(Building.create({
         ...b,
         level: 'is',
-        type: 'lcgms'
+        type: 'lcgms',
+        enroll: existing ? existing.enroll : '',
+        capacity: existing ? existing.capacity : '',
       }));
       
       // Still need to deal with HS from LCGMS; will wait until LCGMS data issues are addressed
       if (isHs) lcgmsBuildings.push(Building.create({
         ...b,
         level: 'hs',
-        type: 'lcgms'
+        type: 'lcgms',
+        enroll: existing ? existing.enroll : '',
+        capacity: existing ? existing.capacity : '',
       }));
     });
 
