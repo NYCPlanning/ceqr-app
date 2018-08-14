@@ -1,0 +1,88 @@
+<div class="ui basic top attached segment">
+  <div class="ui secondary menu">
+    <div class="ui simple dropdown item">
+      <strong>{{sd.sdName}}</strong>
+      <i class="dropdown icon"></i>
+
+      <div class="menu">
+        {{#each project.subdistricts as |sd|}}
+          <a class="item" {{action 'setSdId' sd.id}}>{{sd.sdName}}</a>
+        {{/each}}
+      </div>
+
+    </div>
+    
+    <a class="item {{if (eq activeSchoolsLevel 'ps') 'active'}}" {{action (mut activeSchoolsLevel) 'ps'}}>
+      Primary Schools
+    </a>
+    <a class="item {{if (eq activeSchoolsLevel 'is') 'active'}}" {{action (mut activeSchoolsLevel) 'is'}}>
+      Intermediate Schools
+    </a>
+    <div class="ui divider"></div>
+    {{#if project.hsAnalysis}}    
+      <div class="right menu">
+        <a class="item {{if (eq activeSchoolsLevel 'hs') 'active'}}" {{action (mut activeSchoolsLevel) 'hs'}}>
+          High Schools ({{project.borough}})
+        </a>
+      </div>
+    {{/if}}
+  </div>
+</div>
+
+
+<table class="ui bottom attached celled table row-highlight">
+  <thead>
+    <tr>
+      <th colspan=3></th>
+      <th colspan=2>Assumptions</th>
+      <th colspan=2></th>
+    </tr>
+    <tr>
+      <th class="four wide"></th>
+      <th class="two wide">Enrollment</th>
+      <th class="two wide">Capacity</th>
+      <th class="two wide">Enrollment Δ</th>
+      <th class="two wide">Capacity Δ</th>
+      <th class="two wide">Utilization %</th>
+      <th class="two wide">Seats</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>Existing Conditions</td>
+      <td>{{existingConditions.enrollmentTotal}}</td>
+      <td>{{existingConditions.capacityTotal}}</td>
+      <td class="disabled">n/a</td>
+      <td class="disabled">n/a</td>
+      <td>{{percentage existingConditions.utilizationTotal}}</td>
+      <td>{{existingConditions.seatsTotal}}</td>
+    </tr>
+
+    <tr>
+      <td>No Action</td>
+      <td>{{futureConditions.enrollNoAction}}</td>
+      <td>{{futureConditions.capacityNoAction}}</td>
+      <td></td>
+      <td></td>
+      <td>{{percentage futureConditions.utilizationNoAction}}</td>
+      <td>{{futureConditions.seatsNoAction}}</td>
+    </tr>
+
+    <tr>
+      <td>With Action</td>
+      <td>{{futureConditions.enrollWithAction}}</td>
+      <td>{{futureConditions.capacityWithAction}}</td>
+      <td></td>
+      <td></td>
+      <td>{{percentage futureConditions.utilizationWithAction}}</td>
+      <td>{{futureConditions.seatsWithAction}}</td>
+    </tr>
+  </tbody>
+
+  <tfoot>
+    <th colspan=5><em>Change in Totals</em></th>
+    <th></th>
+    <th></th>
+  </tfoot>
+</table>

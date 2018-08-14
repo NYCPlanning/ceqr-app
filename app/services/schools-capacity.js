@@ -121,42 +121,52 @@ export default Service.extend({
     let bluebookBuildings = [];
 
     bluebook.forEach((b) => {
-      const existing = this.get('project.bluebook').filter(
-        (e) => e.org_id === b.org_id && e.bldg_id === b.bldg_id
-      )[0];
-      
-      if (/PS/.test(b.org_level)) bluebookBuildings.push(Building.create({
-        ...b,
-        level: 'ps',
-        type: 'bluebook',
-        capacity: b.ps_capacity,
-        capacityFuture: existing ? existing.capacityFuture : b.ps_capacity,
-        enroll: b.ps_enroll
-      }));
+      if (/PS/.test(b.org_level)) {
+        const existing = this.get('project.bluebook').filter(
+          (e) => e.org_id === b.org_id && e.bldg_id === b.bldg_id && e.level === 'ps'
+        )[0];
 
-      if (/IS/.test(b.org_level)) bluebookBuildings.push(Building.create({
-        ...b,
-        level: 'is',
-        type: 'bluebook',
-        capacity: b.ms_capacity,
-        capacityFuture: existing ? existing.capacityFuture : b.ms_capacity,
-        enroll: b.ms_enroll
-      }));
+        bluebookBuildings.push(Building.create({
+          ...b,
+          level: 'ps',
+          type: 'bluebook',
+          capacity: b.ps_capacity,
+          capacityFuture: existing ? existing.capacityFuture : b.ps_capacity,
+          enroll: b.ps_enroll
+        }));
+      }     
+
+      if (/IS/.test(b.org_level)) {
+        const existing = this.get('project.bluebook').filter(
+          (e) => e.org_id === b.org_id && e.bldg_id === b.bldg_id && e.level === 'is'
+        )[0];
+
+        bluebookBuildings.push(Building.create({
+          ...b,
+          level: 'is',
+          type: 'bluebook',
+          capacity: b.ms_capacity,
+          capacityFuture: existing ? existing.capacityFuture : b.ms_capacity,
+          enroll: b.ms_enroll
+        }));
+      }
     });
 
     bluebookHs.forEach((b) => {
-      const existing = this.get('project.buildings').filter(
-        (e) => e.org_id === b.org_id && e.bldg_id === b.bldg_id
-      )[0];
-      
-      if (/HS/.test(b.org_level)) bluebookBuildings.push(Building.create({
-        ...b,
-        level: 'hs',
-        type: 'bluebook',
-        capacity: b.hs_capacity,
-        capacityFuture: existing ? existing.capacityFuture : b.hs_capacity,
-        enroll: b.hs_enroll
-      }));
+      if (/HS/.test(b.org_level)) {
+        const existing = this.get('project.buildings').filter(
+          (e) => e.org_id === b.org_id && e.bldg_id === b.bldg_id && e.org_level === 'hs'
+        )[0];
+
+        bluebookBuildings.push(Building.create({
+          ...b,
+          level: 'hs',
+          type: 'bluebook',
+          capacity: b.hs_capacity,
+          capacityFuture: existing ? existing.capacityFuture : b.hs_capacity,
+          enroll: b.hs_enroll
+        }));
+      }
     });
 
     this.set('project.bluebook', bluebookBuildings);

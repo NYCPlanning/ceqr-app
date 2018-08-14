@@ -15,6 +15,10 @@ export default EmberObject.extend({
     return this.get('capacityExisting') + this.get('scaCapacityIncrease');
   }),
 
+  capacityWithAction: computed('', function() {
+    return this.get('capacityNoAction');
+  }),
+
   seatsNoAction: computed('capacityNoAction', 'enrollNoAction', function() {
     return this.get('capacityNoAction') - this.get('enrollNoAction');
   }),
