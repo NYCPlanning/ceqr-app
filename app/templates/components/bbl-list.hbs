@@ -3,12 +3,15 @@
     <div class="sixteen wide column">
       <div class="ui action input">
         <form class="ui form" {{action 'addBbl' bbl on='submit'}}>
-          <div class="two fields">
+          <div class="three fields">
             <div class="field">
               {{input type="text" name="bbl" value=bbl placeholder="BBL" maxlength=10 enter="addBbl"}}
             </div>
             <div class="field">
               <button type="submit" class="ui button">Add</button>
+            </div>
+            <div class="field">
+              <a href="https://zola.planning.nyc.gov" target="_blank">ZoLa <i class="external alternate icon"></i></a>
             </div>
           </div>
 

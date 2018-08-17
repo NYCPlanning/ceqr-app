@@ -90,6 +90,9 @@ export default Component.extend({
     
     handleMapLoad(map) {
       map.addControl(new mapboxgl.ScaleControl({ unit: 'imperial' }), 'bottom-right');
+      
+      const nav = new mapboxgl.NavigationControl();
+      map.addControl(nav, 'top-right');
 
       this.set('mapservice.map', map);
       this.get('mapservice').fitToSubdistricts();
