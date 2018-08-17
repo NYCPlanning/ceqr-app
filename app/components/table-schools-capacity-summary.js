@@ -22,7 +22,7 @@ export default Component.extend({
 
   futureConditions: computed('activeSdId', 'activeSchoolsLevel', function() {
     if (this.get('activeSchoolsLevel') === 'hs') {
-      return this.get('project.aggregateTotals').filterBy('level', 'hs');
+      return this.get('project.aggregateTotals').findBy('level', 'hs');
     } else {
       return this.get('project.aggregateTotals').find(
         (total) => (total.id === parseInt(this.get('activeSdId')) && total.level === this.get('activeSchoolsLevel'))

@@ -201,6 +201,7 @@ export default DS.Model.extend({
         level: 'hs',
 
         enroll: this.get('hsProjections')[0] ? this.get('hsProjections')[0].hs : 0,
+        enrollExistingConditions: this.get('schoolTotals').findBy('level', 'hs').get('enrollmentTotal'),
         students: this.get('futureResidentialDev').reduce(function(acc, value) {
           return acc + value.hs_students;
         }, 0),
@@ -223,7 +224,7 @@ export default DS.Model.extend({
           ...sd,
           level: 'ps',
           studentMultiplier: this.get('ceqrManual').studentMultipliersFor(this.get('borough')).ps,
-          
+
           enroll: Math.round(
             this.get('futureEnrollmentProjections').findBy('district', sd.district).ps
             *
@@ -231,6 +232,9 @@ export default DS.Model.extend({
               (i) => (i.district === sd.district && i.subdistrict === sd.subdistrict && i.level === 'PS')
             ).multiplier
           ),
+          enrollExistingConditions: this.get('schoolTotals').filter(
+            (b) => (b.district === sd.district && b.subdistrict === sd.subdistrict && b.level === 'ps')
+          )[0].get('enrollmentTotal'),
           
           students: (
             // Students from future housing projected by SCA
@@ -275,6 +279,9 @@ export default DS.Model.extend({
               (i) => (i.district === sd.district && i.subdistrict === sd.subdistrict && i.level === 'MS')
             ).multiplier
           ),
+          enrollExistingConditions: this.get('schoolTotals').filter(
+            (b) => (b.district === sd.district && b.subdistrict === sd.subdistrict && b.level === 'is')
+          )[0].get('enrollmentTotal'),
           
           students: (
             // Students from future housing projected by SCA
