@@ -1,8 +1,16 @@
-<div class="ui segment">
-  <div class="ui orange ribbon label">Needs Input</div> <h3 class="action-title">DOE Significant Utilitization Changes</h3>
-</div>
+{{#if hasSigUtils}}
+  <div class="ui segment">
+    <div class="ui orange ribbon label">Needs Input</div> <h3 class="action-title">DOE Significant Utilitization Changes</h3>
+  </div>
 
-{{#if project.doeUtilChanges}}
+  <div class="ui message">
+    <div class="header">Instructions</div>
+    <p>This step is intended to identify DOE plans for re-purposing underutilized school space that could radically 
+      alter available capacity in the future. Use the PEP (Panel for Educational Policy) Vote Date to access a more
+      detailed view of the relevant school utilization proposal. Consult the lead agency for detailed assumptions on
+      impact of specific changes on capacity.</p>
+  </div>
+
   <div class="ui grid">
     <div class="three wide column">
       <div class="ui vertical fluid tabular menu">
@@ -23,12 +31,14 @@
           <table class="ui attached celled table">
             <thead>
               <tr>
-                <th class="two wide">Org. ID</th>
+                <th class="one wide">Org. ID</th>
                 <th class="five wide">School Name</th>
-                <th class="two wide">Building ID</th>
+                <th class="one wide">Building ID</th>
                 <th class="five wide">Building Name</th>
                 <th class="one wide">Level</th>
-                <th class="one wide">Future Capacity</th>
+                <th class="one wide">Current Capacity</th>
+                <th class="one wide">{{project.buildYear}} Capacity</th>
+                <th class="one wide">Capacity Δ</th>
               </tr>
             </thead>
             <tbody>
@@ -39,11 +49,13 @@
                   <td>{{b.bldg_id}}</td>
                   <td>{{b.bldg_name}}</td>
                   <td>{{uppercase b.level}}</td>
+                  <td>{{b.capacity}}</td>
                   <td class="warning">
                     <div class="ui input transparent edit-cell">
                       {{input type="number" value=b.capacityFuture placeholder="0"}}
                     </div>
                   </td>
+                  <td>{{b.capacityDelta}}</td>
                 </tr>
               {{/each}}
             </tbody>
@@ -84,16 +96,26 @@
       {{/each}}
     </div>
   </div>
+
+  <div class="ui icon message">
+    <i class="database icon"></i>
+    <div class="content">
+      <div class="header">
+        <a target="_blank" href="https://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy">
+          Panel for Educational Policy meeting minutes <i class="external alternate icon"></i>
+        </a>
+      </div>
+      <p>The Panel for Educational Policy (PEP) consists of 13 appointed members and the Chancellor. Each borough president appoints one member and the mayor appoints the remaining eight. The Chancellor serves as an ex-officio non-voting member. The PEP is responsible for electing a chairperson from among the voting members.</p>
+    </div>
+  </div>
+{{else}}
+  <div class="ui top attached segment">
+    <div class="ui green ribbon label">Complete</div> <h3 class="action-title">DOE Significant Utilitization Changes</h3>
+  </div>
+  
+  <div class="ui secondary bottom attached segment">
+    There are no DOE significant utilization changes in your current study area.
+  </div>
 {{/if}}
 
-<div class="ui icon message">
-  <i class="database icon"></i>
-  <div class="content">
-    <div class="header">
-      <a target="_blank" href="https://github.com/NYCPlanning/cp-ceqr-schools/blob/master/notebooks/data/All%20Proposals%20Database_02.02.18.xlsx?raw=true">
-        DOE Significant Utilization Proposals [Feb 2, 2018] <i class="external alternate icon"></i>
-      </a>
-    </div>
-    <p>List of proposed Department of Education utilization changes.</p>
-  </div>
-</div>
+

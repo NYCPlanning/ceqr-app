@@ -319,11 +319,15 @@ export default Service.extend({
         at_scale_year,
         at_scale_enroll,
         bldg_id,
-        bup_url,
-        eis_url,
+        bldg_id_additional,
+        org_id,
+        url,
+        vote_date,
         title
-      FROM doe_significant_utilization_changes_v022018
-      WHERE bldg_id IN (${this.get('project.buildingsBldgIds').map(b => `'${b}'`).join(',')})
+      FROM doe_significant_utilization_changes_v062018
+      WHERE 
+        bldg_id IN (${this.get('project.buildingsBldgIds').map(b => `'${b}'`).join(',')}) OR
+        bldg_id_additional IN (${this.get('project.buildingsBldgIds').map(b => `'${b}'`).join(',')})
     `);
     this.set('project.doeUtilChanges', doeUtilChanges);
   }),

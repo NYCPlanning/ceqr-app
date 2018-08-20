@@ -13,5 +13,9 @@ export default EmberObject.extend({
     if (this.get('excluded')) return null;
     if (!this.get('capacity')) return 0;
     return round((this.get('enroll') / this.get('capacity')), 3);
+  }),
+
+  capacityDelta: computed('capacity', 'capacityFuture', function() {
+    return this.get('capacityFuture') - this.get('capacity');
   })
 });
