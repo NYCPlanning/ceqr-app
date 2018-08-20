@@ -15,7 +15,7 @@
     <div class="three wide column">
       <div class="ui vertical fluid tabular menu">
         <div class="header item">Building ID</div>
-        {{#each tables as |t|}}
+        {{#each project.doeUtilChangesPerBldg as |t|}}
           <a class="item {{if (eq bldg_id t.bldg_id) "active"}}" {{action 'showBldg' t.bldg_id}}>
             {{t.bldg_id}}
           </a>
@@ -24,7 +24,7 @@
     </div>
 
     <div class="thirteen wide column">
-      {{#each tables as |t|}}
+      {{#each project.doeUtilChangesPerBldg as |t|}}
         {{#if (eq bldg_id t.bldg_id)}}
           <div class="ui teal top attached segment"><h3>Building ID {{t.bldg_id}}</h3></div>
           

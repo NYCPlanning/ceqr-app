@@ -133,9 +133,32 @@ export default DS.Model.extend({
   buildYearMaxed: computed('projectionOverMax', function() {
     return this.get('projectionOverMax') ? this.get('maxProjection') : this.get('buildYear');
   }),
+
   doeUtilChanges: DS.attr('', { defaultValue() { return []; } }),
+  doeUtilChangesBldgIds: computed('doeUtilChanges.[]', function() {
+    return this.get('doeUtilChanges').mapBy('bldg_id').concat(
+      this.get('doeUtilChanges').mapBy('bldg_id_additional')
+    ).without('').uniq();
+  }),
+  doeUtilChangesPerBldg: computed('doeUtilChanges', 'buildings', function() {    
+    const buildingsNoHs = this.get('buildings').filter(b => (b.level !== 'hs'));
+    
+    return this.get('doeUtilChangesBldgIds').map(bldg_id => {      
+      const buildings = buildingsNoHs.filterBy('bldg_id', bldg_id);
+
+      if (buildings.length === 0) return;
+      
+      return ({
+        bldg_id,
+        buildings,
+        doe_notices: this.get('doeUtilChanges').filter(b => (
+          b.bldg_id === bldg_id || b.bldg_id_additional === bldg_id
+        ))
+      })
+    }).compact();
+  }),
   doeUtilChangesCount: computed('doeUtilChanges', function() {
-    return this.get('doeUtilChanges').mapBy('bldg_id').uniq().length;
+    return this.get('doeUtilChangesPerBldg').length;
   }),
 
   futureResidentialDev: DS.attr('', { defaultValue() { return []; } }),
