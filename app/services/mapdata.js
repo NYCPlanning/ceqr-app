@@ -53,8 +53,8 @@ export default Service.extend({
   }),
   fetchLcgmsGeojson: task(function*() {
     return yield carto.SQL(`
-      SELECT the_geom, open_date, location_name AS name, grades
-      FROM doe_lcgms_v201718
+      SELECT the_geom, cartodb_id, name, org_level, cartodb_id, bldg_id, org_id
+      FROM ceqr_lcgms_v2017
       WHERE cartodb_id IN (${this.get('project.lcgmsCartoIds').join(',')})   
     `, 'geojson');
   }).drop(),

@@ -71,7 +71,7 @@ export default Service.extend({
         org_level,
         organization_name AS name,
         address,
-        org_level AS grades,
+        org_level,
 
         hs_capacity,
         ROUND(hs_enroll) AS hs_enroll
@@ -100,7 +100,7 @@ export default Service.extend({
         org_level,
         organization_name AS name,
         address,
-        org_level AS grades,
+        org_level,
 
         ps_capacity,
         ROUND(ps_enroll) AS ps_enroll,
@@ -129,7 +129,7 @@ export default Service.extend({
         bluebookBuildings.push(Building.create({
           ...b,
           level: 'ps',
-          type: 'bluebook',
+          source: 'bluebook',
           capacity: b.ps_capacity,
           capacityFuture: existing ? existing.capacityFuture : b.ps_capacity,
           enroll: b.ps_enroll
@@ -144,7 +144,7 @@ export default Service.extend({
         bluebookBuildings.push(Building.create({
           ...b,
           level: 'is',
-          type: 'bluebook',
+          source: 'bluebook',
           capacity: b.ms_capacity,
           capacityFuture: existing ? existing.capacityFuture : b.ms_capacity,
           enroll: b.ms_enroll
@@ -161,7 +161,7 @@ export default Service.extend({
         bluebookBuildings.push(Building.create({
           ...b,
           level: 'hs',
-          type: 'bluebook',
+          source: 'bluebook',
           capacity: b.hs_capacity,
           capacityFuture: existing ? existing.capacityFuture : b.hs_capacity,
           enroll: b.hs_enroll
@@ -176,59 +176,58 @@ export default Service.extend({
     let lcgms = yield carto.SQL(`
       SELECT
         lcgms.the_geom,
-        lcgms.open_date,
-        lcgms.location_name AS name,
-        lcgms.primary_address AS address,
-        lcgms.building_code AS bldg_id,
-        lcgms.location_code AS org_id,
+        lcgms.name,
+        lcgms.address,
+        lcgms.bldg_id,
+        lcgms.org_id,
         lcgms.grades,
+        lcgms.org_level,
+        lcgms.ps_enroll,
+        lcgms.is_enroll,
+        lcgms.hs_enroll,
         lcgms.cartodb_id,
         subdistricts.schooldist AS district,
         subdistricts.zone AS subdistrict
-      FROM doe_lcgms_v201718 AS lcgms, (
+      FROM ceqr_lcgms_v2017 AS lcgms, (
         SELECT the_geom, schooldist, zone
         FROM doe_schoolsubdistricts_v2017
         WHERE cartodb_id IN (${this.get('project.subdistrictCartoIds').join(',')})
       ) subdistricts
-      WHERE open_date LIKE '%252017'
-        AND managed_by_name = 'DOE'
-        AND ST_Intersects(subdistricts.the_geom, lcgms.the_geom)   
+      WHERE ST_Intersects(subdistricts.the_geom, lcgms.the_geom)   
     `);
 
     let lcgmsBuildings = [];
 
     lcgms.forEach((b) => {
-      let grades = b.grades.split(',');
-      
-      let isPs = grades.some(g => ['0K','01','02','03','04','05'].includes(g));
-      let isIs = grades.some(g => ['06','07','08'].includes(g));
-      let isHs = grades.some(g => ['09','10','11','12'].includes(g));
+      let isPs = b.org_level.includes('PS');
+      let isIs = b.org_level.includes('IS');
+      let isHs = b.org_level.includes('HS');
 
-      const existing = this.get('project.lcgms').findBy('org_id', b.org_id);
+      const previousSaved = this.get('project.lcgms').findBy('org_id', b.org_id);
 
       if (isPs) lcgmsBuildings.push(Building.create({
         ...b,
         level: 'ps',
-        type: 'lcgms',
-        enroll: existing ? existing.enroll : '',
-        capacity: existing ? existing.capacity : '',
+        source: 'lcgms',
+        enroll: b.ps_enroll,
+        capacity: previousSaved ? previousSaved.capacity : '',
       }));
       
       if (isIs) lcgmsBuildings.push(Building.create({
         ...b,
         level: 'is',
-        type: 'lcgms',
-        enroll: existing ? existing.enroll : '',
-        capacity: existing ? existing.capacity : '',
+        source: 'lcgms',
+        enroll: b.is_enroll,
+        capacity: previousSaved ? previousSaved.capacity : '',
       }));
       
       // Still need to deal with HS from LCGMS; will wait until LCGMS data issues are addressed
       if (isHs) lcgmsBuildings.push(Building.create({
         ...b,
         level: 'hs',
-        type: 'lcgms',
-        enroll: existing ? existing.enroll : '',
-        capacity: existing ? existing.capacity : '',
+        source: 'lcgms',
+        enroll: b.hs_enroll,
+        capacity: previousSaved ? previousSaved.capacity : '',
       }));
     });
 

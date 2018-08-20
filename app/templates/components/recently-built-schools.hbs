@@ -7,9 +7,10 @@
     <thead>
       <tr>
         <th class="one wide">Org. ID</th>
-        <th class="five wide">School Name</th>
+        <th class="four wide">School Name</th>
+        <th class="one wide">Grades</th>
         <th class="five wide">Address</th>
-        <th class="one wide">Grades<br />Served</th>
+        <th class="one wide">Org Level</th>
         <th class="one wide">Enrollment</th>
         <th class="one wide">Target<br />Capacity</th>
         <th class="one wide">Available<br />Seats</th>
@@ -19,22 +20,19 @@
 
     <tbody>
       {{#each project.lcgms as |b|}}
-        <tr class="{{b.type}}">
+        <tr class="{{b.source}} {{b.org_level}}">
           <td>{{b.org_id}}</td>
           <td>
-            <i class="circle icon"></i>
+            <i class="star school icon"></i>
             {{b.name}}
             {{#if (not-eq b.name b.bldg_name)}}
               <br /><em>{{b.bldg_name}}</em>
             {{/if}}
           </td>
-          <td>{{b.address}}</td>
           <td>{{b.grades}}</td>
-          <td class="warning">
-            <div class="ui input transparent edit-cell">
-              {{input type="number" value=b.enroll placeholder="0"}}
-            </div>
-          </td>
+          <td>{{b.address}}</td>
+          <td>{{b.org_level}}</td>
+          <td>{{b.enroll}}</td>
           <td class="warning">
             <div class="ui input transparent warning edit-cell">
               {{input type="number" value=b.capacity placeholder="0"}}
@@ -58,6 +56,11 @@
       <p>
       The Department of Education does not include schools built in the current year in Bluebook. For such schools,
       data from the Department of Education's School Information report is used.
+      </p>
+
+      <div class="header"><a target="_blank" href="https://data.cityofnewyork.us/Education/2013-2018-Demographic-Snapshot-School/s52a-8aq6">2013 - 2018 Demographic Snapshot School <i class="external alternate icon"></i></a></div>
+      <p>
+      The 2013 - 2018 Demographic Snapshot School provides enrollment numbers for newly built schools.
       </p>
     </div>
   </div>

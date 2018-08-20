@@ -40,6 +40,39 @@ export default Component.extend({
     if (this.get('map')) this.get('map').setFilter(`${source}-hover`, ["==", ["get", "cartodb_id"], 0])
   },
 
+  displayPopup(e, source) {
+    this.get('map').getCanvas().style.cursor = 'default';
+    this.dotHover({source, id: e.features[0].properties.cartodb_id})
+
+    let html = `<table class="ui simple table inverted">
+      <thead>
+        <tr><th>Org ID</th><th>Bldg ID</th><th>Org Name</th><th>Level</th></tr>
+      </thead>
+    `;
+    e.features.forEach((f) => {
+      this.get('tablehover').trigger('hover', {source, id: f.properties.cartodb_id});
+      let row = `<tr>
+        <td>${f.properties.org_id}</td>
+        <td>${f.properties.bldg_id}</td>
+        <td>${f.properties.org_name}</td>
+        <td>${f.properties.level}</td>
+      </tr>`;
+      html = html + row;
+    });
+    html = html + '</table>';
+
+    this.get('schoolPopup')
+      .setLngLat(e.features[0].geometry.coordinates.slice())
+      .setHTML(html)
+      .addTo(this.get('map'));
+  },
+
+  removePopup(source) {
+    this.get('tablehover').trigger('unhover', {source});
+    this.get('map').getCanvas().style.cursor = '';
+    this.get('schoolPopup').remove();
+  },
+
   actions: {
     zoneHover(e) {
       if (this.get('showZones') && `${this.get('schoolZone')}-zones-hover` === e.features[0].layer.id) {
@@ -55,37 +88,20 @@ export default Component.extend({
       this.set('zoneName', null);
     },
     
-    schoolHover(e) {
-      this.get('map').getCanvas().style.cursor = 'default';
-      this.dotHover({source: 'bluebook', id: e.features[0].properties.cartodb_id})
+    lcgmsHover(e) {
+      this.displayPopup(e, 'lcgms');
+    },
 
-      let html = `<table class="ui simple table inverted">
-        <thead>
-          <tr><th>Org ID</th><th>Bldg ID</th><th>Org Name</th><th>Level</th></tr>
-        </thead>
-      `;
-      e.features.forEach((f) => {
-        this.get('tablehover').trigger('hover', {source: 'bluebook', id: f.properties.cartodb_id});
-        let row = `<tr>
-          <td>${f.properties.org_id}</td>
-          <td>${f.properties.bldg_id}</td>
-          <td>${f.properties.org_name}</td>
-          <td>${f.properties.level}</td>
-        </tr>`;
-        html = html + row;
-      });
-      html = html + '</table>';
+    lcgmsUnhover() {
+      this.removePopup('lcgms');
+    },
 
-      this.get('schoolPopup')
-        .setLngLat(e.features[0].geometry.coordinates.slice())
-        .setHTML(html)
-        .addTo(this.get('map'));
+    schoolHover(e) {      
+      this.displayPopup(e, 'bluebook');
     },
 
     schoolUnhover() {
-      this.get('tablehover').trigger('unhover', {source: 'bluebook'});
-      this.get('map').getCanvas().style.cursor = '';
-      this.get('schoolPopup').remove();
+      this.removePopup('bluebook');
     },
     
     handleMapLoad(map) {

@@ -163,14 +163,39 @@
     )}}
   {{/map.source}}
 
+  {{log mapdata.lcgmsGeojson}}
+
   {{#if project.lcgmsCartoIds}}
     {{#map.source options=(hash type='geojson' data=(await mapdata.lcgmsGeojson)) as |source|}}
+      {{source.layer layer=(hash
+          id='lcgms-hover'
+          type='circle'
+          paint=(hash circle-color='#A0A0A0' circle-radius=12 circle-opacity=0.7)
+          filter=(array "==" (array "get" "cartodb_id") 0)
+        )
+      }}
+      
       {{source.layer layer=(hash 
         id='lcgms'
-        type='circle'
-        paint=(hash circle-color='#2b83ba')
-      )}}
+        type='symbol'
+        paint=(hash
+          icon-color=(array "case"
+            (array "==" (array "get" "org_level") "PS") "#7fcdbb"
+            (array "==" (array "get" "org_level") "PSIS") "#41b6c4"
+            (array "==" (array "get" "org_level") "IS") "#1d91c0"
+            (array "==" (array "get" "org_level") "ISHS") "#225ea8"
+            (array "==" (array "get" "org_level") "HS") "#0c2c84"
+            "#333333"
+          )
+        )
+        layout=(hash
+          icon-image='star-15'
+        ))
+      }}
     {{/map.source}}
+
+    {{map.on 'mouseenter' 'lcgms' (action 'lcgmsHover')}}
+    {{map.on 'mouseleave' 'lcgms' (action 'lcgmsUnhover')}}
   {{/if}}
 
   {{#map.source options=(hash type='geojson' data=(await mapdata.bluebookGeojson)) as |source|}}

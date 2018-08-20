@@ -36,7 +36,7 @@
       <th class="one wide">Bldg. ID</th>
       <th class="five wide">School Name</th>
       <th class="four wide">Address</th>
-      <th class="one wide">Grades<br />Served</th>
+      <th class="one wide">Org Level</th>
       <th class="one wide">Enrollment</th>
       <th class="one wide">Target<br />Capacity</th>
       <th class="one wide">Available<br />Seats</th>
@@ -46,18 +46,18 @@
 
   <tbody>
     {{#each buildings as |b|}}
-      {{#tr-hover class=b.grades source='bluebook' id=b.cartodb_id}}
+      {{#tr-hover class=(concat b.source ' ' b.org_level) source='bluebook' id=b.cartodb_id}}
         <td>{{b.org_id}}</td>
         <td>{{b.bldg_id}}</td>
         <td>
-          <i class="circle icon"></i>
+          <i class="{{if (eq b.source 'lcgms') 'star' 'circle'}} school icon"></i>
           {{b.name}}
           {{#if (not-eq b.name b.bldg_name)}}
             <br /><em>{{b.bldg_name}}</em>
           {{/if}}
         </td>
         <td>{{b.address}}</td>
-        <td>{{b.grades}}</td>
+        <td>{{b.org_level}}</td>
         <td>{{b.enroll}}</td>
         
         {{#if b.excluded}}
