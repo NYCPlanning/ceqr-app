@@ -142,6 +142,7 @@ export default DS.Model.extend({
   schoolsWithAction: DS.attr('', { defaultValue() { return []; } }),
 
   hsProjections: DS.attr('', { defaultValue() { return []; } }),
+  hsStudentsFromHousing: DS.attr('number', { defaultValue: 0 }),
   futureEnrollmentProjections: DS.attr('', { defaultValue() { return []; } }),
   futureEnrollmentMultipliers: DS.attr('', { defaultValue() { return []; } }),
   futureEnrollmentNewHousing: DS.attr('', { defaultValue() { return []; } }),
@@ -202,9 +203,13 @@ export default DS.Model.extend({
 
         enroll: this.get('hsProjections')[0] ? this.get('hsProjections')[0].hs : 0,
         enrollExistingConditions: this.get('schoolTotals').findBy('level', 'hs').get('enrollmentTotal'),
-        students: this.get('futureResidentialDev').reduce(function(acc, value) {
-          return acc + value.hs_students;
-        }, 0),
+        students: (
+          this.get('hsStudentsFromHousing')
+          +
+          this.get('futureResidentialDev').reduce(function(acc, value) {
+            return acc + value.hs_students;
+          }, 0)
+        ),
 
         capacityExisting: this.get('schoolTotals').findBy('level', 'hs').get('capacityTotalNoAction'),
         scaCapacityIncrease: this.get('scaProjects')

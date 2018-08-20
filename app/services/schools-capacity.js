@@ -243,6 +243,13 @@ export default Service.extend({
     `);
     this.set('project.hsProjections', hsProjections);
 
+    let hsStudentsFromHousing = yield carto.SQL(`
+      SELECT borough, hs_students
+      FROM ceqr_hs_enroll_v2016
+      WHERE LOWER(borough) = LOWER('${this.get('project.borough')}')
+    `);
+    this.set('project.hsStudentsFromHousing', hsStudentsFromHousing[0].hs_students)
+
     let enrollmentProjections = yield carto.SQL(`
       SELECT
         projected_ps_dist AS ps,
