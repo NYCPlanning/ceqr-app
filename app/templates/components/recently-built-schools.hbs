@@ -20,7 +20,7 @@
 
     <tbody>
       {{#each project.lcgms as |b|}}
-        <tr class="{{b.source}} {{b.org_level}}">
+        {{#tr-hover class=b.org_level source=b.source id=b.cartodb_id}}
           <td>{{b.org_id}}</td>
           <td>
             <i class="star school icon"></i>
@@ -40,7 +40,7 @@
           </td>
           <td>{{b.seats}}</td>
           <td>{{if b.excluded "N/A" (percentage b.utilization)}}</td>
-        </tr>
+        {{/tr-hover}}
       {{/each}}
     </tbody>
   </table>

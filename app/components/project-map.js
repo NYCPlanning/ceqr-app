@@ -54,8 +54,8 @@ export default Component.extend({
       let row = `<tr>
         <td>${f.properties.org_id}</td>
         <td>${f.properties.bldg_id}</td>
-        <td>${f.properties.org_name}</td>
-        <td>${f.properties.level}</td>
+        <td>${f.properties.name}</td>
+        <td>${f.properties.org_level}</td>
       </tr>`;
       html = html + row;
     });

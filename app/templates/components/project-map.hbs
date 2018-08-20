@@ -163,8 +163,6 @@
     )}}
   {{/map.source}}
 
-  {{log mapdata.lcgmsGeojson}}
-
   {{#if project.lcgmsCartoIds}}
     {{#map.source options=(hash type='geojson' data=(await mapdata.lcgmsGeojson)) as |source|}}
       {{source.layer layer=(hash
@@ -212,11 +210,11 @@
       type='circle'
       paint=(hash 
         circle-color=(array "case"
-          (array "==" (array "get" "level") "PS") "#7fcdbb"
-          (array "==" (array "get" "level") "PSIS") "#41b6c4"
-          (array "==" (array "get" "level") "IS") "#1d91c0"
-          (array "==" (array "get" "level") "ISHS") "#225ea8"
-          (array "==" (array "get" "level") "HS") "#0c2c84"
+          (array "==" (array "get" "org_level") "PS") "#7fcdbb"
+          (array "==" (array "get" "org_level") "PSIS") "#41b6c4"
+          (array "==" (array "get" "org_level") "IS") "#1d91c0"
+          (array "==" (array "get" "org_level") "ISHS") "#225ea8"
+          (array "==" (array "get" "org_level") "HS") "#0c2c84"
           "#333333"
         )
       ))

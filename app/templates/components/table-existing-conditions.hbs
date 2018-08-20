@@ -46,7 +46,7 @@
 
   <tbody>
     {{#each buildings as |b|}}
-      {{#tr-hover class=(concat b.source ' ' b.org_level) source='bluebook' id=b.cartodb_id}}
+      {{#tr-hover class=b.org_level source=b.source id=b.cartodb_id}}
         <td>{{b.org_id}}</td>
         <td>{{b.bldg_id}}</td>
         <td>
