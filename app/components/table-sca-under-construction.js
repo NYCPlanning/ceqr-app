@@ -3,6 +3,12 @@ import { computed } from '@ember/object';
 import { isEmpty } from '@ember/utils';
 
 export default Component.extend({
+  didInsertElement() {
+    this._super(...arguments);
+    this.$('.progress').progress();
+    this.$('.progress').popup();
+  },
+  
   tables: computed('project.subdistricts.[]', function() {
     let tables = this.get('project.subdistricts').map((sd) => {
       let buildings = this.get('project.scaProjects').filter(

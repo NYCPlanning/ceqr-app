@@ -8,14 +8,14 @@
       <thead>
         <th colspan="8">District {{t.district}} - Subdistrict {{t.subdistrict}}</th>
         <tr>
-          <th class="six wide">School Under Construction</th>
+          <th class="five wide">School Under Construction</th>
           <th class="two wide">Estimated Completion Date</th>
-          <th class="two wide">Data as Of</th>
+          <th class="two wide">% Funding Needed to Complete</th>
           <th class="one wide">Future Capacity</th>
           <th class="one wide">PS Capacity</th>
           <th class="one wide">IS Capacity</th>
           <th class="one wide">HS Capacity</th>
-          <th class="two wide">Include?</th>
+          <th class="one wide">Include?</th>
         </tr>
       </thead>
       <tbody>
@@ -23,19 +23,49 @@
           <tr>
             <td>{{b.name}}</td>
             <td>{{moment-format b.planned_end_date 'MM/DD/YYYY'}}</td>
-            <td>{{moment-format b.data_as_of 'MM/DD/YYYY'}}</td>
-            <td>{{b.capacity}}</td>
-            <td>
+            <td >
+              <div 
+                class="ui tiny progress" 
+                data-percent={{mult b.pct_funded 100}}
+                data-inverted=""
+                data-variation="very wide"
+                data-html="
+                  <table class='ui celled table'>
+                    <tr>
+                      <td>Previous funding</td>
+                      <td>${{b.funding_previous}} mil.</td>
+                    </tr>
+                    <tr>
+                      <td>Funding in 2015-2019 budget</td>
+                      <td>${{b.funding_budget_15_19}} mil.</td>
+                    </tr>
+                    <tr>
+                      <td>Total Est. Cost</td>
+                      <td>${{b.total_est_cost}} mil.</td>
+                    </tr>
+                  </table>
+                "
+              >
+                <div class="bar"></div>
+                <div class="label">{{percentage b.pct_funded}} Funded <i class="attention icon"></i></div>
+              </div>
+            </td>
+            {{#if b.guessed_pct}}
+              <td data-tooltip="Data does not include capacity broken down by level" data-inverted="">{{b.capacity}} <i class="attention icon"></i></td>
+            {{else}}
+              <td>{{b.capacity}}</td>
+            {{/if}}
+            <td class="warning">
               <div class="ui input transparent edit-cell">
                 {{input type="number" value=b.ps_capacity placeholder="0"}}
               </div>
             </td>
-            <td>
+            <td class="warning">
               <div class="ui input transparent edit-cell">
                 {{input type="number" value=b.is_capacity placeholder="0"}}
               </div>
             </td>
-            <td>
+            <td class="warning">
               <div class="ui input transparent edit-cell">
                 {{input type="number" value=b.hs_capacity placeholder="0"}}
               </div>
@@ -49,20 +79,23 @@
     </table>
   {{/each}}
 
-  <div class="ui clearing bottom attached segment">
-    <div class="ui right floated button compact primary {{if saving "loading"}}" {{action 'save'}}>Save</div>
+  <div class="ui bottom attached segment">
+    <div class="ui grid">
+      <div class="fourteen wide column">
+        <div class="ui info message">
+          <p>Include capacity of new school if school is estimated to be complete in the school year prior to the project's build year AND funding needed to complete project is 20% or lower. Consult lead agency to confirm inclusion of new school(s).</p>
+        </div>
+      </div>
+
+      <div class="right aligned two wide column">
+        <div class="ui button compact primary {{if saving "loading"}}" {{action 'save'}}>Save</div>
+      </div>
+    </div>
   </div>
 
   <div class="ui icon message">
     <i class="database icon"></i>
     <div class="content">
-      <div class="header">
-        <a target="_blank" href="https://data.cityofnewyork.us/Housing-Development/Capital-Project-Schedules-and-Budgets/2xh6-psuq">
-          Capital Project Schedules and Budgets [Feb 9, 2018] <i class="external alternate icon"></i>
-        </a>
-      </div>
-      <p>List of capital projects with managing organization, phase status and project costs.</p>
-
       <div class="header">
         <a target="_blank" href="https://data.cityofnewyork.us/Education/Capacity-Projects-by-schools/a94k-kjys">
           Capacity Projects by schools [Mar 21, 2018] <i class="external alternate icon"></i>

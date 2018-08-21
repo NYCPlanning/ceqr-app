@@ -53,6 +53,7 @@
     "ember-load-initializers": "^1.0.0",
     "ember-lodash": "^4.18.0",
     "ember-mapbox-gl": "^0.9.1",
+    "ember-math-helpers": "^2.6.0",
     "ember-maybe-import-regenerator": "^0.1.6",
     "ember-moment": "^7.7.0",
     "ember-percentages": "^2.0.0",

@@ -283,13 +283,25 @@ export default Service.extend({
   setSCAProjects: task(function*() {
     let scaProjects = yield carto.SQL(`
       SELECT
-        projects.bbl,
         projects.name,
         projects.cartodb_id,
-        projects.bldg_id,
+        projects.project_dsf,
+        projects.org_level,
+
         projects.capacity,
+        projects.pct_ps,
+        projects.pct_is,
+        projects.pct_hs,
+        projects.guessed_pct,
+
         projects.start_date,
         projects.planned_end_date,
+        
+        projects.funding_budget_15_19,
+        projects.funding_previous,
+        projects.total_est_cost,
+        projects.pct_funded,
+
         subdistricts.schooldist AS district,
         subdistricts.zone AS subdistrict
       FROM (
@@ -297,17 +309,16 @@ export default Service.extend({
           FROM doe_schoolsubdistricts_v2017
           WHERE cartodb_id IN (${this.get('project.subdistrictCartoIds').join(',')})
         ) AS subdistricts,
-        sca_capital_projects_v032018 AS projects
+        sca_capital_projects_v082018 AS projects
       WHERE ST_Intersects(subdistricts.the_geom, projects.the_geom)
     `);
     this.set('project.scaProjects', scaProjects.map((b) => {
-      const existing = this.get('project.scaProjects').findBy('bldg_id', b.bldg_id);
+      const existing = this.get('project.scaProjects').findBy('project_dsf', b.project_dsf);
       return Building.create({
         ...b,
-        data_as_of: '2018-03-21', // Hard coded for now. Not good.
-        ps_capacity: existing ? existing.ps_capacity : '',
-        is_capacity: existing ? existing.is_capacity : '',
-        hs_capacity: existing ? existing.hs_capacity : '',
+        ps_capacity: existing ? existing.ps_capacity : (b.guessed_pct ? 0 : b.capacity * b.pct_ps),
+        is_capacity: existing ? existing.is_capacity : (b.guessed_pct ? 0 : b.capacity * b.pct_is),
+        hs_capacity: existing ? existing.hs_capacity : (b.guessed_pct ? 0 : b.capacity * b.pct_hs),
         includeInCapacity: existing ? existing.includeInCapacity : false,
       })
     }));
