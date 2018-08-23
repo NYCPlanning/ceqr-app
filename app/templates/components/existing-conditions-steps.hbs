@@ -1,6 +1,6 @@
 <div class="ui top attached pointing menu">
   <a class="item {{if (eq tab 'studyarea') "active"}}" {{action 'setTab' 'studyarea'}}>
-    Define Study Area {{#if (or project.esSchoolChoice project.isSchoolChoice)}} <i class="large orange attention icon"></i>{{/if}}
+    Define Study Area {{#if studyAreaNotice}} <i class="large orange attention icon"></i>{{/if}}
   </a>
   <a class="item {{if (eq tab 'schools') "active"}}" {{action 'setTab' 'schools'}}>
     Public Schools serving Study Area
