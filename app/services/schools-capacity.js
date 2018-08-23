@@ -15,6 +15,7 @@ export default Service.extend({
 
   fullReload: task(function*() {
     yield this.get('setSubdistricts').perform();
+    yield this.get('setSchoolChoice').perform();
     yield this.get('setBluebook').perform();
     yield this.get('setLCGMS').perform();
     yield this.get('setProjections').perform();
@@ -53,8 +54,36 @@ export default Service.extend({
     ));
   }),
 
+  setSchoolChoice: task(function*() {
+    let es_zones = yield carto.SQL(`
+      SELECT ST_Intersects(pluto.the_geom, zones.the_geom) AS choice
+      FROM support_school_zones_es AS zones, (
+        SELECT the_geom, bbl
+        FROM mappluto_v1711
+        WHERE bbl IN (${this.get('project.bbls').join(',')})
+      ) pluto
+      WHERE 
+        LOWER(zones.remarks) LIKE '%25choice%25' AND
+        ST_Intersects(pluto.the_geom, zones.the_geom)
+    `);
+
+    let is_zones = yield carto.SQL(`
+      SELECT ST_Intersects(pluto.the_geom, zones.the_geom) AS choice
+      FROM support_school_zones_ms AS zones, (
+        SELECT the_geom, bbl
+        FROM mappluto_v1711
+        WHERE bbl IN (${this.get('project.bbls').join(',')})
+      ) pluto
+      WHERE 
+        LOWER(zones.remarks) LIKE '%25no zoned%25' AND
+        ST_Intersects(pluto.the_geom, zones.the_geom)
+    `);
+
+    this.set('project.esSchoolChoice', es_zones[0] ? es_zones[0].choice : false);
+    this.set('project.isSchoolChoice', is_zones[0] ? is_zones[0].choice : false);
+  }),
+
   setBluebook: task(function*() {
-    
     let bluebookHs = [];
     if (this.get('project.hsAnalysis')) {
       bluebookHs = yield carto.SQL(`

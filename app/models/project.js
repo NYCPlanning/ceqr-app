@@ -33,6 +33,9 @@ export default DS.Model.extend({
   // - Schools Capacity -
   hsAnalysis: computed.alias('hsEffect'),
 
+  esSchoolChoice: DS.attr('boolean'),
+  isSchoolChoice: DS.attr('boolean'),
+
   // Units
   totalUnits: DS.attr('number', { defaultValue: 0 }),
   seniorUnits: DS.attr('number', { defaultValue: 0 }),
