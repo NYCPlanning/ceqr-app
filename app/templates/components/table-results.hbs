@@ -6,10 +6,10 @@
   <thead>
     <tr>
       <th>School Level</th>
-      <th>Utilization (%)</th>
-      <th>Change in Utilization (%)</th>
-      <th>Seats to Mitigate</th>
-      <th>Units to Mitigate</th>
+      <th>Utilization (%) with Project</th>
+      <th>Change in Utilization (%) from No Action</th>
+      <th>Estimated Seats to Mitigate</th>
+      <th>Equivalent Reduction in Units</th>
       <th>Triggers a Significant Adverse Impact</th>
     </tr>
   </thead>
@@ -29,13 +29,17 @@
           {{#if ps.impact}}
             <div 
               class="ui red label" 
-              data-tooltip="Utilization is over 100% (at {{percentage ps.utilizationWithActionTotal}}) and Change in Utilization is over 5% (at {{percentage ps.utilizationChangeTotal decimals=2}})"
+              data-tooltip="Utilization with project is 100% or higher (at {{percentage ps.utilizationWithActionTotal}}) and Change in Utilization is 5% or higher (at {{percentage ps.utilizationChangeTotal decimals=2}})"
               data-inverted=""
             >
               <i class="warning icon"></i> Likely
             </div>
           {{else}}
-            <div class="ui green label">
+            <div
+              class="ui green label"
+              data-tooltip="Utilization with project is below 100% or change in utilization is below 5%"
+              data-inverted=""
+            >
               <i class="check icon"></i> No
             </div>
           {{/if}}
@@ -58,13 +62,17 @@
           {{#if is.impact}}
             <div 
               class="ui red label" 
-              data-tooltip="Utilization is over 100% (at {{percentage is.utilizationWithActionTotal}}) and Change in Utilization is over 5% (at {{percentage is.utilizationChangeTotal decimals=2}})"
+              data-tooltip="Utilization with project is 100% or higher (at {{percentage is.utilizationWithActionTotal}}) and Change in Utilization is 5% or higher (at {{percentage is.utilizationChangeTotal decimals=2}})"
               data-inverted=""
             >
               <i class="warning icon"></i> Likely
             </div>
           {{else}}
-            <div class="ui green label">
+            <div
+              class="ui green label"
+              data-tooltip="Utilization with project is below 100% or change in utilization is below 5%"
+              data-inverted=""
+            >
               <i class="check icon"></i> No
             </div>
           {{/if}}
@@ -87,13 +95,17 @@
           {{#if hs.impact}}
             <div 
               class="ui red label" 
-              data-tooltip="Utilization is over 100% (at {{percentage hs.utilizationWithActionTotal}}) and Change in Utilization is over 5% (at {{percentage hs.utilizationChangeTotal decimals=2}})"
+              data-tooltip="Utilization with project is 100% or higher (at {{percentage hs.utilizationWithActionTotal}}) and Change in Utilization is 5% or higher (at {{percentage hs.utilizationChangeTotal decimals=2}})"
               data-inverted=""
             >
               <i class="warning icon"></i> Likely
             </div>
           {{else}}
-            <div class="ui green label">
+            <div
+              class="ui green label"
+              data-tooltip="Utilization with project is below 100% or change in utilization is below 5%"
+              data-inverted=""
+            >
               <i class="check icon"></i> No
             </div>
           {{/if}}
