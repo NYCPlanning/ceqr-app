@@ -1,6 +1,9 @@
 {{#if tables}}
-  <div class="ui segment">
-    <div class="ui orange ribbon label">Needs Input</div> <h3 class="action-title">SCA Schools Under Construction</h3>
+  <div class="ui message">
+    <div class="header">Instructions</div>
+    <p>Include capacity of new school if school is estimated to be complete in the school year prior to the project's
+      build year AND funding needed to complete project is 20% or lower. Consult lead agency to confirm inclusion of
+      new school(s).</p>
   </div>
 
   {{#each tables as |t|}}
@@ -81,12 +84,6 @@
 
   <div class="ui bottom attached segment">
     <div class="ui grid">
-      <div class="fourteen wide column">
-        <div class="ui info message">
-          <p>Include capacity of new school if school is estimated to be complete in the school year prior to the project's build year AND funding needed to complete project is 20% or lower. Consult lead agency to confirm inclusion of new school(s).</p>
-        </div>
-      </div>
-
       <div class="right aligned two wide column">
         <div class="ui button compact primary {{if saving "loading"}}" {{action 'save'}}>Save</div>
       </div>
@@ -111,12 +108,8 @@
       <p>New school projects (Capacity) and Capital Improvement Projects (CIP) currently under Construction.</p>
     </div>
   </div>
-{{else}}
-  <div class="ui top attached segment">
-    <div class="ui green ribbon label">Complete</div> <h3 class="action-title">SCA Schools Under Construction</h3>
-  </div>
-  
-  <div class="ui secondary bottom attached segment">
+{{else}}  
+  <div class="ui secondary segment">
     There are no schools under construction in your current study area.
   </div>
 {{/if}}

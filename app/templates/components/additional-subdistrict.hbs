@@ -1,28 +1,30 @@
-<div class="ui divided grid">
-  <div class="sixteen wide column">
-    <div class="row">
-      {{#if project.esSchoolChoice}}
-        <div class="ui message warning">
-          <div class="header"><i class="attention icon"></i> Project in Elementary School Choice district</div>
-          <p>This project is located in an elementary school choice district. Confirm with lead agency that a district-wide study area is appropriate.</p>
-        </div>
-      {{/if}}
+<div class="ui segment divided grid">
+  {{#if studyAreaNotice}}
+    <div class="sixteen wide column">
+      <div class="row">
+        {{#if project.esSchoolChoice}}
+          <div class="ui message warning">
+            <div class="header"><i class="attention icon"></i> Project in Elementary School Choice district</div>
+            <p>This project is located in an elementary school choice district. Confirm with lead agency that a district-wide study area is appropriate.</p>
+          </div>
+        {{/if}}
 
-      {{#if project.isSchoolChoice}}
-        <div class="ui message warning">
-          <div class="header"><i class="attention icon"></i> Project in Intermediate School Choice district</div>
-          <p>This project is located in an intermediate school choice district. Confirm with lead agency that a district-wide study area is appropriate.</p>
-        </div>
-      {{/if}}
+        {{#if project.isSchoolChoice}}
+          <div class="ui message warning">
+            <div class="header"><i class="attention icon"></i> Project in Intermediate School Choice district</div>
+            <p>This project is located in an intermediate school choice district. Confirm with lead agency that a district-wide study area is appropriate.</p>
+          </div>
+        {{/if}}
 
-      {{#if (gt project.subdistrictsFromDB.length 1)}}
-        <div class="ui message warning">
-          <div class="header"><i class="attention icon"></i> Project straddles two or more subdistricts</div>
-          <p>Confirm with lead agency that a district-wide study area is appropriate.</p>
-        </div>
-      {{/if}}
+        {{#if (gt project.subdistrictsFromDB.length 1)}}
+          <div class="ui message warning">
+            <div class="header"><i class="attention icon"></i> Project straddles two or more subdistricts</div>
+            <p>Confirm with lead agency that a district-wide study area is appropriate.</p>
+          </div>
+        {{/if}}
+      </div>
     </div>
-  </div>
+  {{/if}}
 
   <div class="eight wide column">
     <h4 class="ui header">

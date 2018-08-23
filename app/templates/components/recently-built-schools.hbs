@@ -1,6 +1,12 @@
 {{#if project.lcgms}}
-  <div class="ui attached segment">
-    <div class="ui orange ribbon label">Needs Input</div> <h3 class="action-title">Schools opened in 2017-18 school year not captured in Blue Book</h3>
+  <div class="ui message">
+    <div class="header">Instructions</div>
+    <p>Find <strong>Target Capacity</strong> for each recently opened school at the <a href="https://dnnhh5cc1.blob.core.windows.net/portals/0/Capital_Plan/Utilization_Reports/Blue%20Book%202016-2017.pdf?sr=b&si=DNNFileManagerPolicy&sig=g7eZjXLOaaZfmXPHd0cFOjryIfBrVwF8D5mf9IFcSpA%3D" target="_blank">
+      end of the 2016-17 Blue Book Enrollment, Capacity & Utilization Report <i class="file pdf icon"></i></a></p>
+  </div>
+
+  <div class="ui top attached segment">
+    <h4>Schools opened in 2017-18 school year not captured in Blue Book</h4>
   </div>
   
   <table class="ui celled attached table">
@@ -45,12 +51,11 @@
     </tbody>
   </table>
 
-  <div class="ui clearing attached segment">
+  <div class="ui clearing bottom attached segment">
     <div class="ui right floated button compact primary {{if saving "loading"}}" {{action 'save'}}>Save</div>
-    <div class="ui left floated segment">Find <strong>Target Capacity</strong> at the <a href="https://dnnhh5cc1.blob.core.windows.net/portals/0/Capital_Plan/Utilization_Reports/Blue%20Book%202016-2017.pdf?sr=b&si=DNNFileManagerPolicy&sig=g7eZjXLOaaZfmXPHd0cFOjryIfBrVwF8D5mf9IFcSpA%3D" target="_blank">end of the 2016-17 Blue Book Enrollment, Capacity & Utilization Report <i class="file pdf icon"></i></a></div>
   </div>
 
-  <div class="ui bottom attached icon message">
+  <div class="ui icon message">
     <i class="database icon"></i>
     <div class="content">
       <div class="header"><a target="_blank" href="https://data.cityofnewyork.us/Education/LCGMS-DOE-School-Information-Report/3bkj-34v2">DOE School Information Report (LCGMS) <i class="external alternate icon"></i></a></div>
@@ -66,12 +71,7 @@
     </div>
   </div>
 {{else}}
-  <div class="ui attached segment">
-    <div class="ui green ribbon label">Complete</div> <h3 class="action-title">Schools Opened in 2017-18 school year not captured in Blue Book</h3>
-  </div>
-
   <div class="ui secondary bottom attached segment">
     There are no schools needing further information in your current study area.
   </div>
 {{/if}}
-

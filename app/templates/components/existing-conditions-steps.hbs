@@ -1,9 +1,9 @@
-<div class="ui top attached pointing menu">
+<div class="ui pointing menu">
   <a class="item {{if (eq tab 'studyarea') "active"}}" {{action 'setTab' 'studyarea'}}>
-    Define Study Area {{#if studyAreaNotice}} <i class="large orange attention icon"></i>{{/if}}
+    Define Study Area {{#if studyAreaNotice}} <div class="ui label orange"><i class="attention icon" style="margin: 0"></i></div>{{/if}}
   </a>
   <a class="item {{if (eq tab 'schools') "active"}}" {{action 'setTab' 'schools'}}>
-    Public Schools serving Study Area
+    Public Schools Serving Study Area
   </a>
   <a class="item {{if (eq tab 'newschools') "active"}}" {{action 'setTab' 'newschools'}}>
     Newly Opened Schools
@@ -16,8 +16,6 @@
 {{else if (eq tab 'newschools')}}
   {{recently-built-schools project=project}}
 {{else if (eq tab 'studyarea')}}
-  <div class="ui attached segment">
-    {{additional-subdistrict project=project}}
-  </div>
+  {{additional-subdistrict project=project studyAreaNotice=studyAreaNotice}}
 {{/if}}
 
