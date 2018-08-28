@@ -1,9 +1,15 @@
 import Component from '@ember/component';
 import { computed } from '@ember/object';
+import mapColors from '../utils/mapColors';
 
-export default Component.extend({  
+export default Component.extend({
   activeSchoolsLevel: 'ps',
   activeSdId: null,
+  mapColors,
+
+  styleFor(level) {
+    return mapColors.styleFor(level);
+  },
 
   didReceiveAttrs() {
     this._super(...arguments);

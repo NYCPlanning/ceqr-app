@@ -1,6 +1,7 @@
 import Component from '@ember/component';
 import { inject as service } from '@ember/service';
 import mapboxgl from 'mapbox-gl';
+import mapColors from '../utils/mapColors';
 
 export default Component.extend({  
   tablehover: service(),
@@ -31,6 +32,7 @@ export default Component.extend({
   schoolZone: 'es',
   hsAnalysis: false,
   zoneName: null,
+  mapColors,
 
   dotHover({source, id}) {
     if (this.get('map')) this.get('map').setFilter(`${source}-hover`, ["==", ["get", "cartodb_id"], id])

@@ -50,7 +50,7 @@
         <td>{{b.org_id}}</td>
         <td>{{b.bldg_id}}</td>
         <td>
-          <i class="{{if (eq b.source 'lcgms') 'star' 'circle'}} school icon"></i>
+          <i class="{{if (eq b.source 'lcgms') 'star' 'circle'}} school icon" style={{map-color-for b.org_level}}></i>
           {{b.name}}
           {{#if (not-eq b.name b.bldg_name)}}
             <br /><em>{{b.bldg_name}}</em>

@@ -44,23 +44,23 @@
       </div>
       <div class="ui divider" style="margin: 0.5rem 0rem"></div>
       <div class="item">
-        <i class="circle icon" style="color: #7fcdbb;"></i>
+        <i class="circle icon" style={{map-color-for 'ps'}}></i>
         <div class="content">Primary School</div>
       </div>
       <div class="item">
-        <i class="circle icon" style="color: #41b6c4;"></i>
+        <i class="circle icon" style={{map-color-for 'psis'}}></i>
         <div class="content">Primary/Intermediate School</div>
       </div>
       <div class="item">
-        <i class="circle icon" style="color: #1d91c0;"></i>
+        <i class="circle icon" style={{map-color-for 'is'}}></i>
         <div class="content">Intermediate School</div>
       </div>
       <div class="item">
-        <i class="circle icon" style="color: #225ea8;"></i>
+        <i class="circle icon" style={{map-color-for 'ishs'}}></i>
         <div class="content">Intermediate/High School</div>
       </div>
       <div class="item">
-        <i class="circle icon" style="color: #0c2c84;"></i>
+        <i class="circle icon" style={{map-color-for 'hs'}}></i>
         <div class="content">High School</div>
       </div>
     </div>
@@ -178,16 +178,17 @@
         type='symbol'
         paint=(hash
           icon-color=(array "case"
-            (array "==" (array "get" "org_level") "PS") "#7fcdbb"
-            (array "==" (array "get" "org_level") "PSIS") "#41b6c4"
-            (array "==" (array "get" "org_level") "IS") "#1d91c0"
-            (array "==" (array "get" "org_level") "ISHS") "#225ea8"
-            (array "==" (array "get" "org_level") "HS") "#0c2c84"
+            (array "==" (array "get" "org_level") "PS") mapColors.ps
+            (array "==" (array "get" "org_level") "PSIS") mapColors.psis
+            (array "==" (array "get" "org_level") "IS") mapColors.is
+            (array "==" (array "get" "org_level") "ISHS") mapColors.ishs
+            (array "==" (array "get" "org_level") "HS") mapColors.hs
             "#333333"
           )
         )
         layout=(hash
           icon-image='star-15'
+          icon-size=1.25
         ))
       }}
     {{/map.source}}
@@ -209,16 +210,29 @@
       id='bluebook'
       type='circle'
       paint=(hash 
+        circle-radius=8
         circle-color=(array "case"
-          (array "==" (array "get" "org_level") "PS") "#7fcdbb"
-          (array "==" (array "get" "org_level") "PSIS") "#41b6c4"
-          (array "==" (array "get" "org_level") "IS") "#1d91c0"
-          (array "==" (array "get" "org_level") "ISHS") "#225ea8"
-          (array "==" (array "get" "org_level") "HS") "#0c2c84"
+          (array "==" (array "get" "org_level") "PS") mapColors.ps
+          (array "==" (array "get" "org_level") "PSIS") mapColors.psis
+          (array "==" (array "get" "org_level") "IS") mapColors.is
+          (array "==" (array "get" "org_level") "ISHS") mapColors.ishs
+          (array "==" (array "get" "org_level") "HS") mapColors.hs
           "#333333"
         )
       ))
     }}
+
+    {{!-- {{source.layer layer=(hash
+      id='bluebook-label'
+      type='symbol'
+      paint=(hash
+        text-color="white"
+      )
+      layout=(hash
+        text-field="3"
+        text-size=12
+      ))
+    }} --}}
   {{/map.source}}
 
   {{map.on 'mouseenter' 'bluebook' (action 'schoolHover')}}
