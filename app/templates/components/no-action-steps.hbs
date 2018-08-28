@@ -1,29 +1,22 @@
 <div class="ui pointing menu">
-  <a class="item {{if (eq tab 'no-action') "active"}}" {{action 'setTab' 'no-action'}}>
+  {{#link-to 'project.show.schools-capacity.no-action.scenario' project.id class="item"}}
     No Action Scenario
-  </a>
-  <a class="item {{if (eq tab 'under-construction') "active"}}" {{action 'setTab' 'under-construction'}}>
+  {{/link-to}}
+
+  {{#link-to 'project.show.schools-capacity.no-action.under-construction' project.id class="item"}}
     SCA Schools<br />Under Construction
     <div class="ui label {{if (gt project.scaProjects.length 0) "orange" "green"}}">{{project.scaProjects.length}}</div>
-  </a>
-  <a class="item {{if (eq tab 'util-changes') "active"}}" {{action 'setTab' 'util-changes'}}>
+  {{/link-to}}
+
+  {{#link-to 'project.show.schools-capacity.no-action.utilization-changes' project.id class="item"}}
     DOE Significant<br />Utilization Changes
     <div class="ui label {{if (gt project.doeUtilChangesCount 0) "orange" "green"}}">{{project.doeUtilChangesCount}}</div>
-  </a>
-  <a class="item {{if (eq tab 'additional-residential') "active"}}" {{action 'setTab' 'additional-residential'}}>
+  {{/link-to}}
+
+  {{#link-to 'project.show.schools-capacity.no-action.residential-development' project.id class="item"}}
     Additional<br />Residential Development
     {{#if (gt project.futureResidentialDev.length 0)}}
       <div class="ui label blue">{{project.futureResidentialDev.length}}</div>
     {{/if}}
-  </a>
+  {{/link-to}}
 </div>
-
-{{#if (eq tab 'no-action')}}
-  {{table-projected-enrollment project=project}}
-{{else if (eq tab 'under-construction')}}
-  {{table-sca-under-construction project=project}}
-{{else if (eq tab 'util-changes')}}
-  {{table-doe-significant-util-changes project=project}}
-{{else if (eq tab 'additional-residential')}}
-  {{table-additional-no-action-residential-dev project=project}}
-{{/if}}

@@ -25,7 +25,13 @@ Router.map(function() {
           this.route('new-schools');
         });
         
-        this.route('no-action');
+        this.route('no-action', function() {
+          this.route('scenario', {path: '/'});
+          this.route('under-construction');
+          this.route('utilization-changes');
+          this.route('residential-development');
+        });
+
         this.route('with-action');
       });
 
