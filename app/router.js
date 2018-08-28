@@ -18,7 +18,13 @@ Router.map(function() {
       // CEQR chapter routes
       this.route('schools-capacity', function() {
         this.route('analysis-threshold', {path: '/'});
-        this.route('existing-conditions');
+        
+        this.route('existing-conditions', function() {
+          this.route('schools', {path: '/'});
+          this.route('study-area');
+          this.route('new-schools');
+        });
+        
         this.route('no-action');
         this.route('with-action');
       });
