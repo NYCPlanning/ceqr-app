@@ -8,4 +8,10 @@
   </div>
 </div>
 
+{{#if (and showMap schools-capacity.initialLoad.isIdle)}}
+  <div class="sixteen wide column">
+    {{project-map project=project}}
+  </div>
+{{/if}}
+
 {{outlet}}

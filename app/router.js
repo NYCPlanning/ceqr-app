@@ -32,7 +32,10 @@ Router.map(function() {
           this.route('residential-development');
         });
 
-        this.route('with-action');
+        this.route('with-action', function() {
+          this.route('scenario', {path: '/'});
+          this.route('new-schools');
+        });
       });
 
       this.route('transportation');

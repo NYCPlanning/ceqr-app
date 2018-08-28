@@ -1,33 +1,12 @@
 <div class="ui pointing menu">
-  <a class="item {{if (eq tab 'with-action') "active"}}" {{action 'setTab' 'with-action'}}>
+  {{#link-to "project.show.schools-capacity.with-action.scenario" project.id class="item"}}
     With Action Scenario
-  </a>
-  <a class="item {{if (eq tab 'additional-schools') "active"}}" {{action 'setTab' 'additional-schools'}}>
+  {{/link-to}}
+
+  {{#link-to "project.show.schools-capacity.with-action.new-schools" project.id class="item"}}
     With Action<br />Additional Schools
     <div class="ui label blue">{{project.schoolsWithAction.length}}</div>
-  </a>
+  {{/link-to}}
 </div>
-
-{{#if (eq tab 'with-action')}}
-  <div class="ui grid">
-    <div class="sixteen wide column">
-      {{table-project-card project=project}}
-    </div>
-
-    <div class="sixteen wide column">
-      {{table-with-action-enrollment project=project}}
-    </div>
-
-    <div class="sixteen wide column">
-      {{table-results project=project}}
-    </div>
-  </div>
-{{else if (eq tab 'additional-schools')}}
-  <div class="row">
-    <div class="sixteen wide column">
-      {{table-with-action-school project=project}}
-    </div>
-  </div>
-{{/if}}
 
 
