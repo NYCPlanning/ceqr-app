@@ -8,6 +8,12 @@ export default Component.extend({
     return this.get('project.subdistricts').findBy('id', parseInt(this.get('activeSdId')));
   }),
 
+  EC_active: false,
+  NA_resdev: false,
+  NA_schools: false,
+  NA_utilchange: false,
+  WA_schools: false,
+
   didReceiveAttrs() {
     this._super(...arguments);
     this.set('activeSdId', (this.get('project.subdistricts')[0].id).toString());
@@ -43,19 +49,25 @@ export default Component.extend({
     const enrollment = schools.mapBy('enroll').reduce((a, v) => a + parseInt(v), 0);
     const capacity   = schools.mapBy('capacity').reduce((a, v) => a + parseInt(v), 0);
 
-    return { enrollment, capacity };
+    return { enrollment, capacity, schools };
   }),
 
-  NA_newResidentialDevelopment: computed('activeSchoolsLevel', 'projects.futureResidentialDev.[]', function() {
-    const enrollment = this.get('project.futureResidentialDev')
+  NA_newResidentialDevelopment: computed('activeSchoolsLevel', 'project.futureResidentialDev.[]', function() {
+    const developments = this.get('project.futureResidentialDev')
       .filter((b) => (b.district === this.get('activeSd.district') && b.subdistrict === this.get('activeSd.subdistrict')))
+      .map(b => ({
+        ...b,
+        enrollment: b[`${this.get('activeSchoolsLevel')}_students`]
+      }));
+
+    const enrollment = developments
       .mapBy(`${this.get('activeSchoolsLevel')}_students`)
       .reduce((a, v) => a + parseInt(v), 0); 
 
-    return { enrollment }
+    return { enrollment, developments }
   }),
 
-  NA_plannedSchools: computed('activeSchoolsLevel', 'projects.scaProjects.[]', function() {
+  NA_plannedSchools: computed('activeSchoolsLevel', 'project.scaProjects.[]', function() {
     const capacity = this.get('project.aggregateTotals')
       .find(
         (b) => (
@@ -65,30 +77,60 @@ export default Component.extend({
         )
       ).get('scaCapacityIncrease');
     
-    return { capacity }
+    const schools = this.get('project.scaProjects')
+      .map(b => ({
+        ...b,
+        capacity: b[`${this.get('activeSchoolsLevel')}_capacity`]
+      }))
+      .filter(
+        (b) => 
+          b.district === this.get('activeSd.district')
+          && b.subdistrict === this.get('activeSd.subdistrict')
+          && b.includeInCapacity
+          && b.capacity > 0
+      );
+
+    return { capacity, schools }
   }),
 
-  NA_significantUtilChanges: computed('activeSchoolsLevel', 'projects.scaProjects.[]', function() {
-    const capacity = this.get('project.buildings')
-      .filter((b) => ('capacityFuture' in b) &&
-                     (parseInt(b.capacity) !== parseInt(b.capacityFuture)) &&
-                     b.district === this.get('activeSd.district') &&
-                     b.subdistrict === this.get('activeSd.subdistrict') &&
-                     b.level === this.get('activeSchoolsLevel')
+  NA_significantUtilChanges: computed('activeSchoolsLevel', 'project.scaProjects.[]', function() {
+    const schools = this.get('project.buildings')
+      .filter(
+        (b) => 
+          ('capacityFuture' in b)
+          && (parseInt(b.capacity) !== parseInt(b.capacityFuture))
+          && b.district === this.get('activeSd.district')
+          && b.subdistrict === this.get('activeSd.subdistrict')
+          && b.level === this.get('activeSchoolsLevel')
       )
-      .reduce((a, v) => a + ((parseInt(v.capacityFuture) - parseInt(v.capacity))), 0);
+      .map((b) => ({
+        ...b,
+        capacityDelta: parseInt(b.capacityFuture) - parseInt(b.capacity)
+      }));
     
-    return { capacity }
+    const capacityDelta = schools
+      .reduce((a, b) => a + b.capacityDelta, 0);
+
+    return { capacityDelta, schools }
   }),
 
-  WA_newSchools: computed('activeSchoolsLevel', 'projects.schoolsWithAction.[]', function() {
-    const capacity = this.get('project.schoolsWithAction')
-      .filter((b) =>  b.district === this.get('activeSd.district') &&
-                      b.subdistrict === this.get('activeSd.subdistrict'))
-      .mapBy(`${this.get('activeSchoolsLevel')}_seats`)
+  WA_newSchools: computed('activeSchoolsLevel', 'project.schoolsWithAction.[]', function() {
+    const schools = this.get('project.schoolsWithAction')
+      .map(b => ({
+        ...b,
+        capacity: parseInt(b[`${this.get('activeSchoolsLevel')}_seats`])
+      }))
+      .filter(
+        (b) => 
+          b.district === this.get('activeSd.district')
+          && b.subdistrict === this.get('activeSd.subdistrict')
+      )
+
+    const capacity = schools
+      .mapBy('capacity')
       .reduce((a, v) => a + parseInt(v));
 
-    return { capacity }
+    return { capacity, schools }
   }),
 
   sd: computed('activeSdId', function() {
@@ -98,6 +140,10 @@ export default Component.extend({
   actions: {
     setSdId: function(sdId) {
       this.set('activeSdId', sdId);
-    }
+    },
+
+    toggle: function(prop) {
+      this.toggleProperty(prop);
+    },
   }
 });

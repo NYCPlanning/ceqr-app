@@ -83,19 +83,9 @@
       <td>{{futureConditions.seatsWithAction}}</td>
     </tr>
   </tbody>
-
-  {{!-- <tfoot>
-    <th><em>Change in Totals</em></th>
-    <th>{{futureConditions.enrollDifference}}</th>
-    <th>{{futureConditions.capacityDifference}}</th>
-    <th>{{futureConditions.enrollDeltaDifference}}</th>
-    <th>{{futureConditions.capacityDeltaDifference}}</th>
-    <th>{{percentage futureConditions.utilizationChange}}</th>
-    <th>{{futureConditions.seatsDifference}}</th>
-  </tfoot> --}}
 </table>
 
-<table class="ui celled table row-highlight">
+<table class="ui selectable celled table row-highlight">
   <thead>
     <tr>
       <th></th>
@@ -105,42 +95,101 @@
   </thead>
 
   <tbody>
-    <tr>
-      <td>Existing Conditions - New Schools Opened</td>
+    {{!-- New Schools --}}
+    <tr onclick={{action 'toggle' 'EC_active'}}>
+      <td><i class="caret {{if EC_active "down" "right"}} icon"></i> Existing Conditions - New Schools Opened</td>
       <td>{{EC_newSchoolsOpened.enrollment}}</td>
       <td>{{EC_newSchoolsOpened.capacity}}</td>
     </tr>
 
-    <tr>
-      <td colspan=3></td>
-    </tr>
+    {{#if EC_active}}
+      {{#each EC_newSchoolsOpened.schools as |b|}}
+        <tr>
+          <td>{{b.name}}</td>
+          <td>{{b.enroll}}</td>
+          <td>{{b.capacity}}</td>
+        </tr>
+      {{/each}}
+    {{/if}}
 
     <tr>
-      <td>No Action - New Residential Development</td>
+      <td class="disabled" colspan=3></td>
+    </tr>
+
+
+    {{!-- New Residential Development --}}
+    <tr onclick={{action 'toggle' 'NA_resdev'}}>
+      <td><i class="caret {{if NA_resdev "down" "right"}} icon"></i> No Action - New Residential Development</td>
       <td>{{NA_newResidentialDevelopment.enrollment}}</td>
       <td class="disabled">–</td>
     </tr>
 
-    <tr>
-      <td>No Action - Capacity Δ from Planned Schools</td>
+    {{#if NA_resdev}}
+      {{#each NA_newResidentialDevelopment.developments as |b|}}
+        <tr>
+          <td>{{b.name}}</td>
+          <td>{{b.enrollment}}</td>
+          <td class="disabled">–</td>
+        </tr>
+      {{/each}}
+    {{/if}}
+
+
+    {{!-- Planned Schools --}}
+    <tr onclick={{action 'toggle' 'NA_schools'}}>
+      <td><i class="caret {{if NA_schools "down" "right"}} icon"></i> No Action - Capacity Δ from Planned Schools</td>
       <td class="disabled">–</td>
       <td>{{NA_plannedSchools.capacity}}</td>
     </tr>
 
-    <tr>
-      <td>No Action - Capacity Δ from DOE Significant Utilization Changes</td>
+    {{#if NA_schools}}
+      {{#each NA_plannedSchools.schools as |b|}}
+        <tr>
+          <td>{{b.name}}</td>
+          <td class="disabled">–</td>
+          <td>{{b.capacity}}</td>
+        </tr>
+      {{/each}}
+    {{/if}}
+
+
+    {{!-- Significant Utilization Changes --}}
+    <tr onclick={{action 'toggle' 'NA_utilchanges'}}>
+      <td><i class="caret {{if NA_utilchanges "down" "right"}} icon"></i> No Action - Capacity Δ from DOE Significant Utilization Changes</td>
       <td class="disabled">–</td>
-      <td>{{NA_significantUtilChanges.capacity}}</td>
+      <td>{{NA_significantUtilChanges.capacityDelta}}</td>
     </tr>
 
-    <tr>
-      <td colspan=3></td>
-    </tr>
+    {{#if NA_utilchanges}}
+      {{#each NA_significantUtilChanges.schools as |b|}}
+        <tr>
+          <td>{{b.name}}</td>
+          <td class="disabled">–</td>
+          <td>{{b.capacityDelta}}</td>
+        </tr>
+      {{/each}}
+    {{/if}}
 
     <tr>
-      <td>With Action - Schools Proposed with Project</td>
+      <td class="disabled" colspan=3></td>
+    </tr>
+
+    {{!-- With Action New Schools --}}
+    <tr onclick={{action 'toggle' 'WA_schools'}}>
+      <td><i class="caret {{if WA_schools "down" "right"}} icon"></i> With Action - Schools Proposed with Project</td>
       <td class="disabled">–</td>
       <td>{{WA_newSchools.capacity}}</td>
     </tr>
+
+    {{#if WA_schools}}
+      {{#each WA_newSchools.schools as |b|}}
+        <tr>
+          <td>{{b.name}}</td>
+          <td class="disabled">–</td>
+          <td>{{b.capacity}}</td>
+        </tr>
+      {{/each}}
+    {{/if}}
+
   </tbody>
 </table>
