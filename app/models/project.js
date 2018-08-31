@@ -243,12 +243,11 @@ export default DS.Model.extend({
           .reduce(function(acc, value) {
             let v = parseInt(value.get('hs_capacity'));
             if (v) return acc + v;
-            else return 0;
+            return acc;
           }, 0),
 
         studentsWithAction: this.get('estHsStudents') || 0,
       }));
-
 
       this.get('subdistricts').map((sd) => {
         tables.push(AggregateTotals.create({
@@ -292,7 +291,7 @@ export default DS.Model.extend({
           ).reduce(function(acc, value) {
             let v = parseInt(value.get('ps_capacity'));
             if (v) return acc + v;
-            else return 0;
+            return acc;
           }, 0),
 
           studentsWithAction: this.get('estEsStudents') || 0,
@@ -339,7 +338,7 @@ export default DS.Model.extend({
           ).reduce(function(acc, value) {
             let v = parseInt(value.get('is_capacity'));
             if (v) return acc + v;
-            else return 0;
+            return acc;
           }, 0),
 
           studentsWithAction: this.get('estIsStudents') || 0,

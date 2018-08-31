@@ -53,8 +53,8 @@
       <td>Existing Conditions</td>
       <td>{{existingConditions.enrollmentTotal}}</td>
       <td>{{existingConditions.capacityTotal}}</td>
-      <td class="disabled">n/a</td>
-      <td class="disabled">n/a</td>
+      <td class="disabled">–</td>
+      <td class="disabled">–</td>
       <td>{{percentage existingConditions.utilizationTotal}}</td>
       <td>{{existingConditions.seatsTotal}}</td>
     </tr>
@@ -93,4 +93,54 @@
     <th>{{percentage futureConditions.utilizationChange}}</th>
     <th>{{futureConditions.seatsDifference}}</th>
   </tfoot> --}}
+</table>
+
+<table class="ui celled table row-highlight">
+  <thead>
+    <tr>
+      <th></th>
+      <th class="two wide">Enrollment</th>
+      <th class="two wide">Capacity</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>Existing Conditions - New Schools Opened</td>
+      <td>{{EC_newSchoolsOpened.enrollment}}</td>
+      <td>{{EC_newSchoolsOpened.capacity}}</td>
+    </tr>
+
+    <tr>
+      <td colspan=3></td>
+    </tr>
+
+    <tr>
+      <td>No Action - New Residential Development</td>
+      <td>{{NA_newResidentialDevelopment.enrollment}}</td>
+      <td class="disabled">–</td>
+    </tr>
+
+    <tr>
+      <td>No Action - Capacity Δ from Planned Schools</td>
+      <td class="disabled">–</td>
+      <td>{{NA_plannedSchools.capacity}}</td>
+    </tr>
+
+    <tr>
+      <td>No Action - Capacity Δ from DOE Significant Utilization Changes</td>
+      <td class="disabled">–</td>
+      <td>{{NA_significantUtilChanges.capacity}}</td>
+    </tr>
+
+    <tr>
+      <td colspan=3></td>
+    </tr>
+
+    <tr>
+      <td>With Action - Schools Proposed with Project</td>
+      <td class="disabled">–</td>
+      <td>{{WA_newSchools.capacity}}</td>
+    </tr>
+  </tbody>
 </table>
