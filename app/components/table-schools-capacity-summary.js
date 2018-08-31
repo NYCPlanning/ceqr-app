@@ -39,7 +39,7 @@ export default Component.extend({
     }
   }),
 
-  EC_newSchoolsOpened: computed('project.scaProjects.[]', 'activeSchoolsLevel', function() {    
+  EC_newSchoolsOpened: computed('activeSd', 'activeSchoolsLevel', 'project.scaProjects.[]', function() {    
     const schools    = this.get('project.lcgms').filter(
       (b) => (b.district === this.get('activeSd.district') && 
               b.subdistrict === this.get('activeSd.subdistrict') &&
@@ -52,7 +52,7 @@ export default Component.extend({
     return { enrollment, capacity, schools };
   }),
 
-  NA_newResidentialDevelopment: computed('activeSchoolsLevel', 'project.futureResidentialDev.[]', function() {
+  NA_newResidentialDevelopment: computed('activeSd', 'activeSchoolsLevel', 'project.futureResidentialDev.[]', function() {
     const developments = this.get('project.futureResidentialDev')
       .filter((b) => (b.district === this.get('activeSd.district') && b.subdistrict === this.get('activeSd.subdistrict')))
       .map(b => ({
@@ -67,7 +67,7 @@ export default Component.extend({
     return { enrollment, developments }
   }),
 
-  NA_plannedSchools: computed('activeSchoolsLevel', 'project.scaProjects.[]', function() {
+  NA_plannedSchools: computed('activeSd', 'activeSchoolsLevel', 'project.scaProjects.[]', function() {
     const capacity = this.get('project.aggregateTotals')
       .find(
         (b) => (
@@ -93,7 +93,7 @@ export default Component.extend({
     return { capacity, schools }
   }),
 
-  NA_significantUtilChanges: computed('activeSchoolsLevel', 'project.scaProjects.[]', function() {
+  NA_significantUtilChanges: computed('activeSd', 'activeSchoolsLevel', 'project.scaProjects.[]', function() {
     const schools = this.get('project.buildings')
       .filter(
         (b) => 
@@ -114,7 +114,7 @@ export default Component.extend({
     return { capacityDelta, schools }
   }),
 
-  WA_newSchools: computed('activeSchoolsLevel', 'project.schoolsWithAction.[]', function() {
+  WA_newSchools: computed('activeSd', 'activeSchoolsLevel', 'project.schoolsWithAction.[]', function() {
     const schools = this.get('project.schoolsWithAction')
       .map(b => ({
         ...b,
@@ -128,7 +128,7 @@ export default Component.extend({
 
     const capacity = schools
       .mapBy('capacity')
-      .reduce((a, v) => a + parseInt(v));
+      .reduce((a, v) => a + parseInt(v), 0);
 
     return { capacity, schools }
   }),
