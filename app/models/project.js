@@ -1,10 +1,23 @@
 import DS from 'ember-data';
 import { computed } from '@ember/object';
+import { inject as service } from '@ember/service';
 
 import SchoolTotals from '../decorators/SchoolTotals';
 import AggregateTotals from '../decorators/AggregateTotals';
 
 export default DS.Model.extend({  
+  session: service(),
+
+  didUpdate() {
+    this.set('last_updated', Date.now());
+    this.set('last_updated_by', this.get('session.currentUser.email'));
+  },
+
+  didCreate() {
+    this.set('last_updated', Date.now());
+    this.set('last_updated_by', this.get('session.currentUser.email'));
+  },
+  
   setCeqrManual(manual) {
     this.set('ceqrManual', manual);
   },
@@ -14,6 +27,9 @@ export default DS.Model.extend({
   bbls: DS.attr('', { defaultValue() { return []; } }),
   user: DS.attr('string'),
   buildYear: DS.attr('number'),
+
+  last_updated: DS.attr('number'),
+  last_updated_by: DS.attr('string'),
   
   borough: DS.attr('string', { defaultValue: 'Bronx' }),
   boroCode: computed('borough', function() {

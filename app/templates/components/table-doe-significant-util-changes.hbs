@@ -79,10 +79,9 @@
                   <td>{{n.at_scale_enroll}}</td>
                   <td>{{n.title}}</td>
                   <td>
-                    <div class="ui list">
-                      {{#if n.bup_url}}<div class="item"><a href={{n.bup_url}} target="_blank">Building Utilization Plan <i class="external alternate icon"></i></a></div>{{/if}}
-                      {{#if n.eis_url}}<div class="item"><a href={{n.eis_url}} target="_blank">Educational Impact Statement <i class="external alternate icon"></i></a></div>{{/if}}
-                    </div>
+                    {{#if n.url}}
+                      <a href={{n.url}} target="_blank">Documents <i class="external alternate icon"></i></a>
+                    {{/if}}
                   </td>
                 </tr>
               {{/each}}
