@@ -16,7 +16,7 @@
           </div>
         {{/if}}
 
-        {{#if (gt project.subdistrictsFromDB.length 1)}}
+        {{#if (gt project.subdistrictsFromDb.length 1)}}
           <div class="ui message warning">
             <div class="header"><i class="attention icon"></i> Project straddles two or more subdistricts</div>
             <p>Confirm with lead agency that a district-wide study area is appropriate.</p>
@@ -32,7 +32,7 @@
     </h4>
 
     <div class="ui list">
-      {{#each project.subdistrictsFromDB as |sd|}}  
+      {{#each project.subdistrictsFromDb as |sd|}}  
         <div class="item">
           <div class="ui label">
             {{sd.sdName}}

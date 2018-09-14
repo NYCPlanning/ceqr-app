@@ -7,11 +7,11 @@ export default Route.extend({
 
   model() {
     return this.store.query('project', {
-      orderBy: 'user',
-      equalTo: this.get('session.uid'),
+      user: this.get('session.uid')
     }).then(function(list) {
       return list.filterBy('isNew', false);
     });
+  
   },
 
   actions: {

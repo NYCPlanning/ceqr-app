@@ -95,11 +95,11 @@ export default DS.Model.extend({
 
 
   // Subdistricts
-  subdistrictsFromDB: DS.attr('', { defaultValue() { return []; } }),
+  subdistrictsFromDb: DS.attr('', { defaultValue() { return []; } }),
   subdistrictsFromUser: DS.attr('', { defaultValue() { return []; } }),
   
-  subdistricts: computed('subdistrictsFromDB', function() {
-    return this.get('subdistrictsFromDB').concat(this.get('subdistrictsFromUser'));
+  subdistricts: computed('subdistrictsFromDb', function() {
+    return this.get('subdistrictsFromDb').concat(this.get('subdistrictsFromUser'));
   }),
 
   multiSubdistrict: computed('subdistricts', function() {
