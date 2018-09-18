@@ -5,7 +5,7 @@ export default Route.extend({
   session: service(),
 
   beforeModel: function() {
-    if (this.get('session').isAuthenticated) {
+    if (this.get('session.isAuthenticated')) {
       this.transitionTo('index');
     }
   },
