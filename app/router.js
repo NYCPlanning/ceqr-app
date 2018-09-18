@@ -10,7 +10,7 @@ Router.map(function() {
   this.route('login');
   // this.route('signup');
 
-  this.authenticatedRoute('project', function() {
+  this.route('project', function() {
     this.route('new');
     this.route('show', {path: '/:ceqr_number'}, function() {
       this.route('edit');
@@ -46,7 +46,7 @@ Router.map(function() {
     });
   });
 
-  this.authenticatedRoute('user', function() {
+  this.route('user', function() {
     this.route('projects');
   });
 });

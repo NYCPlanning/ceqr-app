@@ -22,14 +22,14 @@ export default Component.extend({
   },
   
   actions: {
-    createUser: function(user) {
-      const auth = this.get('firebaseApp').auth();
-      auth.createUserWithEmailAndPassword(user.email, user.password).then(() => { 
-        this.get('session').fetch();
-        this.get('router').transitionTo('index'); 
-      }).catch((e) =>
-        this.set('error', e)
-      );
-    }
+    // createUser: function(user) {
+    //   const auth = this.get('firebaseApp').auth();
+    //   auth.createUserWithEmailAndPassword(user.email, user.password).then(() => { 
+    //     this.get('session').fetch();
+    //     this.get('router').transitionTo('index'); 
+    //   }).catch((e) =>
+    //     this.set('error', e)
+    //   );
+    // }
   }
 });
