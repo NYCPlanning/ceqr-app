@@ -5,7 +5,6 @@ import $ from 'jquery';
 export default Component.extend({
   session: service(),
   router: service(),
-  firebaseApp: service(),
 
   init() {
     this._super(...arguments);

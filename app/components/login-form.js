@@ -22,15 +22,8 @@ export default Component.extend({
 
   actions: {
     logIn: function(user) {
-      this.get('session').open('firebase', {
-        provider: 'password',
-        email: user.email,
-        password: user.password
-      }).catch((e) => {
-        this.set('error', e);
-      }).then(() => {
-        this.get('router').transitionTo('user.projects');
-      });
+      const authenticator = 'authenticator:jwt'; // or 'authenticator:jwt'
+      this.get('session').authenticate(authenticator, user);
     },
   }
 });
