@@ -6,31 +6,24 @@ import SchoolTotals from '../decorators/SchoolTotals';
 import AggregateTotals from '../decorators/AggregateTotals';
 
 export default DS.Model.extend({  
-  session: service(),
-
-  didUpdate() {
-    this.set('last_updated', Date.now());
-    this.set('last_updated_by', this.get('session.currentUser.email'));
-  },
-
-  didCreate() {
-    this.set('last_updated', Date.now());
-    this.set('last_updated_by', this.get('session.currentUser.email'));
-  },
+  currentUser: service(),
   
   setCeqrManual(manual) {
     this.set('ceqrManual', manual);
   },
 
-  ceqr_number: DS.attr('string'),
-  name: DS.attr('string'),
-  bbls: DS.attr('', { defaultValue() { return []; } }),
-  user: DS.attr('string'),
-  buildYear: DS.attr('number'),
+  // user: DS.attr('string'),
+  users: DS.hasMany('user'),
+  created_at: DS.attr('number'),
+  updated_at: DS.attr('number'),
 
   last_updated: DS.attr('number'),
   last_updated_by: DS.attr('string'),
-  
+
+  name: DS.attr('string'),
+  buildYear: DS.attr('number'),
+  bbls: DS.attr('', { defaultValue() { return []; } }),
+  ceqr_number: DS.attr('string'),
   borough: DS.attr('string', { defaultValue: 'Bronx' }),
   boroCode: computed('borough', function() {
     switch (this.get('borough')) {
@@ -42,6 +35,8 @@ export default DS.Model.extend({
       default: return null;
     }
   }),
+
+  // TODO: split out into other relationships
 
   // - Tranpsortation -
   trafficZone: DS.attr('number'),

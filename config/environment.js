@@ -3,7 +3,7 @@
 module.exports = function(environment) {
   let ENV = {
     'mapbox-gl': {
-      accessToken: 'pk.eyJ1IjoiY2FwaXRhbHBsYW5uaW5nbnljIiwiYSI6ImNqODUwYmxyYzBnY3AycW9hOXA5NDE2eDQifQ.HYuWjTiwSoTu-QLWo0D76w'
+      accessToken: 'pk.eyJ1IjoicGljaG90IiwiYSI6ImNqbWIzYzFyeTVrbHAzcW9nbmRmeXNmbHcifQ.VEiOF5YV_9kxwXekZ3fWLA'
     },
     'ember-simple-auth-token': {
       serverTokenEndpoint: '/api/token-auth/', // actually set in environment

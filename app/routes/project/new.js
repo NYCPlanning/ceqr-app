@@ -5,16 +5,17 @@ import { inject as service } from '@ember/service';
 export default Route.extend({
   controllerName: 'edit-project',
   
-  session: service(),
+  currentUser: service(),
   transportation: service(),
   'schools-capacity': service(),
   
   async model() {
     const project = await this.store.createRecord('project');
     const ceqrManual = await this.get('store').findRecord('ceqr-manual', 'march-2014');
+    const user = this.get('currentUser.user');
 
     project.setCeqrManual(ceqrManual);
-    project.set('user', this.get('session.uid'))
+    project.set('users', [ user ]);
     
     return RSVP.hash({
       project,
