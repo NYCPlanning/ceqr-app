@@ -16,9 +16,7 @@ export default DS.Model.extend({
   users: DS.hasMany('user'),
   created_at: DS.attr('number'),
   updated_at: DS.attr('number'),
-
-  last_updated: DS.attr('number'),
-  last_updated_by: DS.attr('string'),
+  updated_by: DS.attr('string'),
 
   name: DS.attr('string'),
   buildYear: DS.attr('number'),

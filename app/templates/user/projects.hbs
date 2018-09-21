@@ -15,8 +15,8 @@
             <td>{{project.ceqr_number}}</td>
             <td>{{#link-to 'project.show' project.id}}{{project.name}}{{/link-to}}</td>
             <td>
-              {{#if project.last_updated}}
-                {{moment-format project.last_updated 'MM/DD/YYYY'}} <span class="byline">by {{project.last_updated_by}}</span>
+              {{#if project.updated_at}}
+                {{moment-format project.updated_at "MM/DD/YYYY"}} <span class="byline">by {{project.updated_by}}</span>
               {{/if}}
             </td>
             <td>
