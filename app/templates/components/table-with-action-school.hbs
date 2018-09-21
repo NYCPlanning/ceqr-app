@@ -45,7 +45,7 @@
           {{input type="number" value=school.hs_seats placeholder="0"}}
         </div>
       </td>
-      <td><button class="ui button blue" {{action 'addSchool' school}}>Add</button></td>
+      <td><button class="ui button blue" {{action "addSchool" school}}>Add</button></td>
     </tr>
 
     {{#each project.schoolsWithAction as |s|}}
@@ -55,7 +55,7 @@
         <td>{{s.ps_seats}}</td>
         <td>{{s.is_seats}}</td>
         <td>{{s.hs_seats}}</td>
-        <td><button class="ui button red" {{action 'removeSchool' s}}>Delete</button></td>
+        <td><button class="ui button red" {{action "removeSchool" s}}>Delete</button></td>
       </tr>
     {{/each}}
   </tbody>
