@@ -24,21 +24,17 @@ export default Component.extend({
   
   actions: {
     createUser: function(user) {
-      fetch(`https://${cartoDomain}/api/v1/map`, {
+      console.log(user)
+      
+      fetch(`${window.EmberENV.apiURL}/auth/v1/user`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(params),
-      }).then()
-
-      // const auth = this.get('firebaseApp').auth();
-      // auth.createUserWithEmailAndPassword(user.email, user.password).then(() => { 
-      //   this.get('session').fetch();
-      //   this.get('router').transitionTo('index'); 
-      // }).catch((e) =>
-      //   this.set('error', e)
-      // );
+        body: JSON.stringify(user),
+      }).then(() => 
+        this.get('router').transitionTo('signup.email')
+      )
     }
   }
 });

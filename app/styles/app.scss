@@ -138,18 +138,18 @@ table.row-highlight {
   border-collapse: collapse !important;
 }
 
+.login.row {
+  margin-top: 100px;
+}
+
 .login, .signup {
-  .ui.header {
+  &.column {
     margin-top: 100px;
   }
 
   &.grid {
     height: 100%; 
   }
-
-  // .column {
-  //   max-width: 450px;
-  // }
 }
 
 .byline {

@@ -1,84 +1,52 @@
-<div class="ui center aligned grid login">
-  <div class="row">
-    <div class="six wide column">
-      <h2 class="ui blue header">
-        <div class="content">
-          Log-in to your account
+<div class="ui center aligned grid">
+  <div class="row login">
+
+    <div class="twelve wide column left aligned">
+      <div class="ui placeholder segment">
+        <div class="ui two column very relaxed stackable grid">
+          <div class="column">
+            <form class="ui form {{if error "error"}}" {{action "logIn" login on="submit"}}>
+              <div class="field">
+                <div class="ui left icon input">
+                  <i class="user icon"></i>
+                  {{input type="text" name="email" value=login.email placeholder="Email"}}
+                </div>
+              </div>
+              <div class="field">
+                <div class="ui left icon input">
+                  <i class="lock icon"></i>
+                  {{input 
+                    type="password"
+                    name="password"
+                    value=login.password
+                    placeholder="Password"
+                  }}
+                </div>
+              </div>
+              <button type="submit" class="ui blue submit button">Login</button>
+
+              <div class="ui left error message">
+                <div class="header">Error</div>
+                <p>{{error.message}}</p>
+              </div>
+            </form>
+          </div>
+          <div class="middle aligned column">
+            <div class="ui message warning">
+              <p>Currently only New York City employees and pre-approved applicant teams can create accounts.</p>
+            </div>
+
+            {{#link-to "signup" class="ui big button"}}
+              <i class="signup icon"></i>
+              Sign Up
+            {{/link-to}}
+          </div>
         </div>
-      </h2>
-        
-      <div
-        class="ui segment"
-      >
-        <form 
-          class="ui large form login {{if error "error"}}" {{action "logIn" login on="submit"}}
-        >
-          <div class="field">
-            <div class="ui left icon input">
-              <i class="user icon"></i>
-              {{input type="text" name="email" value=login.email placeholder="Email"}}
-            </div>
-          </div>
-          <div class="field">
-            <div class="ui left icon input">
-              <i class="lock icon"></i>
-              {{input 
-                type="password"
-                name="password"
-                value=login.password
-                placeholder="Password"
-              }}
-            </div>
-          </div>
-
-          <div class="ui left error message">
-            <div class="header">Error</div>
-            <p>{{error.message}}</p>
-          </div>
-
-          <button type="submit" class="ui fluid large blue submit button">Log In</button>
-        </form>
-      </div>
-    </div>
-
-    <div class="six wide column">
-      <h2 class="ui teal header">
-        <div class="content">
-          Create an account
+        <div class="ui vertical divider">
+          Or
         </div>
-      </h2>
-      <div class="ui secondary segment">
-        <div class="ui message">
-          <p>Currently, only NYC employees and pre-approved applicant teams can create accounts.</p>
-        </div>
-        <form
-          class="ui large form signup {{if error "error"}}" {{action "createUser" newUser on="submit"}}>
-          <div class="field">
-            <div class="ui left icon input">
-              <i class="user icon"></i>
-              {{input type="text" name="email" value=newUser.email placeholder="Email"}}
-            </div>
-          </div>
-          <div class="field">
-            <div class="ui left icon input">
-              <i class="lock icon"></i>
-              {{input 
-                type="password"
-                name="password"
-                value=newUser.password
-                placeholder="Password"
-              }}
-            </div>
-          </div>
-
-          <div class="ui left error message">
-            <div class="header">Error</div>
-            <p>{{error.message}}</p>
-          </div>
-
-          <button type="submit" class="ui fluid large teal submit button">Create Account</button> 
-        </form>
       </div>
     </div>
   </div>
 </div>
+

@@ -36,7 +36,7 @@ module.exports = function(environment) {
     // ENV.APP.LOG_TRANSITIONS = true;
     // ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
     // ENV.APP.LOG_VIEW_LOOKUPS = true;
-    ENV.EmberENV.apiURL = 'http://localhost:1337/api/v1'
+    ENV.EmberENV.apiURL = 'http://localhost:1337'
     ENV['ember-simple-auth-token'].serverTokenEndpoint = 'http://localhost:1337/auth/v1/login'
   }
 
@@ -54,7 +54,7 @@ module.exports = function(environment) {
 
   if (environment === 'production') {
     // here you can enable a production-specific feature
-    ENV.EmberENV.apiURL = 'https://ceqr-api-prod.herokuapp.com/api/v1'
+    ENV.EmberENV.apiURL = 'https://ceqr-api-prod.herokuapp.com'
     ENV['ember-simple-auth-token'].serverTokenEndpoint = 'http://ceqr-api-prod.herokuapp.com/auth/v1/login'
   }
 

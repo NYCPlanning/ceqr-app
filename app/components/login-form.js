@@ -36,23 +36,5 @@ export default Component.extend({
         this.set('error', { message })
       })
     },
-
-    // createUser: function(user) {
-    //   fetch(`https://${cartoDomain}/api/v1/map`, {
-    //     method: 'POST',
-    //     headers: {
-    //       'Content-Type': 'application/json',
-    //     },
-    //     body: JSON.stringify(params),
-    //   }).then()
-
-    //   // const auth = this.get('firebaseApp').auth();
-    //   // auth.createUserWithEmailAndPassword(user.email, user.password).then(() => { 
-    //   //   this.get('session').fetch();
-    //   //   this.get('router').transitionTo('index'); 
-    //   // }).catch((e) =>
-    //   //   this.set('error', e)
-    //   // );
-    // }
   }
 });

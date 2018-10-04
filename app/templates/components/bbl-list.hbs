@@ -2,16 +2,25 @@
   <div class="row">
     <div class="sixteen wide column">
       <div class="ui action input">
-        <form class="ui form" {{action 'addBbl' bbl on='submit'}}>
+        <form class="ui form" {{action "addBbl" bbl on="submit"}}>
           <div class="three fields">
             <div class="field">
-              {{input type="text" name="bbl" value=bbl placeholder="BBL" maxlength=10 enter="addBbl"}}
+              {{input
+                type="text"
+                name="bbl"
+                value=bbl
+                placeholder="BBL"
+                maxlength=10
+                enter=(action "addBbl")
+              }}
             </div>
             <div class="field">
               <button type="submit" class="ui button">Add</button>
             </div>
             <div class="field">
-              <a href="https://zola.planning.nyc.gov" target="_blank">ZoLa <i class="external alternate icon"></i></a>
+              <a href="https://zola.planning.nyc.gov" target="_blank" rel="noopener">
+                ZoLa <i class="external alternate icon"></i>
+              </a>
             </div>
           </div>
 
@@ -30,7 +39,13 @@
           {{#each model.bbls as |bbl|}}
             <div class="item">
               <div class="ui label">
-                <a href="https://zola.planning.nyc.gov/bbl/{{bbl}}" target="_blank">{{bbl}}</a> <i class="close link icon" {{action 'removeBbl' bbl}}></i>
+                <a 
+                  href="https://zola.planning.nyc.gov/bbl/{{bbl}}"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  {{bbl}}
+                </a> <i class="close link icon" {{action "removeBbl" bbl}}></i>
               </div>
             </div>
           {{/each}}
