@@ -67,7 +67,6 @@ export default DS.Model.extend({
   hsEffect: computed('netUnits', 'borough', function() {
     return this.get('minResidentialUnits').hs < this.get('netUnits');
   }),
-  directEffect: DS.attr('boolean'),
   indirectEffect: computed('esEffect', 'hsEffect', function() {
     return (this.get('esEffect') || this.get('hsEffect'));
   }),
@@ -160,12 +159,16 @@ export default DS.Model.extend({
 
       if (buildings.length === 0) return;
       
+      const doe_notices = this.get('doeUtilChanges').filter(b => (
+        b.bldg_id === bldg_id || b.bldg_id_additional === bldg_id
+      )).mapBy('title').uniq().map((title) => (
+        this.doeUtilChanges.filterBy('title', title)
+      ));
+
       return ({
         bldg_id,
         buildings,
-        doe_notices: this.get('doeUtilChanges').filter(b => (
-          b.bldg_id === bldg_id || b.bldg_id_additional === bldg_id
-        ))
+        doe_notices
       })
     }).compact();
   }),

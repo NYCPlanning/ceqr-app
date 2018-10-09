@@ -35,17 +35,6 @@
       <div class="ui grey segment">
         {{total-unit-count model=project}}
       </div>
-
-      <div class="ui grey segment">
-        <h4>Does this project require a detailed analysis of Direct Effect?</h4>
-
-        <p>Would the project directly eliminate, displace, or alter public or publicly funded educational facilities?</p>
-
-        <div class="ui buttons">
-          <button class="ui {{if project.directEffect "blue" "grey basic"}} button" onclick={{action "directEffectTrue"}}>Yes</button>
-          <button class="ui {{if project.directEffect "grey basic" "blue"}} button" onclick={{action "directEffectFalse"}}>No</button>
-        </div>
-      </div>
     </div>
     
     {{#if project.isInvalid}}

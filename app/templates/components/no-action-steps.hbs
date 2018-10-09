@@ -3,20 +3,22 @@
     No Action Scenario
   {{/link-to}}
 
-  {{#link-to 'project.show.schools-capacity.no-action.under-construction' project.id class="item"}}
-    SCA Schools<br />Under Construction
-    <div class="ui label {{if (gt project.scaProjects.length 0) "orange" "green"}}">{{project.scaProjects.length}}</div>
-  {{/link-to}}
+  <div class="right menu">
+    {{#link-to 'project.show.schools-capacity.no-action.under-construction' project.id class="item"}}
+      SCA Schools<br />Under Construction
+      <div class="ui label {{if (gt project.scaProjects.length 0) "orange" "green"}}">{{project.scaProjects.length}}</div>
+    {{/link-to}}
 
-  {{#link-to 'project.show.schools-capacity.no-action.utilization-changes' project.id class="item"}}
-    DOE Significant<br />Utilization Changes
-    <div class="ui label {{if (gt project.doeUtilChangesCount 0) "orange" "green"}}">{{project.doeUtilChangesCount}}</div>
-  {{/link-to}}
+    {{#link-to 'project.show.schools-capacity.no-action.utilization-changes' project.id class="item"}}
+      DOE Significant<br />Utilization Changes
+      <div class="ui label {{if (gt project.doeUtilChangesCount 0) "orange" "green"}}">{{project.doeUtilChangesCount}}</div>
+    {{/link-to}}
 
-  {{#link-to 'project.show.schools-capacity.no-action.residential-development' project.id class="item"}}
-    Additional<br />Residential Development
-    {{#if (gt project.futureResidentialDev.length 0)}}
-      <div class="ui label blue">{{project.futureResidentialDev.length}}</div>
-    {{/if}}
-  {{/link-to}}
+    {{#link-to 'project.show.schools-capacity.no-action.residential-development' project.id class="item"}}
+      Additional<br />Residential Development
+      {{#if (gt project.futureResidentialDev.length 0)}}
+        <div class="ui label blue">{{project.futureResidentialDev.length}}</div>
+      {{/if}}
+    {{/link-to}}
+  </div>
 </div>

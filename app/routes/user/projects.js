@@ -6,9 +6,8 @@ export default Route.extend({
   currentUser: service(),
 
   async model() {
-    await this.currentUser.load();
-    return this.store.findRecord('user', this.get('currentUser.user.id'), {include: 'projects'}).then(function(user) {
-      return user.projects.filterBy('isNew', false);
+    return this.store.findAll('project').then(function(projects) {
+      return projects.filterBy('isNew', false);
     });
   },
 
