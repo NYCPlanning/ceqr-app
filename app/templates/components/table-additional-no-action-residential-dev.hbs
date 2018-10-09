@@ -1,4 +1,11 @@
 <div class="ui {{if project.futureResidentialDev "top attached"}} segment">
+  <div class="ui message">
+    <div class="header">Instructions</div>
+    <p>If project build year is 2025 or later consult lead agency if additional residential projects need to be added.</p>
+    <p>If there is known double counting of an Additional No Action Residential Development within the provided projected data,
+    remove it by adding a project with a negative number of units.</p>
+  </div>
+  
   <form class="ui form" {{action 'addResDev' resdev on='submit'}}>
     <div class="inline fields">
       <div class="field">
@@ -27,11 +34,6 @@
       <button type="submit" class="ui button primary">Add</button>
     </div>
   </form>
-
-  <div class="ui small message">
-    <p>If there is known double counting of an Additional No Action Residential Development within the provided projected data,
-    remove it by adding a project with a negative number of units.</p>
-  </div>
 </div>
 
 {{#if project.futureResidentialDev}}

@@ -1,9 +1,8 @@
 {{#if tables}}
   <div class="ui message">
     <div class="header">Instructions</div>
-    <p>Include capacity of new school if school is estimated to be complete in the school year prior to the project's
-      build year AND funding needed to complete project is 20% or lower. Consult lead agency to confirm inclusion of
-      new school(s).</p>
+    <p>Include capacity of new school if estimated completion date is before the project's
+      build year AND % funded is 80% or higher. Consult lead agency to confirm inclusion of school.</p>
   </div>
 
   {{#each tables as |t|}}
@@ -13,11 +12,11 @@
         <tr>
           <th class="five wide">School Under Construction</th>
           <th class="two wide">Estimated Completion Date</th>
-          <th class="two wide">% Funding Needed to Complete</th>
+          <th class="two wide">% Funded</th>
           <th class="one wide">Future Capacity</th>
-          <th class="one wide">PS Capacity</th>
-          <th class="one wide">IS Capacity</th>
-          <th class="one wide">HS Capacity</th>
+          <th class="one wide">Est. PS Capacity</th>
+          <th class="one wide">Est. IS Capacity</th>
+          <th class="one wide">Est. HS Capacity</th>
           <th class="one wide">Include?</th>
         </tr>
       </thead>

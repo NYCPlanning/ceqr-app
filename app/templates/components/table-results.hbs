@@ -8,9 +8,9 @@
       <th>School Level</th>
       <th>Utilization (%) with Project</th>
       <th>Change in Utilization (%) from No Action</th>
+      <th>Triggers a Significant Adverse Impact</th>
       <th>Estimated Seats to Mitigate</th>
       <th>Equivalent Reduction in Units</th>
-      <th>Triggers a Significant Adverse Impact</th>
     </tr>
   </thead>
 
@@ -21,10 +21,6 @@
         {{#td-hover payload=(hash name='utilizationWithAction' level='ps')}}{{percentage ps.utilizationWithActionTotal}}{{/td-hover}}
         {{#td-hover payload=(hash name='utilizationChange' level='ps')}}{{percentage ps.utilizationChangeTotal decimals=2}}{{/td-hover}}
         
-        <td>{{if ps.impact ps.mitigateSeatCount "n/a"}}</td>
-        <td>{{if ps.impact ps.mitigateUnitCount "n/a"}}</td>
-
-
         <td>
           {{#if ps.impact}}
             <div 
@@ -44,6 +40,9 @@
             </div>
           {{/if}}
         </td>
+
+        <td>{{if ps.impact ps.mitigateSeatCount "n/a"}}</td>
+        <td>{{if ps.impact ps.mitigateUnitCount "n/a"}}</td>
       </tr>
     </tbody>
   {{/if}}
@@ -54,9 +53,6 @@
         <td>Intermediate Schools</td>
         {{#td-hover payload=(hash name='utilizationWithAction' level='is')}}{{percentage is.utilizationWithActionTotal}}{{/td-hover}}
         {{#td-hover payload=(hash name='utilizationChange' level='is')}}{{percentage is.utilizationChangeTotal decimals=2}}{{/td-hover}}
-
-        <td>{{if is.impact is.mitigateSeatCount "n/a"}}</td>
-        <td>{{if is.impact is.mitigateUnitCount "n/a"}}</td>
 
         <td>
           {{#if is.impact}}
@@ -77,6 +73,9 @@
             </div>
           {{/if}}
         </td>
+
+        <td>{{if is.impact is.mitigateSeatCount "n/a"}}</td>
+        <td>{{if is.impact is.mitigateUnitCount "n/a"}}</td>
       </tr>
     </tbody>
   {{/if}}
@@ -87,9 +86,6 @@
         <td>High Schools</td>
         {{#td-hover payload=(hash name='utilizationWithAction' level='hs')}}{{percentage hs.utilizationWithActionTotal}}{{/td-hover}}
         {{#td-hover payload=(hash name='utilizationChange' level='hs')}}{{percentage hs.utilizationChangeTotal decimals=2}}{{/td-hover}}
-
-        <td>{{if hs.impact hs.mitigateSeatCount "n/a"}}</td>
-        <td>{{if hs.impact hs.mitigateUnitCount "n/a"}}</td>
 
         <td>
           {{#if hs.impact}}
@@ -110,6 +106,9 @@
             </div>
           {{/if}}
         </td>
+
+        <td>{{if hs.impact hs.mitigateSeatCount "n/a"}}</td>
+        <td>{{if hs.impact hs.mitigateUnitCount "n/a"}}</td>
       </tr>
     </tbody>
   {{/if}}

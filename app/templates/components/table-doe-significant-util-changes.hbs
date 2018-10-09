@@ -61,28 +61,30 @@
             <div class="ui right floated button compact primary {{if saving "loading"}}" {{action 'save'}}>Save</div>
           </div>
 
-          <h4 class="ui attached header">DOE Utilization Change Notices</h4>
+          <h4 class="ui attached header">Relevant DOE School Utilization Proposals</h4>
 
           <table class="ui bottom attached celled table">
             <thead>
               <tr>
                 <th class="two wide">At Scale Year</th>
-                <th class="one wide">At Scale Enrollment</th>
+                <th class="two wide">At Scale Enrollment</th>
+                <th class="two wide">Proposal Date</th>
                 <th class="eight wide">Proposal Title</th>
-                <th class="five wide">Links</th>
+                {{!-- <th class="five wide">Links</th> --}}
               </tr>
             </thead>
             <tbody>
               {{#each t.doe_notices as |n|}}
                 <tr>
                   <td>{{n.at_scale_year}}</td>
-                  <td>{{n.at_scale_enroll}}</td>
-                  <td>{{n.title}}</td>
-                  <td>
+                  <td>{{n.at_scale_enroll}} for Org {{n.org_id}}</td>
+                  <td></td>
+                  <td><a href={{n.url}} target="_blank" rel="noopener">{{n.title}}</a></td>
+                  {{!-- <td>
                     {{#if n.url}}
-                      <a href={{n.url}} target="_blank">Documents <i class="external alternate icon"></i></a>
+                      Documents <i class="external alternate icon"></i></a>
                     {{/if}}
-                  </td>
+                  </td> --}}
                 </tr>
               {{/each}}
             </tbody>
