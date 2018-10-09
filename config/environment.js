@@ -55,7 +55,7 @@ module.exports = function(environment) {
   if (environment === 'production') {
     // here you can enable a production-specific feature
     ENV.EmberENV.apiURL = 'https://ceqr-api-prod.herokuapp.com'
-    ENV['ember-simple-auth-token'].serverTokenEndpoint = 'http://ceqr-api-prod.herokuapp.com/auth/v1/login'
+    ENV['ember-simple-auth-token'].serverTokenEndpoint = 'https://ceqr-api-prod.herokuapp.com/auth/v1/login'
   }
 
   return ENV;
