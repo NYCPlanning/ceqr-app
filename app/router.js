@@ -10,6 +10,7 @@ Router.map(function() {
   this.route('login');
   this.route('signup', function() {
     this.route('email');
+    this.route('in-review');
   });
 
   this.route('project', function() {

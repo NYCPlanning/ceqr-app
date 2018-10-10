@@ -2,7 +2,7 @@
   <div class="ui container">
     <div class="header item">
       <i class="table icon"></i>
-      {{#link-to "user.projects"}}CEQR Insight{{/link-to}}
+      {{#link-to "user.projects"}}CEQR App{{/link-to}}
     </div>
 
     <div class="right menu">
@@ -55,7 +55,7 @@
           {{currentUser.user.email}}
           <i class="dropdown icon"></i>
           <div class="menu">
-            <a class="item" {{action 'logOut'}}><i class="sign out alternate icon"></i>Log Out</a>
+            <a class="item" {{action "logOut"}}><i class="sign out alternate icon"></i>Log Out</a>
           </div>
         </div>
       {{else}}

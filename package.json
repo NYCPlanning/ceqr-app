@@ -69,6 +69,7 @@
     "ember-source": "~3.4.0",
     "ember-truth-helpers": "^2.0.0",
     "eslint-plugin-ember": "^5.2.0",
+    "node-sass": "^4.9.3",
     "loader.js": "^4.7.0",
     "mapbox-gl": "^0.44.2",
     "qunit-dom": "^0.7.1",
