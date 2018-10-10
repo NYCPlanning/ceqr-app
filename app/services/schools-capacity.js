@@ -338,7 +338,7 @@ export default Service.extend({
           FROM doe_schoolsubdistricts_v2017
           WHERE cartodb_id IN (${this.get('project.subdistrictCartoIds').join(',')})
         ) AS subdistricts,
-        sca_capital_projects_v082018 AS projects
+        sca_capital_projects_v102018 AS projects
       WHERE ST_Intersects(subdistricts.the_geom, projects.the_geom)
     `);
     this.set('project.scaProjects', scaProjects.map((b) => {
