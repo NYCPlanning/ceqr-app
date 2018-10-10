@@ -6,7 +6,7 @@
 
       <div class="menu">
         {{#each project.subdistricts as |sd|}}
-          <a class="item" {{action 'setSdId' sd.id}}>{{sd.sdName}}</a>
+          <a class="item" {{action "setSdId" sd.id}}>{{sd.sdName}}</a>
         {{/each}}
       </div>
 
@@ -38,8 +38,8 @@
       <th class="four wide">Address</th>
       <th class="one wide">Org Level</th>
       <th class="one wide">Enrollment</th>
-      <th class="one wide">Target<br />Capacity</th>
-      <th class="one wide">Available<br />Seats</th>
+      <th class="one wide">Target<br>Capacity</th>
+      <th class="one wide">Available<br>Seats</th>
       <th class="one wide">Utilization (%)</th>
     </tr>
   </thead>
@@ -107,7 +107,7 @@
   </tfoot>
 </table>
 
-<div class="ui message warning bottom attached">
+<div class="ui icon message warning bottom attached">
   <i class="attention icon"></i> Charter, citywide gifted & talented, D75 special education, and D79 alternative high school equivalency schools are not included in analysis.
 </div>
 

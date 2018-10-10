@@ -1,14 +1,33 @@
 <div class="ui pointing menu">
-  {{#link-to 'project.show.schools-capacity.existing-conditions.schools' project.id class="item"}}
+  {{#link-to 
+    "project.show.schools-capacity.existing-conditions.schools"
+    project.id
+    class="item"
+  }}
     Public Schools Serving Study Area
   {{/link-to}}
 
-  {{#link-to 'project.show.schools-capacity.existing-conditions.study-area' project.id class="item"}}
-    Define Study Area {{#if studyAreaNotice}} <div class="ui label orange"><i class="attention icon" style="margin: 0"></i></div>{{/if}}
-  {{/link-to}}
+  <div class="right menu">
+    {{#link-to
+      "project.show.schools-capacity.existing-conditions.study-area"
+      project.id
+      class="item"
+    }}
+      Study Area 
+      {{#if studyAreaNotice}}
+        <div class="ui label orange">
+          <i class="attention icon" style="margin: 0"></i>
+        </div>
+      {{/if}}
+    {{/link-to}}
 
-  {{#link-to 'project.show.schools-capacity.existing-conditions.new-schools' project.id class="item"}}
-    Newly Opened Schools
-    <div class="ui label {{if (gt project.lcgms.length 0) "orange" "green"}}">{{project.lcgms.length}}</div>
-  {{/link-to}}
+    {{#link-to
+      "project.show.schools-capacity.existing-conditions.new-schools"
+      project.id
+      class="item"
+    }}
+      Newly Opened Schools
+      <div class="ui label {{if (gt project.lcgms.length 0) "orange" "green"}}">{{project.lcgms.length}}</div>
+    {{/link-to}}
+  </div>
 </div>

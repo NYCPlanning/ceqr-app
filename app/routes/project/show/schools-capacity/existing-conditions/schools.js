@@ -1,6 +1,6 @@
 import Route from '@ember/routing/route';
-import ResetScrollPositionMixin from '../../../../../mixins/reset-scroll-position';
 
-export default Route.extend(ResetScrollPositionMixin, {
+export default Route.extend({
   controllerName: 'project'
 });
+

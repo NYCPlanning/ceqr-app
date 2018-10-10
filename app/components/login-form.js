@@ -8,29 +8,33 @@ export default Component.extend({
 
   init() {
     this._super(...arguments);
-    this.user = {};
+    this.login = {};
+    this.newUser = {};
   },
   
   didInsertElement() {
-    $('.ui.form').form({
+    $('.ui.login').form({
       fields: {
         email: 'email',
         password: 'empty',
+      }
+    });
+
+    $('.ui.signup').form({
+      fields: {
+        email: 'email',
+        password: ['minLength[6]', 'empty'],
       }
     });
   },
 
   actions: {
     logIn: function(user) {
-      this.get('session').open('firebase', {
-        provider: 'password',
-        email: user.email,
-        password: user.password
-      }).catch((e) => {
-        this.set('error', e);
-      }).then(() => {
-        this.get('router').transitionTo('user.projects');
-      });
+      const authenticator = 'authenticator:jwt'; // or 'authenticator:jwt'
+      this.get('session').authenticate(authenticator, user).catch((error) => {
+        const message = JSON.parse(error.text).message;
+        this.set('error', { message })
+      })
     },
   }
 });

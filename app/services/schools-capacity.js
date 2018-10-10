@@ -43,7 +43,7 @@ export default Service.extend({
       WHERE ST_Intersects(pluto.the_geom, subdistricts.the_geom)
     `);
 
-    this.set('project.subdistrictsFromDB', subdistricts.map(
+    this.set('project.subdistrictsFromDb', subdistricts.map(
       (f) => ({
         district: f.district,
         subdistrict: f.subdistrict,

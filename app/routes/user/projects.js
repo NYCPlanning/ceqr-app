@@ -3,14 +3,11 @@ import { inject as service } from '@ember/service';
 import $ from 'jquery';
 
 export default Route.extend({
-  session: service(),
+  currentUser: service(),
 
-  model() {
-    return this.store.query('project', {
-      orderBy: 'user',
-      equalTo: this.get('session.uid'),
-    }).then(function(list) {
-      return list.filterBy('isNew', false);
+  async model() {
+    return this.store.findAll('project').then(function(projects) {
+      return projects.filterBy('isNew', false);
     });
   },
 
@@ -23,8 +20,8 @@ export default Route.extend({
       const id = this.get('deleteProjectId');
       this.get('store')
         .findRecord('project', id, { backgroundReload: false })
-        .then(p => p.destroyRecord());
-      this.refresh();
+        .then(p => p.destroyRecord())
+        .then(() => this.refresh());
     }
   }
 });

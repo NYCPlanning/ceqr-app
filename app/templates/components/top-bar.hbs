@@ -2,7 +2,7 @@
   <div class="ui container">
     <div class="header item">
       <i class="table icon"></i>
-      {{#link-to "user.projects"}}CEQR Insight{{/link-to}}
+      {{#link-to "user.projects"}}CEQR App{{/link-to}}
     </div>
 
     <div class="right menu">
@@ -10,13 +10,34 @@
         Technical Manual
         <i class="dropdown icon"></i>
         <div class="menu">
-          <a class="item" href="https://www1.nyc.gov/assets/oec/technical-manual/2014_ceqr_technical_manual_rev_04_27_2016.pdf" target="_blank"><i class="file pdf icon"></i> Full CEQR Technical Manual</a>
+          <a 
+            class="item"
+            href="https://www1.nyc.gov/assets/oec/technical-manual/2014_ceqr_technical_manual_rev_04_27_2016.pdf"
+            target="_blank"
+            rel="noopener"
+          >
+            <i class="file pdf icon"></i> Full CEQR Technical Manual
+          </a>
           <div class="divider"></div>
           <div class="header">
             Chapters
           </div>
-          <a class="item" href="https://www1.nyc.gov/assets/oec/technical-manual/06_Community_Facilities_2014.pdf" target="_blank"><i class="file pdf icon"></i> 6: Community Facilities and Services</a>
-          <a class="item" href="https://www1.nyc.gov/assets/oec/technical-manual/16_Transportation_2014.pdf" target="_blank"><i class="file pdf icon"></i> 16: Transportation</a>
+          <a
+            class="item"
+            href="https://www1.nyc.gov/assets/oec/technical-manual/06_Community_Facilities_2014.pdf"
+            target="_blank"
+            rel="noopener"
+          >
+            <i class="file pdf icon"></i> 6: Community Facilities and Services
+          </a>
+          <a
+            class="item"
+            href="https://www1.nyc.gov/assets/oec/technical-manual/16_Transportation_2014.pdf"
+            target="_blank"
+            rel="noopener"
+          >
+            <i class="file pdf icon"></i> 16: Transportation
+          </a>
         </div>
       </div>
 
@@ -31,15 +52,15 @@
 
       {{#if session.isAuthenticated}}        
         <div class="ui simple dropdown item">
-          {{session.currentUser.email}}
+          {{currentUser.user.email}}
           <i class="dropdown icon"></i>
           <div class="menu">
-            <a class="item" {{action 'logOut'}}><i class="sign out alternate icon"></i>Log Out</a>
+            <a class="item" {{action "logOut"}}><i class="sign out alternate icon"></i>Log Out</a>
           </div>
         </div>
       {{else}}
         <div class="item">
-          {{#link-to 'login'}}Log In{{/link-to}}
+          {{#link-to "login"}}Log In{{/link-to}}
         </div>
       {{/if}}
     </div>

@@ -1,10 +1,12 @@
 {{#if hasSigUtils}}
   <div class="ui message">
     <div class="header">Instructions</div>
-    <p>This step is intended to identify DOE plans for re-purposing underutilized school space that could radically 
+    <p>
+      This step is intended to identify DOE plans for re-purposing underutilized school space that could radically 
       alter available capacity in the future. Use the PEP (Panel for Educational Policy) Vote Date to access a more
       detailed view of the relevant school utilization proposal. Consult the lead agency for detailed assumptions on
-      impact of specific changes on capacity.</p>
+      impact of specific changes on capacity.
+    </p>
   </div>
 
   <div class="ui grid">
@@ -12,7 +14,10 @@
       <div class="ui vertical fluid tabular menu">
         <div class="header item">Building ID</div>
         {{#each project.doeUtilChangesPerBldg as |t|}}
-          <a class="item {{if (eq bldg_id t.bldg_id) "active"}}" {{action 'showBldg' t.bldg_id}}>
+          <a 
+            class="item {{if (eq bldg_id t.bldg_id) "active"}}"
+            {{action "showBldg" t.bldg_id}}
+          >
             {{t.bldg_id}}
           </a>
         {{/each}}
@@ -58,32 +63,43 @@
           </table>
 
           <div class="ui clearing attached segment">
-            <div class="ui right floated button compact primary {{if saving "loading"}}" {{action 'save'}}>Save</div>
+            <button
+              class="ui right floated button compact primary {{if saving "loading"}}" {{action "save"}}
+            >
+              Save
+            </button>
           </div>
 
-          <h4 class="ui attached header">DOE Utilization Change Notices</h4>
+          <h4 class="ui attached header">Relevant DOE School Utilization Proposals</h4>
 
           <table class="ui bottom attached celled table">
             <thead>
               <tr>
+                <th class="seven wide">Proposal Title</th>
+                <th class="two wide">Proposal Date</th>
                 <th class="two wide">At Scale Year</th>
                 <th class="one wide">At Scale Enrollment</th>
-                <th class="eight wide">Proposal Title</th>
-                <th class="five wide">Links</th>
+                <th class="one wide">Org. ID</th>
               </tr>
             </thead>
             <tbody>
-              {{#each t.doe_notices as |n|}}
-                <tr>
-                  <td>{{n.at_scale_year}}</td>
-                  <td>{{n.at_scale_enroll}}</td>
-                  <td>{{n.title}}</td>
-                  <td>
-                    {{#if n.url}}
-                      <a href={{n.url}} target="_blank">Documents <i class="external alternate icon"></i></a>
-                    {{/if}}
-                  </td>
-                </tr>
+              {{#each t.doe_notices as |notices|}}
+                {{#each notices as |n index|}}
+                  {{#if (eq index 0)}}
+                    <tr>
+                      <td rowspan={{notices.length}}><a href={{n.url}} target="_blank" rel="noopener">{{n.title}}</a></td>
+                      <td rowspan={{notices.length}}>{{n.vote_date}}</td>
+                      <td rowspan={{notices.length}}>{{n.at_scale_year}}</td>
+                      <td>{{n.at_scale_enroll}}</td>
+                      <td>{{n.org_id}}</td>
+                    </tr>
+                  {{else}}
+                    <tr>
+                      <td>{{n.at_scale_enroll}}</td>
+                      <td>{{n.org_id}}</td>
+                    </tr>
+                  {{/if}}
+                {{/each}}
               {{/each}}
             </tbody>
           </table>
@@ -96,7 +112,11 @@
     <i class="database icon"></i>
     <div class="content">
       <div class="header">
-        <a target="_blank" href="https://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy">
+        <a 
+          target="_blank"
+          rel="noopener"
+          href="https://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy"
+        >
           Panel for Educational Policy meeting minutes <i class="external alternate icon"></i>
         </a>
       </div>

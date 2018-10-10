@@ -6,31 +6,22 @@ import SchoolTotals from '../decorators/SchoolTotals';
 import AggregateTotals from '../decorators/AggregateTotals';
 
 export default DS.Model.extend({  
-  session: service(),
-
-  didUpdate() {
-    this.set('last_updated', Date.now());
-    this.set('last_updated_by', this.get('session.currentUser.email'));
-  },
-
-  didCreate() {
-    this.set('last_updated', Date.now());
-    this.set('last_updated_by', this.get('session.currentUser.email'));
-  },
+  currentUser: service(),
   
   setCeqrManual(manual) {
     this.set('ceqrManual', manual);
   },
 
-  ceqr_number: DS.attr('string'),
-  name: DS.attr('string'),
-  bbls: DS.attr('', { defaultValue() { return []; } }),
-  user: DS.attr('string'),
-  buildYear: DS.attr('number'),
+  // user: DS.attr('string'),
+  users: DS.hasMany('user'),
+  created_at: DS.attr('number'),
+  updated_at: DS.attr('number'),
+  updated_by: DS.attr('string'),
 
-  last_updated: DS.attr('number'),
-  last_updated_by: DS.attr('string'),
-  
+  name: DS.attr('string'),
+  buildYear: DS.attr('number'),
+  bbls: DS.attr('', { defaultValue() { return []; } }),
+  ceqr_number: DS.attr('string'),
   borough: DS.attr('string', { defaultValue: 'Bronx' }),
   boroCode: computed('borough', function() {
     switch (this.get('borough')) {
@@ -42,6 +33,8 @@ export default DS.Model.extend({
       default: return null;
     }
   }),
+
+  // TODO: split out into other relationships
 
   // - Tranpsortation -
   trafficZone: DS.attr('number'),
@@ -74,7 +67,6 @@ export default DS.Model.extend({
   hsEffect: computed('netUnits', 'borough', function() {
     return this.get('minResidentialUnits').hs < this.get('netUnits');
   }),
-  directEffect: DS.attr('boolean'),
   indirectEffect: computed('esEffect', 'hsEffect', function() {
     return (this.get('esEffect') || this.get('hsEffect'));
   }),
@@ -95,11 +87,11 @@ export default DS.Model.extend({
 
 
   // Subdistricts
-  subdistrictsFromDB: DS.attr('', { defaultValue() { return []; } }),
+  subdistrictsFromDb: DS.attr('', { defaultValue() { return []; } }),
   subdistrictsFromUser: DS.attr('', { defaultValue() { return []; } }),
   
-  subdistricts: computed('subdistrictsFromDB', function() {
-    return this.get('subdistrictsFromDB').concat(this.get('subdistrictsFromUser'));
+  subdistricts: computed('subdistrictsFromDb', function() {
+    return this.get('subdistrictsFromDb').concat(this.get('subdistrictsFromUser'));
   }),
 
   multiSubdistrict: computed('subdistricts', function() {
@@ -167,12 +159,16 @@ export default DS.Model.extend({
 
       if (buildings.length === 0) return;
       
+      const doe_notices = this.get('doeUtilChanges').filter(b => (
+        b.bldg_id === bldg_id || b.bldg_id_additional === bldg_id
+      )).mapBy('title').uniq().map((title) => (
+        this.doeUtilChanges.filterBy('title', title)
+      ));
+
       return ({
         bldg_id,
         buildings,
-        doe_notices: this.get('doeUtilChanges').filter(b => (
-          b.bldg_id === bldg_id || b.bldg_id_additional === bldg_id
-        ))
+        doe_notices
       })
     }).compact();
   }),

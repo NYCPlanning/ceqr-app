@@ -1,54 +1,66 @@
-<div class="ui column grid container site">
-  <div class="row">
-    <table class="ui very basic celled table">
-      <thead><tr>
-        <th class="two wide">CEQR ID</th>
-        <th>Project Name</th>
-        <th class="five wide">Last Updated</th>
-        <th class="one wide"></th>
-        <th class="one wide"></th>
-      </tr></thead>
-
-      {{#if model}}
-        {{#each model as |project|}}
+<div class="ui grid container site">
+  <div class="ui fourteen wide centered column">  
+    <div class="row">
+      <table class="ui very basic celled table">
+        <thead>
           <tr>
-            <td>{{project.ceqr_number}}</td>
-            <td>{{#link-to 'project.show' project.id}}{{project.name}}{{/link-to}}</td>
-            <td>
-              {{#if project.last_updated}}
-                {{moment-format project.last_updated 'MM/DD/YYYY'}} <span class="byline">by {{project.last_updated_by}}</span>
-              {{/if}}
-            </td>
-            <td>
-              {{#link-to 'project.show.edit' project.id class="ui compact small labeled primary icon button"}}
-                <i class="edit icon"></i>
-                Edit
-              {{/link-to}}
-            </td>
-            <td>
-              <button class="ui compact small negative icon button" {{action 'deleteModal' project.id}}>
-                <i class="trash icon"></i>
-              </button>
-            </td>
+            <th>Project Name</th>
+            <th class="five wide">Last Updated</th>
+            <th class="one wide"></th>
+            <th class="one wide"></th>
           </tr>
-        {{/each}}
-      {{else}}
-        <tr>
-          <td colspan=4>You have no projects assigned to you. Create a {{#link-to "project.new"}}new project{{/link-to}}.</td>
-        </tr>
-      {{/if}}
+        </thead>
 
-    </table>
-  </div>
+        <tbody>
+          {{#if model}}
+            {{#each model as |project|}}
+              <tr>
+                <td>
+                  {{#link-to "project.show" project.id}}
+                    {{project.name}}
+                  {{/link-to}}
 
-  <div class="row">
-    {{#link-to "project.new" class="ui green button"}}
-      New Project
-    {{/link-to}}
-  </div>
+                  {{#if project.ceqr_number}}
+                    ({{project.ceqr_number}})
+                  {{/if}}
+                </td>
+                <td>
+                  {{#if project.updated_at}}
+                    {{moment-format project.updated_at "MM/DD/YYYY"}} <span class="byline">by {{project.updated_by}}</span>
+                  {{/if}}
+                </td>
+                <td>
+                  {{#link-to 'project.show.edit' project.id class="ui compact small labeled primary icon button"}}
+                    <i class="edit icon"></i>
+                    Edit
+                  {{/link-to}}
+                </td>
+                <td>
+                  <button class="ui compact small negative icon button" {{action 'deleteModal' project.id}}>
+                    <i class="trash icon"></i>
+                  </button>
+                </td>
+              </tr>
+            {{/each}}
+          {{else}}
+            <tr>
+              <td colspan=4>You have no projects assigned to you. Create a {{#link-to "project.new"}}new project{{/link-to}}.</td>
+            </tr>
+          {{/if}}
+        </tbody>
 
-  <div class="row">
-    {{general-disclaimer-message}}
+      </table>
+    </div>
+
+    <div class="row">
+      {{#link-to "project.new" class="ui green button"}}
+        New Project
+      {{/link-to}}
+    </div>
+
+    <div class="row px20">
+      {{general-disclaimer-message}}
+    </div>
   </div>
 </div>
 

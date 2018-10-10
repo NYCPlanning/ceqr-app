@@ -5,14 +5,9 @@ module.exports = function(environment) {
     'mapbox-gl': {
       accessToken: 'pk.eyJ1IjoicGljaG90IiwiYSI6ImNqbWIzYzFyeTVrbHAzcW9nbmRmeXNmbHcifQ.VEiOF5YV_9kxwXekZ3fWLA'
     },
-    firebase: {
-      apiKey: 'AIzaSyAfWajzce_AdQKIsjWMfWgbx5ZKGKEVMtk',
-      authDomain: 'ceqr-schools-analysis.firebaseapp.com',
-      databaseURL: 'https://ceqr-schools-analysis.firebaseio.com',
-      storageBucket: 'ceqr-schools-analysis.appspot.com',
-    },
-    torii: {
-      sessionServiceName: 'session'
+    'ember-simple-auth-token': {
+      serverTokenEndpoint: '/api/token-auth/', // actually set in environment
+      refreshAccessTokens: false,
     },
     modulePrefix: 'cp-ceqr-schools',
     environment,
@@ -41,6 +36,8 @@ module.exports = function(environment) {
     // ENV.APP.LOG_TRANSITIONS = true;
     // ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
     // ENV.APP.LOG_VIEW_LOOKUPS = true;
+    ENV.EmberENV.apiURL = 'http://localhost:1337'
+    ENV['ember-simple-auth-token'].serverTokenEndpoint = 'http://localhost:1337/auth/v1/login'
   }
 
   if (environment === 'test') {
@@ -57,6 +54,8 @@ module.exports = function(environment) {
 
   if (environment === 'production') {
     // here you can enable a production-specific feature
+    ENV.EmberENV.apiURL = 'https://ceqr-api-prod.herokuapp.com'
+    ENV['ember-simple-auth-token'].serverTokenEndpoint = 'https://ceqr-api-prod.herokuapp.com/auth/v1/login'
   }
 
   return ENV;
