@@ -6,22 +6,22 @@
 
       <div class="menu">
         {{#each project.subdistricts as |sd|}}
-          <a class="item" {{action 'setSdId' sd.id}}>{{sd.sdName}}</a>
+          <a class="item" {{action "setSdId" sd.id}}>{{sd.sdName}}</a>
         {{/each}}
       </div>
 
     </div>
     
-    <a class="item {{if (eq activeSchoolsLevel 'ps') 'active'}}" {{action (mut activeSchoolsLevel) 'ps'}}>
+    <a class="item {{if (eq activeSchoolsLevel "ps") "active"}}" {{action (mut activeSchoolsLevel) "ps"}}>
       Primary Schools
     </a>
-    <a class="item {{if (eq activeSchoolsLevel 'is') 'active'}}" {{action (mut activeSchoolsLevel) 'is'}}>
+    <a class="item {{if (eq activeSchoolsLevel "is") "active"}}" {{action (mut activeSchoolsLevel) "is"}}>
       Intermediate Schools
     </a>
     <div class="ui divider"></div>
     {{#if project.hsAnalysis}}    
       <div class="right menu">
-        <a class="item {{if (eq activeSchoolsLevel 'hs') 'active'}}" {{action (mut activeSchoolsLevel) 'hs'}}>
+        <a class="item {{if (eq activeSchoolsLevel "hs") "active"}}" {{action (mut activeSchoolsLevel) "hs"}}>
           High Schools ({{project.borough}})
         </a>
       </div>
@@ -30,12 +30,12 @@
 </div>
 
 
-<table class="ui bottom attached celled table row-highlight">
+<table class="ui bottom attached celled table">
   <thead>
     <tr>
-      <th colspan=3></th>
-      <th colspan=2>Assumptions</th>
-      <th colspan=2></th>
+      <th colspan="3"></th>
+      <th colspan="2">Assumptions</th>
+      <th colspan="2"></th>
     </tr>
     <tr>
       <th class="four wide"></th>
@@ -60,7 +60,7 @@
     </tr>
 
     <tr>
-      <td colspan=7></td>
+      <td colspan="7"></td>
     </tr>
 
     <tr>
@@ -85,7 +85,7 @@
   </tbody>
 </table>
 
-<table class="ui selectable celled table row-highlight">
+<table class="ui celled table school-summary-sections">
   <thead>
     <tr>
       <th></th>
@@ -96,8 +96,15 @@
 
   <tbody>
     {{!-- New Schools --}}
-    <tr onclick={{action 'toggle' 'EC_active'}}>
-      <td><i class="caret {{if EC_active "down" "right"}} icon"></i> Existing Conditions - New Schools Opened</td>
+    <tr
+      onclick={{action "toggle" "EC_active"}}
+      class="
+        highlight
+        {{unless EC_newSchoolsOpened.schools "disabled"}}
+        {{if EC_active "open"}}
+      "
+    >
+      <td class="section-name"><i class="caret {{if EC_active "down" "right"}} icon"></i> Existing Conditions - New Schools Opened</td>
       <td>{{EC_newSchoolsOpened.enrollment}}</td>
       <td>{{EC_newSchoolsOpened.capacity}}</td>
     </tr>
@@ -113,13 +120,20 @@
     {{/if}}
 
     <tr>
-      <td class="disabled" colspan=3></td>
+      <td class="disabled" colspan="3"></td>
     </tr>
 
 
     {{!-- New Residential Development --}}
-    <tr onclick={{action 'toggle' 'NA_resdev'}}>
-      <td><i class="caret {{if NA_resdev "down" "right"}} icon"></i> No Action - New Residential Development</td>
+    <tr 
+      onclick={{action "toggle" "NA_resdev"}}
+      class="
+        highlight
+        {{unless NA_newResidentialDevelopment.developments "disabled"}}
+        {{if NA_resdev "open"}}
+      "
+    >
+      <td class="section-name"><i class="caret {{if NA_resdev "down" "right"}} icon"></i> No Action - New Residential Development</td>
       <td>{{NA_newResidentialDevelopment.enrollment}}</td>
       <td class="disabled">–</td>
     </tr>
@@ -132,12 +146,22 @@
           <td class="disabled">–</td>
         </tr>
       {{/each}}
+      <tr>
+        <td class="disabled" colspan="3"></td>
+      </tr>
     {{/if}}
 
 
     {{!-- Planned Schools --}}
-    <tr onclick={{action 'toggle' 'NA_schools'}}>
-      <td><i class="caret {{if NA_schools "down" "right"}} icon"></i> No Action - Capacity Δ from Planned Schools</td>
+    <tr 
+      onclick={{action "toggle" "NA_schools"}}
+      class="
+        highlight
+        {{unless NA_plannedSchools.schools "disabled"}}
+        {{if NA_schools "open"}}
+      "
+    >
+      <td class="section-name"><i class="caret {{if NA_schools "down" "right"}} icon"></i> No Action - Capacity Δ from Planned Schools</td>
       <td class="disabled">–</td>
       <td>{{NA_plannedSchools.capacity}}</td>
     </tr>
@@ -150,12 +174,22 @@
           <td>{{b.capacity}}</td>
         </tr>
       {{/each}}
+      <tr>
+        <td class="disabled" colspan="3"></td>
+      </tr>
     {{/if}}
 
 
     {{!-- Significant Utilization Changes --}}
-    <tr onclick={{action 'toggle' 'NA_utilchanges'}}>
-      <td><i class="caret {{if NA_utilchanges "down" "right"}} icon"></i> No Action - Capacity Δ from DOE Significant Utilization Changes</td>
+    <tr
+      onclick={{action "toggle" "NA_utilchanges"}}
+      class="
+        highlight
+        {{unless NA_significantUtilChanges.schools "disabled"}}
+        {{if NA_utilchanges "open"}}
+      "
+    >
+      <td class="section-name"><i class="caret {{if NA_utilchanges "down" "right"}} icon"></i> No Action - Capacity Δ from DOE Significant Utilization Changes</td>
       <td class="disabled">–</td>
       <td>{{NA_significantUtilChanges.capacityDelta}}</td>
     </tr>
@@ -171,12 +205,19 @@
     {{/if}}
 
     <tr>
-      <td class="disabled" colspan=3></td>
+      <td class="disabled" colspan="3"></td>
     </tr>
 
     {{!-- With Action New Schools --}}
-    <tr onclick={{action 'toggle' 'WA_schools'}}>
-      <td><i class="caret {{if WA_schools "down" "right"}} icon"></i> With Action - Schools Proposed with Project</td>
+    <tr
+      onclick={{action "toggle" "WA_schools"}}
+      class="
+        highlight
+        {{unless WA_newSchools.capacity "disabled"}}
+        {{if WA_schools "open"}}
+      "
+    >
+      <td class="section-name"><i class="caret {{if WA_schools "down" "right"}} icon"></i> With Action - Schools Proposed with Project</td>
       <td class="disabled">–</td>
       <td>{{WA_newSchools.capacity}}</td>
     </tr>

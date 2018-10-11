@@ -249,7 +249,7 @@ export default DS.Model.extend({
           }, 0)
         ),
 
-        capacityExisting: this.get('schoolTotals').findBy('level', 'hs').get('capacityTotalNoAction'),
+        capacityExisting: this.get('schoolTotals').findBy('level', 'hs').get('capacityTotal'),
         scaCapacityIncrease: this.get('scaProjects')
           .filterBy('includeInCapacity', true)
           .reduce(function(acc, value) {

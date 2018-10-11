@@ -4,72 +4,75 @@ import round from '../utils/round';
 
 export default EmberObject.extend({
   enrollNoAction: computed('enroll', 'students', function() {
-    return this.get('enroll') + this.get('students');
+    return this.enroll + this.students;
   }),
   enrollNoActionDelta: computed('enrollNoAction', 'enrollExistingConditions', function() {
-    return this.get('enrollNoAction') - this.get('enrollExistingConditions');
+    return this.enrollNoAction - this.enrollExistingConditions;
   }),
   enrollWithAction: computed('studentsWithAction', function() {
-    return this.get('enrollNoAction') + this.get('studentsWithAction');
+    return this.enrollNoAction + this.studentsWithAction;
   }),
   enrollWithActionDelta: computed('enrollWithAction', 'enrollExistingConditions', function() {
-    return this.get('enrollWithAction') - this.get('enrollExistingConditions');
+    return this.enrollWithAction - this.enrollExistingConditions;
   }),
   enrollDifference: computed('enrollNoAction', 'enrollWithAction', function() {
-    return this.get('enrollWithAction') - this.get('enrollNoAction');
+    return this.enrollWithAction - this.enrollNoAction;
   }),
   enrollDeltaDifference: computed('enrollNoActionDelta', 'enrollWithActionDelta', function() {
-    return this.get('enrollWithActionDelta') - this.get('enrollNoActionDelta');
+    return this.enrollWithActionDelta - this.enrollNoActionDelta;
   }),
 
 
   capacityNoAction: computed('capacityExisting', 'scaCapacityIncrease', function() {
-    return this.get('capacityExisting') + this.get('scaCapacityIncrease');
+    console.log(this.capacityExisting);
+    console.log(this.scaCapacityIncrease);
+    
+    return this.capacityExisting + this.scaCapacityIncrease;
   }),
   capacityNoActionDelta: computed('capacityExisting', 'capacityNoAction', function() {
-    return this.get('capacityNoAction') - this.get('capacityExisting');
+    return this.capacityNoAction - this.capacityExisting;
   }),
   capacityWithAction: computed('', function() {
-    return this.get('capacityNoAction');
+    return this.capacityNoAction;
   }),
   capacityWithActionDelta: computed('capacityExisting', 'capacityNoAction', function() {
-    return this.get('capacityWithAction') - this.get('capacityExisting');
+    return this.capacityWithAction - this.capacityExisting;
   }),
   capacityDifference: computed('capacityNoAction', 'capacityWithAction', function() {
-    return this.get('capacityWithAction') - this.get('capacityNoAction');
+    return this.capacityWithAction - this.capacityNoAction;
   }),
   capacityDeltaDifference: computed('capacityNoActionDelta', 'capacityWithActionDelta', function() {
-    return this.get('capacityWithActionDelta') - this.get('capacityNoActionDelta');
+    return this.capacityWithActionDelta - this.capacityNoActionDelta;
   }),
 
 
   seatsNoAction: computed('capacityNoAction', 'enrollNoAction', function() {
-    return this.get('capacityNoAction') - this.get('enrollNoAction');
+    return this.capacityNoAction - this.enrollNoAction;
   }),
   seatsWithAction: computed('capacityNoAction', 'enrollWithAction', function() {
-    return this.get('capacityNoAction') - this.get('enrollWithAction');
+    return this.capacityNoAction - this.enrollWithAction;
   }),
   seatsDifference: computed('seatsNoAction', 'seatsWithAction', function() {
-    return this.get('seatsWithAction') - this.get('seatsNoAction');
+    return this.seatsWithAction - this.seatsNoAction;
   }),
 
 
   utilizationNoAction: computed('enrollNoAction', function() {
-    return round(this.get('enrollNoAction') / this.get('capacityNoAction'), 3);
+    return round(this.enrollNoAction / this.capacityNoAction, 3);
   }),
   utilizationWithAction: computed('enrollWithAction', function() {
-    return round(this.get('enrollWithAction') / this.get('capacityNoAction'), 3);
+    return round(this.enrollWithAction / this.capacityNoAction, 3);
   }),
   utilizationChange: computed('utilizationWithAction', 'utilizationNoAction', function() {
-    return round(this.get('utilizationWithAction') - this.get('utilizationNoAction'), 4);
+    return round(this.utilizationWithAction - this.utilizationNoAction, 4);
   }),
 
 
   impact: computed('utilizationChange', 'utilizationWithAction', function() {
     return (
-      (this.get('utilizationChange') >= 0.05)
+      (this.utilizationChange >= 0.05)
       &&
-      (this.get('utilizationWithAction') >= 1)
+      (this.utilizationWithAction >= 1)
     );
   })
 });

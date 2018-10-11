@@ -15,7 +15,7 @@ Router.map(function() {
 
   this.route('project', function() {
     this.route('new');
-    this.route('show', {path: '/:ceqr_number'}, function() {
+    this.route('show', {path: '/:id'}, function() {
       this.route('edit');
 
       // CEQR chapter routes

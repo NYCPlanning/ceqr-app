@@ -16,14 +16,19 @@
   <tbody>
     <tr>
       <td>        
-        <div class="ui label large" data-tooltip="Build Year" data-position="bottom center" data-inverted="">
+        <div 
+          class="ui label large"
+          data-tooltip="Build Year"
+          data-position="bottom center"
+          data-inverted=""
+        >
           <i class="calendar alternate icon"></i>{{project.buildYear}}
         </div>
       </td>
-      {{#td-hover payload=(hash name='housingFromDev')}}{{project.netUnits}}{{/td-hover}}
-      {{#td-hover payload=(hash name='studentsFromDev' level='ps')}}{{project.estEsStudents}}{{/td-hover}}
-      {{#td-hover payload=(hash name='studentsFromDev' level='is')}}{{project.estIsStudents}}{{/td-hover}}
-      {{#td-hover payload=(hash name='studentsFromDev' level='hs')}}{{project.estHsStudents}}{{/td-hover}}
+      {{#td-hover payload=(hash name="housingFromDev")}}{{project.netUnits}}{{/td-hover}}
+      {{#td-hover payload=(hash name="studentsFromDev" level="ps")}}{{project.estEsStudents}}{{/td-hover}}
+      {{#td-hover payload=(hash name="studentsFromDev" level="is")}}{{project.estIsStudents}}{{/td-hover}}
+      {{#td-hover payload=(hash name="studentsFromDev" level="hs")}}{{project.estHsStudents}}{{/td-hover}}
     </tr>
   </tbody>
 </table> 

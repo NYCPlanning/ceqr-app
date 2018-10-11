@@ -5,7 +5,7 @@ export default Route.extend({
   controllerName: 'project',
 
   async model(params) {
-    const project = await this.get('store').findRecord('project', params.ceqr_number);
+    const project = await this.get('store').findRecord('project', params.id);
     const ceqrManual = await this.get('store').findRecord('ceqr-manual', 'march-2014');
 
     project.setCeqrManual(ceqrManual);

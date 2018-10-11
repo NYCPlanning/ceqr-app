@@ -134,9 +134,7 @@ td {
 }
 
 
-table.row-highlight {
-  border-collapse: collapse !important;
-}
+
 
 .login.row {
   margin-top: 100px;
@@ -152,6 +150,19 @@ table.row-highlight {
   }
 }
 
+// Summary Page
+table.school-summary-sections {
+  border-collapse: collapse !important;
+  
+  tr.highlight {
+    cursor: pointer;
+  }
+
+  tr.open, tr:hover .section-name {
+    font-weight: bold;
+  }
+}
+
 
 // Projects Index
 
@@ -161,4 +172,17 @@ table.row-highlight {
 
 .byline {
   color: grey;
+}
+
+.project-row {
+  .project-name {
+    font-weight: bold;
+    font-size: 16px;
+  }
+
+  .actions {
+    a, button {
+      display: inline;
+    }
+  }
 }

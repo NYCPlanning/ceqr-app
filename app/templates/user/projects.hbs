@@ -4,19 +4,18 @@
       <table class="ui very basic celled table">
         <thead>
           <tr>
-            <th>Project Name</th>
+            <th class="five wide">Project Name</th>
             <th class="five wide">Last Updated</th>
-            <th class="one wide"></th>
-            <th class="one wide"></th>
+            <th class="two wide"></th>
           </tr>
         </thead>
 
         <tbody>
           {{#if model}}
             {{#each model as |project|}}
-              <tr>
+              <tr class="project-row">
                 <td>
-                  {{#link-to "project.show" project.id}}
+                  {{#link-to "project.show" project.id class="project-name"}}
                     {{project.name}}
                   {{/link-to}}
 
@@ -29,13 +28,12 @@
                     {{moment-format project.updated_at "MM/DD/YYYY"}} <span class="byline">by {{project.updated_by}}</span>
                   {{/if}}
                 </td>
-                <td>
+                <td class="actions">
                   {{#link-to 'project.show.edit' project.id class="ui compact small labeled primary icon button"}}
                     <i class="edit icon"></i>
                     Edit
                   {{/link-to}}
-                </td>
-                <td>
+
                   <button class="ui compact small negative icon button" {{action 'deleteModal' project.id}}>
                     <i class="trash icon"></i>
                   </button>
