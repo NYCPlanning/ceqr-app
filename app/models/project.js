@@ -189,14 +189,14 @@ export default DS.Model.extend({
   schoolTotals: computed('subdistricts', 'lcgms', 'bluebook', function() {
     let tables = [];
 
-    this.get('subdistricts').map((sd) => {
+    this.subdistricts.map((sd) => {
       tables.push(SchoolTotals.create({
         ...sd,
         level: 'ps',
         allBuildings: (
-            this.get('bluebook')
+            this.bluebook
           ).concat(
-            this.get('lcgms')
+            this.lcgms
           ).compact(),
       }));
 
@@ -204,9 +204,9 @@ export default DS.Model.extend({
         ...sd,
         level: 'is',
         allBuildings: (
-          this.get('bluebook')
+          this.bluebook
         ).concat(
-          this.get('lcgms')
+          this.lcgms
         ).compact(),
       }));
     });
@@ -214,9 +214,9 @@ export default DS.Model.extend({
     tables.push(SchoolTotals.create({
       level: 'hs',
       allBuildings: (
-        this.get('bluebook')
+        this.bluebook
       ).concat(
-        this.get('lcgms')
+        this.lcgms
       ).compact(),
     }));
 
@@ -235,125 +235,125 @@ export default DS.Model.extend({
       let tables = [];
 
       tables.push(AggregateTotals.create({
-        borough: this.get('borough'),
-        studentMultiplier: this.get('ceqrManual').studentMultipliersFor(this.get('borough')).hs,
+        borough: this.borough,
+        studentMultiplier: this.ceqrManual.studentMultipliersFor(this.borough).hs,
         level: 'hs',
 
-        enroll: this.get('hsProjections')[0] ? this.get('hsProjections')[0].hs : 0,
-        enrollExistingConditions: this.get('schoolTotals').findBy('level', 'hs').get('enrollmentTotal'),
+        enroll: this.hsProjections[0] ? this.hsProjections[0].hs : 0,
+        enrollExistingConditions: this.schoolTotals.findBy('level', 'hs').enrollmentTotal,
         students: (
-          this.get('hsStudentsFromHousing')
+          this.hsStudentsFromHousing
           +
-          this.get('futureResidentialDev').reduce(function(acc, value) {
+          this.futureResidentialDev.reduce(function(acc, value) {
             return acc + value.hs_students;
           }, 0)
         ),
 
-        capacityExisting: this.get('schoolTotals').findBy('level', 'hs').get('capacityTotal'),
-        scaCapacityIncrease: this.get('scaProjects')
+        capacityExisting: this.schoolTotals.findBy('level', 'hs').capacityTotal,
+        scaCapacityIncrease: this.scaProjects
           .filterBy('includeInCapacity', true)
           .reduce(function(acc, value) {
-            let v = parseInt(value.get('hs_capacity'));
+            let v = parseInt(value.hs_capacity);
             if (v) return acc + v;
             return acc;
           }, 0),
 
-        studentsWithAction: this.get('estHsStudents') || 0,
+        studentsWithAction: this.estHsStudents || 0,
       }));
 
-      this.get('subdistricts').map((sd) => {
+      this.subdistricts.map((sd) => {
         tables.push(AggregateTotals.create({
           ...sd,
           level: 'ps',
-          studentMultiplier: this.get('ceqrManual').studentMultipliersFor(this.get('borough')).ps,
+          studentMultiplier: this.ceqrManual.studentMultipliersFor(this.borough).ps,
 
           enroll: Math.round(
-            this.get('futureEnrollmentProjections').findBy('district', sd.district).ps
+            this.futureEnrollmentProjections.findBy('district', sd.district).ps
             *
-            this.get('futureEnrollmentMultipliers').find(
+            this.futureEnrollmentMultipliers.find(
               (i) => (i.district === sd.district && i.subdistrict === sd.subdistrict && i.level === 'PS')
             ).multiplier
           ),
-          enrollExistingConditions: this.get('schoolTotals').filter(
+          enrollExistingConditions: this.schoolTotals.filter(
             (b) => (b.district === sd.district && b.subdistrict === sd.subdistrict && b.level === 'ps')
-          )[0].get('enrollmentTotal'),
+          )[0].enrollmentTotal,
           
           students: (
             // Students from future housing projected by SCA
-            this.get('futureEnrollmentNewHousing').find(
+            this.futureEnrollmentNewHousing.find(
               (i) => (i.district === sd.district && i.subdistrict === sd.subdistrict && i.level === 'PS')
             ).students
             +
             // Students from user-inputed additional developments 
-            this.get('futureResidentialDev').filter(
+            this.futureResidentialDev.filter(
               (i) => (i.district === sd.district && i.subdistrict === sd.subdistrict)
             ).reduce(function(acc, value) {
               return acc + value.ps_students;
             }, 0)
           ),
           
-          capacityExisting: this.get('schoolTotals').filter(
+          capacityExisting: this.schoolTotals.filter(
             (b) => (b.district === sd.district && b.subdistrict === sd.subdistrict && b.level === 'ps')
           ).reduce(function(acc, value) {            
-            return acc + parseInt(value.get('capacityTotalNoAction'));
+            return acc + parseInt(value.capacityTotalNoAction);
           }, 0),
 
-          scaCapacityIncrease: this.get('scaProjects').filter(
+          scaCapacityIncrease: this.scaProjects.filter(
             (b) => (b.district === sd.district && b.subdistrict === sd.subdistrict && b.includeInCapacity === true)
           ).reduce(function(acc, value) {
-            let v = parseInt(value.get('ps_capacity'));
+            let v = parseInt(value.ps_capacity);
             if (v) return acc + v;
             return acc;
           }, 0),
 
-          studentsWithAction: this.get('estEsStudents') || 0,
+          studentsWithAction: this.estEsStudents || 0,
         }));
 
         tables.push(AggregateTotals.create({
           ...sd,
           level: 'is',
-          studentMultiplier: this.get('ceqrManual').studentMultipliersFor(this.get('borough')).is,
+          studentMultiplier: this.ceqrManual.studentMultipliersFor(this.borough).is,
           
           enroll: Math.round(
-            this.get('futureEnrollmentProjections').findBy('district', sd.district).ms
+            this.futureEnrollmentProjections.findBy('district', sd.district).ms
             *
-            this.get('futureEnrollmentMultipliers').find(
+            this.futureEnrollmentMultipliers.find(
               (i) => (i.district === sd.district && i.subdistrict === sd.subdistrict && i.level === 'MS')
             ).multiplier
           ),
-          enrollExistingConditions: this.get('schoolTotals').filter(
+          enrollExistingConditions: this.schoolTotals.filter(
             (b) => (b.district === sd.district && b.subdistrict === sd.subdistrict && b.level === 'is')
-          )[0].get('enrollmentTotal'),
+          )[0].enrollmentTotal,
           
           students: (
             // Students from future housing projected by SCA
-            this.get('futureEnrollmentNewHousing').find(
+            this.futureEnrollmentNewHousing.find(
               (i) => (i.district === sd.district && i.subdistrict === sd.subdistrict && i.level === 'MS')
             ).students
             +
             // Students from user-inputed additional developments 
-            this.get('futureResidentialDev').filter(
+            this.futureResidentialDev.filter(
               (i) => (i.district === sd.district && i.subdistrict === sd.subdistrict)
             ).reduce(function(acc, value) {
               return acc + value.is_students;
             }, 0)
           ),
           
-          capacityExisting: this.get('schoolTotals').filter(
+          capacityExisting: this.schoolTotals.filter(
             (b) => (b.district === sd.district && b.subdistrict === sd.subdistrict && b.level === 'is')
           ).reduce(function(acc, value) {            
-            return acc + parseInt(value.get('capacityTotalNoAction'));
+            return acc + parseInt(value.capacityTotalNoAction);
           }, 0),
 
-          scaCapacityIncrease: this.get('scaProjects').filter(
+          scaCapacityIncrease: this.scaProjects.filter(
             (b) => (b.district === sd.district && b.subdistrict === sd.subdistrict && b.includeInCapacity === true)
           ).reduce(function(acc, value) {
-            let v = parseInt(value.get('is_capacity'));
+            let v = parseInt(value.is_capacity);
             if (v) return acc + v;
             return acc;
           }, 0),
 
-          studentsWithAction: this.get('estIsStudents') || 0,
+          studentsWithAction: this.estIsStudents || 0,
         }));
       });
 
