@@ -236,11 +236,13 @@ export default DS.Model.extend({
 
       tables.push(AggregateTotals.create({
         borough: this.borough,
-        studentMultiplier: this.ceqrManual.studentMultipliersFor(this.borough).hs,
         level: 'hs',
 
+        studentMultiplier: this.ceqrManual.studentMultipliersFor(this.borough).hs,
+        schoolTotals: this.schoolTotals.findBy('level', 'hs'),
+
         enroll: this.hsProjections[0] ? this.hsProjections[0].hs : 0,
-        enrollExistingConditions: this.schoolTotals.findBy('level', 'hs').enrollmentTotal,
+        
         students: (
           this.hsStudentsFromHousing
           +
@@ -249,7 +251,6 @@ export default DS.Model.extend({
           }, 0)
         ),
 
-        capacityExisting: this.schoolTotals.findBy('level', 'hs').capacityTotal,
         scaCapacityIncrease: this.scaProjects
           .filterBy('includeInCapacity', true)
           .reduce(function(acc, value) {
@@ -266,6 +267,9 @@ export default DS.Model.extend({
           ...sd,
           level: 'ps',
           studentMultiplier: this.ceqrManual.studentMultipliersFor(this.borough).ps,
+          schoolTotals: this.schoolTotals.find(
+            (b) => (b.district === sd.district && b.subdistrict === sd.subdistrict && b.level === 'ps')
+          ),
 
           enroll: Math.round(
             this.futureEnrollmentProjections.findBy('district', sd.district).ps
@@ -274,9 +278,6 @@ export default DS.Model.extend({
               (i) => (i.district === sd.district && i.subdistrict === sd.subdistrict && i.level === 'PS')
             ).multiplier
           ),
-          enrollExistingConditions: this.schoolTotals.filter(
-            (b) => (b.district === sd.district && b.subdistrict === sd.subdistrict && b.level === 'ps')
-          )[0].enrollmentTotal,
           
           students: (
             // Students from future housing projected by SCA
@@ -292,12 +293,6 @@ export default DS.Model.extend({
             }, 0)
           ),
           
-          capacityExisting: this.schoolTotals.filter(
-            (b) => (b.district === sd.district && b.subdistrict === sd.subdistrict && b.level === 'ps')
-          ).reduce(function(acc, value) {            
-            return acc + parseInt(value.capacityTotalNoAction);
-          }, 0),
-
           scaCapacityIncrease: this.scaProjects.filter(
             (b) => (b.district === sd.district && b.subdistrict === sd.subdistrict && b.includeInCapacity === true)
           ).reduce(function(acc, value) {
@@ -313,7 +308,10 @@ export default DS.Model.extend({
           ...sd,
           level: 'is',
           studentMultiplier: this.ceqrManual.studentMultipliersFor(this.borough).is,
-          
+          schoolTotals: this.schoolTotals.find(
+            (b) => (b.district === sd.district && b.subdistrict === sd.subdistrict && b.level === 'is')
+          ),
+
           enroll: Math.round(
             this.futureEnrollmentProjections.findBy('district', sd.district).ms
             *
@@ -321,10 +319,7 @@ export default DS.Model.extend({
               (i) => (i.district === sd.district && i.subdistrict === sd.subdistrict && i.level === 'MS')
             ).multiplier
           ),
-          enrollExistingConditions: this.schoolTotals.filter(
-            (b) => (b.district === sd.district && b.subdistrict === sd.subdistrict && b.level === 'is')
-          )[0].enrollmentTotal,
-          
+
           students: (
             // Students from future housing projected by SCA
             this.futureEnrollmentNewHousing.find(
@@ -339,12 +334,6 @@ export default DS.Model.extend({
             }, 0)
           ),
           
-          capacityExisting: this.schoolTotals.filter(
-            (b) => (b.district === sd.district && b.subdistrict === sd.subdistrict && b.level === 'is')
-          ).reduce(function(acc, value) {            
-            return acc + parseInt(value.capacityTotalNoAction);
-          }, 0),
-
           scaCapacityIncrease: this.scaProjects.filter(
             (b) => (b.district === sd.district && b.subdistrict === sd.subdistrict && b.includeInCapacity === true)
           ).reduce(function(acc, value) {

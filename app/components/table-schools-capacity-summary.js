@@ -67,15 +67,8 @@ export default Component.extend({
     return { enrollment, developments }
   }),
 
-  NA_plannedSchools: computed('activeSd', 'activeSchoolsLevel', 'project.scaProjects.[]', function() {
-    const capacity = this.get('project.aggregateTotals')
-      .find(
-        (b) => (
-          b.district === this.get('activeSd.district')
-          && b.subdistrict === this.get('activeSd.subdistrict')
-          && b.level === this.get('activeSchoolsLevel')
-        )
-      ).get('scaCapacityIncrease');
+  NA_plannedSchools: computed('activeSd', 'activeSchoolsLevel', 'project.scaProjects.[]', function() {    
+    const capacity = this.futureConditions.scaCapacityIncrease;
     
     const schools = this.get('project.scaProjects')
       .map(b => ({

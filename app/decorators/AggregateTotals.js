@@ -3,6 +3,9 @@ import { computed } from '@ember/object';
 import round from '../utils/round';
 
 export default EmberObject.extend({
+  enrollExistingConditions: computed('schoolTotals', function() {
+    return this.schoolTotals.enrollmentTotal;
+  }),
   enrollNoAction: computed('enroll', 'students', function() {
     return this.enroll + this.students;
   }),
@@ -22,12 +25,16 @@ export default EmberObject.extend({
     return this.enrollWithActionDelta - this.enrollNoActionDelta;
   }),
 
-
-  capacityNoAction: computed('capacityExisting', 'scaCapacityIncrease', function() {
-    console.log(this.capacityExisting);
-    console.log(this.scaCapacityIncrease);
+  capacityExisting: computed('schoolTotals', function() {
+    return this.schoolTotals.capacityTotal;
+  }),
+  capacityFuture: computed('schoolTotals', function() {
+    console.log(this.schoolTotals)
     
-    return this.capacityExisting + this.scaCapacityIncrease;
+    return this.schoolTotals.capacityTotalNoAction;
+  }),
+  capacityNoAction: computed('capacityFuture', 'scaCapacityIncrease', function() {
+    return this.capacityFuture + this.scaCapacityIncrease;
   }),
   capacityNoActionDelta: computed('capacityExisting', 'capacityNoAction', function() {
     return this.capacityNoAction - this.capacityExisting;
