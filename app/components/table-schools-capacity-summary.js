@@ -19,6 +19,100 @@ export default Component.extend({
     this.set('activeSdId', (this.project.subdistricts[0].id).toString());
   },
 
+  activeFutureResidentialDevelopment: computed('activeSchoolsLevel', 'activeSd', 'project.futureResidentialDev.[]', function() {
+    if (this.activeSchoolsLevel === 'hs') {
+      return this.project.futureResidentialDev
+        .map(b => ({
+          ...b,
+          enrollment: b[`${this.activeSchoolsLevel}_students`]
+        }))
+    } else {
+      return this.project.futureResidentialDev
+        .filter((b) => (b.district === this.activeSd.district && b.subdistrict === this.activeSd.subdistrict))
+        .map(b => ({
+          ...b,
+          enrollment: b[`${this.activeSchoolsLevel}_students`]
+        }));
+    }
+  }),
+
+  activeLCMGS: computed('activeSchoolsLevel', 'activeSd', 'project.lcgms.[]', function() {
+    if (this.activeSchoolsLevel === 'hs') {
+      return this.project.lcgms.filterBy('level', 'hs'); 
+    } else {
+      return this.project.lcgms.filter(
+        (b) => (b.district === this.activeSd.district && 
+                b.subdistrict === this.activeSd.subdistrict &&
+                b.level === this.activeSchoolsLevel)
+      ); 
+    }
+  }),
+
+  activeScaProjects: computed('activeSchoolsLevel', 'activeSd', 'project.scaProjects.[]', function() {
+    const projects = this.project.scaProjects
+      .map(b => ({
+        ...b,
+        capacity: b[`${this.activeSchoolsLevel}_capacity`]
+      }));
+
+    if (this.activeSchoolsLevel === 'hs') {
+      return projects.filter((b) => b.includeInCapacity && b.capacity > 0);
+    } else {
+      return projects.filter(
+        (b) => 
+          b.district === this.activeSd.district
+          && b.subdistrict === this.activeSd.subdistrict
+          && b.includeInCapacity
+          && b.capacity > 0
+      );
+    }
+  }),
+
+  activeBuildings: computed('activeSd', 'activeSchoolsLevel', 'project.buildings.[]', function() {
+    const buildings = this.project.buildings.map((b) => ({
+      ...b,
+      capacityDelta: parseInt(b.capacityFuture) - parseInt(b.capacity)
+    }));
+    
+    if (this.activeSchoolsLevel === 'hs') {
+      return buildings.filter(
+        (b) => 
+          ('capacityFuture' in b)
+          && (parseInt(b.capacity) !== parseInt(b.capacityFuture))
+          && b.level === 'hs'
+      );
+    } else {
+      return buildings.filter(
+        (b) => 
+          ('capacityFuture' in b)
+          && (parseInt(b.capacity) !== parseInt(b.capacityFuture))
+          && b.district === this.activeSd.district
+          && b.subdistrict === this.activeSd.subdistrict
+          && b.level === this.activeSchoolsLevel
+      );
+    }
+    
+
+  }),
+
+  activeSchoolsWithAction: computed('activeSd', 'activeSchoolsLevel', 'project.schoolsWithAction.[]', function() {
+    const schools = this.project.schoolsWithAction
+      .map(b => ({
+        ...b,
+        capacity: parseInt(b[`${this.activeSchoolsLevel}_seats`])
+      }))
+    
+    if (this.activeSchoolsLevel === 'hs') { 
+      return schools
+    } else {
+      return schools.filter(
+        (b) => 
+          b.district === this.activeSd.district
+          && b.subdistrict === this.activeSd.subdistrict
+      )
+    }
+  }),
+
   existingConditions: computed('activeSdId', 'activeSchoolsLevel', function() {
     if (this.activeSchoolsLevel === 'hs') {
       return this.project.schoolTotals.findBy('level', 'hs');
@@ -39,12 +133,8 @@ export default Component.extend({
     }
   }),
 
-  EC_newSchoolsOpened: computed('activeSd', 'activeSchoolsLevel', 'project.scaProjects.[]', function() {    
-    const schools    = this.project.lcgms.filter(
-      (b) => (b.district === this.activeSd.district && 
-              b.subdistrict === this.activeSd.subdistrict &&
-              b.level === this.activeSchoolsLevel)
-    ); 
+  EC_newSchoolsOpened: computed('activeSd', 'activeSchoolsLevel', 'activeLCGMS', function() {    
+    const schools = this.activeLCMGS;
 
     const enrollment = schools.mapBy('enroll').reduce((a, v) => a + parseInt(v), 0);
     const capacity   = schools.mapBy('capacity').reduce((a, v) => a + parseInt(v), 0);
@@ -52,13 +142,8 @@ export default Component.extend({
     return { enrollment, capacity, schools };
   }),
 
-  NA_newResidentialDevelopment: computed('activeSd', 'activeSchoolsLevel', 'project.futureResidentialDev.[]', function() {
-    const developments = this.project.futureResidentialDev
-      .filter((b) => (b.district === this.activeSd.district && b.subdistrict === this.activeSd.subdistrict))
-      .map(b => ({
-        ...b,
-        enrollment: b[`${this.activeSchoolsLevel}_students`]
-      }));
+  NA_newResidentialDevelopment: computed('activeSd', 'activeSchoolsLevel', 'activeFutureResidentialDevelopment', function() {
+    const developments = this.activeFutureResidentialDevelopment;
 
     const enrollment = developments
       .mapBy(`${this.activeSchoolsLevel}_students`)
@@ -67,39 +152,15 @@ export default Component.extend({
     return { enrollment, developments }
   }),
 
-  NA_plannedSchools: computed('activeSd', 'activeSchoolsLevel', 'project.scaProjects.[]', function() {    
+  NA_plannedSchools: computed('activeSd', 'activeSchoolsLevel', 'activeScaProjects', function() {    
     const capacity = this.futureConditions.scaCapacityIncrease;
-    
-    const schools = this.project.scaProjects
-      .map(b => ({
-        ...b,
-        capacity: b[`${this.activeSchoolsLevel}_capacity`]
-      }))
-      .filter(
-        (b) => 
-          b.district === this.activeSd.district
-          && b.subdistrict === this.activeSd.subdistrict
-          && b.includeInCapacity
-          && b.capacity > 0
-      );
+    const schools = this.activeScaProjects;
 
     return { capacity, schools }
   }),
 
-  NA_significantUtilChanges: computed('activeSd', 'activeSchoolsLevel', 'project.scaProjects.[]', function() {
-    const schools = this.project.buildings
-      .filter(
-        (b) => 
-          ('capacityFuture' in b)
-          && (parseInt(b.capacity) !== parseInt(b.capacityFuture))
-          && b.district === this.activeSd.district
-          && b.subdistrict === this.activeSd.subdistrict
-          && b.level === this.activeSchoolsLevel
-      )
-      .map((b) => ({
-        ...b,
-        capacityDelta: parseInt(b.capacityFuture) - parseInt(b.capacity)
-      }));
+  NA_significantUtilChanges: computed('activeSd', 'activeSchoolsLevel', 'project.buildings.[]', function() {
+    const schools = this.activeBuildings;
     
     const capacityDelta = schools
       .reduce((a, b) => a + b.capacityDelta, 0);
@@ -108,16 +169,7 @@ export default Component.extend({
   }),
 
   WA_newSchools: computed('activeSd', 'activeSchoolsLevel', 'project.schoolsWithAction.[]', function() {
-    const schools = this.project.schoolsWithAction
-      .map(b => ({
-        ...b,
-        capacity: parseInt(b[`${this.activeSchoolsLevel}_seats`])
-      }))
-      .filter(
-        (b) => 
-          b.district === this.activeSd.district
-          && b.subdistrict === this.activeSd.subdistrict
-      )
+    const schools = this.activeSchoolsWithAction;
 
     const capacity = schools
       .mapBy('capacity')

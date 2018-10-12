@@ -260,6 +260,9 @@ export default DS.Model.extend({
           }, 0),
 
         studentsWithAction: this.estHsStudents || 0,
+        newCapacityWithAction: this.schoolsWithAction.reduce(function(acc, value) {
+          return acc + parseInt(value.hs_seats);
+        }, 0),
       }));
 
       this.subdistricts.map((sd) => {
@@ -302,6 +305,11 @@ export default DS.Model.extend({
           }, 0),
 
           studentsWithAction: this.estEsStudents || 0,
+          newCapacityWithAction: this.schoolsWithAction.filter(
+            (b) => (b.district === sd.district && b.subdistrict === sd.subdistrict)
+          ).reduce(function(acc, value) {
+            return acc + parseInt(value.ps_seats);
+          }, 0),
         }));
 
         tables.push(AggregateTotals.create({
@@ -343,6 +351,11 @@ export default DS.Model.extend({
           }, 0),
 
           studentsWithAction: this.estIsStudents || 0,
+          newCapacityWithAction: this.schoolsWithAction.filter(
+            (b) => (b.district === sd.district && b.subdistrict === sd.subdistrict)
+          ).reduce(function(acc, value) {
+            return acc + parseInt(value.is_seats);
+          }, 0),
         }));
       });
 

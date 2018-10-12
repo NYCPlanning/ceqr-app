@@ -28,9 +28,7 @@ export default EmberObject.extend({
   capacityExisting: computed('schoolTotals', function() {
     return this.schoolTotals.capacityTotal;
   }),
-  capacityFuture: computed('schoolTotals', function() {
-    console.log(this.schoolTotals)
-    
+  capacityFuture: computed('schoolTotals', function() {    
     return this.schoolTotals.capacityTotalNoAction;
   }),
   capacityNoAction: computed('capacityFuture', 'scaCapacityIncrease', function() {
@@ -39,8 +37,8 @@ export default EmberObject.extend({
   capacityNoActionDelta: computed('capacityExisting', 'capacityNoAction', function() {
     return this.capacityNoAction - this.capacityExisting;
   }),
-  capacityWithAction: computed('', function() {
-    return this.capacityNoAction;
+  capacityWithAction: computed('capacityNoAction', 'newCapacityWithAction', function() {
+    return this.capacityNoAction + this.newCapacityWithAction;
   }),
   capacityWithActionDelta: computed('capacityExisting', 'capacityNoAction', function() {
     return this.capacityWithAction - this.capacityExisting;
