@@ -41,7 +41,8 @@ Router.map(function() {
         });
       });
 
-      this.route('transportation');
+      // TODO: Soon.
+      // this.route('transportation');
 
       this.route('summary', function() {
         this.route('schools-capacity');
