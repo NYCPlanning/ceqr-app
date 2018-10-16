@@ -6,6 +6,11 @@ import SchoolTotals from '../decorators/SchoolTotals';
 import AggregateTotals from '../decorators/AggregateTotals';
 
 export default DS.Model.extend({  
+  // init() {
+  //   const ceqrManual = this.get('store').findRecord('ceqr-manual', 'march-2014');
+  //   this.set('ceqrManual', ceqrManual);
+  // },
+  
   currentUser: service(),
   
   setCeqrManual(manual) {
@@ -13,7 +18,13 @@ export default DS.Model.extend({
   },
 
   // user: DS.attr('string'),
-  users: DS.hasMany('user'),
+  users: DS.hasMany('user', { inverse: 'projects' }),
+  viewers: DS.hasMany('user', { inverse: 'projects_viewable' }),
+
+  viewOnly: computed('viewers.[]', function() {    
+    return this.viewers.mapBy('id').includes(this.currentUser.user.id);
+  }),
+
   created_at: DS.attr('number'),
   updated_at: DS.attr('number'),
   updated_by: DS.attr('string'),

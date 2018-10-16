@@ -32,16 +32,18 @@
       </div> 
     </div>
 
-    <div class="item">
-      {{#link-to
-        "project.show.edit"
-        project.id
-        class="ui primary compact basic icon button"
-      }}
-        <i class="edit icon"></i>
-        Edit
-      {{/link-to}}
-    </div>
+    {{#unless project.viewOnly}}
+      <div class="item">
+        {{#link-to
+          "project.show.edit"
+          project.id
+          class="ui primary compact basic icon button"
+        }}
+          <i class="edit icon"></i>
+          Edit
+        {{/link-to}}
+      </div>
+    {{/unless}}
   </div>
 </div>
 
@@ -71,14 +73,16 @@
 
   {{#if (eq currentChapter "schools-capacity")}}
     <div class="ui right floated buttons">
-      {{#link-to
-        "project.show.schools-capacity"
-        project.id
-        class=(if onSummary "ui right basic teal compact icon button" "ui right teal compact icon button")
-      }}
-        <i class="calculator icon"></i>
-        Workbook
-      {{/link-to}}
+      {{#unless project.viewOnly}}
+        {{#link-to
+          "project.show.schools-capacity"
+          project.id
+          class=(if onSummary "ui right basic teal compact icon button" "ui right teal compact icon button")
+        }}
+          <i class="calculator icon"></i>
+          Workbook
+        {{/link-to}}
+      {{/unless}}
 
       {{#link-to 
         "project.show.summary.schools-capacity"

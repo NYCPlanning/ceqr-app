@@ -19,10 +19,6 @@ export default Component.extend({
     }
   },
 
-  didInsertElement() {
-    // this.$('table').tablesort();
-  },
-
   table: computed('activeSdId', 'activeSchoolsLevel', function() {
     if (this.get('activeSchoolsLevel') === 'hs') {
       return this.get('project.schoolTotals').findBy('level', 'hs');

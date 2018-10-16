@@ -6,7 +6,7 @@ export default Route.extend({
   currentUser: service(),
 
   async model() {
-    return this.store.findAll('project').then(function(projects) {
+    return this.store.findAll('project', { reload: true }).then(function(projects) {
       return projects.filterBy('isNew', false);
     });
   },

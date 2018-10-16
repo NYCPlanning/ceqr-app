@@ -29,14 +29,18 @@
                   {{/if}}
                 </td>
                 <td class="actions">
-                  {{#link-to 'project.show.edit' project.id class="ui compact small labeled primary icon button"}}
-                    <i class="edit icon"></i>
-                    Edit
-                  {{/link-to}}
+                  {{#if project.viewOnly}}
+                    (summary only)
+                  {{else}}
+                    {{#link-to 'project.show.edit' project.id class="ui compact small labeled primary icon button"}}
+                      <i class="edit icon"></i>
+                      Edit
+                    {{/link-to}}
 
-                  <button class="ui compact small negative icon button" {{action 'deleteModal' project.id}}>
-                    <i class="trash icon"></i>
-                  </button>
+                    <button class="ui compact small negative icon button" {{action 'deleteModal' project.id}}>
+                      <i class="trash icon"></i>
+                    </button>
+                  {{/if}}
                 </td>
               </tr>
             {{/each}}

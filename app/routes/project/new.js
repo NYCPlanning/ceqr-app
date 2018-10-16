@@ -1,6 +1,7 @@
 import Route from '@ember/routing/route';
 import RSVP from 'rsvp';
 import { inject as service } from '@ember/service';
+import { debug } from '@ember/debug';
 
 export default Route.extend({
   controllerName: 'edit-project',
@@ -28,7 +29,7 @@ export default Route.extend({
       changeset.validate().then(() => {
         if (changeset.get("isValid")) {
           changeset.save().catch(error => {
-            console.log(error);
+            debug(error);
           }).then(() => {
             this.get('transportation').set('project', this.get('controller.model.project'));
             this.get('transportation.initialLoad').perform();

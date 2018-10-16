@@ -17,7 +17,7 @@ module.exports = function(defaults) {
   });
 
   // app.import('vendor/carto-vl/carto-vl.min.js');
-  app.import('vendor/jquery-tablesort-semantic-ui/tablesort.js');
+  // app.import('vendor/jquery-tablesort-semantic-ui/tablesort.js');
 
   // Use `app.import` to add additional libraries to the generated
   // output files.

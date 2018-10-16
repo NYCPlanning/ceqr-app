@@ -150,6 +150,15 @@ td {
   }
 }
 
+
+// Project Users
+.project-users {
+  .list > .item {
+    padding: 5px 0;
+  }
+}
+
+
 // Summary Page
 table.school-summary-sections {
   border-collapse: collapse !important;
@@ -165,7 +174,6 @@ table.school-summary-sections {
 
 
 // Projects Index
-
 .row.px20 {
   margin-top: 20px;
 }
