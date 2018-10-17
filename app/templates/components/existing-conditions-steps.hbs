@@ -14,9 +14,11 @@
       class="item"
     }}
       Study Area 
-      {{#if studyAreaNotice}}
-        <div class="ui label orange">
-          <i class="attention icon" style="margin: 0"></i>
+      {{#if 
+        (or project.esSchoolChoice project.isSchoolChoice (gt project.subdistrictsFromDb.length 1))
+      }}
+        <div class="ui basic label orange">
+          <i class="attention orange icon" style="margin: 0"></i>
         </div>
       {{/if}}
     {{/link-to}}
