@@ -133,9 +133,6 @@ td {
   }
 }
 
-
-
-
 .login.row {
   margin-top: 100px;
 }
@@ -148,6 +145,13 @@ td {
   &.grid {
     height: 100%; 
   }
+}
+
+
+// Tooltips
+
+i.icon.tooltip {
+  font-size: 0.6em;
 }
 
 

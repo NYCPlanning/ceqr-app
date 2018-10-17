@@ -2,11 +2,6 @@
   <div class="ui message">
     <div class="header">Instructions</div>
     <p>
-      Include capacity of new school if estimated completion date is before the project's
-      build year AND % funded is 80% or higher. Consult lead agency to confirm inclusion of school.
-    </p>
-
-    <p>
       Refer to 
       <a 
         target="_blank"
@@ -23,14 +18,31 @@
       <thead>
         <th colspan="8">District {{t.district}} - Subdistrict {{t.subdistrict}}</th>
         <tr>
-          <th class="five wide">School Under Construction</th>
-          <th class="two wide">Estimated Completion Date</th>
-          <th class="two wide">% Funded</th>
-          <th class="one wide">Future Capacity</th>
-          <th class="one wide">Est. PS Capacity</th>
-          <th class="one wide">Est. IS Capacity</th>
-          <th class="one wide">Est. HS Capacity</th>
-          <th class="one wide">Include?</th>
+          <th rowspan="2" class="four wide">School Under Construction</th>
+          <th rowspan="2" class="two wide">Estimated Completion Date</th>
+          <th rowspan="2" class="two wide">% Funded</th>
+          <th rowspan="2" class="one wide">Future Capacity</th>
+          <th colspan="3" class="three wide">
+            Estimated Capacity
+            {{ui-popup 
+              tagName="i"
+              class="tooltip circular inverted question icon"
+              content="Confirm capacity allocations with SCA. Exclude charter and special education seats."
+            }}
+          </th>
+          <th rowspan="2" class="two wide">
+            Include in Analysis
+            {{ui-popup 
+              tagName="i"
+              class="tooltip circular inverted question icon"
+              content="In general, include if school will be complete before the project and % funded is 80% or higher."
+            }}
+          </th>
+        </tr>
+        <tr>
+          <th>PS</th>
+          <th>MS</th>
+          <th>HS</th>
         </tr>
       </thead>
       <tbody>

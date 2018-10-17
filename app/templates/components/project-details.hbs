@@ -1,72 +1,88 @@
 
-    <div class="ui segments">
-      <div class="ui grey segment">
-        <form class="ui form">
-          <div class="field">
-            <div class="two fields">
-              <div class="twelve wide field">
-                <label>Project Name</label>
-                {{input type="text" name="name" value=project.name placeholder="Project Name"}}
-              </div>
-              <div class="six wide field">
-                <label>CEQR Number</label>
-                {{input type="text" name="ceqr_number" value=project.ceqr_number placeholder="CEQR Number"}}
-              </div>
-              <div class="four wide field">
-                <label>Est. Build Year</label>
-
-                {{#ui-dropdown class="selection" selected=project.buildYear onChange=(action (mut project.buildYear))}}
-                  <div class="default text">Build Year</div>
-                  <i class="dropdown icon"></i>
-                  <div class="menu">
-                    {{#each buildYearRange as |year|}}
-                      <div data-value={{year}} class="item">{{year}}</div>
-                    {{/each}}
-                  </div>
-                {{/ui-dropdown}}
-              </div>
-            </div>
+  <div class="ui grey segment">
+    <form class="ui form">
+      <div class="field">
+        <div class="two fields">
+          <div class="twelve wide field">
+            <label>Project Name</label>
+            {{input type="text" name="name" value=project.name placeholder="Project Name"}}
           </div>
-        </form>
+          <div class="four wide field">
+            <label>Est. Build Year</label>
 
-        {{bbl-list model=project}}
+            {{#ui-dropdown
+              class="selection"
+              selected=project.buildYear
+              onChange=(action (mut project.buildYear))
+            }}
+              <div class="default text">Build Year</div>
+              <i class="dropdown icon"></i>
+              <div class="menu">
+                {{#each buildYearRange as |year|}}
+                  <div data-value={{year}} class="item">{{year}}</div>
+                {{/each}}
+              </div>
+            {{/ui-dropdown}}
+          </div>
+          <div class="six wide field">
+            <label>CEQR Number</label>
+            {{input
+              type="text"
+              name="ceqr_number"
+              value=project.ceqr_number
+              placeholder="CEQR Number"
+            }}
+          </div>
+        </div>
       </div>
+    </form>
+  </div>
 
-      <div class="ui grey segment">
-        {{total-unit-count model=project}}
-      </div>
-    </div>
+  <div class="ui top attached header">
+    Project Area
+  </div>
+  <div class="ui bottom attached segment">
+    {{bbl-list model=project}}
+  </div>
+
+  <div class="ui top attached header">
+    Project Attributes
+  </div>
+  <div class="ui bottom attached segment">
+    {{total-unit-count model=project}}
+  </div>
+
+
+{{#if project.isInvalid}}
+  <div class="ui error message">
+    <ul class="list">
+      {{#each project.errors as |errorSet|}}
+        {{#each errorSet.validation as |error|}}
+          <li>{{error}}</li>
+        {{/each}}
+      {{/each}}
+    </ul>
+  </div>
+{{/if}}
+
+{{#if project.isNew}}
+  <div class="sixteen wide column">
+    <button class="ui primary button" {{action "save"}}>
+      Create Project <i class="arrow right icon"></i>
+    </button>
+  </div>
+{{else}}
+  <div class="sixteen wide column">
+    <button class="ui button" {{action "back"}}>
+      Back
+    </button>
+
+    <button class="ui button" {{action "rollback"}}>
+      Reset
+    </button>
     
-    {{#if project.isInvalid}}
-      <div class="ui error message">
-        <ul class="list">
-          {{#each project.errors as |errorSet|}}
-            {{#each errorSet.validation as |error|}}
-              <li>{{error}}</li>
-            {{/each}}
-          {{/each}}
-        </ul>
-      </div>
-    {{/if}}
-
-  {{#if project.isNew}}
-    <div class="sixteen wide column">
-      <button class="ui primary button" {{action "save"}}>
-        Create Project <i class="arrow right icon"></i>
-      </button>
-    </div>
-  {{else}}
-    <div class="sixteen wide column">
-      <button class="ui button" {{action "back"}}>
-        Back
-      </button>
-
-      <button class="ui button" {{action "rollback"}}>
-        Reset
-      </button>
-      
-      <button class="ui primary button" {{action "save"}}>
-        Save Project
-      </button>
-    </div>
-  {{/if}}
+    <button class="ui primary button" {{action "save"}}>
+      Save Project
+    </button>
+  </div>
+{{/if}}

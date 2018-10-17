@@ -2,10 +2,17 @@
   <div class="ui message">
     <div class="header">Instructions</div>
     <p>
-      This step is intended to identify DOE plans for re-purposing underutilized school space that could radically 
-      alter available capacity in the future. Use the PEP (Panel for Educational Policy) Vote Date to access a more
-      detailed view of the relevant school utilization proposal. Consult the lead agency for detailed assumptions on
-      impact of specific changes on capacity.
+      This step is intended to identify DOE plans for re-purposing underutilized school space that could radically alter available capacity in the future. To view the relevant school utilization proposal in detail:
+    </p>
+
+    <ul>
+      <li>Click on the link included under Proposal Title</li>
+      <li>Navigate to the Proposal Date to view all school utilization proposals from that date</li>
+      <li>Search by Proposal Title to locate the specific document</li>
+    </ul>
+
+    <p>
+      Consult the lead agency for detailed assumptions on impact of specific changes on capacity.
     </p>
   </div>
 
@@ -38,7 +45,14 @@
                 <th class="five wide">Building Name</th>
                 <th class="one wide">Level</th>
                 <th class="one wide">Current Capacity</th>
-                <th class="one wide">{{project.buildYear}} Capacity</th>
+                <th class="one wide">
+                  {{project.buildYear}} Capacity
+                  {{ui-popup 
+                    tagName="i"
+                    class="tooltip circular inverted question icon"
+                    content="Adjust future capacity based on the relevant DOE proposal listed below."
+                  }}
+                </th>
                 <th class="one wide">Capacity Δ</th>
               </tr>
             </thead>

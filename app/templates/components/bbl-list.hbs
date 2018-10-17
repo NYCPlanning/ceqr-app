@@ -1,25 +1,37 @@
+<div class="ui message">
+  <p>
+    Select 1 or more BBLs included in the project area.
+  </p>
+</div>
+
 <div class="ui grid">
   <div class="row">
     <div class="sixteen wide column">
       <div class="ui action input">
         <form class="ui form" {{action "addBbl" bbl on="submit"}}>
-          <div class="three fields">
+          <div class="fields">
             <div class="field">
-              {{input
-                type="text"
-                name="bbl"
-                value=bbl
-                placeholder="BBL"
-                maxlength=10
-                enter=(action "addBbl")
-              }}
+              <div class="ui action input">
+                {{input
+                  type="text"
+                  name="bbl"
+                  value=bbl
+                  placeholder="BBL"
+                  maxlength=10
+                  enter=(action "addBbl")
+                }}
+                <button type="submit" class="ui primary button">Add</button>
+              </div>
             </div>
+              
             <div class="field">
-              <button type="submit" class="ui button">Add</button>
-            </div>
-            <div class="field">
-              <a href="https://zola.planning.nyc.gov" target="_blank" rel="noopener">
-                ZoLa <i class="external alternate icon"></i>
+              <a
+                href="https://zola.planning.nyc.gov"
+                target="_blank"
+                rel="noopener"
+                class="ui button basic"
+              >
+                Go to ZoLa <i class="external alternate icon"></i>
               </a>
             </div>
           </div>
