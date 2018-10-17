@@ -21,49 +21,6 @@ export default Component.extend({
       }
     });
   },
-
-  onWhitelist(email) {
-    const domain_whitelist = [
-      'planning.nyc.gov',
-      'omb.nyc.gov',
-      'nypl.org',
-      'queenslibrary.org',
-      'brooklynpubliclibrary.org',
-      'nycsca.org',
-      'schools.nyc.gov',
-      'nypd.org',
-      'fdny.nyc.gov',
-      'acs.nyc.gov',
-      'dhs.nyc.gov',
-      'hra.nyc.gov',
-      'aging.nyc.gov',
-      'culture.nyc.gov',
-      'sbs.nyc.gov',
-      'edc.nyc',
-      'nycedc.com',
-      'hpd.nyc.gov',
-      'dob.nyc.gov',
-      'health.nyc.gov',
-      'nychhc.org',
-      'dep.nyc.gov',
-      'dsny.nyc.gov',
-      'dot.nyc.gov',
-      'parks.nyc.gov',
-      'dcas.nyc.gov',
-      'nycha.nyc.gov',
-      'nyct.com',
-      'cityhall.nyc.gov',
-      'ddc.nyc.gov',
-      'sustainability.nyc.gov',
-      // Testing address
-      'pichot.us'
-    ];
-  
-    return domain_whitelist.some((domain) => {
-      const emailSplit = email.split('@');
-      return emailSplit[emailSplit.length - 1].toLowerCase() === domain;
-    });
-  },
   
   actions: {
     createUser: function(user) {      
@@ -74,12 +31,12 @@ export default Component.extend({
         },
         body: JSON.stringify(user),
       }).then((res) => {
-        if (res.status !== 201) {
-          this.set('error', { message: "The account could not be created"})
-        } else if (!this.onWhitelist(user.email)) {
+        if (res.status === 201) {
+          this.get('router').transitionTo('signup.email')
+        } else if (res.status === 202) {
           this.get('router').transitionTo('signup.in-review')
         } else {
-          this.get('router').transitionTo('signup.email')
+          this.set('error', { message: "The account could not be created"})
         }        
       }).catch((err) =>
         this.set('error', { message: err })
