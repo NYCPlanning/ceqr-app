@@ -8,6 +8,10 @@ const Router = EmberRouter.extend({
 
 Router.map(function() {
   this.route('login');
+
+  this.route('password-reset', {path: '/password-reset/:id'});
+  this.route('request-password-reset');
+
   this.route('signup', function() {
     this.route('email');
     this.route('in-review');

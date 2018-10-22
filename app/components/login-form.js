@@ -5,6 +5,7 @@ import $ from 'jquery';
 export default Component.extend({
   session: service(),
   router: service(),
+  flashMessages: service(),
 
   init() {
     this._super(...arguments);

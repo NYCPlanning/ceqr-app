@@ -9,6 +9,7 @@ module.exports = function(environment) {
       serverTokenEndpoint: '/api/token-auth/', // actually set in environment
       refreshAccessTokens: false,
     },
+
     modulePrefix: 'cp-ceqr-schools',
     environment,
     rootURL: '/',
