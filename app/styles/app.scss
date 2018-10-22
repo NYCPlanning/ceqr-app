@@ -1,6 +1,75 @@
-.ui.grid.site {
-  padding-top: 70px;
+// Body & containter
+
+html, body {
+  height: 100%;
 }
+
+body > .ember-view {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+body .ui.fixed.menu.top-bar {
+  top: 21px;
+}
+
+body .ui.grid.container {
+  margin: 70px 0 40px;
+}
+
+.beta-notice {
+  position: fixed;
+  display: block;
+  
+  color: #fff;
+  font-size: 12px;
+  font-weight: bold;
+  height: 21px;
+  line-height: 21px;
+  width: 100%;
+  text-align: center;
+  background-color: #D96B27;
+  box-shadow: inset 0 -4px 0 rgba(0,0,0,0.1);
+  z-index: 101;
+
+  &:hover, &:focus {
+    color: #fff;
+    background-color: #b95b21;
+    text-decoration: none;
+  }
+}
+
+footer {
+  margin-top: auto;
+  height: 225px;
+
+  border-top: 1px solid #DDDDDD;
+  box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.08) inset;
+  background-color: #FAFAFA;
+  padding-top: 2em;
+
+  .planning-logo {
+    height: 46px;
+    margin-right: 10px;
+  }
+
+  .moec-logo {
+    height: 46px;
+  }
+
+  .soft {
+    color: grey;
+  }
+
+  .disclaimer {
+    color: grey;
+    font-size: 0.9em;
+  }
+}
+
+
+// Project
 
 .ui.selection.dropdown {
   min-width: 8em;
