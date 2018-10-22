@@ -12,6 +12,9 @@ export default Route.extend(ApplicationRouteMixin, {
   sessionAuthenticated() {
     this._super(...arguments);
     this._loadCurrentUser();
+
+    // Not sure this is working
+    window.$crisp.push(["set", "user:email", [this.currentUser.user.email]])
   },
 
   _loadCurrentUser() {

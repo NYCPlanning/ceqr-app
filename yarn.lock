@@ -3122,6 +3122,24 @@ ember-cli-babel@^6.0.0, ember-cli-babel@^6.0.0-beta.4, ember-cli-babel@^6.0.0-be
     ember-cli-version-checker "^2.1.2"
     semver "^5.5.0"
 
+ember-cli-babel@^6.1.0, ember-cli-babel@^6.9.0:
+  version "6.17.2"
+  resolved "https://registry.yarnpkg.com/ember-cli-babel/-/ember-cli-babel-6.17.2.tgz#f0d53d2fb95e70c15d8db84760d045f88f458f69"
+  dependencies:
+    amd-name-resolver "1.2.0"
+    babel-plugin-debug-macros "^0.2.0-beta.6"
+    babel-plugin-ember-modules-api-polyfill "^2.5.0"
+    babel-plugin-transform-es2015-modules-amd "^6.24.0"
+    babel-polyfill "^6.26.0"
+    babel-preset-env "^1.7.0"
+    broccoli-babel-transpiler "^6.5.0"
+    broccoli-debug "^0.6.4"
+    broccoli-funnel "^2.0.0"
+    broccoli-source "^1.1.0"
+    clone "^2.0.0"
+    ember-cli-version-checker "^2.1.2"
+    semver "^5.5.0"
+
 ember-cli-babel@^6.16.0:
   version "6.17.1"
   resolved "https://registry.yarnpkg.com/ember-cli-babel/-/ember-cli-babel-6.17.1.tgz#db2d325da1975149b688177f44915903fa2ecb9f"
@@ -3151,24 +3169,6 @@ ember-cli-babel@^6.3.0:
     babel-polyfill "^6.26.0"
     babel-preset-env "^1.7.0"
     broccoli-babel-transpiler "^6.4.2"
-    broccoli-debug "^0.6.4"
-    broccoli-funnel "^2.0.0"
-    broccoli-source "^1.1.0"
-    clone "^2.0.0"
-    ember-cli-version-checker "^2.1.2"
-    semver "^5.5.0"
-
-ember-cli-babel@^6.9.0:
-  version "6.17.2"
-  resolved "https://registry.yarnpkg.com/ember-cli-babel/-/ember-cli-babel-6.17.2.tgz#f0d53d2fb95e70c15d8db84760d045f88f458f69"
-  dependencies:
-    amd-name-resolver "1.2.0"
-    babel-plugin-debug-macros "^0.2.0-beta.6"
-    babel-plugin-ember-modules-api-polyfill "^2.5.0"
-    babel-plugin-transform-es2015-modules-amd "^6.24.0"
-    babel-polyfill "^6.26.0"
-    babel-preset-env "^1.7.0"
-    broccoli-babel-transpiler "^6.5.0"
     broccoli-debug "^0.6.4"
     broccoli-funnel "^2.0.0"
     broccoli-source "^1.1.0"
@@ -3728,6 +3728,15 @@ ember-maybe-import-regenerator@^0.1.5, ember-maybe-import-regenerator@^0.1.6:
     broccoli-merge-trees "^1.0.0"
     ember-cli-babel "^6.0.0-beta.4"
     regenerator-runtime "^0.9.5"
+
+ember-metrics@^0.12.1:
+  version "0.12.1"
+  resolved "https://registry.yarnpkg.com/ember-metrics/-/ember-metrics-0.12.1.tgz#8659343bf7b8bda403e70d482ff59cc9714d89f6"
+  dependencies:
+    broccoli-funnel "^1.0.1"
+    ember-cli-babel "^6.1.0"
+    ember-getowner-polyfill "^2.0.0"
+    ember-runtime-enumerable-includes-polyfill "^2.0.0"
 
 ember-moment@^7.7.0:
   version "7.7.0"

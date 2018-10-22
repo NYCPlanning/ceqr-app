@@ -9,6 +9,23 @@ module.exports = function(environment) {
       serverTokenEndpoint: '/api/token-auth/', // actually set in environment
       refreshAccessTokens: false,
     },
+    metricsAdapters: [
+      {
+        name: 'GoogleAnalytics',
+        environments: ['development', 'production'],
+        config: {
+          id: 'UA-84250233-14',
+          // Use `analytics_debug.js` in development
+          // debug: environment === 'development',
+          // Use verbose tracing of GA events
+          // trace: environment === 'development',
+          // Ensure development env hits aren't sent to GA
+          sendHitTask: environment !== 'development',
+          // Specify Google Analytics plugins
+          // require: ['ecommerce']
+        }
+      }
+    ],
 
     modulePrefix: 'cp-ceqr-schools',
     environment,
