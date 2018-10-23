@@ -5,12 +5,7 @@ import { inject as service } from '@ember/service';
 import SchoolTotals from '../decorators/SchoolTotals';
 import AggregateTotals from '../decorators/AggregateTotals';
 
-export default DS.Model.extend({  
-  // init() {
-  //   const ceqrManual = this.get('store').findRecord('ceqr-manual', 'march-2014');
-  //   this.set('ceqrManual', ceqrManual);
-  // },
-  
+export default DS.Model.extend({    
   currentUser: service(),
   
   setCeqrManual(manual) {
@@ -32,7 +27,7 @@ export default DS.Model.extend({
   name: DS.attr('string'),
   buildYear: DS.attr('number'),
   bbls: DS.attr('', { defaultValue() { return []; } }),
-  ceqr_number: DS.attr('string'),
+  ceqrNumber: DS.attr('string'),
   borough: DS.attr('string', { defaultValue: 'Bronx' }),
   boroCode: computed('borough', function() {
     switch (this.get('borough')) {
