@@ -1,61 +1,64 @@
-<div class="ui center aligned grid">
-  <div class="row login">
-    <div class="ten wide column left aligned">
-      <div class="row">
-        {{#each flashMessages.queue as |flash|}}
-          {{#flash-message flash=flash as |component flash|}}
-            <div class="ui {{component.flashType}} message">
-              <p>{{flash.message}}</p>
-            </div>
-          {{/flash-message}}
-        {{/each}}
+<div class="ui grid container">
+  <div class="ten wide centered column">
+    <h2 class="ui blue header">
+      <div class="content">
+        Log in to CEQR App
       </div>
-
-      <div class="ui placeholder segment">
-        <div class="ui two column very relaxed stackable grid">
-          <div class="column">
-            <form class="ui form {{if error "error"}}" {{action "logIn" login on="submit"}}>
-              <div class="field">
-                <div class="ui left icon input">
-                  <i class="user icon"></i>
-                  {{input type="text" name="email" value=login.email placeholder="Email"}}
-                </div>
-              </div>
-              <div class="field">
-                <div class="ui left icon input">
-                  <i class="lock icon"></i>
-                  {{input 
-                    type="password"
-                    name="password"
-                    value=login.password
-                    placeholder="Password"
-                  }}
-                </div>
-              </div>
-              <button type="submit" class="ui blue submit button">Login</button>
-
-              {{#link-to "request-password-reset"}}
-                Forgot your password?
-              {{/link-to}}
-
-              <div class="ui left error message">
-                <div class="header">Error</div>
-                <p>{{error.message}}</p>
-              </div>
-            </form>
+    </h2>
+    
+    <div class="row">
+      {{#each flashMessages.queue as |flash|}}
+        {{#flash-message flash=flash as |component flash|}}
+          <div class="ui {{component.flashType}} message">
+            <p>{{flash.message}}</p>
           </div>
-          <div class="middle aligned column">
-            {{#link-to "signup" class="ui big button"}}
-              <i class="signup icon"></i>
-              Sign Up
+        {{/flash-message}}
+      {{/each}}
+    </div>
+
+    <div class="ui placeholder segment">
+      <div class="ui two column very relaxed stackable grid">
+        <div class="column">
+          <form class="ui form {{if error "error"}}" {{action "logIn" login on="submit"}}>
+            <div class="field">
+              <div class="ui left icon input">
+                <i class="user icon"></i>
+                {{input type="text" name="email" value=login.email placeholder="Email"}}
+              </div>
+            </div>
+            <div class="field">
+              <div class="ui left icon input">
+                <i class="lock icon"></i>
+                {{input 
+                  type="password"
+                  name="password"
+                  value=login.password
+                  placeholder="Password"
+                }}
+              </div>
+            </div>
+            <button type="submit" class="ui blue submit button">Login</button>
+
+            {{#link-to "request-password-reset"}}
+              Forgot your password?
             {{/link-to}}
-          </div>
+
+            <div class="ui left error message">
+              <div class="header">Error</div>
+              <p>{{error.message}}</p>
+            </div>
+          </form>
         </div>
-        <div class="ui vertical divider">
-          Or
+        <div class="middle aligned center aligned column">
+          {{#link-to "signup" class="ui big button"}}
+            <i class="signup icon"></i>
+            Sign Up
+          {{/link-to}}
         </div>
+      </div>
+      <div class="ui vertical divider">
+        Or
       </div>
     </div>
   </div>
 </div>
-
