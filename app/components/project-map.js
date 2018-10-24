@@ -1,7 +1,7 @@
 import Component from '@ember/component';
 import { inject as service } from '@ember/service';
-import { observer } from '@ember/object';
-import { alias } from '@ember/object/computed';
+// import { observer } from '@ember/object';
+// import { alias } from '@ember/object/computed';
 import mapboxgl from 'mapbox-gl';
 import mapColors from '../utils/mapColors';
 
@@ -30,11 +30,10 @@ export default Component.extend({
     this.get('tablehover').off('unhover', this, 'dotUnhover');
   },
 
-  // currentRoute: alias('router.currentRouteName'),
 
   // Map Observers
-  // showSCAProjects: observer('map', function() {
-  //   // console.log('obs')
+  // showSCAProjects: observer('router.currentRouteName', function() {
+  //   console.log('obs')
     
   //   if (this.router.currentRouteName.includes('under-construction')) {
   //     this.map.setLayoutProperty('scaprojects', 'visibility', 'visible')
