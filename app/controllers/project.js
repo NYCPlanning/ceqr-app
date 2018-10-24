@@ -14,4 +14,8 @@ export default Controller.extend({
     const current = this.get('router.currentRouteName')
     return (current.includes('existing-conditions') || current.includes('no-action'));
   }),
+
+  // schoolsCapacitySection: computed('router.currentRouteName', function() {
+  
+  // }),
 });

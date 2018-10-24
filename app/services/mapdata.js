@@ -109,8 +109,8 @@ export default Service.extend({
   }),
   fetchScaProjects: task(function*() { 
     return yield carto.SQL(`
-      SELECT the_geom, bbl, school
-      FROM sca_project_sites_v03222018
+      SELECT cartodb_id, the_geom, planned_end_date, name, org_level
+      FROM sca_capital_projects_v102018
       WHERE cartodb_id IN (${this.get('project.scaProjectsCartoIds').join(',')})
     `, 'geojson')
   }).drop(),

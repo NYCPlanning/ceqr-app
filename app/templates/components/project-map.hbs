@@ -1,9 +1,13 @@
 {{#mapbox-gl 
-  id='study-area-map' mapLoaded=(action 'handleMapLoad') initOptions=(hash
-    style='mapbox://styles/mapbox/light-v9'
+  id="study-area-map"
+  mapLoaded=(action "handleMapLoad")
+  initOptions=(hash
+    style="mapbox://styles/mapbox/light-v9"
     zoom=9.2
     center=(array -74 40.7071266)
-  ) as |map| }}
+  )
+as |map| 
+}}
 
   <div class="map-ui">
     <div class="zone-dropdown">
@@ -44,81 +48,81 @@
       </div>
       <div class="ui divider" style="margin: 0.5rem 0rem"></div>
       <div class="item">
-        <i class="circle icon" style={{map-color-for 'ps'}}></i>
+        <i class="circle icon" style={{map-color-for "ps"}}></i>
         <div class="content">Primary School</div>
       </div>
       <div class="item">
-        <i class="circle icon" style={{map-color-for 'psis'}}></i>
+        <i class="circle icon" style={{map-color-for "psis"}}></i>
         <div class="content">Primary/Intermediate School</div>
       </div>
       <div class="item">
-        <i class="circle icon" style={{map-color-for 'is'}}></i>
+        <i class="circle icon" style={{map-color-for "is"}}></i>
         <div class="content">Intermediate School</div>
       </div>
       <div class="item">
-        <i class="circle icon" style={{map-color-for 'ishs'}}></i>
+        <i class="circle icon" style={{map-color-for "ishs"}}></i>
         <div class="content">Intermediate/High School</div>
       </div>
       <div class="item">
-        <i class="circle icon" style={{map-color-for 'hs'}}></i>
+        <i class="circle icon" style={{map-color-for "hs"}}></i>
         <div class="content">High School</div>
       </div>
     </div>
   </div>
 
-  {{#map.source options=(hash type='geojson' data=(await mapdata.subdistrictGeojson)) as |source|}}
+  {{#map.source options=(hash type="geojson" data=(await mapdata.subdistrictGeojson)) as |source|}}
     {{source.layer layer=(hash
-      id='subdistricts'
-      type='fill'
+      id="subdistricts"
+      type="fill"
       paint=(hash 
-        fill-color='#ffffbf'
+        fill-color="#ffffbf"
         fill-opacity=0.6
-        fill-outline-color='#B3B34F'
+        fill-outline-color="#B3B34F"
       ))
     }}
   {{/map.source}}
 
   {{!-- Map Layers for Hovering --}}
-  {{#map.source options=(hash type='geojson' data=(await mapdata.esZonesGeojson)) as |source|}}
+  {{#map.source options=(hash type="geojson" data=(await mapdata.esZonesGeojson)) as |source|}}
     {{source.layer layer=(hash
-      id='es-zones-hover'
-      type='fill'
+      id="es-zones-hover"
+      type="fill"
       paint=(hash fill-opacity=0)
     )
     }}
   {{/map.source}}
-  {{#map.source options=(hash type='geojson' data=(await mapdata.isZonesGeojson)) as |source|}}
+  {{#map.source options=(hash type="geojson" data=(await mapdata.isZonesGeojson)) as |source|}}
     {{source.layer layer=(hash
-      id='is-zones-hover'
-      type='fill'
+      id="is-zones-hover"
+      type="fill"
       paint=(hash fill-opacity=0)
     )
     }}
   {{/map.source}}
-  {{#map.source options=(hash type='geojson' data=(await mapdata.hsZonesGeojson)) as |source|}}
+  {{#map.source options=(hash type="geojson" data=(await mapdata.hsZonesGeojson)) as |source|}}
     {{source.layer layer=(hash
-      id='hs-zones-hover'
-      type='fill'
+      id="hs-zones-hover"
+      type="fill"
       paint=(hash fill-opacity=0)
     )
     }}
   {{/map.source}}
-  {{map.on 'mousemove' 'es-zones-hover' (action 'zoneHover')}}
-  {{map.on 'mousemove' 'is-zones-hover' (action 'zoneHover')}}
-  {{map.on 'mousemove' 'hs-zones-hover' (action 'zoneHover')}}
+  {{map.on "mousemove" "es-zones-hover" (action "zoneHover")}}
+  {{map.on "mousemove" "is-zones-hover" (action "zoneHover")}}
+  {{map.on "mousemove" "hs-zones-hover" (action "zoneHover")}}
 
-  {{map.on 'mouseleave' 'es-zones-hover' (action 'zoneUnhover')}}
-  {{map.on 'mouseleave' 'is-zones-hover' (action 'zoneUnhover')}}
-  {{map.on 'mouseleave' 'hs-zones-hover' (action 'zoneUnhover')}}
+  {{map.on "mouseleave" "es-zones-hover" (action "zoneUnhover")}}
+  {{map.on "mouseleave" "is-zones-hover" (action "zoneUnhover")}}
+  {{map.on "mouseleave" "hs-zones-hover" (action "zoneUnhover")}}
 
   {{#if showZones}}
-    {{#if (eq schoolZone 'es')}}
-      {{#map.source options=(hash type='geojson' data=(await mapdata.esZonesGeojson)) as |source|}}
+    {{#if (eq schoolZone "es")}}
+      {{#map.source options=(hash type="geojson" data=(await mapdata.esZonesGeojson)) as |source|}}
         {{source.layer layer=(hash
-          id='es-zones'
-          type='line'
+          id="es-zones"
+          type="line"
           paint=(hash
-            line-color='#000000'
+            line-color="#000000"
             line-width=2
             line-dasharray=(array 1 1)
           ))
@@ -126,13 +130,13 @@
       {{/map.source}}
     {{/if}}
 
-    {{#if (eq schoolZone 'is')}}
-      {{#map.source options=(hash type='geojson' data=(await mapdata.isZonesGeojson)) as |source|}}
+    {{#if (eq schoolZone "is")}}
+      {{#map.source options=(hash type="geojson" data=(await mapdata.isZonesGeojson)) as |source|}}
         {{source.layer layer=(hash
-          id='ms-zones'
-          type='line'
+          id="ms-zones"
+          type="line"
           paint=(hash
-            line-color='#000000'
+            line-color="#000000"
             line-width=2
             line-dasharray=(array 1 1)
           ))
@@ -140,13 +144,13 @@
       {{/map.source}}
     {{/if}}
 
-    {{#if (eq schoolZone 'hs')}}
-      {{#map.source options=(hash type='geojson' data=(await mapdata.hsZonesGeojson)) as |source|}}
+    {{#if (eq schoolZone "hs")}}
+      {{#map.source options=(hash type="geojson" data=(await mapdata.hsZonesGeojson)) as |source|}}
         {{source.layer layer=(hash
-          id='hs-zones'
-          type='line'
+          id="hs-zones"
+          type="line"
           paint=(hash
-            line-color='#000000'
+            line-color="#000000"
             line-width=2
             line-dasharray=(array 1 1)
           ))
@@ -155,29 +159,33 @@
     {{/if}}
   {{/if}}
 
-  {{#map.source options=(hash type='geojson' data=(await mapdata.bblGeojson)) as |source|}}
+  {{#map.source options=(hash type="geojson" data=(await mapdata.bblGeojson)) as |source|}}
     {{source.layer layer=(hash 
-      id='bbls'
-      type='line'
-      paint=(hash line-color='#d7191c' line-width=4 line-blur=1)
+      id="bbls"
+      type="line"
+      paint=(hash line-color="#d7191c" line-width=4 line-blur=1)
     )}}
   {{/map.source}}
 
   {{#if project.lcgmsCartoIds}}
-    {{#map.source options=(hash type='geojson' data=(await mapdata.lcgmsGeojson)) as |source|}}
+    {{#map.source options=(hash type="geojson" data=(await mapdata.lcgmsGeojson)) as |source|}}
       {{source.layer layer=(hash
-          id='lcgms-hover'
-          type='circle'
-          paint=(hash circle-color='#A0A0A0' circle-radius=12 circle-opacity=0.7)
+          id="lcgms-hover"
+          type="circle"
+          paint=(hash circle-color="#A0A0A0" circle-radius=12 circle-opacity=0.7)
           filter=(array "==" (array "get" "cartodb_id") 0)
         )
       }}
       
       {{source.layer layer=(hash 
-        id='lcgms'
-        type='symbol'
+        id="lcgms"
+        type="circle"
         paint=(hash
-          icon-color=(array "case"
+            circle-radius=6
+            circle-stroke-width=4
+            circle-stroke-color="#21BA45"
+            circle-stroke-opacity=0.7
+            circle-color=(array "case"
             (array "==" (array "get" "org_level") "PS") mapColors.ps
             (array "==" (array "get" "org_level") "PSIS") mapColors.psis
             (array "==" (array "get" "org_level") "IS") mapColors.is
@@ -185,32 +193,25 @@
             (array "==" (array "get" "org_level") "HS") mapColors.hs
             "#333333"
           )
-        )
-        layout=(hash
-          icon-image='star-15'
-          icon-size=1.25
         ))
       }}
     {{/map.source}}
-
-    {{map.on 'mouseenter' 'lcgms' (action 'lcgmsHover')}}
-    {{map.on 'mouseleave' 'lcgms' (action 'lcgmsUnhover')}}
   {{/if}}
 
-  {{#map.source options=(hash type='geojson' data=(await mapdata.bluebookGeojson)) as |source|}}
+  {{#map.source options=(hash type="geojson" data=(await mapdata.bluebookGeojson)) as |source|}}
     {{source.layer layer=(hash
-        id='bluebook-hover'
-        type='circle'
-        paint=(hash circle-color='#A0A0A0' circle-radius=12 circle-opacity=0.7)
+        id="bluebook-hover"
+        type="circle"
+        paint=(hash circle-color="#A0A0A0" circle-radius=12 circle-opacity=0.7)
         filter=(array "==" (array "get" "cartodb_id") 0)
       )
     }}
 
     {{source.layer layer=(hash
-      id='bluebook'
-      type='circle'
+      id="bluebook"
+      type="circle"
       paint=(hash 
-        circle-radius=8
+        circle-radius=6
         circle-color=(array "case"
           (array "==" (array "get" "org_level") "PS") mapColors.ps
           (array "==" (array "get" "org_level") "PSIS") mapColors.psis
@@ -221,20 +222,41 @@
         )
       ))
     }}
-
-    {{!-- {{source.layer layer=(hash
-      id='bluebook-label'
-      type='symbol'
-      paint=(hash
-        text-color="white"
-      )
-      layout=(hash
-        text-field="3"
-        text-size=12
-      ))
-    }} --}}
   {{/map.source}}
 
-  {{map.on 'mouseenter' 'bluebook' (action 'schoolHover')}}
-  {{map.on 'mouseleave' 'bluebook' (action 'schoolUnhover')}}
+  {{#map.source
+    options=(hash type="geojson" data=(await mapdata.scaProjectsGeojson))
+    as |source|
+  }}
+
+    {{source.layer 
+      layer=(hash
+        id="scaprojects-hover"
+        type="circle"
+        paint=(hash circle-color="#A0A0A0" circle-radius=12 circle-opacity=0.7)
+        filter=(array "==" (array "get" "cartodb_id") 0)
+      )
+    }}
+
+    {{source.layer layer=(hash
+      id="scaprojects"
+      type="circle"
+      paint=(hash 
+        circle-radius=6
+        circle-stroke-width=4
+        circle-stroke-color="#F2711C"
+        circle-stroke-opacity=0.7
+        circle-color=(array "case"
+          (array "==" (array "get" "org_level") "PS") mapColors.ps
+          (array "==" (array "get" "org_level") "PSIS") mapColors.psis
+          (array "==" (array "get" "org_level") "IS") mapColors.is
+          (array "==" (array "get" "org_level") "ISHS") mapColors.ishs
+          (array "==" (array "get" "org_level") "HS") mapColors.hs
+          "#333333"
+        )
+      ))
+    }}
+  {{/map.source}}
+
+  {{map.on "mousemove" (action "displayPopup")}}
 {{/mapbox-gl}}

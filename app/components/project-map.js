@@ -1,5 +1,7 @@
 import Component from '@ember/component';
 import { inject as service } from '@ember/service';
+import { observer } from '@ember/object';
+import { alias } from '@ember/object/computed';
 import mapboxgl from 'mapbox-gl';
 import mapColors from '../utils/mapColors';
 
@@ -7,6 +9,7 @@ export default Component.extend({
   tablehover: service(),
   mapdata: service(),
   mapservice: service(),
+  router: service(),
   map: null,
   
   didReceiveAttrs() {
@@ -27,6 +30,20 @@ export default Component.extend({
     this.get('tablehover').off('unhover', this, 'dotUnhover');
   },
 
+  // currentRoute: alias('router.currentRouteName'),
+
+  // Map Observers
+  // showSCAProjects: observer('map', function() {
+  //   // console.log('obs')
+    
+  //   if (this.router.currentRouteName.includes('under-construction')) {
+  //     this.map.setLayoutProperty('scaprojects', 'visibility', 'visible')
+  //     console.log('under c')
+  //   } else {
+  //     this.map.setLayoutProperty('scaprojects', 'visibility', 'none')
+  //   }
+  // }),
+
   // UI attributes
   showZones: false,
   schoolZone: 'es',
@@ -40,39 +57,6 @@ export default Component.extend({
 
   dotUnhover({source}) {
     if (this.get('map')) this.get('map').setFilter(`${source}-hover`, ["==", ["get", "cartodb_id"], 0])
-  },
-
-  displayPopup(e, source) {
-    this.get('map').getCanvas().style.cursor = 'default';
-    this.dotHover({source, id: e.features[0].properties.cartodb_id})
-
-    let html = `<table class="ui simple table inverted">
-      <thead>
-        <tr><th>Org ID</th><th>Bldg ID</th><th>Org Name</th><th>Level</th></tr>
-      </thead>
-    `;
-    e.features.forEach((f) => {
-      this.get('tablehover').trigger('hover', {source, id: f.properties.cartodb_id});
-      let row = `<tr>
-        <td>${f.properties.org_id}</td>
-        <td>${f.properties.bldg_id}</td>
-        <td>${f.properties.name}</td>
-        <td>${f.properties.org_level}</td>
-      </tr>`;
-      html = html + row;
-    });
-    html = html + '</table>';
-
-    this.get('schoolPopup')
-      .setLngLat(e.features[0].geometry.coordinates.slice())
-      .setHTML(html)
-      .addTo(this.get('map'));
-  },
-
-  removePopup(source) {
-    this.get('tablehover').trigger('unhover', {source});
-    this.get('map').getCanvas().style.cursor = '';
-    this.get('schoolPopup').remove();
   },
 
   actions: {
@@ -89,21 +73,58 @@ export default Component.extend({
     zoneUnhover() {
       this.set('zoneName', null);
     },
+
+    displayPopup(e) {
+      this.get('map').getCanvas().style.cursor = 'default';
+      let features = this.map.queryRenderedFeatures(e.point, { layers: ['bluebook','lcgms','scaprojects'] })
+      
+      if (features.length) {
+        const schools = features.map((b) => ({ 
+          type: b.layer.id,
+          ...b.properties
+        }))
+
+        let html = `<table class="ui simple table inverted">
+          <thead>
+            <tr><th>Org ID</th><th>Bldg ID</th><th>Org Name</th><th>Level</th></tr>
+          </thead>
+        `;
+        schools.forEach((s) => {
+          this.dotHover({source: s.type, id: s.cartodb_id})
+          this.get('tablehover').trigger('hover', {source: s.type, id: s.cartodb_id});
+          
+          let org_name;
+          if (s.type === 'lcgms') {
+            org_name = `${s.name}<br>(newly built)`
+          } else if (s.type === 'scaprojects') {
+            org_name = `${s.name}<br>(under construction)`
+          } else {
+            org_name = s.name
+          }
+          
+          let row = `<tr>
+            <td>${s.org_id || ""}</td>
+            <td>${s.bldg_id || ""}</td>
+            <td>${org_name}</td>
+            <td>${s.org_level}</td>
+          </tr>`;
+          html = html + row;
+        });
+        html = html + '</table>';
     
-    lcgmsHover(e) {
-      this.displayPopup(e, 'lcgms');
-    },
+        this.get('schoolPopup')
+          .setLngLat(features[0].geometry.coordinates.slice())
+          .setHTML(html)
+          .addTo(this.get('map'));
+      } else {
+        this.get('schoolPopup').remove();
 
-    lcgmsUnhover() {
-      this.removePopup('lcgms');
-    },
+        this.get('tablehover').trigger('unhover', {source: 'bluebook'});
+        this.get('tablehover').trigger('unhover', {source: 'lcgms'});
+        this.get('tablehover').trigger('unhover', {source: 'scaprojects'});
 
-    schoolHover(e) {      
-      this.displayPopup(e, 'bluebook');
-    },
-
-    schoolUnhover() {
-      this.removePopup('bluebook');
+        this.get('map').getCanvas().style.cursor = '';
+      }
     },
     
     handleMapLoad(map) {

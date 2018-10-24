@@ -58,7 +58,7 @@
     "ember-fetch": "^3.4.5",
     "ember-load-initializers": "^1.1.0",
     "ember-lodash": "^4.18.0",
-    "ember-mapbox-gl": "^0.9.1",
+    "ember-mapbox-gl": "^0.12.0",
     "ember-math-helpers": "^2.6.0",
     "ember-maybe-import-regenerator": "^0.1.6",
     "ember-metrics": "^0.12.1",
