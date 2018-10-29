@@ -67,6 +67,15 @@ as |map|
         <i class="circle icon" style={{map-color-for "hs"}}></i>
         <div class="content">High School</div>
       </div>
+      <div class="ui divider" style="margin: 0.5rem 0rem"></div>
+      <div class="item">
+        {{fa-icon "circle-o" class="new-school"}}
+        <div class="content" style="display: inline">Newly Built School</div>
+      </div>
+      <div class="item">
+        {{fa-icon "circle-o" class="school-under-construction"}}
+        <div class="content" style="display: inline">School Under Construction</div>
+      </div>
     </div>
   </div>
 
@@ -167,36 +176,36 @@ as |map|
     )}}
   {{/map.source}}
 
-  {{#if project.lcgmsCartoIds}}
-    {{#map.source options=(hash type="geojson" data=(await mapdata.lcgmsGeojson)) as |source|}}
-      {{source.layer layer=(hash
-          id="lcgms-hover"
-          type="circle"
-          paint=(hash circle-color="#A0A0A0" circle-radius=12 circle-opacity=0.7)
-          filter=(array "==" (array "get" "cartodb_id") 0)
-        )
-      }}
-      
-      {{source.layer layer=(hash 
-        id="lcgms"
+
+  {{#map.source options=(hash type="geojson" data=(await mapdata.lcgmsGeojson)) as |source|}}
+    {{source.layer layer=(hash
+        id="lcgms-hover"
         type="circle"
-        paint=(hash
-            circle-radius=6
-            circle-stroke-width=4
-            circle-stroke-color="#21BA45"
-            circle-stroke-opacity=0.7
-            circle-color=(array "case"
-            (array "==" (array "get" "org_level") "PS") mapColors.ps
-            (array "==" (array "get" "org_level") "PSIS") mapColors.psis
-            (array "==" (array "get" "org_level") "IS") mapColors.is
-            (array "==" (array "get" "org_level") "ISHS") mapColors.ishs
-            (array "==" (array "get" "org_level") "HS") mapColors.hs
-            "#333333"
-          )
-        ))
-      }}
-    {{/map.source}}
-  {{/if}}
+        paint=(hash circle-color="#A0A0A0" circle-radius=12 circle-opacity=0.7)
+        filter=(array "==" (array "get" "cartodb_id") 0)
+      )
+    }}
+    
+    {{source.layer layer=(hash 
+      id="lcgms"
+      type="circle"
+      paint=(hash
+          circle-radius=6
+          circle-stroke-width=4
+          circle-stroke-color="#21BA45"
+          circle-stroke-opacity=0.7
+          circle-color=(array "case"
+          (array "==" (array "get" "org_level") "PS") mapColors.ps
+          (array "==" (array "get" "org_level") "PSIS") mapColors.psis
+          (array "==" (array "get" "org_level") "IS") mapColors.is
+          (array "==" (array "get" "org_level") "ISHS") mapColors.ishs
+          (array "==" (array "get" "org_level") "HS") mapColors.hs
+          "#333333"
+        )
+      ))
+    }}
+  {{/map.source}}
+
 
   {{#map.source options=(hash type="geojson" data=(await mapdata.bluebookGeojson)) as |source|}}
     {{source.layer layer=(hash

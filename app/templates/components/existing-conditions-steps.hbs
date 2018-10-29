@@ -8,20 +8,20 @@
   {{/link-to}}
 
   <div class="right menu">
-    {{#link-to
-      "project.show.schools-capacity.existing-conditions.study-area"
-      project.id
-      class="item"
+    {{#if 
+      (or project.esSchoolChoice project.isSchoolChoice (gt project.subdistrictsFromDb.length 1))
     }}
-      Study Area 
-      {{#if 
-        (or project.esSchoolChoice project.isSchoolChoice (gt project.subdistrictsFromDb.length 1))
+      {{#link-to
+        "project.show.schools-capacity.existing-conditions.study-area"
+        project.id
+        class="item"
       }}
+        Study Area 
         <div class="ui basic label orange">
           <i class="attention orange icon" style="margin: 0"></i>
         </div>
-      {{/if}}
-    {{/link-to}}
+      {{/link-to}}
+    {{/if}}
 
     {{#link-to
       "project.show.schools-capacity.existing-conditions.new-schools"

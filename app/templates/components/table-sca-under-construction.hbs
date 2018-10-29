@@ -47,8 +47,14 @@
       </thead>
       <tbody>
         {{#each t.buildings as |b|}}
-          <tr>
-            <td>{{b.name}}</td>
+          {{#tr-hover class=b.org_level source="scaprojects" id=b.cartodb_id}}
+            <td>
+              <i class="icons">
+                <i class="circle school-under-construction icon"></i>
+                <i class="small circle school icon"></i>
+              </i>
+              {{b.name}}
+            </td>
             <td>{{moment-format b.planned_end_date "MM/DD/YYYY"}}</td>
             <td>
               <div 
@@ -108,7 +114,7 @@
                 onChange=(action (mut b.includeInCapacity))
               }}
             </td>
-          </tr>
+          {{/tr-hover}}
         {{/each}}
       </tbody>
     </table>

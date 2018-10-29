@@ -50,10 +50,18 @@
         <td>{{b.org_id}}</td>
         <td>{{b.bldg_id}}</td>
         <td>
-          <i class="{{if (eq b.source 'lcgms') 'star' 'circle'}} school icon" style={{map-color-for b.org_level}}></i>
+          {{#if (eq b.source "lcgms")}}
+            <i class="icons">
+              <i class="circle new-school-outline icon"></i>
+              <i class="small circle school icon"></i>
+            </i>
+          {{else}}
+            <i class="circle school icon" style={{map-color-for b.org_level}}></i>
+          {{/if}}
+
           {{b.name}}
           {{#if (not-eq b.name b.bldg_name)}}
-            <br /><em>{{b.bldg_name}}</em>
+            <br><em>{{b.bldg_name}}</em>
           {{/if}}
         </td>
         <td>{{b.address}}</td>
@@ -78,7 +86,7 @@
   </tbody>
 
   <tfoot>
-    {{#if (eq activeSchoolsLevel 'hs')}}
+    {{#if (eq activeSchoolsLevel "hs")}}
       <tr>
         <th colspan="5"><em>Totals ({{project.borough}})</em></th>
         <th>{{table.enrollmentTotal}}</th>
@@ -114,10 +122,19 @@
 <div class="ui icon message">
   <i class="database icon"></i>
   <div class="content">
-    <div class="header"><a target="_blank" href="http://www.nycsca.org/Community/Capital-Plan-Reports-Data#Enrollment-Capacity-Utilization-69">SCA Enrollment, Capacity, and Utilization (Blue Book) [2016-17] <i class="external alternate icon"></i></a></div>
+    <div class="header">
+      <a
+        target="_blank"
+        rel="noopener"
+        href="http://www.nycsca.org/Community/Capital-Plan-Reports-Data#Enrollment-Capacity-Utilization-69"
+      >
+        SCA Enrollment, Capacity, and Utilization (Blue Book) [2016-17] <i class="external alternate icon"></i>
+      </a>
+    </div>
+    
     <p>
-    The Enrollment, Capacity & Utilization Report is an annual document that provides information
-    on school organization and school building utilization. 
+      The Enrollment, Capacity & Utilization Report is an annual document that provides information
+      on school organization and school building utilization. 
     </p>
   </div>
 </div>

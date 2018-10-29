@@ -102,9 +102,9 @@ export default Component.extend({
           }
           
           let row = `<tr>
+            <td>${org_name}</td>  
             <td>${s.org_id || ""}</td>
             <td>${s.bldg_id || ""}</td>
-            <td>${org_name}</td>
             <td>${s.org_level}</td>
           </tr>`;
           html = html + row;

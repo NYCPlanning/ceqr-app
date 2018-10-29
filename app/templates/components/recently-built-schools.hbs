@@ -29,7 +29,10 @@
         {{#tr-hover class=b.org_level source=b.source id=b.cartodb_id}}
           <td>{{b.org_id}}</td>
           <td>
-            <i class="star school icon"></i>
+            <i class="icons">
+              <i class="circle new-school-outline icon"></i>
+              <i class="small circle school icon"></i>
+            </i>
             {{b.name}}
             {{#if (not-eq b.name b.bldg_name)}}
               <br /><em>{{b.bldg_name}}</em>

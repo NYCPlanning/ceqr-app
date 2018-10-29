@@ -10,6 +10,13 @@ export default Service.extend({
     this.set('project', project);
   },
 
+  blankGeojsonPromise: new Promise(function(resolve) {
+    resolve({
+      type: "FeatureCollection",
+      features: [],
+    })
+  }),
+
   // Geojson
   bblGeojson: computed('project.bbls.[]', function() {
     return this.get('fetchBbls').perform();
@@ -49,7 +56,11 @@ export default Service.extend({
 
 
   lcgmsGeojson: computed('project.lcgmsCartoIds.[]', function() {
-    return this.get('fetchLcgmsGeojson').perform();
+    if (this.project.lcgmsCartoIds.length) {
+      return this.get('fetchLcgmsGeojson').perform();
+    } else {
+      return this.blankGeojsonPromise;
+    }
   }),
   fetchLcgmsGeojson: task(function*() {
     return yield carto.SQL(`
@@ -105,7 +116,12 @@ export default Service.extend({
 
 
   scaProjectsGeojson: computed('project.scaProjectsCartoIds.[]', function() {
-    return this.get('fetchScaProjects').perform();
+    if (this.project.scaProjectsCartoIds.length) {
+      return this.get('fetchScaProjects').perform();
+    } else {
+      return this.blankGeojsonPromise;
+    }
+    
   }),
   fetchScaProjects: task(function*() { 
     return yield carto.SQL(`
