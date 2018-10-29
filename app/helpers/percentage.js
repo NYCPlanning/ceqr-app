@@ -1,9 +1,8 @@
 import { helper } from '@ember/component/helper';
+import round from '../utils/round';
 
-export function percentage([value]) {
-  let percent = Math.round(value * 100);
-
-  return `${percent}%`;
+export function percentage([value], { decimals = 0 }) {
+  return `${round(value, decimals)}%`;
 }
 
 export default helper(percentage);
