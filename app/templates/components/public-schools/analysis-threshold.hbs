@@ -1,5 +1,46 @@
 <div class="ui grid">
   {{#if schools-capacity.initialLoad.isIdle}}
+    <div class="row" style="margin-top: 10px">
+      <div class="sixteen wide column">
+        <h4 class="ui header">
+          <i class="book icon"></i>
+        
+          <div class="content">
+            Technical Manual version:
+            <div class="ui inline dropdown">
+              <div class="text">{{humanize project.manualVersion}}</div>
+              <i class="dropdown icon"></i>
+              <div class="menu">
+                <div
+                  class="item"
+                  data-text="March 2014"
+                  {{action "changeManualVersion" "march-2014"}}
+                >
+                  March 2014
+                </div>
+                <div
+                  class="item"
+                  data-text="November 2018"
+                  {{action "changeManualVersion" "november-2018"}}
+                >
+                  November 2018
+                </div>
+              </div>
+            </div>
+
+            {{#unless (eq project.manualVersion "november-2018")}}
+              <div
+                style="display: inline-block;" 
+                class="ui label yellow"
+              >
+                <i class="attention icon"></i> Old Version
+              </div>
+            {{/unless}}
+          </div>
+        </h4>
+      </div>
+    </div>
+    
     <div class="row">
       <div class="sixteen wide column">     
         <div class="ui grey segment">
@@ -22,33 +63,10 @@
       </div>
     </div>
 
-    <div class="row">
-      
-      <div class="sixteen wide column">
-        {{#ui-dropdown
-          class="selection"
-          selected=project.manualVersion
-          onChange=(action "changeManualVersion")
-        }}
-
-          <div class="default text">Multipliers</div>
-          <i class="dropdown icon"></i>
-          <div class="menu">
-            <div data-value="march-2014" class="item">March 2014</div>
-            <div data-value="november-2018" class="item">November 2018</div>
-          </div>
-        {{/ui-dropdown}}
-      </div>
-    </div>
-
     {{#if (eq project.manualVersion "march-2014")}}
       <div class="row">
-        <div class="eight wide column">
+        <div class="sixteen wide column">
           {{public-schools/analysis-threshold/mar-2014-multipliers project=project}}
-        </div>
-        
-        <div class="eight wide column">
-          {{public-schools/analysis-threshold/mar-2014-thresholds project=project}}
         </div>
       </div>
     {{else if (eq project.manualVersion "november-2018")}}
