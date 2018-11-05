@@ -12,15 +12,14 @@ export default Route.extend({
   
   async model() {
     const project = await this.store.createRecord('project');
-    const ceqrManual = await this.get('store').findRecord('ceqr-manual', 'march-2014');
+    const manual = await this.get('store').findRecord('ceqr-manual/public-schools', 'november-2018');
     const user = this.get('currentUser.user');
 
-    project.setCeqrManual(ceqrManual);
+    project.set('manual', manual);
     project.set('users', [ user ]);
     
     return RSVP.hash({
-      project,
-      ceqrManual,
+      project
     });
   },
 
