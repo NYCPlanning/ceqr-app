@@ -9,16 +9,18 @@
 
 <table class="ui attached bottom table">
   <thead>
-    <tr><th></th>
-    <th>Primary/<br />Intermediate</th>
-    <th>High School</th>
-  </tr></thead>
+    <tr>
+      <th></th>
+      <th>Primary/<br>Intermediate</th>
+      <th>High School</th>
+    </tr>
+  </thead>
   <tbody>
-    {{#each ceqrManual.minResidentialUnits as |boro|}}
+    {{#each project.manual.boroughs as |boro|}}
       <tr class={{if (eq boro.name project.borough) "active"}}>
         <td>{{boro.name}}</td>
-        <td>{{boro.ps}}</td>
-        <td>{{boro.hs}}</td>
+        <td>{{boro.psisThreshold}}</td>
+        <td>{{boro.hsThreshold}}</td>
       </tr>
     {{/each}}
   </tbody>

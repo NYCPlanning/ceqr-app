@@ -9,13 +9,15 @@
 
 <table class="ui attached table">
   <thead>
-    <tr><th></th>
-    <th>Elementary<br />level per unit<br />(Age 4-10)</th>
-    <th>Middle School<br />level per unit<br />(Age 11-13)</th>
-    <th>High School<br />level per unit<br />(Age 14-17)</th>
-  </tr></thead>
+    <tr>
+      <th></th>
+      <th>Elementary<br>level per unit<br>(Age 4-10)</th>
+      <th>Middle School<br>level per unit<br>(Age 11-13)</th>
+      <th>High School<br>level per unit<br>(Age 14-17)</th>
+    </tr>
+  </thead>
   <tbody>
-    {{#each ceqrManual.studentMultipliers as |boro|}}
+    {{#each project.manual.boroughs as |boro|}}
       <tr class="{{boro.name}} {{if (eq boro.name project.borough) "active"}}">
         <td>{{boro.name}}</td>
         <td>{{boro.ps}}</td>
@@ -29,7 +31,15 @@
 <div class="ui attached bottom icon message">
   <i class="database icon"></i>
   <div class="content">
-    <div class="header"><a target="_blank" href="http://www.nycsca.org/Community/Capital-Plan-Reports-Data#Housing-Projections-70">SCA Projected Public School Ratio [2008] <i class="external alternate icon"></i></a></div>
+    <div class="header">
+      <a
+        target="_blank"
+        rel="noopener"
+        href="http://www.nycsca.org/Community/Capital-Plan-Reports-Data#Housing-Projections-70"
+      >
+        SCA Projected Public School Ratio [2008] <i class="external alternate icon"></i>
+      </a>
+    </div>
     <p>
       Multipliers defined by the Schools Construction Authority
     </p>

@@ -4,7 +4,7 @@
       <th class="two wide"></th>
       <th class="two wide">Units for analysis</th>
       <th class="two wide">Public school students per unit</th>
-      <th class="three wide" colspan=2>Est. # of students<br />from project</th>
+      <th class="three wide" colspan="2">Est. # of students<br>from project</th>
       <th class="three wide">Threshold for triggering detailed analysis</th>
       <th>Triggers detailed analysis</th>
     </tr>
@@ -13,9 +13,8 @@
   <tbody>
     <tr>
       <td>Elementary</td>
-      {{#td-hover rowspan="3" payload=(hash name='housingFromDev')}}{{project.netUnits}}{{/td-hover}}
-      {{!-- <td rowspan="3">{{project.netUnits}}</td> --}}
-      <td class="math--left"><i class="times circle icon"></i> {{project.studentMultipliers.ps}}</td>
+      {{#td-hover rowspan="3" payload=(hash name="housingFromDev")}}{{project.netUnits}}{{/td-hover}}
+      <td class="math--left"><i class="times circle icon"></i> {{project.multipliers.ps}}</td>
       <td>{{project.estEsStudents}}</td>
       <td class={{if project.esEffect "warning"}} rowspan="2">
         {{#if project.esEffect}}
@@ -27,7 +26,7 @@
         {{/if}}
       </td>
       <td rowspan="2">
-        {{ceqrManual.thresholdEsMsStudents}}
+        {{project.manual.thresholdPsIsStudents}}
       </td>
       <td rowspan="2">
         <div style="display: inline-block;" class="ui medium label {{if project.esEffect "yellow" "grey"}}">
@@ -37,12 +36,12 @@
     </tr>
     <tr>
       <td>Middle School</td>
-      <td class="math--left"><i class="times circle icon"></i> {{project.studentMultipliers.is}}</td>
+      <td class="math--left"><i class="times circle icon"></i> {{project.multipliers.is}}</td>
       <td>{{project.estIsStudents}}</td>
     </tr>
     <tr>
       <td>High School</td>
-      <td class="math--left"><i class="times circle icon"></i> {{project.studentMultipliers.hs}}</td>
+      <td class="math--left"><i class="times circle icon"></i> {{project.multipliers.hs}}</td>
       <td class={{if project.hsEffect "warning"}} colspan="2">
         {{#if project.hsEffect}}
           {{#ui-popup title="Triggers a Detailed Analysis" content=hsEffectPopupText}}
@@ -53,7 +52,7 @@
         {{/if}}
       </td>
       <td>
-        {{ceqrManual.thresholdHsStudents}}
+        {{project.manual.thresholdHsStudents}}
       </td>
       <td>
         <div style="display: inline-block;" class="ui medium label {{if project.hsEffect "yellow" "grey"}}">

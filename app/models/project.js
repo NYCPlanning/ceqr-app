@@ -1,17 +1,13 @@
 import DS from 'ember-data';
-import { computed } from '@ember/object';
+import { computed, observer } from '@ember/object';
 import { inject as service } from '@ember/service';
 
 import SchoolTotals from '../decorators/SchoolTotals';
 import AggregateTotals from '../decorators/AggregateTotals';
 
-export default DS.Model.extend({    
+export default DS.Model.extend({      
   currentUser: service(),
   
-  setCeqrManual(manual) {
-    this.set('ceqrManual', manual);
-  },
-
   // user: DS.attr('string'),
   users: DS.hasMany('user', { inverse: 'projects' }),
   viewers: DS.hasMany('user', { inverse: 'projects_viewable' }),
@@ -46,6 +42,8 @@ export default DS.Model.extend({
   trafficZone: DS.attr('number'),
 
   // - Schools Capacity -
+  manualVersion: DS.attr('string'),
+
   hsAnalysis: computed.alias('hsEffect'),
 
   esSchoolChoice: DS.attr('boolean'),
@@ -59,45 +57,45 @@ export default DS.Model.extend({
   }),
 
   // CEQR Manual
-  minResidentialUnits: computed('borough', function() {
-    return this.get('ceqrManual').minResidentialUnitsFor(this.get('borough'));
-  }),
-  studentMultipliers: computed('borough', function() {
-    return this.get('ceqrManual').studentMultipliersFor(this.get('borough'));
+  multipliers: computed('borough', 'district', 'manual', function() {
+    return this.manual.findFor(this);
   }),
 
   // Effects
-  esEffect: computed('netUnits', 'borough', function() {
-    return this.get('minResidentialUnits').ps < this.get('netUnits');
+  esEffect: computed('netUnits', 'borough', 'multipliers', function() {
+    return this.multipliers.ps < this.netUnits;
   }),
-  hsEffect: computed('netUnits', 'borough', function() {
-    return this.get('minResidentialUnits').hs < this.get('netUnits');
+  hsEffect: computed('netUnits', 'borough', 'multipliers', function() {
+    return this.multipliers.hsThreshold < this.netUnits;
   }),
   indirectEffect: computed('esEffect', 'hsEffect', function() {
-    return (this.get('esEffect') || this.get('hsEffect'));
+    return (this.esEffect || this.hsEffect);
   }),
 
   // Estimated Students
-  estEsStudents: computed('netUnits', 'borough', function() {
-    return Math.ceil(this.get('studentMultipliers').ps * this.get('netUnits'));
+  estEsStudents: computed('netUnits', 'borough', 'multipliers', function() {
+    return Math.ceil(this.multipliers.ps * this.netUnits);
   }),
-  estIsStudents: computed('netUnits', 'borough', function() {
-    return Math.ceil(this.get('studentMultipliers').is * this.get('netUnits'));
+  estIsStudents: computed('netUnits', 'borough', 'multipliers', function() {
+    return Math.ceil(this.multipliers.is * this.netUnits);
   }),
   estEsMsStudents: computed('estEsStudents', 'estIsStudents', function() {
-    return this.get('estEsStudents') + this.get('estIsStudents');
+    return this.estEsStudents + this.estIsStudents;
   }),
-  estHsStudents: computed('netUnits', 'borough', function() {
-    return Math.ceil(this.get('studentMultipliers').hs * this.get('netUnits'));
+  estHsStudents: computed('netUnits', 'borough', 'multipliers', function() {
+    return Math.ceil(this.multipliers.hs * this.netUnits);
   }),
 
 
-  // Subdistricts
+  // School District & Subdistricts
   subdistrictsFromDb: DS.attr('', { defaultValue() { return []; } }),
   subdistrictsFromUser: DS.attr('', { defaultValue() { return []; } }),
   
-  subdistricts: computed('subdistrictsFromDb', function() {
-    return this.get('subdistrictsFromDb').concat(this.get('subdistrictsFromUser'));
+  subdistricts: computed('subdistrictsFromDb', 'subdistrictsFromUser', function() {
+    return this.subdistrictsFromDb.concat(this.subdistrictsFromUser);
+  }),
+  district: computed('subdistrictsFromDb', function() {
+    return this.subdistrictsFromDb[0].district;
   }),
 
   multiSubdistrict: computed('subdistricts', function() {
@@ -231,6 +229,7 @@ export default DS.Model.extend({
 
   aggregateTotals: computed(
     'subdistricts',
+    'multipliers',
     'hsProjections',
     'futureEnrollmentProjections',
     'futureEnrollmentMultipliers',
@@ -244,7 +243,7 @@ export default DS.Model.extend({
         borough: this.borough,
         level: 'hs',
 
-        studentMultiplier: this.ceqrManual.studentMultipliersFor(this.borough).hs,
+        studentMultiplier: this.multipliers.hs,
         schoolTotals: this.schoolTotals.findBy('level', 'hs'),
 
         enroll: this.hsProjections[0] ? this.hsProjections[0].hs : 0,
@@ -275,7 +274,7 @@ export default DS.Model.extend({
         tables.push(AggregateTotals.create({
           ...sd,
           level: 'ps',
-          studentMultiplier: this.ceqrManual.studentMultipliersFor(this.borough).ps,
+          studentMultiplier: this.multipliers.ps,
           schoolTotals: this.schoolTotals.find(
             (b) => (b.district === sd.district && b.subdistrict === sd.subdistrict && b.level === 'ps')
           ),
@@ -321,7 +320,7 @@ export default DS.Model.extend({
         tables.push(AggregateTotals.create({
           ...sd,
           level: 'is',
-          studentMultiplier: this.ceqrManual.studentMultipliersFor(this.borough).is,
+          studentMultiplier: this.multipliers.is,
           schoolTotals: this.schoolTotals.find(
             (b) => (b.district === sd.district && b.subdistrict === sd.subdistrict && b.level === 'is')
           ),

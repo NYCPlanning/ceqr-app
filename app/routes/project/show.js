@@ -5,14 +5,11 @@ export default Route.extend({
   controllerName: 'project',
 
   async model(params) {
-    const project = await this.get('store').findRecord('project', params.id);
-    const ceqrManual = await this.get('store').findRecord('ceqr-manual', 'march-2014');
+    const project = await this.store.findRecord('project', params.id);
+    const manual = await this.store.findRecord('ceqr-manual/public-schools', project.manualVersion);
 
-    project.setCeqrManual(ceqrManual);
+    project.set('manual', manual);
     
-    return RSVP.hash({
-      project,
-      ceqrManual,
-    });
+    return RSVP.hash({ project });
   },
 });
