@@ -3,6 +3,7 @@ Rails.application.routes.draw do
     resources :docs, only: [:index], path: '/swagger'
 
     scope path: '/v1' do
+      resources :projects
       # your routes go here
     end
   end

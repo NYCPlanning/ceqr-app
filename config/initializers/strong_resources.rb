@@ -31,4 +31,8 @@
 #
 # For additional documentation, see https://jsonapi-suite.github.io/strong_resources
 StrongResources.configure do
+  strong_resource :project do
+    attribute :name, :string
+    attribute :ceqrNumber, :string
+  end
 end

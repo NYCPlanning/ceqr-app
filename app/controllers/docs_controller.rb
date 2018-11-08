@@ -18,4 +18,5 @@ class DocsController < ActionController::API
     key :consumes, ['application/json']
     key :produces, ['application/json']
   end
+  jsonapi_resource '/v1/projects'
 end
