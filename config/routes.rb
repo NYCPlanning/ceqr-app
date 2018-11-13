@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
-  mount_ember_app :frontend, to: "/"
-  
+  post 'auth/login', to: 'authentication#authenticate'
+  post 'signup', to: 'users#create'
+
   scope path: '/api' do
     resources :docs, only: [:index], path: '/swagger'
 
@@ -9,5 +10,7 @@ Rails.application.routes.draw do
       # your routes go here
     end
   end
+
+  mount_ember_app :frontend, to: "/"
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

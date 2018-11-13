@@ -30,9 +30,54 @@
 # end
 #
 # For additional documentation, see https://jsonapi-suite.github.io/strong_resources
-StrongResources.configure do
-  strong_resource :project do
-    attribute :name, :string
-    attribute :ceqrNumber, :string
-  end
-end
+
+
+# StrongResources.configure do
+#   strong_resource :project do
+#     attribute :name, :string
+#     attribute :ceqrNumber, :string
+
+#     attribute :bbls
+#     attribute :borough
+#     attribute :buildYear
+#     attribute :totalUnits
+#     attribute :seniorUnits
+  
+#     attribute :created_at
+#     attribute :updated_at
+#     attribute :updated_by
+  
+#     # Relations
+#     attribute :users
+#     attribute :viewers
+    
+#     ## TODO: Extract into relationshios ##
+#     # Public Schools
+#     attribute :manualVersion
+  
+#     attribute :directEffect
+    
+#     attribute :esSchoolChoice
+#     attribute :isSchoolChoice
+  
+#     attribute :subdistrictsFromDb
+#     attribute :subdistrictsFromUser
+  
+#     attribute :bluebook
+#     attribute :lcgms
+#     attribute :scaProjects
+  
+#     attribute :doeUtilChanges
+#     attribute :futureResidentialDev
+  
+#     attribute :schoolsWithAction
+#     attribute :hsProjections
+#     attribute :hsStudentsFromHousing
+#     attribute :futureEnrollmentProjections
+#     attribute :futureEnrollmentMultipliers
+#     attribute :futureEnrollmentNewHousing
+  
+#     # Transportation
+#     attribute :trafficZone
+#   end
+# end

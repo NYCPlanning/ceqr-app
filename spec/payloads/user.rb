@@ -28,7 +28,6 @@
 #
 # For more information, see https://jsonapi-suite.github.io/jsonapi_spec_helpers/
 
-JsonapiSpecHelpers::Payload.register(:project) do
-  key(:name, String)
-  key(:ceqrNumber, String)
+JsonapiSpecHelpers::Payload.register(:user) do
+  key(:email, String)
 end
