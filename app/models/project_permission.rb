@@ -1,0 +1,2 @@
+class ProjectPermission < ApplicationRecord
+end

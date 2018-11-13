@@ -12,7 +12,7 @@ default: &default
 development:
   adapter: postgresql
   encoding: unicode
-  database: ceqr
+  database: ceqr_rails
   pool: 5
   username: pichot
   password: 
@@ -21,8 +21,12 @@ development:
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
-  <<: *default
-  database: db/test.sqlite3
+  adapter: postgresql
+  encoding: unicode
+  database: ceqr_test
+  pool: 5
+  username: pichot
+  password: 
 
 production:
   <<: *default
