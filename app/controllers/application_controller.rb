@@ -1,14 +1,15 @@
 class ApplicationController < ActionController::API
-  # Bootstrap jsonapi_suite with relevant modules
-  include JsonapiSuite::ControllerMixin
+  include Response
+  include ExceptionHandler
 
-  register_exception JsonapiCompliable::Errors::RecordNotFound,
-    status: 404
+  # called before every action on controllers
+  before_action :authorize_request
+  attr_reader :current_user
 
-  # Catch all exceptions and render a JSONAPI-compliable error payload
-  # For additional documentation, see https://jsonapi-suite.github.io/jsonapi_errorable
-  rescue_from Exception do |e|
-    handle_exception(e)
+  private
+
+  # Check for valid request token and return user
+  def authorize_request
+    @current_user = (AuthorizeApiRequest.new(request.headers).call)[:user]
   end
-
 end

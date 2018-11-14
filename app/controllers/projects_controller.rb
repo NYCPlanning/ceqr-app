@@ -1,4 +1,6 @@
 class ProjectsController < ApplicationController
+  include JsonapiSuite::ControllerMixin
+  
   # Mark this as a JSONAPI controller, associating with the given resource
   jsonapi resource: ProjectResource
 

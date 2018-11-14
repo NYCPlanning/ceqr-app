@@ -23,6 +23,10 @@ class Message
     'Account created successfully'
   end
 
+  def self.account_in_review
+    'Account has been added to the approval queue'
+  end
+
   def self.account_not_created
     'Account could not be created'
   end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_13_183245) do
+ActiveRecord::Schema.define(version: 2018_11_14_183712) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -62,13 +62,13 @@ ActiveRecord::Schema.define(version: 2018_11_13_183245) do
     t.text "fortune_id"
     t.citext "email"
     t.text "password_digest"
-    t.boolean "email_validated"
+    t.boolean "email_validated", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.text "projects", default: [], null: false, array: true
     t.text "__project_updated_by_inverse", default: [], null: false, array: true
     t.text "projects_viewable", default: [], null: false, array: true
-    t.boolean "account_approved"
+    t.boolean "account_approved", default: false
     t.index ["email"], name: "user_email_unique", unique: true
   end
 
