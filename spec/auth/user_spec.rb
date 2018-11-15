@@ -5,6 +5,7 @@ RSpec.describe 'Users API', type: :request do
   let(:user_public) { build(:user_public) }
 
   let(:headers) { valid_headers.except('Authorization') }
+
   let(:user_approved) do
     attributes_for(:user)
   end
@@ -30,7 +31,7 @@ RSpec.describe 'Users API', type: :request do
         end
   
         it 'does not return an authentication token' do
-          expect(json['auth_token']).to be_nil
+          expect(json['token']).to be_nil
         end
   
         it 'sends account confirmation email' do
@@ -56,7 +57,7 @@ RSpec.describe 'Users API', type: :request do
         end
   
         it 'does not return an authentication token' do
-          expect(json['auth_token']).to be_nil
+          expect(json['token']).to be_nil
         end
   
         it 'sends account review email to user' do
@@ -89,12 +90,20 @@ RSpec.describe 'Users API', type: :request do
   end
 end
 
-describe 'PUT /user/:id/confirm' do
+describe 'PUT /user/:id/validate' do
   context 'with valid token' do
-
+    before { post 'user/password_reset', params: {  }, headers: headers }
   end
 
   context 'without valid token' do
 
   end
+end
+
+describe 'POST /user/password_reset' do
+
+end
+
+describe 'PUT /user/:id/password_reset' do
+
 end

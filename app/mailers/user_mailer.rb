@@ -1,13 +1,18 @@
 class UserMailer < ApplicationMailer
   def account_activation
     @user = params[:user]
-    @url  = 'http://example.com/login'
+    @activation_url = ""
     mail(to: @user.email, subject: '[CEQR App] Account Activation')
   end
 
   def account_in_review
     @user = params[:user]
-    @url  = 'http://example.com/login'
     mail(to: @user.email, subject: '[CEQR App] Account waiting for approval')
+  end
+
+  def password_reset
+    @user = params[:user]
+    @reset_url = Rails.root_url
+    mail(to: @user.email, subject: '[CEQR App] Password Reset')
   end
 end
