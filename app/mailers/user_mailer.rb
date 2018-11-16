@@ -2,6 +2,7 @@ class UserMailer < ApplicationMailer
   def account_activation
     @user = params[:user]
     @token = params[:token]
+    @base_url = params[:base_url]
 
     mail(to: @user.email, subject: '[CEQR App] Account Activation')
   end
@@ -15,6 +16,7 @@ class UserMailer < ApplicationMailer
   def password_reset
     @user = params[:user]
     @token = params[:token]
+    @base_url = params[:base_url]
 
     mail(to: @user.email, subject: '[CEQR App] Password Reset')
   end

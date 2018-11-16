@@ -3,6 +3,6 @@ CEQR App
 
 Your CEQR App account is almost ready! Activate your account by clicking the link below:
 
-<%= @activation_url %>
+<%= "#{@base_url}/login?validate=#{@token}" %>
 
 Welcome to the future of CEQR, brought to you by NYC Planning and the Mayor's Office of Environmental Coordination.

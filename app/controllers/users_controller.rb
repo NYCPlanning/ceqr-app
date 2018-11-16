@@ -10,15 +10,15 @@ class UsersController < ApiController
       user = User.create!(params)
 
       token = JsonWebToken.encode({ action: 'validate', email: user.email })
-      UserMailer.with(user: user, token: token).account_activation.deliver_now
+      UserMailer.with(user: user, token: token, base_url: request.base_url).account_activation.deliver_later
 
       response = { message: Message.account_created }
       json_response(response, :created)
     else
       user = User.create!(user_params)
 
-      UserMailer.with(user: user).account_in_review.deliver_now
-      AdminMailer.with(user: user).account_in_review.deliver_now
+      UserMailer.with(user: user).account_in_review.deliver_later
+      AdminMailer.with(user: user).account_in_review.deliver_later
 
       response = { message: Message.account_in_review }
       json_response(response, :accepted)
@@ -42,7 +42,7 @@ class UsersController < ApiController
     user = User.find_by(email: password_reset_params['email'])
 
     token = JsonWebToken.encode({ action: 'password_reset', email: user.email })
-    UserMailer.with(user: user, token: token).password_reset.deliver_now
+    UserMailer.with(user: user, token: token, base_url: request.base_url).password_reset.deliver_later
 
     response = { message: Message.password_reset_sent }
     json_response(response, :ok)
