@@ -2,10 +2,10 @@ Rails.application.routes.draw do
   post 'auth/login', to: 'authentication#authenticate'
   post 'signup', to: 'users#create'
 
-  post 'user/password_reset', to: 'user#request_new_password'
+  put 'user/validate', to: 'users#validate'
 
-  put 'user/:id/validate', to: 'user#activate'
-  put 'user/:id/password_reset', to: 'user#update_password'
+  post 'user/password_reset', to: 'users#request_new_password'
+  put 'user/password_reset', to: 'users#update_password'
 
   scope path: '/api' do
     resources :docs, only: [:index], path: '/swagger'

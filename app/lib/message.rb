@@ -31,6 +31,18 @@ class Message
     'Account could not be created'
   end
 
+  def self.account_validated
+    "Account validated. Please login to continue."
+  end
+
+  def self.password_reset_sent
+    "Password reset email sent"
+  end
+  
+  def self.password_reset
+    "Password has been reset"
+  end
+
   def self.expired_token
     'Sorry, your token has expired. Please login to continue.'
   end
