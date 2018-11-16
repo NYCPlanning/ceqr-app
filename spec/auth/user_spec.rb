@@ -90,7 +90,7 @@ RSpec.describe 'Users API', type: :request do
   end
 
   describe 'PUT /user/validate' do
-    let(:user) { create(:user) }
+    let(:user) { create(:new_user) }
     let(:token) { JsonWebToken.encode({ action: "validate", email: user.email }) }
     
     context 'with valid token' do
@@ -132,10 +132,10 @@ RSpec.describe 'Users API', type: :request do
     end
   end
   
-  describe 'POST /user/password_reset' do
-    let(:user)  { create(:user) }
+  describe 'POST /user/password-reset' do
+    let(:user) { create(:user) }
     
-    before { post '/user/password_reset', params: { email: user.email }.to_json, headers: headers }
+    before { post '/user/password-reset', params: { email: user.email }.to_json, headers: headers }
   
     it 'sends reset password email' do
       mail = ActionMailer::Base.deliveries.last
@@ -149,12 +149,12 @@ RSpec.describe 'Users API', type: :request do
     end
   end
   
-  describe 'PUT /user/password_reset' do
+  describe 'PUT /user/password-reset' do
     let(:user) { create(:user, { password: 'foobar' }) }
     let(:token) { JsonWebToken.encode({ action: "password_reset", email: user.email }) }
   
     context 'with valid token' do
-      before { put "/user/password_reset", params: { token: token, password: 'newpass' }.to_json, headers: headers }
+      before { put "/user/password-reset", params: { token: token, password: 'newpass' }.to_json, headers: headers }
       
       it 'resets the user password' do
         expect(User.first.authenticate('newpass')).to eq user
@@ -166,7 +166,7 @@ RSpec.describe 'Users API', type: :request do
     end
   
     context 'without valid token' do
-      before { put "/user/password_reset", params: { token: "badtoken", password: 'newpass' }.to_json, headers: headers }
+      before { put "/user/password-reset", params: { token: "badtoken", password: 'newpass' }.to_json, headers: headers }
       
       it 'does not reset the user password' do
         expect(User.first.authenticate('newpass')).to be false

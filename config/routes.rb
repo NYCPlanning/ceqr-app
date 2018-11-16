@@ -4,8 +4,8 @@ Rails.application.routes.draw do
 
   put 'user/validate', to: 'users#validate'
 
-  post 'user/password_reset', to: 'users#request_new_password'
-  put 'user/password_reset', to: 'users#update_password'
+  post 'user/password-reset', to: 'users#request_new_password'
+  put 'user/password-reset', to: 'users#update_password'
 
   scope path: '/api' do
     resources :docs, only: [:index], path: '/swagger'
