@@ -7,6 +7,14 @@ class Message
     'Invalid credentials'
   end
 
+  def self.account_pending_approval
+    'Account pending approval'
+  end
+
+  def self.email_not_validated
+    'Email is not validated'
+  end
+
   def self.invalid_token
     'Invalid token'
   end

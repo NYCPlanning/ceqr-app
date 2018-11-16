@@ -3,8 +3,7 @@ class AuthenticationController < ApiController
   
   # return auth token once user is authenticated
   def authenticate    
-    token =
-      AuthenticateUser.new(auth_params[:email], auth_params[:password]).call
+    token = AuthenticateUser.new(auth_params[:email], auth_params[:password]).call
     json_response(token: token)
   end
 

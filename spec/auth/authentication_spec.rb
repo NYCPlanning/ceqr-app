@@ -3,8 +3,6 @@ require 'rails_helper'
 RSpec.describe 'Authentication', type: :request do
   # Authentication test suite
   describe 'POST /auth/login' do
-    # create test user
-    let!(:user) { create(:user) }
     # set headers for authorization
     let(:headers) { valid_headers.except('Authorization') }
     # set test valid and invalid credentials
@@ -26,16 +24,55 @@ RSpec.describe 'Authentication', type: :request do
 
     # returns auth token when request is valid
     context 'When request is valid' do
-      before { post '/auth/login', params: valid_credentials, headers: headers }
+      context 'When user is not validated' do
+        let!(:user) { create(:user, { email_validated: false }) }
 
-      it 'returns an authentication token' do
-        expect(json['token']).not_to be_nil
+        before { post '/auth/login', params: valid_credentials, headers: headers }
+
+        it 'does not return authentication token' do
+          expect(json['token']).to be_nil
+        end
+
+        it 'returns a failure message' do
+          expect(json['message']).to match(/Email is not validated/)
+        end
+      end
+      
+      
+      context 'When user is not approved' do
+        let!(:user) { create(:user, { account_approved: false }) }
+
+        before { post '/auth/login', params: valid_credentials, headers: headers }
+
+        it 'does not return authentication token' do
+          expect(json['token']).to be_nil
+        end
+
+        it 'returns a failure message' do
+          expect(json['message']).to match(/Account pending approval/)
+        end
+      end
+
+      context 'When user is validated and approved' do
+        let!(:user) { create(:user) }
+        
+        before { post '/auth/login', params: valid_credentials, headers: headers }
+
+        it 'returns an authentication token' do
+          expect(json['token']).not_to be_nil
+        end  
       end
     end
 
     # returns failure message when request is invalid
     context 'When request is invalid' do
+      let!(:user) { create(:user) }
+      
       before { post '/auth/login', params: invalid_credentials, headers: headers }
+
+      it 'does not return authentication token' do
+        expect(json['token']).to be_nil
+      end
 
       it 'returns a failure message' do
         expect(json['message']).to match(/Invalid credentials/)
