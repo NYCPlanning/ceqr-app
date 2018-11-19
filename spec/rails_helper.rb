@@ -7,6 +7,7 @@ abort("The Rails environment is running in production mode!") if Rails.env.produ
 
 require 'spec_helper'
 require 'rspec/rails'
+
 # require 'jsonapi_spec_helpers' # DatabaseCleaner included here
 
 Shoulda::Matchers.configure do |config|

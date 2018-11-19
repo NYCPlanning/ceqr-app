@@ -35,11 +35,10 @@ gem "ember-cli-rails", '~> 0.10.0'
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
-gem 'jsonapi_suite', '~> 0.7'
-gem 'jsonapi-rails', '~> 0.3.0'
-gem 'jsonapi_swagger_helpers', '~> 0.6', require: false
-gem 'jsonapi_spec_helpers', '~> 0.4', require: false
-gem 'kaminari', '~> 1.0'
+# gem 'jsonapi_suite', '~> 0.7'
+# gem 'jsonapi-rails', '~> 0.3.0'
+# gem 'jsonapi_swagger_helpers', '~> 0.6', require: false
+# gem 'kaminari', '~> 1.0'
 
 group :development do
   gem 'listen', '>= 3.0.5', '< 3.2'
@@ -58,7 +57,8 @@ group :development, :test do
   gem 'factory_bot_rails', '~> 4.0'
   gem 'shoulda-matchers', '~> 3.1'
   gem 'faker', '~> 1.7'
-  gem 'swagger-diff', '~> 1.1'
+
+  gem 'jsonapi_spec_helpers', '~> 0.4', require: false
 end
 
 group :test do
