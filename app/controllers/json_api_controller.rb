@@ -1,3 +1,0 @@
-class JsonApiController < ApplicationController
-
-end

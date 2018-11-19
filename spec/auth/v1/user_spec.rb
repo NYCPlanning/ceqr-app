@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe 'Users API', type: :request do
   let(:headers) { valid_headers.except('Authorization') }
   
-  describe 'POST /signup' do
+  describe 'POST /auth/v1/signup' do
     let(:user) { build(:user) }
     let(:user_public) { build(:user_public) }
   
@@ -16,7 +16,7 @@ RSpec.describe 'Users API', type: :request do
     
     context 'when valid request' do
       context 'when email is on whitelist' do
-        before { post '/signup', params: { user: user_approved }.to_json, headers: headers }
+        before { post '/auth/v1/signup', params: { user: user_approved }.to_json, headers: headers }
 
         it 'creates a new user with approved status' do
           u = User.first
@@ -42,7 +42,7 @@ RSpec.describe 'Users API', type: :request do
       end
 
       context 'when email is not on whitelist' do
-        before { post '/signup', params: { user: user_public }.to_json, headers: headers }
+        before { post '/auth/v1/signup', params: { user: user_public }.to_json, headers: headers }
         
         it 'creates a new user with pending approved status' do
           u = User.first
@@ -75,7 +75,7 @@ RSpec.describe 'Users API', type: :request do
     end
 
     context 'when invalid request' do
-      before { post '/signup', params: {}, headers: headers }
+      before { post '/auth/v1/signup', params: {}, headers: headers }
 
       it 'does not create a new user' do
         expect(User.first).to be nil
@@ -89,12 +89,12 @@ RSpec.describe 'Users API', type: :request do
     end
   end
 
-  describe 'PUT /user/validate' do
+  describe 'PUT /auth/v1/validate' do
     let(:user) { create(:new_user) }
     let(:token) { JsonWebToken.encode({ action: "validate", email: user.email }) }
     
     context 'with valid token' do
-      before { put '/user/validate', params: { token: token }.to_json, headers: headers }
+      before { put '/auth/v1/validate', params: { token: token }.to_json, headers: headers }
   
       it 'validates the user' do      
         expect(User.first.email_validated).to be true
@@ -108,7 +108,7 @@ RSpec.describe 'Users API', type: :request do
     context 'with expired token' do
       let(:expired_token) { JsonWebToken.encode({ action: "validate", email: user.email }, 7.days.ago) }
       
-      before { put '/user/validate', params: { token: expired_token }.to_json, headers: headers }
+      before { put '/auth/v1/validate', params: { token: expired_token }.to_json, headers: headers }
 
       it 'does not validate the user' do
         expect(User.first.email_validated).to be false
@@ -120,7 +120,7 @@ RSpec.describe 'Users API', type: :request do
     end
   
     context 'without valid token' do
-      before { put '/user/validate', params: { token: 'badtoken' }.to_json, headers: headers }
+      before { put '/auth/v1/validate', params: { token: 'badtoken' }.to_json, headers: headers }
   
       it 'does not validate the user' do
         expect(User.first.email_validated).to be false
@@ -132,10 +132,10 @@ RSpec.describe 'Users API', type: :request do
     end
   end
   
-  describe 'POST /user/password-reset' do
+  describe 'POST /auth/v1/password-reset' do
     let(:user) { create(:user) }
     
-    before { post '/user/password-reset', params: { email: user.email }.to_json, headers: headers }
+    before { post '/auth/v1/password-reset', params: { email: user.email }.to_json, headers: headers }
   
     it 'sends reset password email' do
       mail = ActionMailer::Base.deliveries.last
@@ -149,12 +149,12 @@ RSpec.describe 'Users API', type: :request do
     end
   end
   
-  describe 'PUT /user/password-reset' do
+  describe 'PUT /auth/v1/password-reset' do
     let(:user) { create(:user, { password: 'foobar' }) }
     let(:token) { JsonWebToken.encode({ action: "password_reset", email: user.email }) }
   
     context 'with valid token' do
-      before { put "/user/password-reset", params: { token: token, password: 'newpass' }.to_json, headers: headers }
+      before { put "/auth/v1/password-reset", params: { token: token, password: 'newpass' }.to_json, headers: headers }
       
       it 'resets the user password' do
         expect(User.first.authenticate('newpass')).to eq user
@@ -166,7 +166,7 @@ RSpec.describe 'Users API', type: :request do
     end
   
     context 'without valid token' do
-      before { put "/user/password-reset", params: { token: "badtoken", password: 'newpass' }.to_json, headers: headers }
+      before { put "/auth/v1/password-reset", params: { token: "badtoken", password: 'newpass' }.to_json, headers: headers }
       
       it 'does not reset the user password' do
         expect(User.first.authenticate('newpass')).to be false

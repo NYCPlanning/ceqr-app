@@ -27,6 +27,8 @@ class EmailWhitelist
     'phaeng.com',
     'calladiumgroup.com',
     'vhb.com',
+    'urbancartographics.com',
+    'environmentalstudiescorp.com',
 
     # NYC City
     'planning.nyc.gov',
