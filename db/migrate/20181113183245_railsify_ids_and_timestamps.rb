@@ -4,12 +4,12 @@ class RailsifyIdsAndTimestamps < ActiveRecord::Migration[5.2]
       dir.up do
         execute <<-SQL
           ALTER TABLE projects DROP CONSTRAINT project_pkey;
-          ALTER TABLE projects ALTER COLUMN created_at TYPE TIMESTAMP without time zone USING to_timestamp(created_at);
-          ALTER TABLE projects ALTER COLUMN updated_at TYPE TIMESTAMP without time zone USING to_timestamp(updated_at);
+          ALTER TABLE projects ALTER COLUMN created_at TYPE TIMESTAMP without time zone USING to_timestamp(left(created_at::text, 10)::integer);
+          ALTER TABLE projects ALTER COLUMN updated_at TYPE TIMESTAMP without time zone USING to_timestamp(left(updated_at::text, 10)::integer);
         
           ALTER TABLE users DROP CONSTRAINT user_pkey;
-          ALTER TABLE users ALTER COLUMN created_at TYPE TIMESTAMP without time zone USING to_timestamp(created_at);
-          ALTER TABLE users ALTER COLUMN updated_at TYPE TIMESTAMP without time zone USING to_timestamp(updated_at);
+          ALTER TABLE users ALTER COLUMN created_at TYPE TIMESTAMP without time zone USING to_timestamp(left(created_at::text, 10)::integer);
+          ALTER TABLE users ALTER COLUMN updated_at TYPE TIMESTAMP without time zone USING to_timestamp(left(updated_at::text, 10)::integer);
         SQL
         
         change_column_null :projects, :created_at, false

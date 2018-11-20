@@ -7,7 +7,7 @@ class ApiController < JSONAPI::ResourceController
   attr_reader :current_user
 
   def context
-    { current_user: current_user }
+    { current_user: @current_user }
   end
   
   # Prevent CSRF attacks by raising an exception.
@@ -18,6 +18,6 @@ class ApiController < JSONAPI::ResourceController
 
   # Check for valid request token and return user
   def authorize_request
-    @current_user = (AuthorizeApiRequest.new(request.headers).call)[:user]
+    @current_user ||= (AuthorizeApiRequest.new(request.headers).call)[:user]
   end
 end

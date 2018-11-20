@@ -37,10 +37,6 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'jsonapi-resources'
 
-# gem 'jsonapi_suite', '~> 0.7'
-# gem 'jsonapi-rails', '~> 0.3.0'
-# gem 'jsonapi_swagger_helpers', '~> 0.6', require: false
-# gem 'kaminari', '~> 1.0'
 
 group :development do
   gem 'listen', '>= 3.0.5', '< 3.2'

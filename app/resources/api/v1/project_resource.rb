@@ -40,6 +40,11 @@ module Api
         :scaProjects,
 
         :doeUtilChanges
+
+      def self.records(options = {})
+        user = options.fetch(:context).fetch(:current_user)
+        user.editable_and_viewable_projects
+      end
     end
   end
 end

@@ -10,18 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_14_183712) do
+ActiveRecord::Schema.define(version: 2018_11_19_214100) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
 
   create_table "project_permissions", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "project_id"
-    t.string "access_level"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.bigint "project_id", null: false
+    t.bigint "user_id", null: false
+    t.string "permission", null: false
+    t.index ["project_id"], name: "index_project_permissions_on_project_id"
+    t.index ["user_id"], name: "index_project_permissions_on_user_id"
   end
 
   create_table "projects", force: :cascade do |t|
