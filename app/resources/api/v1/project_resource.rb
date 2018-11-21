@@ -14,10 +14,6 @@ module Api
         :totalUnits,
         :seniorUnits,
 
-        # Users
-        :users,
-        :viewers,
-
         # Public Schools
         :esSchoolChoice,
         :isSchoolChoice,
@@ -40,6 +36,9 @@ module Api
         :scaProjects,
 
         :doeUtilChanges
+
+      has_many :editors, relation_name: :editors
+      has_many :viewers, relation_name: :viewers
 
       def self.records(options = {})
         user = options.fetch(:context).fetch(:current_user)
