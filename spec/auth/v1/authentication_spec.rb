@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Authentication', type: :request do
+RSpec.describe 'Authentication AUTH', type: :request do
   # Authentication test suite
   describe 'POST /auth/v1/login' do
     # set headers for authorization

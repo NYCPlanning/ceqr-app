@@ -1,41 +1,44 @@
 module Api
   module V1
     class ProjectResource < JSONAPI::Resource
+      after_create :set_project_permissions
+      after_save :set_updated_by
+      
       attributes :name,
-        :buildYear,
+        :build_year,
         :bbls,
-        :ceqrNumber,
+        :ceqr_number,
         :borough,
       
         :created_at,
         :updated_at,
         :updated_by,
 
-        :totalUnits,
-        :seniorUnits,
+        :total_units,
+        :senior_units,
 
         # Public Schools
-        :esSchoolChoice,
-        :isSchoolChoice,
+        :es_school_choice,
+        :is_school_choice,
 
-        :subdistrictsFromDb,
-        :subdistrictsFromUser,
+        :subdistricts_from_db,
+        :subdistricts_from_user,
 
-        :futureResidentialDev,
-        :schoolsWithAction,
+        :future_residential_dev,
+        :schools_with_action,
 
-        :hsProjections,
-        :hsStudentsFromHousing,
+        :hs_projections,
+        :hs_students_from_housing,
 
-        :futureEnrollmentProjections,
-        :futureEnrollmentMultipliers,
-        :futureEnrollmentNewHousing,
+        :future_enrollment_projections,
+        :future_enrollment_multipliers,
+        :future_enrollment_new_housing,
 
         :bluebook,
         :lcgms,
-        :scaProjects,
+        :sca_projects,
 
-        :doeUtilChanges
+        :doe_util_changes
 
       has_many :editors, relation_name: :editors
       has_many :viewers, relation_name: :viewers
@@ -43,6 +46,28 @@ module Api
       def self.records(options = {})
         user = options.fetch(:context).fetch(:current_user)
         user.editable_and_viewable_projects
+      end
+
+      def self.updatable_fields(context)
+        super - [:created_at, :updated_at, :updated_by]
+      end
+
+      private
+
+      def current_user
+        @context.fetch(:current_user)
+      end
+
+      def set_project_permissions
+        ProjectPermission.create!({
+          project_id: @model.id,
+          user_id: current_user.id,
+          permission: "editor"
+        })
+      end
+    
+      def set_updated_by
+        Project.find(@model.id).update({updated_by: current_user.email})
       end
     end
   end

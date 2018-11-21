@@ -29,6 +29,7 @@ class EmailWhitelist
     'vhb.com',
     'urbancartographics.com',
     'environmentalstudiescorp.com',
+    'akrf.com',
 
     # NYC City
     'planning.nyc.gov',

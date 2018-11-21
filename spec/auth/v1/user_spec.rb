@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Users API', type: :request do
+RSpec.describe 'Users AUTH', type: :request do
   let(:headers) { valid_headers.except('Authorization') }
   
   describe 'POST /auth/v1/signup' do
