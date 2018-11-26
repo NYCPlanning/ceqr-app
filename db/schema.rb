@@ -16,6 +16,11 @@ ActiveRecord::Schema.define(version: 2018_11_21_022552) do
   enable_extension "citext"
   enable_extension "plpgsql"
 
+  create_table "pgmigrations", id: :integer, default: nil, force: :cascade do |t|
+    t.string "name", limit: 255, null: false
+    t.datetime "run_on", null: false
+  end
+
   create_table "project_permissions", force: :cascade do |t|
     t.bigint "project_id", null: false
     t.bigint "user_id", null: false
@@ -26,33 +31,33 @@ ActiveRecord::Schema.define(version: 2018_11_21_022552) do
 
   create_table "projects", force: :cascade do |t|
     t.text "fortune_id"
+    t.text "name"
+    t.text "bbls", default: [], null: false, array: true
+    t.float "build_year"
+    t.text "borough"
     t.float "traffic_zone"
     t.boolean "es_school_choice"
+    t.text "updated_by"
     t.boolean "is_school_choice"
-    t.float "total_units"
+    t.text "users", default: [], null: false, array: true
+    t.datetime "updated_at", null: false
+    t.datetime "created_at", null: false
     t.float "senior_units"
+    t.float "total_units"
     t.boolean "direct_effect"
     t.jsonb "subdistricts_from_db", default: [], null: false, array: true
     t.jsonb "subdistricts_from_user", default: [], null: false, array: true
     t.jsonb "bluebook", default: [], null: false, array: true
-    t.text "name"
-    t.text "bbls", default: [], null: false, array: true
     t.jsonb "lcgms", default: [], null: false, array: true
     t.jsonb "sca_projects", default: [], null: false, array: true
-    t.float "build_year"
     t.jsonb "doe_util_changes", default: [], null: false, array: true
     t.jsonb "future_residential_dev", default: [], null: false, array: true
-    t.text "borough"
     t.jsonb "schools_with_action", default: [], null: false, array: true
     t.jsonb "hs_projections", default: [], null: false, array: true
     t.float "hs_students_from_housing"
     t.jsonb "future_enrollment_projections", default: [], null: false, array: true
     t.jsonb "future_enrollment_multipliers", default: [], null: false, array: true
     t.jsonb "future_enrollment_new_housing", default: [], null: false, array: true
-    t.text "users", default: [], null: false, array: true
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.text "updated_by"
     t.text "viewers", default: [], null: false, array: true
     t.text "ceqr_number"
     t.text "manual_version"
@@ -60,13 +65,12 @@ ActiveRecord::Schema.define(version: 2018_11_21_022552) do
 
   create_table "users", force: :cascade do |t|
     t.text "fortune_id"
-    t.citext "email"
-    t.text "password_digest"
-    t.boolean "email_validated", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.text "projects", default: [], null: false, array: true
-    t.text "__project_updated_by_inverse", default: [], null: false, array: true
+    t.citext "email"
+    t.boolean "email_validated", default: false
+    t.text "password_digest"
     t.text "projects_viewable", default: [], null: false, array: true
     t.boolean "account_approved", default: false
     t.index ["email"], name: "user_email_unique", unique: true

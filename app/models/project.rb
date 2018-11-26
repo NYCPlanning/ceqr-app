@@ -4,5 +4,6 @@ class Project < ApplicationRecord
 
   has_many :editors, through: :editor_permissions, source: :user
   has_many :viewers, through: :viewer_permissions, source: :user
-  has_many :project_permissions
+
+  has_many :project_permissions, dependent: :destroy
 end
