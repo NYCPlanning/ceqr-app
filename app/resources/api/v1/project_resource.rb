@@ -17,6 +17,9 @@ module Api
         :total_units,
         :senior_units,
 
+        # Traffic
+        :traffic_zone,
+
         # Public Schools
         :es_school_choice,
         :is_school_choice,
@@ -42,14 +45,17 @@ module Api
 
       has_many :editors, relation_name: :editors
       has_many :viewers, relation_name: :viewers
+      has_many :project_permissions
 
       def self.records(options = {})
         user = options.fetch(:context).fetch(:current_user)
+        # Should be more granular, returning editable and vieable seperately
+        # Currently, a view can still edit a project
         user.editable_and_viewable_projects
       end
 
       def self.updatable_fields(context)
-        super - [:created_at, :updated_at, :updated_by]
+        super - [:created_at, :updated_at, :updated_by, :view_only]
       end
 
       private
