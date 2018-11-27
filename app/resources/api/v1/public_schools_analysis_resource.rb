@@ -1,5 +1,7 @@
 class Api::V1::PublicSchoolsAnalysisResource < JSONAPI::Resource
-  attributes :es_school_choice,
+  attributes :manual_version,
+    :multipliers,
+    :es_school_choice,
     :is_school_choice,
 
     :subdistricts_from_db,

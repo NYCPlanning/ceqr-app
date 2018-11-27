@@ -30,6 +30,7 @@ class EmailWhitelist
     'urbancartographics.com',
     'environmentalstudiescorp.com',
     'akrf.com',
+    'equityenvironmental.com',
 
     # NYC City
     'planning.nyc.gov',

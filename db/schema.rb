@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_26_234434) do
+ActiveRecord::Schema.define(version: 2018_11_27_185046) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -43,7 +43,7 @@ ActiveRecord::Schema.define(version: 2018_11_26_234434) do
     t.text "ceqr_number"
   end
 
-  create_table "public_schools_analyses", force: :cascade do |t|
+  create_table "public_schools_analyses", id: :bigint, default: -> { "nextval('public_school_analyses_id_seq'::regclass)" }, force: :cascade do |t|
     t.boolean "es_school_choice"
     t.boolean "is_school_choice"
     t.boolean "direct_effect"
@@ -64,6 +64,7 @@ ActiveRecord::Schema.define(version: 2018_11_26_234434) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "project_id"
+    t.jsonb "multipliers"
   end
 
   create_table "users", force: :cascade do |t|
@@ -79,5 +80,5 @@ ActiveRecord::Schema.define(version: 2018_11_26_234434) do
     t.index ["email"], name: "user_email_unique", unique: true
   end
 
-  add_foreign_key "public_school_analyses", "projects"
+  add_foreign_key "public_schools_analyses", "projects"
 end
