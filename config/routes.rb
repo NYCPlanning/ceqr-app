@@ -16,6 +16,7 @@ Rails.application.routes.draw do
 
       jsonapi_resources :projects
       jsonapi_resources :project_permissions
+      jsonapi_resources :public_schools_analyses
     end
   end
 

@@ -6,4 +6,7 @@ class Project < ApplicationRecord
   has_many :viewers, through: :viewer_permissions, source: :user
 
   has_many :project_permissions, dependent: :destroy
+
+  # Analyses
+  has_one :public_schools_analysis
 end

@@ -1,7 +1,3 @@
-module Api
-  module V1
-    class ProjectsController < ApiController
+class Api::V1::ProjectsController < ApiController
 
-    end
-  end
 end

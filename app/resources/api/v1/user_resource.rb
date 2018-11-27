@@ -1,11 +1,7 @@
-module Api
-  module V1
-    class UserResource < JSONAPI::Resource
-      attributes :email, :created_at, :updated_at
+class Api::V1::UserResource < JSONAPI::Resource
+  attributes :email, :created_at, :updated_at
 
-      has_many :project_permissions
+  has_many :project_permissions
 
-      filter :email
-    end
-  end
+  filter :email
 end

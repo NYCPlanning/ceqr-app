@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_21_022552) do
+ActiveRecord::Schema.define(version: 2018_11_26_234434) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -30,21 +30,25 @@ ActiveRecord::Schema.define(version: 2018_11_21_022552) do
   end
 
   create_table "projects", force: :cascade do |t|
-    t.text "fortune_id"
     t.text "name"
     t.text "bbls", default: [], null: false, array: true
     t.float "build_year"
     t.text "borough"
     t.float "traffic_zone"
-    t.boolean "es_school_choice"
     t.text "updated_by"
-    t.boolean "is_school_choice"
-    t.text "users", default: [], null: false, array: true
     t.datetime "updated_at", null: false
     t.datetime "created_at", null: false
     t.float "senior_units"
     t.float "total_units"
+    t.text "ceqr_number"
+  end
+
+  create_table "public_schools_analyses", force: :cascade do |t|
+    t.boolean "es_school_choice"
+    t.boolean "is_school_choice"
     t.boolean "direct_effect"
+    t.float "hs_students_from_housing"
+    t.text "manual_version", default: "march-2014"
     t.jsonb "subdistricts_from_db", default: [], null: false, array: true
     t.jsonb "subdistricts_from_user", default: [], null: false, array: true
     t.jsonb "bluebook", default: [], null: false, array: true
@@ -54,13 +58,12 @@ ActiveRecord::Schema.define(version: 2018_11_21_022552) do
     t.jsonb "future_residential_dev", default: [], null: false, array: true
     t.jsonb "schools_with_action", default: [], null: false, array: true
     t.jsonb "hs_projections", default: [], null: false, array: true
-    t.float "hs_students_from_housing"
     t.jsonb "future_enrollment_projections", default: [], null: false, array: true
     t.jsonb "future_enrollment_multipliers", default: [], null: false, array: true
     t.jsonb "future_enrollment_new_housing", default: [], null: false, array: true
-    t.text "viewers", default: [], null: false, array: true
-    t.text "ceqr_number"
-    t.text "manual_version"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "project_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -76,4 +79,5 @@ ActiveRecord::Schema.define(version: 2018_11_21_022552) do
     t.index ["email"], name: "user_email_unique", unique: true
   end
 
+  add_foreign_key "public_school_analyses", "projects"
 end

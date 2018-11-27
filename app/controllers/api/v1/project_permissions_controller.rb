@@ -1,7 +1,3 @@
-module Api
-  module V1
-    class ProjectPermissionsController < ApiController
+class Api::V1::ProjectPermissionsController < ApiController
 
-    end
-  end
 end
