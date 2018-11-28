@@ -15,14 +15,20 @@ class Api::V1::ProjectResource < JSONAPI::Resource
     :total_units,
     :senior_units,
 
+    :view_only, # computed attribute
+
     # Traffic
     :traffic_zone
-    
+  
   has_many :editors, relation_name: :editors
   has_many :viewers, relation_name: :viewers
   has_many :project_permissions
 
   has_one :public_schools_analysis
+
+  def view_only
+    self.viewers.map(&:id).include? current_user.id
+  end
 
   def self.records(options = {})
     user = options.fetch(:context).fetch(:current_user)
