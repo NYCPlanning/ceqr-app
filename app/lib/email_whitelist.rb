@@ -31,6 +31,7 @@ class EmailWhitelist
     'environmentalstudiescorp.com',
     'akrf.com',
     'equityenvironmental.com',
+    'aecom.com',
 
     # NYC City
     'planning.nyc.gov',
