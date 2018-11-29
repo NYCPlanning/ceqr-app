@@ -19,7 +19,7 @@ export default Component.extend({
 
   actions: {
     gotoChapter(chapter) {      
-      this.get('router').transitionTo(`project.show.${chapter}`);
+      this.router.transitionTo(`project.show.${chapter}`, this.project.id);
     }
   }
 });

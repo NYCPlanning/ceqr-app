@@ -9,8 +9,12 @@ export default Controller.extend({
 
   project: computed.alias('model.project'),
 
+  onSummary: computed('router.currentRouteName', function() { 
+    return this.router.currentRouteName.includes('summary');
+  }),
+
   showMap: computed('router.currentRouteName', function() {
-    const current = this.get('router.currentRouteName')
+    const current = this.router.currentRouteName;
     return (current.includes('existing-conditions') || current.includes('no-action'));
   }),
 });

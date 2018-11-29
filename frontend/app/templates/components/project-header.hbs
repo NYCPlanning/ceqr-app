@@ -50,13 +50,16 @@
 <div class="ui bottom attached clearing segment">
   {{#ui-dropdown 
     selected=currentChapter
-    onChange=(action "gotoChapter")
     class="chapter-dropdown"
   }}
     <div class="default text">Select Chapter</div>
     <i class="dropdown icon"></i>
     <div class="menu">
-      <div data-value="public-schools" class="item">
+      <div 
+        data-value="public-schools"
+        class="item"
+        onClick={{action "gotoChapter" "public-schools"}}
+      >
         <h3>
           <i class="building icon"></i>
           Public Schools

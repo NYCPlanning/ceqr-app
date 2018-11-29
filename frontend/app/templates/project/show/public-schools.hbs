@@ -1,6 +1,6 @@
 {{title "[Public Schools]" prepend=false}}
 
-{{#unless project.viewOnly}}
+{{#unless (or project.viewOnly onSummary)}}
   <div class="row">
     <div class="sixteen wide column">
         {{public-schools/analysis-steps}}

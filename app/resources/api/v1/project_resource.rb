@@ -24,7 +24,7 @@ class Api::V1::ProjectResource < JSONAPI::Resource
   has_many :viewers, relation_name: :viewers
   has_many :project_permissions
 
-  has_one :public_schools_analysis
+  relationship :public_schools_analysis, to: :one, foreign_key_on: :related
 
   def view_only
     self.viewers.map(&:id).include? current_user.id

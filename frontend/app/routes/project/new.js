@@ -12,34 +12,33 @@ export default Route.extend({
   
   async model() {
     const project = await this.store.createRecord('project');
-    const manual = await this.get('store').findRecord('ceqr-manual/public-schools', 'november-2018');
-    const user = this.get('currentUser.user');
 
-    project.set('manual', manual);
-    project.set('users', [ user ]);
-    
-    return RSVP.hash({
-      project
-    });
+    return RSVP.hash({ project });
   },
 
   actions: {
-    createProject: function(changeset) {      
-      changeset.validate().then(() => {
-        if (changeset.get("isValid")) {
-          changeset.save().catch(error => {
-            debug(error);
-          }).then(() => {
-            this.get('transportation').set('project', this.get('controller.model.project'));
-            this.get('transportation.initialLoad').perform();
+    createProject: async function(changeset) {      
+      await changeset.validate();
 
-            this.get('public-schools').set('project', this.get('controller.model.project'));
-            this.get('public-schools.initialLoad').perform();
-            
-            this.transitionTo('project.show', this.get('controller.model.project').id);
-          });
-        }
-      });
+      if (!changeset.isValid) return;
+      
+      try {        
+        const project = await changeset.save();
+        
+        // Load Public Schools Analysis
+        const multipliers = await this.store.findRecord('ceqr-manual/public-schools', 'march-2014');
+        const publicSchoolsAnalysis = await this.store.createRecord('publicSchoolsAnalysis', {
+          project,
+          multipliers
+        });
+
+        this.get('public-schools').set('analysis', publicSchoolsAnalysis);
+        this.get('public-schools').initialLoad.perform();
+        
+        this.transitionTo('project.show', project.id);
+      } catch(err) {
+        debug(err);
+      }
     },
   }
 });

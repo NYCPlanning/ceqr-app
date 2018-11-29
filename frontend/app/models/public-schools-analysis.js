@@ -9,7 +9,10 @@ export default DS.Model.extend({
 
   // Aliases from project
   borough: computed.alias('project.borough'),
+  boroCode: computed.alias('project.boroCode'),
   netUnits: computed.alias('project.netUnits'),
+  bbls: computed.alias('project.bbls'),
+  buildYear: computed.alias('project.buildYear'),
 
   multipliers: DS.attr(''),
   multiplierVersion: computed.alias('multipliers.version'),

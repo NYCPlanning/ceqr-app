@@ -9,11 +9,6 @@ export default DS.Model.extend({
   viewers: DS.hasMany('user', { inverse: 'viewable_projects' }),
   projectPermissions: DS.hasMany('project-permissions'),
 
-  // Should eventually come directly from the API
-  // viewOnly: computed('viewers.[]', function() {    
-  //   return this.viewers.mapBy('id').includes(this.currentUser.user.id);
-  // }),
-
   viewOnly: DS.attr('boolean'),
 
   created_at: DS.attr('string'),

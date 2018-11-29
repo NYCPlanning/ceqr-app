@@ -14,22 +14,24 @@ export default Route.extend({
   },
 
   actions: {
-    save: function(changeset) {                  
-      changeset.validate().then(() => {
-        if (changeset.get("isValid")) {
-          changeset.save().catch(error => {
-            debug(error);
-          }).then(() => {
-            this.get('transportation').set('project', this.get('controller.model.project'));
-            this.get('transportation.initialLoad').perform();
+    save: async function(changeset) {                  
+      await changeset.validate();
 
-            this.get('public-schools').set('project', this.get('controller.model.project'));
-            this.get('public-schools.initialLoad').perform();
+      if (!changeset.isValid) return;
 
-            history.back();
-          });
-        }
-      });
+      try {
+        const project = await changeset.save();
+
+        // this.get('transportation').set('project', this.get('controller.model.project'));
+        // this.get('transportation.initialLoad').perform();
+
+        this.get('public-schools').set('analysis', await project.publicSchoolsAnalysis);
+        this.get('public-schools.initialLoad').perform();
+
+        history.back();
+      } catch(err) {
+        debug(err);
+      }
     },
 
     rollback: function(changeset) {

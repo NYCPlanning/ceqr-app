@@ -9,8 +9,8 @@ export default Component.extend({
   
   init() {
     this._super(...arguments);
-    this.get('fetchDistricts').perform();
-    this.get('public-schools').set('project', this.get('project'));
+    this.fetchDistricts.perform();
+    this.get('public-schools').set('analysis', this.analysis);
   },
 
   fetchDistricts: task(function*() {
@@ -25,7 +25,7 @@ export default Component.extend({
     const subdistricts = yield carto.SQL(`
       SELECT zone AS subdistrict
       FROM doe_schoolsubdistricts_v2017
-      WHERE schooldist = ${this.get('district')}
+      WHERE schooldist = ${this.district}
       ORDER BY zone`);
     this.set('subdistricts', subdistricts);
   }),
@@ -34,10 +34,10 @@ export default Component.extend({
     const sd = yield carto.SQL(`
       SELECT cartodb_id, schooldist AS district, zone AS subdistrict
       FROM doe_schoolsubdistricts_v2017
-      WHERE schooldist = ${this.get('district')} AND zone = ${this.get('subdistrict')}
+      WHERE schooldist = ${this.district} AND zone = ${this.subdistrict}
     `)
 
-    const subdistricts = this.get('project.subdistrictsFromUser');
+    const subdistricts = this.analysis.subdistrictsFromUser;
     subdistricts.push({
       district: sd[0].district,
       subdistrict: sd[0].subdistrict,
@@ -46,7 +46,7 @@ export default Component.extend({
       sdName: `District ${sd[0].district} - Subdistrict ${sd[0].subdistrict}`
     });
 
-    this.set('project.subdistrictsFromUser', subdistricts);
+    this.set('analysis.subdistrictsFromUser', subdistricts);
     yield this.get('public-schools.addSubdistrict').perform();
 
     this.set('subdistrict', null);
@@ -57,7 +57,7 @@ export default Component.extend({
       this.set('district', district);
 
       this.set('subdistrict', null);
-      this.get('fetchSubdistricts').perform();
+      this.fetchSubdistricts.perform();
     },
 
     setSubdistrict(subdistrict) {
@@ -65,17 +65,17 @@ export default Component.extend({
     },
 
     addSubdistrict() {
-      this.get('addSubdistrict').perform().then(
-        () => this.get('mapservice').fitToSubdistricts()
+      this.addSubdistrict.perform().then(
+        () => this.mapservice.fitToSubdistricts()
       );
     },
 
     removeSubdistrict(sd) {
-      const subdistricts = this.get('project.subdistrictsFromUser');
-      this.set('project.subdistrictsFromUser', subdistricts.removeObject(sd));
+      const subdistricts = this.analysis.subdistrictsFromUser;
+      this.set('analysis.subdistrictsFromUser', subdistricts.removeObject(sd));
 
       this.get('public-schools.addSubdistrict').perform().then(
-        () => this.get('mapservice').fitToSubdistricts()
+        () => this.mapservice.fitToSubdistricts()
       );
     },
   }
