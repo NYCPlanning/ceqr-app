@@ -1,7 +1,3 @@
 {
-  
-  "cacheDirectories": ["frontend/node_modules","node_modules"],
-  "scripts": {
-    "postinstall": "cd frontend && yarn install"
-  }
+  "cacheDirectories": ["frontend/node_modules","node_modules"]
 }
