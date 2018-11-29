@@ -1,0 +1,49 @@
+<div class="ui grid container">
+  <div class="six wide centered column">
+    <h2 class="ui blue header">
+      <div class="content">
+        Create an account
+      </div>
+    </h2>
+    <div class="ui segment">
+      <form 
+        class="ui large form {{if error "error"}}"
+        {{action "createUser" user on="submit"}}
+      >
+        <div class="field">
+          <div class="ui left icon input">
+            <i class="user icon"></i>
+            {{input 
+              type="text"
+              name="email"
+              value=user.email
+              placeholder="Email"
+            }}
+          </div>
+        </div>
+        <div class="field">
+          <div class="ui left icon input">
+            <i class="lock icon"></i>
+            {{input 
+              type="password"
+              name="password"
+              value=user.password
+              placeholder="Password"
+            }}
+          </div>
+        </div>
+
+        <div class="ui left error message">
+          <div class="header">Error</div>
+          <p>{{error.message}}</p>
+        </div>
+
+        <button type="submit" class="ui fluid large primary submit button">Create Account</button> 
+      </form>
+    </div>
+
+    <div class="ui message">
+      Already have an account? {{#link-to "login"}}Log In{{/link-to}}
+    </div>
+  </div>
+</div>

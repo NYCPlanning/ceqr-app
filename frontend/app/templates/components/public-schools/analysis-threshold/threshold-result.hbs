@@ -1,0 +1,65 @@
+<table class="ui collapsing celled table">
+  <thead>
+    <tr>
+      <th class="two wide"></th>
+      <th class="two wide">Units for analysis</th>
+      <th class="two wide">Public school students per unit</th>
+      <th class="three wide" colspan="2">Est. # of students<br>from analysis</th>
+      <th class="three wide">Threshold for triggering detailed analysis</th>
+      <th>Triggers detailed analysis</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>Elementary</td>
+      {{#td-hover rowspan="3" payload=(hash name="housingFromDev")}}{{analysis.netUnits}}{{/td-hover}}
+      <td class="math--left"><i class="times circle icon"></i> {{analysis.currentMultiplier.ps}}</td>
+      <td>{{analysis.estEsStudents}}</td>
+      <td class={{if analysis.esEffect "warning"}} rowspan="2">
+        {{#if analysis.esEffect}}
+          {{#ui-popup title="Triggers a Detailed Analysis" content=esMsEffectPopupText}}
+            {{analysis.estEsMsStudents}} <i class="attention icon"></i>
+          {{/ui-popup}}
+        {{else}}
+          {{analysis.estEsMsStudents}}
+        {{/if}}
+      </td>
+      <td rowspan="2">
+        {{analysis.multipliers.thresholdPsIsStudents}}
+      </td>
+      <td rowspan="2">
+        <div style="display: inline-block;" class="ui medium label {{if analysis.esEffect "yellow" "grey"}}">
+          {{if analysis.esEffect "Yes" "No"}}
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>Middle School</td>
+      <td class="math--left"><i class="times circle icon"></i> {{analysis.currentMultiplier.is}}</td>
+      <td>{{analysis.estIsStudents}}</td>
+    </tr>
+    <tr>
+      <td>High School</td>
+      <td class="math--left"><i class="times circle icon"></i> {{analysis.currentMultiplier.hs}}</td>
+      <td class={{if analysis.hsEffect "warning"}} colspan="2">
+        {{#if analysis.hsEffect}}
+          {{#ui-popup title="Triggers a Detailed Analysis" content=hsEffectPopupText}}
+            {{analysis.estHsStudents}} <i class="attention icon"></i>
+          {{/ui-popup}}
+        {{else}}
+          {{analysis.estHsStudents}}
+        {{/if}}
+      </td>
+      <td>
+        {{analysis.multipliers.thresholdHsStudents}}
+      </td>
+      <td>
+        <div style="display: inline-block;" class="ui medium label {{if analysis.hsEffect "yellow" "grey"}}">
+          {{if analysis.hsEffect "Yes" "No"}}
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+

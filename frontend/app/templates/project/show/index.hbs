@@ -1,0 +1,44 @@
+<div class="row">
+  <div class="ui two column grid">
+    <div class="column">
+      <div class="ui link cards">
+        {{#link-to 'project.show.public-schools' class="ui fluid card"}}
+          <div class="content">
+            <div class="header">
+              <i class="building icon"></i>
+              Public Schools
+            </div>
+          </div>
+
+          <div class="extra content">
+            Detailed Analysis
+            <div style="display: inline-block;" class="ui small label {{if model.project.publicSchoolsAnalysis.indirectEffect "yellow" "grey"}}">
+              {{if model.project.publicSchoolsAnalysis.indirectEffect "Yes" "No"}}
+            </div>
+          </div>
+
+          <div class="ui inverted dimmer {{if public-schools.initialLoad.isRunning "active"}}">
+            <div class="ui text loader">Loading</div>
+          </div>
+        {{/link-to}}
+
+        {{!-- {{#link-to 'project.show.transportation' class="ui fluid card"}}
+          <div class="content">
+            <div class="header">
+              <i class="subway icon"></i>
+              Transportation
+            </div>
+          </div>
+
+          <div class="extra content">
+            Traffic Zone <div class="ui grey circular label">{{model.project.trafficZone}}</div>
+          </div>
+
+          <div class="ui inverted dimmer {{if transportation.initialLoad.isRunning "active"}}">
+            <div class="ui text loader">Loading</div>
+          </div>
+        {{/link-to}} --}}
+      </div>
+    </div>
+  </div>
+</div>

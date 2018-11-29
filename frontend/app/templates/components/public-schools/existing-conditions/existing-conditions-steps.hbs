@@ -1,0 +1,35 @@
+<div class="ui pointing menu">
+  {{#link-to 
+    "project.show.public-schools.existing-conditions.schools"
+    project.id
+    class="item"
+  }}
+    Public Schools Serving Study Area
+  {{/link-to}}
+
+  <div class="right menu">
+    {{#if 
+      (or analysis.esSchoolChoice analysis.isSchoolChoice (gt analysis.subdistrictsFromDb.length 1))
+    }}
+      {{#link-to
+        "project.show.public-schools.existing-conditions.study-area"
+        project.id
+        class="item"
+      }}
+        Study Area 
+        <div class="ui basic label orange">
+          <i class="attention orange icon" style="margin: 0"></i>
+        </div>
+      {{/link-to}}
+    {{/if}}
+
+    {{#link-to
+      "project.show.public-schools.existing-conditions.new-schools"
+      project.id
+      class="item"
+    }}
+      Newly Opened Schools
+      <div class="ui label {{if (gt analysis.lcgms.length 0) "orange" "green"}}">{{analysis.lcgms.length}}</div>
+    {{/link-to}}
+  </div>
+</div>

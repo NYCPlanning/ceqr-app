@@ -1,0 +1,142 @@
+{{#mapbox-gl 
+  id='transportation-zone-map' mapLoaded=(action 'handleMapLoad') initOptions=(hash
+    style='mapbox://styles/mapbox/light-v9'
+    zoom=9.2
+    center=(array -74 40.7071266)
+  ) as |map| }}
+
+  {{#if (is-fulfilled mapdata.fetchTransportationZones)}}
+    {{#map.source options=(hash type='vector' tiles=(array mapdata.transportationZonesMvt) id='transportation-zones') as |source|}}
+      {{source.layer layer=(hash
+        id='transportation-zones'
+        source-layer='transportation-zones'
+        type='fill'
+        paint=(hash
+          fill-opacity=0.6
+          fill-color=(hash
+            property='ceqrzone'
+            stops=(array
+              (array 1 '#016c59')
+              (array 2 '#1c9099')
+              (array 3 '#67a9cf')
+              (array 4 '#bdc9e1')
+              (array 5 '#f6eff7')
+            )
+          )
+        )
+      )}}
+    {{/map.source}}
+
+    {{map.on 'mousemove' 'transportation-zones' (action 'zoneHover')}}
+    {{map.on 'mouseleave' 'transportation-zones' (action 'zoneUnhover')}}
+  {{/if}}
+
+  {{#map.source options=(hash type='geojson' data=(await mapdata.bblGeojson)) as |source|}}
+    {{source.layer layer=(hash 
+      id='bbls'
+      type='line'
+      paint=(hash line-color='#d7191c' line-width=4 line-blur=1)
+    )}}
+  {{/map.source}}
+
+  {{#map.source options=(hash type='geojson' data=(await mapdata.subwayRoutesGeojson)) as |source|}}
+    {{source.layer layer=(hash
+      id='subway_green'
+      type='line'
+      filter=(array 'all' (array '==' 'rt_symbol' '4'))
+      paint=(hash line-color='rgba(0, 147, 60, 1)' line-width=(hash stops=(array (array 10 1) (array 15 4))) ))
+    }}
+
+    {{source.layer layer=(hash
+      id='subway_yellow'
+      type='line'
+      filter=(array 'all' (array '==' 'rt_symbol' 'N'))
+      paint=(hash line-color='rgba(252, 204, 10, 1)' line-width=(hash stops=(array (array 10 1) (array 15 4))) ))
+    }}
+
+    {{source.layer layer=(hash
+      id='subway_gray'
+      type='line'
+      filter=(array 'all' (array '==' 'rt_symbol' 'L'))
+      paint=(hash line-color='rgba(167, 169, 172, 1)' line-width=(hash stops=(array (array 10 1) (array 15 4))) ))
+    }}
+
+    {{source.layer layer=(hash
+      id='subway_brown'
+      type='line'
+      filter=(array 'all' (array '==' 'rt_symbol' 'J'))
+      paint=(hash line-color='rgba(153, 102, 51, 1)' line-width=(hash stops=(array (array 10 1) (array 15 4))) ))
+    }}
+
+    {{source.layer layer=(hash
+      id='subway_light_green'
+      type='line'
+      filter=(array 'all' (array '==' 'rt_symbol' 'G'))
+      paint=(hash line-color='rgba(108, 190, 69, 1)' line-width=(hash stops=(array (array 10 1) (array 15 4))) ))
+    }}
+
+    {{source.layer layer=(hash
+      id='subway_orange'
+      type='line'
+      filter=(array 'all' (array '==' 'rt_symbol' 'B'))
+      paint=(hash line-color='rgba(255, 99, 25, 1)' line-width=(hash stops=(array (array 10 1) (array 15 4))) ))
+    }}
+
+    {{source.layer layer=(hash
+      id='subway_blue'
+      type='line'
+      filter=(array 'any' (array '==' 'rt_symbol' 'A') (array '==' 'rt_symbol' 'SI'))
+      paint=(hash line-color='rgba(0, 57, 166, 1)' line-width=(hash stops=(array (array 10 1) (array 15 4))) ))
+    }}
+
+    {{source.layer layer=(hash
+      id='subway_purple'
+      type='line'
+      filter=(array 'all' (array '==' 'rt_symbol' '7'))
+      paint=(hash line-color='rgba(185, 51, 173, 1)' line-width=(hash stops=(array (array 10 1) (array 15 4))) ))
+    }}
+
+    {{source.layer layer=(hash
+      id='subway_red'
+      type='line'
+      filter=(array 'all' (array '==' 'rt_symbol' '1'))
+      paint=(hash line-color='rgba(238, 53, 46, 1)' line-width=(hash stops=(array (array 10 1) (array 15 4))) ))
+    }}
+  {{/map.source}}
+
+  {{#map.source options=(hash type='geojson' data=(await mapdata.subwayStopsGeojson)) as |source|}}
+    {{source.layer layer=(hash
+      id='subway_stations'
+      type='circle'
+      paint=(hash 
+        circle-color='rgba(255, 255, 255, 1)'
+        circle-opacity=(hash stops=(array (array 11 0) (array 12 1)))
+        circle-stroke-opacity=(hash stops=(array (array 11 0) (array 12 1)))
+        circle-radius=(hash stops=(array (array 10 2) (array 14 5)))
+        circle-stroke-width=1
+        circle-pitch-scale='map'
+      ))
+    }}
+
+    {{source.layer layer=(hash
+      id='subway_stations_labels'
+      minzoom=13
+      type='symbol'
+      layout=(hash
+        text-field='{name}'
+        symbol-placement='point'
+        symbol-spacing=250
+        symbol-avoid-edges=false
+        text-size=14
+        text-anchor='center'
+      )
+      paint=(hash 
+        text-halo-color='rgba(255, 255, 255, 1)'
+        text-halo-width=1
+        text-translate=(array 1 20)
+        text-opacity=(hash stops=(array (array 13 0) (array 14 1)))
+      ))
+    }}
+  {{/map.source}}
+
+{{/mapbox-gl}}

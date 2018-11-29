@@ -1,0 +1,9 @@
+<div class="ui aligned basic segment">
+  <div class="ui label {{if directEffect "red"}}">
+    {{ui-checkbox label="Direct Effect" checked=directEffect onChange=(action (mut directEffect))}}
+  </div>
+  <div class="ui horizontal divider"></div>
+  <div class="ui label">
+    Indirect Effect
+  </div>
+</div>

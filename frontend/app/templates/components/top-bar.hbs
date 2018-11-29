@@ -1,0 +1,72 @@
+<a href="http://www.nyc.gov/planning" class="beta-notice hide-for-print">A beta project of NYC Planning</a>
+
+<div class="ui fixed menu inverted top-bar">
+  <div class="ui container">
+    <div class="header item">
+      <i class="table icon"></i>
+      {{#link-to "user.projects"}}CEQR App{{/link-to}}
+    </div>
+
+    <div class="right menu">
+      <div class="ui simple dropdown item">
+        Technical Manual
+        <i class="dropdown icon"></i>
+        <div class="menu">
+          <a 
+            class="item"
+            href="https://www1.nyc.gov/assets/oec/technical-manual/2014_ceqr_technical_manual_rev_04_27_2016.pdf"
+            target="_blank"
+            rel="noopener"
+          >
+            <i class="file pdf icon"></i> Full CEQR Technical Manual
+          </a>
+          <div class="divider"></div>
+          <div class="header">
+            Chapters
+          </div>
+          <a
+            class="item"
+            href="https://www1.nyc.gov/assets/oec/technical-manual/06_Community_Facilities_2014.pdf"
+            target="_blank"
+            rel="noopener"
+          >
+            <i class="file pdf icon"></i> 6: Community Facilities and Services
+          </a>
+          <a
+            class="item"
+            href="https://www1.nyc.gov/assets/oec/technical-manual/16_Transportation_2014.pdf"
+            target="_blank"
+            rel="noopener"
+          >
+            <i class="file pdf icon"></i> 16: Transportation
+          </a>
+        </div>
+      </div>
+
+      <div class="ui simple dropdown item">
+        <i class="question circle icon"></i>
+        Help
+        <i class="dropdown icon"></i>
+        <div class="menu">
+          <a class="item" href="mailto:jpichot@planning.nyc.gov"><i class="envelope icon"></i>Contact Us</a>
+        </div>
+      </div>
+
+      {{#if session.isAuthenticated}}        
+        <div class="ui simple dropdown item">
+          {{currentUser.user.email}}
+          <i class="dropdown icon"></i>
+          <div class="menu">
+            <a class="item" {{action "logOut"}}><i class="sign out alternate icon"></i>Log Out</a>
+          </div>
+        </div>
+      {{else}}
+        <div class="item">
+          {{#link-to "login"}}Log In{{/link-to}}
+        </div>
+      {{/if}}
+    </div>
+  </div>
+</div>
+
+{{yield}}

@@ -1,0 +1,21 @@
+{{title "[Public Schools]" prepend=false}}
+
+{{#unless project.viewOnly}}
+  <div class="row">
+    <div class="sixteen wide column">
+        {{public-schools/analysis-steps}}
+    </div>
+
+    <div class="ui inverted dimmer {{if public-schools.initialLoad.isRunning "active"}}">
+      <div class="ui text loader">Loading</div>
+    </div>
+  </div>
+{{/unless}}
+
+{{#if (and showMap public-schools.initialLoad.isIdle)}}
+  <div class="sixteen wide column">
+    {{public-schools/project-map project=project analysis=model.publicSchoolsAnalysis}}
+  </div>
+{{/if}}
+
+{{outlet}}

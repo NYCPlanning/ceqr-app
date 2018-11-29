@@ -1,0 +1,69 @@
+<div class="ui message">
+  <div class="header">Instructions</div>
+  <p>
+    If a school is included in the proposed project or under discussion as a potential mitigation measure, include it here with the estimated capacity.
+  </p>
+</div>
+
+<table class="ui celled table">
+  <thead>
+    <tr>
+      <th class="four wide">School Name (preliminary)</th>
+      <th class="four wide">Subdistrict</th>
+      <th class="two wide">PS Seats</th>
+      <th class="two wide">IS Seats</th>
+      <th class="two wide">HS Seats</th>
+      <th class="two wide"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>
+        <div class="ui input transparent edit-cell" style="width: 100%">
+          {{input type="string" value=school.name placeholder="School Name"}}
+        </div>
+      </td>
+      <td>
+        {{#ui-dropdown selected=school.subdistrict onChange=(action (mut school.subdistrict)) as |execute mapper|}}
+          <div class="default text">Subdistrict</div>
+          <i class="dropdown icon"></i>
+          <div class="menu">
+            {{#each analysis.subdistricts as |sd|}}
+              <div data-value="{{map-value mapper sd}}" class="item">
+                District {{sd.district}} - Subdistrict {{sd.subdistrict}}
+              </div>
+            {{/each}}
+          </div>
+        {{/ui-dropdown}}
+      </td>
+      <td>
+        <div class="ui input transparent edit-cell">
+          {{input type="number" value=school.ps_seats placeholder="0"}}
+        </div>
+      </td>
+      <td>
+        <div class="ui input transparent edit-cell">
+          {{input type="number" value=school.is_seats placeholder="0"}}
+        </div>
+      </td>
+      <td>
+        <div class="ui input transparent edit-cell">
+          {{input type="number" value=school.hs_seats placeholder="0"}}
+        </div>
+      </td>
+      <td><button class="ui button blue" {{action "addSchool" school}}>Add</button></td>
+    </tr>
+
+    {{#each analysis.schoolsWithAction as |s|}}
+      <tr>
+        <td>{{s.name}}</td>
+        <td>District {{s.district}} - Subdistrict {{s.subdistrict}}</td>
+        <td>{{s.ps_seats}}</td>
+        <td>{{s.is_seats}}</td>
+        <td>{{s.hs_seats}}</td>
+        <td><button class="ui button red" {{action "removeSchool" s}}>Delete</button></td>
+      </tr>
+    {{/each}}
+  </tbody>
+</table>

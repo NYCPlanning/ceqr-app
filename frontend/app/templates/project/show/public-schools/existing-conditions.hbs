@@ -1,0 +1,9 @@
+{{#if public-schools.initialLoad.isIdle}}
+  <div class="sixteen wide column">
+    {{public-schools/existing-conditions/existing-conditions-steps analysis=model.publicSchoolsAnalysis project=project}}
+  </div>
+
+  <div class="sixteen wide column">
+    {{outlet}}
+  </div>
+{{/if}}

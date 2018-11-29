@@ -1,0 +1,288 @@
+// Body & containter
+
+html, body {
+  height: 100%;
+}
+
+body > .ember-view {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+body .ui.fixed.menu.top-bar {
+  top: 21px;
+}
+
+body .ui.grid.container {
+  margin: 70px 0 40px;
+}
+
+.beta-notice {
+  position: fixed;
+  display: block;
+  
+  color: #fff;
+  font-size: 12px;
+  font-weight: bold;
+  height: 21px;
+  line-height: 21px;
+  width: 100%;
+  text-align: center;
+  background-color: #D96B27;
+  box-shadow: inset 0 -4px 0 rgba(0,0,0,0.1);
+  z-index: 101;
+
+  &:hover, &:focus {
+    color: #fff;
+    background-color: #b95b21;
+    text-decoration: none;
+  }
+}
+
+footer {
+  margin-top: auto;
+  height: 225px;
+
+  border-top: 1px solid #DDDDDD;
+  box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.08) inset;
+  background-color: #FAFAFA;
+  padding-top: 2em;
+
+  .planning-logo {
+    height: 46px;
+    margin-right: 10px;
+  }
+
+  .moec-logo {
+    height: 46px;
+  }
+
+  .soft {
+    color: grey;
+  }
+
+  .disclaimer {
+    color: grey;
+    font-size: 0.9em;
+  }
+}
+
+
+// Project
+
+.ui.selection.dropdown {
+  min-width: 8em;
+}
+
+.icon.no-size {
+  font-size: 1em !important;
+  vertical-align: inherit; 
+}
+
+#study-area-map {
+  height: 550px;
+}
+
+#transportation-zone-map {
+  height: 750px;
+}
+
+.action-title {
+  display: inline;
+  vertical-align: bottom;
+}
+
+.inline-header {
+  display: inline;
+}
+
+// School Circles
+
+.PS .school.icon {  color: #7fcdbb; }
+.PSIS .school.icon {  color: #41b6c4; }
+.IS .school.icon {  color: #1d91c0; }
+.ISHS .school.icon {  color: #225ea8; }
+.HS .school.icon {  color: #0c2c84; }
+
+i.icons .new-school-outline.icon {
+  margin-right: 0;
+  font-size: 1.25em;
+  color: #21BA45;
+  opacity: 0.7;
+}
+
+i.icons .school-under-construction.icon {
+  margin-right: 0;
+  font-size: 1.25em;
+  color: #F2711C;
+  opacity: 0.7;
+}
+
+
+.map-ui {
+  position: absolute;
+  z-index: 1;
+  background: white;
+  margin: 5px;
+  padding: 5px;
+  border-radius: 2px;
+  box-shadow: 1px 2px 2px rgba(100, 100, 100, 0.4);
+  font-size: 14px;
+}
+
+.map-legend {
+  position: absolute;
+  bottom: 2.5em;
+  z-index: 1;
+  background: white;
+  margin: 5px;
+  padding: 5px;
+  border-radius: 2px;
+  box-shadow: 1px 2px 2px rgba(100, 100, 100, 0.4);
+  font-size: 12px;
+
+  i.new-school {
+    color: #21BA45;
+    font-weight: bold;
+    display: inline;
+    margin-right: .5em;
+    padding-left: 1px;
+    font-size: 1.1em;
+  }
+  i.school-under-construction {
+    color: #F2711C;
+    font-weight: bold;
+    display: inline;
+    margin-right: .5em;
+    padding-left: 1px;
+    font-size: 1.1em;
+  }
+}
+
+.mapboxgl-popup {
+  z-index: 2;
+}
+
+.mapboxgl-popup-anchor-top .mapboxgl-popup-tip { border-bottom-color: #333333; }
+.mapboxgl-popup-anchor-bottom .mapboxgl-popup-tip { border-top-color: #333333; }
+.mapboxgl-popup-anchor-left .mapboxgl-popup-tip { border-right-color: #333333; }
+.mapboxgl-popup-anchor-right .mapboxgl-popup-tip { border-left-color: #333333; }
+
+.mapboxgl-popup-content {
+  background-color: #333333;
+  color: white;
+  padding: 0;
+}
+
+.traffic-zone-popup {
+  margin: 5px 7px;
+}
+
+.edit-cell input {
+  width: 50px;
+}
+
+.project.title {
+  color: black;
+
+  h1 {
+    display: inherit;
+  }
+}
+
+.chapter-dropdown {
+  margin-top: 4px;
+
+  h3 {
+    font-weight: 400;
+  }
+}
+
+tr.hover, td.hover {
+  background: rgb(233, 234, 235);
+}
+
+td {
+  &.math--bottom {
+    position: relative;
+  
+    .icon {
+      position: absolute;
+      bottom: -0.4em;
+      right: 50%;
+      margin-right: -1em;
+    }
+  }
+
+  &.math--left {
+    position: relative;
+    padding-left: 1.4em !important;
+  
+    .icon {
+      position: absolute;
+      left: -0.6em;
+    }
+  }
+
+  &.math--right {
+    position: relative;
+    padding-right: 1.4em !important;
+  
+    .icon {
+      position: absolute;
+      right: -0.6em;
+    }
+  }
+}
+
+// Tooltips
+
+i.icon.tooltip {
+  font-size: 0.6em;
+}
+
+
+// Project Users
+.project-users {
+  .list > .item {
+    padding: 5px 0;
+  }
+}
+
+
+// Summary Page
+table.school-summary-sections {
+  border-collapse: collapse !important;
+  
+  tr.highlight {
+    cursor: pointer;
+  }
+
+  tr.open, tr:hover .section-name {
+    font-weight: bold;
+  }
+}
+
+
+// Projects Index
+.row.px20 {
+  margin-top: 20px;
+}
+
+.byline {
+  color: grey;
+}
+
+.project-row {
+  .project-name {
+    font-weight: bold;
+    font-size: 16px;
+  }
+
+  .actions {
+    a, button {
+      display: inline;
+    }
+  }
+}

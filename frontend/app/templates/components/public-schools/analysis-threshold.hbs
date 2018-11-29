@@ -1,0 +1,80 @@
+<div class="ui grid">
+  {{#if public-schools.initialLoad.isIdle}}
+    <div class="row" style="margin-top: 10px">
+      <div class="sixteen wide column">
+        <h4 class="ui header">
+          <i class="book icon"></i>
+        
+          <div class="content">
+            Technical Manual version:
+            <div class="ui inline dropdown">
+              <div class="text">{{humanize analysis.multiplierVersion}}</div>
+              <i class="dropdown icon"></i>
+              <div class="menu">
+                <div
+                  class="item"
+                  data-text="March 2014"
+                  {{action "changeMultipliers" "march-2014"}}
+                >
+                  March 2014
+                </div>
+                <div
+                  class="item"
+                  data-text="November 2018"
+                  {{action "changeMultipliers" "november-2018"}}
+                >
+                  November 2018
+                </div>
+              </div>
+            </div>
+
+            {{#unless (eq analysis.multiplierVersion "november-2018")}}
+              <div
+                style="display: inline-block;" 
+                class="ui label yellow"
+              >
+                <i class="attention icon"></i> Old Version
+              </div>
+            {{/unless}}
+          </div>
+        </h4>
+      </div>
+    </div>
+    
+    <div class="row">
+      <div class="sixteen wide column">     
+        <div class="ui grey segment">
+          <h3 style="display: inline;">
+            Does this project require a detailed analysis of potential indirect effects on public school capacity?
+          </h3>
+          <div
+            style="display: inline-block;" 
+            class="ui big label {{if analysis.indirectEffect "yellow" "grey"}}"
+          >
+            {{if analysis.indirectEffect "Yes" "No"}}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="sixteen wide column">
+        {{public-schools/analysis-threshold/threshold-result analysis=analysis}}
+      </div>
+    </div>
+
+    {{#if (eq analysis.multiplierVersion "march-2014")}}
+      <div class="row">
+        <div class="sixteen wide column">
+          {{public-schools/analysis-threshold/mar-2014-multipliers analysis=analysis}}
+        </div>
+      </div>
+    {{else if (eq analysis.multiplierVersion "november-2018")}}
+      <div class="row">
+        <div class="sixteen wide column">
+          {{public-schools/analysis-threshold/nov-2018-multipliers analysis=analysis}}
+        </div>
+      </div>
+    {{/if}}
+  {{/if}}
+</div>
