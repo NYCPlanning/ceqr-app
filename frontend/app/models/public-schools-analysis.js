@@ -34,11 +34,11 @@ export default DS.Model.extend({
   isSchoolChoice: DS.attr('boolean'),
   
   // Effects
-  esEffect: computed('netUnits', 'currentMultiplier', function() {
-    return this.currentMultiplier.ps < this.netUnits;
+  esEffect: computed('multipliers', 'estEsMsStudents', function() {
+    return this.multipliers.thresholdPsIsStudents < this.estEsMsStudents;
   }),
-  hsEffect: computed('netUnits', 'currentMultiplier', function() {
-    return this.currentMultiplier.hs < this.netUnits;
+  hsEffect: computed('multipliers', 'estHsStudents', function() {
+    return this.multipliers.thresholdHsStudents < this.estHsStudents;
   }),
   indirectEffect: computed('esEffect', 'hsEffect', function() {
     return (this.esEffect || this.hsEffect);
