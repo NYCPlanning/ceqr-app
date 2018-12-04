@@ -8,7 +8,7 @@ export default Service.extend({
   session: service(),
   store: service(),
 
-  load() {
+  load() {  
     let userId = this.get('session.data.authenticated.tokenData.user_id');
 
     if (!isEmpty(userId)) {

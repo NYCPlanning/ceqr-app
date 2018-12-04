@@ -7,7 +7,9 @@ module.exports = function(environment) {
     },
     'ember-simple-auth-token': {
       serverTokenEndpoint: '/auth/v1/login',
-      refreshAccessTokens: false
+      refreshAccessTokens: false,
+      tokenExpireName: 'exp',
+      tokenExpirationInvalidateSession: true,
     },
     metricsAdapters: [
       {
@@ -73,6 +75,11 @@ module.exports = function(environment) {
 
     ENV.APP.rootElement = '#ember-testing';
     ENV.APP.autoboot = false;
+
+    ENV['ember-simple-auth-token'] = {
+      refreshAccessTokens: false,
+      tokenExpirationInvalidateSession: false,
+    };
   }
 
   if (environment === 'production') {
