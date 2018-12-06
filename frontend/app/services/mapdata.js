@@ -17,18 +17,6 @@ export default Service.extend({
   },
 
   // Geojson
-  bblGeojson: computed('analysis.bbls.[]', function() {
-    return this.fetchBbls.perform();
-  }),
-  fetchBbls: task(function*() {
-    return yield carto.SQL(`
-      SELECT cartodb_id, the_geom, bbl
-      FROM mappluto_v1711
-      WHERE bbl IN (${this.analysis.bbls.join(',')})
-    `, 'geojson');
-  }).drop(),
-
-
   subdistrictGeojson: computed('analysis.subdistrictCartoIds.[]', function() {    
     return this.fetchSubdistricts.perform();
   }),
@@ -152,11 +140,16 @@ export default Service.extend({
     return yield carto.SQL('SELECT the_geom FROM mta_subway_entrances_v0', 'geojson');
   }).drop(),
 
-  // transportationZonesMvt: null,
-  // fetchTransportationZones: computed('', function() {
-  //   return carto.getVectorTileTemplate([{
-  //     id: 'transportation-zones',
-  //     sql: 'SELECT the_geom_webmercator, the_geom, ceqrzone FROM ceqr_transportation_zones_v2015' }
-  //   ]).then((url) => this.set('transportationZonesMvt', url));
-  // }),
+
+  ceqrTransitZonesMvt: computed('', function() {
+    return this.fetchCeqrTransitZones.perform();
+  }),
+  fetchCeqrTransitZones: task(function*() {
+    const url = yield carto.getVectorTileTemplate([{
+      id: 'transportation-zones',
+      sql: 'SELECT the_geom_webmercator, the_geom, ceqrzone AS zone FROM ceqr_transportation_zones_v2015' }
+    ]);
+
+    this.set('ceqrTransitZonesMvtUrl', [url]);
+  }).drop(),
 });

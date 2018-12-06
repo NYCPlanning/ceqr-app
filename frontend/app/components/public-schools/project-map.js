@@ -32,19 +32,6 @@ export default Component.extend({
     this.get('tablehover').off('unhover', this, 'dotUnhover');
   },
 
-
-  // Map Observers
-  // showSCAProjects: observer('router.currentRouteName', function() {
-  //   console.log('obs')
-    
-  //   if (this.router.currentRouteName.includes('under-construction')) {
-  //     this.map.setLayoutProperty('scaprojects', 'visibility', 'visible')
-  //     console.log('under c')
-  //   } else {
-  //     this.map.setLayoutProperty('scaprojects', 'visibility', 'none')
-  //   }
-  // }),
-
   // UI attributes
   showZones: false,
   schoolZone: 'es',

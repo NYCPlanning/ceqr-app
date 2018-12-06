@@ -1,0 +1,49 @@
+{{#ui-dropdown 
+  selected=currentChapter
+  class="chapter-dropdown"
+}}
+  <div class="default text">Select Chapter</div>
+  <i class="dropdown icon"></i>
+  <div class="menu">
+    <div 
+      data-value="community-facilities"
+      class="item"
+      onClick={{action "gotoChapter" "community-facilities"}}
+    >
+      <h3>
+        <i class="university icon"></i>
+        Community Facilities
+      </h3>
+    </div>
+    <div 
+      data-value="public-schools"
+      class="item"
+      onClick={{action "gotoChapter" "public-schools"}}
+    >
+      <h3>
+        <i class="graduation cap icon"></i>
+        Public Schools
+      </h3>
+    </div>
+    {{!-- <div
+      data-value="solid-waste"
+      class="item"
+      onClick={{action "gotoChapter" "solid-waste"}}
+    >
+      <h3>
+        <i class="trash alternate icon"></i>
+        Solid Waste
+      </h3>
+    </div> --}}
+    <div
+      data-value="transportation"
+      class="item"
+      onClick={{action "gotoChapter" "transportation"}}
+    >
+      <h3>
+        <i class="car icon"></i>
+        Transportation
+      </h3>
+    </div>
+  </div>
+{{/ui-dropdown}}

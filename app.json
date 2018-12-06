@@ -6,7 +6,7 @@
   ],
   "environments": {
     "test": {
-      "addons": ["heroku-postgresql:in-dyno"],
+      "addons": ["heroku-postgresql:hobby-dev"],
       "scripts": {
         "test-setup": "bundle exec rails ember:install",
         "test": "bundle exec rspec && bundle exec rails ember:test"

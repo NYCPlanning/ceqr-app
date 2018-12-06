@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.5.1'
+ruby '2.6.0'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.1'
@@ -12,7 +12,7 @@ gem 'puma', '~> 3.11'
 # gem 'redis', '~> 4.0'
 
 # Use ActiveModel has_secure_password
-gem 'bcrypt', '~> 3.1.12', github: 'codahale/bcrypt-ruby'
+gem 'bcrypt', '~> 3.1.12'
 gem 'jwt'
 
 gem 'sentry-raven'
@@ -29,7 +29,13 @@ gem "ember-cli-rails", '~> 0.10.0'
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'jsonapi-resources'
+gem "interactor", "~> 3.1"
 
+gem 'rgeo'
+gem 'rgeo-geojson'
+gem 'activerecord-postgis-adapter'
+
+gem 'rails_12factor', group: [:staging, :production]
 
 group :development do
   gem 'listen', '>= 3.0.5', '< 3.2'
@@ -47,13 +53,16 @@ group :development, :test do
   gem 'rspec-rails', '~> 3.5.2'
   gem 'factory_bot_rails', '~> 4.0'
   gem 'shoulda-matchers', '~> 3.1'
-  gem 'faker', '~> 1.7'
+  gem 'faker', '~> 1.9.1'
+  gem 'rspec-activemodel-mocks'
 
-  gem 'jsonapi_spec_helpers', '~> 0.4', require: false
+  # This is a jsonapi test helper tied to another JSONAPI (previous JSONAPI Suite, now called Graphiti) ruby gem. 
+  # It was the most elegant, in my opinion.
+  # gem 'graphiti_spec_helpers'
+
+  gem 'simplecov', require: false
 end
 
 group :test do
   gem 'database_cleaner', '~> 1.6'
 end
-
-gem 'rails_12factor', group: [:staging, :production]

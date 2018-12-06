@@ -7,6 +7,9 @@ import AggregateTotals from '../decorators/AggregateTotals';
 export default DS.Model.extend({  
   project: DS.belongsTo('project'),
 
+  // Analysis Model triggers across
+  detailedAnalysis: computed.alias('indirectEffect'),
+
   // Aliases from project
   borough: computed.alias('project.borough'),
   boroCode: computed.alias('project.boroCode'),
@@ -34,8 +37,6 @@ export default DS.Model.extend({
   maxProjection: computed.alias('dataTables.enrollmentProjectionsMaxYear'),
   minProjection: computed.alias('dataTables.enrollmentProjectionsMinYear'),
 
-  hsAnalysis: computed.alias('hsEffect'),
-
   // Derived from map
   esSchoolChoice: DS.attr('boolean'),
   isSchoolChoice: DS.attr('boolean'),
@@ -50,6 +51,7 @@ export default DS.Model.extend({
   indirectEffect: computed('esEffect', 'hsEffect', function() {
     return (this.esEffect || this.hsEffect);
   }),
+  hsAnalysis: computed.alias('hsEffect'),
 
   // Estimated Students
   estEsStudents: computed('netUnits', 'borough', 'currentMultiplier', function() {
@@ -69,7 +71,7 @@ export default DS.Model.extend({
   subdistrictsFromDb: DS.attr('', { defaultValue() { return []; } }),
   subdistrictsFromUser: DS.attr('', { defaultValue() { return []; } }),
   
-  subdistricts: computed('subdistrictsFromDb', 'subdistrictsFromUser', function() {
+  subdistricts: computed('subdistrictsFromDb.@each', 'subdistrictsFromUser.@each', function() {
     return this.subdistrictsFromDb.concat(this.subdistrictsFromUser);
   }),
   district: computed('subdistrictsFromDb', function() {

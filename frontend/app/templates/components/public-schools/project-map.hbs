@@ -6,7 +6,7 @@
     zoom=9.2
     center=(array -74 40.7071266)
   )
-as |map| 
+  as |map|
 }}
 
   <div class="map-ui">
@@ -168,8 +168,8 @@ as |map|
     {{/if}}
   {{/if}}
 
-  {{#map.source options=(hash type="geojson" data=(await mapdata.bblGeojson)) as |source|}}
-    {{source.layer layer=(hash 
+  {{#map.source options=(hash type="geojson" data=project.bblsGeojson) as |source|}}
+    {{source.layer layer=(hash
       id="bbls"
       type="line"
       paint=(hash line-color="#d7191c" line-width=4 line-blur=1)

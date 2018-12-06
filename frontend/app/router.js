@@ -64,8 +64,17 @@ Router.map(function() {
         this.route('summary');
       });
 
-      // TODO: Soon.
-      // this.route('transportation');
+      this.route('transportation', function() {
+        this.route('analysis-threshold', {path: '/'});
+      });
+
+      this.route('community-facilities', function() {
+        this.route('analysis-threshold', {path: '/'});
+      });
+
+      this.route('solid-waste', function() {
+        this.route('analysis-threshold', {path: '/'});
+      });
     });
   });
 

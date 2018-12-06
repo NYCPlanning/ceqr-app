@@ -1,0 +1,39 @@
+<table class="ui top attached celled table">
+  <thead>
+    <tr>
+      <th rowspan="2">Borough</th>
+      <th rowspan="2">Total Units in Project</th>
+      <th colspan="2">Mininum Number of Residential Units that Trigger Detailed Analysis</th>
+    </tr>
+    <tr>
+      <th>Child Care</th>
+      <th>Libraries</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    {{community-facilities/tr-threshold borough="Bronx" boroAbbr="bx" analysis=analysis}}
+    {{community-facilities/tr-threshold borough="Brooklyn" boroAbbr="bk" analysis=analysis}}
+    {{community-facilities/tr-threshold borough="Manhattan" boroAbbr="mn" analysis=analysis}}
+    {{community-facilities/tr-threshold borough="Queens" boroAbbr="qn" analysis=analysis}}
+    {{community-facilities/tr-threshold borough="Staten Island" boroAbbr="si" analysis=analysis}}
+  </tbody>
+</table>
+
+<div class="ui attached bottom icon message">
+  <i class="database icon"></i>
+  <div class="content">
+    <div class="header">
+      <a
+        target="_blank"
+        rel="noopener"
+        href="https://www1.nyc.gov/assets/oec/technical-manual/06_Community_Facilities_2014.pdf"
+      >
+        CEQR Technical Manual Chapter 6: Community Facilities and Services <i class="file pdf icon"></i><i class="external alternate icon"></i>
+      </a>
+    </div>
+    <p>
+      Thresholds defined in Table 6-1: CEQR Community Facility Treshold for Detailed Analysis
+    </p>
+  </div>
+</div>
