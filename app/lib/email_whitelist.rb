@@ -32,6 +32,21 @@ class EmailWhitelist
     'akrf.com',
     'equityenvironmental.com',
     'aecom.com',
+    'bfjplanning.com',
+    'dewberry.com',
+    'nv5.com',
+    'konheimketcham.com',
+    'jacobs.com',
+    'geiconsultants.com',
+    'arcadis.com',
+    'historicalperspectives.org',
+    'hqpreservation.com',
+    'slaterbeckerman.com',
+    'sprlaw.com',
+    'phillipsnizer.com',
+    'dhclegal.com',
+    'epdsco.com',
+
 
     # NYC City
     'planning.nyc.gov',
