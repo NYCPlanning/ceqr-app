@@ -285,9 +285,9 @@ export default Service.extend({
 
   setEnrollmentMultipliers: task(function*() {
     let enrollmentMultipliers = yield carto.SQL(`
-      SELECT zone_of_dist AS multiplier, disgeo AS district, zone AS subdistrict, TRIM(level) AS level
-      FROM ceqr_2019_enrollment_by_zone
-      WHERE (disgeo, zone) IN (VALUES ${this.get('analysis.subdistrictSqlPairs').join(',')})
+      SELECT *
+      FROM enrollment_pct_by_sd_v2017
+      WHERE (district, subdistrict) IN (VALUES ${this.get('analysis.subdistrictSqlPairs').join(',')})
     `);
     this.set('analysis.futureEnrollmentMultipliers', enrollmentMultipliers);
   }),
