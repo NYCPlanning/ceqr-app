@@ -55,32 +55,24 @@ export default Service.extend({
   }),
 
   setSchoolChoice: task(function*() {
-    let es_zones = yield carto.SQL(`
-      SELECT ST_Intersects(pluto.the_geom, zones.the_geom) AS choice
-      FROM support_school_zones_es AS zones, (
-        SELECT the_geom, bbl
-        FROM mappluto_v1711
-        WHERE bbl IN (${this.analysis.bbls.join(',')})
-      ) pluto
-      WHERE 
-        LOWER(zones.remarks) LIKE '%25choice%25' AND
-        ST_Intersects(pluto.the_geom, zones.the_geom)
+    let es_zone = yield carto.SQL(`
+      SELECT *
+      FROM doe_schoolchoice_v2018
+      WHERE
+        district = ${this.analysis.district} AND
+        level = 'ES'
     `);
 
-    let is_zones = yield carto.SQL(`
-      SELECT ST_Intersects(pluto.the_geom, zones.the_geom) AS choice
-      FROM support_school_zones_ms AS zones, (
-        SELECT the_geom, bbl
-        FROM mappluto_v1711
-        WHERE bbl IN (${this.analysis.bbls.join(',')})
-      ) pluto
-      WHERE 
-        LOWER(zones.remarks) LIKE '%25no zoned%25' AND
-        ST_Intersects(pluto.the_geom, zones.the_geom)
+    let is_zone = yield carto.SQL(`
+    SELECT *
+    FROM doe_schoolchoice_v2018
+    WHERE
+      district = ${this.analysis.district} AND
+      level = 'IS'
     `);
 
-    this.set('analysis.esSchoolChoice', es_zones[0] ? es_zones[0].choice : false);
-    this.set('analysis.isSchoolChoice', is_zones[0] ? is_zones[0].choice : false);
+    this.set('analysis.esSchoolChoice', es_zone[0] ? true : false);
+    this.set('analysis.isSchoolChoice', is_zone[0] ? true : false);
   }),
 
   setBluebook: task(function*() {
