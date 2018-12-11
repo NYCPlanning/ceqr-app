@@ -83,8 +83,10 @@ export default DS.Model.extend({
 
   // By Subdistrict
   bluebook: DS.attr('buildings', { defaultValue() { return []; } }),
-  bluebookCartoIds: computed('bluebook', function() {
-    return this.get('bluebook').mapBy('cartodb_id');
+  bluebookSqlPairs: computed('bluebook', function() {
+    return this.bluebook.map(
+      (f) => `('${f.org_id}', '${f.bldg_id}')`
+    ).uniq();
   }),
 
   lcgms: DS.attr('buildings', { defaultValue() { return []; } }),

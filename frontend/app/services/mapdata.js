@@ -40,14 +40,14 @@ export default Service.extend({
     `, 'geojson');
   }).drop(),
 
-  bluebookGeojson: computed('analysis.bluebookCartoIds.[]', function() {
+  bluebookGeojson: computed('analysis.bluebook.[]', function() {
     return this.get('fetchBluebookGeojson').perform();
   }),
   fetchBluebookGeojson: task(function*() {
     return yield carto.SQL(`
-      SELECT the_geom, district, subd AS subdistrict, cartodb_id, bldg_id, org_id, org_level, organization_name AS name
-      FROM doe_bluebook_v1617
-      WHERE cartodb_id IN (${this.get('analysis.bluebookCartoIds').join(',')})
+      SELECT *
+      FROM ceqr_bluebook_v2017
+      WHERE (org_id, bldg_id) IN (VALUES ${this.get('analysis.bluebookSqlPairs').join(',')})
     `, 'geojson');
   }).drop(),
 

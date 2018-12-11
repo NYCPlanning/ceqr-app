@@ -79,64 +79,16 @@ export default Service.extend({
     let bluebookHs = [];
     if (this.get('analysis.hsAnalysis')) {
       bluebookHs = yield carto.SQL(`
-      SELECT
-        cartodb_id,
-        district,
-        subd AS subdistrict,
-        bldg_name,
-        CASE WHEN bldg_excl is null THEN false 
-            ELSE true END
-            AS excluded,
-        bldg_id,
-        org_id,
-        org_level,
-        organization_name AS name,
-        address,
-        org_level,
-
-        hs_capacity,
-        ROUND(hs_enroll) AS hs_enroll
-      FROM doe_bluebook_v1617
-      WHERE charter != 'Charter'
-        AND org_enroll is not null
-        AND x_citywide = ''
-        AND x_alternative = ''
-        AND organization_name not like '%25ALTERNATIVE LEARNING CENTER%25'
-        AND organization_name not like '%25YOUNG ADULT BORO CENTER%25'
-        AND left(geo_borocd::text, 1) = '${this.get('analysis.boroCode')}'
+      SELECT *
+      FROM ceqr_bluebook_v2017
+      WHERE borocode = '${this.get('analysis.boroCode')}'
     `);
     }
 
     let bluebook = yield carto.SQL(`
-      SELECT
-        cartodb_id,
-        district,
-        subd AS subdistrict,
-        bldg_name,
-        CASE WHEN bldg_excl is null THEN false 
-            ELSE true END
-            AS excluded,
-        bldg_id,
-        org_id,
-        org_level,
-        organization_name AS name,
-        address,
-        org_level,
-
-        ps_capacity,
-        ROUND(ps_enroll) AS ps_enroll,
-        ms_capacity,
-        ROUND(ms_enroll) AS ms_enroll,
-        hs_capacity,
-        ROUND(hs_enroll) AS hs_enroll
-      FROM doe_bluebook_v1617
-      WHERE charter != 'Charter'
-        AND org_enroll is not null
-        AND x_citywide = ''
-        AND x_alternative = ''
-        AND organization_name not like '%25ALTERNATIVE LEARNING CENTER%25'
-        AND organization_name not like '%25YOUNG ADULT BORO CENTER%25'
-        AND (district, subd) IN (VALUES ${this.get('analysis.subdistrictSqlPairs').join(',')})
+      SELECT *
+      FROM ceqr_bluebook_v2017
+      WHERE (district, subdistrict) IN (VALUES ${this.get('analysis.subdistrictSqlPairs').join(',')})
     `);
 
     let bluebookBuildings = [];
