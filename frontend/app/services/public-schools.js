@@ -256,25 +256,7 @@ export default Service.extend({
   setSCAProjects: task(function*() {
     let scaProjects = yield carto.SQL(`
       SELECT
-        projects.name,
-        projects.cartodb_id,
-        projects.project_dsf,
-        projects.org_level,
-
-        projects.capacity,
-        projects.pct_ps,
-        projects.pct_is,
-        projects.pct_hs,
-        projects.guessed_pct,
-
-        projects.start_date,
-        projects.planned_end_date,
-        
-        projects.funding_budget_15_19,
-        projects.funding_previous,
-        projects.total_est_cost,
-        projects.pct_funded,
-
+        projects.*,
         subdistricts.schooldist AS district,
         subdistricts.zone AS subdistrict
       FROM (
@@ -282,7 +264,7 @@ export default Service.extend({
           FROM doe_schoolsubdistricts_v2017
           WHERE cartodb_id IN (${this.get('analysis.subdistrictCartoIds').join(',')})
         ) AS subdistricts,
-        sca_capital_projects_v102018 AS projects
+        sca_capital_projects_v2017 AS projects
       WHERE ST_Intersects(subdistricts.the_geom, projects.the_geom)
     `);
     this.set('analysis.scaProjects', scaProjects.map((b) => {
