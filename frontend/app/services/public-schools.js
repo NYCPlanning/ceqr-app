@@ -216,13 +216,6 @@ export default Service.extend({
     `);
     this.set('analysis.hsProjections', hsProjections);
 
-    let hsStudentsFromHousing = yield carto.SQL(`
-      SELECT borough, hs_students
-      FROM ceqr_hs_enroll_v2016
-      WHERE LOWER(borough) = LOWER('${this.get('analysis.borough')}')
-    `);
-    this.set('analysis.hsStudentsFromHousing', hsStudentsFromHousing[0].hs_students)
-
     let enrollmentProjections = yield carto.SQL(`
       SELECT
         projected_ps_dist AS ps,
@@ -246,11 +239,24 @@ export default Service.extend({
 
   setStudentsFromNewHousing: task(function*() {
     let studentsFromNewHousing = yield carto.SQL(`
-      SELECT students_from_new_housing AS students, dist AS district, zone AS subdistrict, TRIM(grade_level) AS level
-      FROM ceqr_housing_by_sd_2016
-      WHERE (dist, zone) IN (VALUES ${this.get('analysis.subdistrictSqlPairs').join(',')})
+      SELECT 
+        new_students AS students,
+        district,
+        subdistrict,
+        org_level AS level
+      FROM ceqr_housing_pipeline_sd_v2017
+      WHERE (district, subdistrict) IN (VALUES ${this.get('analysis.subdistrictSqlPairs').join(',')})
     `);
     this.set('analysis.futureEnrollmentNewHousing', studentsFromNewHousing);
+
+    let hsStudentsFromHousing = yield carto.SQL(`
+      SELECT
+        borough,
+        new_students AS hs_students
+      FROM ceqr_housing_pipeline_boro_v2017
+      WHERE LOWER(borough) = LOWER('${this.get('analysis.borough')}')
+    `);
+    this.set('analysis.hsStudentsFromHousing', hsStudentsFromHousing[0].hs_students)
   }),
 
   setSCAProjects: task(function*() {
