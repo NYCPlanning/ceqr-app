@@ -207,27 +207,6 @@ export default Service.extend({
     this.set('analysis.lcgms', lcgmsBuildings);
   }),
 
-  setProjections: task(function*() {
-    let hsProjections = yield carto.SQL(`
-      SELECT borough, year, hs
-      FROM hs_sca_projections_2025_v1
-      WHERE year = ${this.get('analysis.buildYearMaxed')} AND
-        LOWER(borough) = LOWER('${this.get('analysis.borough')}')
-    `);
-    this.set('analysis.hsProjections', hsProjections);
-
-    let enrollmentProjections = yield carto.SQL(`
-      SELECT
-        projected_ps_dist AS ps,
-        projected_ms_dist AS ms,
-        CAST(district AS numeric)
-      FROM ceqr_sf_projection_2016_2025
-      WHERE school_year LIKE '${this.get('analysis.buildYearMaxed')}%25'
-        AND district IN (${this.get('analysis.subdistricts').map((d) => `'${d.district}'`).join(',')})
-    `);
-    this.set('analysis.futureEnrollmentProjections', enrollmentProjections);
-  }),
-
   setEnrollmentMultipliers: task(function*() {
     let enrollmentMultipliers = yield carto.SQL(`
       SELECT *
@@ -235,6 +214,35 @@ export default Service.extend({
       WHERE (district, subdistrict) IN (VALUES ${this.get('analysis.subdistrictSqlPairs').join(',')})
     `);
     this.set('analysis.futureEnrollmentMultipliers', enrollmentMultipliers);
+  }),
+
+  setProjections: task(function*() {
+    let enrollmentProjections = yield carto.SQL(`
+      SELECT
+        ps,
+        ms,
+        district,
+        school_year
+      FROM ceqr_enrollment_projections_sd_v2017
+      WHERE 
+        school_year LIKE '${this.get('analysis.buildYearMaxed')}%25'
+        AND 
+        district IN (${this.get('analysis.subdistricts').map((d) => `'${d.district}'`).join(',')})
+    `);
+    this.set('analysis.futureEnrollmentProjections', enrollmentProjections);
+
+    let hsProjections = yield carto.SQL(`
+      SELECT
+        borough,
+        year,
+        hs
+      FROM ceqr_enrollment_projections_boro_v2017
+      WHERE 
+        year = ${this.get('analysis.buildYearMaxed')}
+        AND
+        LOWER(borough) = LOWER('${this.get('analysis.borough')}')
+    `);
+    this.set('analysis.hsProjections', hsProjections);
   }),
 
   setStudentsFromNewHousing: task(function*() {
