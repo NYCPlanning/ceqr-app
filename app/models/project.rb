@@ -8,5 +8,5 @@ class Project < ApplicationRecord
   has_many :project_permissions, dependent: :destroy
 
   # Analyses
-  has_one :public_schools_analysis
+  has_one :public_schools_analysis, dependent: :destroy
 end
