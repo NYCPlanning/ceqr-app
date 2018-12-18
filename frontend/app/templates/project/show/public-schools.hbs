@@ -3,7 +3,7 @@
 {{#unless (or project.viewOnly onSummary)}}
   <div class="row">
     <div class="sixteen wide column">
-        {{public-schools/analysis-steps}}
+        {{public-schools/analysis-steps analysis=model.publicSchoolsAnalysis}}
     </div>
 
     <div class="ui inverted dimmer {{if public-schools.initialLoad.isRunning "active"}}">

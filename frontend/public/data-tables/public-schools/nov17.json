@@ -1,0 +1,19 @@
+{
+  "id": "nov17",
+  "version": "nov17",
+  "enrollmentProjectionsMinYear": 2015,
+  "enrollmentProjectionsMaxYear": 2025,
+  "cartoTables": {
+    "lcgms": "ceqr_lcgms_v2017",
+    "bluebook": "ceqr_bluebook_v2017",
+    "esSchoolZones": "support_school_zones_es",
+    "hsSchoolZones": "support_school_zones_hs",
+    "msSchoolZones": "support_school_zones_ms",
+    "enrollmentPctBySd": "enrollment_pct_by_sd_v2017",
+    "housingPipelineSd": "ceqr_housing_pipeline_sd_v2017",
+    "scaCapitalProjects": "sca_capital_projects_v2017",
+    "housingPipelineBoro": "ceqr_housing_pipeline_boro_v2017",
+    "enrollmentProjectionsSd": "ceqr_enrollment_projections_sd_v2017",
+    "enrollmentProjectionsBoro": "ceqr_enrollment_projections_boro_v2017"
+  }
+}

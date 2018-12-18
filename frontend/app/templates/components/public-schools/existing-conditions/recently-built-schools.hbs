@@ -41,7 +41,11 @@
           <td>{{b.grades}}</td>
           <td>{{b.address}}</td>
           <td>{{b.org_level}}</td>
-          <td>{{b.enroll}}</td>
+          <td class="warning">
+            <div class="ui input transparent warning edit-cell">
+              {{input type="number" value=b.enroll placeholder="0"}}
+            </div>
+          </td>
           <td class="warning">
             <div class="ui input transparent warning edit-cell">
               {{input type="number" value=b.capacity placeholder="0"}}

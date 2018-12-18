@@ -1,4 +1,31 @@
-<div class="ui tiny steps fluid">  
+<div class="ui header top attached">
+  Data Version:    
+  {{#ui-dropdown 
+    selected=analysis.dataVersion
+    class="public-schools-data-dropdown"
+  }}
+    <div class="default text"></div>
+    <i class="dropdown icon"></i>
+    <div class="menu">
+      <div 
+        data-value="nov17"
+        class="item"
+        onClick={{action "changeDataVersion" "nov17"}}
+      >
+        <h3>November 2017</h3>
+      </div>
+      <div 
+        data-value="nov18"
+        class="item"
+        onClick={{action "changeDataVersion" "nov18"}}
+      >
+        <h3>November 2018</h3>
+      </div>
+    </div>
+  {{/ui-dropdown}}
+</div>
+
+<div class="ui tiny bottom attached steps fluid">  
   {{#link-to "project.show.public-schools.analysis-threshold" class="step"}}  
     <div class="content">
       <div class="title">Analysis Threshold</div>
