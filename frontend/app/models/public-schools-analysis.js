@@ -14,6 +14,7 @@ export default DS.Model.extend({
   bbls: computed.alias('project.bbls'),
   buildYear: computed.alias('project.buildYear'),
 
+  // Public Schools Multipliers
   multipliers: DS.attr(''),
   multiplierVersion: computed.alias('multipliers.version'),
   currentMultiplier: computed('multipliers', 'borough', function() {        
@@ -26,6 +27,10 @@ export default DS.Model.extend({
         return {};
     }
   }),
+
+  // Schools Data version
+  dataTables: DS.attr('', { defaultValue() { return {}; } }),
+  dataVersion: computed.alias('dataTables.version'),
 
   hsAnalysis: computed.alias('hsEffect'),
 

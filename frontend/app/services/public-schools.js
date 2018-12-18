@@ -7,24 +7,24 @@ export default Service.extend({
   analysis: null,
 
   initialLoad: task(function*() {
-    yield this.get('fullReload').perform();
+    yield this.fullReload.perform();
   }),
   addSubdistrict: task(function*() {
-    yield this.get('fullReload').perform();
+    yield this.fullReload.perform();
   }),
 
   fullReload: task(function*() {
-    yield this.get('setSubdistricts').perform();
-    yield this.get('setSchoolChoice').perform();
-    yield this.get('setBluebook').perform();
-    yield this.get('setLCGMS').perform();
-    yield this.get('setProjections').perform();
-    yield this.get('setEnrollmentMultipliers').perform();
-    yield this.get('setStudentsFromNewHousing').perform();
-    yield this.get('setSCAProjects').perform();
-    yield this.get('setDOEUtilChanges').perform();
+    yield this.setSubdistricts.perform();
+    yield this.setSchoolChoice.perform();
+    yield this.setBluebook.perform();
+    yield this.setLCGMS.perform();
+    yield this.setProjections.perform();
+    yield this.setEnrollmentMultipliers.perform();
+    yield this.setStudentsFromNewHousing.perform();
+    yield this.setSCAProjects.perform();
+    yield this.setDOEUtilChanges.perform();
 
-    this.get('analysis').save();
+    this.analysis.save();
   }),
 
   // Individual tasks
@@ -77,25 +77,25 @@ export default Service.extend({
 
   setBluebook: task(function*() {
     let bluebookHs = [];
-    if (this.get('analysis.hsAnalysis')) {
+    if (this.analysis.hsAnalysis) {
       bluebookHs = yield carto.SQL(`
       SELECT *
-      FROM ceqr_bluebook_v2017
-      WHERE borocode = '${this.get('analysis.boroCode')}'
+      FROM ${this.analysis.dataTables.cartoTables.bluebook}
+      WHERE borocode = '${this.analysis.boroCode}'
     `);
     }
 
     let bluebook = yield carto.SQL(`
       SELECT *
-      FROM ceqr_bluebook_v2017
-      WHERE (district, subdistrict) IN (VALUES ${this.get('analysis.subdistrictSqlPairs').join(',')})
+      FROM ${this.analysis.dataTables.cartoTables.bluebook}
+      WHERE (district, subdistrict) IN (VALUES ${this.analysis.subdistrictSqlPairs.join(',')})
     `);
 
     let bluebookBuildings = [];
 
     bluebook.forEach((b) => {
       if (/PS/.test(b.org_level)) {
-        const existing = this.get('analysis.bluebook').filter(
+        const existing = this.analysis.bluebook.filter(
           (e) => e.org_id === b.org_id && e.bldg_id === b.bldg_id && e.level === 'ps'
         )[0];
 
@@ -110,7 +110,7 @@ export default Service.extend({
       }     
 
       if (/IS/.test(b.org_level)) {
-        const existing = this.get('analysis.bluebook').filter(
+        const existing = this.analysis.bluebook.filter(
           (e) => e.org_id === b.org_id && e.bldg_id === b.bldg_id && e.level === 'is'
         )[0];
 
@@ -127,7 +127,7 @@ export default Service.extend({
 
     bluebookHs.forEach((b) => {
       if (/HS/.test(b.org_level)) {
-        const existing = this.get('analysis.buildings').filter(
+        const existing = this.analysis.buildings.filter(
           (e) => e.org_id === b.org_id && e.bldg_id === b.bldg_id && e.org_level === 'hs'
         )[0];
 
@@ -161,10 +161,10 @@ export default Service.extend({
         lcgms.cartodb_id,
         subdistricts.schooldist AS district,
         subdistricts.zone AS subdistrict
-      FROM ceqr_lcgms_v2017 AS lcgms, (
+      FROM ${this.analysis.dataTables.cartoTables.lcgms} AS lcgms, (
         SELECT the_geom, schooldist, zone
         FROM doe_schoolsubdistricts_v2017
-        WHERE cartodb_id IN (${this.get('analysis.subdistrictCartoIds').join(',')})
+        WHERE cartodb_id IN (${this.analysis.subdistrictCartoIds.join(',')})
       ) subdistricts
       WHERE ST_Intersects(subdistricts.the_geom, lcgms.the_geom)   
     `);
@@ -176,7 +176,7 @@ export default Service.extend({
       let isIs = b.org_level.includes('IS');
       let isHs = b.org_level.includes('HS');
 
-      const previousSaved = this.get('analysis.lcgms').findBy('org_id', b.org_id);
+      const previousSaved = this.analysis.lcgms.findBy('org_id', b.org_id);
 
       if (isPs) lcgmsBuildings.push(Building.create({
         ...b,
@@ -210,8 +210,8 @@ export default Service.extend({
   setEnrollmentMultipliers: task(function*() {
     let enrollmentMultipliers = yield carto.SQL(`
       SELECT *
-      FROM enrollment_pct_by_sd_v2017
-      WHERE (district, subdistrict) IN (VALUES ${this.get('analysis.subdistrictSqlPairs').join(',')})
+      FROM ${this.analysis.dataTables.cartoTables.enrollmentPctBySd}
+      WHERE (district, subdistrict) IN (VALUES ${this.analysis.subdistrictSqlPairs.join(',')})
     `);
     this.set('analysis.futureEnrollmentMultipliers', enrollmentMultipliers);
   }),
@@ -223,11 +223,11 @@ export default Service.extend({
         ms,
         district,
         school_year
-      FROM ceqr_enrollment_projections_sd_v2017
+      FROM ${this.analysis.dataTables.cartoTables.enrollmentProjectionsSd}
       WHERE 
-        school_year LIKE '${this.get('analysis.buildYearMaxed')}%25'
+        school_year LIKE '${this.analysis.buildYearMaxed}%25'
         AND 
-        district IN (${this.get('analysis.subdistricts').map((d) => `'${d.district}'`).join(',')})
+        district IN (${this.analysis.subdistricts.map((d) => `'${d.district}'`).join(',')})
     `);
     this.set('analysis.futureEnrollmentProjections', enrollmentProjections);
 
@@ -236,11 +236,11 @@ export default Service.extend({
         borough,
         year,
         hs
-      FROM ceqr_enrollment_projections_boro_v2017
+      FROM ${this.analysis.dataTables.cartoTables.enrollmentProjectionsBoro}
       WHERE 
-        year = ${this.get('analysis.buildYearMaxed')}
+        year = ${this.analysis.buildYearMaxed}
         AND
-        LOWER(borough) = LOWER('${this.get('analysis.borough')}')
+        LOWER(borough) = LOWER('${this.analysis.borough}')
     `);
     this.set('analysis.hsProjections', hsProjections);
   }),
@@ -252,8 +252,8 @@ export default Service.extend({
         district,
         subdistrict,
         org_level AS level
-      FROM ceqr_housing_pipeline_sd_v2017
-      WHERE (district, subdistrict) IN (VALUES ${this.get('analysis.subdistrictSqlPairs').join(',')})
+      FROM ${this.analysis.dataTables.cartoTables.housingPipelineSd}
+      WHERE (district, subdistrict) IN (VALUES ${this.analysis.subdistrictSqlPairs.join(',')})
     `);
     this.set('analysis.futureEnrollmentNewHousing', studentsFromNewHousing);
 
@@ -261,8 +261,8 @@ export default Service.extend({
       SELECT
         borough,
         new_students AS hs_students
-      FROM ceqr_housing_pipeline_boro_v2017
-      WHERE LOWER(borough) = LOWER('${this.get('analysis.borough')}')
+      FROM ${this.analysis.dataTables.cartoTables.housingPipelineBoro}
+      WHERE LOWER(borough) = LOWER('${this.analysis.borough}')
     `);
     this.set('analysis.hsStudentsFromHousing', hsStudentsFromHousing[0].hs_students)
   }),
@@ -276,13 +276,13 @@ export default Service.extend({
       FROM (
           SELECT the_geom, schooldist, zone
           FROM doe_schoolsubdistricts_v2017
-          WHERE cartodb_id IN (${this.get('analysis.subdistrictCartoIds').join(',')})
+          WHERE cartodb_id IN (${this.analysis.subdistrictCartoIds.join(',')})
         ) AS subdistricts,
-        sca_capital_projects_v2017 AS projects
+        ${this.analysis.dataTables.cartoTables.scaCapitalProjects} AS projects
       WHERE ST_Intersects(subdistricts.the_geom, projects.the_geom)
     `);
     this.set('analysis.scaProjects', scaProjects.map((b) => {
-      const existing = this.get('analysis.scaProjects').findBy('project_dsf', b.project_dsf);
+      const existing = this.analysis.scaProjects.findBy('project_dsf', b.project_dsf);
       return Building.create({
         ...b,
         ps_capacity: existing ? existing.ps_capacity : (b.guessed_pct ? 0 : b.capacity * b.pct_ps),
@@ -306,8 +306,8 @@ export default Service.extend({
         title
       FROM doe_significant_utilization_changes_v062018
       WHERE 
-        bldg_id IN (${this.get('analysis.buildingsBldgIds').map(b => `'${b}'`).join(',')}) OR
-        bldg_id_additional IN (${this.get('analysis.buildingsBldgIds').map(b => `'${b}'`).join(',')})
+        bldg_id IN (${this.analysis.buildingsBldgIds.map(b => `'${b}'`).join(',')}) OR
+        bldg_id_additional IN (${this.analysis.buildingsBldgIds.map(b => `'${b}'`).join(',')})
     `);
     this.set('analysis.doeUtilChanges', doeUtilChanges);
   }),

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_27_185046) do
+ActiveRecord::Schema.define(version: 2018_12_18_152105) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -65,6 +65,14 @@ ActiveRecord::Schema.define(version: 2018_11_27_185046) do
     t.datetime "updated_at", null: false
     t.integer "project_id"
     t.jsonb "multipliers"
+    t.jsonb "data_tables", default: {"version"=>"nov17", "cartoTables"=>{"lcgms"=>"ceqr_lcgms_v2017", "bluebook"=>"ceqr_bluebook_v2017", "esSchoolZones"=>"support_school_zones_es", "hsSchoolZones"=>"support_school_zones_hs", "msSchoolZones"=>"support_school_zones_ms", "enrollmentPctBySd"=>"enrollment_pct_by_sd_v2017", "housingPipelineSd"=>"ceqr_housing_pipeline_sd_v2017", "scaCapitalProjects"=>"sca_capital_projects_v2017", "housingPipelineBoro"=>"ceqr_housing_pipeline_boro_v2017", "enrollmentProjectionsSd"=>"ceqr_enrollment_projections_sd_v2017", "enrollmentProjectionsBoro"=>"ceqr_enrollment_projections_boro_v2017"}}, null: false
+  end
+
+  create_table "transportation_analyses", force: :cascade do |t|
+    t.integer "traffic_zone"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "project_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -81,4 +89,5 @@ ActiveRecord::Schema.define(version: 2018_11_27_185046) do
   end
 
   add_foreign_key "public_schools_analyses", "projects"
+  add_foreign_key "transportation_analyses", "projects"
 end

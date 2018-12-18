@@ -1,6 +1,8 @@
 class Api::V1::PublicSchoolsAnalysisResource < JSONAPI::Resource
-  attributes :manual_version,
+  attributes(
     :multipliers,
+    :data_tables,
+
     :es_school_choice,
     :is_school_choice,
 
@@ -22,6 +24,7 @@ class Api::V1::PublicSchoolsAnalysisResource < JSONAPI::Resource
     :sca_projects,
 
     :doe_util_changes
+  )
 
   has_one :project
 end
