@@ -29,7 +29,7 @@ export default DS.Model.extend({
   }),
 
   // Schools Data version
-  dataTables: DS.attr('', { defaultValue() { return {}; } }),
+  dataTables: DS.attr(''),
   dataVersion: computed.alias('dataTables.version'),
 
   hsAnalysis: computed.alias('hsEffect'),

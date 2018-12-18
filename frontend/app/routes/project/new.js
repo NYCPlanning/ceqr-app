@@ -25,11 +25,14 @@ export default Route.extend({
       try {        
         const project = await changeset.save();
         
-        // Load Public Schools Analysis
-        const multipliers = await this.store.findRecord('ceqr-manual/public-schools', 'march-2014');
+        // Load defaults for Public Schools Analysis
+        const multipliers = await this.store.findRecord('ceqr-manual/public-schools', 'november-2018');
+        const dataTables = await this.store.findRecord('data-tables/public-schools', 'nov18');
+
         const publicSchoolsAnalysis = await this.store.createRecord('publicSchoolsAnalysis', {
           project,
-          multipliers
+          multipliers,
+          dataTables
         });
 
         this.get('public-schools').set('analysis', publicSchoolsAnalysis);
