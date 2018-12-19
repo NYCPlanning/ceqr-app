@@ -8,8 +8,7 @@
     "enrollmentProjections": "2018 to 2027",
     "housingPipeline": "2018 to 2027",
     "lcgms": "December 19, 2018",
-    "demographicSnapshot": false,
-    "scaCapitalProjects": "December 4, 2018"
+    "demographicSnapshot": false
   },
   "cartoTables": {
     "lcgms": "ceqr_lcgms_v2018",
@@ -19,7 +18,6 @@
     "msSchoolZones": "support_school_zones_ms",
     "enrollmentPctBySd": "enrollment_pct_by_sd_v2018",
     "housingPipelineSd": "ceqr_housing_pipeline_sd_v2018",
-    "scaCapitalProjects": "sca_capital_projects_v2018",
     "housingPipelineBoro": "ceqr_housing_pipeline_boro_v2018",
     "enrollmentProjectionsSd": "ceqr_enrollment_projections_sd_v2018",
     "enrollmentProjectionsBoro": "ceqr_enrollment_projections_boro_v2018"

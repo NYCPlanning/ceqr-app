@@ -5,12 +5,11 @@ class AddDataTablesToPublicSchoolsAnalysis < ActiveRecord::Migration[5.2]
       enrollmentProjectionsMinYear: 2015,
       enrollmentProjectionsMaxYear: 2025,
       sourceDates: {
-        bluebook: "2017-18",
-        enrollmentProjections: "2018 to 2027",
-        housingPipeline: "2018 to 2027",
-        lcgms: "December 19, 2018",
-        demographicSnapshot: false,
-        scaCapitalProjects: "December 4, 2018"
+        bluebook: "2016-17",
+        enrollmentProjections: "2016 to 2025",
+        housingPipeline: "2016 to 2025",
+        lcgms: "September 10, 2018",
+        demographicSnapshot: "2013 to 2018"
       },
       cartoTables: {
         esSchoolZones: 'support_school_zones_es',
@@ -19,7 +18,6 @@ class AddDataTablesToPublicSchoolsAnalysis < ActiveRecord::Migration[5.2]
 
         bluebook: 'ceqr_bluebook_v2017',
         lcgms: 'ceqr_lcgms_v2017',
-        scaCapitalProjects: 'sca_capital_projects_v2017',
         enrollmentPctBySd: 'enrollment_pct_by_sd_v2017',
         housingPipelineSd: 'ceqr_housing_pipeline_sd_v2017',
         housingPipelineBoro: 'ceqr_housing_pipeline_boro_v2017',
