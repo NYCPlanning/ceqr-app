@@ -100,8 +100,8 @@ export default DS.Model.extend({
   }),
 
   scaProjects: DS.attr('buildings', { defaultValue() { return []; } }),
-  scaProjectsCartoIds: computed('scaProjects', function() {
-    return this.get('scaProjects').mapBy('cartodb_id');
+  scaProjectsCartoIds: computed('scaProjects.@each', function() {
+    return this.scaProjects.mapBy('cartodb_id');
   }),
 
   buildings: computed('bluebook', 'lcgms', 'scaProjects', function() {
