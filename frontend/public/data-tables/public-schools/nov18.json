@@ -3,6 +3,14 @@
   "version": "nov18",
   "enrollmentProjectionsMinYear": 2017,
   "enrollmentProjectionsMaxYear": 2027,
+  "sourceDates": {
+    "bluebook": "2017-18",
+    "enrollmentProjections": "2018 to 2027",
+    "housingPipeline": "2018 to 2027",
+    "lcgms": "December 19, 2018",
+    "demographicSnapshot": false,
+    "scaCapitalProjects": "December 4, 2018"
+  },
   "cartoTables": {
     "lcgms": "ceqr_lcgms_v2018",
     "bluebook": "ceqr_bluebook_v2018",

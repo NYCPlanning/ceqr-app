@@ -2,6 +2,16 @@ class AddDataTablesToPublicSchoolsAnalysis < ActiveRecord::Migration[5.2]
   def change
     add_column :public_schools_analyses, :data_tables, :jsonb, null: false, default: {
       version: 'nov17',
+      enrollmentProjectionsMinYear: 2015,
+      enrollmentProjectionsMaxYear: 2025,
+      sourceDates: {
+        bluebook: "2017-18",
+        enrollmentProjections: "2018 to 2027",
+        housingPipeline: "2018 to 2027",
+        lcgms: "December 19, 2018",
+        demographicSnapshot: false,
+        scaCapitalProjects: "December 4, 2018"
+      },
       cartoTables: {
         esSchoolZones: 'support_school_zones_es',
         msSchoolZones: 'support_school_zones_ms',

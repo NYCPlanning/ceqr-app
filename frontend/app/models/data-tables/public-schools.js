@@ -5,4 +5,5 @@ export default DS.Model.extend({
   enrollmentProjectionsMinYear: DS.attr('number'),
   enrollmentProjectionsMaxYear: DS.attr('number'),
   cartoTables: DS.attr(''),
+  sourceDates: DS.attr('')
 });

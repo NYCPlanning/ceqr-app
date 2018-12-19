@@ -3,6 +3,7 @@ import { inject as service } from '@ember/service';
 
 export default Component.extend({
   store: service(),
+  'public-schools': service(),
   
   actions: {
     async changeDataVersion(version) {

@@ -65,16 +65,18 @@
   <div class="ui icon message">
     <i class="database icon"></i>
     <div class="content">
-      <div class="header"><a target="_blank" href="https://data.cityofnewyork.us/Education/LCGMS-DOE-School-Information-Report/3bkj-34v2">DOE School Information Report (LCGMS) <i class="external alternate icon"></i></a></div>
+      <div class="header"><a target="_blank" href="https://data.cityofnewyork.us/Education/LCGMS-DOE-School-Information-Report/3bkj-34v2">DOE School Information Report (LCGMS) [{{analysis.dataTables.sourceDates.lcgms}}] <i class="external alternate icon"></i></a></div>
       <p>
       The Department of Education does not include schools built in the current year in Bluebook. For such schools,
       data from the Department of Education's School Information report is used.
       </p>
 
-      <div class="header"><a target="_blank" href="https://data.cityofnewyork.us/Education/2013-2018-Demographic-Snapshot-School/s52a-8aq6">2013 - 2018 Demographic Snapshot School <i class="external alternate icon"></i></a></div>
-      <p>
-      The 2013 - 2018 Demographic Snapshot School provides enrollment numbers for newly built schools.
-      </p>
+      {{#if analysis.dataTables.sourceDates.demographicProfile}}
+        <div class="header"><a target="_blank" href="https://data.cityofnewyork.us/Education/2013-2018-Demographic-Snapshot-School/s52a-8aq6">2013 - 2018 Demographic Snapshot School <i class="external alternate icon"></i></a></div>
+        <p>
+        The 2013 - 2018 Demographic Snapshot School provides enrollment numbers for newly built schools.
+        </p>
+      {{/if}}
     </div>
   </div>
 {{else}}
