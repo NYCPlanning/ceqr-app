@@ -37,8 +37,12 @@
     </div>
   </div>
 
+  <div class="ui grey medium label">
+    Schools Multipliers:
+    <div class="detail">{{humanize analysis.multiplierVersion}}</div>
+  </div>
 
-  <div class="ui {{if (eq analysis.multiplierVersion "november-2018") "grey" "orange"}} medium label">
+  {{!-- <div class="ui {{if (eq analysis.multiplierVersion "november-2018") "grey" "orange"}} medium label">
     {{#unless (eq analysis.multiplierVersion "november-2018")}}
       {{ui-popup 
         tagName="i"
@@ -74,5 +78,5 @@
         </div>
       {{/ui-dropdown}}
     </div>
-  </div>
+  </div> --}}
 </div>
