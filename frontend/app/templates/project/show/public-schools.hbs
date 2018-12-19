@@ -1,5 +1,11 @@
 {{title "[Public Schools]" prepend=false}}
 
+<div class="row">
+  <div class="sixteen wide column" style="z-index: 1">
+   {{public-schools/version-selector analysis=model.publicSchoolsAnalysis}}
+  </div>
+</div>
+
 {{#unless (or project.viewOnly onSummary)}}
   <div class="row">
     <div class="sixteen wide column">

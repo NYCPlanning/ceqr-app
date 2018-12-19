@@ -1,31 +1,4 @@
-<div class="ui header top attached">
-  Data Version:    
-  {{#ui-dropdown 
-    selected=analysis.dataVersion
-    class="public-schools-data-dropdown"
-  }}
-    <div class="default text"></div>
-    <i class="dropdown icon"></i>
-    <div class="menu">
-      <div 
-        data-value="nov17"
-        class="item"
-        onClick={{action "changeDataVersion" "nov17"}}
-      >
-        <h3>November 2017</h3>
-      </div>
-      <div 
-        data-value="nov18"
-        class="item"
-        onClick={{action "changeDataVersion" "nov18"}}
-      >
-        <h3>November 2018</h3>
-      </div>
-    </div>
-  {{/ui-dropdown}}
-</div>
-
-<div class="ui tiny bottom attached steps fluid">  
+<div class="ui tiny steps fluid">  
   {{#link-to "project.show.public-schools.analysis-threshold" class="step"}}  
     <div class="content">
       <div class="title">Analysis Threshold</div>
@@ -35,20 +8,20 @@
   {{#link-to "project.show.public-schools.existing-conditions" class="step"}} 
     <div class="content">
       <div class="title">Existing Conditions</div>
-      <div class="description"> Current school conditions</div>
+      <div class="description">Current school conditions</div>
     </div>
   {{/link-to}}
   {{#link-to "project.show.public-schools.no-action" class="step"}} 
     <div class="content">
       <div class="title">No Action Scenario</div>
-      <div class="description">Future school conditions<br />without proposed project</div>
+      <div class="description">Future school conditions<br>without proposed project</div>
     </div>
   {{/link-to}}
 
   {{#link-to "project.show.public-schools.with-action" class="step"}}
     <div class="content">
       <div class="title">With Action Scenario</div>
-      <div class="description">Future school conditions<br />with proposed project</div>
+      <div class="description">Future school conditions<br>with proposed project</div>
     </div>
   {{/link-to}}
 </div>
