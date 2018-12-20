@@ -1,82 +1,59 @@
 <div class="ui labels">
-  <div class="ui {{if (eq analysis.dataVersion "nov18") "grey" "orange"}} medium label">
-    {{#unless (eq analysis.dataVersion "nov18")}}
-      {{ui-popup 
-        tagName="i"
-        class="exclamation circle icon"
-        content="Old data"
-      }}
-    {{/unless}}
-    
-    Data Package: 
-    
-    <div class="detail">
-      {{#ui-dropdown 
-        selected=analysis.dataVersion
-        class="public-schools-data-dropdown"
-      }}
-        <div class="text"></div>
-        <i class="dropdown icon"></i>
-        <div class="menu">
-          <div 
-            data-value="nov17"
-            class="item"
-            onClick={{action "changeDataVersion" "nov17"}}
-          >
-            November 2017
-          </div>
-          <div 
-            data-value="nov18"
-            class="item"
-            onClick={{action "changeDataVersion" "nov18"}}
-          >
-            November 2018
-          </div>
-        </div>
-      {{/ui-dropdown}}
+  {{#if project.viewOnly}}
+    <div class="ui {{if (eq analysis.dataVersion "november-2018") "grey" "orange"}} medium label">
+      {{#unless (eq analysis.dataVersion "november-2018")}}
+        {{ui-popup 
+          tagName="i"
+          class="exclamation circle icon"
+          content="Old data"
+        }}
+      {{/unless}}
+      
+      Data Package: 
+      <div class="detail">{{humanize analysis.dataVersion}}</div>
     </div>
-  </div>
+  {{else}}
+    <div class="ui {{if (eq analysis.dataVersion "november-2018") "grey" "orange"}} medium label">
+      {{#unless (eq analysis.dataVersion "november-2018")}}
+        {{ui-popup 
+          tagName="i"
+          class="exclamation circle icon"
+          content="Old data"
+        }}
+      {{/unless}}
+      
+      Data Package: 
+      
+      <div class="detail">
+        {{#ui-dropdown 
+          selected=analysis.dataVersion
+          class="public-schools-data-dropdown"
+        }}
+          <div class="text"></div>
+          <i class="dropdown icon"></i>
+          <div class="menu">
+            <div 
+              data-value="november-2017"
+              class="item"
+              onClick={{action "changeDataVersion" "november-2017"}}
+            >
+              November 2017
+            </div>
+            <div 
+              data-value="november-2018"
+              class="item"
+              onClick={{action "changeDataVersion" "november-2018"}}
+            >
+              November 2018 (with new multipliers)
+            </div>
+          </div>
+        {{/ui-dropdown}}
+      </div>
+    </div>
+  {{/if}}
 
   <div class="ui grey medium label">
     Schools Multipliers:
     <div class="detail">{{humanize analysis.multiplierVersion}}</div>
   </div>
-
-  {{!-- <div class="ui {{if (eq analysis.multiplierVersion "november-2018") "grey" "orange"}} medium label">
-    {{#unless (eq analysis.multiplierVersion "november-2018")}}
-      {{ui-popup 
-        tagName="i"
-        class="exclamation circle icon"
-        content="Old data"
-      }}
-    {{/unless}}
-    
-    Schools Multipliers:
-    
-    <div class="detail">
-      {{#ui-dropdown 
-        selected=analysis.multiplierVersion
-        class="public-schools-multipliers-dropdown"
-      }}
-        <div class="text"></div>
-        <i class="dropdown icon"></i>
-        <div class="menu">
-          <div
-            class="item"
-            data-value="march-2014"
-            onClick={{action "changeMultipliers" "march-2014"}}
-          >
-            March 2014
-          </div>
-          <div
-            class="item"
-            data-value="november-2018"
-            onClick={{action "changeMultipliers" "november-2018"}}
-          >
-            November 2018
-          </div>
-        </div>
-      {{/ui-dropdown}}
-    </div>
-  </div> --}}
 </div>

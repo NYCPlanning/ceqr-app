@@ -8,8 +8,8 @@ export default Component.extend({
   actions: {
     async changeDataVersion(version) {
       const dataMultiplierMap = {
-        "nov17": "march-2014",
-        "nov18": "november-2018"
+        "november-2017": "march-2014",
+        "november-2018": "november-2018"
       }
       
       const analysis = await this.analysis;

@@ -1,7 +1,7 @@
 class AddDataTablesToPublicSchoolsAnalysis < ActiveRecord::Migration[5.2]
   def change
     add_column :public_schools_analyses, :data_tables, :jsonb, null: false, default: {
-      version: 'nov17',
+      version: 'november-2017',
       enrollmentProjectionsMinYear: 2015,
       enrollmentProjectionsMaxYear: 2025,
       sourceDates: {
