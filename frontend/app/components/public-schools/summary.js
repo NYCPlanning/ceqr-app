@@ -19,119 +19,159 @@ export default Component.extend({
     this.set('activeSdId', (this.analysis.subdistricts[0].id).toString());
   },
 
-  activeFutureResidentialDevelopment: computed('activeSchoolsLevel', 'activeSd', 'analysis.futureResidentialDev.[]', function() {
-    if (this.activeSchoolsLevel === 'hs') {
-      return this.analysis.futureResidentialDev
+  activeFutureResidentialDevelopment: computed(
+    'activeSchoolsLevel',
+    'activeSd',
+    'analysis.{dataVersion,futureResidentialDev.@each}',
+    
+    function() {      
+      if (this.activeSchoolsLevel === 'hs') {
+        return this.analysis.futureResidentialDev
+          .map(b => {
+            b.set('enrollment', b.get(`${this.activeSchoolsLevel}_students`));
+            return b;
+          });
+      } else {
+        return this.analysis.futureResidentialDev
+          .filter((b) => (b.district === this.activeSd.district && b.subdistrict === this.activeSd.subdistrict))
+          .map(b => {
+            b.set('enrollment', b.get(`${this.activeSchoolsLevel}_students`));
+            return b;
+          });
+      }
+    }
+  ),
+
+  activeLCMGS: computed(
+    'activeSchoolsLevel',
+    'activeSd',
+    'analysis.{dataVersion,lcgms.[]}',
+    
+    function() {
+      if (this.activeSchoolsLevel === 'hs') {
+        return this.analysis.lcgms.filterBy('level', 'hs'); 
+      } else {
+        return this.analysis.lcgms.filter(
+          (b) => (b.district === this.activeSd.district && 
+                  b.subdistrict === this.activeSd.subdistrict &&
+                  b.level === this.activeSchoolsLevel)
+        ); 
+      }
+    }
+  ),
+
+  activeScaProjects: computed(
+    'activeSchoolsLevel',
+    'activeSd',
+    'analysis.{dataVersion,scaProjects.[]}',
+    
+    function() {
+      const projects = this.analysis.scaProjects
         .map(b => ({
           ...b,
-          enrollment: b[`${this.activeSchoolsLevel}_students`]
-        }))
-    } else {
-      return this.analysis.futureResidentialDev
-        .filter((b) => (b.district === this.activeSd.district && b.subdistrict === this.activeSd.subdistrict))
-        .map(b => ({
-          ...b,
-          enrollment: b[`${this.activeSchoolsLevel}_students`]
+          capacity: b[`${this.activeSchoolsLevel}_capacity`]
         }));
-    }
-  }),
 
-  activeLCMGS: computed('activeSchoolsLevel', 'activeSd', 'analysis.lcgms.[]', function() {
-    if (this.activeSchoolsLevel === 'hs') {
-      return this.analysis.lcgms.filterBy('level', 'hs'); 
-    } else {
-      return this.analysis.lcgms.filter(
-        (b) => (b.district === this.activeSd.district && 
-                b.subdistrict === this.activeSd.subdistrict &&
-                b.level === this.activeSchoolsLevel)
-      ); 
+      if (this.activeSchoolsLevel === 'hs') {
+        return projects.filter((b) => b.includeInCapacity && b.capacity > 0);
+      } else {
+        return projects.filter(
+          (b) => 
+            b.district === this.activeSd.district
+            && b.subdistrict === this.activeSd.subdistrict
+            && b.includeInCapacity
+            && b.capacity > 0
+        );
+      }
     }
-  }),
+  ),
 
-  activeScaProjects: computed('activeSchoolsLevel', 'activeSd', 'analysis.scaProjects.[]', function() {
-    const projects = this.analysis.scaProjects
-      .map(b => ({
+  activeBuildings: computed(
+    'activeSd',
+    'activeSchoolsLevel',
+    'analysis.{dataVersion,buildings.[]}',
+    
+    function() {
+      const buildings = this.analysis.buildings.map((b) => ({
         ...b,
-        capacity: b[`${this.activeSchoolsLevel}_capacity`]
+        capacityDelta: parseInt(b.capacityFuture) - parseInt(b.capacity)
       }));
-
-    if (this.activeSchoolsLevel === 'hs') {
-      return projects.filter((b) => b.includeInCapacity && b.capacity > 0);
-    } else {
-      return projects.filter(
-        (b) => 
-          b.district === this.activeSd.district
-          && b.subdistrict === this.activeSd.subdistrict
-          && b.includeInCapacity
-          && b.capacity > 0
-      );
+      
+      if (this.activeSchoolsLevel === 'hs') {
+        return buildings.filter(
+          (b) => 
+            ('capacityFuture' in b)
+            && (parseInt(b.capacity) !== parseInt(b.capacityFuture))
+            && b.level === 'hs'
+        );
+      } else {
+        return buildings.filter(
+          (b) => 
+            ('capacityFuture' in b)
+            && (parseInt(b.capacity) !== parseInt(b.capacityFuture))
+            && b.district === this.activeSd.district
+            && b.subdistrict === this.activeSd.subdistrict
+            && b.level === this.activeSchoolsLevel
+        );
+      }
     }
-  }),
+  ),
 
-  activeBuildings: computed('activeSd', 'activeSchoolsLevel', 'analysis.buildings.[]', function() {
-    const buildings = this.analysis.buildings.map((b) => ({
-      ...b,
-      capacityDelta: parseInt(b.capacityFuture) - parseInt(b.capacity)
-    }));
+  activeSchoolsWithAction: computed(
+    'activeSd',
+    'activeSchoolsLevel',
+    'analysis.{dataVersion,schoolsWithAction.[]}',
     
-    if (this.activeSchoolsLevel === 'hs') {
-      return buildings.filter(
-        (b) => 
-          ('capacityFuture' in b)
-          && (parseInt(b.capacity) !== parseInt(b.capacityFuture))
-          && b.level === 'hs'
-      );
-    } else {
-      return buildings.filter(
-        (b) => 
-          ('capacityFuture' in b)
-          && (parseInt(b.capacity) !== parseInt(b.capacityFuture))
-          && b.district === this.activeSd.district
-          && b.subdistrict === this.activeSd.subdistrict
-          && b.level === this.activeSchoolsLevel
-      );
+    function() {
+      const schools = this.analysis.schoolsWithAction
+        .map(b => ({
+          ...b,
+          capacity: parseInt(b[`${this.activeSchoolsLevel}_seats`])
+        }))
+      
+      if (this.activeSchoolsLevel === 'hs') { 
+        return schools
+      } else {
+        return schools.filter(
+          (b) => 
+            b.district === this.activeSd.district
+            && b.subdistrict === this.activeSd.subdistrict
+        )
+      }
     }
+  ),
+
+  existingConditions: computed(
+    'activeSdId',
+    'activeSchoolsLevel',
+    'analysis.dataVersion',
     
+    function() {
+      if (this.activeSchoolsLevel === 'hs') {
+        return this.analysis.schoolTotals.findBy('level', 'hs');
+      } else {
+        return this.analysis.schoolTotals.find(
+          (total) => (total.id === parseInt(this.activeSdId) && total.level === this.activeSchoolsLevel)
+        );
+      }
+    }
+  ),
 
-  }),
-
-  activeSchoolsWithAction: computed('activeSd', 'activeSchoolsLevel', 'analysis.schoolsWithAction.[]', function() {
-    const schools = this.analysis.schoolsWithAction
-      .map(b => ({
-        ...b,
-        capacity: parseInt(b[`${this.activeSchoolsLevel}_seats`])
-      }))
+  futureConditions: computed(
+    'activeSdId',
+    'activeSchoolsLevel',
+    'analysis.dataVersion',
     
-    if (this.activeSchoolsLevel === 'hs') { 
-      return schools
-    } else {
-      return schools.filter(
-        (b) => 
-          b.district === this.activeSd.district
-          && b.subdistrict === this.activeSd.subdistrict
-      )
+    function() {
+      if (this.activeSchoolsLevel === 'hs') {
+        return this.analysis.aggregateTotals.findBy('level', 'hs');
+      } else {
+        return this.analysis.aggregateTotals.find(
+          (total) => (total.id === parseInt(this.activeSdId) && total.level === this.activeSchoolsLevel)
+        );
+      }
     }
-  }),
-
-  existingConditions: computed('activeSdId', 'activeSchoolsLevel', function() {
-    if (this.activeSchoolsLevel === 'hs') {
-      return this.analysis.schoolTotals.findBy('level', 'hs');
-    } else {
-      return this.analysis.schoolTotals.find(
-        (total) => (total.id === parseInt(this.activeSdId) && total.level === this.activeSchoolsLevel)
-      );
-    }
-  }),
-
-  futureConditions: computed('activeSdId', 'activeSchoolsLevel', function() {
-    if (this.activeSchoolsLevel === 'hs') {
-      return this.analysis.aggregateTotals.findBy('level', 'hs');
-    } else {
-      return this.analysis.aggregateTotals.find(
-        (total) => (total.id === parseInt(this.activeSdId) && total.level === this.activeSchoolsLevel)
-      );
-    }
-  }),
+  ),
 
   EC_newSchoolsOpened: computed('activeSd', 'activeSchoolsLevel', 'activeLCGMS', function() {    
     const schools = this.activeLCMGS;
@@ -142,12 +182,12 @@ export default Component.extend({
     return { enrollment, capacity, schools };
   }),
 
-  NA_newResidentialDevelopment: computed('activeSd', 'activeSchoolsLevel', 'activeFutureResidentialDevelopment', function() {
+  NA_newResidentialDevelopment: computed('activeSd', 'activeSchoolsLevel', 'activeFutureResidentialDevelopment.[]', function() {
     const developments = this.activeFutureResidentialDevelopment;
 
     const enrollment = developments
       .mapBy(`${this.activeSchoolsLevel}_students`)
-      .reduce((a, v) => a + parseInt(v), 0); 
+      .reduce((a, v) => a + parseInt(v), 0);      
 
     return { enrollment, developments }
   }),

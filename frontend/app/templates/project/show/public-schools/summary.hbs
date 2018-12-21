@@ -4,4 +4,8 @@
 
 <div class="sixteen wide column">
   {{public-schools/summary project=project analysis=model.publicSchoolsAnalysis}}
+
+  <div class="ui inverted dimmer {{if public-schools.initialLoad.isRunning "active"}}">
+    <div class="ui text loader">Loading</div>
+  </div>
 </div>

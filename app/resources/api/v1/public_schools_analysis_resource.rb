@@ -9,7 +9,7 @@ class Api::V1::PublicSchoolsAnalysisResource < JSONAPI::Resource
     :subdistricts_from_db,
     :subdistricts_from_user,
 
-    :future_residential_dev,
+    :residential_developments,
     :schools_with_action,
 
     :hs_projections,

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_18_152105) do
+ActiveRecord::Schema.define(version: 2018_12_20_211805) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -55,7 +55,7 @@ ActiveRecord::Schema.define(version: 2018_12_18_152105) do
     t.jsonb "lcgms", default: [], null: false, array: true
     t.jsonb "sca_projects", default: [], null: false, array: true
     t.jsonb "doe_util_changes", default: [], null: false, array: true
-    t.jsonb "future_residential_dev", default: [], null: false, array: true
+    t.jsonb "residential_developments", default: [], null: false, array: true
     t.jsonb "schools_with_action", default: [], null: false, array: true
     t.jsonb "hs_projections", default: [], null: false, array: true
     t.jsonb "future_enrollment_projections", default: [], null: false, array: true

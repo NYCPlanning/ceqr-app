@@ -1,4 +1,5 @@
 import Component from '@ember/component';
+import FutureResidentialDevelopment from '../../../decorators/public-schools/FutureResidentialDevelopment';
 
 export default Component.extend({
   init() {
@@ -8,22 +9,19 @@ export default Component.extend({
   
   actions: {
     addResDev({ name, total_units, year, subdistrict }) {      
-      let multipliers = this.get('analysis.currentMultiplier');
-      
-      this.get('analysis.futureResidentialDev').pushObject({
+      const residentialDevelopment = FutureResidentialDevelopment.create({
         ...subdistrict,
         name,
         total_units,
-        year,
-        ps_students: Math.round(total_units * multipliers.ps),
-        is_students: Math.round(total_units * multipliers.is),
-        hs_students: Math.round(total_units * multipliers.hs)
-      });
+        year
+      })
+
+      this.get('analysis.residentialDevelopments').pushObject(residentialDevelopment);
       this.get('analysis').save();
       this.set('resdev', {});
     },
     removeResDev(resdev) {
-      this.get('analysis.futureResidentialDev').removeObject(resdev);
+      this.get('analysis.residentialDevelopments').removeObject(resdev);
       this.get('analysis').save();
     },
   }

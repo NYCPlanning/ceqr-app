@@ -155,10 +155,19 @@ export default DS.Model.extend({
     }).compact();
   }),
   doeUtilChangesCount: computed('doeUtilChanges', function() {
-    return this.get('doeUtilChangesPerBldg').length;
+    return this.doeUtilChangesPerBldg.length;
   }),
 
-  futureResidentialDev: DS.attr('', { defaultValue() { return []; } }),
+  residentialDevelopments: DS.attr('public-schools/residential-development',
+    { defaultValue() { return []; } }
+  ),
+  futureResidentialDev: computed('currentMultiplier', 'residentialDevelopments.[]', function() {
+    return this.residentialDevelopments.map((d) => {
+      d.set('multipliers', this.currentMultiplier);
+      return d;
+    });
+  }),
+
   schoolsWithAction: DS.attr('', { defaultValue() { return []; } }),
 
   hsProjections: DS.attr('', { defaultValue() { return []; } }),
