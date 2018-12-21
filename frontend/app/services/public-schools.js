@@ -95,16 +95,7 @@ export default Service.extend({
 
     bluebook.forEach((b) => {
       if (/PS/.test(b.org_level)) {
-        const existing = this.analysis.bluebook.filter(
-          (e) => 
-            e.org_id === b.org_id
-            &&
-            e.bldg_id === b.bldg_id
-            &&
-            e.level === 'ps'
-            &&
-            e.dataVersion === this.analysis.dataVersion
-        )[0];
+        const existing = this.analysis.bluebook_findExisting(b, 'ps');
 
         if (existing) {
           bluebookBuildings.push(existing);
@@ -122,16 +113,7 @@ export default Service.extend({
       }     
 
       if (/IS/.test(b.org_level)) {
-        const existing = this.analysis.bluebook.filter(
-          (e) => 
-            e.org_id === b.org_id
-            &&
-            e.bldg_id === b.bldg_id
-            &&
-            e.level === 'is'
-            &&
-            e.dataVersion === this.analysis.dataVersion
-        )[0];
+        const existing = this.analysis.bluebook_findExisting(b, 'is');
 
         if (existing) {
           bluebookBuildings.push(existing);
@@ -151,16 +133,7 @@ export default Service.extend({
 
     bluebookHs.forEach((b) => {
       if (/HS/.test(b.org_level)) {
-        const existing = this.analysis.bluebook.filter(
-          (e) => 
-            e.org_id === b.org_id
-            &&
-            e.bldg_id === b.bldg_id
-            &&
-            e.level === 'hs'
-            &&
-            e.dataVersion === this.analysis.dataVersion
-        )[0];
+        const existing = this.analysis.bluebook_findExisting(b, 'hs');
 
         if (existing) {
           bluebookBuildings.push(existing);

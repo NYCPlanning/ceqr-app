@@ -88,6 +88,18 @@ export default DS.Model.extend({
 
   // By Subdistrict
   bluebook: DS.attr('buildings', { defaultValue() { return []; } }),
+  bluebook_findExisting(building, org_level) {    
+    return this.bluebook.filter(
+      (e) => 
+        e.org_id === building.org_id
+        &&
+        e.bldg_id === building.bldg_id
+        &&
+        e.level === org_level
+        &&
+        e.dataVersion === this.dataVersion
+    )[0];
+  },
   bluebookSqlPairs: computed('bluebook', function() {
     return this.bluebook.map(
       (f) => `('${f.org_id}', '${f.bldg_id}')`
