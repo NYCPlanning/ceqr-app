@@ -96,49 +96,85 @@ export default Service.extend({
     bluebook.forEach((b) => {
       if (/PS/.test(b.org_level)) {
         const existing = this.analysis.bluebook.filter(
-          (e) => e.org_id === b.org_id && e.bldg_id === b.bldg_id && e.level === 'ps'
+          (e) => 
+            e.org_id === b.org_id
+            &&
+            e.bldg_id === b.bldg_id
+            &&
+            e.level === 'ps'
+            &&
+            e.dataVersion === this.analysis.dataVersion
         )[0];
 
-        bluebookBuildings.push(Building.create({
-          ...b,
-          level: 'ps',
-          source: 'bluebook',
-          capacity: b.ps_capacity,
-          capacityFuture: existing ? existing.capacityFuture : b.ps_capacity,
-          enroll: b.ps_enroll
-        }));
+        if (existing) {
+          bluebookBuildings.push(existing);
+        } else {
+          bluebookBuildings.push(Building.create({
+            ...b,
+            level: 'ps',
+            source: 'bluebook',
+            capacity: b.ps_capacity,
+            capacityFuture: b.ps_capacity,
+            enroll: b.ps_enroll, 
+            dataVersion: this.analysis.dataVersion,
+          }));
+        }
       }     
 
       if (/IS/.test(b.org_level)) {
         const existing = this.analysis.bluebook.filter(
-          (e) => e.org_id === b.org_id && e.bldg_id === b.bldg_id && e.level === 'is'
+          (e) => 
+            e.org_id === b.org_id
+            &&
+            e.bldg_id === b.bldg_id
+            &&
+            e.level === 'is'
+            &&
+            e.dataVersion === this.analysis.dataVersion
         )[0];
 
-        bluebookBuildings.push(Building.create({
-          ...b,
-          level: 'is',
-          source: 'bluebook',
-          capacity: b.ms_capacity,
-          capacityFuture: existing ? existing.capacityFuture : b.ms_capacity,
-          enroll: b.ms_enroll
-        }));
+        if (existing) {
+          bluebookBuildings.push(existing);
+        } else {
+          bluebookBuildings.push(Building.create({
+            ...b,
+            level: 'is',
+            source: 'bluebook',
+            capacity: b.ms_capacity,
+            capacityFuture: b.ms_capacity,
+            enroll: b.ms_enroll,
+            dataVersion: this.analysis.dataVersion,
+          }));
+        }
       }
     });
 
     bluebookHs.forEach((b) => {
       if (/HS/.test(b.org_level)) {
-        const existing = this.analysis.buildings.filter(
-          (e) => e.org_id === b.org_id && e.bldg_id === b.bldg_id && e.org_level === 'hs'
+        const existing = this.analysis.bluebook.filter(
+          (e) => 
+            e.org_id === b.org_id
+            &&
+            e.bldg_id === b.bldg_id
+            &&
+            e.level === 'hs'
+            &&
+            e.dataVersion === this.analysis.dataVersion
         )[0];
 
-        bluebookBuildings.push(Building.create({
-          ...b,
-          level: 'hs',
-          source: 'bluebook',
-          capacity: b.hs_capacity,
-          capacityFuture: existing ? existing.capacityFuture : b.hs_capacity,
-          enroll: b.hs_enroll
-        }));
+        if (existing) {
+          bluebookBuildings.push(existing);
+        } else {
+          bluebookBuildings.push(Building.create({
+            ...b,
+            level: 'hs',
+            source: 'bluebook',
+            capacity: b.hs_capacity,
+            capacityFuture: b.hs_capacity,
+            enroll: b.hs_enroll,
+            dataVersion: this.analysis.dataVersion,
+          }));
+        }
       }
     });
 
