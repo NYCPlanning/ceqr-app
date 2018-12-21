@@ -27,7 +27,7 @@ export default Route.extend({
         
         // Load defaults for Public Schools Analysis
         const multipliers = await this.store.findRecord('ceqr-manual/public-schools', 'november-2018');
-        const dataTables = await this.store.findRecord('data-tables/public-schools', 'nov18');
+        const dataTables = await this.store.findRecord('data-tables/public-schools', 'november-2018');
 
         const publicSchoolsAnalysis = await this.store.createRecord('publicSchoolsAnalysis', {
           project,
