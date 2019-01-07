@@ -78,6 +78,8 @@ GEM
       railties (>= 3.0.0)
     faker (1.9.1)
       i18n (>= 0.7)
+    faraday (0.15.4)
+      multipart-post (>= 1.2, < 3)
     ffi (1.9.25)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
@@ -108,6 +110,7 @@ GEM
     mini_portile2 (2.3.0)
     minitest (5.11.3)
     msgpack (1.2.4)
+    multipart-post (2.0.0)
     nio4r (2.3.1)
     nokogiri (1.8.5)
       mini_portile2 (~> 2.3.0)
@@ -171,6 +174,8 @@ GEM
       rspec-support (~> 3.5.0)
     rspec-support (3.5.0)
     ruby_dep (1.5.0)
+    sentry-raven (2.7.4)
+      faraday (>= 0.7.6, < 1.0)
     shoulda-matchers (3.1.2)
       activesupport (>= 4.0.0)
     spring (2.0.2)
@@ -214,6 +219,7 @@ DEPENDENCIES
   rails (~> 5.2.1)
   rails_12factor
   rspec-rails (~> 3.5.2)
+  sentry-raven
   shoulda-matchers (~> 3.1)
   spring
   spring-watcher-listen (~> 2.0.0)

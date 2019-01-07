@@ -13,14 +13,9 @@ gem 'puma', '~> 3.11'
 
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.12', github: 'codahale/bcrypt-ruby'
-
 gem 'jwt'
 
-# Use ActiveStorage variant
-# gem 'mini_magick', '~> 4.8'
-
-# Use Capistrano for deployment
-# gem 'capistrano-rails', group: :development
+gem 'sentry-raven'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false

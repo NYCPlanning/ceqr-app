@@ -35,6 +35,7 @@ module.exports = function(environment) {
          ]
       }
     },
+    SENTRY_DSN: process.env.SENTRY_DSN,
 
     modulePrefix: 'labs-ceqr',
     environment,

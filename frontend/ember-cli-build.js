@@ -9,6 +9,12 @@ module.exports = function(defaults) {
     }
   });
 
+  app.import('node_modules/@sentry/browser/dist/index.js', {
+    using: [
+      { transformation: 'cjs', as: '@sentry/browser' }
+    ]
+  });
+
   // app.import('vendor/carto-vl/carto-vl.min.js');
   // app.import('vendor/jquery-tablesort-semantic-ui/tablesort.js');
 
