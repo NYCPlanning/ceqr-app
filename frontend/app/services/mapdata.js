@@ -7,12 +7,14 @@ export default Service.extend({
   project: null,
   analysis: null,
 
-  blankGeojsonPromise: new Promise(function(resolve) {
-    resolve({
-      type: "FeatureCollection",
-      features: [],
+  blankGeojsonPromise() {
+    return new Promise(function(resolve) {
+      resolve({
+        type: "FeatureCollection",
+        features: [],
+      })
     })
-  }),
+  },
 
   // Geojson
   bblGeojson: computed('analysis.bbls.[]', function() {
@@ -56,7 +58,7 @@ export default Service.extend({
     if (this.analysis.lcgmsCartoIds.length) {
       return this.fetchLcgmsGeojson.perform();
     } else {
-      return this.blankGeojsonPromise;
+      return this.blankGeojsonPromise();
     }
   }),
   fetchLcgmsGeojson: task(function*() {
@@ -116,7 +118,7 @@ export default Service.extend({
     if (this.analysis.scaProjectsCartoIds.length) {
       return this.fetchScaProjects.perform();
     } else {
-      return this.blankGeojsonPromise;
+      return this.blankGeojsonPromise();
     }
     
   }),
