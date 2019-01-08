@@ -1,7 +1,7 @@
 import Component from '@ember/component';
 import { inject as service } from '@ember/service';
 import mapboxgl from 'mapbox-gl';
-import centroid from 'npm:@turf/centroid';
+import centroid from '@turf/centroid';
 
 export default Component.extend({
   mapdata: service(),
@@ -48,7 +48,7 @@ export default Component.extend({
       this.get('map').on('data', this.get('moveTransportationZones').bind(this));
       
       this.get('mapdata.bblGeojson').then(
-        (g) => map.flyTo({center: centroid.default(g).geometry.coordinates, zoom: 14})
+        (g) => map.flyTo({center: centroid(g).geometry.coordinates, zoom: 14})
       );
     }
   }

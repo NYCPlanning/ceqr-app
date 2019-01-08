@@ -1,6 +1,6 @@
 import Service from '@ember/service';
 import { inject as service } from '@ember/service';
-import bbox from 'npm:@turf/bbox';
+import bbox from '@turf/bbox';
 
 export default Service.extend({
   mapdata: service(),
@@ -12,7 +12,7 @@ export default Service.extend({
 
   fitToSubdistricts() {
     this.get('mapdata.subdistrictGeojson').then(
-      (g) => this.get('map').fitBounds(bbox.default(g))
+      (g) => this.get('map').fitBounds(bbox(g))
     );
   }
 });

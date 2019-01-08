@@ -1,3 +1,4 @@
 {
+  "license": "MIT",
   "cacheDirectories": ["frontend/node_modules","node_modules"]
 }
