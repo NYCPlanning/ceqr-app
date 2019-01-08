@@ -2,6 +2,7 @@
   Impact & Mitigation
 </h4>
 
+{{! template-lint-disable table-groups }}
 <table class="ui attached celled table">
   <thead>
     <tr>
@@ -18,8 +19,8 @@
     <tbody>
       <tr class={{if ps.impact "negative"}}>
         <td>Primary Schools</td>
-        {{#td-hover payload=(hash name='utilizationWithAction' level='ps')}}{{percentage ps.utilizationWithActionTotal}}{{/td-hover}}
-        {{#td-hover payload=(hash name='utilizationChange' level='ps')}}{{percentage ps.utilizationChangeTotal decimals=2}}{{/td-hover}}
+        {{#td-hover payload=(hash name="utilizationWithAction" level="ps")}}{{percentage ps.utilizationWithActionTotal}}{{/td-hover}}
+        {{#td-hover payload=(hash name="utilizationChange" level="ps")}}{{percentage ps.utilizationChangeTotal decimals=2}}{{/td-hover}}
         
         <td>
           {{#if ps.impact}}
@@ -51,8 +52,8 @@
     <tbody>
       <tr class={{if is.impact "negative"}}>
         <td>Intermediate Schools</td>
-        {{#td-hover payload=(hash name='utilizationWithAction' level='is')}}{{percentage is.utilizationWithActionTotal}}{{/td-hover}}
-        {{#td-hover payload=(hash name='utilizationChange' level='is')}}{{percentage is.utilizationChangeTotal decimals=2}}{{/td-hover}}
+        {{#td-hover payload=(hash name="utilizationWithAction" level="is")}}{{percentage is.utilizationWithActionTotal}}{{/td-hover}}
+        {{#td-hover payload=(hash name="utilizationChange" level="is")}}{{percentage is.utilizationChangeTotal decimals=2}}{{/td-hover}}
 
         <td>
           {{#if is.impact}}
@@ -84,8 +85,8 @@
     <tbody>
       <tr class={{if hs.impact "negative"}}>
         <td>High Schools</td>
-        {{#td-hover payload=(hash name='utilizationWithAction' level='hs')}}{{percentage hs.utilizationWithActionTotal}}{{/td-hover}}
-        {{#td-hover payload=(hash name='utilizationChange' level='hs')}}{{percentage hs.utilizationChangeTotal decimals=2}}{{/td-hover}}
+        {{#td-hover payload=(hash name="utilizationWithAction" level="hs")}}{{percentage hs.utilizationWithActionTotal}}{{/td-hover}}
+        {{#td-hover payload=(hash name="utilizationChange" level="hs")}}{{percentage hs.utilizationChangeTotal decimals=2}}{{/td-hover}}
 
         <td>
           {{#if hs.impact}}

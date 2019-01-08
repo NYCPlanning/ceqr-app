@@ -32,12 +32,12 @@
                   {{#if project.viewOnly}}
                     (summary only)
                   {{else}}
-                    {{#link-to 'project.show.edit' project.id class="ui compact small labeled primary icon button"}}
+                    {{#link-to "project.show.edit" project.id class="ui compact small labeled primary icon button"}}
                       <i class="edit icon"></i>
                       Edit
                     {{/link-to}}
 
-                    <button class="ui compact small negative icon button" {{action 'deleteModal' project.id}}>
+                    <button class="ui compact small negative icon button" {{action "deleteModal" project.id}}>
                       <i class="trash icon"></i>
                     </button>
                   {{/if}}
@@ -46,7 +46,7 @@
             {{/each}}
           {{else}}
             <tr>
-              <td colspan=4>You have no projects assigned to you. Create a {{#link-to "project.new"}}new project{{/link-to}}.</td>
+              <td colspan="4">You have no projects assigned to you. Create a {{#link-to "project.new"}}new project{{/link-to}}.</td>
             </tr>
           {{/if}}
         </tbody>
@@ -72,7 +72,7 @@
     <div class="ui positive button">
       Cancel
     </div>
-    <div class="ui negative right labeled icon button" {{action 'deleteProject'}}>
+    <div class="ui negative right labeled icon button" {{action "deleteProject"}}>
       Delete
       <i class="trash icon"></i>
     </div>

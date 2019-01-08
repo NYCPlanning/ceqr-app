@@ -10,7 +10,7 @@
 </div>
 
 <div class="ui {{if analysis.futureResidentialDev "top attached"}} segment">  
-  <form class="ui form" {{action 'addResDev' resdev on='submit'}}>
+  <form class="ui form" {{action "addResDev" resdev on="submit"}}>
     <div class="inline fields">
       <div class="field">
         {{input type="string" value=resdev.name placeholder="Project Name"}}
@@ -24,7 +24,7 @@
           <i class="dropdown icon"></i>
           <div class="menu">
             {{#each analysis.subdistricts as |sd|}}
-              <div data-value="{{map-value mapper sd}}" class="item">
+              <div data-value={{map-value mapper sd}} class="item">
                 District {{sd.district}} - Subdistrict {{sd.subdistrict}}
               </div>
             {{/each}}
@@ -63,7 +63,7 @@
           <td>{{r.ps_students}}</td>
           <td>{{r.is_students}}</td>
           <td>{{r.hs_students}}</td>
-          <td><button class="ui button red" {{action 'removeResDev' r}}>Delete</button></td>
+          <td><button class="ui button red" {{action "removeResDev" r}}>Delete</button></td>
         </tr>
       {{/each}}
     </tbody>

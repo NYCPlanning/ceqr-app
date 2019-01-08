@@ -1,26 +1,26 @@
 <div class="ui labels">
   {{#if project.viewOnly}}
     <div class="ui {{if (eq analysis.dataVersion "november-2018") "grey" "orange"}} medium label">
-      {{#unless (eq analysis.dataVersion "november-2018")}}
+      {{#if (not-eq analysis.dataVersion "november-2018")}}
         {{ui-popup 
           tagName="i"
           class="exclamation circle icon"
           content="Old data"
         }}
-      {{/unless}}
+      {{/if}}
       
       Data Package: 
       <div class="detail">{{humanize analysis.dataVersion}}</div>
     </div>
   {{else}}
     <div class="ui {{if (eq analysis.dataVersion "november-2018") "grey" "orange"}} medium label">
-      {{#unless (eq analysis.dataVersion "november-2018")}}
+      {{#if (not-eq analysis.dataVersion "november-2018")}}
         {{ui-popup 
           tagName="i"
           class="exclamation circle icon"
           content="Old data"
         }}
-      {{/unless}}
+      {{/if}}
       
       Data Package: 
       

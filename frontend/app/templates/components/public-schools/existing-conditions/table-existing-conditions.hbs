@@ -12,16 +12,16 @@
 
     </div>
     
-    <a class="item {{if (eq activeSchoolsLevel 'ps') 'active'}}" {{action (mut activeSchoolsLevel) 'ps'}}>
+    <a class="item {{if (eq activeSchoolsLevel "ps") "active"}}" {{action (mut activeSchoolsLevel) "ps"}}>
       Primary Schools
     </a>
-    <a class="item {{if (eq activeSchoolsLevel 'is') 'active'}}" {{action (mut activeSchoolsLevel) 'is'}}>
+    <a class="item {{if (eq activeSchoolsLevel "is") "active"}}" {{action (mut activeSchoolsLevel) "is"}}>
       Intermediate Schools
     </a>
     <div class="ui divider"></div>
     {{#if analysis.hsAnalysis}}    
       <div class="right menu">
-        <a class="item {{if (eq activeSchoolsLevel 'hs') 'active'}}" {{action (mut activeSchoolsLevel) 'hs'}}>
+        <a class="item {{if (eq activeSchoolsLevel "hs") "active"}}" {{action (mut activeSchoolsLevel) "hs"}}>
           High Schools ({{analysis.borough}})
         </a>
       </div>

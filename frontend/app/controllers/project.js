@@ -13,6 +13,10 @@ export default Controller.extend({
     return this.router.currentRouteName.includes('summary');
   }),
 
+  showAnalysisSteps: computed('onSummary', 'project.viewOnly', function() {
+    return !(this.project.viewOnly || this.onSummary)
+  }),
+
   showMap: computed('router.currentRouteName', function() {
     const current = this.router.currentRouteName;
     return (current.includes('existing-conditions') || current.includes('no-action'));

@@ -58,7 +58,7 @@
           <div class="item">
             <div class="ui blue label">
               {{sd.sdName}}
-              <i class="delete icon" {{action 'removeSubdistrict' sd}}></i>
+              <i class="delete icon" {{action "removeSubdistrict" sd}}></i>
             </div>
           </div>
         {{/each}}
@@ -67,7 +67,7 @@
       {{#ui-dropdown 
         class="selection"
         selected=district
-        onChange=(action 'setDistrict')
+        onChange=(action "setDistrict")
       }}
         <div class="default text">District</div>
           <i class="dropdown icon"></i>
@@ -84,7 +84,7 @@
       {{#ui-dropdown 
         class=(if district (if fetchSubdistricts.isRunning "disabled loading selection" "selection") "selection disabled")
         selected=subdistrict 
-        onChange=(action 'setSubdistrict')
+        onChange=(action "setSubdistrict")
       }}
         <div class="default text">Subdistrict</div>
           <i class="dropdown icon"></i>
@@ -97,7 +97,7 @@
         </div>
       {{/ui-dropdown}}
 
-      <button class="ui button" {{action 'addSubdistrict'}}>Add</button>
+      <button class="ui button" {{action "addSubdistrict"}}>Add</button>
     </div>
   </div>
 </div>

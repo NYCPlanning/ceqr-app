@@ -6,7 +6,7 @@
   </div>
 </div>
 
-{{#unless (or project.viewOnly onSummary)}}
+{{#if showAnalysisSteps}}
   <div class="row">
     <div class="sixteen wide column">
         {{public-schools/analysis-steps analysis=model.publicSchoolsAnalysis}}
@@ -16,7 +16,7 @@
       <div class="ui text loader">Loading</div>
     </div>
   </div>
-{{/unless}}
+{{/if}}
 
 {{#if (and showMap public-schools.initialLoad.isIdle)}}
   <div class="sixteen wide column">

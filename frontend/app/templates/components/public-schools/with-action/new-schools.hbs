@@ -30,7 +30,7 @@
           <i class="dropdown icon"></i>
           <div class="menu">
             {{#each analysis.subdistricts as |sd|}}
-              <div data-value="{{map-value mapper sd}}" class="item">
+              <div data-value={{map-value mapper sd}} class="item">
                 District {{sd.district}} - Subdistrict {{sd.subdistrict}}
               </div>
             {{/each}}
