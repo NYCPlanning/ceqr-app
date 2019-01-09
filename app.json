@@ -1,7 +1,18 @@
 {
+  "buildpacks": [
+    {
+      "url": "https://github.com/heroku/heroku-buildpack-nodejs"
+    },
+    {
+      "url": "https://github.com/heroku/heroku-buildpack-ruby"
+    }
+  ],
   "environments": {
     "test": {
-      "addons": ["heroku-postgresql:in-dyno"]
+      "addons": ["heroku-postgresql:in-dyno"],
+      "scripts": {
+        "test": "bundle exec rspec && bundle exec rails ember:test"
+      }
     }
   }
 }
