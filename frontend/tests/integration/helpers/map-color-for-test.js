@@ -6,12 +6,11 @@ import hbs from 'htmlbars-inline-precompile';
 module('Integration | Helper | mapColorFor', function(hooks) {
   setupRenderingTest(hooks);
 
-  // Replace this with your real tests.
-  test('it renders', async function(assert) {
-    this.set('inputValue', '1234');
+  test('it outputs color hex given a Public School level', async function(assert) {
+    this.set('inputValue', 'ps');
 
     await render(hbs`{{map-color-for inputValue}}`);
 
-    assert.equal(this.element.textContent.trim(), '1234');
+    assert.equal(this.element.textContent.trim(), 'color: #414F70');
   });
 });

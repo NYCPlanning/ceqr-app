@@ -152,11 +152,11 @@ export default Service.extend({
     return yield carto.SQL('SELECT the_geom FROM mta_subway_entrances_v0', 'geojson');
   }).drop(),
 
-  transportationZonesMvt: null,
-  fetchTransportationZones: computed('', function() {
-    return carto.getVectorTileTemplate([{
-      id: 'transportation-zones',
-      sql: 'SELECT the_geom_webmercator, the_geom, ceqrzone FROM ceqr_transportation_zones_v2015' }
-    ]).then((url) => this.set('transportationZonesMvt', url));
-  }),
+  // transportationZonesMvt: null,
+  // fetchTransportationZones: computed('', function() {
+  //   return carto.getVectorTileTemplate([{
+  //     id: 'transportation-zones',
+  //     sql: 'SELECT the_geom_webmercator, the_geom, ceqrzone FROM ceqr_transportation_zones_v2015' }
+  //   ]).then((url) => this.set('transportationZonesMvt', url));
+  // }),
 });
