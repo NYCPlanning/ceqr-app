@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_21_202714) do
+ActiveRecord::Schema.define(version: 2019_01_09_200521) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -43,7 +43,7 @@ ActiveRecord::Schema.define(version: 2018_12_21_202714) do
     t.text "ceqr_number"
   end
 
-  create_table "public_schools_analyses", id: :bigint, default: -> { "nextval('public_school_analyses_id_seq'::regclass)" }, force: :cascade do |t|
+  create_table "public_schools_analyses", force: :cascade do |t|
     t.boolean "es_school_choice"
     t.boolean "is_school_choice"
     t.boolean "direct_effect"

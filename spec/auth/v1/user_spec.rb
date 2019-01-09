@@ -114,8 +114,8 @@ RSpec.describe 'Users AUTH', type: :request do
         expect(User.first.email_validated).to be false
       end
       
-      it 'returns a 422' do
-        expect(response).to have_http_status(422)
+      it 'returns a 401' do
+        expect(response).to have_http_status(401)
       end
     end
   
@@ -126,8 +126,8 @@ RSpec.describe 'Users AUTH', type: :request do
         expect(User.first.email_validated).to be false
       end
       
-      it 'returns a 422' do
-        expect(response).to have_http_status(422)
+      it 'returns a 401' do
+        expect(response).to have_http_status(401)
       end
     end
   end
@@ -172,8 +172,8 @@ RSpec.describe 'Users AUTH', type: :request do
         expect(User.first.authenticate('newpass')).to be false
       end
       
-      it 'returns a 422' do
-        expect(response).to have_http_status(422)
+      it 'returns a 401' do
+        expect(response).to have_http_status(401)
       end
     end
   end
