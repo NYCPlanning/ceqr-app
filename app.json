@@ -11,6 +11,7 @@
     "test": {
       "addons": ["heroku-postgresql:in-dyno"],
       "scripts": {
+        "test-setup": "bundle exec rails ember:compile",
         "test": "bundle exec rspec && bundle exec rails ember:test"
       },
       "env": {
