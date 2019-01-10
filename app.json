@@ -14,7 +14,9 @@
         "test": "bundle exec rspec && bundle exec rails ember:test"
       },
       "env": {
-        "JWT_SALT": "TEST_RANDOM_KEY"
+        "JWT_SALT": "TEST_RANDOM_KEY",
+        "ADMIN_EMAILS": "test@example.com",
+        "SENDGRID_KEY": "NOPE"
       }
     }
   }
