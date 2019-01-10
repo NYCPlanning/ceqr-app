@@ -1,17 +1,14 @@
 {
   "buildpacks": [
-    {
-      "url": "https://github.com/heroku/heroku-buildpack-nodejs"
-    },
-    {
-      "url": "https://github.com/heroku/heroku-buildpack-ruby"
-    }
+    { "url": "https://github.com/heroku/heroku-buildpack-nodejs" },
+    { "url": "https://github.com/heroku/heroku-buildpack-ruby" },
+    { "url": "https://github.com/heroku/heroku-buildpack-google-chrome" }
   ],
   "environments": {
     "test": {
       "addons": ["heroku-postgresql:in-dyno"],
       "scripts": {
-        "test-setup": "bundle exec rails ember:compile",
+        "test-setup": "bundle exec rails ember:install",
         "test": "bundle exec rspec && bundle exec rails ember:test"
       },
       "env": {
