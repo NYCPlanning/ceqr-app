@@ -12,6 +12,9 @@
       "addons": ["heroku-postgresql:in-dyno"],
       "scripts": {
         "test": "bundle exec rspec && bundle exec rails ember:test"
+      },
+      "env": {
+        "HMAC_SECRET": "TEST_RANDOM_KEY"
       }
     }
   }
