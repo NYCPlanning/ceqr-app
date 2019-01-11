@@ -80,6 +80,7 @@ class EmailWhitelist
     'cityhall.nyc.gov',
     'ddc.nyc.gov',
     'sustainability.nyc.gov',
+    'moec.nyc.gov',
 
     # Testing address
     'pichot.us'
