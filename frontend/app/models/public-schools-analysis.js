@@ -31,6 +31,8 @@ export default DS.Model.extend({
   // Schools Data version
   dataTables: DS.attr(''),
   dataVersion: computed.alias('dataTables.version'),
+  maxProjection: computed.alias('dataTables.enrollmentProjectionsMaxYear'),
+  minProjection: computed.alias('dataTables.enrollmentProjectionsMinYear'),
 
   hsAnalysis: computed.alias('hsEffect'),
 
@@ -130,8 +132,6 @@ export default DS.Model.extend({
   }),
 
   // Future
-  maxProjection: 2025,
-  minProjection: 2018,
   projectionOverMax: computed('buildYear', function() {
     return this.get('buildYear') > this.get('maxProjection')
   }),
