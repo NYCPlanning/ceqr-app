@@ -46,6 +46,7 @@ class EmailWhitelist
     'phillipsnizer.com',
     'dhclegal.com',
     'epdsco.com',
+    'louisberger.com',
 
 
     # NYC City
