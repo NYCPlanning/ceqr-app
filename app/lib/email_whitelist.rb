@@ -47,6 +47,7 @@ class EmailWhitelist
     'dhclegal.com',
     'epdsco.com',
     'louisberger.com',
+    'entech.nyc',
 
 
     # NYC City
