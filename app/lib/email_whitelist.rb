@@ -46,6 +46,8 @@ class EmailWhitelist
     'phillipsnizer.com',
     'dhclegal.com',
     'epdsco.com',
+    'louisberger.com',
+    'entech.nyc',
 
 
     # NYC City
@@ -80,6 +82,7 @@ class EmailWhitelist
     'cityhall.nyc.gov',
     'ddc.nyc.gov',
     'sustainability.nyc.gov',
+    'moec.nyc.gov',
 
     # Testing address
     'pichot.us'
