@@ -10,12 +10,10 @@ default: &default
 
 development:
   <<: *default
-  database: ceqr_heroku
-  username: pichot
 
 test:
   <<: *default
-  url: <%= ENV.fetch('DATABASE_URL', '').sub(/^postgres/, "postgis") %>
+  url: <%= ENV.fetch('DATABASE_URL', '').sub(/^postgres/, "postgis").sub(/rails$/, "test") %>
 
 production:
   <<: *default
