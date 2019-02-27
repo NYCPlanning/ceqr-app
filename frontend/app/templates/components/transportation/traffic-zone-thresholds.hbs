@@ -1,0 +1,137 @@
+<div class="ui top attached clearing segment">
+
+  <h4 class="ui left floated header" style="margin: 7px 0;">
+    <i class="car icon"></i>
+    <div class="content">
+      CEQR Traffic Zones
+    </div>
+  </h4>
+
+  <h4 class="ui right floated header">
+    <div class="ui secondary menu">
+      <a class="item {{if (eq trafficZonesView "thresholds") "active"}}" {{action (mut trafficZonesView) "thresholds"}}>
+        Thresholds
+      </a>
+      <a class="item {{if (eq trafficZonesView "map") "active"}}" {{action (mut trafficZonesView) "map"}}>
+        Map
+      </a>
+    </div>
+  </h4>
+</div>
+
+{{#if (eq trafficZonesView "thresholds")}}
+  <table class="ui attached celled table">
+    <thead>
+      <th class="six wide">Development Type</th>
+      <th class="two wide">Zone 1</th>
+      <th class="two wide">Zone 2</th>
+      <th class="two wide">Zone 3</th>
+      <th class="two wide">Zone 4</th>
+      <th class="two wide">Zone 5</th>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Residential</td>
+        <td>{{analysis.trafficZoneThresholds.residentialUnits.zone1}} units</td>
+        <td>{{analysis.trafficZoneThresholds.residentialUnits.zone2}} units</td>
+        <td>{{analysis.trafficZoneThresholds.residentialUnits.zone3}} units</td>
+        <td>{{analysis.trafficZoneThresholds.residentialUnits.zone4}} units</td>
+        <td>{{analysis.trafficZoneThresholds.residentialUnits.zone5}} units</td>
+      </tr>
+
+      <tr>
+        <td>Office</td>
+        <td>{{analysis.trafficZoneThresholds.officeSqFt.zone1}} gsf</td>
+        <td>{{analysis.trafficZoneThresholds.officeSqFt.zone2}} gsf</td>
+        <td>{{analysis.trafficZoneThresholds.officeSqFt.zone3}} gsf</td>
+        <td>{{analysis.trafficZoneThresholds.officeSqFt.zone4}} gsf</td>
+        <td>{{analysis.trafficZoneThresholds.officeSqFt.zone5}} gsf</td>
+      </tr>
+
+      <tr>
+        <td>Regional Retail</td>
+        <td>{{analysis.trafficZoneThresholds.regionalRetailSqFt.zone1}} gsf</td>
+        <td>{{analysis.trafficZoneThresholds.regionalRetailSqFt.zone2}} gsf</td>
+        <td>{{analysis.trafficZoneThresholds.regionalRetailSqFt.zone3}} gsf</td>
+        <td>{{analysis.trafficZoneThresholds.regionalRetailSqFt.zone4}} gsf</td>
+        <td>{{analysis.trafficZoneThresholds.regionalRetailSqFt.zone5}} gsf</td>
+      </tr>
+
+      <tr>
+        <td>Local Retail</td>
+        <td>{{analysis.trafficZoneThresholds.localRetailSqFt.zone1}} gsf</td>
+        <td>{{analysis.trafficZoneThresholds.localRetailSqFt.zone2}} gsf</td>
+        <td>{{analysis.trafficZoneThresholds.localRetailSqFt.zone3}} gsf</td>
+        <td>{{analysis.trafficZoneThresholds.localRetailSqFt.zone4}} gsf</td>
+        <td>{{analysis.trafficZoneThresholds.localRetailSqFt.zone5}} gsf</td>
+      </tr>
+
+      <tr>
+        <td>Restaurant</td>
+        <td>{{analysis.trafficZoneThresholds.restaurantSqFt.zone1}} gsf</td>
+        <td>{{analysis.trafficZoneThresholds.restaurantSqFt.zone2}} gsf</td>
+        <td>{{analysis.trafficZoneThresholds.restaurantSqFt.zone3}} gsf</td>
+        <td>{{analysis.trafficZoneThresholds.restaurantSqFt.zone4}} gsf</td>
+        <td>{{analysis.trafficZoneThresholds.restaurantSqFt.zone5}} gsf</td>
+      </tr>
+
+      <tr>
+        <td>Community Facilities</td>
+        <td>{{analysis.trafficZoneThresholds.communityFacilitySqFt.zone1}} gsf</td>
+        <td>{{analysis.trafficZoneThresholds.communityFacilitySqFt.zone2}} gsf</td>
+        <td>{{analysis.trafficZoneThresholds.communityFacilitySqFt.zone3}} gsf</td>
+        <td>{{analysis.trafficZoneThresholds.communityFacilitySqFt.zone4}} gsf</td>
+        <td>{{analysis.trafficZoneThresholds.communityFacilitySqFt.zone5}} gsf</td>
+      </tr>
+
+      <tr>
+        <td>Off-Street Parking Facilities</td>
+        <td>{{analysis.trafficZoneThresholds.offStreetParkingSpaces.zone1}} spaces</td>
+        <td>{{analysis.trafficZoneThresholds.offStreetParkingSpaces.zone2}} spaces</td>
+        <td>{{analysis.trafficZoneThresholds.offStreetParkingSpaces.zone3}} spaces</td>
+        <td>{{analysis.trafficZoneThresholds.offStreetParkingSpaces.zone4}} spaces</td>
+        <td>{{analysis.trafficZoneThresholds.offStreetParkingSpaces.zone5}} spaces</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="ui attached bottom icon message">
+    <i class="database icon"></i>
+    <div class="content">
+      <div class="header">
+        <a
+          target="_blank"
+          rel="noopener"
+          href="https://www1.nyc.gov/assets/oec/technical-manual/16_Transportation_2014.pdf"
+        >
+          CEQR Technical Manual Chapter 16: Transportation <i class="file pdf icon"></i><i class="external alternate icon"></i>
+        </a>
+      </div>
+      <p>
+        Traffic Zones thresholds defined in Table 16-1: Minimum Development Densities Potentially Requiring Transportation Analysis
+      </p>
+    </div>
+  </div>
+{{else if (eq trafficZonesView "map")}}
+  <div class="ui attached segment">
+    {{transportation/traffic-zone-map project=project analysis=analysis}}
+  </div>
+
+  <div class="ui attached bottom icon message">
+    <i class="database icon"></i>
+    <div class="content">
+      <div class="header">
+        <a
+          target="_blank"
+          rel="noopener"
+          href="https://www1.nyc.gov/assets/oec/technical-manual/16_Transportation_2014.pdf"
+        >
+          CEQR Technical Manual Chapter 16: Transportation <i class="file pdf icon"></i><i class="external alternate icon"></i>
+        </a>
+      </div>
+      <p>
+        Traffic Zone map defined in Map 16-1: CEQR Traffic Zones
+      </p>
+    </div>
+  </div>
+{{/if}}

@@ -2,14 +2,19 @@ import Service from '@ember/service';
 import { task } from 'ember-concurrency';
 import carto from 'carto-promises-utility/utils/carto';
 import Building from '../decorators/Building';
+import { inject as service } from '@ember/service';
 
 export default Service.extend({
   analysis: null,
+  store: service(),
 
   initialLoad: task(function*() {
-    yield this.fullReload.perform();
-  }),
-  addSubdistrict: task(function*() {
+    const multipliers = yield this.store.findRecord('ceqr-manual/public-schools', 'november-2018');
+    const dataTables = yield this.store.findRecord('data-tables/public-schools', 'november-2018');
+
+    this.set('analysis.multipliers', multipliers);
+    this.set('analysis.dataTables', dataTables);
+    
     yield this.fullReload.perform();
   }),
 

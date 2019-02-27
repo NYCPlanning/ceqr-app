@@ -1,0 +1,1 @@
+CEQR_DATA_DB = YAML.load(ERB.new(IO.read(File.join(Rails.root, "config", "ceqr_data_db.yml"))).result)[Rails.env.to_s]

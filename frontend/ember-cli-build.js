@@ -8,6 +8,13 @@ module.exports = function(defaults) {
       plugins: [
         "@babel/plugin-proposal-object-rest-spread"
       ]
+    },
+
+    // Disable jQuery bundled with Ember.js
+    vendorFiles: { 'jquery.js': null },
+    // Example to include jQuery slim instead of default build
+    jquery: {
+      slim: true
     }
   });
 

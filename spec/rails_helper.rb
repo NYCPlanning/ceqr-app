@@ -8,8 +8,6 @@ abort("The Rails environment is running in production mode!") if Rails.env.produ
 require 'spec_helper'
 require 'rspec/rails'
 
-# require 'jsonapi_spec_helpers' # DatabaseCleaner included here
-
 Shoulda::Matchers.configure do |config|
   config.integrate do |with|
     with.test_framework :rspec
@@ -40,17 +38,13 @@ ActiveRecord::Migration.maintain_test_schema!
 
 RSpec.configure do |config|
   config.include FactoryBot::Syntax::Methods
-  # config.include JsonapiSpecHelpers
 
   config.include ControllerSpecHelper
   config.include RequestSpecHelper
 
-  config.before :each do
-    # JsonapiErrorable.disable!
-  end
-
   # bootstrap database cleaner
   config.before(:suite) do
+    DatabaseCleaner.allow_remote_database_url = true
     DatabaseCleaner.strategy = :transaction
     DatabaseCleaner.clean_with(:transaction)
   end

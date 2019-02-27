@@ -1,44 +1,94 @@
 <div class="row">
-  <div class="ui two column grid">
-    <div class="column">
-      <div class="ui link cards">
-        {{#link-to "project.show.public-schools" class="ui fluid card"}}
-          <div class="content">
-            <div class="header">
-              <i class="building icon"></i>
-              Public Schools
-            </div>
+  <div class="column">
+    <div class="ui link cards">
+      {{#link-to "project.show.community-facilities" class="ui card"}}
+        <div class="content">
+          <div class="header">
+            <i class="university icon"></i>
+            Community Facilities
           </div>
+          <div class="ui top right attached label">Beta</div>
+        </div>
 
-          <div class="extra content">
-            Detailed Analysis
-            <div style="display: inline-block;" class="ui small label {{if model.project.publicSchoolsAnalysis.indirectEffect "yellow" "grey"}}">
-              {{if model.project.publicSchoolsAnalysis.indirectEffect "Yes" "No"}}
-            </div>
+        <div class="extra content">
+          Detailed Analysis
+          <div style="display: inline-block;" class="ui small label {{if model.project.communityFacilitiesAnalysis.detailedAnalysis "yellow" "grey"}}">
+            {{if model.project.communityFacilitiesAnalysis.detailedAnalysis "Yes" "No"}}
           </div>
+        </div>
 
-          <div class="ui inverted dimmer {{if public-schools.initialLoad.isRunning "active"}}">
-            <div class="ui text loader">Loading</div>
+        <div class="ui inverted dimmer {{if model.project.communityFacilitiesAnalysis.isPending "active"}}">
+          <div class="ui text loader">Loading</div>
+        </div>
+      {{/link-to}}
+      
+      {{#link-to "project.show.public-schools" class="ui card"}}
+        <div class="content">
+          <div class="header">
+            <i class="graduation cap icon"></i>
+            Public Schools
           </div>
-        {{/link-to}}
+        </div>
 
-        {{!-- {{#link-to "project.show.transportation" class="ui fluid card"}}
-          <div class="content">
-            <div class="header">
-              <i class="subway icon"></i>
-              Transportation
-            </div>
+        <div class="extra content">
+          Detailed Analysis
+          <div style="display: inline-block;" class="ui small label {{if model.project.publicSchoolsAnalysis.detailedAnalysis "yellow" "grey"}}">
+            {{if model.project.publicSchoolsAnalysis.detailedAnalysis "Yes" "No"}}
           </div>
+        </div>
 
-          <div class="extra content">
-            Traffic Zone <div class="ui grey circular label">{{model.project.trafficZone}}</div>
-          </div>
+        <div 
+          class="ui inverted dimmer 
+          {{if (or 
+            model.project.publicSchoolsAnalysis.isPending
+            public-schools.fullReload.isRunning
+            public-schools.initialLoad.isRunning) "active"
+          }}"
+        >
+          <div class="ui text loader">Loading</div>
+        </div>
+      {{/link-to}}
 
-          <div class="ui inverted dimmer {{if transportation.initialLoad.isRunning "active"}}">
-            <div class="ui text loader">Loading</div>
+      {{!-- {{#link-to "project.show.solid-waste" class="ui card"}}
+        <div class="content">
+          <div class="header">
+            <i class="trash alternate icon"></i>
+            Solid Waste
           </div>
-        {{/link-to}} --}}
-      </div>
+        </div>
+
+        <div class="extra content">
+          Detailed Analysis
+          <div style="display: inline-block;" class="ui small label {{if model.project.solidWasteAnalysis.detailedAnalysis "yellow" "grey"}}">
+            {{if model.project.solidWasteAnalysis.detailedAnalysis "Yes" "No"}}
+          </div>
+        </div>
+
+        <div class="ui inverted dimmer {{if model.project.solidWasteAnalysis.isPending "active"}}">
+          <div class="ui text loader">Loading</div>
+        </div>
+      {{/link-to}} --}}
+
+      {{#link-to "project.show.transportation" class="ui card"}}
+        <div class="content">
+          <div class="header">
+            <i class="car icon"></i>
+            Transportation
+          </div>
+          <div class="ui top right attached label">Beta</div>
+        </div>
+
+        <div class="extra content">
+          Detailed Analysis
+          <div style="display: inline-block;" class="ui small label {{if model.project.transportationAnalysis.detailedAnalysis "yellow" "grey"}}">
+            {{if model.project.transportationAnalysis.detailedAnalysis "Yes" "No"}}
+          </div>
+        </div>
+
+        <div class="ui inverted dimmer {{if model.project.transportationAnalysis.isPending "active"}}">
+          <div class="ui text loader">Loading</div>
+        </div>
+      {{/link-to}}
     </div>
   </div>
 </div>

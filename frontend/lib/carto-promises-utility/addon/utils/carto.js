@@ -55,20 +55,18 @@ const carto = {
       layers,
     };
 
-    return new Promise((resolve, reject) => {
-      fetch(`https://${cartoDomain}/api/v1/map`, {
+    return fetch(`https://${cartoDomain}/api/v1/map`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(params),
       })
-        .catch(err => reject(err))
+        .catch(err => new Error(err))
         .then(response => response.json())
         .then((json) => {
-          resolve(buildTemplate(json, 'mvt'));
+          return buildTemplate(json, 'mvt');
         });
-    });
   },
 };
 

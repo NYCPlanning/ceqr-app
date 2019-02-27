@@ -12,15 +12,15 @@
         {{public-schools/analysis-steps analysis=model.publicSchoolsAnalysis}}
     </div>
 
-    <div class="ui inverted dimmer {{if public-schools.initialLoad.isRunning "active"}}">
+    <div class="ui inverted dimmer {{if public-schools.fullReload.isRunning "active"}}">
       <div class="ui text loader">Loading</div>
     </div>
   </div>
 {{/if}}
 
-{{#if (and showMap public-schools.initialLoad.isIdle)}}
+{{#if (and showMap public-schools.fullReload.isIdle)}}
   <div class="sixteen wide column">
-    {{public-schools/project-map project=project analysis=model.publicSchoolsAnalysis}}
+    {{public-schools/project-map project=model.project analysis=model.publicSchoolsAnalysis}}
   </div>
 {{/if}}
 

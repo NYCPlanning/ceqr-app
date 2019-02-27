@@ -10,11 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_09_200521) do
+ActiveRecord::Schema.define(version: 2019_02_13_210834) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
+  enable_extension "postgis"
+
+  create_table "community_facilities_analyses", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "project_id"
+  end
 
   create_table "pgmigrations", id: :integer, default: nil, force: :cascade do |t|
     t.string "name", limit: 255, null: false
@@ -32,15 +39,20 @@ ActiveRecord::Schema.define(version: 2019_01_09_200521) do
   create_table "projects", force: :cascade do |t|
     t.text "name"
     t.text "bbls", default: [], null: false, array: true
-    t.float "build_year"
+    t.integer "build_year"
     t.text "borough"
-    t.float "traffic_zone"
     t.text "updated_by"
     t.datetime "updated_at", null: false
     t.datetime "created_at", null: false
-    t.float "senior_units"
-    t.float "total_units"
+    t.integer "senior_units"
+    t.integer "total_units"
     t.text "ceqr_number"
+    t.jsonb "commercial_land_use", default: [], null: false, array: true
+    t.jsonb "industrial_land_use", default: [], null: false, array: true
+    t.jsonb "community_facility_land_use", default: [], null: false, array: true
+    t.jsonb "parking_land_use", default: [], null: false, array: true
+    t.geometry "bbls_geom", limit: {:srid=>4326, :type=>"multi_polygon"}, null: false
+    t.text "bbls_version"
   end
 
   create_table "public_schools_analyses", force: :cascade do |t|
@@ -68,6 +80,12 @@ ActiveRecord::Schema.define(version: 2019_01_09_200521) do
     t.jsonb "data_tables", default: {"version"=>"november-2017", "cartoTables"=>{"lcgms"=>"ceqr_lcgms_v2017", "bluebook"=>"ceqr_bluebook_v2017", "esSchoolZones"=>"support_school_zones_es", "hsSchoolZones"=>"support_school_zones_hs", "msSchoolZones"=>"support_school_zones_ms", "enrollmentPctBySd"=>"enrollment_pct_by_sd_v2017", "housingPipelineSd"=>"ceqr_housing_pipeline_sd_v2017", "housingPipelineBoro"=>"ceqr_housing_pipeline_boro_v2017", "enrollmentProjectionsSd"=>"ceqr_enrollment_projections_sd_v2017", "enrollmentProjectionsBoro"=>"ceqr_enrollment_projections_boro_v2017"}, "sourceDates"=>{"lcgms"=>"September 10, 2018", "bluebook"=>"2016-17", "housingPipeline"=>"2016 to 2025", "demographicSnapshot"=>"2013 to 2018", "enrollmentProjections"=>"2016 to 2025"}, "enrollmentProjectionsMaxYear"=>2025, "enrollmentProjectionsMinYear"=>2015}, null: false
   end
 
+  create_table "solid_waste_analyses", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "project_id"
+  end
+
   create_table "transportation_analyses", force: :cascade do |t|
     t.integer "traffic_zone"
     t.datetime "created_at", null: false
@@ -76,18 +94,17 @@ ActiveRecord::Schema.define(version: 2019_01_09_200521) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.text "fortune_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.text "projects", default: [], null: false, array: true
     t.citext "email"
     t.boolean "email_validated", default: false
     t.text "password_digest"
-    t.text "projects_viewable", default: [], null: false, array: true
     t.boolean "account_approved", default: false
     t.index ["email"], name: "user_email_unique", unique: true
   end
 
+  add_foreign_key "community_facilities_analyses", "projects"
   add_foreign_key "public_schools_analyses", "projects"
+  add_foreign_key "solid_waste_analyses", "projects"
   add_foreign_key "transportation_analyses", "projects"
 end

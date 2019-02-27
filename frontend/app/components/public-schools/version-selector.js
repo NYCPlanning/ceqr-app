@@ -22,7 +22,7 @@ export default Component.extend({
       await analysis.save();
 
       this.get('public-schools').set('analysis', analysis);
-      this.get('public-schools.initialLoad').perform();
+      this.get('public-schools.fullReload').perform();
     },
 
     async changeMultipliers(version) {
