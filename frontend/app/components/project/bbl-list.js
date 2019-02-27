@@ -44,21 +44,21 @@ export default Component.extend({
         return;
       }
 
+      // if additional bbl is not in same boro
+      if (
+        this.project.get('bbls').length > 0 &&
+        parseInt(bbl.charAt(0)) !== this.project.get('bbls.firstObject').charAt(0)
+      ) {
+        this.set('error', {message: 'All BBLs must be in the same borough. CEQR App currently does not support multi-borough project areas.'});
+        this.set('bbl', null);
+        return;
+      }
+
       const results = await this.store.query('bbl', { filter: { bbl } });
       
       // if no bbl exists
       if (results.length !== 1) {
         this.set('error', {message: 'The entered BBL does not exist in the current version of MapPLUTO'});
-        this.set('bbl', null);
-        return;
-      }
-
-      // if additional bbl is not in same boro
-      if (
-        this.project.get('boroCode') &&
-        parseInt(bbl.charAt(0)) !== this.project.get('boroCode')
-      ) {
-        this.set('error', {message: 'All BBLs must be in the same borough. CEQR App currently does not support multi-borough project areas.'});
         this.set('bbl', null);
         return;
       }

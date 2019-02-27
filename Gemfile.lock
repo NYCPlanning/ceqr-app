@@ -85,7 +85,6 @@ GEM
     html_page (0.1.0)
     i18n (1.1.1)
       concurrent-ruby (~> 1.0)
-    interactor (3.1.1)
     json (2.1.0)
     jsonapi-resources (0.9.3)
       activerecord (>= 4.1)
@@ -221,7 +220,6 @@ DEPENDENCIES
   ember-cli-rails (~> 0.10.0)
   factory_bot_rails (~> 4.0)
   faker (~> 1.9.1)
-  interactor (~> 3.1)
   jsonapi-resources
   jwt
   listen (>= 3.0.5, < 3.2)
