@@ -48,6 +48,8 @@ class EmailWhitelist
     'epdsco.com',
     'louisberger.com',
     'entech.nyc',
+    'wsp.com',
+    'wcdgroup.com',
 
 
     # NYC City
