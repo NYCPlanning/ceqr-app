@@ -17,7 +17,7 @@
     "test": "ember test"
   },
   "engines": {
-    "node": "8.*"
+    "node": "^8 || ^10"
   },
   "devDependencies": {
     "@babel/core": "^7.3.3",
