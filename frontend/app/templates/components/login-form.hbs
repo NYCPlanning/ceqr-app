@@ -23,7 +23,13 @@
             <div class="field">
               <div class="ui left icon input">
                 <i class="user icon"></i>
-                {{input type="text" name="email" value=login.email placeholder="Email"}}
+                {{input
+                  type="text" 
+                  name="email" 
+                  value=login.email 
+                  placeholder="Email"
+                  data-test-login-form="email"
+                }}
               </div>
             </div>
             <div class="field">
@@ -34,10 +40,17 @@
                   name="password"
                   value=login.password
                   placeholder="Password"
+                  data-test-login-form="password"
                 }}
               </div>
             </div>
-            <button type="submit" class="ui blue submit button">Login</button>
+            <button
+              type="submit"
+              class="ui blue submit button"
+              data-test-login-form="login"
+            >
+              Login
+            </button>
 
             {{#link-to "request-password-reset"}}
               Forgot your password?

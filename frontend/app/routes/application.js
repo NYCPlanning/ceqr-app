@@ -14,7 +14,10 @@ export default Route.extend(ApplicationRouteMixin, {
     this._loadCurrentUser();
 
     // Not sure this is working
-    window.$crisp.push(["set", "user:email", [this.currentUser.user.email]])
+    // test environment doesn't have crisp injected
+    if (window.$crisp) {
+      window.$crisp.push(["set", "user:email", [this.currentUser.user.email]]);
+    }
   },
 
   _loadCurrentUser() {
