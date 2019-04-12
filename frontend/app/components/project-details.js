@@ -6,7 +6,11 @@ export default Component.extend({
 
   buildYearRange: Array.from({length: (2040 - 2018)}, (v, k) => k + 2018),
 
+  // noop
+  save() { return; },
+
   actions: {
+    // "save" is a passed in action
     save() {
       this.get('save')(this.get('project'));
     },

@@ -5,6 +5,10 @@ module.exports = function(environment) {
     'mapbox-gl': {
       accessToken: 'pk.eyJ1IjoicGljaG90IiwiYSI6ImNqbWIzYzFyeTVrbHAzcW9nbmRmeXNmbHcifQ.VEiOF5YV_9kxwXekZ3fWLA'
     },
+    carto: {
+      username: 'planninglabs',
+      domain: 'planninglabs.carto.com',
+    },
     'ember-simple-auth-token': {
       serverTokenEndpoint: '/auth/v1/login',
       refreshAccessTokens: false,
@@ -59,6 +63,8 @@ module.exports = function(environment) {
   };
 
   if (environment === 'development') {
+    ENV['ember-simple-auth-token'].refreshAccessTokens = false;
+    ENV['ember-simple-auth-token'].tokenExpirationInvalidateSession = false;
     // ENV.APP.LOG_RESOLVER = true;
     // ENV.APP.LOG_ACTIVE_GENERATION = true;
     // ENV.APP.LOG_TRANSITIONS = true;
@@ -77,10 +83,8 @@ module.exports = function(environment) {
     ENV.APP.rootElement = '#ember-testing';
     ENV.APP.autoboot = false;
 
-    ENV['ember-simple-auth-token'] = {
-      refreshAccessTokens: false,
-      tokenExpirationInvalidateSession: false,
-    };
+    ENV['ember-simple-auth-token'].refreshAccessTokens = false;
+    ENV['ember-simple-auth-token'].tokenExpirationInvalidateSession = false;
   }
 
   if (environment === 'production') {

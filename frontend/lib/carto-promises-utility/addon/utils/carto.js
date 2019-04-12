@@ -1,8 +1,8 @@
 import fetch from 'fetch';
+import ENV from 'labs-ceqr/config/environment';
 
-const cartoUsername = 'planninglabs';
-const cartoDomain = `${cartoUsername}.carto.com`;
-
+const cartoUsername = ENV.carto['username'];
+const cartoDomain = ENV.carto['domain'];
 
 const buildTemplate = function(cartoResponse, type) { // eslint-disable-line
   const { layergroupid, cdn_url } = cartoResponse; // eslint-disable-line

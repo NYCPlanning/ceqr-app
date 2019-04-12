@@ -25,7 +25,15 @@
 
       <td class="math--bottom positive">
         <div class="ui input transparent edit-cell">
-          {{input id="total" min=0 max=9999 type="number" value=project.totalUnits placeholder=0}}
+          {{input 
+            id="total" 
+            min=0 
+            max=9999 
+            type="number" 
+            value=project.totalUnits
+            placeholder=0
+            data-test-housing-units-total=true
+          }}
         </div>  
         <i class="minus circle icon"></i>
       </td>
@@ -43,7 +51,15 @@
 
       <td class="positive">
         <div class="ui input transparent edit-cell">
-          {{input id="senior" min=0 max=9999 type="number" value=project.seniorUnits placeholder=0}}
+          {{input 
+            id="senior" 
+            min=0 
+            max=9999 
+            type="number" 
+            value=project.seniorUnits 
+            placeholder=0
+            data-test-housing-units-senior=true
+          }}
         </div>
       </td>
     </tr>
@@ -77,14 +93,24 @@
     {{#if commercialUseTypes}}
       <tr>
         <td class="seven wide">
-          {{#ui-dropdown selected=commercialLandUse.type onChange=(action (mut commercialLandUse.type))}}
+          {{#ui-dropdown 
+            selected=commercialLandUse.type 
+            onChange=(action (mut commercialLandUse.type))
+            data-test-commercial-use='dropdown'
+          }}
             <div class="default text">
               Select land use type to add
             </div>
             <i class="dropdown icon"></i>
             <div class="menu">
               {{#each commercialUseTypes as |t|}}
-                <div class="item" data-value={{t.type}}>{{t.name}}</div>
+                <div 
+                  class="item" 
+                  data-value={{t.type}}
+                  data-test-commercial-use={{t.name}}
+                >
+                  {{t.name}}
+                </div>
               {{/each}}
             </div>
           {{/ui-dropdown}}
@@ -92,22 +118,38 @@
 
         <td class="four wide positive">
           <div class="ui input transparent edit-cell">
-            {{input type="number" min=0 value=commercialLandUse.grossSqFt placeholder=0}} <strong>sq. ft.</strong>
+            {{input 
+              type="number" 
+              min=0 
+              value=commercialLandUse.grossSqFt 
+              placeholder=0
+              data-test-commercial-use='sq-ft'
+            }}
+            <strong>sq. ft.</strong>
           </div>
         </td>
 
         <td class="one wide">
-          <button class="ui button blue centered" onClick={{action "addLandUse" commercialLandUse "commercialLandUse"}}>Add</button>
+          <button 
+            class="ui button blue centered" 
+            onClick={{action "addLandUse" commercialLandUse "commercialLandUse"}}
+            data-test-commercial-use='add'
+          >
+            Add
+          </button>
         </td>
       </tr>
     {{/if}}
 
     {{#each project.commercialLandUse as |lu|}}
-      <tr>
+      <tr data-test-commercial-use={{lu.name}}>
         <td>{{lu.name}}</td>
         <td>{{lu.grossSqFt}} sq. ft.</td>
         <td>
-          <button class="ui compact small negative icon button" {{action "removeLandUse" lu.type "commercialLandUse"}}>
+          <button
+            class="ui compact small negative icon button" {{action "removeLandUse" lu.type "commercialLandUse"}}
+            data-test-commercial-use='delete'
+          >
             <i class="trash icon"></i>
           </button>
         </td>
@@ -141,14 +183,24 @@
     {{#if communityFacilityUseTypes}}
       <tr>
         <td class="seven wide">
-          {{#ui-dropdown selected=communityFacilityLandUse.type onChange=(action (mut communityFacilityLandUse.type))}}
+          {{#ui-dropdown 
+            selected=communityFacilityLandUse.type 
+            onChange=(action (mut communityFacilityLandUse.type))
+            data-test-community-facility='dropdown'
+          }}
             <div class="default text">
               Select land use type to add
             </div>
             <i class="dropdown icon"></i>
             <div class="menu">
               {{#each communityFacilityUseTypes as |t|}}
-                <div class="item" data-value={{t.type}}>{{t.name}}</div>
+                <div 
+                  class="item"
+                  data-value={{t.type}}
+                  data-test-community-facility={{t.name}}
+                >
+                  {{t.name}}
+                </div>
               {{/each}}
             </div>
           {{/ui-dropdown}}
@@ -156,22 +208,38 @@
 
         <td class="four wide positive">
           <div class="ui input transparent edit-cell">
-            {{input type="number" min=0 value=communityFacilityLandUse.grossSqFt placeholder=0}} <strong>sq. ft.</strong>
+            {{input 
+              type="number" 
+              min=0 
+              value=communityFacilityLandUse.grossSqFt 
+              placeholder=0
+              data-test-community-facility='sq-ft'
+            }}
+            <strong>sq. ft.</strong>
           </div>
         </td>
 
         <td class="one wide">
-          <button class="ui button blue centered" onClick={{action "addLandUse" communityFacilityLandUse "communityFacilityLandUse"}}>Add</button>
+          <button 
+            class="ui button blue centered" 
+            onClick={{action "addLandUse" communityFacilityLandUse "communityFacilityLandUse"}}
+            data-test-community-facility='add'
+          >
+            Add
+          </button>
         </td>
       </tr>
     {{/if}}
 
     {{#each project.communityFacilityLandUse as |lu|}}
-      <tr>
+      <tr data-test-community-facility={{lu.name}}>
         <td>{{lu.name}}</td>
         <td>{{lu.grossSqFt}} sq. ft.</td>
         <td>
-          <button class="ui compact small negative icon button" {{action "removeLandUse" lu.type "communityFacilityLandUse"}}>
+          <button
+            class="ui compact small negative icon button" {{action "removeLandUse" lu.type "communityFacilityLandUse"}}
+            data-test-community-facility='remove'
+          >
             <i class="trash icon"></i>
           </button>
         </td>
@@ -205,14 +273,24 @@
     {{#if industrialUseTypes}}
       <tr>
         <td class="seven wide">
-          {{#ui-dropdown selected=industrialLandUse.type onChange=(action (mut industrialLandUse.type))}}
+          {{#ui-dropdown 
+            selected=industrialLandUse.type 
+            onChange=(action (mut industrialLandUse.type))
+            data-test-industrial-use='dropdown'
+          }}
             <div class="default text">
               Select land use type to add
             </div>
             <i class="dropdown icon"></i>
             <div class="menu">
               {{#each industrialUseTypes as |t|}}
-                <div class="item" data-value={{t.type}}>{{t.name}}</div>
+                <div 
+                  class="item" 
+                  data-value={{t.type}}
+                  data-test-industrial-use={{t.name}}
+                >
+                  {{t.name}}
+                </div>
               {{/each}}
             </div>
           {{/ui-dropdown}}
@@ -220,22 +298,38 @@
 
         <td class="four wide positive">
           <div class="ui input transparent edit-cell">
-            {{input type="number" min=0 value=industrialLandUse.grossSqFt placeholder=0}} <strong>sq. ft.</strong>
+            {{input 
+              type="number" 
+              min=0 
+              value=industrialLandUse.grossSqFt 
+              placeholder=0
+              data-test-industrial-use='sq-ft'
+            }}
+            <strong>sq. ft.</strong>
           </div>
         </td>
 
         <td class="one wide">
-          <button class="ui button blue centered" onClick={{action "addLandUse" industrialLandUse "industrialLandUse"}}>Add</button>
+          <button 
+            class="ui button blue centered" 
+            onClick={{action "addLandUse" industrialLandUse "industrialLandUse"}}
+            data-test-industrial-use='add'
+          >
+            Add
+          </button>
         </td>
       </tr>
     {{/if}}
 
     {{#each project.industrialLandUse as |lu|}}
-      <tr>
+      <tr data-test-industrial-use={{u.name}}>
         <td>{{lu.name}}</td>
         <td>{{lu.grossSqFt}} sq. ft.</td>
         <td>
-          <button class="ui compact small negative icon button" {{action "removeLandUse" lu.type "industrialLandUse"}}>
+          <button
+            class="ui compact small negative icon button" {{action "removeLandUse" lu.type "industrialLandUse"}}
+            data-test-industrial-use='remove'
+          >
             <i class="trash icon"></i>
           </button>
         </td>
@@ -269,14 +363,24 @@
     {{#if parkingUseTypes}}
       <tr>
         <td class="seven wide">
-          {{#ui-dropdown selected=parkingLandUse.type onChange=(action (mut parkingLandUse.type))}}
+          {{#ui-dropdown 
+            selected=parkingLandUse.type 
+            onChange=(action (mut parkingLandUse.type))
+            data-test-parking='dropdown'
+          }}
             <div class="default text">
               Select parking type to add
             </div>
             <i class="dropdown icon"></i>
             <div class="menu">
               {{#each parkingUseTypes as |t|}}
-                <div class="item" data-value={{t.type}}>{{t.name}}</div>
+                <div 
+                  class="item" 
+                  data-value={{t.type}}
+                  data-test-parking={{t.name}}
+                >
+                  {{t.name}}
+                </div>
               {{/each}}
             </div>
           {{/ui-dropdown}}
@@ -284,22 +388,38 @@
 
         <td class="four wide positive">
           <div class="ui input transparent edit-cell">
-            {{input type="number" min=0 value=parkingLandUse.spaces placeholder=0}} <strong>spaces</strong>
+            {{input 
+              type="number" 
+              min=0 
+              value=parkingLandUse.spaces 
+              placeholder=0
+              data-test-parking='spaces'
+            }}
+            <strong>spaces</strong>
           </div>
         </td>
 
         <td class="one wide">
-          <button class="ui button blue centered" onClick={{action "addParkingLandUse" parkingLandUse}}>Add</button>
+          <button 
+            class="ui button blue centered" 
+            onClick={{action "addParkingLandUse" parkingLandUse "parkingLandUse"}}
+            data-test-parking='add'
+          >
+            Add
+          </button>
         </td>
       </tr>
     {{/if}}
 
     {{#each project.parkingLandUse as |lu|}}
-      <tr>
+      <tr data-test-parking={{lu.name}}>
         <td>{{lu.name}}</td>
         <td>{{lu.spaces}} spaces</td>
         <td>
-          <button class="ui compact small negative icon button" {{action "removeLandUse" lu.type "parkingLandUse"}}>
+          <button
+            class="ui compact small negative icon button" {{action "removeLandUse" lu.type "parkingLandUse"}}
+            data-test-parking='remove'
+          >
             <i class="trash icon"></i>
           </button>
         </td>
