@@ -4,7 +4,7 @@ class TransportationAnalysis < ApplicationRecord
   belongs_to :project
 
   def load_data!  
-    zones = CeqrData::TrafficZone.for_geom(project.bbls_geom)
+    zones = Db::TrafficZone.for_geom(project.bbls_geom)
 
     # self.multiple_zones = zones.count > 1
     self.traffic_zone = zones.max # Currently set traffic zone to most conservative touched by study area
