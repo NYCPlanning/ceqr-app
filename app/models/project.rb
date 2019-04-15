@@ -34,8 +34,8 @@ class Project < ApplicationRecord
   private
 
   def set_bbl_attributes
-    self.bbls_geom = CeqrData::Bbl.st_union_bbls(bbls)
-    self.bbls_version = CeqrData::Bbl.version
+    self.bbls_geom = Db::Bbl.st_union_bbls(bbls)
+    self.bbls_version = Db::Bbl.version
   end
 
   def create_analyses!

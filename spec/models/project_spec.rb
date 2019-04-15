@@ -5,7 +5,7 @@ RSpec.describe Project, type: :model do
     @ceqr_data = class_double('TrafficZone')
     allow(@ceqr_data).to receive(:for_geom).and_return([2])
 
-    stub_const("#{CeqrData}::TrafficZone", @ceqr_data)
+    stub_const("#{Db}::TrafficZone", @ceqr_data)
   end
   
   describe "#create" do

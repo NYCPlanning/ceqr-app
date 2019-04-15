@@ -53,7 +53,7 @@ jobs:
       - run:
           name: run tests
           command: |
-            bundle exec rspec
+            bundle exec rails spec
             bundle exec rails ember:test
       # collect reports
       - store_test_results:
