@@ -8,6 +8,8 @@ abort("The Rails environment is running in production mode!") if Rails.env.produ
 require 'spec_helper'
 require 'rspec/rails'
 
+load "#{Rails.root}/db/seeds.rb"
+
 Shoulda::Matchers.configure do |config|
   config.integrate do |with|
     with.test_framework :rspec
@@ -43,7 +45,7 @@ RSpec.configure do |config|
   config.include RequestSpecHelper
 
   # bootstrap database cleaner
-  config.before(:suite) do
+  config.before(:suite) do    
     DatabaseCleaner.allow_remote_database_url = true
     DatabaseCleaner.strategy = :transaction
     DatabaseCleaner.clean_with(:transaction)
@@ -57,6 +59,10 @@ RSpec.configure do |config|
     ensure
       DatabaseCleaner.clean
     end
+  end
+
+  config.after(:suite) do
+    DataPackage.delete_all
   end
 
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures

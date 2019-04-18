@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Db::LcgmsSchool, type: :model do
+RSpec.describe Db::LcgmsSchool, type: :model do  
   describe "attributes by version" do
     def test_version(version)
       Db::LcgmsSchool.version = version

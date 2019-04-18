@@ -1,4 +1,3 @@
 class Db::EnrollmentPctBySd < DataRecord
-  self.dataset = "sca_enrollment_pct_by_sd"
-  self.version = "2018"
+  self.table_name = DataPackage.latest_for(:public_schools).table_name_for(:enrollment_pct_by_sd)
 end

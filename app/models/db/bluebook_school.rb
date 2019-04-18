@@ -1,4 +1,3 @@
 class Db::BluebookSchool < DataRecord
-  self.dataset = "sca_bluebook"
-  self.version = "2018"
+  self.table_name = DataPackage.latest_for(:public_schools).table_name_for(:bluebook)
 end

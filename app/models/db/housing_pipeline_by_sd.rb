@@ -1,4 +1,3 @@
 class Db::HousingPipelineBySd < DataRecord
-  self.dataset = "sca_housing_pipeline"
-  self.version = "sd_2018"
+  self.table_name = DataPackage.latest_for(:public_schools).table_name_for(:housing_pipeline_by_sd)
 end
