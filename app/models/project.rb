@@ -34,15 +34,15 @@ class Project < ApplicationRecord
   private
 
   def set_bbl_attributes
-    self.bbls_geom = CeqrData::Bbl.st_union_bbls(bbls)
-    self.bbls_version = CeqrData::Bbl.version
+    self.bbls_geom = Db::Bbl.st_union_bbls(bbls)
+    self.bbls_version = Db::Bbl.version
   end
 
+  # Create all analyses on creation of project, need better validations here.
+  # Note: this method will likely grow in the time it takes to process,
+  # candidate for concurrency and eventual refactor
   def create_analyses!
-    # Create all analyses on creation of project, need better validations here.
-    # Note: this method will likely grow in the time it takes to process,
-    # candidate for concurrency and eventual refactor
-    create_public_schools_analysis
+    create_public_schools_analysis(data_package: DataPackage.latest_for(:public_schools))
     create_transportation_analysis
     create_community_facilities_analysis
     create_solid_waste_analysis

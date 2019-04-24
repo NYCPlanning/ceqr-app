@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_13_210834) do
+ActiveRecord::Schema.define(version: 2019_04_16_191949) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -23,9 +23,14 @@ ActiveRecord::Schema.define(version: 2019_02_13_210834) do
     t.integer "project_id"
   end
 
-  create_table "pgmigrations", id: :integer, default: nil, force: :cascade do |t|
-    t.string "name", limit: 255, null: false
-    t.datetime "run_on", null: false
+  create_table "data_packages", force: :cascade do |t|
+    t.text "name"
+    t.text "analysis"
+    t.date "release_date"
+    t.jsonb "config"
+    t.jsonb "datasets"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "project_permissions", force: :cascade do |t|
@@ -78,6 +83,8 @@ ActiveRecord::Schema.define(version: 2019_02_13_210834) do
     t.integer "project_id"
     t.jsonb "multipliers"
     t.jsonb "data_tables", default: {"version"=>"november-2017", "cartoTables"=>{"lcgms"=>"ceqr_lcgms_v2017", "bluebook"=>"ceqr_bluebook_v2017", "esSchoolZones"=>"support_school_zones_es", "hsSchoolZones"=>"support_school_zones_hs", "msSchoolZones"=>"support_school_zones_ms", "enrollmentPctBySd"=>"enrollment_pct_by_sd_v2017", "housingPipelineSd"=>"ceqr_housing_pipeline_sd_v2017", "housingPipelineBoro"=>"ceqr_housing_pipeline_boro_v2017", "enrollmentProjectionsSd"=>"ceqr_enrollment_projections_sd_v2017", "enrollmentProjectionsBoro"=>"ceqr_enrollment_projections_boro_v2017"}, "sourceDates"=>{"lcgms"=>"September 10, 2018", "bluebook"=>"2016-17", "housingPipeline"=>"2016 to 2025", "demographicSnapshot"=>"2013 to 2018", "enrollmentProjections"=>"2016 to 2025"}, "enrollmentProjectionsMaxYear"=>2025, "enrollmentProjectionsMinYear"=>2015}, null: false
+    t.bigint "data_package_id"
+    t.index ["data_package_id"], name: "index_public_schools_analyses_on_data_package_id"
   end
 
   create_table "solid_waste_analyses", force: :cascade do |t|
@@ -104,6 +111,7 @@ ActiveRecord::Schema.define(version: 2019_02_13_210834) do
   end
 
   add_foreign_key "community_facilities_analyses", "projects"
+  add_foreign_key "public_schools_analyses", "data_packages"
   add_foreign_key "public_schools_analyses", "projects"
   add_foreign_key "solid_waste_analyses", "projects"
   add_foreign_key "transportation_analyses", "projects"
