@@ -65,10 +65,14 @@ export default EmberObject.extend({
 
   // Mitigation
   mitigateSeatCount: computed('enrollWithActionTotal', 'utilizationNoActionTotal', 'capacityWithActionTotal', function() {    
-    return Math.ceil(
+    const seatsToMitigateUtilization = this.get('enrollWithActionTotal') - (this.get('capacityWithActionTotal') - 1)
+
+    const seatsToMitigateChange = Math.ceil(
       (this.get('enrollWithActionTotal') / (this.get('utilizationNoActionTotal') + 0.0499))
-      - this.get('capacityNoActionTotal')
-    );
+      - this.get('capacityWithActionTotal')
+    )
+
+    return seatsToMitigateUtilization < seatsToMitigateChange ? seatsToMitigateUtilization : seatsToMitigateChange;
   }),
   mitigateUnitCount: computed('mitigateSeatCount', function() {
     return Math.ceil(this.get('mitigateSeatCount') / this.get('subdistricts')[0].get('studentMultiplier'));
