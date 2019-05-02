@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_16_191949) do
+ActiveRecord::Schema.define(version: 2019_05_02_162157) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -98,6 +98,7 @@ ActiveRecord::Schema.define(version: 2019_04_16_191949) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "project_id"
+    t.jsonb "jtw_study_selection", default: [], null: false, array: true
   end
 
   create_table "users", force: :cascade do |t|
