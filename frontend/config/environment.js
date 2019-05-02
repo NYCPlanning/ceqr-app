@@ -65,6 +65,9 @@ module.exports = function(environment) {
   if (environment === 'development') {
     ENV['ember-simple-auth-token'].refreshAccessTokens = false;
     ENV['ember-simple-auth-token'].tokenExpirationInvalidateSession = false;
+    ENV['ember-cli-mirage'] = {
+      enabled: typeof process.env.RAILS_ENV === 'undefined',
+    }
     // ENV.APP.LOG_RESOLVER = true;
     // ENV.APP.LOG_ACTIVE_GENERATION = true;
     // ENV.APP.LOG_TRANSITIONS = true;
