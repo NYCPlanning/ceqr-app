@@ -10,7 +10,7 @@ export default Service.extend({
 
   initialLoad: task(function*() {
     const multipliers = yield this.store.findRecord('ceqr-manual/public-schools', 'november-2018');
-    const dataTables = yield this.store.findRecord('data-tables/public-schools', 'november-2018');
+    const dataTables = yield this.store.findRecord('data-tables/public-schools', 'may-2019');
 
     this.set('analysis.multipliers', multipliers);
     this.set('analysis.dataTables', dataTables);
@@ -292,7 +292,7 @@ export default Service.extend({
           FROM doe_schoolsubdistricts_v2017
           WHERE cartodb_id IN (${this.analysis.subdistrictCartoIds.join(',')})
         ) AS subdistricts,
-        sca_capital_projects_v2018 AS projects
+        ${this.analysis.dataTables.cartoTables.scaCapitalProjects} AS projects
       WHERE ST_Intersects(subdistricts.the_geom, projects.the_geom)
     `);
     this.set('analysis.scaProjects', scaProjects.map((b) => {
@@ -318,7 +318,7 @@ export default Service.extend({
         url,
         vote_date,
         title
-      FROM doe_significant_utilization_changes_v062018
+      FROM ${this.analysis.dataTables.cartoTables.doeSignificantUtilChanges}
       WHERE 
         bldg_id IN (${this.analysis.buildingsBldgIds.map(b => `'${b}'`).join(',')}) OR
         bldg_id_additional IN (${this.analysis.buildingsBldgIds.map(b => `'${b}'`).join(',')})
