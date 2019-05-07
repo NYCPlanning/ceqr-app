@@ -1,6 +1,6 @@
 {
-  "id": "november-2018",
-  "version": "november-2018",
+  "id": "may-2019",
+  "version": "may-2019",
   "enrollmentProjectionsMinYear": 2017,
   "enrollmentProjectionsMaxYear": 2027,
   "sourceDates": {
@@ -10,8 +10,8 @@
     "housingPipeline": "2018 to 2027",
     "lcgms": "December 19, 2018",
     "demographicSnapshot": false,
-    "scaCapitalProjects": "November 2018",
-    "doeSignificantUtilChanges": "April 2018"
+    "scaCapitalProjects": "Februrary 2019",
+    "doeSignificantUtilChanges": "March 2019"
   },
   "cartoTables": {
     "lcgms": "ceqr_lcgms_v2018",
@@ -24,7 +24,7 @@
     "housingPipelineBoro": "ceqr_housing_pipeline_boro_v2018",
     "enrollmentProjectionsSd": "ceqr_enrollment_projections_sd_v2018",
     "enrollmentProjectionsBoro": "ceqr_enrollment_projections_boro_v2018",
-    "scaCapitalProjects": "sca_capital_projects_v2018",
-    "doeSignificantUtilChanges": "doe_significant_utilization_changes_v062018"
+    "scaCapitalProjects": "ceqr_sca_capital_projects_v042019",
+    "doeSignificantUtilChanges": "doe_significant_utilization_changes_v032019"
   }
 }
