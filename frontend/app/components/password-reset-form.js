@@ -3,6 +3,8 @@ import { inject as service } from '@ember/service';
 import fetch from 'fetch';
 import $ from 'jquery';
 
+import ENV from 'labs-ceqr/config/environment';
+
 export default Component.extend({
   router: service(),
   
@@ -16,7 +18,7 @@ export default Component.extend({
 
   actions: {
     resetPassword: function(password) {
-      fetch('/auth/v1/password-reset', {
+      fetch(`${ENV.host}/auth/v1/password-reset`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ password, token: this.token }),

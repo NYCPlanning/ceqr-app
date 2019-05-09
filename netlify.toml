@@ -1,0 +1,8 @@
+[context.production.environment]
+    HOST = 'https://api.ceqr.app'
+
+[context.deploy-preview.environment]
+    HOST = 'https://api.ceqr.app'
+
+[context.branch-deploy.environment]
+    HOST = 'https://staging.api.ceqr.app'

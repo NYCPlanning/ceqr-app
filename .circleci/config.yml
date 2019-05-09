@@ -18,7 +18,7 @@ jobs:
       # CircleCI maintains a library of pre-built images
       # documented at https://circleci.com/docs/2.0/circleci-images/
       - image: circleci/postgres:latest-postgis
-        environment:  
+        environment:
           POSTGRES_USER: ceqr
           POSTGRES_DB: ceqr_test
 
@@ -37,8 +37,9 @@ jobs:
       - run:
           name: install dependencies
           command: |
+            gem install bundler
             bundle install --jobs=4 --retry=3 --path vendor/bundle
-            bundle exec rails ember:install
+            cd frontend && yarn install
 
       - save_cache:
           paths:
@@ -51,10 +52,12 @@ jobs:
 
       # run tests!
       - run:
-          name: run tests
-          command: |
-            bundle exec rails spec
-            bundle exec rails ember:test
+          name: run rails tests
+          command: bundle exec rails spec
+      - run:
+          name: run ember tests
+          command: cd frontend && yarn test
+
       # collect reports
       - store_test_results:
           path: /tmp/test-results

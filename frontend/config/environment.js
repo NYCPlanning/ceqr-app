@@ -1,7 +1,12 @@
 'use strict';
 
 module.exports = function(environment) {
+
+  // host must be mocked for test environment, to keep mirage config working well
+  const host = environment === 'test' ? '' : `${process.env.HOST}`;
+
   let ENV = {
+    host,
     'mapbox-gl': {
       accessToken: 'pk.eyJ1IjoicGljaG90IiwiYSI6ImNqbWIzYzFyeTVrbHAzcW9nbmRmeXNmbHcifQ.VEiOF5YV_9kxwXekZ3fWLA'
     },
@@ -10,7 +15,7 @@ module.exports = function(environment) {
       domain: 'planninglabs.carto.com',
     },
     'ember-simple-auth-token': {
-      serverTokenEndpoint: '/auth/v1/login',
+      serverTokenEndpoint: `${host}/auth/v1/login`,
       refreshAccessTokens: false,
       tokenExpireName: 'exp',
       tokenExpirationInvalidateSession: true,
@@ -63,10 +68,10 @@ module.exports = function(environment) {
   };
 
   if (environment === 'development') {
-    ENV['ember-simple-auth-token'].refreshAccessTokens = false;
     ENV['ember-simple-auth-token'].tokenExpirationInvalidateSession = false;
+    // only use mirage data when running the frontend as 'development' NOT in docker
     ENV['ember-cli-mirage'] = {
-      enabled: typeof process.env.RAILS_ENV === 'undefined',
+      enabled: process.env.DOCKER ? false : typeof process.env.RAILS_ENV === 'undefined',
     }
     // ENV.APP.LOG_RESOLVER = true;
     // ENV.APP.LOG_ACTIVE_GENERATION = true;
@@ -86,7 +91,6 @@ module.exports = function(environment) {
     ENV.APP.rootElement = '#ember-testing';
     ENV.APP.autoboot = false;
 
-    ENV['ember-simple-auth-token'].refreshAccessTokens = false;
     ENV['ember-simple-auth-token'].tokenExpirationInvalidateSession = false;
   }
 

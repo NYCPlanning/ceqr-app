@@ -3,6 +3,8 @@ import { inject as service } from '@ember/service';
 import fetch from 'fetch';
 import $ from 'jquery';
 
+import ENV from 'labs-ceqr/config/environment';
+
 export default Component.extend({
   session: service(),
   router: service(),
@@ -12,10 +14,10 @@ export default Component.extend({
     this._super(...arguments);
     this.login = {};
   },
-  
+
   didReceiveAttrs() {
     if (this.validate) {
-      fetch('/auth/v1/validate', {
+      fetch(`${ENV.host}auth/v1/validate`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ token: this.validate }),

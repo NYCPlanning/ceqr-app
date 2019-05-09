@@ -1,9 +1,9 @@
-version: '3'
+version: '3.7'
 services:
-  # ceqr service
-  ceqr:
+  # ceqr app service
+  ceqr_service:
     build: .
-    entrypoint: ./entrypoint.sh
+    entrypoint: ./service-entrypoint.sh
     volumes:
       - .:/app
     ports:
@@ -11,10 +11,33 @@ services:
     environment:
       PORT: 3000
       DATABASE_URL: postgis://postgres@postgis:5432/ceqr_rails
-      CEQR_DATA_DB_URL: postgis://test_ceqr_app:rhqnwjwiup4yafzw@cear-data-do-user-1939427-0.db.ondigitalocean.com:25060/ceqr_data
+      CEQR_DATA_DB_URL: postgis://test_ceqr_app:${PSQL_PASSWORD}@ceqr-data-readonly-do-user-1939427-0.db.ondigitalocean.com:25060/ceqr_data
       JWT_SALT: saltysaltysalt
       SENDGRID_KEY: ''
       ADMIN_EMAILS: ''
+    healthcheck:
+      test: ["CMD", "curl", "http://localhost:3000"]
+      interval: 10s
+      timeout: 30s
+      retries: 3
+  # ceqr app frontend
+  ceqr_frontend:
+    image: danlynn/ember-cli
+    entrypoint: ./frontend-entrypoint.sh
+    volumes:
+      - ./frontend:/myapp
+    ports:
+      - "4200:4200"
+    environment:
+      HOST: http://localhost:3000
+      DOCKER: 'true'
+    healthcheck:
+      test: ["CMD", "curl", "http://localhost:4200"]
+      interval: 1m
+      timeout: 30s
+      start_period: 5m
+      retries: 5
+
   # postgis backend
   postgis:
     image: mdillon/postgis
