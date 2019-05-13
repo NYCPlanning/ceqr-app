@@ -1,6 +1,17 @@
 import EmberObject from '@ember/object';
 import { computed } from '@ember/object';
-import round from '../utils/round';
+import round from '../../utils/round';
+
+/**
+ * SchoolTotals is a simple EmberObject that aggregates totals for a list of Buildings.
+ * This list is sorted 
+ *
+ * @constructor
+ * @param {string} level - School level
+ * @param {integer} [district]
+ * @param {integer} [subdistrict]
+ * @param {Object[]} allBuildings - Array of Buildings, generally a concatanated list from both bluebook and lcgms
+ */
 
 export default EmberObject.extend({
   buildings: computed('allBuildings', function() {

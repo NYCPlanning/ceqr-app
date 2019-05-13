@@ -1,6 +1,6 @@
 import Component from '@ember/component';
 import { computed } from '@ember/object';
-import SchoolLevelTotals from '../../../decorators/SchoolLevelTotals';
+import SchoolLevelTotals from '../../../fragments/public-schools/SchoolLevelTotals';
 
 export default Component.extend({
   psTable: computed('analysis.aggregateTotals.@each', function() {

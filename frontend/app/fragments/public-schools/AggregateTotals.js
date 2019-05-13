@@ -1,6 +1,6 @@
 import EmberObject from '@ember/object';
 import { computed } from '@ember/object';
-import round from '../utils/round';
+import round from '../../utils/round';
 
 export default EmberObject.extend({
   enrollExistingConditions: computed('schoolTotals', function() {

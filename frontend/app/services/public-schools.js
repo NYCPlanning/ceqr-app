@@ -1,7 +1,7 @@
 import Service from '@ember/service';
 import { task } from 'ember-concurrency';
 import carto from 'carto-promises-utility/utils/carto';
-import Building from '../decorators/Building';
+import Building from '../fragments/public-schools/Building';
 import { inject as service } from '@ember/service';
 
 export default Service.extend({

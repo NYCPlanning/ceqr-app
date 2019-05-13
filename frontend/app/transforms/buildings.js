@@ -1,5 +1,5 @@
 import DS from 'ember-data';
-import Building from '../decorators/Building';
+import Building from '../fragments/public-schools/Building';
 
 export default DS.Transform.extend({
   deserialize(serialized) {

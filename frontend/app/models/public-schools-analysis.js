@@ -1,8 +1,8 @@
 import DS from 'ember-data';
 import { computed } from '@ember/object';
 
-import SchoolTotals from '../decorators/SchoolTotals';
-import AggregateTotals from '../decorators/AggregateTotals';
+import SchoolTotals from '../fragments/public-schools/SchoolTotals';
+import AggregateTotals from '../fragments/public-schools/AggregateTotals';
 
 export default DS.Model.extend({  
   project: DS.belongsTo('project'),

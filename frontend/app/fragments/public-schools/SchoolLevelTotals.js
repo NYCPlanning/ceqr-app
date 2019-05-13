@@ -1,6 +1,12 @@
 import EmberObject from '@ember/object';
 import { computed } from '@ember/object';
-import round from '../utils/round';
+import round from '../../utils/round';
+
+/**
+ * SchoolLevelTotals is a simple EmberObject used to aggregate 
+ *
+ */
+
 
 export default EmberObject.extend({
   enrollTotal: computed('subdistricts', function() {
