@@ -9,7 +9,7 @@
 {{#if showAnalysisSteps}}
   <div class="row">
     <div class="sixteen wide column">
-        {{public-schools/analysis-steps analysis=model.publicSchoolsAnalysis}}
+        {{public-schools/analysis-steps project=project}}
     </div>
 
     <div class="ui inverted dimmer {{if public-schools.fullReload.isRunning "active"}}">
