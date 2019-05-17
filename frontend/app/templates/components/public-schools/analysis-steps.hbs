@@ -1,24 +1,24 @@
 <div class="ui tiny steps fluid">  
-  {{#link-to "project.show.public-schools.analysis-threshold" project class="step"}}  
+  {{#link-to "project.show.public-schools.analysis-threshold" project.id class="step"}}  
     <div class="content">
       <div class="title">Analysis Threshold</div>
       <div class="description">Need for detailed analysis</div>
     </div>
   {{/link-to}}
-  {{#link-to "project.show.public-schools.existing-conditions" project class="step"}} 
+  {{#link-to "project.show.public-schools.existing-conditions" project.id class="step"}} 
     <div class="content">
       <div class="title">Existing Conditions</div>
       <div class="description">Current school conditions</div>
     </div>
   {{/link-to}}
-  {{#link-to "project.show.public-schools.no-action" project class="step"}} 
+  {{#link-to "project.show.public-schools.no-action" project.id class="step"}} 
     <div class="content">
       <div class="title">No Action Scenario</div>
       <div class="description">Future school conditions<br>without proposed project</div>
     </div>
   {{/link-to}}
 
-  {{#link-to "project.show.public-schools.with-action" project class="step"}}
+  {{#link-to "project.show.public-schools.with-action" project.id class="step"}}
     <div class="content">
       <div class="title">With Action Scenario</div>
       <div class="description">Future school conditions<br>with proposed project</div>

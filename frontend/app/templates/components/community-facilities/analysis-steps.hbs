@@ -1,24 +1,24 @@
 <div class="ui tiny steps fluid">  
-  {{#link-to "project.show.community-facilities.analysis-threshold" project class="step"}}  
+  {{#link-to "project.show.community-facilities.analysis-threshold" project.id class="step"}}  
     <div class="content">
       <div class="title">Analysis Threshold</div>
       <div class="description">Need for detailed analysis</div>
     </div>
   {{/link-to}}
 
-  {{#link-to "project.show.community-facilities" project class="step disabled"}} 
+  {{#link-to "project.show.community-facilities" project.id class="step disabled"}} 
     <div class="content">
       <div class="title">Existing Conditions</div>
     </div>
   {{/link-to}}
 
-  {{#link-to "project.show.community-facilities" project class="step disabled"}} 
+  {{#link-to "project.show.community-facilities" project.id class="step disabled"}} 
     <div class="content">
       <div class="title">No Action Scenario</div>
     </div>
   {{/link-to}}
 
-  {{#link-to "project.show.community-facilities" project class="step disabled"}}
+  {{#link-to "project.show.community-facilities" project.id class="step disabled"}}
     <div class="content">
       <div class="title">With Action Scenario</div>
     </div>
