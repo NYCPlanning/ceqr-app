@@ -1,6 +1,6 @@
 {
-  "id": "may-2019",
-  "version": "may-2019",
+  "id": "november-2018",
+  "version": "november-2018",
   "enrollmentProjectionsMinYear": 2017,
   "enrollmentProjectionsMaxYear": 2027,
   "sourceDates": {
@@ -10,7 +10,7 @@
     "housingPipeline": "2018 to 2027",
     "lcgms": "December 19, 2018",
     "demographicSnapshot": false,
-    "scaCapitalProjects": "Februrary 2019",
+    "scaCapitalProjects": "February 2019",
     "doeSignificantUtilChanges": "March 2019"
   },
   "cartoTables": {
