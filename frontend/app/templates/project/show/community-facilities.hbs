@@ -1,3 +1,11 @@
 {{title "[Community Facilities]" prepend=false}}
 
+{{#if showAnalysisSteps}}
+  <div class="row">
+    <div class="sixteen wide column">
+        {{community-facilities/analysis-steps project=project}}
+    </div>
+  </div>
+{{/if}}
+
 {{outlet}}

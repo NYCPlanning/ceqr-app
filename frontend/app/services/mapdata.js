@@ -113,7 +113,7 @@ export default Service.extend({
   fetchScaProjects: task(function*() { 
     return yield carto.SQL(`
       SELECT cartodb_id, the_geom, planned_end_date, name, org_level
-      FROM sca_capital_projects_v2018
+      FROM ${this.analysis.dataTables.cartoTables.scaCapitalProjects}
       WHERE cartodb_id IN (${this.analysis.scaProjectsCartoIds.join(',')})
     `, 'geojson')
   }).drop(),

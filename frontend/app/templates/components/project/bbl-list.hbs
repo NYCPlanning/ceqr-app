@@ -26,8 +26,15 @@
                   placeholder="BBL"
                   maxlength=10
                   enter=(action "addBbl")
+                  data-test-bbl-list="bbl-input"
                 }}
-                <button type="submit" class="ui primary button">Add</button>
+                <button 
+                  type="submit" 
+                  class="ui primary button"
+                  data-test-bbl-list="bbl-add"
+                >
+                  Add
+                </button>
               </div>
             </div>
             <div class="field">

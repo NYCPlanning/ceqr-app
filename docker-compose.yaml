@@ -1,0 +1,31 @@
+version: '3'
+services:
+  # ceqr service
+  ceqr:
+    build: .
+    entrypoint: ./entrypoint.sh
+    volumes:
+      - .:/app
+    ports:
+      - "3000:3000"
+    environment:
+      PORT: 3000
+      DATABASE_URL: postgis://postgres@postgis:5432/ceqr_rails
+      CEQR_DATA_DB_URL: postgis://test_ceqr_app:rhqnwjwiup4yafzw@cear-data-do-user-1939427-0.db.ondigitalocean.com:25060/ceqr_data
+      JWT_SALT: saltysaltysalt
+      SENDGRID_KEY: ''
+      ADMIN_EMAILS: ''
+  # postgis backend
+  postgis:
+    image: mdillon/postgis
+    ports:
+      - "5432:5432"
+  # short-lived container to create db if not already running
+  # have to use the app image build b/c we need rails installed to migrate the db
+  migrate:
+    build: .
+    entrypoint: ./migrate.sh
+    volumes:
+      - .:/app
+    environment:
+      DATABASE_URL: postgis://postgres@postgis:5432/ceqr_rails

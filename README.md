@@ -22,6 +22,37 @@ git clone git@github.com:NYCPlanning/ceqr-app.git
 cd ceqr-app
 ```
 
+### Running with Docker and docker-compose
+
+1. Install Docker & docker-compose on your machine, if you don't already have 'em
+([macOs](https://runnable.com/docker/install-docker-on-macos), [windows 10](https://runnable.com/docker/install-docker-on-windows-10), [linux](https://runnable.com/docker/install-docker-on-linux))
+
+2. Start up the ceqr app, with environment defined and all deps installed, and bring up the postgis with all dbs created and migrations applied:
+    ```
+    $ docker-compose up -d
+    ```
+3. Confirm everything is OK:
+    ```
+    $ docker-compose ps
+
+        Name                   Command              State            Ports
+    -------------------------------------------------------------------------------
+    app_ceqr_1      ./entrypoint.sh                 Up       0.0.0.0:3000->3000/tcp
+    app_migrate_1   ./migrate.sh                    Exit 0
+    app_postgis_1   docker-entrypoint.sh postgres   Up       0.0.0.0:5432->5432/tcp
+    ```
+    NOTE: `migrate` service is a short-lived container that sets up your backend for you. That's why it is State: Exit 0
+
+    To mess with env configuration, port mapping, etc check out `docker-compose.yml`.
+     - The env for ceqr app is defined in the `environment` section of the `ceqr` service. If you want to define your env from a file, swap out `env` section for [`env_file` section](https://docs.docker.com/compose/compose-file/#env_file)
+     - Port mappings are defined in `ports` sections; to change the port a service is mapped to and exposed on on your machine, change the first port in the mapping, i.e. "3001:3000" if you want ceqr running on port 3001 on your machine
+
+4.  That's IT!!!!!!
+
+(NOTE: the ember frontend is built & managed by a gem that handles everything from within the rails app. It is v slow. Working on pulling it out and running it as a separate ember app, at least for docker world! But for now, just know your UI stuff will be slow slow slow)
+
+..................or do all these steps:
+
 ### Installing Ruby
 
 I suggest using [`rbenv`](https://github.com/rbenv/rbenv) installed with Homebrew.

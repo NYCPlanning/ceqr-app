@@ -50,7 +50,7 @@ class EmailWhitelist
     'entech.nyc',
     'wsp.com',
     'wcdgroup.com',
-
+    'haleyaldrich.com',
 
     # NYC City
     'planning.nyc.gov',

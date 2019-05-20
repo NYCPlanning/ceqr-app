@@ -55,7 +55,10 @@
     </div>
 
     <div class="row">
-      {{#link-to "project.new" class="ui green button"}}
+      {{#link-to "project.new"
+        class="ui green button"
+        data-test-new-project=true
+      }}
         New Project
       {{/link-to}}
     </div>

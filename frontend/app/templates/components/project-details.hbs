@@ -4,7 +4,13 @@
       <div class="two fields">
         <div class="twelve wide required field">
           <label>Project Name</label>
-          {{input type="text" name="name" value=project.name placeholder="Project Name"}}
+          {{input 
+            type="text" 
+            name="name" 
+            value=project.name 
+            placeholder="Project Name"
+            data-test-new-project='project-name'
+          }}
         </div>
         <div class="four wide required field">
           <label>Est. Build Year</label>
@@ -13,12 +19,19 @@
             class="selection"
             selected=project.buildYear
             onChange=(action (mut project.buildYear))
+            data-test-new-project='build-year'
           }}
             <div class="default text">Build Year</div>
             <i class="dropdown icon"></i>
             <div class="menu">
               {{#each buildYearRange as |year|}}
-                <div data-value={{year}} class="item">{{year}}</div>
+                <div
+                  data-value={{year}}
+                  class="item"
+                  data-test-new-project={{year}}
+                >
+                  {{year}}
+                </div>
               {{/each}}
             </div>
           {{/ui-dropdown}}
@@ -30,6 +43,7 @@
             name="ceqrNumber"
             value=project.ceqrNumber
             placeholder="CEQR Number"
+            data-test-new-project='ceqr-number'
           }}
         </div>
       </div>
@@ -54,7 +68,10 @@
 <div class="ui basic segment">
   {{#if project.isNew}}
     <div class="sixteen wide column">
-      <button class="ui primary button {{if project-orchestrator.createProject.isRunning "loading"}}" {{action "save"}}>
+      <button
+        data-test-create-project
+        class="ui primary button {{if project-orchestrator.createProject.isRunning "loading"}}" {{action "save"}}
+      >
         Create Project <i class="arrow right icon"></i>
       </button>
     </div>

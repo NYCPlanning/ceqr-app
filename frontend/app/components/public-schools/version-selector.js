@@ -1,15 +1,21 @@
 import Component from '@ember/component';
+import { computed } from '@ember/object';
 import { inject as service } from '@ember/service';
 
 export default Component.extend({
   store: service(),
   'public-schools': service(),
+
+  dataOutdated: computed('analysis.dataVersion', function() {
+    return this.analysis.dataVersion !== 'may-2019';
+  }),
   
   actions: {
     async changeDataVersion(version) {
       const dataMultiplierMap = {
         "november-2017": "march-2014",
-        "november-2018": "november-2018"
+        "november-2018": "november-2018",
+        "may-2019": "november-2018"
       }
       
       const analysis = await this.analysis;

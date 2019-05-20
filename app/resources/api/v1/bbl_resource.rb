@@ -1,6 +1,6 @@
 class Api::V1::BblResource < JSONAPI::Resource
   immutable
-  model_name 'CeqrData::Bbl'
+  model_name 'Db::Bbl'
 
   attributes(
     :bbl,
@@ -16,7 +16,7 @@ class Api::V1::BblResource < JSONAPI::Resource
   end
 
   def version
-    CeqrData::Bbl.version
+    Db::Bbl.version
   end
 
   filter :bbl
