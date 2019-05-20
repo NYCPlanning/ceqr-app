@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_06_185127) do
+ActiveRecord::Schema.define(version: 2019_05_16_174747) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -58,6 +58,7 @@ ActiveRecord::Schema.define(version: 2019_05_06_185127) do
     t.jsonb "parking_land_use", default: [], null: false, array: true
     t.geometry "bbls_geom", limit: {:srid=>4326, :type=>"multi_polygon"}, null: false
     t.text "bbls_version"
+    t.integer "affordable_units", default: 0, null: false
   end
 
   create_table "public_schools_analyses", force: :cascade do |t|

@@ -1,17 +1,18 @@
 import Component from '@ember/component';
 import { computed } from '@ember-decorators/object';
+import boroughToAbbr from 'labs-ceqr/utils/boroughToAbbr'
 
 export default class CommunityFacilitiesTrThresholdComponent extends Component {
   tagName = 'tr'
 
   @computed('analysis.childCareThresholds')
   get childCareThreshold() {
-    return this.analysis.get(`childCareThresholds.${this.boroAbbr}`);
+    return this.analysis.get(`childCareThresholds.${boroughToAbbr(this.borough)}`);
   }
 
   @computed('analysis.libraryThresholds')
   get libraryThreshold() {
-    return this.analysis.get(`libraryThresholds.${this.boroAbbr}`);
+    return this.analysis.get(`libraryThresholds.${boroughToAbbr(this.borough)}`);
   }
 
   @computed('borough', 'analysis.project.borough')

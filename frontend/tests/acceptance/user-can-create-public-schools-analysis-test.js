@@ -23,9 +23,12 @@ module('Acceptance | user can create public schools analysis', function(hooks) {
     await fillIn('[data-test-bbl-list="bbl-input"]', '1001440001');
     await click('[data-test-bbl-list="bbl-add"]');
 
-    // commercial
+    // residential
     await fillIn("[data-test-housing-units-total]", 1000);
     await fillIn("[data-test-housing-units-senior]", 50);
+    await fillIn("[data-test-housing-units-affordable]", 250);
+
+    // commercial
     await click("[data-test-commercial-use='dropdown']");
     await click("[data-test-commercial-use='Office']");
     await fillIn("[data-test-commercial-use='sq-ft']", 100);

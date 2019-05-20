@@ -14,13 +14,13 @@ export default class CommunityFacilitiesAnalysisModel extends Model {
     return this.potentialLibraryImpact || this.potentialChildCareImpact
   }
 
-  @computed('project.{borough,totalUnits}')
+  @computed('project.{borough,affordableUnits}')
   get potentialChildCareImpact() {
-    return this.project.get('totalUnits') >= this.childCareThresholds[this.project.get('boroAbbr')]
+    return this.project.get('affordableUnits') >= this.childCareThresholds[this.project.get('boroAbbr')]
   }
 
   @computed('project.{borough,totalUnits}')
-  get potentialLibraryImpact() {    
+  get potentialLibraryImpact() {
     return this.project.get('totalUnits') >= this.libraryThresholds[this.project.get('boroAbbr')]
   }
 
