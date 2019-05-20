@@ -22,6 +22,7 @@ class Api::V1::ProjectResource < JSONAPI::Resource
     # Analysis Framework
     :total_units,
     :senior_units,
+    :affordable_units,
 
     :commercial_land_use,
     :industrial_land_use,

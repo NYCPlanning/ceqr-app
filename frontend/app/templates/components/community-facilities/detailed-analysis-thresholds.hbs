@@ -1,22 +1,28 @@
 <table class="ui top attached celled table">
   <thead>
     <tr>
-      <th rowspan="2">Borough</th>
-      <th rowspan="2">Total Units in Project</th>
-      <th colspan="2">Mininum Number of Residential Units that Trigger Detailed Analysis</th>
+      <th class="two wide" rowspan="2">Borough</th>
+      <th class="seven wide" colspan="2">Libraries</th>
+      <th class="seven wide" colspan="2">Child Card</th>
     </tr>
     <tr>
-      <th>Child Care</th>
-      <th>Libraries</th>
+      <th class="two wide">Total Units</th>
+      <th class="five wide">Mininum Number of Units that Trigger Detailed Analysis</th>
+      <th class="two wide">Total Affordable Units 
+        {{#ui-popup content="at or below 80% AMI"}}
+          <i class="attention icon"></i>
+        {{/ui-popup}}
+      </th>
+      <th class="five wide">Mininum Number of Affordable Units that Trigger Detailed Analysis</th>
     </tr>
   </thead>
 
   <tbody>
-    {{community-facilities/tr-threshold borough="Bronx" boroAbbr="bx" analysis=analysis}}
-    {{community-facilities/tr-threshold borough="Brooklyn" boroAbbr="bk" analysis=analysis}}
-    {{community-facilities/tr-threshold borough="Manhattan" boroAbbr="mn" analysis=analysis}}
-    {{community-facilities/tr-threshold borough="Queens" boroAbbr="qn" analysis=analysis}}
-    {{community-facilities/tr-threshold borough="Staten Island" boroAbbr="si" analysis=analysis}}
+    {{community-facilities/tr-threshold borough="Bronx" analysis=analysis}}
+    {{community-facilities/tr-threshold borough="Brooklyn" analysis=analysis}}
+    {{community-facilities/tr-threshold borough="Manhattan" analysis=analysis}}
+    {{community-facilities/tr-threshold borough="Queens" analysis=analysis}}
+    {{community-facilities/tr-threshold borough="Staten Island" analysis=analysis}}
   </tbody>
 </table>
 
