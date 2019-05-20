@@ -1,6 +1,7 @@
 import DS from 'ember-data';
 import { computed } from '@ember/object';
 import { inject as service } from '@ember/service';
+import boroughToAbbr from 'labs-ceqr/utils/boroughToAbbr'
 
 export default DS.Model.extend({    
   currentUser: service(),
@@ -35,20 +36,15 @@ export default DS.Model.extend({
     }
   }),
   boroAbbr: computed('borough', function() {
-    switch (this.borough) {
-      case 'Manhattan': return 'mn';
-      case 'Bronx': return 'bx';
-      case 'Brooklyn': return 'bk';
-      case 'Queens': return 'qn';
-      case 'Staten Island': return 'si';
-      default: return null;
-    }
+    return boroughToAbbr(this.borough);
   }),
 
   
   // Analysis Framework
   totalUnits: DS.attr('number', { defaultValue: 0 }),
   seniorUnits: DS.attr('number', { defaultValue: 0 }),
+  affordableUnits: DS.attr('number', { defaultValue: 0 }),
+
   commercialLandUse: DS.attr('', { defaultValue() { return []; } }),
   industrialLandUse: DS.attr('', { defaultValue() { return []; } }),
   communityFacilityLandUse: DS.attr('', { defaultValue() { return []; } }),

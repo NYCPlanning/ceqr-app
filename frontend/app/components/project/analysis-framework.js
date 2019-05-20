@@ -12,8 +12,13 @@ export default class ProjectAnalysisFrameworkComponent extends Component {
   }
   
   @computed('project.{totalUnits,seniorUnits}')
-  get netUnits() {
+  get unitsForPublicSchools() {
     return this.get('project.totalUnits') - this.get('project.seniorUnits');
+  }
+
+  @computed('project.affordableUnits')
+  get unitsForChildCare() {
+    return this.get('project.affordableUnits')
   }
 
   // Commercial Land Use 
