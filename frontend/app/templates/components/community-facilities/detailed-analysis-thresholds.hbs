@@ -8,7 +8,11 @@
     <tr>
       <th class="two wide">Total Units</th>
       <th class="five wide">Mininum Number of Units that Trigger Detailed Analysis</th>
-      <th class="two wide">Total Affordable Units</th>
+      <th class="two wide">Total Affordable Units 
+        {{#ui-popup content="at or below 80% AMI"}}
+          <i class="attention icon"></i>
+        {{/ui-popup}}
+      </th>
       <th class="five wide">Mininum Number of Affordable Units that Trigger Detailed Analysis</th>
     </tr>
   </thead>
