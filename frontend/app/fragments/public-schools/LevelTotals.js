@@ -3,20 +3,20 @@ import { computed } from '@ember/object';
 import round from '../../utils/round';
 
 /**
- * SchoolLevelTotals is a simple EmberObject used to aggregate 
+ * LevelTotals is a simple EmberObject used to aggregate 
  *
  */
 
 
 export default EmberObject.extend({
-  enrollTotal: computed('subdistricts', function() {
-    return this.get('subdistricts').mapBy('enroll').reduce(function(acc, value) {            
+  enrollTotal: computed('subdistrictTotals', function() {
+    return this.get('subdistrictTotals').mapBy('enroll').reduce(function(acc, value) {            
       return acc + parseInt(value);
     }, 0);
   }),
 
-  studentsTotal: computed('subdistricts', function() {
-    return this.get('subdistricts').mapBy('students').reduce(function(acc, value) {            
+  studentsTotal: computed('subdistrictTotals', function() {
+    return this.get('subdistrictTotals').mapBy('students').reduce(function(acc, value) {            
       return acc + parseInt(value);
     }, 0);
   }),
@@ -25,14 +25,14 @@ export default EmberObject.extend({
     return this.get('enrollTotal') + this.get('studentsTotal');
   }),
 
-  enrollWithActionTotal: computed('subdistricts', function() {
-    return this.get('subdistricts').mapBy('enrollWithAction').reduce(function(acc, value) {            
+  enrollWithActionTotal: computed('subdistrictTotals', function() {
+    return this.get('subdistrictTotals').mapBy('enrollWithAction').reduce(function(acc, value) {            
       return acc + parseInt(value);
     }, 0);
   }),
 
-  capacityNoActionTotal: computed('subdistricts', function() {
-    return this.get('subdistricts').mapBy('capacityNoAction').reduce(function(acc, value) {
+  capacityNoActionTotal: computed('subdistrictTotals', function() {
+    return this.get('subdistrictTotals').mapBy('capacityNoAction').reduce(function(acc, value) {
       return acc + parseInt(value);
     }, 0);
   }),
@@ -45,7 +45,7 @@ export default EmberObject.extend({
     return this.get('capacityNoActionTotal') - this.get('enrollNoActionTotal');
   }),
 
-  seatsWithActionTotal: computed('subdistricts', function() {
+  seatsWithActionTotal: computed('subdistrictTotals', function() {
     return this.get('capacityWithActionTotal') - this.get('enrollWithActionTotal');
   }),
 
@@ -81,6 +81,6 @@ export default EmberObject.extend({
     return seatsToMitigateUtilization < seatsToMitigateChange ? seatsToMitigateUtilization : seatsToMitigateChange;
   }),
   mitigateUnitCount: computed('mitigateSeatCount', function() {
-    return Math.ceil(this.get('mitigateSeatCount') / this.get('subdistricts')[0].get('studentMultiplier'));
+    return Math.ceil(this.get('mitigateSeatCount') / this.get('subdistrictTotals')[0].get('studentMultiplier'));
   }),
 });

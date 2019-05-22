@@ -2,9 +2,9 @@ import { module, test } from 'qunit';
 import { setupTest } from 'ember-qunit';
 
 import SubdistrictLevelTotals from 'labs-ceqr/fragments/public-schools/SubdistrictLevelTotals';
-import SchoolLevelTotals from 'labs-ceqr/fragments/public-schools/SchoolLevelTotals';
+import LevelTotals from 'labs-ceqr/fragments/public-schools/LevelTotals';
 
-module('Unit | Fragment | SchoolLevelTotals', function(hooks) {
+module('Unit | Fragment | LevelTotals', function(hooks) {
   setupTest(hooks);
 
   test('#enrollTotal is calculated correctly', function(assert) {
@@ -14,8 +14,8 @@ module('Unit | Fragment | SchoolLevelTotals', function(hooks) {
     });
 
     let school_level_totals =
-    SchoolLevelTotals.create({
-      subdistricts: aggregate_totals,
+    LevelTotals.create({
+      subdistrictTotals: aggregate_totals,
     });
 
     assert.equal(school_level_totals.subdistricts.enrollTotal, 400);
@@ -29,8 +29,8 @@ module('Unit | Fragment | SchoolLevelTotals', function(hooks) {
     });
 
     let school_level_totals =
-    SchoolLevelTotals.create({
-      subdistricts: aggregate_totals,
+    LevelTotals.create({
+      subdistrictTotals: aggregate_totals,
     });
 
     assert.equal(school_level_totals.subdistricts.studentsTotal, 400);
@@ -39,7 +39,7 @@ module('Unit | Fragment | SchoolLevelTotals', function(hooks) {
 
   test('#enrollNoActionTotal is calculated correctly', function(assert) {
     let school_level_totals =
-    SchoolLevelTotals.create({
+    LevelTotals.create({
       enrollTotal: 100,
       studentsTotal: 300,
     });
@@ -55,8 +55,8 @@ module('Unit | Fragment | SchoolLevelTotals', function(hooks) {
     });
 
     let school_level_totals =
-    SchoolLevelTotals.create({
-      subdistricts: aggregate_totals,
+    LevelTotals.create({
+      subdistrictTotals: aggregate_totals,
     });
 
     assert.equal(school_level_totals.subdistricts.enrollWithActionTotal, 400);
@@ -70,8 +70,8 @@ module('Unit | Fragment | SchoolLevelTotals', function(hooks) {
     });
 
     let school_level_totals =
-    SchoolLevelTotals.create({
-      subdistricts: aggregate_totals,
+    LevelTotals.create({
+      subdistrictTotals: aggregate_totals,
     });
 
     assert.equal(school_level_totals.subdistricts.capacityNoActionTotal, 400);
@@ -80,7 +80,7 @@ module('Unit | Fragment | SchoolLevelTotals', function(hooks) {
 
   test('#capacityWithActionTotal is calculated correctly', function(assert) {
     let school_level_totals =
-    SchoolLevelTotals.create({
+    LevelTotals.create({
       capacityNoActionTotal: 100,
       newSchoolSeats: 300
     });
@@ -91,7 +91,7 @@ module('Unit | Fragment | SchoolLevelTotals', function(hooks) {
 
   test('#seatsNoActionTotal is calculated correctly', function(assert) {
     let school_level_totals =
-    SchoolLevelTotals.create({
+    LevelTotals.create({
       capacityNoActionTotal: 400,
       enrollNoActionTotal: 300
     });
@@ -102,7 +102,7 @@ module('Unit | Fragment | SchoolLevelTotals', function(hooks) {
 
   test('#seatsWithActionTotal is calculated correctly', function(assert) {
     let school_level_totals =
-    SchoolLevelTotals.create({
+    LevelTotals.create({
       capacityWithActionTotal: 400,
       enrollWithActionTotal: 300
     });
@@ -113,7 +113,7 @@ module('Unit | Fragment | SchoolLevelTotals', function(hooks) {
 
   test('#utilizationNoActionTotal is calculated correctly', function(assert) {
     let school_level_totals =
-    SchoolLevelTotals.create({
+    LevelTotals.create({
       enrollNoActionTotal: 177,
       capacityNoActionTotal: 145
     });
@@ -124,7 +124,7 @@ module('Unit | Fragment | SchoolLevelTotals', function(hooks) {
 
   test('#utilizationWithActionTotal is calculated correctly', function(assert) {
     let school_level_totals =
-    SchoolLevelTotals.create({
+    LevelTotals.create({
       enrollWithActionTotal: 177,
       capacityWithActionTotal: 145
     });
@@ -135,7 +135,7 @@ module('Unit | Fragment | SchoolLevelTotals', function(hooks) {
 
   test('#utilizationChangeTotal is calculated correctly', function(assert) {
     let school_level_totals =
-    SchoolLevelTotals.create({
+    LevelTotals.create({
       utilizationWithActionTotal: 100.66666,
       utilizationNoActionTotal: 50.55555
     });
@@ -146,7 +146,7 @@ module('Unit | Fragment | SchoolLevelTotals', function(hooks) {
 
   test('#impact is calculated correctly', function(assert) {
     let school_level_totals =
-    SchoolLevelTotals.create({
+    LevelTotals.create({
       utilizationChangeTotal: 1,
       utilizationWithActionTotal: 0.8
     });
@@ -157,7 +157,7 @@ module('Unit | Fragment | SchoolLevelTotals', function(hooks) {
 
   test('#mitigateSeatCount is calculated correctly', function(assert) {
     let school_level_totals =
-    SchoolLevelTotals.create({
+    LevelTotals.create({
       enrollWithActionTotal: 7,
       capacityWithActionTotal: 2,
       utilizationNoActionTotal: 3
@@ -182,8 +182,8 @@ module('Unit | Fragment | SchoolLevelTotals', function(hooks) {
   ];
 
     let school_level_totals =
-    SchoolLevelTotals.create({
-      subdistricts: aggregate_totals,
+    LevelTotals.create({
+      subdistrictTotals: aggregate_totals,
       mitigateSeatCount: 5,
     });
 
