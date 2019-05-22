@@ -1,7 +1,7 @@
 import { module, test } from 'qunit';
 import { setupTest } from 'ember-qunit';
 
-import AggregateTotals from 'labs-ceqr/fragments/public-schools/AggregateTotals';
+import SubdistrictLevelTotals from 'labs-ceqr/fragments/public-schools/SubdistrictLevelTotals';
 import SchoolLevelTotals from 'labs-ceqr/fragments/public-schools/SchoolLevelTotals';
 
 module('Unit | Fragment | SchoolLevelTotals', function(hooks) {
@@ -9,7 +9,7 @@ module('Unit | Fragment | SchoolLevelTotals', function(hooks) {
 
   test('#enrollTotal is calculated correctly', function(assert) {
     let aggregate_totals =
-    AggregateTotals.create({
+    SubdistrictLevelTotals.create({
       enrollTotal: 400
     });
 
@@ -24,7 +24,7 @@ module('Unit | Fragment | SchoolLevelTotals', function(hooks) {
 
   test('#studentsTotal is calculated correctly', function(assert) {
     let aggregate_totals =
-    AggregateTotals.create({
+    SubdistrictLevelTotals.create({
       studentsTotal: 400
     });
 
@@ -50,7 +50,7 @@ module('Unit | Fragment | SchoolLevelTotals', function(hooks) {
 
   test('#enrollWithActionTotal is calculated correctly', function(assert) {
     let aggregate_totals =
-    AggregateTotals.create({
+    SubdistrictLevelTotals.create({
       enrollWithActionTotal: 400
     });
 
@@ -65,7 +65,7 @@ module('Unit | Fragment | SchoolLevelTotals', function(hooks) {
 
   test('#capacityNoActionTotal is calculated correctly', function(assert) {
     let aggregate_totals =
-    AggregateTotals.create({
+    SubdistrictLevelTotals.create({
       capacityNoActionTotal: 400
     });
 
@@ -176,7 +176,7 @@ module('Unit | Fragment | SchoolLevelTotals', function(hooks) {
 
   test('#mitigateUnitCount is calculated correctly', function(assert) {
     let aggregate_totals = [
-    AggregateTotals.create({
+    SubdistrictLevelTotals.create({
       studentMultiplier: 2
     })
   ];
