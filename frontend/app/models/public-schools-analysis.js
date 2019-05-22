@@ -1,7 +1,6 @@
 import DS from 'ember-data';
 import { computed } from '@ember/object';
 
-import SchoolTotals from '../fragments/public-schools/SchoolTotals';
 import AggregateTotals from '../fragments/public-schools/AggregateTotals';
 
 export default DS.Model.extend({  
@@ -91,7 +90,7 @@ export default DS.Model.extend({
   }),
 
   // By Subdistrict
-  bluebook: DS.attr('buildings', { defaultValue() { return []; } }),
+  bluebook: DS.attr('public-schools/schools', { defaultValue() { return []; } }),
   bluebook_findExisting(building, org_level) {    
     return this.bluebook.filter(
       (e) => 
@@ -110,12 +109,12 @@ export default DS.Model.extend({
     ).uniq();
   }),
 
-  lcgms: DS.attr('buildings', { defaultValue() { return []; } }),
+  lcgms: DS.attr('public-schools/schools', { defaultValue() { return []; } }),
   lcgmsCartoIds: computed('lcgms', function() {
     return this.get('lcgms').mapBy('cartodb_id');
   }),
 
-  scaProjects: DS.attr('buildings', { defaultValue() { return []; } }),
+  scaProjects: DS.attr('public-schools/schools', { defaultValue() { return []; } }),
   scaProjectsCartoIds: computed('scaProjects.@each', function() {
     return this.scaProjects.mapBy('cartodb_id');
   }),
@@ -172,7 +171,7 @@ export default DS.Model.extend({
     return this.doeUtilChangesPerBldg.length;
   }),
 
-  residentialDevelopments: DS.attr('public-schools/residential-development',
+  residentialDevelopments: DS.attr('public-schools/residential-developments',
     { defaultValue() { return []; } }
   ),
   futureResidentialDev: computed('currentMultiplier', 'residentialDevelopments.[]', function() {
@@ -191,51 +190,22 @@ export default DS.Model.extend({
   futureEnrollmentNewHousing: DS.attr('', { defaultValue() { return []; } }),
 
   // Tables
-  schoolTotals: computed('subdistricts', 'lcgms', 'bluebook', function() {
-    let tables = [];
-
-    this.subdistricts.map((sd) => {
-      tables.push(SchoolTotals.create({
-        ...sd,
-        level: 'ps',
-        allBuildings: (
-            this.bluebook
-          ).concat(
-            this.lcgms
-          ).compact(),
-      }));
-
-      tables.push(SchoolTotals.create({
-        ...sd,
-        level: 'is',
-        allBuildings: (
-          this.bluebook
-        ).concat(
-          this.lcgms
-        ).compact(),
-      }));
-    });
-
-    tables.push(SchoolTotals.create({
-      level: 'hs',
-      allBuildings: (
-        this.bluebook
-      ).concat(
-        this.lcgms
-      ).compact(),
-    }));
-
-    return tables;
+  allSchools: computed('bluebook', 'lcgms', function() {
+    return (
+      this.bluebook
+    ).concat(
+      this.lcgms
+    ).compact();
   }),
 
   aggregateTotals: computed(
+    'allSchools',
     'subdistricts',
     'currentMultiplier',
     'hsProjections',
     'futureEnrollmentProjections',
     'futureEnrollmentMultipliers',
     'futureEnrollmentNewHousing',
-    'schoolTotals.@each.capacityTotalNoAction',
     'scaProjects.@each.{includeInCapacity,ps_capacity,is_capacity,hs_capacity}',
     function() {
       let tables = [];
@@ -243,9 +213,9 @@ export default DS.Model.extend({
       tables.push(AggregateTotals.create({
         borough: this.borough,
         level: 'hs',
+        allBuildings: this.allSchools,
 
         studentMultiplier: this.currentMultiplier.hs,
-        schoolTotals: this.schoolTotals.findBy('level', 'hs'),
 
         enroll: this.hsProjections[0] ? this.hsProjections[0].hs : 0,
         
@@ -275,10 +245,9 @@ export default DS.Model.extend({
         tables.push(AggregateTotals.create({
           ...sd,
           level: 'ps',
+          allBuildings: this.allSchools,
+
           studentMultiplier: this.currentMultiplier.ps,
-          schoolTotals: this.schoolTotals.find(
-            (b) => (b.district === sd.district && b.subdistrict === sd.subdistrict && b.level === 'ps')
-          ),
 
           enroll: Math.round(
             this.futureEnrollmentProjections.findBy('district', sd.district).ps
@@ -321,10 +290,9 @@ export default DS.Model.extend({
         tables.push(AggregateTotals.create({
           ...sd,
           level: 'is',
+          allBuildings: this.allSchools,
+
           studentMultiplier: this.currentMultiplier.is,
-          schoolTotals: this.schoolTotals.find(
-            (b) => (b.district === sd.district && b.subdistrict === sd.subdistrict && b.level === 'is')
-          ),
 
           enroll: Math.round(
             this.futureEnrollmentProjections.findBy('district', sd.district).ms

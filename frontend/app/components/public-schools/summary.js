@@ -148,9 +148,9 @@ export default Component.extend({
     
     function() {
       if (this.activeSchoolsLevel === 'hs') {
-        return this.analysis.schoolTotals.findBy('level', 'hs');
+        return this.analysis.aggregateTotals.findBy('level', 'hs');
       } else {
-        return this.analysis.schoolTotals.find(
+        return this.analysis.aggregateTotals.find(
           (total) => (total.id === parseInt(this.activeSdId) && total.level === this.activeSchoolsLevel)
         );
       }

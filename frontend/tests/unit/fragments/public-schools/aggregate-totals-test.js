@@ -2,21 +2,270 @@ import { module, test } from 'qunit';
 import { setupTest } from 'ember-qunit';
 
 import AggregateTotals from 'labs-ceqr/fragments/public-schools/AggregateTotals';
-import SchoolTotals from 'labs-ceqr/fragments/public-schools/SchoolTotals';
+import School from 'labs-ceqr/fragments/public-schools/School';
 
 module('Unit | Fragment | AggregateTotals', function(hooks) {
   setupTest(hooks);
+  
+  test('#buildings returns correct filters list', function(assert) {
+    let buildings =  [
+      School.create({
+        level: 'hs',
+        district: 1,
+        subdistrict: 2
+      }),
+      School.create({
+        level: 'ps',
+        district: 1,
+        subdistrict: 2
+      }),
+      School.create({
+        level: 'ps',
+        district: 1,
+        subdistrict: 3
+      }),
+      School.create({
+        level: 'is',
+        district: 1,
+        subdistrict: 2
+      }),
+    ];
 
-  test('#enrollExistingConditions is calculated correctly', function(assert) {
-    let school_totals = SchoolTotals.create({
-      enrollmentTotal: 300
+    let hs_school_totals = AggregateTotals.create({
+      allBuildings: buildings,
+      level: 'hs'
     });
 
-    let aggregate_totals = AggregateTotals.create({
-      schoolTotals: school_totals
+    assert.deepEqual(hs_school_totals.buildings, [
+      School.create({
+        level: 'hs',
+        district: 1,
+        subdistrict: 2
+      })
+    ]);
+
+    let ps_school_totals = AggregateTotals.create({
+      allBuildings: buildings,
+      level: 'ps',
+      district: 1,
+      subdistrict: 2
     });
 
-    assert.equal(aggregate_totals.enrollExistingConditions, 300);
+    assert.deepEqual(ps_school_totals.buildings, [
+      School.create({
+        level: 'ps',
+        district: 1,
+        subdistrict: 2
+      })
+    ]);
+  });
+
+  test('#enrollmentTotal returns correct calculation', function(assert) {
+    let buildings = [
+      School.create({
+        level: 'hs',
+        enroll: 125
+      }),
+      School.create({
+        level: 'hs',
+        enroll: 100
+      })
+    ];
+
+    let school_totals = AggregateTotals.create({
+      allBuildings: buildings,
+      level: 'hs'
+    });
+
+    assert.equal(school_totals.enrollmentTotal, 225);
+
+  });
+
+test('#capacityTotal returns correct calculation', function(assert) {
+  let buildings = [
+    School.create({
+      level: 'hs',
+      capacity: 140
+    }),
+    School.create({
+      level: 'hs',
+      capacity: 130
+    }),
+    School.create({
+      level: 'hs',
+      capacity: 400,
+      excluded: true
+    })
+  ];
+
+  let school_totals = AggregateTotals.create({
+    allBuildings: buildings,
+    level: 'hs'
+  });
+
+  assert.equal(school_totals.capacityTotal, 270);
+
+  });
+
+  test('#capacityTotalNoAction returns correct calculation', function(assert) {
+    let buildings = [
+      School.create({
+        level: 'hs',
+        capacityFuture: 160
+      }),
+      School.create({
+        level: 'hs',
+        capacityFuture: 145
+      }),
+      School.create({
+        level: 'hs',
+        capacityFuture: 300,
+        excluded: true
+      }),
+    ];
+
+    let school_totals = AggregateTotals.create({
+      allBuildings: buildings,
+      level: 'hs'
+    });
+
+    assert.equal(school_totals.capacityTotalNoAction, 305);
+
+  });
+
+  test('#seatsTotal returns correct calculation', function(assert) {
+    let buildings = [
+      School.create({
+        level: 'hs',
+        seats: 160
+      }),
+      School.create({
+        level: 'hs',
+        seats: 145
+      })
+    ];
+
+    let school_totals = AggregateTotals.create({
+      allBuildings: buildings,
+      level: 'hs'
+    });
+
+    assert.equal(school_totals.seatsTotal, 305);
+
+  });
+
+  test('#utilizationTotal returns correct calculation', function(assert) {
+    let school_totals = AggregateTotals.create({
+      level: 'hs',
+      enrollmentTotal: 102,
+      capacityTotal:  177
+    });
+
+    assert.equal(school_totals.utilizationTotal, 0.576);
+
+  });
+
+  test('#enrollmentMetaTotal returns correct calculation', function(assert) {
+    let buildings = [
+      School.create({
+        level: 'hs',
+        enroll: 160
+      }),
+      School.create({
+        level: 'hs',
+        enroll: 170
+      }),
+      School.create({
+        level: 'ps',
+        enroll: 145
+      }),
+      School.create({
+        level: 'ps',
+        enroll: 140
+      })
+    ];
+
+    let school_totals = AggregateTotals.create({
+      allBuildings: buildings,
+      level: 'ps'
+    });
+
+    assert.equal(school_totals.enrollmentMetaTotal, 285);
+
+  });
+
+  test('#capacityMetaTotal returns correct calculation', function(assert) {
+    let buildings = [
+      School.create({
+        level: 'hs',
+        capacity: 160
+      }),
+      School.create({
+        level: 'hs',
+        capacity: 170
+      }),
+      School.create({
+        level: 'ps',
+        capacity: 145
+      }),
+      School.create({
+        level: 'ps',
+        capacity: 140
+      }),
+      School.create({
+        level: 'ps',
+        capacity: 200,
+        excluded: true
+      })
+    ];
+
+    let school_totals = AggregateTotals.create({
+      allBuildings: buildings,
+      level: 'ps'
+    });
+
+    assert.equal(school_totals.capacityMetaTotal, 285);
+
+  });
+
+  test('#seatsMetaTotal returns correct calculation', function(assert) {
+    let buildings = [
+      School.create({
+        level: 'hs',
+        seats: 160
+      }),
+      School.create({
+        level: 'hs',
+        seats: 170
+      }),
+      School.create({
+        level: 'ps',
+        seats: 145
+      }),
+      School.create({
+        level: 'ps',
+        seats: 140
+      })
+    ];
+
+    let school_totals = AggregateTotals.create({
+      allBuildings: buildings,
+      level: 'ps'
+    });
+
+    assert.equal(school_totals.seatsMetaTotal, 285);
+
+  });
+
+  test('#utilizationMetaTotal returns correct calculation', function(assert) {
+    let school_totals = AggregateTotals.create({
+      level: 'hs',
+      enrollmentMetaTotal: 131,
+      capacityMetaTotal:  145
+    });
+
+    assert.equal(school_totals.utilizationMetaTotal, 0.903);
+
   });
 
   test('#enrollNoAction is calculated correctly', function(assert) {
@@ -77,30 +326,6 @@ module('Unit | Fragment | AggregateTotals', function(hooks) {
 
     assert.equal(aggregate_totals.enrollDeltaDifference, 200);
 
-  });
-
-  test('#capacityExisting is calculated correctly', function(assert) {
-    let school_totals = SchoolTotals.create({
-      capacityTotal: 300
-    });
-
-    let aggregate_totals = AggregateTotals.create({
-      schoolTotals: school_totals
-    });
-
-    assert.equal(aggregate_totals.capacityExisting, 300);
-  });
-
-  test('#capacityFuture is calculated correctly', function(assert) {
-    let school_totals = SchoolTotals.create({
-      capacityTotalNoAction: 300
-    });
-
-    let aggregate_totals = AggregateTotals.create({
-      schoolTotals: school_totals
-    });
-
-    assert.equal(aggregate_totals.capacityFuture, 300);
   });
 
   test('#capacityNoAction is calculated correctly', function(assert) {

@@ -3,7 +3,7 @@ import { computed } from '@ember/object';
 import round from '../../utils/round';
 
 /**
- * The Building fragment wraps a JSON object representing a school building.
+ * The School fragment wraps a JSON object representing an school segmented by level.
  * A school building, for the purposes of public schools analysis in CEQR, represents
  * just one school level in one unique combination of bldg_id and org_id
  *
