@@ -5,5 +5,7 @@ export default function(server) {
     This data will not be loaded in your tests.
   */
 
-  server.createList('bbl', 1);
+  server.create('bbl');
+  server.create('project');
+  server.create('user');
 }

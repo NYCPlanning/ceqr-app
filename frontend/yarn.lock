@@ -9294,6 +9294,14 @@ pretender@2.1.1:
     fake-xml-http-request "^2.0.0"
     route-recognizer "^0.3.3"
 
+pretender@3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/pretender/-/pretender-3.0.1.tgz#817ac43faa3330aa17646968a115f232de10b2ca"
+  dependencies:
+    fake-xml-http-request "^2.0.0"
+    route-recognizer "^0.3.3"
+    whatwg-fetch "^3.0.0"
+
 pretty-ms@^3.1.0:
   version "3.2.0"
   resolved "https://registry.yarnpkg.com/pretty-ms/-/pretty-ms-3.2.0.tgz#87a8feaf27fc18414d75441467d411d6e6098a25"

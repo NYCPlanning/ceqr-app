@@ -1,15 +1,33 @@
 import JWT from 'jsonwebtoken';
 import ENV from 'labs-ceqr/config/environment';
 import cartoresponses from './fixtures/cartoresponses';
+import patchXMLHTTPRequest from './helpers/mirage-mapbox-gl-monkeypatch';
 
 const secret = 'nevershareyoursecret';
 
 export default function() {
-  // allow all static requests
+  patchXMLHTTPRequest();
+
+  /**
+   *
+   * Passthroughs
+   *
+   */
   this.passthrough('/data-tables/**');
   this.passthrough('/ceqr-manual/**');
+  this.passthrough('https://api.mapbox.com/**');
+  this.passthrough('https://events.mapbox.com/events/**');
+  this.passthrough('https://planninglabs.carto.com/api/v1/map');
+  this.passthrough('https://cartocdn-gusc-a.global.ssl.fastly.net/planninglabs/**');
+  this.passthrough('https://cartocdn-gusc-b.global.ssl.fastly.net/planninglabs/**');
+  this.passthrough('https://cartocdn-gusc-c.global.ssl.fastly.net/planninglabs/**');
+  this.passthrough('https://cartocdn-gusc-d.global.ssl.fastly.net/planninglabs/**');
 
-  // Carto requests
+  /**
+   *
+   * Carto Data
+   *
+   */
   this.get(`https://${ENV.carto['domain']}/**`, function(schema, request) {
     const { response: { content: { text } } } = cartoresponses.log.entries.find((entry) => {
       // decode encoded uri so it's less noisy. trim it, then extract the columns
@@ -23,19 +41,30 @@ export default function() {
     return JSON.parse(text);
   });
 
-  this.post(`${ENV.host}/auth/v1/login`, function() {
-    const token = JWT.sign({ id: 1, user: 'me@me.com' }, secret);
+  /**
+   *
+   * Users/Auth
+   *
+   */
+  this.post('/auth/v1/login', function() {
+    const token = JWT.sign({ user_id: 1, email: 'me@me.com' }, secret);
 
     return {
       token,
     };
   });
 
-  this.namespace = `${ENV.host}/api/v1`;
+  // everything after this is scoped to this namespace
+  this.namespace = 'api/v1';
+  this.get('users/:id');
 
+  /**
+   *
+   * Projects
+   *
+   */
   this.get('projects');
   this.get('projects/:id');
-
   this.post('projects', function(schema) {
     const attrs = this.normalizedRequestAttrs();
 
@@ -47,11 +76,21 @@ export default function() {
 
     return project;
   });
-
   this.patch('projects');
+  this.patch('projects/:id');
 
+  /**
+   *
+   * Analyses
+   *
+   */
   this.patch('public-schools-analyses/:id');
 
+  /**
+   *
+   * BBLs
+   *
+   */
   this.get('bbls');
 
   // These comments are here to help you get started. Feel free to delete them.
