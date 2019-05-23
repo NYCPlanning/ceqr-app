@@ -1,14 +1,14 @@
 import { module, test } from 'qunit';
 import { setupTest } from 'ember-qunit';
 
-import SubdistrictLevelTotals from 'labs-ceqr/fragments/public-schools/SubdistrictLevelTotals';
+import SubdistrictTotals from 'labs-ceqr/fragments/public-schools/SubdistrictTotals';
 import School from 'labs-ceqr/fragments/public-schools/School';
 
-module('Unit | Fragment | SubdistrictLevelTotals', function(hooks) {
+module('Unit | Fragment | SubdistrictTotals', function(hooks) {
   setupTest(hooks);
   
   test('#buildings returns correct filters list', function(assert) {
-    let buildings =  [
+    let schools =  [
       School.create({
         level: 'hs',
         district: 1,
@@ -31,8 +31,8 @@ module('Unit | Fragment | SubdistrictLevelTotals', function(hooks) {
       }),
     ];
 
-    let hs_school_totals = SubdistrictLevelTotals.create({
-      allBuildings: buildings,
+    let hs_school_totals = SubdistrictTotals.create({
+      allBuildings: schools,
       level: 'hs'
     });
 
@@ -44,8 +44,8 @@ module('Unit | Fragment | SubdistrictLevelTotals', function(hooks) {
       })
     ]);
 
-    let ps_school_totals = SubdistrictLevelTotals.create({
-      allBuildings: buildings,
+    let ps_school_totals = SubdistrictTotals.create({
+      allBuildings: schools,
       level: 'ps',
       district: 1,
       subdistrict: 2
@@ -61,7 +61,7 @@ module('Unit | Fragment | SubdistrictLevelTotals', function(hooks) {
   });
 
   test('#enrollmentTotal returns correct calculation', function(assert) {
-    let buildings = [
+    let schools = [
       School.create({
         level: 'hs',
         enroll: 125
@@ -72,8 +72,8 @@ module('Unit | Fragment | SubdistrictLevelTotals', function(hooks) {
       })
     ];
 
-    let school_totals = SubdistrictLevelTotals.create({
-      allBuildings: buildings,
+    let school_totals = SubdistrictTotals.create({
+      allBuildings: schools,
       level: 'hs'
     });
 
@@ -82,7 +82,7 @@ module('Unit | Fragment | SubdistrictLevelTotals', function(hooks) {
   });
 
 test('#capacityTotal returns correct calculation', function(assert) {
-  let buildings = [
+  let schools = [
     School.create({
       level: 'hs',
       capacity: 140
@@ -98,8 +98,8 @@ test('#capacityTotal returns correct calculation', function(assert) {
     })
   ];
 
-  let school_totals = SubdistrictLevelTotals.create({
-    allBuildings: buildings,
+  let school_totals = SubdistrictTotals.create({
+    allBuildings: schools,
     level: 'hs'
   });
 
@@ -108,7 +108,7 @@ test('#capacityTotal returns correct calculation', function(assert) {
   });
 
   test('#capacityTotalNoAction returns correct calculation', function(assert) {
-    let buildings = [
+    let schools = [
       School.create({
         level: 'hs',
         capacityFuture: 160
@@ -124,8 +124,8 @@ test('#capacityTotal returns correct calculation', function(assert) {
       }),
     ];
 
-    let school_totals = SubdistrictLevelTotals.create({
-      allBuildings: buildings,
+    let school_totals = SubdistrictTotals.create({
+      allBuildings: schools,
       level: 'hs'
     });
 
@@ -134,7 +134,7 @@ test('#capacityTotal returns correct calculation', function(assert) {
   });
 
   test('#seatsTotal returns correct calculation', function(assert) {
-    let buildings = [
+    let schools = [
       School.create({
         level: 'hs',
         seats: 160
@@ -145,8 +145,8 @@ test('#capacityTotal returns correct calculation', function(assert) {
       })
     ];
 
-    let school_totals = SubdistrictLevelTotals.create({
-      allBuildings: buildings,
+    let school_totals = SubdistrictTotals.create({
+      allBuildings: schools,
       level: 'hs'
     });
 
@@ -155,7 +155,7 @@ test('#capacityTotal returns correct calculation', function(assert) {
   });
 
   test('#utilizationTotal returns correct calculation', function(assert) {
-    let school_totals = SubdistrictLevelTotals.create({
+    let school_totals = SubdistrictTotals.create({
       level: 'hs',
       enrollmentTotal: 102,
       capacityTotal:  177
@@ -166,7 +166,7 @@ test('#capacityTotal returns correct calculation', function(assert) {
   });
 
   test('#enrollmentMetaTotal returns correct calculation', function(assert) {
-    let buildings = [
+    let schools = [
       School.create({
         level: 'hs',
         enroll: 160
@@ -185,8 +185,8 @@ test('#capacityTotal returns correct calculation', function(assert) {
       })
     ];
 
-    let school_totals = SubdistrictLevelTotals.create({
-      allBuildings: buildings,
+    let school_totals = SubdistrictTotals.create({
+      allBuildings: schools,
       level: 'ps'
     });
 
@@ -195,7 +195,7 @@ test('#capacityTotal returns correct calculation', function(assert) {
   });
 
   test('#capacityMetaTotal returns correct calculation', function(assert) {
-    let buildings = [
+    let schools = [
       School.create({
         level: 'hs',
         capacity: 160
@@ -219,8 +219,8 @@ test('#capacityTotal returns correct calculation', function(assert) {
       })
     ];
 
-    let school_totals = SubdistrictLevelTotals.create({
-      allBuildings: buildings,
+    let school_totals = SubdistrictTotals.create({
+      allBuildings: schools,
       level: 'ps'
     });
 
@@ -229,7 +229,7 @@ test('#capacityTotal returns correct calculation', function(assert) {
   });
 
   test('#seatsMetaTotal returns correct calculation', function(assert) {
-    let buildings = [
+    let schools = [
       School.create({
         level: 'hs',
         seats: 160
@@ -248,8 +248,8 @@ test('#capacityTotal returns correct calculation', function(assert) {
       })
     ];
 
-    let school_totals = SubdistrictLevelTotals.create({
-      allBuildings: buildings,
+    let school_totals = SubdistrictTotals.create({
+      allBuildings: schools,
       level: 'ps'
     });
 
@@ -258,7 +258,7 @@ test('#capacityTotal returns correct calculation', function(assert) {
   });
 
   test('#utilizationMetaTotal returns correct calculation', function(assert) {
-    let school_totals = SubdistrictLevelTotals.create({
+    let school_totals = SubdistrictTotals.create({
       level: 'hs',
       enrollmentMetaTotal: 131,
       capacityMetaTotal:  145
@@ -269,7 +269,7 @@ test('#capacityTotal returns correct calculation', function(assert) {
   });
 
   test('#enrollNoAction is calculated correctly', function(assert) {
-    let aggregate_totals = SubdistrictLevelTotals.create({
+    let aggregate_totals = SubdistrictTotals.create({
       enroll: 300,
       students: 400
     });
@@ -279,7 +279,7 @@ test('#capacityTotal returns correct calculation', function(assert) {
   });
 
   test('#enrollNoActionDelta is calculated correctly', function(assert) {
-    let aggregate_totals = SubdistrictLevelTotals.create({
+    let aggregate_totals = SubdistrictTotals.create({
       enrollNoAction: 400,
       enrollExistingConditions: 200
     });
@@ -289,7 +289,7 @@ test('#capacityTotal returns correct calculation', function(assert) {
   });
 
   test('#enrollWithAction is calculated correctly', function(assert) {
-    let aggregate_totals = SubdistrictLevelTotals.create({
+    let aggregate_totals = SubdistrictTotals.create({
       enrollNoAction: 400,
       studentsWithAction: 200
     });
@@ -299,7 +299,7 @@ test('#capacityTotal returns correct calculation', function(assert) {
   });
 
   test('#enrollWithActionDelta is calculated correctly', function(assert) {
-    let aggregate_totals = SubdistrictLevelTotals.create({
+    let aggregate_totals = SubdistrictTotals.create({
       enrollWithAction: 400,
       enrollExistingConditions: 200
     });
@@ -309,7 +309,7 @@ test('#capacityTotal returns correct calculation', function(assert) {
   });
 
   test('#enrollDifference is calculated correctly', function(assert) {
-    let aggregate_totals = SubdistrictLevelTotals.create({
+    let aggregate_totals = SubdistrictTotals.create({
       enrollWithAction: 400,
       enrollNoAction: 200
     });
@@ -319,7 +319,7 @@ test('#capacityTotal returns correct calculation', function(assert) {
   });
 
   test('#enrollDeltaDifference is calculated correctly', function(assert) {
-    let aggregate_totals = SubdistrictLevelTotals.create({
+    let aggregate_totals = SubdistrictTotals.create({
       enrollWithActionDelta: 400,
       enrollNoActionDelta: 200
     });
@@ -329,7 +329,7 @@ test('#capacityTotal returns correct calculation', function(assert) {
   });
 
   test('#capacityNoAction is calculated correctly', function(assert) {
-    let aggregate_totals = SubdistrictLevelTotals.create({
+    let aggregate_totals = SubdistrictTotals.create({
       capacityFuture: 400,
       scaCapacityIncrease: 200
     });
@@ -339,7 +339,7 @@ test('#capacityTotal returns correct calculation', function(assert) {
   });
 
   test('#capacityNoActionDelta is calculated correctly', function(assert) {
-    let aggregate_totals = SubdistrictLevelTotals.create({
+    let aggregate_totals = SubdistrictTotals.create({
       capacityNoAction: 400,
       capacityExisting: 200
     });
@@ -349,7 +349,7 @@ test('#capacityTotal returns correct calculation', function(assert) {
   });
 
   test('#capacityWithAction is calculated correctly', function(assert) {
-    let aggregate_totals = SubdistrictLevelTotals.create({
+    let aggregate_totals = SubdistrictTotals.create({
       capacityNoAction: 400,
       newCapacityWithAction: 200
     });
@@ -359,7 +359,7 @@ test('#capacityTotal returns correct calculation', function(assert) {
   });
 
   test('#capacityWithActionDelta is calculated correctly', function(assert) {
-    let aggregate_totals = SubdistrictLevelTotals.create({
+    let aggregate_totals = SubdistrictTotals.create({
       capacityWithAction: 400,
       capacityExisting: 200
     });
@@ -369,7 +369,7 @@ test('#capacityTotal returns correct calculation', function(assert) {
   });
 
   test('#capacityDifference is calculated correctly', function(assert) {
-    let aggregate_totals = SubdistrictLevelTotals.create({
+    let aggregate_totals = SubdistrictTotals.create({
       capacityWithAction: 400,
       capacityNoAction: 200
     });
@@ -379,7 +379,7 @@ test('#capacityTotal returns correct calculation', function(assert) {
   });
 
   test('#capacityDeltaDifference is calculated correctly', function(assert) {
-    let aggregate_totals = SubdistrictLevelTotals.create({
+    let aggregate_totals = SubdistrictTotals.create({
       capacityWithActionDelta: 400,
       capacityNoActionDelta: 200
     });
@@ -389,7 +389,7 @@ test('#capacityTotal returns correct calculation', function(assert) {
   });
 
   test('#seatsNoAction is calculated correctly', function(assert) {
-    let aggregate_totals = SubdistrictLevelTotals.create({
+    let aggregate_totals = SubdistrictTotals.create({
       capacityNoAction: 400,
       enrollNoAction: 200
     });
@@ -399,7 +399,7 @@ test('#capacityTotal returns correct calculation', function(assert) {
   });
 
   test('#seatsWithAction is calculated correctly', function(assert) {
-    let aggregate_totals = SubdistrictLevelTotals.create({
+    let aggregate_totals = SubdistrictTotals.create({
       capacityNoAction: 400,
       enrollWithAction: 200
     });
@@ -409,7 +409,7 @@ test('#capacityTotal returns correct calculation', function(assert) {
   });
 
   test('#seatsDifference is calculated correctly', function(assert) {
-    let aggregate_totals = SubdistrictLevelTotals.create({
+    let aggregate_totals = SubdistrictTotals.create({
       seatsWithAction: 400,
       seatsNoAction: 200
     });
@@ -419,7 +419,7 @@ test('#capacityTotal returns correct calculation', function(assert) {
   });
 
   test('#utilizationNoAction is calculated correctly', function(assert) {
-    let aggregate_totals = SubdistrictLevelTotals.create({
+    let aggregate_totals = SubdistrictTotals.create({
       enrollNoAction: 177,
       capacityNoAction: 181
     });
@@ -429,7 +429,7 @@ test('#capacityTotal returns correct calculation', function(assert) {
   });
 
   test('#utilizationWithAction is calculated correctly', function(assert) {
-    let aggregate_totals = SubdistrictLevelTotals.create({
+    let aggregate_totals = SubdistrictTotals.create({
       enrollWithAction: 177,
       capacityNoAction: 181
     });
@@ -439,7 +439,7 @@ test('#capacityTotal returns correct calculation', function(assert) {
   });
 
   test('#utilizationChange is calculated correctly', function(assert) {
-    let aggregate_totals = SubdistrictLevelTotals.create({
+    let aggregate_totals = SubdistrictTotals.create({
       utilizationWithAction: 100.44444,
       utilizationNoAction: 50.33333
     });
@@ -450,7 +450,7 @@ test('#capacityTotal returns correct calculation', function(assert) {
 
   test('#impact is calculated correctly', function(assert) {
     let aggregate_totals =
-    SubdistrictLevelTotals.create({
+    SubdistrictTotals.create({
       utilizationChange: 1,
       utilizationWithAction: 0.8
     });

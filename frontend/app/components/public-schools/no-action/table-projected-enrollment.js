@@ -3,33 +3,33 @@ import { computed } from '@ember/object';
 import LevelTotals from '../../../fragments/public-schools/LevelTotals';
 
 export default Component.extend({
-  psTable: computed('analysis.subdistrictLevelTotals.@each', function() {
-    return this.analysis.subdistrictLevelTotals.filterBy('level', 'ps');
+  psTable: computed('analysis.subdistrictTotals.@each', function() {
+    return this.analysis.subdistrictTotals.filterBy('level', 'ps');
   }),
 
-  psTableTotals: computed('analysis.subdistrictLevelTotals.@each', function() {
+  psTableTotals: computed('analysis.subdistrictTotals.@each', function() {
     return LevelTotals.create({
-      subdistrictTotals: this.analysis.subdistrictLevelTotals.filterBy('level', 'ps')
+      subdistrictTotals: this.analysis.subdistrictTotals.filterBy('level', 'ps')
     });
   }),
 
-  isTable: computed('analysis.subdistrictLevelTotals.@each', function() {
-    return this.analysis.subdistrictLevelTotals.filterBy('level', 'is');
+  isTable: computed('analysis.subdistrictTotals.@each', function() {
+    return this.analysis.subdistrictTotals.filterBy('level', 'is');
   }),
 
-  isTableTotals: computed('analysis.subdistrictLevelTotals.@each', function() {
+  isTableTotals: computed('analysis.subdistrictTotals.@each', function() {
     return LevelTotals.create({
-      subdistrictTotals: this.analysis.subdistrictLevelTotals.filterBy('level', 'is')
+      subdistrictTotals: this.analysis.subdistrictTotals.filterBy('level', 'is')
     });
   }),
 
-  hsTable: computed('analysis.subdistrictLevelTotals.@each', function() {
-    return this.analysis.subdistrictLevelTotals.filterBy('level', 'hs');
+  hsTable: computed('analysis.subdistrictTotals.@each', function() {
+    return this.analysis.subdistrictTotals.filterBy('level', 'hs');
   }),
 
-  hsTableTotals: computed('analysis.subdistrictLevelTotals.@each', function() {
+  hsTableTotals: computed('analysis.subdistrictTotals.@each', function() {
     return LevelTotals.create({
-      subdistrictTotals: this.analysis.subdistrictLevelTotals.filterBy('level', 'hs')
+      subdistrictTotals: this.analysis.subdistrictTotals.filterBy('level', 'hs')
     });
   }),
 });

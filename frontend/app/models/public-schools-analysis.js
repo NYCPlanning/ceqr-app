@@ -1,7 +1,7 @@
 import DS from 'ember-data';
 import { computed } from '@ember/object';
 
-import SubdistrictLevelTotals from '../fragments/public-schools/SubdistrictLevelTotals';
+import SubdistrictTotals from '../fragments/public-schools/SubdistrictTotals';
 
 export default DS.Model.extend({  
   project: DS.belongsTo('project'),
@@ -198,7 +198,7 @@ export default DS.Model.extend({
     ).compact();
   }),
 
-  subdistrictLevelTotals: computed(
+  subdistrictTotals: computed(
     'allSchools',
     'subdistricts',
     'currentMultiplier',
@@ -210,7 +210,7 @@ export default DS.Model.extend({
     function() {
       let tables = [];
 
-      tables.push(SubdistrictLevelTotals.create({
+      tables.push(SubdistrictTotals.create({
         borough: this.borough,
         level: 'hs',
         allBuildings: this.allSchools,
@@ -242,7 +242,7 @@ export default DS.Model.extend({
       }));
 
       this.subdistricts.map((sd) => {
-        tables.push(SubdistrictLevelTotals.create({
+        tables.push(SubdistrictTotals.create({
           ...sd,
           level: 'ps',
           allBuildings: this.allSchools,
@@ -287,7 +287,7 @@ export default DS.Model.extend({
           }, 0),
         }));
 
-        tables.push(SubdistrictLevelTotals.create({
+        tables.push(SubdistrictTotals.create({
           ...sd,
           level: 'is',
           allBuildings: this.allSchools,

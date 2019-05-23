@@ -22,9 +22,9 @@ export default Component.extend({
 
   table: computed('activeSdId', 'activeSchoolsLevel', function() {
     if (this.activeSchoolsLevel === 'hs') {
-      return this.analysis.subdistrictLevelTotals.findBy('level', 'hs');
+      return this.analysis.subdistrictTotals.findBy('level', 'hs');
     } else {
-      return this.analysis.subdistrictLevelTotals.find(
+      return this.analysis.subdistrictTotals.find(
         (total) => (total.id === parseInt(this.activeSdId) && total.level === this.activeSchoolsLevel)
       );
     }
