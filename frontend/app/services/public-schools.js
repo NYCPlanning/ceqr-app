@@ -1,7 +1,7 @@
 import Service from '@ember/service';
 import { task } from 'ember-concurrency';
 import carto from 'carto-promises-utility/utils/carto';
-import Building from '../decorators/Building';
+import School from '../fragments/public-schools/School';
 import { inject as service } from '@ember/service';
 
 export default Service.extend({
@@ -105,7 +105,7 @@ export default Service.extend({
         if (existing) {
           bluebookBuildings.push(existing);
         } else {
-          bluebookBuildings.push(Building.create({
+          bluebookBuildings.push(School.create({
             ...b,
             level: 'ps',
             source: 'bluebook',
@@ -123,7 +123,7 @@ export default Service.extend({
         if (existing) {
           bluebookBuildings.push(existing);
         } else {
-          bluebookBuildings.push(Building.create({
+          bluebookBuildings.push(School.create({
             ...b,
             level: 'is',
             source: 'bluebook',
@@ -143,7 +143,7 @@ export default Service.extend({
         if (existing) {
           bluebookBuildings.push(existing);
         } else {
-          bluebookBuildings.push(Building.create({
+          bluebookBuildings.push(School.create({
             ...b,
             level: 'hs',
             source: 'bluebook',
@@ -192,7 +192,7 @@ export default Service.extend({
 
       const previousSaved = this.analysis.lcgms.findBy('org_id', b.org_id);
 
-      if (isPs) lcgmsBuildings.push(Building.create({
+      if (isPs) lcgmsBuildings.push(School.create({
         ...b,
         level: 'ps',
         source: 'lcgms',
@@ -200,7 +200,7 @@ export default Service.extend({
         capacity: previousSaved ? previousSaved.capacity : '',
       }));
       
-      if (isIs) lcgmsBuildings.push(Building.create({
+      if (isIs) lcgmsBuildings.push(School.create({
         ...b,
         level: 'is',
         source: 'lcgms',
@@ -209,7 +209,7 @@ export default Service.extend({
       }));
       
       // Still need to deal with HS from LCGMS; will wait until LCGMS data issues are addressed
-      if (isHs) lcgmsBuildings.push(Building.create({
+      if (isHs) lcgmsBuildings.push(School.create({
         ...b,
         level: 'hs',
         source: 'lcgms',
@@ -297,7 +297,7 @@ export default Service.extend({
     `);
     this.set('analysis.scaProjects', scaProjects.map((b) => {
       const existing = this.analysis.scaProjects.findBy('project_dsf', b.project_dsf);
-      return Building.create({
+      return School.create({
         ...b,
         ps_capacity: existing ? existing.ps_capacity : (b.guessed_pct ? 0 : b.capacity * b.pct_ps),
         is_capacity: existing ? existing.is_capacity : (b.guessed_pct ? 0 : b.capacity * b.pct_is),

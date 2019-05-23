@@ -1,9 +1,9 @@
 import DS from 'ember-data';
-import Building from '../decorators/Building';
+import School from '../../fragments/public-schools/School';
 
 export default DS.Transform.extend({
   deserialize(serialized) {
-    return serialized.map(b => Building.create(b));
+    return serialized.map(b => School.create(b));
   },
 
   serialize(deserialized) {
