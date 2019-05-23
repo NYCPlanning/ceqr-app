@@ -3,8 +3,12 @@ import { computed } from '@ember/object';
 import round from '../../utils/round';
 
 /**
- * LevelTotals is a simple EmberObject used to aggregate 
- *
+ * LevelTotals is an EmberObject that aggregates the output of a list of SubdistrictTotals
+ * Three LevelTotals obejcts are created per analysis, one for each school level: ps, is, hs.
+ * 
+ * @constructor
+ * @param {SubdistrictTotal[]} subdistrictTotals - Array of SubdistrictTotal objects filtered by relevant level
+ * @param {integer} newSchoolSets - Total number of school seats for the filtered school level
  */
 
 

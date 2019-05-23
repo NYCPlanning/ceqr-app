@@ -3,6 +3,32 @@ import { computed } from '@ember/object';
 import { alias } from '@ember/object/computed';
 import round from '../../utils/round';
 
+/**
+ * SubdistrictTotals is an EmberObject that runs the fundamental calculations of a public schools analysis.
+ * It accepts a number attributes that come from the database, stored on the public-schools-analysis model.
+ * A SubdistrictTotals object is created for every ps and is school, per subdistrict. And one SubdistrictTotals
+ * for the borough wide hs analysis. (@todo a different object should probably exist specifically for hs analysis)
+ * 
+ * @constructor
+ * @param {string} level - ps, is, or hs
+ * 
+ * @param {string} borough - Borough if level is hs
+ * @param {integer} district - School district if level is ps or is
+ * @param {integer} subdistrict - School subdistrict if level is ps or is
+ * 
+ * @param {School[]} allBuildings - Array of all Schools received from the db
+ * 
+ * @param {integer} studentMultiplier - Multiplier for the given level
+ * @param {integer} enroll - Future enrollment for given level, subdistrict, and build year
+ * @param {integer} students - Future students from sca enrollment projections and any user-inputed future housing development
+ * @param {integer} scaCapacityIncrease - Additional school seats provided by future schools (from sca capital plan) user has included in analysis
+ * @param {integer} studentsWithAction - Number of students to be added by project under analysis
+ * @param {integer} newCapacityWithAction - Additional school seats provided by school built with project
+ * 
+ * @todo rename `buildings` attribut to `schools`
+ * @todo experiment with typescript for calculation fragments
+ */
+
 export default EmberObject.extend({
   buildings: computed('allBuildings', function() {
     if (this.level === 'hs') {

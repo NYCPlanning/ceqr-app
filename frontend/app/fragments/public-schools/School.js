@@ -11,7 +11,7 @@ import round from '../../utils/round';
  * @param {string} name - Name of school
  * @param {string} bldg_name - Building name, sometimes different from school name for multi-building schools
  * @param {string} address - Address of school
- * @param {integer} district - Building's school district 
+ * @param {integer} district - Building's school district
  * @param {integer} subdistrict - Building's school subdistrict
  * @param {string} org_id - DOE Organization ID of school
  * @param {string} bldg_id - DOE Building ID of school

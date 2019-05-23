@@ -114,7 +114,7 @@ export default DS.Model.extend({
     return this.get('lcgms').mapBy('cartodb_id');
   }),
 
-  scaProjects: DS.attr('public-schools/schools', { defaultValue() { return []; } }),
+  scaProjects: DS.attr('', { defaultValue() { return []; } }),
   scaProjectsCartoIds: computed('scaProjects.@each', function() {
     return this.scaProjects.mapBy('cartodb_id');
   }),
