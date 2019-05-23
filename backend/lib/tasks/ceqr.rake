@@ -4,7 +4,7 @@ namespace :ceqr do
     versions = ['november-2017', 'november-2018', 'may-2019']
 
     versions.each do |v|      
-      file_path = Rails.root.join('..', 'frontend', 'public', 'data-tables', 'public-schools', "#{v}.json").to_s
+      file_path = Rails.root.join('lib', 'data-tables', 'public-schools', "#{v}.json").to_s
       file = File.read file_path
       json = JSON.parse(file)
 
