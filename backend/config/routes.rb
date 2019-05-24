@@ -27,6 +27,4 @@ Rails.application.routes.draw do
       jsonapi_resources :bbls
     end
   end
-
-  mount_ember_app :frontend, to: "/"
 end

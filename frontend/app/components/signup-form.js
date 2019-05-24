@@ -4,6 +4,8 @@ import fetch from 'fetch';
 
 import $ from 'jquery';
 
+import ENV from 'labs-ceqr/config/environment';
+
 export default Component.extend({
   session: service(),
   router: service(),
@@ -24,7 +26,7 @@ export default Component.extend({
   
   actions: {
     createUser: function(user) {      
-      fetch('/auth/v1/signup', {
+      fetch(`${ENV.host}/auth/v1/signup`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
