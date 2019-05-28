@@ -3,7 +3,7 @@
     command = "yarn build --environment=production"
     environment = { DEPLOY_CONTEXT = "production", HOST = "https://api.ceqr.app" }
 
-# branch deployment (branch:staging)
+# branch deployment (branch:develop)
 [context.branch-deploy]
     command = "yarn build --environment=staging"
     environment = { DEPLOY_CONTEXT = "staging", HOST = "https://staging.api.ceqr.app" }
