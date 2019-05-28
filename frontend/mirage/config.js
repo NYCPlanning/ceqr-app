@@ -23,7 +23,7 @@ export default function() {
     return JSON.parse(text);
   });
 
-  this.post('/auth/v1/login', function() {
+  this.post(`${ENV.host}/auth/v1/login`, function() {
     const token = JWT.sign({ id: 1, user: 'me@me.com' }, secret);
 
     return {
@@ -31,12 +31,12 @@ export default function() {
     };
   });
 
-  this.namespace = 'api/v1';
+  const ceqrAPIPath = `${ENV.host}/api/v1`;
 
-  this.get('projects');
-  this.get('projects/:id');
+  this.get(`${ceqrAPIPath}/projects`);
+  this.get(`${ceqrAPIPath}/projects/:id`);
 
-  this.post('projects', function(schema) {
+  this.post(`${ceqrAPIPath}/projects`, function(schema) {
     const attrs = this.normalizedRequestAttrs();
 
     attrs.borough = 'Manhattan';
@@ -48,11 +48,11 @@ export default function() {
     return project;
   });
 
-  this.patch('projects');
+  this.patch(`${ceqrAPIPath}/projects`);
 
-  this.patch('public-schools-analyses/:id');
+  this.patch(`${ceqrAPIPath}/public-schools-analyses/:id`);
 
-  this.get('bbls');
+  this.get(`${ceqrAPIPath}/bbls`);
 
   // These comments are here to help you get started. Feel free to delete them.
 

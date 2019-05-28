@@ -1,21 +1,9 @@
 {
+  "env": {
+    "PROJECT_PATH": "backend"
+  },
   "buildpacks": [
-    { "url": "https://github.com/heroku/heroku-buildpack-nodejs" },
-    { "url": "https://github.com/heroku/heroku-buildpack-ruby" },
-    { "url": "https://github.com/heroku/heroku-buildpack-google-chrome" }
-  ],
-  "environments": {
-    "test": {
-      "addons": ["heroku-postgresql:hobby-dev"],
-      "scripts": {
-        "test-setup": "bundle exec rails ember:install",
-        "test": "bundle exec rspec && bundle exec rails ember:test"
-      },
-      "env": {
-        "JWT_SALT": "TEST_RANDOM_KEY",
-        "ADMIN_EMAILS": "test@example.com",
-        "SENDGRID_KEY": "NOPE"
-      }
-    }
-  }
+    { "url": "https://github.com/timanovsky/subdir-heroku-buildpack.git" },
+    { "url": "https://github.com/heroku/heroku-buildpack-ruby" }
+  ]
 }

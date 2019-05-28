@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.6.0'
+ruby '2.6.3'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.2.1'
@@ -21,9 +21,7 @@ gem 'sentry-raven'
 gem 'bootsnap', '>= 1.1.0', require: false
 
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
-# gem 'rack-cors'
-
-gem "ember-cli-rails", '~> 0.10.0'
+gem 'rack-cors'
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
@@ -54,6 +52,7 @@ group :development, :test do
   gem 'shoulda-matchers', '~> 3.1'
   gem 'faker', '~> 1.9.1'
   gem 'rspec-activemodel-mocks'
+  gem 'lograge'
 
   # This is a jsonapi test helper tied to another JSONAPI (previous JSONAPI Suite, now called Graphiti) ruby gem. 
   # It was the most elegant, in my opinion.

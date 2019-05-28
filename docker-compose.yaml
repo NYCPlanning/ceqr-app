@@ -1,20 +1,43 @@
-version: '3'
+version: '3.7'
 services:
-  # ceqr service
-  ceqr:
-    build: .
+  # ceqr app service
+  backend:
+    build: backend
     entrypoint: ./entrypoint.sh
     volumes:
-      - .:/app
+      - ./backend:/app
     ports:
-      - "3000:3000"
+      - "3000:${SERVICE_PORT}"
     environment:
-      PORT: 3000
+      PORT: ${SERVICE_PORT}
       DATABASE_URL: postgis://postgres@postgis:5432/ceqr_rails
-      CEQR_DATA_DB_URL: postgis://test_ceqr_app:rhqnwjwiup4yafzw@cear-data-do-user-1939427-0.db.ondigitalocean.com:25060/ceqr_data
+      CEQR_DATA_DB_URL: postgis://test_ceqr_app:${PSQL_PASSWORD}@ceqr-data-readonly-do-user-1939427-0.db.ondigitalocean.com:25060/ceqr_data
       JWT_SALT: saltysaltysalt
       SENDGRID_KEY: ''
       ADMIN_EMAILS: ''
+    healthcheck:
+      test: ["CMD", "curl", "http://localhost:3000"]
+      interval: 10s
+      timeout: 30s
+      retries: 3
+  # ceqr app frontend
+  frontend:
+    image: danlynn/ember-cli
+    entrypoint: ./entrypoint.sh
+    volumes:
+      - ./frontend:/myapp
+    ports:
+      - "4200:4200"
+    environment:
+      HOST: http://localhost:3000
+      BUILD_CONTEXT: docker
+    healthcheck:
+      test: ["CMD", "curl", "http://localhost:4200"]
+      interval: 1m
+      timeout: 30s
+      start_period: 5m
+      retries: 5
+
   # postgis backend
   postgis:
     image: mdillon/postgis
@@ -23,9 +46,9 @@ services:
   # short-lived container to create db if not already running
   # have to use the app image build b/c we need rails installed to migrate the db
   migrate:
-    build: .
+    build: backend
     entrypoint: ./migrate.sh
     volumes:
-      - .:/app
+      - ./backend:/app
     environment:
       DATABASE_URL: postgis://postgres@postgis:5432/ceqr_rails

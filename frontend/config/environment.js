@@ -1,7 +1,19 @@
 'use strict';
 
 module.exports = function(environment) {
+
+  const BUILD_CONTEXT = `${process.env.BUILD_CONTEXT}` || 'localdev';
+  let host;
+  if (BUILD_CONTEXT === 'test' || BUILD_CONTEXT === 'localdev') {
+   // Mirage data requires host to be set ('undefined' causes problems) so set host to empty string
+    host = ''
+  } else {
+   // All other contexts (production, staging, branch_deploy, docker) expect HOST to be set by an environment variable HOST
+   host = `${process.env.HOST}`;
+  }
+
   let ENV = {
+    host,
     'mapbox-gl': {
       accessToken: 'pk.eyJ1IjoicGljaG90IiwiYSI6ImNqbWIzYzFyeTVrbHAzcW9nbmRmeXNmbHcifQ.VEiOF5YV_9kxwXekZ3fWLA'
     },
@@ -10,7 +22,7 @@ module.exports = function(environment) {
       domain: 'planninglabs.carto.com',
     },
     'ember-simple-auth-token': {
-      serverTokenEndpoint: '/auth/v1/login',
+      serverTokenEndpoint: `${host}/auth/v1/login`,
       refreshAccessTokens: false,
       tokenExpireName: 'exp',
       tokenExpirationInvalidateSession: true,
@@ -63,10 +75,10 @@ module.exports = function(environment) {
   };
 
   if (environment === 'development') {
-    ENV['ember-simple-auth-token'].refreshAccessTokens = false;
     ENV['ember-simple-auth-token'].tokenExpirationInvalidateSession = false;
+    // only use mirage data when running the frontend as 'development' NOT in docker
     ENV['ember-cli-mirage'] = {
-      enabled: typeof process.env.RAILS_ENV === 'undefined',
+      enabled: process.env.BUILD_CONTEXT === 'docker' ? false : typeof process.env.RAILS_ENV === 'undefined',
     }
     // ENV.APP.LOG_RESOLVER = true;
     // ENV.APP.LOG_ACTIVE_GENERATION = true;
@@ -86,7 +98,6 @@ module.exports = function(environment) {
     ENV.APP.rootElement = '#ember-testing';
     ENV.APP.autoboot = false;
 
-    ENV['ember-simple-auth-token'].refreshAccessTokens = false;
     ENV['ember-simple-auth-token'].tokenExpirationInvalidateSession = false;
   }
 
