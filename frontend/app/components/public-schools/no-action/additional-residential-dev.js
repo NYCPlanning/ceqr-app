@@ -1,5 +1,5 @@
 import Component from '@ember/component';
-import FutureResidentialDevelopment from '../../../decorators/public-schools/FutureResidentialDevelopment';
+import FutureResidentialDevelopment from '../../../fragments/public-schools/FutureResidentialDevelopment';
 
 export default Component.extend({
   init() {
