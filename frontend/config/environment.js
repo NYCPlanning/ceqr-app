@@ -2,14 +2,14 @@
 
 module.exports = function(environment) {
 
-  const BUILD_CONTEXT = `${process.env.BUILD_CONTEXT}` || 'localdev';
+  const BUILD_CONTEXT = process.env.BUILD_CONTEXT || 'localdev';
   let host;
   if (BUILD_CONTEXT === 'test' || BUILD_CONTEXT === 'localdev') {
    // Mirage data requires host to be set ('undefined' causes problems) so set host to empty string
     host = ''
   } else {
    // All other contexts (production, staging, branch_deploy, docker) expect HOST to be set by an environment variable HOST
-   host = `${process.env.HOST}`;
+   host = process.env.HOST;
   }
 
   let ENV = {

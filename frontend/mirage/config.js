@@ -31,12 +31,12 @@ export default function() {
     };
   });
 
-  const ceqrAPIPath = `${ENV.host}/api/v1`;
+  this.namespace = `${ENV.host}/api/v1`;
 
-  this.get(`${ceqrAPIPath}/projects`);
-  this.get(`${ceqrAPIPath}/projects/:id`);
+  this.get('projects');
+  this.get('projects/:id');
 
-  this.post(`${ceqrAPIPath}/projects`, function(schema) {
+  this.post('projects', function(schema) {
     const attrs = this.normalizedRequestAttrs();
 
     attrs.borough = 'Manhattan';
@@ -48,11 +48,11 @@ export default function() {
     return project;
   });
 
-  this.patch(`${ceqrAPIPath}/projects`);
+  this.patch('projects');
 
-  this.patch(`${ceqrAPIPath}/public-schools-analyses/:id`);
+  this.patch('public-schools-analyses/:id');
 
-  this.get(`${ceqrAPIPath}/bbls`);
+  this.get('bbls');
 
   // These comments are here to help you get started. Feel free to delete them.
 
