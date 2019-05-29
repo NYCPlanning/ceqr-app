@@ -8,7 +8,7 @@ module.exports = function(environment) {
    // Mirage data requires host to be set ('undefined' causes problems) so set host to empty string
     host = ''
   } else {
-   // All other contexts (production, staging, branch_deploy, docker) expect HOST to be set by an environment variable HOST
+   // All other contexts (production, staging, preview, docker) expect HOST to be set by an environment variable HOST
    host = process.env.HOST;
   }
 
