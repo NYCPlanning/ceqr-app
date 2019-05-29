@@ -1,18 +1,23 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render, clearRender } from '@ember/test-helpers';
+import { render, clearRender, find } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
 module('Integration | Component | mapbox/carto-layer', function(hooks) {
   setupRenderingTest(hooks);
 
   test('it renders', async function(assert) {
-    // Set any properties with this.set('myProperty', 'value');
-    // Handle any actions with this.set('myAction', function(val) { ... });
+    this.tiles = ['https://cooltiles.com'];
+    this.map = {
+      instance: {
+        addLayer() {},
+        removeLayer() {},
+      },
+    };
 
-    await render(hbs`{{mapbox/carto-layer}}`);
+    await render(hbs`{{mapbox/carto-layer map=map tiles=tiles id='test'}}`);
 
-    assert.equal(this.element.textContent.trim(), '');
+    assert.ok(find('#test'));
   });
 
   test('it call registration and tears down', async function(assert) {
@@ -30,5 +35,23 @@ module('Integration | Component | mapbox/carto-layer', function(hooks) {
     `);
 
     await clearRender();
+  });
+
+  test('it provides the layerId in block params', async function(assert) {
+    this.tiles = ['https://cooltiles.com'];
+    this.map = {
+      instance: {
+        addLayer() {},
+        removeLayer() {},
+      },
+    };
+
+    await render(hbs`
+      {{#mapbox/carto-layer map=map tiles=tiles id='test' as |layer|}}
+        {{layer.layerId}}
+      {{/mapbox/carto-layer}}
+    `);
+
+    assert.equal(this.element.textContent.trim(), 'test');
   });
 });

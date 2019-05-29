@@ -62,8 +62,8 @@ module('Integration | Component | mapbox/carto-vector-source', function(hooks) {
     });
 
     await render(hbs`
-      {{#mapbox/carto-vector-source map=map as |carto-layer|}}
-        {{carto-layer
+      {{#mapbox/carto-vector-source map=map as |carto-source|}}
+        {{carto-source.layer
           sql='select * from table'
           layer=(hash
             type='line'
@@ -101,22 +101,22 @@ module('Integration | Component | mapbox/carto-vector-source', function(hooks) {
 
     // Template block usage:
     await render(hbs`
-      {{#mapbox/carto-vector-source map=map as |carto-layer|}}
-        {{carto-layer
+      {{#mapbox/carto-vector-source map=map as |carto-source|}}
+        {{carto-source.layer
           sql='select * from table'
           layer=(hash
             type='line'
             paint=(hash line-color='red')
           )
         }}
-        {{carto-layer
+        {{carto-source.layer
           sql='select * from table'
           layer=(hash
             type='line'
             paint=(hash line-color='green')
           )
         }}
-        {{carto-layer
+        {{carto-source.layer
           sql='select * from table'
           layer=(hash
             type='line'
@@ -149,8 +149,8 @@ module('Integration | Component | mapbox/carto-vector-source', function(hooks) {
 
     // Template block usage:
     await render(hbs`
-      {{#mapbox/carto-vector-source map=map as |carto-layer|}}
-        {{carto-layer
+      {{#mapbox/carto-vector-source map=map as |carto-source|}}
+        {{carto-source.layer
           sql='select * from table'
           layer=(hash
             type='line'
@@ -159,7 +159,7 @@ module('Integration | Component | mapbox/carto-vector-source', function(hooks) {
         }}
 
         {{#if this.shouldShowLayer}}
-          {{carto-layer
+          {{carto-source.layer
             sql='select * from table2'
             layer=(hash
               type='line'
@@ -195,22 +195,22 @@ module('Integration | Component | mapbox/carto-vector-source', function(hooks) {
 
     // Template block usage:
     await render(hbs`
-      {{#mapbox/carto-vector-source map=map as |carto-layer|}}
-        {{carto-layer
+      {{#mapbox/carto-vector-source map=map as |carto-source|}}
+        {{carto-source.layer
           sql='select * from table'
           layer=(hash
             type='line'
             paint=(hash line-color='red')
           )
         }}
-        {{carto-layer
+        {{carto-source.layer
           sql='select * from table'
           layer=(hash
             type='line'
             paint=(hash line-color='green')
           )
         }}
-        {{carto-layer
+        {{carto-source.layer
           sql='select * from table'
           layer=(hash
             type='line'
