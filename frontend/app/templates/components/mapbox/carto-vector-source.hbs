@@ -11,11 +11,13 @@
     }}
   {{/if}}
 
-  {{yield (component 'mapbox/carto-layer'
-    registerWithParent=(action registry.registerLayer)
-    unregisterWithParent=(action registry.unregisterLayer)
-    map=map
-    tiles=this.mapboxSourceOptions.tiles
-    _parentElementId=this.elementId)
-  }}
+  {{yield (hash
+    layer=(component 'mapbox/carto-layer'
+      registerWithParent=(action registry.registerLayer)
+      unregisterWithParent=(action registry.unregisterLayer)
+      map=map
+      tiles=this.mapboxSourceOptions.tiles
+      _parentElementId=this.elementId
+    )
+  )}}
 {{/mapbox/layer-registry}}

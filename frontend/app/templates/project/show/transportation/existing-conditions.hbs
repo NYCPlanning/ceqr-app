@@ -2,38 +2,7 @@
 
 <div class="row">
   <div class="sixteen wide column">
-    {{#mapbox-gl
-      id="study-area-map"
-      initOptions=(hash
-        style="mapbox://styles/mapbox/light-v9"
-        zoom=9.2
-        center=(array -74 40.7071266)
-      ) as |map|
-    }}
-      {{#mapbox/carto-vector-source map=map as |carto-layer|}}
-        {{carto-layer
-          sql='select * from nyc_census_tracts_2010'
-          layer=(hash
-            type='fill'
-            paint=(hash fill-color='green')
-          )
-        }}
-        {{carto-layer
-          sql='select * from mta_subway_routes_v0'
-          layer=(hash
-            type='line'
-            paint=(hash line-color='red')
-          )
-        }}
-        {{carto-layer
-          sql='select * from mta_bus_stops_v0'
-          layer=(hash
-            type='circle'
-            paint=(hash circle-color='pink' circle-radius=1)
-          )
-        }}
-      {{/mapbox/carto-vector-source}}
-    {{/mapbox-gl}}
+    {{transportation/study-area-map}}
   </div>
 </div>
 

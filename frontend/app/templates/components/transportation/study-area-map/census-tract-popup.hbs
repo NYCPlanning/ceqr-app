@@ -1,0 +1,21 @@
+{{#mapbox/current-mouse-position map=map as |mapMouseEvent|}}
+  {{#mapbox/intersecting-features map=map
+    point=mapMouseEvent.point
+    options=(hash layers=(array layerId)) as |features|
+  }}
+    {{#if (and mapMouseEvent.point features)}}
+      {{#hover-card point=mapMouseEvent.point}}
+        <div class="ui card">
+          <div class="content">
+            <div class="header">{{features.firstObject.properties.boroname}}</div>
+            <div class="meta">
+              <span>2 days ago</span>
+              <a>{{features.firstObject.properties.boroname}}</a>
+            </div>
+            <p></p>
+          </div>
+        </div>
+      {{/hover-card}}
+    {{/if}}
+  {{/mapbox/intersecting-features}}
+{{/mapbox/current-mouse-position}}

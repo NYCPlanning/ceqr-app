@@ -286,3 +286,8 @@ table.school-summary-sections {
     }
   }
 }
+
+.map-tooltip {
+  position: absolute;
+  z-index: 9999;
+}
