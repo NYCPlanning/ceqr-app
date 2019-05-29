@@ -1,9 +1,11 @@
+{{!-- Shares the controller context from 'project' --}}
+
 {{title "[Transportation]" prepend=false}}
 
 {{#if showAnalysisSteps}}
   <div class="row">
     <div class="sixteen wide column">
-        {{transportation/analysis-steps project=project}}
+      {{transportation/analysis-steps project=project}}
     </div>
   </div>
 {{/if}}
