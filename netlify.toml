@@ -1,17 +1,17 @@
 # production deployment (branch:master)
 [context.production]
     command = "yarn build --environment=production"
-    environment = { DEPLOY_CONTEXT = "production", HOST = "https://api.ceqr.app" }
+    environment = { BUILD_CONTEXT = "production", HOST = "https://api.ceqr.app" }
 
 # branch deployment (branch:develop)
 [context.branch-deploy]
     command = "yarn build --environment=staging"
-    environment = { DEPLOY_CONTEXT = "staging", HOST = "https://staging.api.ceqr.app" }
+    environment = { BUILD_CONTEXT = "staging", HOST = "https://staging.api.ceqr.app" }
 
 # preview deployment (pull requests)
 [context.deploy-preview]
     command = "sed -i s/REVIEW_ID_PLACEHOLDER/${REVIEW_ID}/g ../netlify.toml && yarn build --environment=staging"
-    environment = { DEPLOY_CONTEXT = "preview_deploy", HOST = "api_proxy" }
+    environment = { BUILD_CONTEXT = "preview", HOST = "api_proxy" }
 
 [[redirects]]
     from = "/api_proxy/*"
@@ -27,3 +27,8 @@
     from = "/user/api_proxy/*"
     to = "https://ceqr-app-staging-pr-REVIEW_ID_PLACEHOLDER.herokuapp.com/:splat"
     status = 200 # force real proxy?
+
+[[redirects]]
+    from = "/*"
+    to = "/index.html"
+    status = 200
