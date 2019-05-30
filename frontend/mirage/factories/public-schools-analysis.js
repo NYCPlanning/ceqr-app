@@ -1,6 +1,86 @@
-import { Factory } from 'ember-cli-mirage';
+import { Factory, trait, association } from 'ember-cli-mirage';
 
 export default Factory.extend({
+  doeUtilChangesReduced: trait({
+        doeUtilChanges: [
+          {
+            url: "http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/pep-meetings-archive",
+            title: "The Proposed Temporary Co-location of the Ninth and Tenth Grades of Unity Preparatory Charter School of Brooklyn (84K757) with Brownsville Academy High School (17K568) in Building K907 Beginning in 2016-2017",
+            org_id: "K757",
+            bldg_id: "K907",
+            vote_date: "4/4/2016",
+            at_scale_year: "2017-18",
+            at_scale_enroll: 120,
+            bldg_id_additional: ""
+          },
+          {
+            url: "http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/2017-2018-pages/april-25-2018-school-utilization-proposals",
+            title: "The Proposed Re-Siting and Consolidation of Aspirations Diploma Plus High School (23K646) with W.E.B. Dubois Academic High School (17K489) in Building K824 Beginning in the 2018-2019 School Year",
+            org_id: "K646",
+            bldg_id: "K824",
+            vote_date: "4/25/2018",
+            at_scale_year: "2018-19",
+            at_scale_enroll: 255,
+            bldg_id_additional: ""
+          },
+          {
+            url: "http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/2017-2018-pages/april-25-2018-school-utilization-proposals",
+            title: "The Proposed Re-Siting and Consolidation of Aspirations Diploma Plus High School (23K646) with W.E.B. Dubois Academic High School (17K489) in Building K824 Beginning in the 2018-2019 School Year",
+            org_id: "K489",
+            bldg_id: "K824",
+            vote_date: "4/25/2018",
+            at_scale_year: "2018-19",
+            at_scale_enroll: null,
+            bldg_id_additional: ""
+          },
+          {
+            url: "http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/2017-2018-pages/april-25-2018-school-utilization-proposals",
+            title: "The Proposed Opening and Co-location of the Elementary School Grades of Uncommon Ocean Hill Collegiate Charter School (84K777) with P.S. 221 Toussaint L’Ouverture in Buildings K221 and K892 Beginning in the 2018-2019 School Year",
+            org_id: "K221",
+            bldg_id: "K221",
+            vote_date: "4/25/2018",
+            at_scale_year: "2022-23",
+            at_scale_enroll: 294,
+            bldg_id_additional: ""
+          },
+          {
+            url: "http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/pep-meetings-archive",
+            title: "The Proposed Co-location of Grades Six through Eight of\nExplore Exceed Charter School’s (84K333) with Existing Schools\nP.S. 375 Jackie Robinson School (17K375) and M.S. 352 Ebbets\nField Middle School (17K352) in Building K320 Beginning in\n2015-2016",
+            org_id: "K352",
+            bldg_id: "K320",
+            vote_date: "10/30/2013",
+            at_scale_year: "2017-18",
+            at_scale_enroll: 285,
+            bldg_id_additional: ""
+          },
+        ],
+      }),
+
+    subdistrictsFromUserAdded: trait({
+      subdistrictsFromUser: [
+        {
+          id: 185,
+          sdName: "District 18 - Subdistrict 5",
+          district: 17,
+          cartodb_id: 24,
+          subdistrict: 5
+        }
+      ],
+    }),
+
+
+
+  // traits ^^ //
+  /*--------------------------------------------------------------------------
+  ----------------------------------------------------------------------------
+  ----------------------------------------------------------------------------
+  --------------------------------------------------------------------------*/
+  project: association({
+      borough: "Brooklyn",
+      totalUnits: 500,
+      seniorUnits: 50,
+      buildYear: 2023
+    }),
   multipliers: () => ({
     version: "november-2018",
     districts: [
@@ -5038,8 +5118,140 @@ export default Factory.extend({
       the_geom_webmercator: "0101000020110F000002FD5E0159635FC17991CEBC15F35241"
     }
   ],
-  lcgms: () => [],
-  scaProjects: () => [],
+  lcgms: () => [
+    {
+      name: "Banana Bonanza",
+      bldg_id: "K005",
+      org_id: "K005",
+      org_level: "is",
+      address: "220 Henry Street",
+      grades: "6,7,8",
+      ps_enroll: 0,
+      is_enroll: 100,
+      hs_enroll: 0,
+      cartodb_id: 17,
+      source: "lcgms"
+    },
+    {
+      name: "Strawberry Sunrise",
+      bldg_id: "K006",
+      org_id: "K006",
+      org_level: "is",
+      address: "41 Broad Street",
+      grades: "6,7,8",
+      ps_enroll: 0,
+      is_enroll: 150,
+      hs_enroll: 0,
+      cartodb_id: 18,
+      source: "lcgms"
+    },
+  ],
+  scaProjects: () => [
+      {
+      name: "PRE-K CENTER @ 2 LAFAYETTE STREET",
+      capacity: 36,
+      cartodb_id: 51,
+      district: 17,
+      subdistrict: 2,
+      includeInCapacity: false,
+      ps_capacity: 36,
+      is_capacity: 0,
+      hs_capacity: 0,
+      org_level: "PK",
+      pct_ps: 0,
+      pct_is: 0,
+      pct_hs: 0,
+      funding_budget_15_19: 8.76,
+      funding_previous: 0,
+      guessed_pct: false,
+      pct_funded: 1,
+      start_date: "2015-07-01T00:00:00Z",
+      planned_end_date: "2016-08-01T00:00:00Z",
+      project_dsf: "DSF0000821653",
+      the_geom: "0101000020E61000004D2EC6C03A8052C096B377465B5B4440",
+      the_geom_webmercator: "0101000020110F0000F154AA60F66C5FC174F489C8B7F55241",
+      total_est_cost: 8.76,
+      source: "scaProjects"
+    },
+    {
+    name: "Donuts Delight",
+    capacity: 1000,
+    cartodb_id: 52,
+    district: 17,
+    subdistrict: 2,
+    includeInCapacity: true,
+    ps_capacity: 0,
+    is_capacity: 0,
+    hs_capacity: 1000,
+    org_level: "HS",
+    pct_ps: 0,
+    pct_is: 0,
+    pct_hs: 0,
+    funding_budget_15_19: 9.12,
+    funding_previous: 0,
+    guessed_pct: false,
+    pct_funded: 1,
+    start_date: "2015-07-01T00:00:00Z",
+    planned_end_date: "2016-08-01T00:00:00Z",
+    project_dsf: "DSF0000821653",
+    the_geom: "0101000020E61000004D2EC6C03A8052C096B377465B5B4440",
+    the_geom_webmercator: "0101000020110F0000F154AA60F66C5FC174F489C8B7F55241",
+    total_est_cost: 9.12,
+    source: "scaProjects"
+  },
+    {
+    name: "Peach Party",
+    capacity: 400,
+    cartodb_id: 53,
+    district: 17,
+    subdistrict: 2,
+    includeInCapacity: true,
+    ps_capacity: 300,
+    is_capacity: 100,
+    hs_capacity: 0,
+    org_level: "PSIS",
+    pct_ps: 0,
+    pct_is: 0,
+    pct_hs: 0,
+    funding_budget_15_19: 9.12,
+    funding_previous: 0,
+    guessed_pct: false,
+    pct_funded: 1,
+    start_date: "2015-07-01T00:00:00Z",
+    planned_end_date: "2016-08-01T00:00:00Z",
+    project_dsf: "DSF0000821653",
+    the_geom: "0101000020E61000004D2EC6C03A8052C096B377465B5B4440",
+    the_geom_webmercator: "0101000020110F0000F154AA60F66C5FC174F489C8B7F55241",
+    total_est_cost: 9.12,
+    source: "scaProjects"
+  },
+      {
+      name: "Pineapple Paradise",
+      capacity: 400,
+      cartodb_id: 54,
+      district: 17,
+      subdistrict: 2,
+      includeInCapacity: true,
+      ps_capacity: 0,
+      is_capacity: 100,
+      hs_capacity: 300,
+      org_level: "ISHS",
+      pct_ps: 0,
+      pct_is: 0,
+      pct_hs: 0,
+      funding_budget_15_19: 9.12,
+      funding_previous: 0,
+      guessed_pct: false,
+      pct_funded: 1,
+      start_date: "2015-07-01T00:00:00Z",
+      planned_end_date: "2016-08-01T00:00:00Z",
+      project_dsf: "DSF0000821653",
+      the_geom: "0101000020E61000004D2EC6C03A8052C096B377465B5B4440",
+      the_geom_webmercator: "0101000020110F0000F154AA60F66C5FC174F489C8B7F55241",
+      total_est_cost: 9.12,
+      source: "scaProjects"
+    },
+  ],
   doeUtilChanges: () => [
     {
       url: "http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/pep-meetings-archive",
@@ -6552,19 +6764,64 @@ export default Factory.extend({
       bldg_id_additional: ""
     }
   ],
-  residentialDevelopments: () => [],
+  residentialDevelopments: () => [
+    {
+      name: 'Hamster Heaven',
+      cartodb_id: 32,
+      id: 21,
+      district: 17,
+      subdistrict: 2,
+      multipliers: {},
+      sdName: "District 17 - Subdistrict 2",
+      total_units: 60,
+      year: 2022
+    },
+    {
+      name: 'Pig Palace',
+      cartodb_id: 32,
+      id: 22,
+      district: 17,
+      subdistrict: 2,
+      multipliers: {},
+      sdName: "District 17 - Subdistrict 2",
+      total_units: 50,
+      year: 2023
+    },
+  ],
   schoolsWithAction: () => [
     {
       id: 172,
       name: "William Gardner School for the Amaaaazing",
-      sdName: "District 17 - Subdistrict 2",
+      sdName: "District 1 - Subdistrict 2",
       district: 17,
-      hs_seats: 0,
-      is_seats: "2500",
-      ps_seats: 0,
+      hs_seats: 200,
+      is_seats: 300,
+      ps_seats: 50,
+      cartodb_id: 23,
+      subdistrict: 2,
+    },
+    {
+      id: 171,
+      name: "Watermelon Waterfall",
+      sdName: "District 1 - Subdistrict 1",
+      district: 1,
+      hs_seats: 100,
+      is_seats: 500,
+      ps_seats: 30,
+      cartodb_id: 24,
+      subdistrict: 1
+    },
+    {
+      id: 173,
+      name: "Lemon Luxury",
+      sdName: "District 1 - Subdistrict 2",
+      district: 17,
+      hs_seats: 150,
+      is_seats: 50,
+      ps_seats: 20,
       cartodb_id: 25,
-      subdistrict: 2
-    }
+      subdistrict: 2,
+    },
   ],
   hsProjections: () => [
     {
@@ -6578,6 +6835,12 @@ export default Factory.extend({
     {
       ms: 4368,
       ps: 9198,
+      district: 1,
+      school_year: "2020-21"
+    },
+    {
+      ms: 4456,
+      ps: 9456,
       district: 17,
       school_year: "2020-21"
     }
