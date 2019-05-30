@@ -1,6 +1,383 @@
-import { Factory } from 'ember-cli-mirage';
+import { Factory, trait, association } from 'ember-cli-mirage';
 
 export default Factory.extend({
+  // TRAIT for list of schools, including bluebook, lcgms, and scaProjects
+  schoolsForTests: trait({
+      bluebook: [
+        {
+          name: "I.S. 2 - K",
+          org_id: "K002",
+          source: "bluebook",
+          bldg_id: "K002",
+          cartodb_id: 11,
+          district: 1,
+          subdistrict: 2,
+          includeInCapacity: false,
+          hs_capacity: 1000,
+          ps_capacity: 0,
+          is_capacity: 0,
+          level: "hs"
+        },
+        {
+          name: "I.S. 61 - K",
+          org_id: "K061",
+          source: "bluebook",
+          bldg_id: "K022",
+          cartodb_id: 12,
+          district: 1,
+          subdistrict: 3,
+          includeInCapacity: true,
+          hs_capacity: 0,
+          ps_capacity: 300,
+          is_capacity: 100,
+          level: "ps"
+        },
+        {
+          name: "Starfruit Sauna",
+          org_id: "K061",
+          source: "bluebook",
+          bldg_id: "K022",
+          cartodb_id: 13,
+          district: 1,
+          subdistrict: 3,
+          includeInCapacity: true,
+          hs_capacity: 0,
+          ps_capacity: 100,
+          is_capacity: 300,
+          level: "is"
+        },
+        {
+          name: "P.S. 91 - K",
+          org_id: "K091",
+          source: "bluebook",
+          bldg_id: "K091",
+          cartodb_id: 14,
+          district: 1,
+          subdistrict: 2,
+          includeInCapacity: true,
+          hs_capacity: 500,
+          ps_capacity: 100,
+          is_capacity: 200,
+          level: "hs"
+        },
+      ],
+      // LCGMS SCHOOLS
+        lcgms: [
+          {
+            name: "Banana Bonanza",
+            bldg_id: "LCGMS_BB1",
+            cartodb_id: 21,
+            source: "lcgms",
+            district: 1,
+            subdistrict: 2,
+            includeInCapacity: false,
+            hs_capacity: 0,
+            ps_capacity: 300,
+            is_capacity: 500,
+            level: "ps"
+          },
+          {
+            name: "Strawberry Sunrise",
+            bldg_id: "LCGMS_SS1",
+            cartodb_id: 22,
+            source: "lcgms",
+            district: 1,
+            subdistrict: 3,
+            includeInCapacity: true,
+            hs_capacity: 0,
+            ps_capacity: 200,
+            is_capacity: 500,
+            level: "is"
+          },
+          {
+            name: "Cantelope Castle",
+            bldg_id: "LCGMS_CC1",
+            cartodb_id: 23,
+            source: "lcgms",
+            district: 1,
+            subdistrict: 2,
+            includeInCapacity: true,
+            hs_capacity: 100,
+            ps_capacity: 200,
+            is_capacity: 300,
+            level: "is"
+          },
+        ],
+        //SCA PROJECTS
+        scaProjects: [
+          // high schools
+          {
+          name: "Donuts Delight",
+          bldg_id: "SCA_DD1",
+          cartodb_id: 31,
+          district: 1,
+          subdistrict: 2,
+          source: "scaProjects",
+          includeInCapacity: true,
+          hs_capacity: 750,
+          ps_capacity: 100,
+          is_capacity: 100,
+          level: "hs"
+        },
+          {
+          name: "Avocado Adventure",
+          bldg_id: "SCA_AA1",
+          cartodb_id: 32,
+          district: 1,
+          subdistrict: 2,
+          source: "scaProjects",
+          includeInCapacity: true,
+          hs_capacity: 500,
+          ps_capacity: 100,
+          is_capacity: 100,
+          level: "hs"
+        },
+          {
+          name: "Clementine Canopy",
+          bldg_id: "SCA_CC1",
+          cartodb_id: 33,
+          district: 1,
+          subdistrict: 2,
+          source: "scaProjects",
+          includeInCapacity: false,
+          hs_capacity: 1500,
+          ps_capacity: 100,
+          is_capacity: 100,
+          level: "hs"
+        },
+        // middle schools
+          {
+          name: "Peach Party",
+          bldg_id: "SCA_PP1",
+          cartodb_id: 34,
+          district: 1,
+          subdistrict: 2,
+          source: "scaProjects",
+          includeInCapacity: true,
+          hs_capacity: 100,
+          ps_capacity: 100,
+          is_capacity: 1200,
+          level: "is"
+        },
+          {
+          name: "Passionfruit Pavilion",
+          bldg_id: "SCA_PP2",
+          cartodb_id: 35,
+          district: 1,
+          subdistrict: 2,
+          source: "scaProjects",
+          includeInCapacity: false,
+          hs_capacity: 100,
+          ps_capacity: 100,
+          is_capacity: 550,
+          level: "is"
+        },
+          {
+          name: "Tangerine Tent",
+          bldg_id: "SCA_TT1",
+          cartodb_id: 36,
+          district: 1,
+          subdistrict: 2,
+          source: "scaProjects",
+          includeInCapacity: true,
+          hs_capacity: 100,
+          ps_capacity: 100,
+          is_capacity: 600,
+          level: "is"
+        },
+        // primary schools
+          {
+          name: "Pineapple Paradise",
+          bldg_id: "SCA_PP2",
+          cartodb_id: 37,
+          district: 1,
+          subdistrict: 2,
+          source: "scaProjects",
+          includeInCapacity: true,
+          hs_capacity: 100,
+          ps_capacity: 300,
+          is_capacity: 100,
+          level: "ps"
+        },
+        {
+        name: "Olive Oasis",
+        bldg_id: "SCA_OO1",
+        cartodb_id: 38,
+        district: 1,
+        subdistrict: 2,
+        source: "scaProjects",
+        includeInCapacity: false,
+        hs_capacity: 100,
+        ps_capacity: 250,
+        is_capacity: 100,
+        level: "ps"
+      },
+        {
+        name: "Grapefruit Garage",
+        bldg_id: "SCA_GG1",
+        cartodb_id: 39,
+        district: 1,
+        subdistrict: 2,
+        source: "scaProjects",
+        includeInCapacity: true,
+        hs_capacity: 100,
+        ps_capacity: 350,
+        is_capacity: 100,
+        level: "ps"
+      },
+    ],
+  }),
+
+
+
+  // TRAIT for testing subdistrictTotals
+  subdistrictTotalsTest: trait({
+    project: association({
+      borough: "Brooklyn",
+      totalUnits: 500,
+      seniorUnits: 50
+    }),
+    subdistrictsFromDb: () => [
+      {
+        id: 172,
+        sdName: "District 1 - Subdistrict 2",
+        district: 1,
+        cartodb_id: 25,
+        subdistrict: 2
+      }
+    ],
+    multipliers: ({
+      version: "november-2018",
+      districts: [
+        {
+          hs: 0.09,
+          is: 0.09,
+          ps: 0.24,
+          csd: 1,
+          borocode: "mn",
+          hsThreshold: 7126,
+          psisThreshold: 630
+        },
+      ],
+      thresholdHsStudents: 150,
+      thresholdPsIsStudents: 50
+    }),
+    hsProjections: [
+    {
+      hs: 15000,
+      year: 2020,
+      borough: "Brooklyn"
+      }
+    ],
+    hsStudentsFromHousing: 4000,
+    futureEnrollmentProjections: [
+    {
+      ms: 4368,
+      ps: 9198,
+      district: 1,
+      school_year: "2020-21",
+      subdistrict: 2
+    },
+    {
+      ms: 5000,
+      ps: 3200,
+      district: 2,
+      school_year: "2020-21"
+      },
+    ],
+    futureEnrollmentMultipliers: [
+    {
+      level: "PS",
+      district: 1,
+      multiplier: 0.383266818664257,
+      subdistrict: 2,
+    },
+    {
+      level: "MS",
+      district: 1,
+      multiplier: 0.582024949124332,
+      subdistrict: 2
+    }
+  ],
+  futureEnrollmentNewHousing: [
+    {
+      level: "PS",
+      district: 1,
+      students: 838,
+      subdistrict: 2
+    },
+    {
+      level: "MS",
+      district: 1,
+      students: 323,
+      subdistrict: 2
+    }
+  ],
+  schoolsWithAction: () => [
+    {
+      id: 172,
+      name: "William Gardner School for the Amaaaazing",
+      sdName: "District 17 - Subdistrict 2",
+      district: 1,
+      hs_seats: 200,
+      is_seats: 300,
+      ps_seats: 50,
+      cartodb_id: 23,
+      subdistrict: 2,
+    },
+    {
+      id: 171,
+      name: "Watermelon Waterfall",
+      sdName: "District 17 - Subdistrict 1",
+      district: 1,
+      hs_seats: 100,
+      is_seats: 500,
+      ps_seats: 30,
+      cartodb_id: 24,
+      subdistrict: 2
+    },
+    {
+      id: 173,
+      name: "Lemon Luxury",
+      sdName: "District 17 - Subdistrict 2",
+      district: 1,
+      hs_seats: 150,
+      is_seats: 50,
+      ps_seats: 20,
+      cartodb_id: 25,
+      subdistrict: 2,
+    },
+  ],
+  residentialDevelopments: () => [
+      {
+        name: 'Hamster Heaven',
+        district: 1,
+        subdistrict: 2,
+        multipliers: {},
+        total_units: 60,
+        ps_students: 100
+      },
+      {
+        name: 'Pig Palace',
+        district: 1,
+        subdistrict: 2,
+        multipliers: {},
+        total_units: 50,
+        ps_students: 200
+    },
+  ],
+}),
+
+
+
+
+
+  project: association({
+      borough: "Brooklyn",
+      totalUnits: 500,
+      seniorUnits: 50,
+      buildYear: 2023
+    }),
   multipliers: () => ({
     version: "november-2018",
     districts: [
@@ -6559,12 +6936,12 @@ export default Factory.extend({
       name: "William Gardner School for the Amaaaazing",
       sdName: "District 17 - Subdistrict 2",
       district: 17,
-      hs_seats: 0,
-      is_seats: "2500",
-      ps_seats: 0,
-      cartodb_id: 25,
-      subdistrict: 2
-    }
+      hs_seats: 200,
+      is_seats: 300,
+      ps_seats: 50,
+      cartodb_id: 23,
+      subdistrict: 2,
+    },
   ],
   hsProjections: () => [
     {
@@ -6580,7 +6957,7 @@ export default Factory.extend({
       ps: 9198,
       district: 17,
       school_year: "2020-21"
-    }
+    },
   ],
   futureEnrollmentMultipliers: () => [
     {
