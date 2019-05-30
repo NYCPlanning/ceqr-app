@@ -1,17 +1,17 @@
 # production deployment (branch:master)
 [context.production]
     command = "yarn build --environment=production"
-    environment = { BUILD_CONTEXT = "production", HOST = "https://api.ceqr.app" }
+    environment = { HOST = "https://api.ceqr.app" }
 
 # branch deployment (branch:develop)
 [context.branch-deploy]
     command = "yarn build --environment=staging"
-    environment = { BUILD_CONTEXT = "staging", HOST = "https://staging.api.ceqr.app" }
+    environment = { HOST = "https://staging.api.ceqr.app" }
 
 # preview deployment (pull requests)
 [context.deploy-preview]
     command = "sed -i s/REVIEW_ID_PLACEHOLDER/${REVIEW_ID}/g ../netlify.toml && yarn build --environment=staging"
-    environment = { BUILD_CONTEXT = "preview", HOST = "api_proxy" }
+    environment = { HOST = "api_proxy" }
 
 [[redirects]]
     from = "/api_proxy/*"
