@@ -1,4 +1,6 @@
 {{!-- binds a map event with an action using mapbox-gl's on method --}}
-{{mapbox-gl-on this.mapboxEventName (action 'handleEvent') eventSource=map.instance}}
+{{mapbox-gl-on 'mousemove' (action 'handleMouseMove') eventSource=map.instance}}
+
+{{mapbox-gl-on 'mouseout' (action 'handleMouseLeave') eventSource=map.instance}}
 
 {{yield currentMapMouseEvent}}

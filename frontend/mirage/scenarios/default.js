@@ -8,4 +8,5 @@ export default function(server) {
   server.create('bbl');
   server.create('project');
   server.create('user');
+  server.createList('modal-split', 20);
 }

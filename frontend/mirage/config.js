@@ -95,6 +95,19 @@ export default function() {
    */
   this.get('bbls');
 
+  /**
+   *
+   * BBLs
+   *
+   */
+  this.get('modal-splits/:id', function(schema, request) {
+    const record = schema.modalSplits.first();
+    const { params: { id } } = request;
+    record.id = id;
+
+    return record;
+  });
+
   // These comments are here to help you get started. Feel free to delete them.
 
   /*

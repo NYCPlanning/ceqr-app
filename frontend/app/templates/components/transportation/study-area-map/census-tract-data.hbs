@@ -1,0 +1,5 @@
+{{#throttle-property property=geoid as |geoid|}}
+  {{#needs-async needs=(find-record 'modal-split' geoid) as |censusData|}}
+    {{yield censusData}}
+  {{/needs-async}}
+{{/throttle-property}}
