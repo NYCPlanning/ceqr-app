@@ -41,6 +41,7 @@ export default function() {
     return JSON.parse(text);
   });
 
+  this.urlPrefix = `${ENV.host}`;
   /**
    *
    * Users/Auth
@@ -55,17 +56,18 @@ export default function() {
   });
 
   // everything after this is scoped to this namespace
-  this.namespace = 'api/v1';
-  this.get('users/:id');
+  this.namespace = '/api/v1';
+  this.get('/users/:id');
 
   /**
    *
    * Projects
    *
+  }
    */
-  this.get('projects');
-  this.get('projects/:id');
-  this.post('projects', function(schema) {
+  this.get('/projects');
+  this.get('/projects/:id');
+  this.post('/projects', function(schema) {
     const attrs = this.normalizedRequestAttrs();
 
     attrs.borough = 'Manhattan';
@@ -76,8 +78,8 @@ export default function() {
 
     return project;
   });
-  this.patch('projects');
-  this.patch('projects/:id');
+  this.patch('/projects');
+  this.patch('/projects/:id');
 
   /**
    *
