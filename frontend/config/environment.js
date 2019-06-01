@@ -71,6 +71,8 @@ module.exports = function(environment) {
     ENV['ember-cli-mirage'] = {
       enabled: process.env.BUILD_CONTEXT === 'docker' ? false : typeof process.env.RAILS_ENV === 'undefined',
     }
+
+    ENV.shouldThrowOnError = true;
     // ENV.APP.LOG_RESOLVER = true;
     // ENV.APP.LOG_ACTIVE_GENERATION = true;
     // ENV.APP.LOG_TRANSITIONS = true;
