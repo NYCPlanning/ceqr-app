@@ -1,99 +1,181 @@
 <table class="ui celled table">
   <thead>
-    <th class="seven wide">Land Use</th>
-    <th class="three wide">For Analysis</th>
-    <th class="three wide">Zone {{analysis.trafficZone}} Threshold</th>
-    <th class="three wide">Ratio</th>
+    <th class="seven wide">
+      Land Use
+    </th>
+    <th class="three wide">
+      For Analysis
+    </th>
+    <th class="three wide">
+      Zone
+      {{analysis.trafficZone}}
+      Threshold
+    </th>
+    <th class="three wide">
+      Ratio
+    </th>
   </thead>
-
   <tbody>
-  {{#if analysis.residentialUnitsRatio}}
-    <tr>
-      <td>Residential</td>
-      <td>{{analysis.residentialUnits}} units</td>
-      <td>{{residentialThreshold}} units</td>
-      <td>{{round analysis.residentialUnitsRatio decimals=2}}</td>
-    </tr>
-  {{/if}}
-
-  {{#if analysis.officeSqFtRatio}}
-    <tr>
-      <td>Office</td>
-      <td>{{analysis.officeSqFt}} gsf</td>
-      <td>{{officeThreshold}} gsf</td>
-      <td>{{round analysis.officeSqFtRatio decimals=2}}</td>
-    </tr>
-  {{/if}}
-
-  {{#if analysis.regionalRetailSqFtRatio}}
-    <tr>
-      <td>Regional Retail</td>
-      <td>{{analysis.regionalRetailSqFt}} gsf</td>
-      <td>{{regionalRetailThreshold}} gsf</td>
-      <td>{{round analysis.regionalRetailSqFtRatio decimals=2}}</td>
-    </tr>
-  {{/if}}
-
-  {{#if analysis.localRetailSqFtRatio}}
-    <tr>
-      <td>Local Retail</td>
-      <td>{{analysis.localRetailSqFt}} gsf</td>
-      <td>{{localRetailThreshold}} gsf</td>
-      <td>{{round analysis.localRetailSqFtRatio decimals=2}}</td>
-    </tr>
-  {{/if}}
-
-  {{#if analysis.restaurantSqFtRatio}}
-    <tr>
-      <td class={{if analysis.hasFastFood "warning"}}>
-        {{#if analysis.hasFastFood}}
-          {{#ui-popup title="Triggers Further Analysis" content="Fast Food restaurant land use always triggers a preliminary trip generation analysis"}}
-            Restaurant <i class="yellow attention icon"></i>
-          {{/ui-popup}}
-        {{else}}
-          Restaurant
-        {{/if}}
-      </td>
-      <td>{{analysis.restaurantSqFt}} gsf</td>
-      <td>{{restaurantThreshold}} gsf</td>
-      <td>{{round analysis.restaurantSqFtRatio decimals=2}}</td>
-    </tr>
-  {{/if}}
-
-  {{#if analysis.communityFacilitySqFtRatio}}
-    <tr>
-      <td class={{if analysis.hasCommunityFacility "warning"}}>
-        {{#if analysis.hasCommunityFacility}}
-          {{#ui-popup title="Triggers Further Analysis" content="Community Facility land use always triggers a preliminary trip generation analysis"}}
-            Community Facilities <i class="yellow attention icon"></i>
-          {{/ui-popup}}
-        {{else}}
-          Community Facilities
-        {{/if}}
-      </td>
-      <td>{{analysis.communityFacilitySqFt}} gsf</td>
-      <td>{{communityFacilityThreshold}} gsf</td>
-      <td>{{round analysis.communityFacilitySqFtRatio decimals=2}}</td>
-    </tr>
-  {{/if}}
-
-  {{#if analysis.offStreetParkingSpacesRatio}}
-    <tr>
-      <td>Off-Street Parking Facilities</td>
-      <td>{{analysis.offStreetParkingSpaces}} spaces</td>
-      <td>{{offStreetParkingThreshold}} spaces</td>
-      <td>{{round analysis.offStreetParkingSpacesRatio decimals=2}}</td>
-    </tr>
-  {{/if}}
+    {{#if analysis.residentialUnitsRatio}}
+      <tr>
+        <td>
+          Residential
+        </td>
+        <td>
+          {{analysis.residentialUnits}}
+          units
+        </td>
+        <td>
+          {{residentialThreshold}}
+          units
+        </td>
+        <td>
+          {{round analysis.residentialUnitsRatio decimals=2}}
+        </td>
+      </tr>
+    {{/if}}
+    {{#if analysis.officeSqFtRatio}}
+      <tr>
+        <td>
+          Office
+        </td>
+        <td>
+          {{analysis.officeSqFt}}
+          gsf
+        </td>
+        <td>
+          {{officeThreshold}}
+          gsf
+        </td>
+        <td>
+          {{round analysis.officeSqFtRatio decimals=2}}
+        </td>
+      </tr>
+    {{/if}}
+    {{#if analysis.regionalRetailSqFtRatio}}
+      <tr>
+        <td>
+          Regional Retail
+        </td>
+        <td>
+          {{analysis.regionalRetailSqFt}}
+          gsf
+        </td>
+        <td>
+          {{regionalRetailThreshold}}
+          gsf
+        </td>
+        <td>
+          {{round analysis.regionalRetailSqFtRatio decimals=2}}
+        </td>
+      </tr>
+    {{/if}}
+    {{#if analysis.localRetailSqFtRatio}}
+      <tr>
+        <td>
+          Local Retail
+        </td>
+        <td>
+          {{analysis.localRetailSqFt}}
+          gsf
+        </td>
+        <td>
+          {{localRetailThreshold}}
+          gsf
+        </td>
+        <td>
+          {{round analysis.localRetailSqFtRatio decimals=2}}
+        </td>
+      </tr>
+    {{/if}}
+    {{#if analysis.restaurantSqFtRatio}}
+      <tr>
+        <td class={{if analysis.hasFastFood "warning"}}>
+          {{#if analysis.hasFastFood}}
+            <UiPopup
+              @title="Triggers Further Analysis"
+              @content="Fast Food restaurant land use always triggers a preliminary trip generation analysis"
+            >
+              Restaurant
+              <i class="yellow attention icon"></i>
+            </UiPopup>
+          {{else}}
+            Restaurant
+          {{/if}}
+        </td>
+        <td>
+          {{analysis.restaurantSqFt}}
+          gsf
+        </td>
+        <td>
+          {{restaurantThreshold}}
+          gsf
+        </td>
+        <td>
+          {{round analysis.restaurantSqFtRatio decimals=2}}
+        </td>
+      </tr>
+    {{/if}}
+    {{#if analysis.communityFacilitySqFtRatio}}
+      <tr>
+        <td class={{if analysis.hasCommunityFacility "warning"}}>
+          {{#if analysis.hasCommunityFacility}}
+            <UiPopup
+              @title="Triggers Further Analysis"
+              @content="Community Facility land use always triggers a preliminary trip generation analysis"
+            >
+              Community Facilities
+              <i class="yellow attention icon"></i>
+            </UiPopup>
+          {{else}}
+            Community Facilities
+          {{/if}}
+        </td>
+        <td>
+          {{analysis.communityFacilitySqFt}}
+          gsf
+        </td>
+        <td>
+          {{communityFacilityThreshold}}
+          gsf
+        </td>
+        <td>
+          {{round analysis.communityFacilitySqFtRatio decimals=2}}
+        </td>
+      </tr>
+    {{/if}}
+    {{#if analysis.offStreetParkingSpacesRatio}}
+      <tr>
+        <td>
+          Off-Street Parking Facilities
+        </td>
+        <td>
+          {{analysis.offStreetParkingSpaces}}
+          spaces
+        </td>
+        <td>
+          {{offStreetParkingThreshold}}
+          spaces
+        </td>
+        <td>
+          {{round analysis.offStreetParkingSpacesRatio decimals=2}}
+        </td>
+      </tr>
+    {{/if}}
   </tbody>
-
   <tfoot>
-    <th colspan="3">Weighted Average</th>
+    <th colspan="3">
+      Weighted Average
+    </th>
     <th class={{if analysis.weightedAverageOver1 "warning"}}>
       {{#if analysis.weightedAverageOver1}}
-        {{#ui-popup title="Triggers Further Analysis" content=detailedAnalysisPopupText}}
-          {{round analysis.weightedAverage decimals=2}} <i class="yellow attention icon"></i>
-        {{/ui-popup}}
+        <UiPopup
+          @title="Triggers Further Analysis"
+          @content={{detailedAnalysisPopupText}}
+        >
+          {{round analysis.weightedAverage decimals=2}}
+          <i class="yellow attention icon"></i>
+        </UiPopup>
       {{else}}
         {{round analysis.weightedAverage decimals=2}}
       {{/if}}

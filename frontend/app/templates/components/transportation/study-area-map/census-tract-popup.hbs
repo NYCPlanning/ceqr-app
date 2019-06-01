@@ -1,35 +1,49 @@
-{{#mapbox/current-mouse-position map=map as |mapMouseEvent|}}
-  {{#mapbox/intersecting-features map=map
-    point=mapMouseEvent.point
-    options=(hash layers=(array layerId)) as |intersectingFeatures|
-  }}
+<Mapbox::CurrentMousePosition @map={{this.map}} as |mapMouseEvent|>
+  <Mapbox::IntersectingFeatures
+    @map={{this.map}}
+    @point={{mapMouseEvent.point}}
+    @options={{hash layers=(array layerId)}} as |intersectingFeatures|
+  >
     {{#if (and mapMouseEvent.point intersectingFeatures)}}
-      {{#hover-card point=mapMouseEvent.point}}
+      <HoverCard @point={{mapMouseEvent.point}}>
         <div class="ui card">
           <div class="content">
-            <div class="header">{{intersectingFeatures.firstObject.properties.boroname}}</div>
+            <div class="header">
+              {{intersectingFeatures.firstObject.properties.boroname}}
+            </div>
             <div class="meta">
-              <span>Census Tract ID: {{intersectingFeatures.firstObject.properties.geoid}}</span>
+              <span>
+                Census Tract ID:
+                {{intersectingFeatures.firstObject.properties.geoid}}
+              </span>
             </div>
             <div class="description">
-              {{#transportation/study-area-map/census-tract-data
-                geoid=intersectingFeatures.firstObject.properties.geoid as |censusData|}}
-                {{#censusData.loading}}
+              <Transportation::StudyAreaMap::CensusTractData
+                @geoid={{intersectingFeatures.firstObject.properties.geoid
+                }} as |censusData|
+              >
+                <censusData.loading>
                   <i class="spinner icon"></i>
-                {{/censusData.loading}}
-                {{#censusData.loaded as |data|}}
-                  <div class="header">{{data.count}}</div>
+                </censusData.loading>
+                <censusData.loaded as |data|>
+                  <div class="header">
+                    {{data.count}}
+                  </div>
                   <div class="meta">
-                    <span>2 days ago</span>
-                    <a>{{data.mode}}</a>
+                    <span>
+                      2 days ago
+                    </span>
+                    <a>
+                      {{data.mode}}
+                    </a>
                   </div>
                   <p></p>
-                {{/censusData.loaded}}
-              {{/transportation/study-area-map/census-tract-data}}
+                </censusData.loaded>
+              </Transportation::StudyAreaMap::CensusTractData>
             </div>
           </div>
         </div>
-      {{/hover-card}}
+      </HoverCard>
     {{/if}}
-  {{/mapbox/intersecting-features}}
-{{/mapbox/current-mouse-position}}
+  </Mapbox::IntersectingFeatures>
+</Mapbox::CurrentMousePosition>

@@ -1,24 +1,37 @@
 <div class="row">
-  <div class="sixteen wide column">     
-    <div class="ui {{if model.transportationAnalysis.detailedAnalysis "yellow" "grey"}} segment">
+  <div class="sixteen wide column">
+    <div
+      class="ui
+        {{if model.transportationAnalysis.detailedAnalysis "yellow" "grey"}}
+         segment"
+    >
       <h3>
         Does this project require a preliminary trip generation analysis?
-        <div class="ui big horizontal label {{if model.transportationAnalysis.detailedAnalysis "yellow" "grey"}}">
+        <div
+          class="ui big horizontal label
+            {{if model.transportationAnalysis.detailedAnalysis "yellow" "grey"
+            }}"
+        >
           {{if model.transportationAnalysis.detailedAnalysis "Yes" "No"}}
         </div>
       </h3>
     </div>
   </div>
 </div>
-
-<div class="row">
-  <div class="sixteen wide column">    
-    {{transportation/threshold-calculation analysis=model.transportationAnalysis}}
-  </div>
-</div>
-
 <div class="row">
   <div class="sixteen wide column">
-    {{transportation/traffic-zone-thresholds analysis=model.transportationAnalysis project=model.project}}
+    <Transportation::ThresholdCalculation
+      @analysis={{model.transportationAnalysis}}
+     />
+
+  </div>
+</div>
+<div class="row">
+  <div class="sixteen wide column">
+    <Transportation::TrafficZoneThresholds
+      @analysis={{model.transportationAnalysis}}
+      @project={{model.project}}
+     />
+
   </div>
 </div>

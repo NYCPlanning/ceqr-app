@@ -1,8 +1,11 @@
 {{#if public-schools.fullReload.isIdle}}
   <div class="sixteen wide column">
-    {{public-schools/no-action/no-action-steps project=project analysis=model.publicSchoolsAnalysis}}
-  </div>
+    <PublicSchools::NoAction::NoActionSteps
+      @project={{project}}
+      @analysis={{model.publicSchoolsAnalysis}}
+     />
 
+  </div>
   <div class="sixteen wide column">
     {{outlet}}
   </div>

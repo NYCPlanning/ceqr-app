@@ -1,15 +1,18 @@
 <div class="ui grid container site">
-  <div class="ui sixteen wide column">  
+  <div class="ui sixteen wide column">
     <div class="row">
       <table class="ui very basic celled table">
         <thead>
           <tr>
-            <th class="six wide">Project Name</th>
-            <th class="five wide">Last Updated</th>
+            <th class="six wide">
+              Project Name
+            </th>
+            <th class="five wide">
+              Last Updated
+            </th>
             <th class="two wide"></th>
           </tr>
         </thead>
-
         <tbody>
           {{#if model}}
             {{#each model as |project|}}
@@ -18,26 +21,34 @@
                   {{#link-to "project.show" project.id class="project-name"}}
                     {{project.name}}
                   {{/link-to}}
-
                   {{#if project.ceqrNumber}}
                     ({{project.ceqrNumber}})
                   {{/if}}
                 </td>
                 <td>
                   {{#if project.updated_at}}
-                    {{moment-format project.updated_at "MM/DD/YYYY"}} <span class="byline">by {{project.updated_by}}</span>
+                    {{moment-format project.updated_at "MM/DD/YYYY"}}
+                    <span class="byline">
+                      by
+                      {{project.updated_by}}
+                    </span>
                   {{/if}}
                 </td>
                 <td class="actions">
                   {{#if project.viewOnly}}
                     (summary only)
                   {{else}}
-                    {{#link-to "project.show.edit" project.id class="ui compact small labeled primary icon button"}}
-                      <i class="edit icon"></i>
-                      Edit
+                    {{#link-to
+                      "project.show.edit"
+                      project.id
+                      class="ui compact small labeled primary icon button"
+                    }}
+                      <i class="edit icon"></i>Edit
                     {{/link-to}}
-
-                    <button class="ui compact small negative icon button" {{action "deleteModal" project.id}}>
+                    <button
+                      class="ui compact small negative icon button"
+                      {{action "deleteModal" project.id}}
+                    >
                       <i class="trash icon"></i>
                     </button>
                   {{/if}}
@@ -46,16 +57,21 @@
             {{/each}}
           {{else}}
             <tr>
-              <td colspan="4">You have no projects assigned to you. Create a {{#link-to "project.new"}}new project{{/link-to}}.</td>
+              <td colspan="4">
+                You have no projects assigned to you. Create a
+                {{#link-to "project.new"}}
+                  new project
+                {{/link-to}}
+                .
+              </td>
             </tr>
           {{/if}}
         </tbody>
-
       </table>
     </div>
-
     <div class="row">
-      {{#link-to "project.new"
+      {{#link-to
+        "project.new"
         class="ui green button"
         data-test-new-project=true
       }}
@@ -64,18 +80,23 @@
     </div>
   </div>
 </div>
-
 <div class="ui mini modal">
-  <div class="header">Delete Project?</div>
-  <div class="content">
-    <p>Are you sure you want to delete this project? This cannot be undone.</p>
+  <div class="header">
+    Delete Project?
   </div>
-
+  <div class="content">
+    <p>
+      Are you sure you want to delete this project? This cannot be undone.
+    </p>
+  </div>
   <div class="actions">
     <div class="ui positive button">
       Cancel
     </div>
-    <div class="ui negative right labeled icon button" {{action "deleteProject"}}>
+    <div
+      class="ui negative right labeled icon button"
+      {{action "deleteProject"}}
+    >
       Delete
       <i class="trash icon"></i>
     </div>

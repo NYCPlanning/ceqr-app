@@ -1,63 +1,129 @@
 <h3 class="ui header attached top">
   Mitigation
 </h3>
-
 {{! template-lint-disable table-groups }}
 <table class="ui attached bottom celled table">
   <thead>
     <tr>
-      <th class="two wide">School Level</th>
-      <th class="two wide">Projected Enrollment without action</th>
-      <th class="two wide">Students Introduced by With-Action Development</th>
-      <th class="one wide">Projected Enrollment with action</th>
-      <th class="one wide">Capacity</th>
-      <th class="one wide">Available Seats</th>
-      <th class="one wide">Utilization (%)</th>
-      <th class="two wide">Change in Utilization (%) from No Action Condition</th>
+      <th class="two wide">
+        School Level
+      </th>
+      <th class="two wide">
+        Projected Enrollment without action
+      </th>
+      <th class="two wide">
+        Students Introduced by With-Action Development
+      </th>
+      <th class="one wide">
+        Projected Enrollment with action
+      </th>
+      <th class="one wide">
+        Capacity
+      </th>
+      <th class="one wide">
+        Available Seats
+      </th>
+      <th class="one wide">
+        Utilization (%)
+      </th>
+      <th class="two wide">
+        Change in Utilization (%) from No Action Condition
+      </th>
     </tr>
   </thead>
-
   {{#if psTable}}
     <tbody>
       <tr>
-        <td><strong>Primary Schools</strong></td>
-        <td>{{psTable.enrollNoActionTotal}}</td>
-        {{#td-hover payload=(hash name="studentsFromDev" level="ps")}}{{project.estEsStudents}}{{/td-hover}}
-        <td>{{psTable.enrollWithActionTotal}}</td>
-        <td>{{psTable.capacityWithActionTotal}}</td>
-        <td>{{psTable.seatsWithActionTotal}}</td>
-        {{#td-hover payload=(hash name="utilizationWithAction" level="ps")}}{{percentage psTable.utilizationWithActionTotal}}{{/td-hover}}
-        {{#td-hover payload=(hash name="utilizationChange" level="ps")}}{{percentage psTable.utilizationChangeTotal}}{{/td-hover}}
+        <td>
+          <strong>
+            Primary Schools
+          </strong>
+        </td>
+        <td>
+          {{psTable.enrollNoActionTotal}}
+        </td>
+        <TdHover @payload={{hash name="studentsFromDev" level="ps"}}>
+          {{project.estEsStudents}}
+        </TdHover>
+        <td>
+          {{psTable.enrollWithActionTotal}}
+        </td>
+        <td>
+          {{psTable.capacityWithActionTotal}}
+        </td>
+        <td>
+          {{psTable.seatsWithActionTotal}}
+        </td>
+        <TdHover @payload={{hash name="utilizationWithAction" level="ps"}}>
+          {{percentage psTable.utilizationWithActionTotal}}
+        </TdHover>
+        <TdHover @payload={{hash name="utilizationChange" level="ps"}}>
+          {{percentage psTable.utilizationChangeTotal}}
+        </TdHover>
       </tr>
     </tbody>
   {{/if}}
-
   {{#if isTable}}
     <tbody>
       <tr>
-        <td><strong>Intermediate Schools</strong></td>
-        <td>{{isTable.enrollNoActionTotal}}</td>
-        {{#td-hover payload=(hash name="studentsFromDev" level="is")}}{{project.estIsStudents}}{{/td-hover}}
-        <td>{{isTable.enrollWithActionTotal}}</td>
-        <td>{{isTable.capacityWithActionTotal}}</td>
-        <td>{{isTable.seatsWithActionTotal}}</td>
-        {{#td-hover payload=(hash name="utilizationWithAction" level="is")}}{{percentage isTable.utilizationWithActionTotal}}{{/td-hover}}
-        {{#td-hover payload=(hash name="utilizationChange" level="is")}}{{percentage isTable.utilizationChangeTotal}}{{/td-hover}}
+        <td>
+          <strong>
+            Intermediate Schools
+          </strong>
+        </td>
+        <td>
+          {{isTable.enrollNoActionTotal}}
+        </td>
+        <TdHover @payload={{hash name="studentsFromDev" level="is"}}>
+          {{project.estIsStudents}}
+        </TdHover>
+        <td>
+          {{isTable.enrollWithActionTotal}}
+        </td>
+        <td>
+          {{isTable.capacityWithActionTotal}}
+        </td>
+        <td>
+          {{isTable.seatsWithActionTotal}}
+        </td>
+        <TdHover @payload={{hash name="utilizationWithAction" level="is"}}>
+          {{percentage isTable.utilizationWithActionTotal}}
+        </TdHover>
+        <TdHover @payload={{hash name="utilizationChange" level="is"}}>
+          {{percentage isTable.utilizationChangeTotal}}
+        </TdHover>
       </tr>
     </tbody>
   {{/if}}
-
   {{#if project.hsAnalysis}}
     <tbody>
       <tr>
-        <td><strong>High Schools</strong></td>
-        <td>{{hsTable.enrollNoActionTotal}}</td>
-        {{#td-hover payload=(hash name="studentsFromDev" level="hs")}}{{project.estHsStudents}}{{/td-hover}}
-        <td>{{hsTable.enrollWithActionTotal}}</td>
-        <td>{{hsTable.capacityWithActionTotal}}</td>
-        <td>{{hsTable.seatsWithActionTotal}}</td>
-        {{#td-hover payload=(hash name="utilizationWithAction" level="hs")}}{{percentage hsTable.utilizationWithActionTotal}}{{/td-hover}}
-        {{#td-hover payload=(hash name="utilizationChange" level="hs")}}{{percentage hsTable.utilizationChangeTotal}}{{/td-hover}}
+        <td>
+          <strong>
+            High Schools
+          </strong>
+        </td>
+        <td>
+          {{hsTable.enrollNoActionTotal}}
+        </td>
+        <TdHover @payload={{hash name="studentsFromDev" level="hs"}}>
+          {{project.estHsStudents}}
+        </TdHover>
+        <td>
+          {{hsTable.enrollWithActionTotal}}
+        </td>
+        <td>
+          {{hsTable.capacityWithActionTotal}}
+        </td>
+        <td>
+          {{hsTable.seatsWithActionTotal}}
+        </td>
+        <TdHover @payload={{hash name="utilizationWithAction" level="hs"}}>
+          {{percentage hsTable.utilizationWithActionTotal}}
+        </TdHover>
+        <TdHover @payload={{hash name="utilizationChange" level="hs"}}>
+          {{percentage hsTable.utilizationChangeTotal}}
+        </TdHover>
       </tr>
     </tbody>
   {{/if}}

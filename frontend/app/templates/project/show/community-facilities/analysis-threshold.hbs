@@ -1,28 +1,29 @@
 <div class="row">
-  <div class="column">     
-    {{#project/detailed-analysis-banner
-      analysisNeeded=model.communityFacilitiesAnalysis.potentialLibraryImpact
-    }}
+  <div class="column">
+    <Project::DetailedAnalysisBanner
+      @analysisNeeded={{model.communityFacilitiesAnalysis.potentialLibraryImpact
+      }}
+    >
       Does this project require a detailed analysis of potential impacts to library capacity?
-    {{/project/detailed-analysis-banner}}
+    </Project::DetailedAnalysisBanner>
   </div>
 </div>
-
 <div class="row">
-  <div class="sixteen wide column">     
-    {{#project/detailed-analysis-banner
-      analysisNeeded=model.communityFacilitiesAnalysis.potentialChildCareImpact
-    }}
+  <div class="sixteen wide column">
+    <Project::DetailedAnalysisBanner
+      @analysisNeeded={{model.communityFacilitiesAnalysis.potentialChildCareImpact
+      }}
+    >
       Does this project require a detailed analysis of potential impacts to child care center capacity?
-    {{/project/detailed-analysis-banner}}
+    </Project::DetailedAnalysisBanner>
   </div>
 </div>
-
 <div class="row">
   <div class="column">
-    {{community-facilities/detailed-analysis-thresholds
-      analysis=model.communityFacilitiesAnalysis
-      project=model.project
-    }}
+    <CommunityFacilities::DetailedAnalysisThresholds
+      @analysis={{model.communityFacilitiesAnalysis}}
+      @project={{model.project}}
+     />
+
   </div>
 </div>

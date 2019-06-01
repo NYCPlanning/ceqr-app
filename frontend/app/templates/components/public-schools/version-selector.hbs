@@ -2,45 +2,45 @@
   {{#if project.viewOnly}}
     <div class="ui {{if dataOutdated "orange" "grey"}} medium label">
       {{#if dataOutdated}}
-        {{ui-popup 
-          tagName="i"
+        <UiPopup
+          @tagName="i"
           class="exclamation circle icon"
-          content="New data available"
-        }}
+          @content="New data available"
+         />
+
       {{/if}}
-      
-      Data Package: 
-      <div class="detail">{{humanize analysis.dataVersion}}</div>
+      Data Package:
+      <div class="detail">
+        {{humanize analysis.dataVersion}}
+      </div>
     </div>
- 
   {{else}}
     <div class="ui {{if dataOutdated "orange" "grey"}} medium label">
       {{#if dataOutdated}}
-        {{ui-popup 
-          tagName="i"
+        <UiPopup
+          @tagName="i"
           class="exclamation circle icon"
-          content="New data available"
-        }}
+          @content="New data available"
+         />
+
       {{/if}}
-      
-      Data Package: 
-      
+      Data Package:
       <div class="detail">
-        {{#ui-dropdown 
-          selected=analysis.dataVersion
+        <UiDropdown
+          @selected={{analysis.dataVersion}}
           class="public-schools-data-dropdown"
-        }}
+        >
           <div class="text"></div>
           <i class="dropdown icon"></i>
           <div class="menu">
-            <div 
+            <div
               data-value="november-2017"
               class="item"
               onClick={{action "changeDataVersion" "november-2017"}}
             >
               November 2017 (old multipliers)
             </div>
-            <div 
+            <div
               data-value="november-2018"
               class="item"
               onClick={{action "changeDataVersion" "november-2018"}}
@@ -48,13 +48,14 @@
               November 2018
             </div>
           </div>
-        {{/ui-dropdown}}
+        </UiDropdown>
       </div>
     </div>
   {{/if}}
-
   <div class="ui {{if dataOutdated "orange" "grey"}} medium label">
     Schools Multipliers:
-    <div class="detail">{{humanize analysis.multiplierVersion}}</div>
+    <div class="detail">
+      {{humanize analysis.multiplierVersion}}
+    </div>
   </div>
 </div>
