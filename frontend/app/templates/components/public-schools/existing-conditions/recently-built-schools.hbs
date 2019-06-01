@@ -1,33 +1,77 @@
 {{#if analysis.lcgms}}
   <div class="ui message">
-    <div class="header">Instructions</div>
-    <p>Find <strong>Target Capacity</strong> for each recently opened school at the <a href="https://dnnhh5cc1.blob.core.windows.net/portals/0/Capital_Plan/Utilization_Reports/Blue%20Book%202016-2017.pdf?sr=b&si=DNNFileManagerPolicy&sig=g7eZjXLOaaZfmXPHd0cFOjryIfBrVwF8D5mf9IFcSpA%3D" target="_blank" rel="noopener">
-      end of the Bluebook Enrollment, Capacity & Utilization Report <i class="file pdf icon"></i></a></p>
+    <div class="header">
+      Instructions
+    </div>
+    <p>
+      Find
+      <strong>
+        Target Capacity
+      </strong>
+      for each recently opened school at the
+      <a
+        href="https://dnnhh5cc1.blob.core.windows.net/portals/0/Capital_Plan/Utilization_Reports/Blue%20Book%202016-2017.pdf?sr=b&si=DNNFileManagerPolicy&sig=g7eZjXLOaaZfmXPHd0cFOjryIfBrVwF8D5mf9IFcSpA%3D"
+        target="_blank"
+        rel="noopener"
+      >
+        end of the Bluebook Enrollment, Capacity & Utilization Report
+        <i class="file pdf icon"></i>
+      </a>
+    </p>
   </div>
-
   <div class="ui top attached segment">
-    <h4>Schools opened in {{analysis.dataTables.sourceDates.lcgmsSchoolYear}} school year not captured in Blue Book</h4>
+    <h4>
+      Schools opened in
+      {{analysis.dataTables.sourceDates.lcgmsSchoolYear}}
+      school year not captured in Blue Book
+    </h4>
   </div>
-  
   <table class="ui celled attached table">
     <thead>
       <tr>
-        <th class="one wide">Org. ID</th>
-        <th class="four wide">School Name</th>
-        <th class="one wide">Grades</th>
-        <th class="five wide">Address</th>
-        <th class="one wide">Org Level</th>
-        <th class="one wide">Enrollment</th>
-        <th class="one wide">Target<br>Capacity</th>
-        <th class="one wide">Available<br>Seats</th>
-        <th class="one wide">Utilization (%)</th>
+        <th class="one wide">
+          Org. ID
+        </th>
+        <th class="four wide">
+          School Name
+        </th>
+        <th class="one wide">
+          Grades
+        </th>
+        <th class="five wide">
+          Address
+        </th>
+        <th class="one wide">
+          Org Level
+        </th>
+        <th class="one wide">
+          Enrollment
+        </th>
+        <th class="one wide">
+          Target
+          <br />
+          Capacity
+        </th>
+        <th class="one wide">
+          Available
+          <br />
+          Seats
+        </th>
+        <th class="one wide">
+          Utilization (%)
+        </th>
       </tr>
     </thead>
-
     <tbody>
       {{#each analysis.lcgms as |b|}}
-        {{#tr-hover class=b.org_level source=b.source id=b.cartodb_id}}
-          <td>{{b.org_id}}</td>
+        <TrHover
+          class={{b.org_level}}
+          @source={{b.source}}
+          @id={{b.cartodb_id}}
+        >
+          <td>
+            {{b.org_id}}
+          </td>
           <td>
             <i class="icons">
               <i class="circle new-school-outline icon"></i>
@@ -35,12 +79,21 @@
             </i>
             {{b.name}}
             {{#if (not-eq b.name b.bldg_name)}}
-              <br><em>{{b.bldg_name}}</em>
+              <br />
+              <em>
+                {{b.bldg_name}}
+              </em>
             {{/if}}
           </td>
-          <td>{{b.grades}}</td>
-          <td>{{b.address}}</td>
-          <td>{{b.org_level}}</td>
+          <td>
+            {{b.grades}}
+          </td>
+          <td>
+            {{b.address}}
+          </td>
+          <td>
+            {{b.org_level}}
+          </td>
           <td class="warning">
             <div class="ui input transparent warning edit-cell">
               {{input type="number" value=b.enroll placeholder="0"}}
@@ -51,30 +104,56 @@
               {{input type="number" value=b.capacity placeholder="0"}}
             </div>
           </td>
-          <td>{{b.seats}}</td>
-          <td>{{if b.excluded "N/A" (percentage b.utilization)}}</td>
-        {{/tr-hover}}
+          <td>
+            {{b.seats}}
+          </td>
+          <td>
+            {{if b.excluded "N/A" (percentage b.utilization)}}
+          </td>
+        </TrHover>
       {{/each}}
     </tbody>
   </table>
-
   <div class="ui clearing bottom attached segment">
-    <div class="ui right floated button compact primary {{if saving "loading"}}" {{action "save"}}>Save</div>
+    <div
+      class="ui right floated button compact primary {{if saving "loading"}}"
+      {{action "save"}}
+    >
+      Save
+    </div>
   </div>
-
   <div class="ui icon message">
     <i class="database icon"></i>
     <div class="content">
-      <div class="header"><a target="_blank" rel="noopener" href="https://data.cityofnewyork.us/Education/LCGMS-DOE-School-Information-Report/3bkj-34v2">DOE School Information Report (LCGMS) [{{analysis.dataTables.sourceDates.lcgms}}] <i class="external alternate icon"></i></a></div>
+      <div class="header">
+        <a
+          target="_blank"
+          rel="noopener"
+          href="https://data.cityofnewyork.us/Education/LCGMS-DOE-School-Information-Report/3bkj-34v2"
+        >
+          DOE School Information Report (LCGMS) [
+          {{analysis.dataTables.sourceDates.lcgms}}
+          ]
+          <i class="external alternate icon"></i>
+        </a>
+      </div>
       <p>
-      The Department of Education does not include schools built in the current year in Bluebook. For such schools,
+        The Department of Education does not include schools built in the current year in Bluebook. For such schools,
       data from the Department of Education's School Information report is used.
       </p>
-
       {{#if analysis.dataTables.sourceDates.demographicProfile}}
-        <div class="header"><a target="_blank" rel="noopener" href="https://data.cityofnewyork.us/Education/2013-2018-Demographic-Snapshot-School/s52a-8aq6">2013 - 2018 Demographic Snapshot School <i class="external alternate icon"></i></a></div>
+        <div class="header">
+          <a
+            target="_blank"
+            rel="noopener"
+            href="https://data.cityofnewyork.us/Education/2013-2018-Demographic-Snapshot-School/s52a-8aq6"
+          >
+            2013 - 2018 Demographic Snapshot School
+            <i class="external alternate icon"></i>
+          </a>
+        </div>
         <p>
-        The 2013 - 2018 Demographic Snapshot School provides enrollment numbers for newly built schools.
+          The 2013 - 2018 Demographic Snapshot School provides enrollment numbers for newly built schools.
         </p>
       {{/if}}
     </div>

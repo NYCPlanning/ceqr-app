@@ -4,11 +4,11 @@
       New Project
     </h2>
   </div>
-
   <div class="sixteen wide column">
-    {{project-details
-      project=(changeset model.project ProjectValidations)
-      save=(route-action "createProject")
-    }}
+    <ProjectDetails
+      @project={{changeset model.project ProjectValidations}}
+      @save={{route-action "createProject"}}
+     />
+
   </div>
 </div>

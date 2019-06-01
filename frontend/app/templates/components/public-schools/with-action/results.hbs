@@ -1,121 +1,172 @@
 <h4 class="ui header attached top">
   Impact & Mitigation
 </h4>
-
 {{! template-lint-disable table-groups }}
 <table class="ui attached celled table">
   <thead>
     <tr>
-      <th>School Level</th>
-      <th>Utilization (%) with Project</th>
-      <th>Change in Utilization (%) from No Action</th>
-      <th>Triggers a Significant Adverse Impact</th>
-      <th>Estimated Seats to Mitigate</th>
-      <th>Equivalent Reduction in Units</th>
+      <th>
+        School Level
+      </th>
+      <th>
+        Utilization (%) with Project
+      </th>
+      <th>
+        Change in Utilization (%) from No Action
+      </th>
+      <th>
+        Triggers a Significant Adverse Impact
+      </th>
+      <th>
+        Estimated Seats to Mitigate
+      </th>
+      <th>
+        Equivalent Reduction in Units
+      </th>
     </tr>
   </thead>
-
   {{#if ps}}
     <tbody>
       <tr class={{if ps.impact "negative"}}>
-        <td>Primary Schools</td>
-        {{#td-hover payload=(hash name="utilizationWithAction" level="ps")}}{{percentage ps.utilizationWithActionTotal}}{{/td-hover}}
-        {{#td-hover payload=(hash name="utilizationChange" level="ps")}}{{percentage ps.utilizationChangeTotal decimals=2}}{{/td-hover}}
-        
+        <td>
+          Primary Schools
+        </td>
+        <TdHover @payload={{hash name="utilizationWithAction" level="ps"}}>
+          {{percentage ps.utilizationWithActionTotal}}
+        </TdHover>
+        <TdHover @payload={{hash name="utilizationChange" level="ps"}}>
+          {{percentage ps.utilizationChangeTotal decimals=2}}
+        </TdHover>
         <td>
           {{#if ps.impact}}
-            <div 
-              class="ui red label" 
-              data-tooltip="Utilization with project is 100% or higher (at {{percentage ps.utilizationWithActionTotal}}) and Change in Utilization is 5% or higher (at {{percentage ps.utilizationChangeTotal decimals=2}})"
-              data-inverted=""
+            <div
+              class="ui red label"
+              data-tooltip="Utilization with project is 100% or higher (at
+                {{percentage ps.utilizationWithActionTotal}}
+                 ) and Change in Utilization is 5% or higher (at
+                {{percentage ps.utilizationChangeTotal decimals=2}}
+                 )"
+              data-inverted
             >
-              <i class="warning icon"></i> Likely
+              <i class="warning icon"></i>
+              Likely
             </div>
           {{else}}
             <div
               class="ui green label"
               data-tooltip="Utilization with project is below 100% or change in utilization is below 5%"
-              data-inverted=""
+              data-inverted
             >
-              <i class="check icon"></i> No
+              <i class="check icon"></i>
+              No
             </div>
           {{/if}}
         </td>
-
-        <td>{{if ps.impact ps.mitigateSeatCount "n/a"}}</td>
-        <td>{{if ps.impact ps.mitigateUnitCount "n/a"}}</td>
+        <td>
+          {{if ps.impact ps.mitigateSeatCount "n/a"}}
+        </td>
+        <td>
+          {{if ps.impact ps.mitigateUnitCount "n/a"}}
+        </td>
       </tr>
     </tbody>
   {{/if}}
-
   {{#if is}}
     <tbody>
       <tr class={{if is.impact "negative"}}>
-        <td>Intermediate Schools</td>
-        {{#td-hover payload=(hash name="utilizationWithAction" level="is")}}{{percentage is.utilizationWithActionTotal}}{{/td-hover}}
-        {{#td-hover payload=(hash name="utilizationChange" level="is")}}{{percentage is.utilizationChangeTotal decimals=2}}{{/td-hover}}
-
+        <td>
+          Intermediate Schools
+        </td>
+        <TdHover @payload={{hash name="utilizationWithAction" level="is"}}>
+          {{percentage is.utilizationWithActionTotal}}
+        </TdHover>
+        <TdHover @payload={{hash name="utilizationChange" level="is"}}>
+          {{percentage is.utilizationChangeTotal decimals=2}}
+        </TdHover>
         <td>
           {{#if is.impact}}
-            <div 
-              class="ui red label" 
-              data-tooltip="Utilization with project is 100% or higher (at {{percentage is.utilizationWithActionTotal}}) and Change in Utilization is 5% or higher (at {{percentage is.utilizationChangeTotal decimals=2}})"
-              data-inverted=""
+            <div
+              class="ui red label"
+              data-tooltip="Utilization with project is 100% or higher (at
+                {{percentage is.utilizationWithActionTotal}}
+                 ) and Change in Utilization is 5% or higher (at
+                {{percentage is.utilizationChangeTotal decimals=2}}
+                 )"
+              data-inverted
             >
-              <i class="warning icon"></i> Likely
+              <i class="warning icon"></i>
+              Likely
             </div>
           {{else}}
             <div
               class="ui green label"
               data-tooltip="Utilization with project is below 100% or change in utilization is below 5%"
-              data-inverted=""
+              data-inverted
             >
-              <i class="check icon"></i> No
+              <i class="check icon"></i>
+              No
             </div>
           {{/if}}
         </td>
-
-        <td>{{if is.impact is.mitigateSeatCount "n/a"}}</td>
-        <td>{{if is.impact is.mitigateUnitCount "n/a"}}</td>
+        <td>
+          {{if is.impact is.mitigateSeatCount "n/a"}}
+        </td>
+        <td>
+          {{if is.impact is.mitigateUnitCount "n/a"}}
+        </td>
       </tr>
     </tbody>
   {{/if}}
-
   {{#if analysis.hsAnalysis}}
     <tbody>
       <tr class={{if hs.impact "negative"}}>
-        <td>High Schools</td>
-        {{#td-hover payload=(hash name="utilizationWithAction" level="hs")}}{{percentage hs.utilizationWithActionTotal}}{{/td-hover}}
-        {{#td-hover payload=(hash name="utilizationChange" level="hs")}}{{percentage hs.utilizationChangeTotal decimals=2}}{{/td-hover}}
-
+        <td>
+          High Schools
+        </td>
+        <TdHover @payload={{hash name="utilizationWithAction" level="hs"}}>
+          {{percentage hs.utilizationWithActionTotal}}
+        </TdHover>
+        <TdHover @payload={{hash name="utilizationChange" level="hs"}}>
+          {{percentage hs.utilizationChangeTotal decimals=2}}
+        </TdHover>
         <td>
           {{#if hs.impact}}
-            <div 
-              class="ui red label" 
-              data-tooltip="Utilization with project is 100% or higher (at {{percentage hs.utilizationWithActionTotal}}) and Change in Utilization is 5% or higher (at {{percentage hs.utilizationChangeTotal decimals=2}})"
-              data-inverted=""
+            <div
+              class="ui red label"
+              data-tooltip="Utilization with project is 100% or higher (at
+                {{percentage hs.utilizationWithActionTotal}}
+                 ) and Change in Utilization is 5% or higher (at
+                {{percentage hs.utilizationChangeTotal decimals=2}}
+                 )"
+              data-inverted
             >
-              <i class="warning icon"></i> Likely
+              <i class="warning icon"></i>
+              Likely
             </div>
           {{else}}
             <div
               class="ui green label"
               data-tooltip="Utilization with project is below 100% or change in utilization is below 5%"
-              data-inverted=""
+              data-inverted
             >
-              <i class="check icon"></i> No
+              <i class="check icon"></i>
+              No
             </div>
           {{/if}}
         </td>
-
-        <td>{{if hs.impact hs.mitigateSeatCount "n/a"}}</td>
-        <td>{{if hs.impact hs.mitigateUnitCount "n/a"}}</td>
+        <td>
+          {{if hs.impact hs.mitigateSeatCount "n/a"}}
+        </td>
+        <td>
+          {{if hs.impact hs.mitigateUnitCount "n/a"}}
+        </td>
       </tr>
     </tbody>
   {{/if}}
 </table>
-
 <div class="ui icon warning message attached bottom">
   <i class="attention icon"></i>
-  <div class="content">The conclusions displayed in the tool are preliminary and will not reflect departures in analytical approach from CTM guidelines when deemed appropriate by the lead agency.</div>
+  <div class="content">
+    The conclusions displayed in the tool are preliminary and will not reflect departures in analytical approach from CTM guidelines when deemed appropriate by the lead agency.
+  </div>
 </div>

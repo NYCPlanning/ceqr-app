@@ -3,25 +3,30 @@
     <div class="field">
       <div class="two fields">
         <div class="twelve wide required field">
-          <label>Project Name</label>
-          {{input 
-            type="text" 
-            name="name" 
-            value=project.name 
+          <label>
+            Project Name
+          </label>
+          {{input
+            type="text"
+            name="name"
+            value=project.name
             placeholder="Project Name"
-            data-test-new-project='project-name'
+            data-test-new-project="project-name"
           }}
         </div>
         <div class="four wide required field">
-          <label>Est. Build Year</label>
-
-          {{#ui-dropdown
+          <label>
+            Est. Build Year
+          </label>
+          <UiDropdown
             class="selection"
-            selected=project.buildYear
-            onChange=(action (mut project.buildYear))
-            data-test-new-project='build-year'
-          }}
-            <div class="default text">Build Year</div>
+            @selected={{project.buildYear}}
+            @onChange={{action (mut project.buildYear)}}
+            data-test-new-project="build-year"
+          >
+            <div class="default text">
+              Build Year
+            </div>
             <i class="dropdown icon"></i>
             <div class="menu">
               {{#each buildYearRange as |year|}}
@@ -34,45 +39,49 @@
                 </div>
               {{/each}}
             </div>
-          {{/ui-dropdown}}
+          </UiDropdown>
         </div>
         <div class="six wide field">
-          <label>CEQR Number</label>
+          <label>
+            CEQR Number
+          </label>
           {{input
             type="text"
             name="ceqrNumber"
             value=project.ceqrNumber
             placeholder="CEQR Number"
-            data-test-new-project='ceqr-number'
+            data-test-new-project="ceqr-number"
           }}
         </div>
       </div>
     </div>
   </form>
 </div>
-
-{{project/analysis-framework project=project}}
-
+<Project::AnalysisFramework @project={{project}} />
 {{#if project.isInvalid}}
   <div class="ui error message">
     <ul class="list">
       {{#each project.errors as |errorSet|}}
         {{#each errorSet.validation as |error|}}
-          <li>{{error}}</li>
+          <li>
+            {{error}}
+          </li>
         {{/each}}
       {{/each}}
     </ul>
   </div>
 {{/if}}
-
 <div class="ui basic segment">
   {{#if project.isNew}}
     <div class="sixteen wide column">
       <button
         data-test-create-project
-        class="ui primary button {{if project-orchestrator.createProject.isRunning "loading"}}" {{action "save"}}
+        class="ui primary button
+          {{if project-orchestrator.createProject.isRunning "loading"}}"
+        {{action "save"}}
       >
-        Create Project <i class="arrow right icon"></i>
+        Create Project
+        <i class="arrow right icon"></i>
       </button>
     </div>
   {{else}}
@@ -80,13 +89,10 @@
       <button class="ui button" {{action "back"}}>
         Back
       </button>
-      
       <button class="ui primary button" {{action "save"}}>
-        Save Project <i class="arrow right icon"></i>
+        Save Project
+        <i class="arrow right icon"></i>
       </button>
     </div>
   {{/if}}
 </div>
-
-
-

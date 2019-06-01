@@ -1,5 +1,8 @@
 <div class="row">
   <div class="sixteen wide column">
-    {{public-schools/with-action/new-schools analysis=model.publicSchoolsAnalysis}}
+    <PublicSchools::WithAction::NewSchools
+      @analysis={{model.publicSchoolsAnalysis}}
+     />
+
   </div>
 </div>

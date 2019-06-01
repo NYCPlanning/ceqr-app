@@ -1,54 +1,90 @@
 <div class="ui basic top attached segment">
   <div class="ui secondary menu">
     <div class="ui simple dropdown item">
-      <strong>{{sd.sdName}}</strong>
+      <strong>
+        {{sd.sdName}}
+      </strong>
       <i class="dropdown icon"></i>
-
       <div class="menu">
         {{#each analysis.subdistricts as |sd|}}
-          <a class="item" {{action "setSdId" sd.id}}>{{sd.sdName}}</a>
+          <a class="item" {{action "setSdId" sd.id}}>
+            {{sd.sdName}}
+          </a>
         {{/each}}
       </div>
-
     </div>
-    
-    <a class="item {{if (eq activeSchoolsLevel "ps") "active"}}" {{action (mut activeSchoolsLevel) "ps"}}>
+    <a
+      class="item {{if (eq activeSchoolsLevel "ps") "active"}}"
+      {{action (mut activeSchoolsLevel) "ps"}}
+    >
       Primary Schools
     </a>
-    <a class="item {{if (eq activeSchoolsLevel "is") "active"}}" {{action (mut activeSchoolsLevel) "is"}}>
+    <a
+      class="item {{if (eq activeSchoolsLevel "is") "active"}}"
+      {{action (mut activeSchoolsLevel) "is"}}
+    >
       Intermediate Schools
     </a>
     <div class="ui divider"></div>
-    {{#if analysis.hsAnalysis}}    
+    {{#if analysis.hsAnalysis}}
       <div class="right menu">
-        <a class="item {{if (eq activeSchoolsLevel "hs") "active"}}" {{action (mut activeSchoolsLevel) "hs"}}>
-          High Schools ({{analysis.borough}})
+        <a
+          class="item {{if (eq activeSchoolsLevel "hs") "active"}}"
+          {{action (mut activeSchoolsLevel) "hs"}}
+        >
+          High Schools (
+          {{analysis.borough}}
+          )
         </a>
       </div>
     {{/if}}
   </div>
 </div>
-
 <table class="ui celled sortable table attached row-highlight">
   <thead>
     <tr>
-      <th class="one wide">Org. ID</th>
-      <th class="one wide">Bldg. ID</th>
-      <th class="five wide">School Name</th>
-      <th class="four wide">Address</th>
-      <th class="one wide">Org Level</th>
-      <th class="one wide">Enrollment</th>
-      <th class="one wide">Target<br>Capacity</th>
-      <th class="one wide">Available<br>Seats</th>
-      <th class="one wide">Utilization (%)</th>
+      <th class="one wide">
+        Org. ID
+      </th>
+      <th class="one wide">
+        Bldg. ID
+      </th>
+      <th class="five wide">
+        School Name
+      </th>
+      <th class="four wide">
+        Address
+      </th>
+      <th class="one wide">
+        Org Level
+      </th>
+      <th class="one wide">
+        Enrollment
+      </th>
+      <th class="one wide">
+        Target
+        <br />
+        Capacity
+      </th>
+      <th class="one wide">
+        Available
+        <br />
+        Seats
+      </th>
+      <th class="one wide">
+        Utilization (%)
+      </th>
     </tr>
   </thead>
-
   <tbody>
     {{#each buildings as |b|}}
-      {{#tr-hover class=b.org_level source=b.source id=b.cartodb_id}}
-        <td>{{b.org_id}}</td>
-        <td>{{b.bldg_id}}</td>
+      <TrHover class={{b.org_level}} @source={{b.source}} @id={{b.cartodb_id}}>
+        <td>
+          {{b.org_id}}
+        </td>
+        <td>
+          {{b.bldg_id}}
+        </td>
         <td>
           {{#if (eq b.source "lcgms")}}
             <i class="icons">
@@ -56,69 +92,136 @@
               <i class="small circle school icon"></i>
             </i>
           {{else}}
-            <i class="circle school icon" style={{map-color-for b.org_level}}></i>
+            <i
+              class="circle school icon"
+              style={{map-color-for b.org_level}}
+            ></i>
           {{/if}}
-
           {{b.name}}
           {{#if (not-eq b.name b.bldg_name)}}
-            <br><em>{{b.bldg_name}}</em>
+            <br />
+            <em>
+              {{b.bldg_name}}
+            </em>
           {{/if}}
         </td>
-        <td>{{b.address}}</td>
-        <td>{{b.org_level}}</td>
-        <td>{{b.enroll}}</td>
-        
+        <td>
+          {{b.address}}
+        </td>
+        <td>
+          {{b.org_level}}
+        </td>
+        <td>
+          {{b.enroll}}
+        </td>
         {{#if b.excluded}}
-          <td class="warning" data-tooltip="Capacity from transportable class room units and mini-schools are excluded from analysis" data-inverted=""><i class="attention icon"></i> N/A</td>
+          <td
+            class="warning"
+            data-tooltip="Capacity from transportable class room units and mini-schools are excluded from analysis"
+            data-inverted
+          >
+            <i class="attention icon"></i>
+            N/A
+          </td>
         {{else}}
-          <td>{{b.capacity}}</td>
+          <td>
+            {{b.capacity}}
+          </td>
         {{/if}}
-        
-        <td data-sort-value={{b.seats}}>{{b.seats}}</td>
-        
+        <td data-sort-value={{b.seats}}>
+          {{b.seats}}
+        </td>
         {{#if b.excluded}}
-          <td data-sort-value={{b.utilization}} class="warning" data-tooltip="Capacity from transportable class room units and mini-schools are excluded from analysis" data-inverted=""><i class="attention icon"></i> N/A</td>
+          <td
+            data-sort-value={{b.utilization}}
+            class="warning"
+            data-tooltip="Capacity from transportable class room units and mini-schools are excluded from analysis"
+            data-inverted
+          >
+            <i class="attention icon"></i>
+            N/A
+          </td>
         {{else}}
-          <td data-sort-value={{b.utilization}}>{{percentage b.utilization}}</td>
+          <td data-sort-value={{b.utilization}}>
+            {{percentage b.utilization}}
+          </td>
         {{/if}}
-      {{/tr-hover}}
+      </TrHover>
     {{/each}}
   </tbody>
-
   <tfoot>
     {{#if (eq activeSchoolsLevel "hs")}}
       <tr>
-        <th colspan="5"><em>Totals ({{analysis.borough}})</em></th>
-        <th>{{table.enrollmentTotal}}</th>
-        <th>{{table.capacityTotal}}</th>
-        <th>{{table.seatsTotal}}</th>
-        <th>{{percentage table.utilizationTotal}}</th>
+        <th colspan="5">
+          <em>
+            Totals (
+            {{analysis.borough}}
+            )
+          </em>
+        </th>
+        <th>
+          {{table.enrollmentTotal}}
+        </th>
+        <th>
+          {{table.capacityTotal}}
+        </th>
+        <th>
+          {{table.seatsTotal}}
+        </th>
+        <th>
+          {{percentage table.utilizationTotal}}
+        </th>
       </tr>
     {{else}}
       <tr>
-        <th colspan="5"><em>Totals ({{sd.sdName}})</em></th>
-        <th>{{table.enrollmentTotal}}</th>
-        <th>{{table.capacityTotal}}</th>
-        <th>{{table.seatsTotal}}</th>
-        <th>{{percentage table.utilizationTotal}}</th>
+        <th colspan="5">
+          <em>
+            Totals (
+            {{sd.sdName}}
+            )
+          </em>
+        </th>
+        <th>
+          {{table.enrollmentTotal}}
+        </th>
+        <th>
+          {{table.capacityTotal}}
+        </th>
+        <th>
+          {{table.seatsTotal}}
+        </th>
+        <th>
+          {{percentage table.utilizationTotal}}
+        </th>
       </tr>
       {{#if analysis.multiSubdistrict}}
         <tr>
-          <th colspan="5"><em>Totals across study area</em></th>
-          <th>{{table.enrollmentMetaTotal}}</th>
-          <th>{{table.capacityMetaTotal}}</th>
-          <th>{{table.seatsMetaTotal}}</th>
-          <th>{{percentage table.utilizationMetaTotal}}</th>
+          <th colspan="5">
+            <em>
+              Totals across study area
+            </em>
+          </th>
+          <th>
+            {{table.enrollmentMetaTotal}}
+          </th>
+          <th>
+            {{table.capacityMetaTotal}}
+          </th>
+          <th>
+            {{table.seatsMetaTotal}}
+          </th>
+          <th>
+            {{percentage table.utilizationMetaTotal}}
+          </th>
         </tr>
       {{/if}}
     {{/if}}
   </tfoot>
 </table>
-
 <div class="ui icon message warning bottom attached">
-  <i class="attention icon"></i> Charter, citywide gifted & talented, D75 special education, and D79 alternative high school equivalency schools are not included in analysis.
+  <i class="attention icon"></i>
+  Charter, citywide gifted & talented, D75 special education, and D79 alternative high school equivalency schools are not included in analysis.
 </div>
-
 <div class="ui icon message">
   <i class="database icon"></i>
   <div class="content">
@@ -128,13 +231,15 @@
         rel="noopener"
         href="http://www.nycsca.org/Community/Capital-Plan-Reports-Data#Enrollment-Capacity-Utilization-69"
       >
-        SCA Enrollment, Capacity, and Utilization (Blue Book) [{{analysis.dataTables.sourceDates.bluebook}}] <i class="external alternate icon"></i>
+        SCA Enrollment, Capacity, and Utilization (Blue Book) [
+        {{analysis.dataTables.sourceDates.bluebook}}
+        ]
+        <i class="external alternate icon"></i>
       </a>
     </div>
-    
     <p>
       The Enrollment, Capacity & Utilization Report is an annual document that provides information
-      on school organization and school building utilization. 
+      on school organization and school building utilization.
     </p>
   </div>
 </div>

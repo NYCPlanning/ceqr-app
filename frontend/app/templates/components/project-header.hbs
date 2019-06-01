@@ -1,8 +1,9 @@
 <div class="ui top attached clearing segment">
   {{#link-to "project.show" project.id class="ui left floated project title"}}
-    <h1>{{project.name}}</h1>
+    <h1>
+      {{project.name}}
+    </h1>
   {{/link-to}}
-
   <div class="ui right floated horizontal list">
     <div class="item">
       {{#if project.ceqrNumber}}
@@ -11,27 +12,25 @@
           <div class="detail">
             {{project.ceqrNumber}}
           </div>
-        </div> 
+        </div>
       {{/if}}
     </div>
-
     <div class="item">
       <div class="ui label large">
         {{project.borough}}
       </div>
     </div>
-
     <div class="item">
       <div
         class="ui label large"
         data-tooltip="Build Year"
         data-position="bottom center"
-        data-inverted=""
+        data-inverted
       >
-        <i class="calendar alternate icon"></i>{{project.buildYear}}
-      </div> 
+        <i class="calendar alternate icon"></i>
+        {{project.buildYear}}
+      </div>
     </div>
-
     {{#unless project.viewOnly}}
       <div class="item">
         {{#link-to
@@ -39,39 +38,41 @@
           project.id
           class="ui primary compact basic icon button"
         }}
-          <i class="edit icon"></i>
-          Edit
+          <i class="edit icon"></i>Edit
         {{/link-to}}
       </div>
     {{/unless}}
   </div>
 </div>
-
 <div class="ui bottom attached clearing segment">
   <div style="float: left">
-    {{project/chapter-dropdown project=project}}
+    <Project::ChapterDropdown @project={{project}} />
   </div>
-
   {{#if onPublicSchools}}
     <div class="ui right floated buttons">
       {{#unless project.viewOnly}}
         {{#link-to
           "project.show.public-schools"
           project.id
-          class=(if onSummary "ui right basic teal compact icon button" "ui right teal compact icon button")
+          class=(if
+            onSummary
+            "ui right basic teal compact icon button"
+            "ui right teal compact icon button"
+          )
         }}
-          <i class="calculator icon"></i>
-          Workbook
+          <i class="calculator icon"></i>Workbook
         {{/link-to}}
       {{/unless}}
-
-      {{#link-to 
+      {{#link-to
         "project.show.public-schools.summary"
         project.id
-        class=(if onSummary "ui right teal compact icon button" "ui right basic teal compact icon button")
+        class=(if
+          onSummary
+          "ui right teal compact icon button"
+          "ui right basic teal compact icon button"
+        )
       }}
-        <i class="columns icon"></i>
-        Summary
+        <i class="columns icon"></i>Summary
       {{/link-to}}
     </div>
   {{/if}}

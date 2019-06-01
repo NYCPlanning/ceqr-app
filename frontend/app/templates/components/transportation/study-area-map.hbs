@@ -1,38 +1,34 @@
-{{#mapbox-gl
-  id="study-area-map"
-  initOptions=(hash
-    style='mapbox://styles/mapbox/light-v9'
+<MapboxGl
+  @id="study-area-map"
+  @initOptions={{hash
+    style="mapbox://styles/mapbox/light-v9"
     zoom=9.2
     center=(array -74 40.7071266)
-  ) as |map|
-}}
-  {{#mapbox/carto-vector-source map=map as |carto-source|}}
-    {{#carto-source.layer
-      sql='select * from nyc_census_tracts_2010'
-      layer=(hash
-        type='fill'
-        paint=(hash fill-color='green')
-      ) as |layer|
-    }}
-      {{transportation/study-area-map/census-tract-popup
-        map=map
-        layerId=layer.layerId}}
-    {{/carto-source.layer}}
+  }} as |map|
+>
+  <Mapbox::CartoVectorSource @map={{map}} as |carto-source|>
+    <carto-source.layer
+      @sql="select * from nyc_census_tracts_2010"
+      @layer={{hash type="fill" paint=(hash fill-color="green")}} as |layer|
+    >
+      <Transportation::StudyAreaMap::CensusTractPopup
+        @map={{map}}
+        @layerId={{layer.layerId}}
+       />
 
-    {{carto-source.layer
-      sql='select * from mta_subway_routes_v0'
-      layer=(hash
-        type='line'
-        paint=(hash line-color='red')
-      )
-    }}
+    </carto-source.layer>
+    <carto-source.layer
+      @sql="select * from mta_subway_routes_v0"
+      @layer={{hash type="line" paint=(hash line-color="red")}}
+     />
 
-    {{carto-source.layer
-      sql='select * from mta_bus_stops_v0'
-      layer=(hash
-        type='circle'
-        paint=(hash circle-color='pink' circle-radius=1)
-      )
-    }}
-  {{/mapbox/carto-vector-source}}
-{{/mapbox-gl}}
+    <carto-source.layer
+      @sql="select * from mta_bus_stops_v0"
+      @layer={{hash
+        type="circle"
+        paint=(hash circle-color="pink" circle-radius=1)
+      }}
+     />
+
+  </Mapbox::CartoVectorSource>
+</MapboxGl>

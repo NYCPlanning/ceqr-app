@@ -7,21 +7,37 @@
             <i class="university icon"></i>
             Community Facilities
           </div>
-          <div class="ui top right attached label">Beta</div>
-        </div>
-
-        <div class="extra content">
-          Detailed Analysis
-          <div style="display: inline-block;" class="ui small label {{if model.project.communityFacilitiesAnalysis.detailedAnalysis "yellow" "grey"}}">
-            {{if model.project.communityFacilitiesAnalysis.detailedAnalysis "Yes" "No"}}
+          <div class="ui top right attached label">
+            Beta
           </div>
         </div>
-
-        <div class="ui inverted dimmer {{if model.project.communityFacilitiesAnalysis.isPending "active"}}">
-          <div class="ui text loader">Loading</div>
+        <div class="extra content">
+          Detailed Analysis
+          <div
+            style="display: inline-block;"
+            class="ui small label
+              {{if
+                model.project.communityFacilitiesAnalysis.detailedAnalysis
+                "yellow"
+                "grey"
+              }}"
+          >
+            {{if
+              model.project.communityFacilitiesAnalysis.detailedAnalysis
+              "Yes"
+              "No"
+            }}
+          </div>
+        </div>
+        <div
+          class="ui inverted dimmer
+            {{if model.project.communityFacilitiesAnalysis.isPending "active"}}"
+        >
+          <div class="ui text loader">
+            Loading
+          </div>
         </div>
       {{/link-to}}
-      
       {{#link-to "project.show.public-schools" class="ui card"}}
         <div class="content">
           <div class="header">
@@ -29,26 +45,37 @@
             Public Schools
           </div>
         </div>
-
         <div class="extra content">
           Detailed Analysis
-          <div style="display: inline-block;" class="ui small label {{if model.project.publicSchoolsAnalysis.detailedAnalysis "yellow" "grey"}}">
-            {{if model.project.publicSchoolsAnalysis.detailedAnalysis "Yes" "No"}}
+          <div
+            style="display: inline-block;"
+            class="ui small label
+              {{if
+                model.project.publicSchoolsAnalysis.detailedAnalysis
+                "yellow"
+                "grey"
+              }}"
+          >
+            {{if model.project.publicSchoolsAnalysis.detailedAnalysis "Yes" "No"
+            }}
           </div>
         </div>
-
-        <div 
-          class="ui inverted dimmer 
-          {{if (or 
-            model.project.publicSchoolsAnalysis.isPending
-            public-schools.fullReload.isRunning
-            public-schools.initialLoad.isRunning) "active"
-          }}"
+        <div
+          class="ui inverted dimmer
+            {{if
+              (or
+                model.project.publicSchoolsAnalysis.isPending
+                public-schools.fullReload.isRunning
+                public-schools.initialLoad.isRunning
+              )
+              "active"
+            }}"
         >
-          <div class="ui text loader">Loading</div>
+          <div class="ui text loader">
+            Loading
+          </div>
         </div>
       {{/link-to}}
-
       {{!-- {{#link-to "project.show.solid-waste" class="ui card"}}
         <div class="content">
           <div class="header">
@@ -68,25 +95,41 @@
           <div class="ui text loader">Loading</div>
         </div>
       {{/link-to}} --}}
-
       {{#link-to "project.show.transportation" class="ui card"}}
         <div class="content">
           <div class="header">
             <i class="car icon"></i>
             Transportation
           </div>
-          <div class="ui top right attached label">Beta</div>
-        </div>
-
-        <div class="extra content">
-          Detailed Analysis
-          <div style="display: inline-block;" class="ui small label {{if model.project.transportationAnalysis.detailedAnalysis "yellow" "grey"}}">
-            {{if model.project.transportationAnalysis.detailedAnalysis "Yes" "No"}}
+          <div class="ui top right attached label">
+            Beta
           </div>
         </div>
-
-        <div class="ui inverted dimmer {{if model.project.transportationAnalysis.isPending "active"}}">
-          <div class="ui text loader">Loading</div>
+        <div class="extra content">
+          Detailed Analysis
+          <div
+            style="display: inline-block;"
+            class="ui small label
+              {{if
+                model.project.transportationAnalysis.detailedAnalysis
+                "yellow"
+                "grey"
+              }}"
+          >
+            {{if
+              model.project.transportationAnalysis.detailedAnalysis
+              "Yes"
+              "No"
+            }}
+          </div>
+        </div>
+        <div
+          class="ui inverted dimmer
+            {{if model.project.transportationAnalysis.isPending "active"}}"
+        >
+          <div class="ui text loader">
+            Loading
+          </div>
         </div>
       {{/link-to}}
     </div>

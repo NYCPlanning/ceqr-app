@@ -1,5 +1,5 @@
-{{#throttle-property property=geoid as |geoid|}}
-  {{#needs-async needs=(find-record 'modal-split' geoid) as |censusData|}}
+<ThrottleProperty @property={{geoid}} as |geoid|>
+  <NeedsAsync @needs={{find-record "modal-split" geoid}} as |censusData|>
     {{yield censusData}}
-  {{/needs-async}}
-{{/throttle-property}}
+  </NeedsAsync>
+</ThrottleProperty>
