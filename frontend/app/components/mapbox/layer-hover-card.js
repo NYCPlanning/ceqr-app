@@ -1,0 +1,9 @@
+import Component from '@ember/component';
+
+export default class MapboxLayerHoverCardComponent extends Component {
+  // e-mapbox-gl block param hash
+  map = {};
+
+  // added mapbox-gl layer-id for popup
+  layerId = '';
+}

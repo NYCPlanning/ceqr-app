@@ -6,7 +6,10 @@ module.exports = function(environment) {
   let ENV = {
     host,
     'mapbox-gl': {
-      accessToken: 'pk.eyJ1IjoicGljaG90IiwiYSI6ImNqbWIzYzFyeTVrbHAzcW9nbmRmeXNmbHcifQ.VEiOF5YV_9kxwXekZ3fWLA'
+      accessToken: 'pk.eyJ1IjoicGljaG90IiwiYSI6ImNqbWIzYzFyeTVrbHAzcW9nbmRmeXNmbHcifQ.VEiOF5YV_9kxwXekZ3fWLA',
+      map: {
+        style: 'mapbox://styles/mapbox/light-v9',
+      },
     },
     carto: {
       username: 'planninglabs',

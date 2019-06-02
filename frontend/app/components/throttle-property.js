@@ -1,8 +1,8 @@
 import Component from '@ember/component';
-import { keepLatestTask } from 'ember-concurrency-decorators';
+import { restartableTask } from 'ember-concurrency-decorators';
 import { timeout } from 'ember-concurrency';
 
-const DEFAULT_MS = 500;
+const DEFAULT_TIMEOUT_MS = 500;
 
 // This component takes a property, which is assumed to be bound
 // through templates, and throttles the update stream to a given
@@ -17,13 +17,13 @@ export default class ThrottlePropertyComponent extends Component {
   // bound property to throttle updates
   property = null;
 
-  milliseconds = DEFAULT_MS;
+  timeout = DEFAULT_TIMEOUT_MS;
 
   didUpdateAttrs() {
    this.didUpdateAttributesTask.perform(); 
   }
 
-  @keepLatestTask({
+  @restartableTask({
     maxConcurrency: 1,
   })
   *didUpdateAttributesTask() {
