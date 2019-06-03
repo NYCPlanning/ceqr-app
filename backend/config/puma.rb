@@ -15,6 +15,12 @@ rackup      DefaultRackup
 port        ENV.fetch("PORT") { 3000 }
 environment ENV.fetch("RAILS_ENV") { "development" }
 
+# increase puma worker timeout to enable interactive debugging
+if ENV.fetch('RAILS_ENV') == "development"
+  puts "Increase puma worker timeout for dev"
+  worker_timeout 3600
+end
+
 on_worker_boot do
   # Worker specific setup for Rails 4.1+
   # See: https://devcenter.heroku.com/articles/deploying-rails-applications-with-the-puma-web-server#on-worker-boot

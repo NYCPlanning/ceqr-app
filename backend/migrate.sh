@@ -16,5 +16,8 @@ if [ -z "$ceqr_tables" ]; then
   $create_cmd
 fi
 
-echo "ceqr dbs exist - executing command: $migrate_cmd"
+echo "ceqr dbs exist - migrating ceqr_rails DB : $migrate_cmd"
 $migrate_cmd
+
+echo "migrating ceqr_test DB: $migrate_cmd"
+DATABASE_URL=$(echo $DATABASE_URL | sed 's/\(.*\)ceqr_rails/\1ceqr_test/') $migrate_cmd

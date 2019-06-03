@@ -14,12 +14,13 @@ services:
       CEQR_DATA_DB_URL: postgis://test_ceqr_app:${PSQL_PASSWORD}@ceqr-data-readonly-do-user-1939427-0.db.ondigitalocean.com:25060/ceqr_data
       JWT_SALT: saltysaltysalt
       SENDGRID_KEY: ''
-      ADMIN_EMAILS: ''
+      ADMIN_EMAILS: 'test@test.com'
     healthcheck:
       test: ["CMD", "curl", "http://localhost:3000"]
       interval: 10s
       timeout: 30s
       retries: 3
+    stdin_open: true
   # ceqr app frontend
   frontend:
     image: danlynn/ember-cli

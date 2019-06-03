@@ -52,8 +52,40 @@ cd ceqr-app
      - Port mappings are defined in `ports` sections; to change the port a service is mapped to and exposed on on your machine, change the first port in the mapping, i.e. "3001:3000" if you want ceqr running on port 3001 on your machine
 
 5.  That's IT!!!!!!
-..................or do all these steps:
+#### Development with Docker
+By default, bringing up new frontend or backend docker-compose services will not re-run the dependecy installations. If you have updated package.json (via yarn!) or Gemfile, make sure to clear out frontend/node_modules or backend/Gemfile.lock, respectively. This will cause the dependency installation to rerun when bringing the services up.
 
+
+Ember server will live-reload changes to the frontend app for you, so there is no need to restart the docker services when making changes to files in `frontend/`
+
+
+Rails reloads the entire server on every request by default in development more, so there is no need to restart the docker services when making changes to files in `backend/`, altho configuration changes require restart
+
+
+You can access an interactive [byebug](https://github.com/deivid-rodriguez/byebug) debug terminal by attaching to the backend service like:
+```sh
+$ docker attach ceqr_backend_1
+```
+Beware, you may have trouble detatching (I can't figure it out), so do this in a terminal window you don't mind closing when you're done.
+
+#### Testing with Docker
+To run ember tests:
+```sh
+$ docker-compose exec frontend ember t
+ok 1 Chrome 73.0 ...
+...
+```
+
+To run rails tests:
+```sh
+$ docker-compose exec backend rspec
+I, [2019-05-30T18:03:06.336418 #16473]  INFO -- sentry: ** [Raven] Raven 2.9.0 configured not to capture errors: DSN not set
+...................
+```
+
+
+
+.......or do all these steps:
 ### Installing Ruby
 
 I suggest using [`rbenv`](https://github.com/rbenv/rbenv) installed with Homebrew.
