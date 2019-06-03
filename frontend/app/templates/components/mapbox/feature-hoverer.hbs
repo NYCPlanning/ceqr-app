@@ -1,0 +1,20 @@
+<Mapbox::CurrentMousePosition
+  @map={{this.map}}
+  @handleMousePosition={{action (mut this._point)}}
+as |mousePoint|>
+  <Mapbox::IntersectingFeatures
+    @map={{this.map}}
+    @point={{mousePoint}}
+    @options={{hash layers=(array this.layerId)}}
+    @handleIntersectingFeatures={{this.setFeatures}}
+  as |intersectingFeatures|
+  >
+    {{#if (and mousePoint (and intersectingFeatures this._features))}}
+      {{yield (hash 
+          features=this._features
+          point=mousePoint
+        )
+      }}
+    {{/if}}
+  </Mapbox::IntersectingFeatures>
+</Mapbox::CurrentMousePosition>

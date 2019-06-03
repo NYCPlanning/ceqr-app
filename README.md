@@ -161,11 +161,24 @@ cd frontend
 yarn install
 ```
 
-### Running the app
+### Running Rails Backend
 
 ```
+cd backend/
 rails s
 ```
+
+If you receiver a Address already in use error for "127.0.0.1" port 3000, you may need to kill off some Ruby processes.
+
+1. List out processes which are using port 3000:
+```
+lsof -wni tcp:3000
+```
+2. End the processes:
+```
+kill -9 <pid>
+```
+3. Try `rails s` again. 
 
 ### Running the tests
 

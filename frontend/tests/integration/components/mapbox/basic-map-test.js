@@ -9,6 +9,6 @@ module('Integration | Component | mapbox/basic-map', function(hooks) {
   test('it renders', async function(assert) {
     await render(hbs`{{mapbox/basic-map}}`);
 
-    assert.equal(this.element.textContent.trim(), '');
+    assert.ok(this.element.querySelector('canvas'));
   });
 });

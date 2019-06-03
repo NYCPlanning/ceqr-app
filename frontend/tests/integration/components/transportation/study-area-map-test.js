@@ -4,6 +4,7 @@ import { render, settled, find } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 import setupMirage from 'ember-cli-mirage/test-support/setup-mirage';
 import Component from '@ember/component';
+import { registerEventHandler, simulateEvent }  from '../../../helpers/mapbox/mapbox-stub-helpers';
 
 const DEFAULT_MAPBOX_GL_INSTANCE = {
   addSource: () => {},
@@ -21,7 +22,35 @@ module('Integration | Component | transportation/study-area-map', function(hooks
   setupMirage(hooks);
 
   hooks.beforeEach(async function() {
-    this.map = DEFAULT_MAPBOX_GL_INSTANCE;
+    this.events = {};
+    this.layers = [];
+    this.filters = {}
+    this.map = {
+      ...DEFAULT_MAPBOX_GL_INSTANCE,
+      addLayer: ({ id }) => {
+        this.layers.push(id);
+      },
+      queryRenderedFeatures: () => {
+        return [{
+          type: 'Feature',
+          properties: {
+            geoid: 'test',
+          },
+        }]
+      },
+      setFilter: (layerId, filter) => {
+        this.filters[layerId] = filter;
+      },
+      // On render, component templates like `current-map-position.js`
+      // will associate action handlers to fired mouse events and 
+      // mantain a list of these associations. 
+      // We simulate this association list locally (with the `events` object)
+      // so that we can make ad hoc calls to action handlers. See comment below
+      // in `it hovers, displays information`.
+      on: (event, action) => {
+        registerEventHandler(this.events, event, action);
+      }
+    };
 
     const that = this;
     class BasicMapStub extends Component {
@@ -35,47 +64,26 @@ module('Integration | Component | transportation/study-area-map', function(hooks
   });
 
   test('it has tracts, buses, and subways in map', async function(assert) {
-    let layers = [];
-    this.map = {
-      ...DEFAULT_MAPBOX_GL_INSTANCE,
-      addLayer({ id }) {
-        layers.push(id);
-      }
-    };
 
     await render(hbs`{{transportation/study-area-map}}`);
 
-    assert.ok(layers.includes('tracts-line'));
-    assert.ok(layers.includes('tracts-fill'));
-    assert.ok(layers.includes('subway'));
-    assert.ok(layers.includes('bus'));
+    assert.ok(this.layers.includes('tracts-line'));
+    assert.ok(this.layers.includes('tracts-fill'));
+    assert.ok(this.layers.includes('tracts-highlight'));
+    assert.ok(this.layers.includes('subway'));
+    assert.ok(this.layers.includes('bus'));
   });
 
   test('it hovers, displays information', async function(assert) {
     const geoid = '1';
     this.server.create('transportation-census-estimate', 2, { geoid });
 
-    let events = {};
-    this.map = {
-      ...DEFAULT_MAPBOX_GL_INSTANCE,
-      queryRenderedFeatures() {
-        return [{
-          type: 'Feature',
-          properties: {
-            geoid: 'test',
-          },
-        }]
-      },
-      on: (event, action) => {
-        events[event] = action;
-      },
-    };
-
     await render(hbs`{{transportation/study-area-map}}`);
 
-    events['mousemove']({
-      point: { x: 0, y: 0 },
-    });
+    // To simulate an event, we go straight to simply calling
+    // the event handler with whatever arguments (like clicked point)
+    // we want. 
+    simulateEvent(this.events, 'mousemove', { point: { x: 0, y: 0 }});
 
     await settled();
 
@@ -88,25 +96,11 @@ module('Integration | Component | transportation/study-area-map', function(hooks
     this.model = await this.owner.lookup('service:store')
       .findRecord('project', project.id, { include: 'transportation-analysis'});
 
-    let events = {};
     const geoid = 'test';
-    this.map = {
-      ...DEFAULT_MAPBOX_GL_INSTANCE,
-      queryRenderedFeatures() {
-        return [{
-          type: 'Feature',
-          properties: {
-            geoid: geoid,
-          },
-        }]
-      },
-      on: (event, action) => {
-        events[event] = action;
-      }
-    };
 
     await render(hbs`{{transportation/study-area-map analysis=model.transportationAnalysis}}`);
-    events['click']({point: 'test'});
+    simulateEvent(this.events, 'click', {point: 'test'});
+
     await settled();
 
     const updatedStudySelection = await this.get('model.transportationAnalysis.jtwStudySelection');
