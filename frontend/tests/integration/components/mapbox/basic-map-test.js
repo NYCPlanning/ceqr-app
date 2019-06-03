@@ -3,14 +3,12 @@ import { setupRenderingTest } from 'ember-qunit';
 import { render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
-module('Integration | Component | transportation/study-area-map/census-tract-popup', function(hooks) {
+module('Integration | Component | mapbox/basic-map', function(hooks) {
   setupRenderingTest(hooks);
 
   test('it renders', async function(assert) {
-    await render(hbs`
-      {{transportation/study-area-map/census-tract-popup}}
-    `);
+    await render(hbs`{{mapbox/basic-map}}`);
 
-    assert.ok(true);
+    assert.equal(this.element.textContent.trim(), '');
   });
 });
