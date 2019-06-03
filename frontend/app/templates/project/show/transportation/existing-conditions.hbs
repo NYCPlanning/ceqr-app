@@ -1,7 +1,9 @@
 {{! transportation/existing-conditions controller template }}
 <div class="row">
   <div class="sixteen wide column">
-    {{transportation/study-area-map}}
+    <Transportation::StudyAreaMap
+      @analysis={{analysis}}
+    />
   </div>
 </div>
 {{outlet}}

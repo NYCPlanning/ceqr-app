@@ -36,7 +36,7 @@ module('Integration | Component | transportation/study-area-map', function(hooks
 
   test('it has tracts, buses, and subways in map', async function(assert) {
     let layers = [];
-    this.map = { 
+    this.map = {
       ...DEFAULT_MAPBOX_GL_INSTANCE,
       addLayer({ id }) {
         layers.push(id);
@@ -79,5 +79,36 @@ module('Integration | Component | transportation/study-area-map', function(hooks
     await settled();
 
     assert.ok(find("[data-test-popup='census-tract']"));
+  });
+
+  test('it selected features on click', async function(assert) {
+    // If a project exists with a transportation analysis
+    const project = server.create('project');
+    this.model = await this.owner.lookup('service:store')
+      .findRecord('project', project.id, { include: 'transportation-analysis'});
+
+    let events = {};
+    const geoid = 'test';
+    this.map = {
+      ...DEFAULT_MAPBOX_GL_INSTANCE,
+      queryRenderedFeatures() {
+        return [{
+          type: 'Feature',
+          properties: {
+            geoid: geoid,
+          },
+        }]
+      },
+      on: (event, action) => {
+        events[event] = action;
+      }
+    };
+
+    await render(hbs`{{transportation/study-area-map analysis=model.transportationAnalysis}}`);
+    events['click']({point: 'test'});
+    await settled();
+
+    const updatedStudySelection = await this.get('model.transportationAnalysis.jtwStudySelection');
+    assert.ok(updatedStudySelection.includes(geoid));
   });
 });

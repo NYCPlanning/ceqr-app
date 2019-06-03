@@ -9,6 +9,7 @@ export default class TransportationAnalysisModel extends Model {
 
   // Attributes
   @attr('number') trafficZone;
+  @attr() jtwStudySelection;
 
   // Detailed Analysis trigger
   @computed(

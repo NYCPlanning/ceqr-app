@@ -1,5 +1,8 @@
 class Api::V1::TransportationAnalysisResource < JSONAPI::Resource
-  attribute :traffic_zone
+  attributes(
+    :traffic_zone,
+    :jtw_study_selection
+  )
 
   has_one :project
 end
