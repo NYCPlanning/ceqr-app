@@ -36,7 +36,7 @@ module('Integration | Component | transportation/study-area-map', function(hooks
 
   test('it has tracts, buses, and subways in map', async function(assert) {
     let layers = [];
-    this.map = { 
+    this.map = {
       ...DEFAULT_MAPBOX_GL_INSTANCE,
       addLayer({ id }) {
         layers.push(id);
@@ -52,10 +52,11 @@ module('Integration | Component | transportation/study-area-map', function(hooks
   });
 
   test('it hovers, displays information', async function(assert) {
-    this.server.create('modal-split', { id: 'test' });
+    const geoid = '1';
+    this.server.create('census-tract', 2, { geoid });
 
     let events = {};
-    this.map = { 
+    this.map = {
       ...DEFAULT_MAPBOX_GL_INSTANCE,
       queryRenderedFeatures() {
         return [{

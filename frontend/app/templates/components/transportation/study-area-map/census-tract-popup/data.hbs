@@ -1,0 +1,5 @@
+<ThrottleProperty @property={{this.geoid}} as |geoid|>
+  <NeedsAsync @needs={{query this.resource (hash filter=(hash geoid=geoid))}} as |censusData|>
+    {{yield censusData}}
+  </NeedsAsync>
+</ThrottleProperty>
