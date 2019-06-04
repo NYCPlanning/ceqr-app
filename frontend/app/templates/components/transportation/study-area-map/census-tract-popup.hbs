@@ -10,7 +10,7 @@
       </span>
     </div>
     <div class="description">
-      <Transportation::StudyAreaMap::CensusTractData
+      <Transportation::StudyAreaMap::CensusTractPopup::Data
         @geoid={{feature.properties.geoid}} as |censusData|
       >
         <censusData.loading>
@@ -18,20 +18,9 @@
         </censusData.loading>
 
         <censusData.loaded as |data|>
-          <div class="header">
-            {{data.count}}
-          </div>
-          <div class="meta">
-            <span>
-              2 days ago
-            </span>
-            <a>
-              {{data.mode}}
-            </a>
-          </div>
-          <p></p>
+          <Transportation::StudyAreaMap::CensusTractPopup::ModalSplitFormatter @data={{data}}/>
         </censusData.loaded>
-      </Transportation::StudyAreaMap::CensusTractData>
+      </Transportation::StudyAreaMap::CensusTractPopup::Data>
     </div>
   </div>
 </div>

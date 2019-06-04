@@ -7,11 +7,9 @@ const secret = 'nevershareyoursecret';
 
 export default function() {
   patchXMLHTTPRequest();
-
-  /**
+/**
    *
-   * Passthroughs
-   *
+   * Passthroughs *
    */
   this.passthrough('/data-tables/**');
   this.passthrough('/ceqr-manual/**');
@@ -97,38 +95,26 @@ export default function() {
 
   /**
    *
-   * BBLs
+   * Census Tracts
    *
    */
-  this.get('modal-splits/:id', function(schema, request) {
-    const record = schema.modalSplits.first();
+  this.get('transportation-census-estimates', function(schema, request) {
+    const { queryParams } = request;
+    // if geoid is not a valid geoid (11 characters), assume the request is being made by a test
+    // and actually apply the request filters
+    if(queryParams['filter[geoid]'] && queryParams['filter[geoid]'].length < 11) {
+      return schema.transportationCensusEstimates.where({ geoid: queryParams['filter[geoid]'] });
+    }
+
+    // otherwise, assume it's dev mode and return all default records
+    return schema.transportationCensusEstimates.all();
+  });
+
+  this.get('transportation-census-estimates/:id', function(schema, request) {
+    const record = schema.censusTracts.first();
     const { params: { id } } = request;
     record.id = id;
 
     return record;
   });
-
-  // These comments are here to help you get started. Feel free to delete them.
-
-  /*
-    Config (with defaults).
-
-    Note: these only affect routes defined *after* them!
-  */
-
-  // this.urlPrefix = '';    // make this `http://localhost:8080`, for example, if your API is on a different server
-  // this.namespace = '';    // make this `/api`, for example, if your API is namespaced
-  // this.timing = 400;      // delay for each request, automatically set to 0 during testing
-
-  /*
-    Shorthand cheatsheet:
-
-    this.get('/posts');
-    this.post('/posts');
-    this.get('/posts/:id');
-    this.put('/posts/:id'); // or this.patch
-    this.del('/posts/:id');
-
-    http://www.ember-cli-mirage.com/docs/v0.4.x/shorthands/
-  */
 }
