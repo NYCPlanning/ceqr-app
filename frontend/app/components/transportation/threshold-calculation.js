@@ -3,9 +3,9 @@ import { computed } from '@ember-decorators/object';
 import round from '../../utils/round';
 
 export default class TransportationThresholdCalculationComponent extends Component {
-  @computed('analysis.{detailedAnalysis,weightedAverage}')
+  @computed('analysis.{detailedAnalysis,sumOfRatios}')
   get detailedAnalysisPopupText() {
-    return `Total Weighted Average is above 1 (at ${round(this.analysis.weightedAverage, 2)}), 
+    return `Total Sum of Ratios is above 1 (at ${round(this.analysis.sumOfRatios, 2)}), 
       triggering a preliminary trip generation analysis.`;
   }
 
