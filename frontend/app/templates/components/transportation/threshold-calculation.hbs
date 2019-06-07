@@ -165,19 +165,19 @@
   </tbody>
   <tfoot>
     <th colspan="3">
-      Weighted Average
+      Sum of Ratios
     </th>
-    <th class={{if analysis.weightedAverageOver1 "warning"}}>
-      {{#if analysis.weightedAverageOver1}}
+    <th class={{if analysis.sumOfRatiosOver1 "warning"}}>
+      {{#if analysis.sumOfRatiosOver1}}
         <UiPopup
           @title="Triggers Further Analysis"
           @content={{detailedAnalysisPopupText}}
         >
-          {{round analysis.weightedAverage decimals=2}}
+          {{round analysis.sumOfRatios decimals=2}}
           <i class="yellow attention icon"></i>
         </UiPopup>
       {{else}}
-        {{round analysis.weightedAverage decimals=2}}
+        {{round analysis.sumOfRatios decimals=2}}
       {{/if}}
     </th>
   </tfoot>

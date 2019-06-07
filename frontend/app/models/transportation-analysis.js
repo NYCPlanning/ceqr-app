@@ -12,14 +12,14 @@ export default class TransportationAnalysisModel extends Model {
 
   // Detailed Analysis trigger
   @computed(
-    'weightedAverage',
+    'sumOfRatios',
     'hasFastFood'
   )
   get detailedAnalysis() {
     return (
       this.hasFastFood ||
       this.hasCommunityFacility ||
-      this.weightedAverageOver1
+      this.sumOfRatiosOver1
     )
   }
 
@@ -32,7 +32,7 @@ export default class TransportationAnalysisModel extends Model {
     'communityFacilitySqFtRatio',
     'offStreetParkingSpacesRatio'
   )
-  get weightedAverage() {
+  get sumOfRatios() {
     return (
       this.residentialUnitsRatio +
       this.officeSqFtRatio +
@@ -56,10 +56,10 @@ export default class TransportationAnalysisModel extends Model {
     return !!this.get('project.communityFacilityLandUse').length;
   }
 
-  // Weighted Average boolean
-  @computed('weightedAverage')
-  get weightedAverageOver1() {
-    return this.weightedAverage > 1;
+  // Sum of Ratios boolean
+  @computed('sumOfRatios')
+  get sumOfRatiosOver1() {
+    return this.sumOfRatios > 1;
   }
   
   // Residential units
