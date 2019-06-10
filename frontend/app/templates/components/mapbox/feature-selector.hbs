@@ -1,0 +1,9 @@
+<Mapbox::CurrentMouseEvent @mapboxEventName="click" @map={{this.map}} as |mapMouseEvent|>
+  <Mapbox::IntersectingFeatures
+    @map={{this.map}}
+    @point={{mapMouseEvent.point}}
+    @options={{hash layers=(array this.layerId)}} as |intersectingFeatures|
+  >
+    {{yield intersectingFeatures }}  
+  </Mapbox::IntersectingFeatures>
+</Mapbox::CurrentMouseEvent>

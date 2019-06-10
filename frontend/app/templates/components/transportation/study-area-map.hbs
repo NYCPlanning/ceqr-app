@@ -32,6 +32,13 @@
           data-test-popup='census-tract'
         />
       </Mapbox::LayerHoverCard>
+      <Mapbox::FeatureSelector
+        @map={{map}}
+        @layerId={{layer.layerId}} as |selectedFeatures| >
+        <Transportation::StudyAreaMap::StudySelectionToggler
+          @selectedFeatureArray={{selectedFeatures}}
+          @analysis={{analysis}} />
+      </Mapbox::FeatureSelector>
     </carto-source.layer>
 
     <carto-source.layer
