@@ -1,5 +1,5 @@
 class Db::NycAcs < DataRecord
-  self.table_name = "nyc_acs.2010"
+  self.table_name = "nyc_acs.2017"
 
   def self.st_union_geoids_centroid(geoids)
     select('ST_CENTROID(ST_MULTI(ST_UNION(geom)))').where(geoid: geoids).first.st_centroid
