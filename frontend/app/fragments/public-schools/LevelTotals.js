@@ -5,7 +5,7 @@ import round from '../../utils/round';
 /**
  * LevelTotals is an EmberObject that aggregates the output of a list of SubdistrictTotals
  * Three LevelTotals obejcts are created per analysis, one for each school level: ps, is, hs.
- * 
+ *
  * @constructor
  * @param {SubdistrictTotal[]} subdistrictTotals - Array of SubdistrictTotal objects filtered by relevant level
  * @param {integer} newSchoolSets - Total number of school seats for the filtered school level
@@ -14,25 +14,39 @@ import round from '../../utils/round';
 
 export default EmberObject.extend({
   enrollTotal: computed('subdistrictTotals', function() {
-    return this.get('subdistrictTotals').mapBy('enroll').reduce(function(acc, value) {            
+    return this.get('subdistrictTotals').mapBy('enroll').reduce(function(acc, value) {
       return acc + parseInt(value);
     }, 0);
   }),
 
   studentsTotal: computed('subdistrictTotals', function() {
-    return this.get('subdistrictTotals').mapBy('students').reduce(function(acc, value) {            
+    return this.get('subdistrictTotals').mapBy('students').reduce(function(acc, value) {
       return acc + parseInt(value);
     }, 0);
   }),
 
-  enrollNoActionTotal: computed('projectedEnrollTotal', 'studentsTotal', function() {
+  enrollNoActionTotal: computed('enrollTotal', 'studentsTotal', function() {
     return this.get('enrollTotal') + this.get('studentsTotal');
   }),
 
   enrollWithActionTotal: computed('subdistrictTotals', function() {
-    return this.get('subdistrictTotals').mapBy('enrollWithAction').reduce(function(acc, value) {            
-      return acc + parseInt(value);
-    }, 0);
+    return this.get('enrollNoActionTotal') + this.studentsWithAction;
+  }),
+
+  enrollNoActionDeltaTotal: computed('enrollNoActionTotal', 'enrollTotal', function() {
+    return this.get('enrollNoActionTotal') - this.get('enrollTotal');
+  }),
+
+  enrollWithActionDeltaTotal: computed('enrollWithActionTotal', 'enrollTotal', function() {
+    return this.get('enrollWithActionTotal') - this.get('enrollTotal');
+  }),
+
+  enrollDifferenceTotal: computed('enrollWithActionTotal', 'enrollNoActionTotal', function() {
+    return this.get('enrollWithActionTotal') - this.get('enrollNoActionTotal');
+  }),
+
+  enrollDeltaDifferenceTotal: computed('enrollNoActionDeltaTotal', 'enrollWithActionDeltaTotal', function() {
+    return this.get('enrollWithActionDeltaTotal') - this.get('enrollNoActionDeltaTotal');
   }),
 
   capacityNoActionTotal: computed('subdistrictTotals', function() {
@@ -51,6 +65,10 @@ export default EmberObject.extend({
 
   seatsWithActionTotal: computed('subdistrictTotals', function() {
     return this.get('capacityWithActionTotal') - this.get('enrollWithActionTotal');
+  }),
+
+  seatsDifferenceTotal: computed('seatsNoActionTotal', 'seatsWithActionTotal', function() {
+    return this.get('seatsWithActionTotal') - this.get('seatsNoActionTotal');
   }),
 
   utilizationNoActionTotal: computed('enrollNoActionTotal', 'capacityNoActionTotal', function() {
@@ -74,7 +92,7 @@ export default EmberObject.extend({
   }),
 
   // Mitigation
-  mitigateSeatCount: computed('enrollWithActionTotal', 'utilizationNoActionTotal', 'capacityWithActionTotal', function() {    
+  mitigateSeatCount: computed('enrollWithActionTotal', 'utilizationNoActionTotal', 'capacityWithActionTotal', function() {
     const seatsToMitigateUtilization = this.get('enrollWithActionTotal') - (this.get('capacityWithActionTotal') - 1)
 
     const seatsToMitigateChange = Math.ceil(
