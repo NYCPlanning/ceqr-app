@@ -1,0 +1,15 @@
+<table border='1' style='width:100%; border-collapse:collapse;'>
+  <tr>
+    <th>Transportation Mode</th>
+    <th>Count</th>
+    <th>MOE</th>
+  </tr>
+{{#each modalSplitData as |mode|}}
+   <tr>
+     <td data-test-mode={{mode.variable}}>{{mode.mode}}</td>
+     <td data-test-value={{mode.variable}}>{{mode.value}}</td>
+     <td data-test-moe={{mode.variable}}>{{mode.moe}}</td>
+  </tr>
+{{/each}}
+</table>
+<h5 data-test-population>Population: {{population}}</h5>

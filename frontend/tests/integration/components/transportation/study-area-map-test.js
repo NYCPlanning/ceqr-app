@@ -52,10 +52,11 @@ module('Integration | Component | transportation/study-area-map', function(hooks
   });
 
   test('it hovers, displays information', async function(assert) {
-    this.server.create('modal-split', { id: 'test' });
+    const geoid = '1';
+    this.server.create('transportation-census-estimate', 2, { geoid });
 
     let events = {};
-    this.map = { 
+    this.map = {
       ...DEFAULT_MAPBOX_GL_INSTANCE,
       queryRenderedFeatures() {
         return [{
