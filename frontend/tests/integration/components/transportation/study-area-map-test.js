@@ -6,6 +6,7 @@ import setupMirage from 'ember-cli-mirage/test-support/setup-mirage';
 import Component from '@ember/component';
 import { registerEventHandler, simulateEvent }  from '../../../helpers/mapbox/mapbox-stub-helpers';
 
+const renderedGeoId = '1';
 const DEFAULT_MAPBOX_GL_INSTANCE = {
   addSource: () => {},
   addLayer: () => {},
@@ -34,7 +35,7 @@ module('Integration | Component | transportation/study-area-map', function(hooks
         return [{
           type: 'Feature',
           properties: {
-            geoid: 'test',
+            geoid: renderedGeoId,
           },
         }]
       },
@@ -42,8 +43,8 @@ module('Integration | Component | transportation/study-area-map', function(hooks
         this.filters[layerId] = filter;
       },
       // On render, component templates like `current-map-position.js`
-      // will associate action handlers to fired mouse events and 
-      // mantain a list of these associations. 
+      // will associate action handlers to fired mouse events and
+      // mantain a list of these associations.
       // We simulate this association list locally (with the `events` object)
       // so that we can make ad hoc calls to action handlers. See comment below
       // in `it hovers, displays information`.
@@ -90,16 +91,16 @@ module('Integration | Component | transportation/study-area-map', function(hooks
     assert.ok(find("[data-test-popup='census-tract']"));
   });
 
-  test('it selected features on click', async function(assert) {
+  test('it selects features on click', async function(assert) {
     // If a project exists with a transportation analysis
     const project = server.create('project');
     this.model = await this.owner.lookup('service:store')
       .findRecord('project', project.id, { include: 'transportation-analysis'});
 
-    const geoid = 'test';
+    const geoid = renderedGeoId;
 
     await render(hbs`{{transportation/study-area-map analysis=model.transportationAnalysis}}`);
-    simulateEvent(this.events, 'click', {point: 'test'});
+    simulateEvent(this.events, 'click', {point: 'point'});
 
     await settled();
 

@@ -12,22 +12,22 @@ class TransportationAnalysis < ApplicationRecord
 
   private
     # Find and set the intersecting Census Tracts
-    def compute_study_selection
+    def compute_required_study_selection
       tracts = Db::CensusTract.for_geom(project.bbls_geom)
 
-      self.jtw_study_selection = tracts
+      self.required_jtw_study_selection = tracts || []
     end
 
     # Find and set the centroid
     def compute_study_area
-      centroid = Db::CensusTract.st_union_geoids_centroid(self.jtw_study_selection)
+      centroid = Db::CensusTract.st_union_geoids_centroid(self.required_jtw_study_selection)
 
       self.jtw_study_area_centroid = centroid
     end
 
     # Call necessary methods for computing study selection & area
     def compute_study_data
-      compute_study_selection
+      compute_required_study_selection
       compute_study_area
     end
 

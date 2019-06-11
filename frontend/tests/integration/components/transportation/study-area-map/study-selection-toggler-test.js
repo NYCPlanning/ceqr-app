@@ -31,26 +31,25 @@ module('Integration | Component | transportation/study-area-map/study-selection-
   });
 
   test('it removes a selected feature geoId from the analysis model study selection', async function(assert) {
-    // If a project exists with a transportation analysis
+    // If a project exists with a transportation analysis with jtwStudySelection including given geoid
     const project = server.create('project');
     this.model = await this.owner.lookup('service:store')
       .findRecord('project', project.id, { include: 'transportation-analysis'});
 
-    const existingStudySelection = await this.get('model.transportationAnalysis.jtwStudySelection');
-    const existingLength = existingStudySelection.length;
-    const existingGeoid = existingStudySelection[0];
+    const geoid = 'geoid';
+    this.model.set('transportationAnalysis.jtwStudySelection', [geoid]);
 
-     // When a feature with geoid already in study selection is selected
+     // When a feature with given geoid is selected
     await render(hbs`
       {{transportation/study-area-map/study-selection-toggler analysis=model.transportationAnalysis selectedFeatureArray=selectedFeatures}}
     `);
-    this.set('selectedFeatures', [{ properties: { geoid: existingGeoid } }]);
+    this.set('selectedFeatures', [{ properties: { geoid: geoid } }]);
     await settled();
 
     // Then the geoid should be removed from the transportationAnalysis study selection
     const updatedStudySelection = await this.get('model.transportationAnalysis.jtwStudySelection');
-    assert.equal(updatedStudySelection.length, existingLength - 1)
-    assert.notOk(updatedStudySelection.includes(existingGeoid));
+    assert.equal(updatedStudySelection.length, 0)
+    assert.notOk(updatedStudySelection.includes(geoid));
   });
 
 });

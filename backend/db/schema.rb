@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_16_174747) do
+ActiveRecord::Schema.define(version: 2019_06_10_181704) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -99,8 +99,9 @@ ActiveRecord::Schema.define(version: 2019_05_16_174747) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "project_id"
-    t.jsonb "jtw_study_selection", default: [], null: false, array: true
     t.geometry "jtw_study_area_centroid", limit: {:srid=>4326, :type=>"st_point"}, null: false
+    t.string "required_jtw_study_selection", limit: 11, default: [], null: false, array: true
+    t.string "jtw_study_selection", limit: 11, default: [], array: true
   end
 
   create_table "users", force: :cascade do |t|
