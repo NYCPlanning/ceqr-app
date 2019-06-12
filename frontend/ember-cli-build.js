@@ -26,7 +26,17 @@ module.exports = function(defaults) {
     },
 
     'ember-ast-hot-load': {
-      helpers: ["page-title"],
+      helpers: [
+        'page-title',
+        'find-modal-split',
+        'get-aggregate-value',
+        'get-aggregate-percent',
+        'get-split-value',
+        'get-split-percent',
+        'human-readable-census-tract',
+        'map-color-for',
+        'percentage'
+      ],
       enabled: true
     }
   });

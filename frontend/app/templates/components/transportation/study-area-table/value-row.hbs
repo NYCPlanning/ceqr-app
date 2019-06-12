@@ -1,0 +1,5 @@
+<td>{{this.title}}</td>
+{{#each this.censusTracts as |censusTract|}}
+  <td>{{get censusTract this.variable}}</td>
+{{/each}}
+<td>{{get-aggregate-value censusTracts this.variable}}</td>

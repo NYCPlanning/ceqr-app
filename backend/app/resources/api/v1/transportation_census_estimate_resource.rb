@@ -21,8 +21,6 @@ class Api::V1::TransportationCensusEstimateResource < JSONAPI::Resource
     Db::NycAcs.version
   end
 
-  # If these default variable filters are changed to include non-transportation variables,
-  # consider renaming this resource (and associated models/controllers) to census-estimate
-  filter :variable, default: 'population,trans_total,trans_auto_total,trans_public_total'
+  filter :variable
   filter :geoid
 end

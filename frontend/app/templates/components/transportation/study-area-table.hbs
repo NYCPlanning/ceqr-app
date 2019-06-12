@@ -1,0 +1,53 @@
+<div style="overflow-x:auto;">
+  <table class="ui fixed celled table">
+    <thead>
+      <tr>
+        <th class="five wide"> </th>
+        {{#each this.selectedCensusTractIds as |censusTract|}}
+          <th>{{human-readable-census-tract censusTract}}</th>
+        {{/each}}
+        <th>Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#let (await this.selectedCensusTractData) as |censusTracts|}}
+        <Transportation::StudyAreaTable::ValueRow
+          @title="Total:"
+          @allModalSplitData={{censusTracts}}
+          @variable='trans_total'
+        />
+        <Transportation::StudyAreaTable::ValueRow
+          @title="&nbsp;&nbsp;&nbsp;Car, truck, or van"
+          @allModalSplitData={{censusTracts}}
+          @variable='trans_auto_total'
+        />
+        <Transportation::StudyAreaTable::ValueRow
+          @title="&nbsp;&nbsp;&nbsp;Public transportation (excluding taxicab)"
+          @allModalSplitData={{censusTracts}}
+          @variable='trans_public_total'
+        />
+        <Transportation::StudyAreaTable::ValueRow
+          @title="&nbsp;&nbsp;&nbsp;Total commuters (excluding work from home)"
+          @allModalSplitData={{censusTracts}}
+          @variable='trans_commuter_total'
+        />
+        <tr>"Modal Splits (of total commuters):"</tr>
+        <Transportation::StudyAreaTable::PercentRow
+          @title="&nbsp;&nbsp;&nbsp;Auto"
+          @allModalSplitData={{censusTracts}}
+          @variables={{array 'trans_auto_total'}}
+        />
+        <Transportation::StudyAreaTable::PercentRow
+          @title="&nbsp;&nbsp;&nbsp;Public"
+          @allModalSplitData={{censusTracts}}
+          @variables={{array 'trans_public_total'}}
+        />
+        <Transportation::StudyAreaTable::PercentRow
+          @title="&nbsp;&nbsp;&nbsp;Total"
+          @allModalSplitData={{censusTracts}}
+          @variables={{array 'trans_auto_total' 'trans_public_total'}}
+        />
+      {{/let}}
+    </tbody>
+  </table>
+</div>

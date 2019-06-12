@@ -1,6 +1,12 @@
 import Component from '@ember/component';
 import { computed } from '@ember-decorators/object';
 
+export const MODAL_SPLIT_POPUP_DISPLAY_VARIABLES = [
+  'population',
+  'trans_total',
+  'trans_auto_total',
+  'trans_public_total'
+]
 /**
  * ModalSplitFormatter component is responsible for correctly ingesting census-tract records
  * and formatting the data for display. Due to the data model, multiple records are required
@@ -10,28 +16,17 @@ import { computed } from '@ember-decorators/object';
  */
 export default class TransportationStudyAreaMapCensusTractPopupModalSplitFormatterComponent extends Component {
   /**
-   * RecordArray from census-tract-popup/data containing census-tract models for a given geoid
+   * Modal-split, composed from multiple 'transportation-census-estimate' rows
+   * (See utils/modal-split)
    */
-  data = [];
+  data = {};
 
   /**
-   *  The 'value' property of the census-tract record for variable = 'population'
-   */
-  @computed('data')
-  get population() {
-    const data = this.get('data');
-    const populationVariable = data.filter((censusTractVariable) => {return censusTractVariable.variable === 'population'})[0];
-    return populationVariable ? populationVariable.value : 'Unknown';
-  }
-
-  /**
-   * The census-tract records for modal split variables
-   * (i.e. trans_total, trans_auto_total, trans_public_total)
+   * The set of modal split variables that should be displayed in the popup
    */
   @computed('data')
   get modalSplitData() {
-    const data = this.get('data');
-    return data.filter((censusTractVariable) => { return censusTractVariable.variable !== 'population' });
+    const { data } = this;
+    return MODAL_SPLIT_POPUP_DISPLAY_VARIABLES.map(variable => data[variable]);
   }
-
 }

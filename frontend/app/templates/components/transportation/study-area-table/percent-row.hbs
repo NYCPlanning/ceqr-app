@@ -1,0 +1,5 @@
+<td>{{this.title}}</td>
+{{#each this.censusTracts as |censusTract|}}
+  <td>{{get-split-percent censusTract this.variables}}</td>
+{{/each}}
+<td>{{get-aggregate-percent this.censusTracts this.variables}}</td>
