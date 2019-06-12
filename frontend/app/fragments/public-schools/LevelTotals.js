@@ -8,7 +8,7 @@ import round from '../../utils/round';
  *
  * @constructor
  * @param {SubdistrictTotal[]} subdistrictTotals - Array of SubdistrictTotal objects filtered by relevant level
- * @param {integer} newSchoolSets - Total number of school seats for the filtered school level
+ * @param {integer} studentsWithAction - Number of students to be added by project under analysis
  */
 
 
@@ -29,7 +29,7 @@ export default EmberObject.extend({
     return this.get('enrollTotal') + this.get('studentsTotal');
   }),
 
-  enrollWithActionTotal: computed('subdistrictTotals', function() {
+  enrollWithActionTotal: computed('subdistrictTotals', function() {    
     return this.get('enrollNoActionTotal') + this.studentsWithAction;
   }),
 
@@ -51,6 +51,12 @@ export default EmberObject.extend({
 
   capacityNoActionTotal: computed('subdistrictTotals', function() {
     return this.get('subdistrictTotals').mapBy('capacityNoAction').reduce(function(acc, value) {
+      return acc + parseInt(value);
+    }, 0);
+  }),
+
+  newSchoolSeats: computed('subdistrictTotals', function() {
+    return this.get('subdistrictTotals').mapBy('newCapacityWithAction').reduce(function(acc, value) {
       return acc + parseInt(value);
     }, 0);
   }),

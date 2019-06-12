@@ -22,7 +22,6 @@ import round from '../../utils/round';
  * @param {integer} enroll - Future enrollment for given level, subdistrict, and build year
  * @param {integer} students - Future students from sca enrollment projections and any user-inputed future housing development
  * @param {integer} scaCapacityIncrease - Additional school seats provided by future schools (from sca capital plan) user has included in analysis
- * @param {integer} studentsWithAction - Number of students to be added by project under analysis
  * @param {integer} newCapacityWithAction - Additional school seats provided by school built with project
  *
  * @todo rename `buildings` attribut to `schools`
