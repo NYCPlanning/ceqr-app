@@ -18,8 +18,8 @@ module('Integration | Component | mapbox/current-mouse-position', function(hooks
     };
 
     await render(hbs`
-      {{#mapbox/current-mouse-position map=map as |mapboxMapEvent|}}
-        {{mapboxMapEvent.point.x}}
+      {{#mapbox/current-mouse-position map=map as |mousePoint|}}
+        {{mousePoint.x}}
       {{/mapbox/current-mouse-position}}
     `);
 

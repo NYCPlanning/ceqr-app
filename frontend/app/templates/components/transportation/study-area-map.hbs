@@ -23,15 +23,21 @@
         paint=(hash fill-opacity=0)
       }} as |layer|
     >
-      <Mapbox::LayerHoverCard
+      <Mapbox::FeatureHoverer
         @map={{map}}
-        @layerId={{layer.layerId}} as |hover-card-data|
-      >
-        <Transportation::StudyAreaMap::CensusTractPopup
-          @feature={{hover-card-data}}
-          data-test-popup='census-tract'
-        />
-      </Mapbox::LayerHoverCard>
+        @layerId={{layer.layerId}}
+        @onFeatures={{this.setFirstHoveredFeatureId}}
+        as |hoverer|
+      > 
+        {{#if (and hoverer.point hoverer.features)}}
+          <HoverCard @point={{hoverer.point}}>
+            <Transportation::StudyAreaMap::CensusTractPopup
+              @feature={{hoverer.features.firstObject}}
+              data-test-popup='census-tract'
+            />
+          </HoverCard>
+        {{/if}}
+      </Mapbox::FeatureHoverer>
       <Mapbox::FeatureSelector
         @map={{map}}
         @layerId={{layer.layerId}} as |selectedFeatures| >
@@ -40,7 +46,24 @@
           @analysis={{analysis}} />
       </Mapbox::FeatureSelector>
     </carto-source.layer>
-
+    <carto-source.layer
+      @id="tracts-highlight"
+      @sql="select * from nyc_census_tracts_2010"
+      @layer={{hash
+        type="fill"
+        paint=(hash
+          fill-opacity=0.5
+          fill-color="green"
+        )
+      }} as |layer|
+    >
+      <Mapbox::FeatureFilterer
+        @map={{map}}
+        @layerId={{layer.layerId}}
+        @filterById="geoid"
+        @featureIds={{array this.hoveredFeatureId}}
+      />
+    </carto-source.layer>
     <carto-source.layer
       @id="subway"
       @sql="select * from mta_subway_routes_v0"

@@ -1,5 +1,4 @@
 import Component from '@ember/component';
-import { computed } from '@ember-decorators/object';
 
 export default class MapboxIntersectingFeatures extends Component {
   // required
@@ -13,12 +12,24 @@ export default class MapboxIntersectingFeatures extends Component {
   // a mapbox-gl "point-like" object
   point = {}
 
-  // grabs the intersecting features from mapbox-gl
-  @computed('point', 'options')
-  get intersectingFeatures() {
+  /**
+   * Callback called upon successfully acquiring features at @point
+   * @function
+   * @param {Array.<object>} features - array of features intersecting @point
+   */
+  handleIntersectingFeatures = () => {};
+
+  // features at given @point and in layers of @options.layers
+  _intersectingFeatures = null;
+
+  didReceiveAttrs(){
     const { map, point, options } = this;
     const { instance } = map;
-
-    return instance.queryRenderedFeatures(point, { ...options });
+    let queriedFeatures = instance.queryRenderedFeatures(point, { ...options });
+    this.set('_intersectingFeatures', queriedFeatures);
+    if(this.handleIntersectingFeatures){
+      this.handleIntersectingFeatures(queriedFeatures);
+    }
   }
+
 }
