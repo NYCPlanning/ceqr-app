@@ -1,0 +1,48 @@
+<Mapbox::BasicMap
+  @name="study-area-map"
+  @initOptions={{hash
+    style="mapbox://styles/mapbox/light-v9"
+    zoom=13
+    center=(array -74 40.62)
+  }} as |map|
+>
+  <Mapbox::CartoVectorSource @map={{map}} as |carto-source|>
+    <carto-source.layer
+      @id="tracts-highlight"
+      @sql="select * from nyc_census_tracts_2010"
+      @layer={{hash
+        type="fill"
+        paint=(hash
+          fill-opacity=0.5
+          fill-color="green"
+        )
+      }} as |layer|
+    >
+      <Mapbox::FeatureFilterer
+        @map={{map}}
+        @layerId={{layer.layerId}}
+        @filterById="geoid"
+        @featureIds={{array "36047020800"}}
+      />
+    </carto-source.layer>
+    <carto-source.layer
+      @id="subway"
+      @sql="select * from mta_subway_routes_v0"
+      @layer={{hash
+        type="line"
+        paint=(hash line-color="red")
+      }}
+     />
+    <carto-source.layer
+      @id="bus"
+      @sql="select * from mta_bus_stops_v0"
+      @layer={{hash
+        type="circle"
+        paint=(hash
+          circle-color="pink"
+          circle-radius=1
+        )
+      }}
+     />
+  </Mapbox::CartoVectorSource>
+</Mapbox::BasicMap>

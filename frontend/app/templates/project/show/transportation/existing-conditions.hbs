@@ -1,16 +1,10 @@
 {{! transportation/existing-conditions controller template }}
+{{outlet 'map'}}
 <div class="row">
   <div class="sixteen wide column">
-    <Transportation::StudyAreaMap
-      @analysis={{model.transportationAnalysis}}
+    <Transportation::ExistingConditions::ExistingConditionsSteps
+      @project={{project}}
     />
   </div>
 </div>
-<div class="row">
-  <div class="sixteen wide column">
-    <Transportation::StudyAreaTable
-      @analysis={{model.transportationAnalysis}}
-    />
-  </div>
-</div>
-{{outlet}}
+{{outlet 'table'}}
