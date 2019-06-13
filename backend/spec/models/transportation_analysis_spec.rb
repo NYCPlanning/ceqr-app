@@ -28,7 +28,7 @@ RSpec.describe TransportationAnalysis, type: :model do
 
     it "sets study selection based on project study area" do
       allow(@censusTractMock).to receive(:for_geom).and_return(['bar'])
-      expect(analysis.jtw_study_selection).to eq(['bar'])
+      expect(analysis.required_jtw_study_selection).to eq(['bar'])
     end
 
     it "sets the geographic centroid of the study area" do

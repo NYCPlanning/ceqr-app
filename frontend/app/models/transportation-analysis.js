@@ -9,7 +9,10 @@ export default class TransportationAnalysisModel extends Model {
 
   // Attributes
   @attr('number') trafficZone;
-  @attr() jtwStudySelection;
+  // the geoids of REQUIRED census tracts in study selection; determined by bbl intersect
+  @attr({defaultValue: () => []}) requiredJtwStudySelection;
+  // the geoids of additional user-defined study selection
+  @attr({defaultValue: () => []}) jtwStudySelection;
 
   // Detailed Analysis trigger
   @computed(

@@ -46,6 +46,7 @@
           @analysis={{analysis}} />
       </Mapbox::FeatureSelector>
     </carto-source.layer>
+
     <carto-source.layer
       @id="tracts-highlight"
       @sql="select * from nyc_census_tracts_2010"
@@ -61,9 +62,10 @@
         @map={{map}}
         @layerId={{layer.layerId}}
         @filterById="geoid"
-        @featureIds={{array this.hoveredFeatureId}}
+        @featureIds={{this.highlightedFeatureIds}}
       />
     </carto-source.layer>
+
     <carto-source.layer
       @id="subway"
       @sql="select * from mta_subway_routes_v0"
