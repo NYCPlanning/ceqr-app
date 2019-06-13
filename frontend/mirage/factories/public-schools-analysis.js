@@ -337,7 +337,14 @@ export default Factory.extend({
       subdistrict: 2
     }
   ],
-  subdistrictsFromUser: () => [],
+  subdistrictsFromUser: () => [
+    {
+      id: 171,
+      sdName: "District 17 - Subdistrict 1",
+      district: 17,
+      subdistrict: 1
+    }
+  ],
   bluebook: () => [
     {
       x: 997684,
@@ -364,7 +371,7 @@ export default Factory.extend({
       hs_capacity: 0,
       ms_capacity: 669,
       ps_capacity: 0,
-      subdistrict: 2,
+      subdistrict: 1,
       capacityFuture: 669,
       the_geom_webmercator: "0101000020110F0000E42C33224F675FC19D6ADE0878ED5241"
     },
@@ -393,7 +400,7 @@ export default Factory.extend({
       hs_capacity: 0,
       ms_capacity: 1320,
       ps_capacity: 0,
-      subdistrict: 2,
+      subdistrict: 1,
       capacityFuture: 1320,
       the_geom_webmercator: "0101000020110F000094EDF05E0D675FC18ADCF21497EE5241"
     },
@@ -422,7 +429,7 @@ export default Factory.extend({
       hs_capacity: 0,
       ms_capacity: 0,
       ps_capacity: 675,
-      subdistrict: 2,
+      subdistrict: 1,
       capacityFuture: 675,
       the_geom_webmercator: "0101000020110F00007A773D1E0B665FC1DC5E1F4749EE5241"
     },
@@ -451,7 +458,7 @@ export default Factory.extend({
       hs_capacity: 0,
       ms_capacity: 0,
       ps_capacity: 724,
-      subdistrict: 2,
+      subdistrict: 1,
       capacityFuture: 724,
       the_geom_webmercator: "0101000020110F0000259E75378B675FC11423610873ED5241"
     },
@@ -480,7 +487,7 @@ export default Factory.extend({
       hs_capacity: 0,
       ms_capacity: 0,
       ps_capacity: 383,
-      subdistrict: 2,
+      subdistrict: 1,
       capacityFuture: 383,
       the_geom_webmercator: "0101000020110F00002E23569B07675FC155F9F0D5E6EE5241"
     },
@@ -5038,7 +5045,46 @@ export default Factory.extend({
       the_geom_webmercator: "0101000020110F000002FD5E0159635FC17991CEBC15F35241"
     }
   ],
-  lcgms: () => [],
+  lcgms: () => [
+    {
+      "name": "P.S. 583",
+      "level": "ps",
+      "enroll": 115,
+      "grades": "K - 05",
+      "org_id": "X583",
+      "source": "lcgms",
+      "address": "1028 WHITE PLAINS ROAD",
+      "bldg_id": "X317",
+      "capacity": "",
+      "district": 17,
+      "the_geom": "0101000020E6100000ADDC0BCC0A7752C0FAEB1516DC694440",
+      "hs_enroll": 0,
+      "is_enroll": 0,
+      "org_level": "PS",
+      "ps_enroll": 115,
+      "cartodb_id": 4,
+      "subdistrict": 2
+    },
+    {
+      "name": "P.S. 553",
+      "level": "ps",
+      "enroll": 155,
+      "grades": "K - 05",
+      "org_id": "X583",
+      "source": "lcgms",
+      "address": "1028 WHITE PLAINS ROAD",
+      "bldg_id": "X317",
+      "capacity": "",
+      "district": 17,
+      "the_geom": "0101000020E6100000ADDC0BCC0A7752C0FAEB1516DC694440",
+      "hs_enroll": 0,
+      "is_enroll": 0,
+      "org_level": "PS",
+      "ps_enroll": 155,
+      "cartodb_id": 6,
+      "subdistrict": 1
+    }
+  ],
   scaProjects: () => [],
   doeUtilChanges: () => [
     {
@@ -6600,6 +6646,24 @@ export default Factory.extend({
       multiplier: 0.582024949124332,
       subdistrict: 2,
       the_geom_webmercator: null
+    },
+    {
+      level: "PS",
+      district: 17,
+      the_geom: null,
+      cartodb_id: 94,
+      multiplier: 0.483266818664257,
+      subdistrict: 1,
+      the_geom_webmercator: null
+    },
+    {
+      level: "MS",
+      district: 17,
+      the_geom: null,
+      cartodb_id: 97,
+      multiplier: 0.682024949124332,
+      subdistrict: 1,
+      the_geom_webmercator: null
     }
   ],
   futureEnrollmentNewHousing: () => [
@@ -6614,6 +6678,18 @@ export default Factory.extend({
       district: 17,
       students: 323,
       subdistrict: 2
+    },
+    {
+      level: "PS",
+      district: 17,
+      students: 938,
+      subdistrict: 1
+    },
+    {
+      level: "MS",
+      district: 17,
+      students: 223,
+      subdistrict: 1
     }
   ],
 });

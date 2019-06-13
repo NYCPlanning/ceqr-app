@@ -1,18 +1,5 @@
 <div class="ui basic top attached segment">
   <div class="ui secondary menu">
-    <div class="ui simple dropdown item">
-      <strong>
-        {{sd.sdName}}
-      </strong>
-      <i class="dropdown icon"></i>
-      <div class="menu">
-        {{#each analysis.subdistricts as |sd|}}
-          <a class="item" {{action "setSdId" sd.id}}>
-            {{sd.sdName}}
-          </a>
-        {{/each}}
-      </div>
-    </div>
     <a
       class="item {{if (eq activeSchoolsLevel "ps") "active"}}"
       {{action (mut activeSchoolsLevel) "ps"}}
@@ -77,10 +64,10 @@
         Existing Conditions
       </td>
       <td>
-        {{existingConditions.enrollmentTotal}}
+        {{levelTotals.existingConditionsEnrollment}}
       </td>
       <td>
-        {{existingConditions.capacityTotal}}
+        {{levelTotals.existingConditionsCapacity}}
       </td>
       <td class="disabled">
         –
@@ -89,10 +76,10 @@
         –
       </td>
       <td>
-        {{percentage existingConditions.utilizationTotal}}
+        {{percentage levelTotals.existingConditionsUtilization}}
       </td>
       <td>
-        {{existingConditions.seatsTotal}}
+        {{levelTotals.existingConditionsSeats}}
       </td>
     </tr>
     <tr>
@@ -103,22 +90,22 @@
         No Action
       </td>
       <td>
-        {{futureConditions.enrollNoAction}}
+        {{levelTotals.noActionEnrollment}}
       </td>
       <td>
-        {{futureConditions.capacityNoAction}}
+        {{levelTotals.noActionCapacity}}
       </td>
       <td>
-        {{futureConditions.enrollNoActionDelta}}
+        {{levelTotals.noActionEnrollmentDelta}}
       </td>
       <td>
-        {{futureConditions.capacityNoActionDelta}}
+        {{levelTotals.noActionCapacityDelta}}
       </td>
       <td>
-        {{percentage futureConditions.utilizationNoAction}}
+        {{percentage levelTotals.noActionUtilization}}
       </td>
       <td>
-        {{futureConditions.seatsNoAction}}
+        {{levelTotals.noActionSeats}}
       </td>
     </tr>
     <tr>
@@ -126,18 +113,22 @@
         With Action
       </td>
       <td>
+        {{levelTotals.withActionEnrollment}}
       </td>
       <td>
-        {{futureConditions.capacityWithAction}}
+        {{levelTotals.withActionCapacity}}
       </td>
       <td>
+        {{levelTotals.withActionEnrollmentDelta}}
       </td>
       <td>
-        {{futureConditions.capacityWithActionDelta}}
+        {{levelTotals.withActionCapacityDelta}}
       </td>
       <td>
+        {{percentage levelTotals.withActionUtilization}}
       </td>
       <td>
+        {{levelTotals.withActionSeats}}
       </td>
     </tr>
   </tbody>
