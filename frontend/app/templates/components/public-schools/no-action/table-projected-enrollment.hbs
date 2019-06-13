@@ -19,74 +19,158 @@
     </tr>
   </thead>
 
-  {{#if psTable}}
-    <thead>
+  <thead>
+    <tr>
+      <th colspan="7">
+        Primary Schools
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each analysis.psLevelTotals.subdistrictTotals as |p|}}
       <tr>
-        <th colspan="7">Primary Schools</th>
+        <td>
+          {{p.sdName}}
+        </td>
+        <td>
+          {{p.enroll}}
+        </td>
+        <td class="math--left">
+          <i class="plus circle icon"></i>
+          {{p.students}}
+        </td>
+        <td>
+          {{p.enrollNoAction}}
+        </td>
+        <td>
+          {{p.capacityNoAction}}
+        </td>
+        <td>
+          {{p.seatsNoAction}}
+        </td>
+        <td>
+          {{percentage p.utilizationNoAction}}
+        </td>
       </tr>
-    </thead>
-
-    <tbody>
-      {{#each psTable as |p|}}
-        <tr>
-          <td>{{p.sdName}}</td>
-          <td>{{p.enroll}}</td>
-          <td class="math--left"><i class="plus circle icon"></i>{{p.students}}</td>
-          <td>{{p.enrollNoAction}}</td>
-          <td>{{p.capacityNoAction}}</td>
-          <td>{{p.seatsNoAction}}</td>
-          <td>{{percentage p.utilizationNoAction}}</td>
-        </tr>
-      {{/each}}
-    </tbody>
-
-    {{#if analysis.multiSubdistrict}}
-      <tr>
-        <td><em>Totals across study area</em></td>
-        <td><em>{{psTableTotals.enrollTotal}}</em></td>
-        <td class="math--left"><i class="plus circle icon"></i><em>{{psTableTotals.studentsTotal}}</em></td>
-        <td><em>{{psTableTotals.enrollNoActionTotal}}</em></td>
-        <td><em>{{psTableTotals.capacityNoActionTotal}}</em></td>
-        <td><em>{{psTableTotals.seatsNoActionTotal}}</em></td>
-        <td><em>{{percentage psTableTotals.utilizationNoActionTotal}}</em></td>
-      </tr>
-    {{/if}}
+    {{/each}}
+  </tbody>
+  {{#if analysis.multiSubdistrict}}
+    <tr>
+      <td>
+        <em>
+          Totals across study area
+        </em>
+      </td>
+      <td>
+        <em>
+          {{analysis.psLevelTotals.enrollTotal}}
+        </em>
+      </td>
+      <td class="math--left">
+        <i class="plus circle icon"></i>
+        <em>
+          {{analysis.psLevelTotals.studentsTotal}}
+        </em>
+      </td>
+      <td>
+        <em>
+          {{analysis.psLevelTotals.enrollNoActionTotal}}
+        </em>
+      </td>
+      <td>
+        <em>
+          {{analysis.psLevelTotals.capacityNoActionTotal}}
+        </em>
+      </td>
+      <td>
+        <em>
+          {{analysis.psLevelTotals.seatsNoActionTotal}}
+        </em>
+      </td>
+      <td>
+        <em>
+          {{percentage analysis.psLevelTotals.utilizationNoActionTotal}}
+        </em>
+      </td>
+    </tr>
   {{/if}}
 
-  {{#if isTable}}
-    <thead>
+  <thead>
+    <tr>
+      <th colspan="7">
+        Intermediate Schools
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each analysis.isLevelTotals.subdistrictTotals as |p|}}
       <tr>
-        <th colspan="7">Intermediate Schools</th>
+        <td>
+          {{p.sdName}}
+        </td>
+        <td>
+          {{p.enroll}}
+        </td>
+        <td class="math--left">
+          <i class="plus circle icon"></i>
+          {{p.students}}
+        </td>
+        <td>
+          {{p.enrollNoAction}}
+        </td>
+        <td>
+          {{p.capacityNoAction}}
+        </td>
+        <td>
+          {{p.seatsNoAction}}
+        </td>
+        <td>
+          {{percentage p.utilizationNoAction}}
+        </td>
       </tr>
-    </thead>
-
-    <tbody>
-      {{#each isTable as |p|}}
-        <tr>
-          <td>{{p.sdName}}</td>
-          <td>{{p.enroll}}</td>
-          <td class="math--left"><i class="plus circle icon"></i>{{p.students}}</td>
-          <td>{{p.enrollNoAction}}</td>
-          <td>{{p.capacityNoAction}}</td>
-          <td>{{p.seatsNoAction}}</td>
-          <td>{{percentage p.utilizationNoAction}}</td>
-        </tr>
-      {{/each}}
-    </tbody>
-
-    {{#if analysis.multiSubdistrict}}
-      <tr>
-        <td><em>Totals across study area</em></td>
-        <td><em>{{isTableTotals.enrollTotal}}</em></td>
-        <td class="math--left"><i class="plus circle icon"></i><em>{{isTableTotals.studentsTotal}}</em></td>
-        <td><em>{{isTableTotals.enrollNoActionTotal}}</em></td>
-        <td><em>{{isTableTotals.capacityNoActionTotal}}</em></td>
-        <td><em>{{isTableTotals.seatsNoActionTotal}}</em></td>
-        <td><em>{{percentage isTableTotals.utilizationNoActionTotal}}</em></td>
-      </tr>
-    {{/if}}
+    {{/each}}
+  </tbody>
+  {{#if analysis.multiSubdistrict}}
+    <tr>
+      <td>
+        <em>
+          Totals across study area
+        </em>
+      </td>
+      <td>
+        <em>
+          {{analysis.isLevelTotals.enrollTotal}}
+        </em>
+      </td>
+      <td class="math--left">
+        <i class="plus circle icon"></i>
+        <em>
+          {{analysis.isLevelTotals.studentsTotal}}
+        </em>
+      </td>
+      <td>
+        <em>
+          {{analysis.isLevelTotals.enrollNoActionTotal}}
+        </em>
+      </td>
+      <td>
+        <em>
+          {{analysis.isLevelTotals.capacityNoActionTotal}}
+        </em>
+      </td>
+      <td>
+        <em>
+          {{analysis.isLevelTotals.seatsNoActionTotal}}
+        </em>
+      </td>
+      <td>
+        <em>
+          {{percentage analysis.isLevelTotals.utilizationNoActionTotal}}
+        </em>
+      </td>
+    </tr>
   {{/if}}
-
+  
   {{#if analysis.hsAnalysis}}
     <thead>
       <tr>
@@ -95,7 +179,7 @@
     </thead>
 
     <tbody>
-      {{#each hsTable as |p|}}
+      {{#each analysis.hsLevelTotals.subdistrictTotals as |p|}}
         <tr>
           <td>{{analysis.borough}}</td>
           <td>{{p.enroll}}</td>

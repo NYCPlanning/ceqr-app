@@ -49,19 +49,49 @@ module('Unit | Fragment | LevelTotals', function(hooks) {
   });
 
   test('#enrollWithActionTotal is calculated correctly', function(assert) {
-    let subdistrict_totals =
-    SubdistrictTotals.create({
-      enrollWithActionTotal: 400
-    });
-
     let level_totals =
     LevelTotals.create({
-      subdistrictTotals: subdistrict_totals,
+      studentsWithAction: 100,
+      enrollNoActionTotal: 300,
     });
 
-    assert.equal(level_totals.subdistrictTotals.enrollWithActionTotal, 400);
+    assert.equal(level_totals.enrollWithActionTotal, 400);
 
   });
+
+  test('#enrollWithActionDeltaTotal is calculated correctly', function(assert) {
+    let level_totals =
+    LevelTotals.create({
+      enrollTotal: 100,
+      enrollWithActionTotal: 300,
+    });
+
+    assert.equal(level_totals.enrollWithActionDeltaTotal, 200);
+
+  });
+
+  test('#enrollDifferenceTotal is calculated correctly', function(assert) {
+    let level_totals =
+    LevelTotals.create({
+      enrollWithActionTotal: 400,
+      enrollNoActionTotal: 300,
+    });
+
+    assert.equal(level_totals.enrollDifferenceTotal, 100);
+
+  });
+
+  test('#enrollDeltaDifferenceTotal is calculated correctly', function(assert) {
+    let level_totals =
+    LevelTotals.create({
+      enrollNoActionDeltaTotal: 300,
+      enrollWithActionDeltaTotal: 500,
+    });
+
+    assert.equal(level_totals.enrollDeltaDifferenceTotal, 200);
+
+  });
+
 
   test('#capacityNoActionTotal is calculated correctly', function(assert) {
     let subdistrict_totals =
@@ -108,6 +138,16 @@ module('Unit | Fragment | LevelTotals', function(hooks) {
     });
 
     assert.equal(level_totals.seatsWithActionTotal, 100);
+
+  });
+
+  test('#seatsDifferenceTotal is calculated correctly', function(assert) {
+    let level_totals = LevelTotals.create({
+      seatsWithActionTotal: 400,
+      seatsNoActionTotal: 200
+    });
+
+    assert.equal(level_totals.seatsDifferenceTotal, 200);
 
   });
 

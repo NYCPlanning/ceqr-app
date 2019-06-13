@@ -8,23 +8,22 @@ import round from '../../utils/round';
  * It accepts a number attributes that come from the database, stored on the public-schools-analysis model.
  * A SubdistrictTotals object is created for every ps and is school, per subdistrict. And one SubdistrictTotals
  * for the borough wide hs analysis. (@todo a different object should probably exist specifically for hs analysis)
- * 
+ *
  * @constructor
  * @param {string} level - ps, is, or hs
- * 
+ *
  * @param {string} borough - Borough if level is hs
  * @param {integer} district - School district if level is ps or is
  * @param {integer} subdistrict - School subdistrict if level is ps or is
- * 
+ *
  * @param {School[]} allBuildings - Array of all Schools received from the db
- * 
+ *
  * @param {integer} studentMultiplier - Multiplier for the given level
  * @param {integer} enroll - Future enrollment for given level, subdistrict, and build year
  * @param {integer} students - Future students from sca enrollment projections and any user-inputed future housing development
  * @param {integer} scaCapacityIncrease - Additional school seats provided by future schools (from sca capital plan) user has included in analysis
- * @param {integer} studentsWithAction - Number of students to be added by project under analysis
  * @param {integer} newCapacityWithAction - Additional school seats provided by school built with project
- * 
+ *
  * @todo rename `buildings` attribut to `schools`
  * @todo experiment with typescript for calculation fragments
  */
@@ -118,21 +117,10 @@ export default EmberObject.extend({
   enrollNoActionDelta: computed('enrollNoAction', 'enrollExistingConditions', function() {
     return this.enrollNoAction - this.enrollExistingConditions;
   }),
-  enrollWithAction: computed('studentsWithAction', function() {
-    return this.enrollNoAction + this.studentsWithAction;
-  }),
-  enrollWithActionDelta: computed('enrollWithAction', 'enrollExistingConditions', function() {
-    return this.enrollWithAction - this.enrollExistingConditions;
-  }),
-  enrollDifference: computed('enrollNoAction', 'enrollWithAction', function() {
-    return this.enrollWithAction - this.enrollNoAction;
-  }),
-  enrollDeltaDifference: computed('enrollNoActionDelta', 'enrollWithActionDelta', function() {
-    return this.enrollWithActionDelta - this.enrollNoActionDelta;
-  }),
 
   capacityExisting: alias('capacityTotal'),
   capacityFuture: alias('capacityTotalNoAction'),
+
   capacityNoAction: computed('capacityFuture', 'scaCapacityIncrease', function() {
     return this.capacityFuture + this.scaCapacityIncrease;
   }),
@@ -156,30 +144,10 @@ export default EmberObject.extend({
   seatsNoAction: computed('capacityNoAction', 'enrollNoAction', function() {
     return this.capacityNoAction - this.enrollNoAction;
   }),
-  seatsWithAction: computed('capacityNoAction', 'enrollWithAction', function() {
-    return this.capacityNoAction - this.enrollWithAction;
-  }),
-  seatsDifference: computed('seatsNoAction', 'seatsWithAction', function() {
-    return this.seatsWithAction - this.seatsNoAction;
-  }),
 
 
   utilizationNoAction: computed('enrollNoAction', function() {
     return round(this.enrollNoAction / this.capacityNoAction, 3);
   }),
-  utilizationWithAction: computed('enrollWithAction', function() {
-    return round(this.enrollWithAction / this.capacityNoAction, 3);
-  }),
-  utilizationChange: computed('utilizationWithAction', 'utilizationNoAction', function() {
-    return round(this.utilizationWithAction - this.utilizationNoAction, 4);
-  }),
 
-
-  impact: computed('utilizationChange', 'utilizationWithAction', function() {
-    return (
-      (this.utilizationChange >= 0.05)
-      &&
-      (this.utilizationWithAction >= 1)
-    );
-  })
 });

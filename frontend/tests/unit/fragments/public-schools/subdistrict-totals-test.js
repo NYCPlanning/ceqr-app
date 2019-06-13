@@ -6,7 +6,7 @@ import School from 'labs-ceqr/fragments/public-schools/School';
 
 module('Unit | Fragment | SubdistrictTotals', function(hooks) {
   setupTest(hooks);
-  
+
   test('#buildings returns correct filters list', function(assert) {
     let schools =  [
       School.create({
@@ -288,46 +288,6 @@ test('#capacityTotal returns correct calculation', function(assert) {
 
   });
 
-  test('#enrollWithAction is calculated correctly', function(assert) {
-    let aggregate_totals = SubdistrictTotals.create({
-      enrollNoAction: 400,
-      studentsWithAction: 200
-    });
-
-    assert.equal(aggregate_totals.enrollWithAction, 600);
-
-  });
-
-  test('#enrollWithActionDelta is calculated correctly', function(assert) {
-    let aggregate_totals = SubdistrictTotals.create({
-      enrollWithAction: 400,
-      enrollExistingConditions: 200
-    });
-
-    assert.equal(aggregate_totals.enrollWithActionDelta, 200);
-
-  });
-
-  test('#enrollDifference is calculated correctly', function(assert) {
-    let aggregate_totals = SubdistrictTotals.create({
-      enrollWithAction: 400,
-      enrollNoAction: 200
-    });
-
-    assert.equal(aggregate_totals.enrollDifference, 200);
-
-  });
-
-  test('#enrollDeltaDifference is calculated correctly', function(assert) {
-    let aggregate_totals = SubdistrictTotals.create({
-      enrollWithActionDelta: 400,
-      enrollNoActionDelta: 200
-    });
-
-    assert.equal(aggregate_totals.enrollDeltaDifference, 200);
-
-  });
-
   test('#capacityNoAction is calculated correctly', function(assert) {
     let aggregate_totals = SubdistrictTotals.create({
       capacityFuture: 400,
@@ -398,26 +358,6 @@ test('#capacityTotal returns correct calculation', function(assert) {
 
   });
 
-  test('#seatsWithAction is calculated correctly', function(assert) {
-    let aggregate_totals = SubdistrictTotals.create({
-      capacityNoAction: 400,
-      enrollWithAction: 200
-    });
-
-    assert.equal(aggregate_totals.seatsWithAction, 200);
-
-  });
-
-  test('#seatsDifference is calculated correctly', function(assert) {
-    let aggregate_totals = SubdistrictTotals.create({
-      seatsWithAction: 400,
-      seatsNoAction: 200
-    });
-
-    assert.equal(aggregate_totals.seatsDifference, 200);
-
-  });
-
   test('#utilizationNoAction is calculated correctly', function(assert) {
     let aggregate_totals = SubdistrictTotals.create({
       enrollNoAction: 177,
@@ -428,34 +368,4 @@ test('#capacityTotal returns correct calculation', function(assert) {
 
   });
 
-  test('#utilizationWithAction is calculated correctly', function(assert) {
-    let aggregate_totals = SubdistrictTotals.create({
-      enrollWithAction: 177,
-      capacityNoAction: 181
-    });
-
-    assert.equal(aggregate_totals.utilizationWithAction, 0.978);
-
-  });
-
-  test('#utilizationChange is calculated correctly', function(assert) {
-    let aggregate_totals = SubdistrictTotals.create({
-      utilizationWithAction: 100.44444,
-      utilizationNoAction: 50.33333
-    });
-
-    assert.equal(aggregate_totals.utilizationChange, 50.1111);
-
-  });
-
-  test('#impact is calculated correctly', function(assert) {
-    let aggregate_totals =
-    SubdistrictTotals.create({
-      utilizationChange: 1,
-      utilizationWithAction: 0.8
-    });
-
-    assert.equal(aggregate_totals.impact, false);
-
-  });
 });

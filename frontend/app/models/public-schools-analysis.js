@@ -2,6 +2,7 @@ import DS from 'ember-data';
 import { computed } from '@ember/object';
 
 import SubdistrictTotals from '../fragments/public-schools/SubdistrictTotals';
+import LevelTotals from '../fragments/public-schools/LevelTotals';
 
 export default DS.Model.extend({  
   project: DS.belongsTo('project'),
@@ -235,7 +236,6 @@ export default DS.Model.extend({
             return acc;
           }, 0),
 
-        studentsWithAction: this.estHsStudents || 0,
         newCapacityWithAction: this.schoolsWithAction.reduce(function(acc, value) {
           return acc + parseInt(value.hs_seats);
         }, 0),
@@ -279,7 +279,6 @@ export default DS.Model.extend({
             return acc;
           }, 0),
 
-          studentsWithAction: this.estEsStudents || 0,
           newCapacityWithAction: this.schoolsWithAction.filter(
             (b) => (b.district === sd.district && b.subdistrict === sd.subdistrict)
           ).reduce(function(acc, value) {
@@ -324,7 +323,6 @@ export default DS.Model.extend({
             return acc;
           }, 0),
 
-          studentsWithAction: this.estIsStudents || 0,
           newCapacityWithAction: this.schoolsWithAction.filter(
             (b) => (b.district === sd.district && b.subdistrict === sd.subdistrict)
           ).reduce(function(acc, value) {
@@ -334,6 +332,27 @@ export default DS.Model.extend({
       });
 
       return tables;
-    }
+    },
   ),
+
+  psLevelTotals: computed('{subdistrictTotals,schoolsWithAction}.@each', function() {
+    return LevelTotals.create({
+      subdistrictTotals: this.subdistrictTotals.filterBy('level', 'ps'),
+      studentsWithAction: this.estEsStudents || 0,
+    });
+  }),
+
+  isLevelTotals: computed('{subdistrictTotals,schoolsWithAction}.@each', function() {
+    return LevelTotals.create({
+      subdistrictTotals: this.subdistrictTotals.filterBy('level', 'is'),
+      studentsWithAction: this.estIsStudents || 0,
+    });
+  }),
+
+  hsLevelTotals: computed('{subdistrictTotals,schoolsWithAction}.@each', function() {
+    return LevelTotals.create({
+      subdistrictTotals: this.subdistrictTotals.filterBy('level', 'hs'),
+      studentsWithAction: this.estHsStudents || 0,
+    });
+  }),
 });
