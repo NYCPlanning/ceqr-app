@@ -1,6 +1,8 @@
 import EmberObject from '@ember/object';
 import { computed } from '@ember/object';
+import { alias } from '@ember/object/computed';
 import round from '../../utils/round';
+import sumOf from '../../utils/sumMapBy';
 
 /**
  * LevelTotals is an EmberObject that aggregates the output of a list of SubdistrictTotals
@@ -12,7 +14,67 @@ import round from '../../utils/round';
  */
 
 
-export default EmberObject.extend({
+export default EmberObject.extend({ 
+  // Existing Conditions
+  
+  existingConditionsEnrollment: computed('subdistrictTotals', function() {
+    return sumOf(
+      this.get('subdistrictTotals').mapBy('enrollmentTotal')
+    )
+  }),
+
+  existingConditionsCapacity: computed('subdistrictTotals', function() {
+    return sumOf(
+      this.get('subdistrictTotals').mapBy('capacityTotal')
+    )
+  }),
+
+  existingConditionsUtilization: computed(
+    'existingConditionsEnrollment',
+    'existingConditionsCapacity',
+    function() {
+      return round(this.existingConditionsEnrollment / this.existingConditionsCapacity, 4);
+    }
+  ),
+
+  existingConditionsSeats: computed('subdistrictTotals', function() {
+    return sumOf(
+      this.get('subdistrictTotals').mapBy('seatsTotal')
+    )
+  }),
+
+  // No Action
+
+  noActionEnrollment: alias('enrollNoActionTotal'),
+  noActionEnrollmentDelta: alias('enrollNoActionDeltaTotal'),
+  noActionCapacity: alias('capacityNoActionTotal'),
+  noActionCapacityDelta: computed('subdistrictTotals', function() {
+    return sumOf(
+      this.get('subdistrictTotals').mapBy('capacityNoActionDelta')
+    );
+  }),
+  noActionUtilization: alias('utilizationNoActionTotal'),
+  noActionSeats: alias('seatsNoActionTotal'),
+
+  // With Action
+
+  withActionEnrollment: alias('enrollWithActionTotal'),
+  withActionEnrollmentDelta: alias('enrollWithActionDeltaTotal'),
+  withActionCapacity: alias('capacityWithActionTotal'),
+  withActionCapacityDelta: alias('newSchoolSeats'),
+  withActionUtilization: alias('utilizationWithActionTotal'),
+  withActionSeats: alias('seatsWithActionTotal'),
+
+  // Individual Attribute Totals
+
+  scaCapacityIncrease: computed('subdistrictTotals', function() {
+    return sumOf(
+      this.get('subdistrictTotals').mapBy('scaCapacityIncrease')
+    );
+  }),  
+
+  // Older methods
+  
   enrollTotal: computed('subdistrictTotals', function() {
     return this.get('subdistrictTotals').mapBy('enroll').reduce(function(acc, value) {
       return acc + parseInt(value);
