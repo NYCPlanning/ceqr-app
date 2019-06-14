@@ -2,7 +2,6 @@ import Component from '@ember/component';
 import { computed } from '@ember-decorators/object';
 
 export const MODAL_SPLIT_POPUP_DISPLAY_VARIABLES = [
-  'population',
   'trans_total',
   'trans_auto_total',
   'trans_public_total'

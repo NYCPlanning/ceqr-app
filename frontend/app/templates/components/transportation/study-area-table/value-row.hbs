@@ -1,5 +1,5 @@
 <td>{{this.title}}</td>
-{{#each this.censusTracts as |censusTract|}}
-  <td>{{get censusTract this.variable}}</td>
+{{#each this.allModalSplitData as |modalSplit|}}
+  <td>{{get-split-value modalSplit this.variable}}</td>
 {{/each}}
-<td>{{get-aggregate-value censusTracts this.variable}}</td>
+<td>{{get-aggregate-value this.allModalSplitData this.variable}}</td>
