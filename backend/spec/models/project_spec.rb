@@ -20,10 +20,6 @@ RSpec.describe Project, type: :model do
     it "creates a community facilities analysis" do
       expect { create(:project) }.to change { CommunityFacilitiesAnalysis.count }.by(1)
     end
-
-    it "creates a solid waste analysis" do
-      expect { create(:project) }.to change { SolidWasteAnalysis.count }.by(1)
-    end
   end
 
   describe "#borough" do

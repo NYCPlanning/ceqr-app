@@ -21,7 +21,6 @@ Rails.application.routes.draw do
       jsonapi_resources :public_schools_analyses
       jsonapi_resources :transportation_analyses
       jsonapi_resources :community_facilities_analyses
-      jsonapi_resources :solid_waste_analyses
 
       # Read-only data
       jsonapi_resources :bbls

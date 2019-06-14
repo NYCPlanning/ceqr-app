@@ -61,5 +61,4 @@ export default DS.Model.extend({
   publicSchoolsAnalysis: DS.belongsTo('public-schools-analysis'),
   transportationAnalysis: DS.belongsTo('transportation-analysis'),
   communityFacilitiesAnalysis: DS.belongsTo('community-facilities-analysis'),
-  solidWasteAnalysis: DS.belongsTo('solid-waste-analysis')
 });

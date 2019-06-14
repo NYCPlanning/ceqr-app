@@ -17,7 +17,6 @@ class Project < ApplicationRecord
   has_one :public_schools_analysis, dependent: :destroy
   has_one :transportation_analysis, dependent: :destroy
   has_one :community_facilities_analysis, dependent: :destroy
-  has_one :solid_waste_analysis, dependent: :destroy
 
   def borough
     boro_integers = bbls.map {|b| b[0].to_i }
@@ -45,7 +44,6 @@ class Project < ApplicationRecord
     create_public_schools_analysis(data_package: DataPackage.latest_for(:public_schools))
     create_transportation_analysis
     create_community_facilities_analysis
-    create_solid_waste_analysis
   end
 
   def refresh_analyses!

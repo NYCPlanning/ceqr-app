@@ -65,5 +65,4 @@ export default Factory.extend({
 //   "publicSchoolsAnalysis": "335",
 //   "transportationAnalysis": "243",
 //   "communityFacilitiesAnalysis": "243",
-//   "solidWasteAnalysis": "243"
 // }
