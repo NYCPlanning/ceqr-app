@@ -24,6 +24,11 @@ module.exports = function(defaults) {
         ...(process.env.EMBER_ENV === 'development' ? {'mapbox-gl': 'mapbox-gl/dist/mapbox-gl-dev'} : {})
       },
     },
+
+    'ember-ast-hot-load': {
+      helpers: ["page-title"],
+      enabled: true
+    }
   });
 
   app.import('node_modules/@sentry/browser/dist/index.js', {
