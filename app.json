@@ -5,5 +5,13 @@
   "buildpacks": [
     { "url": "https://github.com/timanovsky/subdir-heroku-buildpack.git" },
     { "url": "https://github.com/heroku/heroku-buildpack-ruby" }
+  ],
+  "addons": [
+    {
+      "plan": "heroku-postgresql",
+      "options": {
+        "version": "10"
+      }
+    }
   ]
 }
