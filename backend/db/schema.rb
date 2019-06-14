@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_10_181704) do
+ActiveRecord::Schema.define(version: 2019_06_14_020040) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -88,12 +88,6 @@ ActiveRecord::Schema.define(version: 2019_06_10_181704) do
     t.index ["data_package_id"], name: "index_public_schools_analyses_on_data_package_id"
   end
 
-  create_table "solid_waste_analyses", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "project_id"
-  end
-
   create_table "transportation_analyses", force: :cascade do |t|
     t.integer "traffic_zone"
     t.datetime "created_at", null: false
@@ -117,6 +111,5 @@ ActiveRecord::Schema.define(version: 2019_06_10_181704) do
   add_foreign_key "community_facilities_analyses", "projects"
   add_foreign_key "public_schools_analyses", "data_packages"
   add_foreign_key "public_schools_analyses", "projects"
-  add_foreign_key "solid_waste_analyses", "projects"
   add_foreign_key "transportation_analyses", "projects"
 end

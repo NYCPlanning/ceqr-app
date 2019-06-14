@@ -12,7 +12,6 @@ export default class ProjectChapterDropdownComponent extends Component {
     if (current.includes('public-schools')) return 'public-schools';
     if (current.includes('transportation')) return 'transportation';
     if (current.includes('community-facilities')) return 'community-facilities';
-    if (current.includes('solid-waste')) return 'solid-waste';
     return null;
   }
 

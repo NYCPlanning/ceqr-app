@@ -72,10 +72,6 @@ Router.map(function() {
       this.route('community-facilities', function() {
         this.route('analysis-threshold', {path: '/'});
       });
-
-      this.route('solid-waste', function() {
-        this.route('analysis-threshold', {path: '/'});
-      });
     });
   });
 
