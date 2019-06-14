@@ -14,6 +14,8 @@ export default function() {
   this.passthrough('/data-tables/**');
   this.passthrough('/ceqr-manual/**');
   this.passthrough('https://api.mapbox.com/**');
+  this.passthrough('https://layers-api.planninglabs.nyc/**');
+  this.passthrough('https://tiles.planninglabs.nyc/**');
   this.passthrough('https://events.mapbox.com/events/**');
   this.passthrough('https://planninglabs.carto.com/api/v1/map');
   this.passthrough('https://cartocdn-gusc-a.global.ssl.fastly.net/planninglabs/**');
