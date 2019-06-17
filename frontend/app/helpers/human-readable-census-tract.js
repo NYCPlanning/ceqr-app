@@ -2,7 +2,7 @@ import { helper } from '@ember/component/helper';
 
 const COUNTY_LOOKUP = {
   '085': 'Richmond County',
-  '081': 'Kings\'s County',
+  '081': 'King\'s County',
   '061': 'New York County',
   '047': 'Queen\'s County',
   '005': 'Bronx County',

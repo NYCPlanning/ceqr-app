@@ -22,7 +22,7 @@ export default Service.extend({
     this.set('storeHash', {});
   },
 
-  /** 
+  /**
    * Adds an object to the store
    * @param type The object type
    * @param id The object's identifier
@@ -37,7 +37,7 @@ export default Service.extend({
     store[type][id] = value;
   },
 
-  /** 
+  /**
    * Retrieves a record from the local store, or false if it does not exist yet.
    * @param type The object type
    * @param id The object's identifier
@@ -60,10 +60,9 @@ export default Service.extend({
   fetch(type, id) {
     const session = this.get('session');
     if(type === 'modal-split') {
-      return fetchAndSaveModalSplit(session, id, this);
+      return fetchAndSaveModalSplit(id, session, this);
     }
     return new Promise(function(resolve, reject) {
-      const type = type;
       reject(`Fetch for ${type} not implemented`);
     });
   },
