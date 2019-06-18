@@ -4,7 +4,7 @@ CEQR App is a collection of data tools whose purpose is to improve the accuracy 
 
 ## Getting Started
 
-CEQR App runs on a Rails api and Ember frontend. 
+CEQR App runs on a Rails api and Ember frontend.
 
 Requirements:
 - Ruby 2.6
@@ -22,70 +22,11 @@ git clone git@github.com:NYCPlanning/ceqr-app.git
 cd ceqr-app
 ```
 
-### Running with Docker and docker-compose
-
-1. Install Docker & docker-compose on your machine, if you don't already have 'em
-([macOs](https://runnable.com/docker/install-docker-on-macos), [windows 10](https://runnable.com/docker/install-docker-on-windows-10), [linux](https://runnable.com/docker/install-docker-on-linux))
-
-2. Create a .env file from .env-example-docker-compose, which requires only one variable -- the password for the test_ceqr_app user to connect to the production, read-only ceqr_data postgres cluster
-3. Start up the ceqr app, with environment defined and all deps installed, and bring up the postgis with all dbs created and migrations applied:
-    ```
-    $ docker-compose up -d
-    ```
-4. Confirm everything is OK:
-    ```
-    $ docker-compose ps
-
-        Name                   Command              State            Ports
-    -------------------------------------------------------------------------------
-    app_ceqr_frontend_1   ./frontend-entrypoint.sh        Up(health: starting)  0.0.0.0:4200->4200/tcp, 7020/tcp, 7357/tcp
-    app_ceqr_service_1    ./service-entrypoint.sh         Up(healthy)       0.0.0.0:3000->3000/tcp
-    app_migrate_1   ./migrate.sh                    Exit 0
-    app_postgis_1   docker-entrypoint.sh postgres   Up       0.0.0.0:5432->5432/tcp
-    ```
-    Some things to note:
-     - `migrate` service is a short-lived container that sets up your backend for you. That's why it is State: Exit 0
-     - `ceqr_frontend` takes a _while_ to start up (ember builds are slow, this is a [known issue](https://docs.docker.com/docker-for-mac/troubleshoot/#/known-issues)), but the health check should give you signal on when things are good to go. Thankfully, after the initial super slow build, re-build for files changed during development are pretty seamless and speedy.
-
-    To mess with env configuration, port mapping, etc check out `docker-compose.yml`.
-     - The env for ceqr app is defined in the `environment` section of the `ceqr` service. If you want to define your env from a file, swap out `env` section for [`env_file` section](https://docs.docker.com/compose/compose-file/#env_file)
-     - Port mappings are defined in `ports` sections; to change the port a service is mapped to and exposed on on your machine, change the first port in the mapping, i.e. "3001:3000" if you want ceqr running on port 3001 on your machine
-
-5.  That's IT!!!!!!
-#### Development with Docker
-By default, bringing up new frontend or backend docker-compose services will not re-run the dependecy installations. If you have updated package.json (via yarn!) or Gemfile, make sure to clear out frontend/node_modules or backend/Gemfile.lock, respectively. This will cause the dependency installation to rerun when bringing the services up.
+### Using Docker
+Check out the [Docker Documentation](DOCKER.md)
 
 
-Ember server will live-reload changes to the frontend app for you, so there is no need to restart the docker services when making changes to files in `frontend/`
-
-
-Rails reloads the entire server on every request by default in development more, so there is no need to restart the docker services when making changes to files in `backend/`, altho configuration changes require restart
-
-
-You can access an interactive [byebug](https://github.com/deivid-rodriguez/byebug) debug terminal by attaching to the backend service like:
-```sh
-$ docker attach ceqr_backend_1
-```
-Beware, you may have trouble detatching (I can't figure it out), so do this in a terminal window you don't mind closing when you're done.
-
-#### Testing with Docker
-To run ember tests:
-```sh
-$ docker-compose exec frontend ember t
-ok 1 Chrome 73.0 ...
-...
-```
-
-To run rails tests:
-```sh
-$ docker-compose exec backend rspec
-I, [2019-05-30T18:03:06.336418 #16473]  INFO -- sentry: ** [Raven] Raven 2.9.0 configured not to capture errors: DSN not set
-...................
-```
-
-
-
-.......or do all these steps:
+.................. or do all these steps
 ### Installing Ruby
 
 I suggest using [`rbenv`](https://github.com/rbenv/rbenv) installed with Homebrew.

@@ -103,7 +103,7 @@ export default function() {
     const { queryParams } = request;
 
     const estimates = createTransportationCensusEstimates(5);
-    if(queryParams['fitler[geoid]']) {
+    if(queryParams['filter[geoid]']) {
       estimates.map((estimate) => estimate.geoid = queryParams['filter[geoid]']);
     }
 
