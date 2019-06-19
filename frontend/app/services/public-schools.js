@@ -33,31 +33,31 @@ export default Service.extend({
   }),
 
   // Individual tasks
-  setSubdistricts: task(function*() {
-    let subdistricts = yield carto.SQL(`
-      SELECT DISTINCT
-        subdistricts.cartodb_id,
-        subdistricts.the_geom,
-        subdistricts.schooldist AS district,
-        subdistricts.zone AS subdistrict
-      FROM doe_schoolsubdistricts_v2017 AS subdistricts, (
-        SELECT the_geom, bbl
-        FROM mappluto_v1711
-        WHERE bbl IN (${this.analysis.bbls.join(',')})
-      ) pluto
-      WHERE ST_Intersects(pluto.the_geom, subdistricts.the_geom)
-    `);
+  // setSubdistricts: task(function*() {
+  //   let subdistricts = yield carto.SQL(`
+  //     SELECT DISTINCT
+  //       subdistricts.cartodb_id,
+  //       subdistricts.the_geom,
+  //       subdistricts.schooldist AS district,
+  //       subdistricts.zone AS subdistrict
+  //     FROM doe_schoolsubdistricts_v2017 AS subdistricts, (
+  //       SELECT the_geom, bbl
+  //       FROM mappluto_v1711
+  //       WHERE bbl IN (${this.analysis.bbls.join(',')})
+  //     ) pluto
+  //     WHERE ST_Intersects(pluto.the_geom, subdistricts.the_geom)
+  //   `);
 
-    this.set('analysis.subdistrictsFromDb', subdistricts.map(
-      (f) => ({
-        district: f.district,
-        subdistrict: f.subdistrict,
-        cartodb_id: f.cartodb_id,
-        id: parseInt(`${f.district}${f.subdistrict}`),
-        sdName: `District ${f.district} - Subdistrict ${f.subdistrict}`
-      })
-    ));
-  }),
+  //   this.set('analysis.subdistrictsFromDb', subdistricts.map(
+  //     (f) => ({
+  //       district: f.district,
+  //       subdistrict: f.subdistrict,
+  //       cartodb_id: f.cartodb_id,
+  //       id: parseInt(`${f.district}${f.subdistrict}`),
+  //       sdName: `District ${f.district} - Subdistrict ${f.subdistrict}`
+  //     })
+  //   ));
+  // }),
 
   setSchoolChoice: task(function*() {
     let es_zone = yield carto.SQL(`
