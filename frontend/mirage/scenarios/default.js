@@ -8,5 +8,4 @@ export default function(server) {
   server.create('bbl');
   server.create('project');
   server.create('user');
-  server.createList('transportation-census-estimate', 4);
 }

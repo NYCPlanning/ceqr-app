@@ -3,33 +3,37 @@ import { setupRenderingTest } from 'ember-qunit';
 import { find, render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 import setupMirage from 'ember-cli-mirage/test-support/setup-mirage';
+import stubReadonlyStore from '../../../../../helpers/stub-readonly-store';
 
 module('Integration | Component | transportation/study-area-map/census-tract-popup/modal-split-formatter', function(hooks) {
   setupRenderingTest(hooks);
   setupMirage(hooks);
 
+  const transTotal = 10;
+  const mode = 'mode';
+  const moe = 1;
+  const population = 15;
+  const modalSplit = {
+    trans_total: { variable: 'trans_total', value: transTotal, mode, moe},
+    some_madeup_var: { variable: 'some_madeup_var' },
+    population: { variable: 'population', value: population },
+  };
+  stubReadonlyStore(hooks, modalSplit);
+
   test('it properly displays population and modal split data', async function(assert) {
-    // If census tracts records exist with given values
-    const geoid = '1';
-    this.geoid = geoid;
+    // If the modal split defined above is 'data'
+    this.data = await this.owner.lookup('service:readonly-ceqr-data-store').find();
 
-    const population = 500;
-    this.server.create('transportation-census-estimate', {geoid: '1', variable: 'population', value: population });
-    const variable = 'variable';
-    const value = 10;
-    const moe = 1;
-    this.server.create('transportation-census-estimate', {geoid: '1', variable, value, moe });
-
-    // When those census tract records are passed into the component
-    this.data = await this.owner.lookup('service:store').query('transportation-census-estimate', { geoid: '1'});
+    // When component is rendered with data
     await render(hbs`
       {{transportation/study-area-map/census-tract-popup/modal-split-formatter data=data}}
     `);
 
-    // Then they will be rendered correctly
+    // Then it will be rendered correctly, excluding variables not in MODAL_SPLIT_POPUP_DISPLAY_VARIABLES
     assert.equal(find('[data-test-population]').textContent.trim(), `Population: ${population}`);
-    assert.equal(find(`[data-test-mode="${variable}"]`).textContent.trim(), 'Unknown');
-    assert.equal(find(`[data-test-value="${variable}"]`).textContent.trim(), value);
-    assert.equal(find(`[data-test-moe="${variable}"]`).textContent.trim(), moe);
+    assert.equal(find(`[data-test-value="trans_total"]`).textContent.trim(), transTotal);
+    assert.equal(find(`[data-test-mode="trans_total"]`).textContent.trim(), mode);
+    assert.equal(find(`[data-test-moe="trans_total"]`).textContent.trim(), moe);
+    assert.notOk(find(`[data-test-value="some_madeup_var"]`));
   });
 });

@@ -2,6 +2,7 @@ import JWT from 'jsonwebtoken';
 import ENV from 'labs-ceqr/config/environment';
 import cartoresponses from './fixtures/cartoresponses';
 import patchXMLHTTPRequest from './helpers/mirage-mapbox-gl-monkeypatch';
+import { faker } from 'ember-cli-mirage';
 
 const secret = 'nevershareyoursecret';
 
@@ -76,9 +77,7 @@ export default function() {
     project.createPublicSchoolsAnalysis({ project });
     project.save();
 
-    return project;
-  });
-  this.patch('/projects');
+    return project; }); this.patch('/projects');
   this.patch('/projects/:id');
 
   /**
@@ -97,26 +96,32 @@ export default function() {
 
   /**
    *
-   * Census Tracts
+   * Transportation census estimates
    *
    */
   this.get('transportation-census-estimates', function(schema, request) {
     const { queryParams } = request;
-    // if geoid is not a valid geoid (11 characters), assume the request is being made by a test
-    // and actually apply the request filters
-    if(queryParams['filter[geoid]'] && queryParams['filter[geoid]'].length < 11) {
-      return schema.transportationCensusEstimates.where({ geoid: queryParams['filter[geoid]'] });
+
+    const estimates = createTransportationCensusEstimates(5);
+    if(queryParams['fitler[geoid]']) {
+      estimates.map((estimate) => estimate.geoid = queryParams['filter[geoid]']);
     }
 
-    // otherwise, assume it's dev mode and return all default records
-    return schema.transportationCensusEstimates.all();
+    const attributes = estimates.map((estimate) => { return {attributes: estimate} });
+    return { data: [ ... attributes ] };
   });
 
-  this.get('transportation-census-estimates/:id', function(schema, request) {
-    const record = schema.censusTracts.first();
-    const { params: { id } } = request;
-    record.id = id;
+}
 
-    return record;
+function createTransportationCensusEstimates(num) {
+  const variables = ['population', 'trans_total', 'trans_auto_total', 'trans_public_total', 'trans_home'];
+  return new Array(num).fill({}).map((_, idx) => {
+    const variableIdx = idx % 5;
+    return {
+      geoid: `${idx.toString().padEnd(11, '0')}`,
+      variable: variables[variableIdx],
+      value: faker.random.number({min:10, max:1000}),
+      moe: faker.random.number({min:1, max:20}),
+    };
   });
 }

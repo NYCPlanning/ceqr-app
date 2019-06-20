@@ -76,9 +76,6 @@ module('Integration | Component | transportation/study-area-map', function(hooks
   });
 
   test('it hovers, displays information', async function(assert) {
-    const geoid = '1';
-    this.server.create('transportation-census-estimate', 2, { geoid });
-
     await render(hbs`{{transportation/study-area-map}}`);
 
     // To simulate an event, we go straight to simply calling
