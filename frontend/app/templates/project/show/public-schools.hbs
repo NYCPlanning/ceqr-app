@@ -6,7 +6,6 @@
       @analysis={{model.publicSchoolsAnalysis}}
       @project={{project}}
      />
-
   </div>
 </div>
 {{#if showAnalysisSteps}}
@@ -22,15 +21,6 @@
         Loading
       </div>
     </div>
-  </div>
-{{/if}}
-{{#if (and showMap public-schools.fullReload.isIdle)}}
-  <div class="sixteen wide column">
-    <PublicSchools::ProjectMap
-      @project={{model.project}}
-      @analysis={{model.publicSchoolsAnalysis}}
-     />
-
   </div>
 {{/if}}
 {{outlet}}
