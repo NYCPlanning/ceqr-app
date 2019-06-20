@@ -13,12 +13,12 @@ RSpec.describe "Db::EnrollmentProjection", type: :model do
         expect(db.school_year).to be_a String
       end
       
-      it "sd_2017" do
-        tests_version("sd_2017")
+      it "2017" do
+        tests_version("2017")
       end
 
-      it "sd_2018" do
-        tests_version("sd_2018")
+      it "2018" do
+        tests_version("2018")
       end
     end
 
@@ -32,12 +32,12 @@ RSpec.describe "Db::EnrollmentProjection", type: :model do
         expect(db.year).to be_a String
       end
       
-      it "boro_2017" do
-        tests_version("boro_2017")
+      it "2017" do
+        tests_version("2017")
       end
 
-      it "boro_2018" do
-        tests_version("boro_2018")
+      it "2018" do
+        tests_version("2018")
       end
     end
   end
