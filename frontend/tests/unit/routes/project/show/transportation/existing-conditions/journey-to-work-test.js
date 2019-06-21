@@ -8,4 +8,10 @@ module('Unit | Route | project/show/transportation/existing-conditions/journey-t
     let route = this.owner.lookup('route:project/show/transportation/existing-conditions/journey-to-work');
     assert.ok(route);
   });
+
+  test('it is bound to the project controller', function(assert) {
+    let route = this.owner.lookup('route:project/show/transportation/existing-conditions/journey-to-work');
+    assert.equal(route.controllerName, 'project');
+  });
+
 });
