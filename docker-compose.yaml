@@ -31,7 +31,7 @@ services:
       - "4200:4200"
     environment:
       HOST: http://localhost:3000
-      BUILD_CONTEXT: docker
+      DISABLE_MIRAGE: 'true'
     healthcheck:
       test: ["CMD", "curl", "http://localhost:4200"]
       interval: 1m

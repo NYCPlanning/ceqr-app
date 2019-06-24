@@ -2,9 +2,8 @@
 
 module.exports = function(environment) {
 
-  const host = process.env.HOST || '';
   let ENV = {
-    host,
+    host: getHost(environment),
     'mapbox-gl': {
       accessToken: 'pk.eyJ1IjoicGljaG90IiwiYSI6ImNqbWIzYzFyeTVrbHAzcW9nbmRmeXNmbHcifQ.VEiOF5YV_9kxwXekZ3fWLA',
       map: {
@@ -16,7 +15,7 @@ module.exports = function(environment) {
       domain: 'planninglabs.carto.com',
     },
     'ember-simple-auth-token': {
-      serverTokenEndpoint: `${host}/auth/v1/login`,
+      serverTokenEndpoint: `${getHost(environment)}/auth/v1/login`,
       refreshAccessTokens: false,
       tokenExpireName: 'exp',
       tokenExpirationInvalidateSession: true,
@@ -70,17 +69,10 @@ module.exports = function(environment) {
 
   if (environment === 'development') {
     ENV['ember-simple-auth-token'].tokenExpirationInvalidateSession = false;
-    // only use mirage data when running the frontend as 'development' NOT in docker
     ENV['ember-cli-mirage'] = {
-      enabled: process.env.BUILD_CONTEXT === 'docker' ? false : typeof process.env.RAILS_ENV === 'undefined',
+      enabled: process.env.DISABLE_MIRAGE ? false : typeof process.env.RAILS_ENV === 'undefined',
     }
-
     ENV.shouldThrowOnError = true;
-    // ENV.APP.LOG_RESOLVER = true;
-    // ENV.APP.LOG_ACTIVE_GENERATION = true;
-    // ENV.APP.LOG_TRANSITIONS = true;
-    // ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
-    // ENV.APP.LOG_VIEW_LOOKUPS = true;
   }
 
   if (environment === 'test') {
@@ -97,9 +89,25 @@ module.exports = function(environment) {
     ENV['ember-simple-auth-token'].tokenExpirationInvalidateSession = false;
   }
 
+  if (environment === 'staging') {
+    // define staging
+  }
+
   if (environment === 'production') {
-    // here you can enable a production-specific feature
+    // define production
   }
 
   return ENV;
 };
+
+function getHost(environment) {
+  if (environment === 'staging') {
+    return 'https://staging.api.ceqr.app';
+  }
+
+  if (environment === 'production') {
+    return 'https://api.ceqr.app';
+  }
+
+  return process.env.HOST || '';
+}
