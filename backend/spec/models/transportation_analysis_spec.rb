@@ -7,6 +7,7 @@ RSpec.describe TransportationAnalysis, type: :model do
 
     @censusTractMock = class_double('CensusTract')
     allow(@censusTractMock).to receive(:for_geom).and_return(['foo'])
+    allow(@censusTractMock).to receive(:touches_geoids).and_return(['foo'])
     allow(@censusTractMock).to receive(:st_union_geoids_centroid).and_return(generate(:point))
 
     stub_const("#{Db}::TrafficZone", @trafficZoneMock)
@@ -26,13 +27,18 @@ RSpec.describe TransportationAnalysis, type: :model do
       expect(analysis.traffic_zone).to be(4)
     end
 
-    it "sets study selection based on project study area" do
+    it "sets required study selection based on project study area" do
       allow(@censusTractMock).to receive(:for_geom).and_return(['bar'])
       expect(analysis.required_jtw_study_selection).to eq(['bar'])
     end
 
     it "sets the geographic centroid of the study area" do
       expect(analysis.jtw_study_area_centroid).to be_present
+    end
+
+    it "sets the default study selection based on required study selection" do
+      allow(@censusTractMock).to receive(:touches_geoids).and_return(['baz'])
+      expect(analysis.jtw_study_selection).to eq(['baz'])
     end
   end
 

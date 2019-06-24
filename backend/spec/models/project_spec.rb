@@ -47,7 +47,7 @@ RSpec.describe Project, type: :model do
     it "loads new Transportation data if bbls have changed" do
       project = create(:project)
 
-      expect(project.transportation_analysis).to receive(:load_data!)
+      expect(project.transportation_analysis).to receive(:compute_for_updated_bbls!)
 
       project.bbls = [3019790030]
       project.save
@@ -56,7 +56,7 @@ RSpec.describe Project, type: :model do
     it "does not load new Transportation data if bbls have not changed" do
       project = create(:project)
 
-      expect(project.transportation_analysis).not_to receive(:load_data!)
+      expect(project.transportation_analysis).not_to receive(:compute_for_updated_bbls!)
 
       project.bbls = attributes_for(:project)[:bbls]
       project.save

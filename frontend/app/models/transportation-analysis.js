@@ -4,7 +4,7 @@ import { attr, belongsTo } from '@ember-decorators/data';
 import { computed } from '@ember-decorators/object';
 import { alias } from '@ember-decorators/object/computed';
 
-export default class TransportationAnalysisModel extends Model {    
+export default class TransportationAnalysisModel extends Model {
   @belongsTo project;
 
   // Attributes
@@ -13,6 +13,8 @@ export default class TransportationAnalysisModel extends Model {
   @attr({defaultValue: () => []}) requiredJtwStudySelection;
   // the geoids of additional user-defined study selection
   @attr({defaultValue: () => []}) jtwStudySelection;
+  // the computed centroid of the study selection
+  @attr({defaultValue: () => []}) jtwStudyAreaCentroid;
 
   // Detailed Analysis trigger
   @computed(
