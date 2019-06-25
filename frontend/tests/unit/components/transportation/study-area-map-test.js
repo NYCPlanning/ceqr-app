@@ -15,7 +15,7 @@ module('Unit | Component | transportation/study-area-map', function(hooks) {
     model.set('transportationAnalysis.jtwStudySelection', jtwStudySelection);
 
     // when the component is rendered with that project
-    let component = this.owner.factoryFor('component:transportation/study-area-map').create({analysis: model.transportationAnalysis});
+    let component = this.owner.factoryFor('component:transportation/study-area-map').create({project: model});
 
     // then the component's jtwStudySelectionComputed property should include the study selection ids
     const highlightedFeatureIds = component.get('jtwStudySelectionComputed');

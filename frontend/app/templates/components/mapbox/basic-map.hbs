@@ -1,5 +1,6 @@
 <MapboxGl
   @id={{this.name}}
+  @mapLoaded={{this.mapLoaded}}
   @initOptions={{this.initOptions}} as |map|
 >
   {{yield (hash instance=map.instance)}}
