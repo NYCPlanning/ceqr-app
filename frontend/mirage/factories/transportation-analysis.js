@@ -1,9 +1,11 @@
-import { Factory } from 'ember-cli-mirage';
+import { Factory, association } from 'ember-cli-mirage';
 
 export default Factory.extend({
   trafficZone: 2,
-  jtwStudySelection: () => [],
-  requiredJtwStudySelection: () => [
-    "36061020300"
-  ]
+  jtwStudySelection: () => [
+      "36061020300"
+  ],
+  project: association({
+    totalUnits: 1000,
+  }),
 });
