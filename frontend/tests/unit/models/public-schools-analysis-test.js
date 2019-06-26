@@ -548,28 +548,41 @@ module('Unit | Model | public schools analysis', function(hooks) {
     assert.equal(analysis.futureResidentialDev[1].hs_students, 5) // hs_students = this.total_units * this.multipliers.hs = 50 * 0.09
     assert.equal(analysis.subdistrictTotals[0].students, 4010); // this.hsStudentsFromHousing + (aggregate of hs_students in futureResidentialDev) = 4000 + 10
     assert.equal(analysis.subdistrictTotals[0].scaCapacityIncrease, 1650); // filter for includeInCapacity is true, aggregate all hs_capacity values in scaProjects
-    assert.equal(analysis.subdistrictTotals[0].studentsWithAction, 41) // Math.ceil: estHsStudents = project.netUnits (450) * this.currentMultiplier.hs (0.09)
     assert.equal(analysis.subdistrictTotals[0].newCapacityWithAction, 450) // aggregate of hs_seats in this.schoolsWithAction
+    //
 
-    // // PS tables
+    // PS tables
     assert.equal(analysis.subdistrictTotals[1].studentMultiplier, 0.24) // this.currentMultiplier.ps
     assert.equal(analysis.subdistrictTotals[1].enroll, 3525) // enroll = futureEnrollmentProjections[n].ps (9198) * futureEnrollmentMultipliers[n].multiplier (0.383266818664257)
     assert.equal(analysis.futureResidentialDev[0].ps_students, 14) // residentialDevelopments[0].total_units (60) * multipliers.is (0.24)
     assert.equal(analysis.futureResidentialDev[1].ps_students, 12) // residentialDevelopments[1].total_units (50) * multipliers.is (0.24)
     assert.equal(analysis.subdistrictTotals[1].students, 864) // this.futureEnrollmentNewHousing[n].students + (aggregate of this.futureResidentialDev ps_students) = 838 + (100 + 200)
     assert.equal(analysis.subdistrictTotals[1].scaCapacityIncrease, 1050) // filter for includeInCapacity is true, correct district and subdistrict, aggregate all ps_capacity values in scaProjects
-    assert.equal(analysis.subdistrictTotals[1].studentsWithAction, 108) // Math.ceil: estEsStudents = project.netUnits (450) * this.currentMultiplier.ps (0.24)
     assert.equal(analysis.subdistrictTotals[1].newCapacityWithAction, 100) // aggregate of ps_seats in this.schoolsWithAction matched to current district and subdistrict
     //
-    // // IS tables
+    // IS tables
     assert.equal(analysis.subdistrictTotals[2].studentMultiplier, 0.09) // this.currentMultiplier.is
     assert.equal(analysis.subdistrictTotals[2].enroll, 2542) // enroll = futureEnrollmentProjections[n].ms (4368) * futureEnrollmentMultipliers[n].multiplier (0.582024949124332)
     assert.equal(analysis.futureResidentialDev[0].is_students, 5) // residentialDevelopments[0].total_units (60) * multipliers.is (0.09) = 5
     assert.equal(analysis.futureResidentialDev[1].is_students, 5) // residentialDevelopments[1].total_units (50) * multipliers.is (0.09) = 5
     assert.equal(analysis.subdistrictTotals[2].students, 333) // this.futureEnrollmentNewHousing[n].students + (aggregate of this.futureResidentialDev ps_students) = 323 + (5 + 5)
     assert.equal(analysis.subdistrictTotals[2].scaCapacityIncrease, 2200) // filter for includeInCapacity is true, correct district and subdistrict, aggregate all is_capacity values in scaProjects
-    assert.equal(analysis.subdistrictTotals[2].studentsWithAction, 41) // Math.ceil (estEsStudents = project.netUnits (450) * this.currentMultiplier.is (0.09))
     assert.equal(analysis.subdistrictTotals[2].newCapacityWithAction, 850) // aggregate of is_seats in this.schoolsWithAction matched to current district and subdistrict
+
+    // hsLevelTotals
+    assert.equal(analysis.hsLevelTotals.subdistrictTotals[0].enroll, 15000) // subdistrictTotals: this.subdistrictTotals.filterBy('level', 'hs'),
+    assert.equal(analysis.estHsStudents, 41);  // math.ceil(currentMultiplier.hs * project.netUnits) = 0.09 * 450
+    assert.equal(analysis.hsLevelTotals.studentsWithAction, 41); // studentsWithAction: this.estHsStudents || 0,
+
+    // psLevelTotals
+    assert.equal(analysis.psLevelTotals.subdistrictTotals[0].enroll, 3525); // subdistrictTotals: this.subdistrictTotals.filterBy('level', 'ps'),
+    assert.equal(analysis.estEsStudents, 108);  // math.ceil(currentMultiplier.ps * project.netUnits) = 0.24 * 450
+    assert.equal(analysis.psLevelTotals.studentsWithAction, 108); // studentsWithAction: this.estEsStudents || 0,
+
+    // isLevelTotals
+    assert.equal(analysis.isLevelTotals.subdistrictTotals[0].enroll, 2542) // subdistrictTotals: this.subdistrictTotals.filterBy('level', 'is'),
+    assert.equal(analysis.estIsStudents, 41);  // math.ceil(currentMultiplier.is * project.netUnits) = 0.09 * 450
+    assert.equal(analysis.isLevelTotals.studentsWithAction, 41); // studentsWithAction: this.estPsStudents || 0,
   });
 
 });
