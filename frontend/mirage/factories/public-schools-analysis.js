@@ -1,5 +1,9 @@
 import { Factory, trait, association } from 'ember-cli-mirage';
 
+// !!!!NOTE!!!!: For creating new tests, DO NOT change the factory directly.
+// Instead, create a trait or edit the factory WITHIN the test.
+// Editing the factory directly might affect other tests.
+
 export default Factory.extend({
   // TRAIT for list of schools, including bluebook, lcgms, and scaProjects
   schoolsForTests: trait({
@@ -254,7 +258,7 @@ export default Factory.extend({
           is: 0.09,
           ps: 0.24,
           csd: 1,
-          borocode: "mn",
+          borocode: "bk",
           hsThreshold: 7126,
           psisThreshold: 630
         },
@@ -714,14 +718,7 @@ export default Factory.extend({
       subdistrict: 2
     }
   ],
-  subdistrictsFromUser: () => [
-    {
-      id: 171,
-      sdName: "District 17 - Subdistrict 1",
-      district: 17,
-      subdistrict: 1
-    }
-  ],
+  subdistrictsFromUser: () => [],
   bluebook: () => [
     {
       x: 997684,
