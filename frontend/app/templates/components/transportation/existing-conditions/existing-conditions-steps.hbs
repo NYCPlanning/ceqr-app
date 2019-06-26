@@ -1,10 +1,17 @@
 <div class="ui pointing menu">
   {{#link-to
-    "project.show.transportation.existing-conditions.study-area"
+    "project.show.transportation.existing-conditions.census-tracts"
     project.id
     class="item"
   }}
-    Study Area
+    Census Tracts
+  {{/link-to}}
+  {{#link-to
+    "project.show.transportation.existing-conditions.trip-generation"
+    project.id
+    class="item"
+  }}
+    Trip Generation
   {{/link-to}}
   {{#link-to
     "project.show.transportation.existing-conditions.journey-to-work"

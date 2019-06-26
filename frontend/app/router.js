@@ -67,8 +67,9 @@ Router.map(function() {
       this.route('transportation', function() {
         this.route('analysis-threshold', {path: '/'});
         this.route('existing-conditions', function() {
-          this.route('study-area');
+          this.route('census-tracts');
           this.route('journey-to-work');
+          this.route('trip-generation');
         });
       });
 
