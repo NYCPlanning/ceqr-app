@@ -1,7 +1,7 @@
 import Component from '@ember/component';
 import { computed, action } from '@ember-decorators/object';
 
-export default class TransportationProjectMapComponent extends Component {
+export default class TransportationStudyAreaMapComponent extends Component {
   /**
    * The project model
    */

@@ -69,6 +69,7 @@ Router.map(function() {
         this.route('existing-conditions', function() {
           this.route('study-area');
           this.route('journey-to-work');
+          this.route('trip-generation');
         });
       });
 

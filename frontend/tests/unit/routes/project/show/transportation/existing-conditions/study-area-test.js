@@ -13,5 +13,4 @@ module('Unit | Route | project/show/transportation/existing-conditions/study-are
     let route = this.owner.lookup('route:project/show/transportation/existing-conditions/study-area');
     assert.equal(route.controllerName, 'project');
   });
-
 });

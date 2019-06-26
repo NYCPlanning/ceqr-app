@@ -1,0 +1,85 @@
+<Mapbox::BasicMap
+  @name="trip-generation-map"
+  @initOptions={{hash
+    style="https://layers-api.planninglabs.nyc/v1/base/style.json"
+    zoom=9.2
+    center=(array -74 40.7071266)
+  }} as |map|
+>
+  wel pinside msp
+  <Mapbox::CartoVectorSource @map={{map}} as |carto-source|>
+    <carto-source.layer
+      @id="tracts-line"
+      @sql="select * from nyc_census_tracts_2010"
+      @layer={{hash
+        type="line"
+        paint=(hash line-color="green")
+      }}
+    />
+    <carto-source.layer
+      @id="tracts-fill"
+      @sql="select * from nyc_census_tracts_2010"
+      @layer={{hash
+        type="fill"
+        paint=(hash fill-opacity=0)
+      }} as |layer|
+    >
+      <Mapbox::FeatureHoverer
+        @map={{map}}
+        @layerId={{layer.layerId}}
+        @onFeatures={{this.setFirstHoveredFeatureId}}
+        as |hoverer|
+      > 
+        {{#if (and hoverer.point hoverer.features)}}
+          <HoverCard @point={{hoverer.point}}>
+            <Transportation::StudyAreaMap::CensusTractPopup
+              @feature={{hoverer.features.firstObject}}
+              data-test-popup='census-tract'
+            />
+          </HoverCard>
+        {{/if}}
+      </Mapbox::FeatureHoverer>
+    </carto-source.layer>
+
+    <carto-source.layer
+      @id="tracts-highlight"
+      @sql="select * from nyc_census_tracts_2010"
+      @layer={{hash
+        type="fill"
+        paint=(hash
+          fill-opacity=0.5
+          fill-color="green"
+        )
+      }} as |layer|
+    >
+      <Mapbox::FeatureFilterer
+        @map={{map}}
+        @layerId={{layer.layerId}}
+        @filterById="geoid"
+        @featureIds={{this.highlightedFeatureIds}}
+      />
+    </carto-source.layer>
+
+    <carto-source.layer
+      @id="subway"
+      @sql="select * from mta_subway_routes_v0"
+      @layer={{hash
+        type="line"
+        paint=(hash line-color="red")
+      }}
+     />
+
+    <carto-source.layer
+      @id="bus"
+      @sql="select * from mta_bus_stops_v0"
+      @layer={{hash
+        type="circle"
+        paint=(hash
+          circle-color="pink"
+          circle-radius=1
+        )
+      }}
+     />
+
+  </Mapbox::CartoVectorSource>
+</Mapbox::BasicMap>
