@@ -582,7 +582,7 @@ module('Unit | Model | public schools analysis', function(hooks) {
     // isLevelTotals
     assert.equal(analysis.isLevelTotals.subdistrictTotals[0].enroll, 2542) // subdistrictTotals: this.subdistrictTotals.filterBy('level', 'is'),
     assert.equal(analysis.estIsStudents, 41);  // math.ceil(currentMultiplier.is * project.netUnits) = 0.09 * 450
-    assert.equal(analysis.isLevelTotals.studentsWithAction, 41); // studentsWithAction: this.estPsStudents || 0,
+    assert.equal(analysis.isLevelTotals.studentsWithAction, 41); // studentsWithAction: this.estIsStudents || 0,
   });
 
 });

@@ -1,8 +1,8 @@
 import { Factory, trait, association } from 'ember-cli-mirage';
 
 // !!!!NOTE!!!!: For creating new tests, DO NOT change the factory directly.
-// Instead, create a trait or edit the factory directly in the test.
-// Editing the factory directly might affect other tests. 
+// Instead, create a trait or edit the factory WITHIN the test.
+// Editing the factory directly might affect other tests.
 
 export default Factory.extend({
   // TRAIT for list of schools, including bluebook, lcgms, and scaProjects
