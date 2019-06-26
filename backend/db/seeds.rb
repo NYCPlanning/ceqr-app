@@ -24,29 +24,29 @@ if DataPackage.find_by_name("November 2017").nil?
         minYear: 2016,
         maxYear: 2017
       },
-      "ps_school_zones": { table: "school_zones.ps_2018" },
-      "is_school_zones": { table: "school_zones.is_2018" },
-      "hs_school_zones": { table: "school_zones.hs_2018" },
+      "ps_school_zones": { table: "doe_school_zones_ps.2018" },
+      "is_school_zones": { table: "doe_school_zones_is.2018" },
+      "hs_school_zones": { table: "doe_school_zones_hs.2018" },
       "enrollment_pct_by_sd": { table: "sca_enrollment_pct_by_sd.2017" },
       "housing_pipeline_by_boro": {
         minYear: 2016,
         maxYear: 2025,
-        table: "sca_housing_pipeline.boro_2017"
+        table: "sca_housing_pipeline_by_boro.2017"
       },
       "housing_pipeline_by_sd": {
         minYear: 2016,
         maxYear: 2025,
-        table: "sca_housing_pipeline.sd_2017"
+        table: "sca_housing_pipeline_by_sd.2017"
       },
       "enrollment_projection_by_boro": {
         minYear: 2015,
         maxYear: 2025,
-        table: "sca_enrollment_projections.boro_2017"
+        table: "sca_enrollment_projections_by_boro.2017"
       },
       "enrollment_projection_by_sd": {
         minYear: 2015,
         maxYear: 2025,
-        table: "sca_enrollment_projections.sd_2017"
+        table: "sca_enrollment_projections_by_sd.2017"
       },
       "significant_utilization_changes": {
         table: "doe_significant_utilization_changes.062018",
@@ -92,29 +92,29 @@ if DataPackage.find_by_name("November 2018").nil?
         minYear: 2017,
         maxYear: 2018
       },
-      "ps_school_zones": { table: "school_zones.ps_2018" },
-      "is_school_zones": { table: "school_zones.is_2018" },
-      "hs_school_zones": { table: "school_zones.hs_2018" },
+      "ps_school_zones": { table: "doe_school_zones_ps.2018" },
+      "is_school_zones": { table: "doe_school_zones_is.2018" },
+      "hs_school_zones": { table: "doe_school_zones_hs.2018" },
       "enrollment_pct_by_sd": { table: "sca_enrollment_pct_by_sd.2018" },
       "housing_pipeline_by_boro": {
         minYear: 2018,
         maxYear: 2027,
-        table: "sca_housing_pipeline.boro_2018"
+        table: "sca_housing_pipeline_by_boro.2018"
       },
       "housing_pipeline_by_sd": {
         minYear: 2018,
         maxYear: 2027,
-        table: "sca_housing_pipeline.sd_2018"
+        table: "sca_housing_pipeline_by_sd.2018"
       },
       "enrollment_projection_by_boro": {
         minYear: 2017,
         maxYear: 2027,
-        table: "sca_enrollment_projections.boro_2018"
+        table: "sca_enrollment_projections_by_boro.2018"
       },
       "enrollment_projection_by_sd": {
         minYear: 2017,
         maxYear: 2027,
-        table: "sca_enrollment_projections.sd_2018"
+        table: "sca_enrollment_projections_by_sd.2018"
       },
       "significant_utilization_changes": {
         table: "doe_significant_utilization_changes.062018",
