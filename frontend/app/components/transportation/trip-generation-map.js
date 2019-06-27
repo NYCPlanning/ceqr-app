@@ -3,9 +3,9 @@ import { computed, action } from '@ember-decorators/object';
 
 export default class TransportationTripGenerationMapComponent extends Component {
   /**
-   * The transportation-analysis Model, passed down from the project/show/transportation-analysis controller
+   * The project model
    */
-  analysis = {};
+  project = {};
 
   /**
    * The identifier (geoid) of the currenlty hovered feature in the map
@@ -24,22 +24,24 @@ export default class TransportationTripGenerationMapComponent extends Component 
     }
   }
 
-    /**
-   * The composite array of all highlighted features, including:
-   * - currently hovered feature
-   * - user-selected study selection features
-   * - required study selection features
-   * which is passed to the highlight layer's FeatureFilterer
+  /**
+   * Computed property that enables feature filterer to receive array mutations in didReceiveAttrs()
    */
-  @computed('hoveredFeatureId', 'analysis.{jtwStudySelection.[],requiredJtwStudySelection.[]}')
-  get highlightedFeatureIds() {
-    const { hoveredFeatureId } = this;
-    const selectedFeatures = this.get('analysis.jtwStudySelection') || [];
-    const requiredSelectedFeatures = this.get('analysis.requiredJtwStudySelection') || [];
-
-    return [hoveredFeatureId, ...selectedFeatures, ...requiredSelectedFeatures];
+  @computed('project.transportationAnalysis.jtwStudySelection.[]')
+  get jtwStudySelectionComputed() {
+    const selectedFeatures = this.get('project.transportationAnalysis.jtwStudySelection') || [];
+    return [...selectedFeatures];
   }
 
+  /**
+   * Computed property that enables feature filterer to filter on required and normal study selection
+   */
+  @computed('project.transportationAnalysis.{jtwStudySelection.[],requiredJtwStudySelection.[]}')
+  get allJtwStudySelectionComputed() {
+    const selectedFeatures = this.get('project.transportationAnalysis.jtwStudySelection') || [];
+    const requiredFeatures = this.get('project.transportationAnalysis.requiredJtwStudySelection') || [];
+    return [...selectedFeatures, ...requiredFeatures];
+  }
     /**
    * Action to pass to the MapboxGL instance created by Mapbox::Basic map in this component's template
    */

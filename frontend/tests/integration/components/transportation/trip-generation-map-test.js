@@ -63,14 +63,17 @@ module('Integration | Component | transportation/trip-generation-map', function(
     `);
   });
 
-  test('it has highlighted tracts, buses, and subways in map', async function(assert) {
+  test('it has tracts and subways in map', async function(assert) {
 
     await render(hbs`{{transportation/trip-generation-map}}`);
 
+    assert.ok(this.layers.includes('subway-routes'));
+    assert.ok(this.layers.includes('subway-stops'));
+    assert.ok(this.layers.includes('tracts'));
     assert.ok(this.layers.includes('tracts-line'));
-    assert.ok(this.layers.includes('tracts-fill'));
-    assert.ok(this.layers.includes('tracts-highlight'));
-    assert.ok(this.layers.includes('subway'));
-    assert.ok(this.layers.includes('bus'));
+    assert.ok(this.layers.includes('tracts-hover'));
+    assert.ok(this.layers.includes('tracts-required'));
+    assert.ok(this.layers.includes('tracts-user-selected'));
+    assert.ok(this.layers.includes('tracts-all-selected'));
   });
 });

@@ -3,6 +3,11 @@ import { action } from '@ember-decorators/object';
 
 export default class TransportationJtwMapComponent extends Component {
   /**
+   * The project model
+   */
+  project = {};
+
+  /**
    * Action to pass to the MapboxGL instance created by Mapbox::Basic map in this component's template
    */
   @action

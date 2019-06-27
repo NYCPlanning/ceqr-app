@@ -1,6 +1,5 @@
-import { module, test } from 'qunit';
+import { module } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 import setupMirage from 'ember-cli-mirage/test-support/setup-mirage';
 import Component from '@ember/component';
@@ -63,15 +62,6 @@ module('Integration | Component | transportation/jtw-map', function(hooks) {
     this.owner.register('template:components/mapbox/basic-map', hbs`
       {{yield (hash instance=this.map)}}
     `);
-  });
-
-  test('it has highlighted tracts, buses, and subways in map', async function(assert) {
-
-    await render(hbs`{{transportation/jtw-map}}`);
-
-    assert.ok(this.layers.includes('tracts-highlight'));
-    assert.ok(this.layers.includes('subway'));
-    assert.ok(this.layers.includes('bus'));
   });
 
 });
