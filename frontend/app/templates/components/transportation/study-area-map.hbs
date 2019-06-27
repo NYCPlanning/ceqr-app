@@ -2,8 +2,8 @@
   @name="study-area-map"
   @initOptions={{hash
     style="https://layers-api.planninglabs.nyc/v1/base/style.json"
-    zoom=9.2
-    center=(array -74 40.7071266)
+    zoom=12
+    center=analysis.jtwStudyAreaCentroid
   }} as |map|
 >
   <Mapbox::CartoVectorSource @map={{map}} as |carto-source|>
@@ -48,7 +48,45 @@
     </carto-source.layer>
 
     <carto-source.layer
-      @id="tracts-highlight"
+      @id="tracts-hover"
+      @sql="select * from nyc_census_tracts_2010"
+      @layer={{hash
+        type="fill"
+        paint=(hash
+          fill-opacity=0.5
+          fill-color="#d6ff00"
+        )
+      }} as |layer|
+    >
+      <Mapbox::FeatureFilterer
+        @map={{map}}
+        @layerId={{layer.layerId}}
+        @filterById="geoid"
+        @featureIds={{array this.hoveredFeatureId}}
+      />
+    </carto-source.layer>
+
+    <carto-source.layer
+      @id="tracts-required"
+      @sql="select * from nyc_census_tracts_2010"
+      @layer={{hash
+        type="fill"
+        paint=(hash
+          fill-opacity=0.5
+          fill-color="#002d00"
+        )
+      }} as |layer|
+    >
+      <Mapbox::FeatureFilterer
+        @map={{map}}
+        @layerId={{layer.layerId}}
+        @filterById="geoid"
+        @featureIds={{this.analysis.requiredJtwStudySelection}}
+      />
+    </carto-source.layer>
+
+    <carto-source.layer
+      @id="tracts-selected"
       @sql="select * from nyc_census_tracts_2010"
       @layer={{hash
         type="fill"
@@ -62,9 +100,10 @@
         @map={{map}}
         @layerId={{layer.layerId}}
         @filterById="geoid"
-        @featureIds={{this.highlightedFeatureIds}}
+        @featureIds={{this.jtwStudySelectionComputed}}
       />
     </carto-source.layer>
+
 
     <carto-source.layer
       @id="subway"

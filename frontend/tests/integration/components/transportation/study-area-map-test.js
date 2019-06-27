@@ -70,7 +70,9 @@ module('Integration | Component | transportation/study-area-map', function(hooks
 
     assert.ok(this.layers.includes('tracts-line'));
     assert.ok(this.layers.includes('tracts-fill'));
-    assert.ok(this.layers.includes('tracts-highlight'));
+    assert.ok(this.layers.includes('tracts-hover'));
+    assert.ok(this.layers.includes('tracts-required'));
+    assert.ok(this.layers.includes('tracts-selected'));
     assert.ok(this.layers.includes('subway'));
     assert.ok(this.layers.includes('bus'));
   });

@@ -34,13 +34,14 @@ export default class TransportationStudyAreaMapStudySelectionTogglerComponent ex
   async toggleCensusTract(selectedCensusTractFeatureArray) {
     const analysis = await this.analysis;
     const existingStudySelection = analysis.get('jtwStudySelection');
+    const requiredStudySelection = analysis.get('requiredJtwStudySelection');
     // check that selectedCensusTractFeature array exists and has an item
     if (selectedCensusTractFeatureArray && selectedCensusTractFeatureArray.length) {
       let { geoid } = selectedCensusTractFeatureArray[0].properties || {};
-      // check that the feature has a geoid property
-      if(geoid) {
+      // check that the feature has a geoid property and is not part of the required selection
+      if(geoid && !requiredStudySelection.includes(geoid)) {
         if(existingStudySelection.includes(geoid)){
-          existingStudySelection.popObject(geoid);
+          existingStudySelection.removeObject(geoid);
         } else {
           existingStudySelection.pushObject(geoid);
         }

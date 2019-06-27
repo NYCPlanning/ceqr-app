@@ -37,7 +37,7 @@ module('Integration | Component | transportation/study-area-map/study-selection-
       .findRecord('project', project.id, { include: 'transportation-analysis'});
 
     const geoid = 'geoid';
-    this.model.set('transportationAnalysis.jtwStudySelection', [geoid]);
+    this.model.set('transportationAnalysis.jtwStudySelection', [geoid, '1', '2']);
 
      // When a feature with given geoid is selected
     await render(hbs`
@@ -48,7 +48,7 @@ module('Integration | Component | transportation/study-area-map/study-selection-
 
     // Then the geoid should be removed from the transportationAnalysis study selection
     const updatedStudySelection = await this.get('model.transportationAnalysis.jtwStudySelection');
-    assert.equal(updatedStudySelection.length, 0)
+    assert.equal(updatedStudySelection.length, 2)
     assert.notOk(updatedStudySelection.includes(geoid));
   });
 

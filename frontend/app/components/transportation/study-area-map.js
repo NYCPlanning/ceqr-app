@@ -24,19 +24,9 @@ export default class TransportationProjectMapComponent extends Component {
     }
   }
 
-    /**
-   * The composite array of all highlighted features, including:
-   * - currently hovered feature
-   * - user-selected study selection features
-   * - required study selection features
-   * which is passed to the highlight layer's FeatureFilterer
-   */
-  @computed('hoveredFeatureId', 'analysis.{jtwStudySelection.[],requiredJtwStudySelection.[]}')
-  get highlightedFeatureIds() {
-    const { hoveredFeatureId } = this;
+  @computed('analysis.jtwStudySelection.[]')
+  get jtwStudySelectionComputed() {
     const selectedFeatures = this.get('analysis.jtwStudySelection') || [];
-    const requiredSelectedFeatures = this.get('analysis.requiredJtwStudySelection') || [];
-
-    return [hoveredFeatureId, ...selectedFeatures, ...requiredSelectedFeatures];
+    return [...selectedFeatures];
   }
 }

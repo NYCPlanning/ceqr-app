@@ -48,6 +48,6 @@ class Project < ApplicationRecord
 
   def refresh_analyses!
     # analysis models should know what they need to do to refresh
-    transportation_analysis.load_data! if saved_change_to_bbls?
+    transportation_analysis.compute_for_updated_bbls! if saved_change_to_bbls?
   end
 end
