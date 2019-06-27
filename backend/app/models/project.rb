@@ -1,8 +1,8 @@
-class Project < ApplicationRecord  
+class Project < ApplicationRecord
   before_save :set_bbl_attributes
   after_create :create_analyses!
   after_update :refresh_analyses!
-  
+
   validates_presence_of :bbls
 
   has_many :editor_permissions, -> { where("permission = 'editor'") }, class_name: 'ProjectPermission'
@@ -18,10 +18,12 @@ class Project < ApplicationRecord
   has_one :transportation_analysis, dependent: :destroy
   has_one :community_facilities_analysis, dependent: :destroy
 
+  def boroIntegers
+    bbls.map {|b| b[0].to_i }
+  end
+
   def borough
-    boro_integers = bbls.map {|b| b[0].to_i }
-    
-    case boro_integers.max
+    case boroIntegers.max
     when 1 then "Manhattan"
     when 2 then "Bronx"
     when 3 then "Brooklyn"

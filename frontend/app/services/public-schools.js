@@ -14,7 +14,7 @@ export default Service.extend({
 
     this.set('analysis.multipliers', multipliers);
     this.set('analysis.dataTables', dataTables);
-    
+
     yield this.fullReload.perform();
   }),
 
@@ -80,84 +80,84 @@ export default Service.extend({
     this.set('analysis.isSchoolChoice', is_zone[0] ? true : false);
   }),
 
-  setBluebook: task(function*() {
-    let bluebookHs = [];
-    if (this.analysis.hsAnalysis) {
-      bluebookHs = yield carto.SQL(`
-      SELECT *
-      FROM ${this.analysis.dataTables.cartoTables.bluebook}
-      WHERE borocode = '${this.analysis.boroCode}'
-    `);
-    }
-
-    let bluebook = yield carto.SQL(`
-      SELECT *
-      FROM ${this.analysis.dataTables.cartoTables.bluebook}
-      WHERE (district, subdistrict) IN (VALUES ${this.analysis.subdistrictSqlPairs.join(',')})
-    `);
-
-    let bluebookBuildings = [];
-
-    bluebook.forEach((b) => {
-      if (/PS/.test(b.org_level)) {
-        const existing = this.analysis.bluebook_findExisting(b, 'ps');
-
-        if (existing) {
-          bluebookBuildings.push(existing);
-        } else {
-          bluebookBuildings.push(School.create({
-            ...b,
-            level: 'ps',
-            source: 'bluebook',
-            capacity: b.ps_capacity,
-            capacityFuture: b.ps_capacity,
-            enroll: b.ps_enroll, 
-            dataVersion: this.analysis.dataVersion,
-          }));
-        }
-      }     
-
-      if (/IS/.test(b.org_level)) {
-        const existing = this.analysis.bluebook_findExisting(b, 'is');
-
-        if (existing) {
-          bluebookBuildings.push(existing);
-        } else {
-          bluebookBuildings.push(School.create({
-            ...b,
-            level: 'is',
-            source: 'bluebook',
-            capacity: b.ms_capacity,
-            capacityFuture: b.ms_capacity,
-            enroll: b.ms_enroll,
-            dataVersion: this.analysis.dataVersion,
-          }));
-        }
-      }
-    });
-
-    bluebookHs.forEach((b) => {
-      if (/HS/.test(b.org_level)) {
-        const existing = this.analysis.bluebook_findExisting(b, 'hs');
-
-        if (existing) {
-          bluebookBuildings.push(existing);
-        } else {
-          bluebookBuildings.push(School.create({
-            ...b,
-            level: 'hs',
-            source: 'bluebook',
-            capacity: b.hs_capacity,
-            capacityFuture: b.hs_capacity,
-            enroll: b.hs_enroll,
-            dataVersion: this.analysis.dataVersion,
-          }));
-        }
-      }
-    });
-
-    this.set('analysis.bluebook', bluebookBuildings);
-  }),
+  // setBluebook: task(function*() {
+  //   let bluebookHs = [];
+  //   if (this.analysis.hsAnalysis) {
+  //     bluebookHs = yield carto.SQL(`
+  //     SELECT *
+  //     FROM ${this.analysis.dataTables.cartoTables.bluebook}
+  //     WHERE borocode = '${this.analysis.boroCode}'
+  //   `);
+  //   }
+  //
+  //   let bluebook = yield carto.SQL(`
+  //     SELECT *
+  //     FROM ${this.analysis.dataTables.cartoTables.bluebook}
+  //     WHERE (district, subdistrict) IN (VALUES ${this.analysis.subdistrictSqlPairs.join(',')})
+  //   `);
+  //
+  //   let bluebookBuildings = [];
+  //
+  //   bluebook.forEach((b) => {
+  //     if (/PS/.test(b.org_level)) {
+  //       const existing = this.analysis.bluebook_findExisting(b, 'ps');
+  //
+  //       if (existing) {
+  //         bluebookBuildings.push(existing);
+  //       } else {
+  //         bluebookBuildings.push(School.create({
+  //           ...b,
+  //           level: 'ps',
+  //           source: 'bluebook',
+  //           capacity: b.ps_capacity,
+  //           capacityFuture: b.ps_capacity,
+  //           enroll: b.ps_enroll,
+  //           dataVersion: this.analysis.dataVersion,
+  //         }));
+  //       }
+  //     }
+  //
+  //     if (/IS/.test(b.org_level)) {
+  //       const existing = this.analysis.bluebook_findExisting(b, 'is');
+  //
+  //       if (existing) {
+  //         bluebookBuildings.push(existing);
+  //       } else {
+  //         bluebookBuildings.push(School.create({
+  //           ...b,
+  //           level: 'is',
+  //           source: 'bluebook',
+  //           capacity: b.ms_capacity,
+  //           capacityFuture: b.ms_capacity,
+  //           enroll: b.ms_enroll,
+  //           dataVersion: this.analysis.dataVersion,
+  //         }));
+  //       }
+  //     }
+  //   });
+  //
+  //   bluebookHs.forEach((b) => {
+  //     if (/HS/.test(b.org_level)) {
+  //       const existing = this.analysis.bluebook_findExisting(b, 'hs');
+  //
+  //       if (existing) {
+  //         bluebookBuildings.push(existing);
+  //       } else {
+  //         bluebookBuildings.push(School.create({
+  //           ...b,
+  //           level: 'hs',
+  //           source: 'bluebook',
+  //           capacity: b.hs_capacity,
+  //           capacityFuture: b.hs_capacity,
+  //           enroll: b.hs_enroll,
+  //           dataVersion: this.analysis.dataVersion,
+  //         }));
+  //       }
+  //     }
+  //   });
+  //
+  //   this.set('analysis.bluebook', bluebookBuildings);
+  // }),
 
   setLCGMS: task(function*() {
     let lcgms = yield carto.SQL(`
@@ -180,7 +180,7 @@ export default Service.extend({
         FROM doe_schoolsubdistricts_v2017
         WHERE cartodb_id IN (${this.analysis.subdistrictCartoIds.join(',')})
       ) subdistricts
-      WHERE ST_Intersects(subdistricts.the_geom, lcgms.the_geom)   
+      WHERE ST_Intersects(subdistricts.the_geom, lcgms.the_geom)
     `);
 
     let lcgmsBuildings = [];
@@ -199,7 +199,7 @@ export default Service.extend({
         enroll: b.ps_enroll,
         capacity: previousSaved ? previousSaved.capacity : '',
       }));
-      
+
       if (isIs) lcgmsBuildings.push(School.create({
         ...b,
         level: 'is',
@@ -207,7 +207,7 @@ export default Service.extend({
         enroll: b.is_enroll,
         capacity: previousSaved ? previousSaved.capacity : '',
       }));
-      
+
       // Still need to deal with HS from LCGMS; will wait until LCGMS data issues are addressed
       if (isHs) lcgmsBuildings.push(School.create({
         ...b,
@@ -238,9 +238,9 @@ export default Service.extend({
         district,
         school_year
       FROM ${this.analysis.dataTables.cartoTables.enrollmentProjectionsSd}
-      WHERE 
+      WHERE
         school_year LIKE '${this.analysis.buildYearMaxed}%25'
-        AND 
+        AND
         district IN (${this.analysis.subdistricts.map((d) => `'${d.district}'`).join(',')})
     `);
     this.set('analysis.futureEnrollmentProjections', enrollmentProjections);
@@ -251,7 +251,7 @@ export default Service.extend({
         year,
         hs
       FROM ${this.analysis.dataTables.cartoTables.enrollmentProjectionsBoro}
-      WHERE 
+      WHERE
         year = ${this.analysis.buildYearMaxed}
         AND
         LOWER(borough) = LOWER('${this.analysis.borough}')
@@ -261,7 +261,7 @@ export default Service.extend({
 
   setStudentsFromNewHousing: task(function*() {
     let studentsFromNewHousing = yield carto.SQL(`
-      SELECT 
+      SELECT
         new_students AS students,
         district,
         subdistrict,
@@ -319,7 +319,7 @@ export default Service.extend({
         vote_date,
         title
       FROM ${this.analysis.dataTables.cartoTables.doeSignificantUtilChanges}
-      WHERE 
+      WHERE
         bldg_id IN (${this.analysis.buildingsBldgIds.map(b => `'${b}'`).join(',')}) OR
         bldg_id_additional IN (${this.analysis.buildingsBldgIds.map(b => `'${b}'`).join(',')})
     `);
