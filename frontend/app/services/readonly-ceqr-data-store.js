@@ -37,6 +37,33 @@ export default Service.extend({
     store[type][id] = value;
   },
 
+  /** 
+   * Returns a promise that resolves to an array of objects
+   * @param type The object type
+   * @param ids The objects' identifiers
+   * @returns Promise
+   */
+  findByIds(type, ids) {
+    return Promise.all(ids.map((id) => this.find(type, id)));
+  },
+
+  /** 
+   * Returns a promise that resolves to the record, either from the local store
+   * or from the backend via _fetch().
+   * @param type The object's type
+   * @param id The object's identifier
+   * @returns Promise
+   */
+  find(type, id) {
+    const record = this.getRecord(type, id);
+    if(record) {
+      return new Promise(function(resolve) {
+        resolve(record);
+      });
+    }
+    return this._fetch(type, id);
+  },
+
   /**
    * Retrieves a record from the local store, or false if it does not exist yet.
    * @param type The object type
@@ -57,7 +84,7 @@ export default Service.extend({
    * @param id The obejct's identifier
    * @returns Promise that resolves to the formatted object, or rejects with error message if not implemented
    */
-  fetch(type, id) {
+  _fetch(type, id) {
     const session = this.get('session');
     if(type === 'ACS-modal-split') {
       return fetchAndSaveModalSplit('ACS', id, session, this);
@@ -68,32 +95,5 @@ export default Service.extend({
     return new Promise(function(resolve, reject) {
       reject(`Fetch for ${type} not implemented`);
     });
-  },
-
-  /** 
-   * Returns a promise that resolves to the record, either from the local store
-   * or from the backend via fetch().
-   * @param type The object's type
-   * @param id The object's identifier
-   * @returns Promise
-   */
-  find(type, id) {
-    const record = this.getRecord(type, id);
-    if(record) {
-      return new Promise(function(resolve) {
-        resolve(record);
-      });
-    }
-    return this.fetch(type, id);
-  },
-
-  /** 
-   * Returns a promise that resolves to an array of objects
-   * @param type The object type
-   * @param ids The objects' identifiers
-   * @returns Promise
-   */
-  findByIds(type, ids) {
-    return Promise.all(ids.map((id) => this.find(type, id)));
   }
 });

@@ -1,6 +1,20 @@
 import Component from '@ember/component';
 import { computed, action } from '@ember-decorators/object';
 
+/**
+ * Helper function to ensure 'bbls' layer is the top-most layer. MapboxGL styleIsLoaded() check,
+ * and 'style.load' events do not reliably indicate a fully loaded style object.
+ * To display 'bbls' as the top-most layer, must move it with moveLayer()
+ */
+const onMapStyleLoaded = function(e) {
+  const { target: map } = e;
+  const style = map.getStyle();
+  if (style.sources.bbls_geojson && style.sources.carto) {
+    map.moveLayer('bbls');
+    map.off('data', onMapStyleLoaded);
+  }
+}
+
 export default class TransportationCensusTractsMapComponent extends Component {
   /**
    * The project model
@@ -47,20 +61,6 @@ export default class TransportationCensusTractsMapComponent extends Component {
    */
   @action
   mapLoaded(map) {
-    map.on('data', this.onMapStyleLoaded);
-  }
-
-  /**
-   * Helper function to ensure 'bbls' layer is the top-most layer. MapboxGL styleIsLoaded() check,
-   * and 'style.load' events do not reliably indicate a fully loaded style object.
-   * To display 'bbls' as the top-most layer, must move it with moveLayer()
-   */
-  onMapStyleLoaded(e) {
-    const { target: map } = e;
-    const style = map.getStyle();
-    if (style.sources.bbls_geojson && style.sources.carto) {
-      map.moveLayer('bbls');
-      map.off('data', this.onMapStyleLoaded)
-    }
+    map.on('data', onMapStyleLoaded);
   }
 }

@@ -1,51 +1,83 @@
-<div style="overflow-x:auto;">
-  <table class="ui fixed celled table">
+<div class="ui basic top attached segment">
+  <div class="ui secondary menu">
+    <a
+      class="item {{unless this.isRJTW "active"}}"
+      data-test-censustracts-table-isrjtw="false"
+      {{action (mut this.isRJTW) false}}
+    >
+      Journey To Work
+    </a>
+    <a
+      class="item {{if this.isRJTW "active"}}"
+      data-test-censustracts-table-isrjtw="true"
+      {{action (mut this.isRJTW) true}}
+    >
+      Reverse Journey To Work
+    </a>
+  </div>
+</div>
+<div style="overflow-x: scroll;">
+  <table class="ui celled table">
     <thead>
       <tr>
-        <th class="five wide"> </th>
+        <th style="min-width: 220px;"> </th>
         {{#each this.selectedCensusTractIds as |censusTract|}}
-          <th>{{human-readable-census-tract censusTract}}</th>
+          <th class="two wide" colspan="2">
+            {{human-readable-census-tract censusTract}}
+          </th>
         {{/each}}
-        <th>Total</th>
+        <th class="two wide" colspan="2">
+          Total
+        </th>
+      </tr>
+      <tr>
+        <th style="width: 220px;"> </th>
+        {{#each this.selectedCensusTractIds as |censusTract|}}
+          <th class="one wide" colspan="1">
+            Count
+          </th>
+          <th class="one wide" colspan="1">
+            Percent
+          </th>
+        {{/each}}
+          <th class="one wide" colspan="1">
+            Count
+          </th>
+          <th class="one wide" colspan="1">
+            Percent
+          </th>
       </tr>
     </thead>
     <tbody>
       {{#let (await this.selectedCensusTractData) as |censusTracts|}}
-        <Transportation::CensusTractsTable::ValueRow
-          @title="Total:"
+        {{#each this.commuterModes as |mode|}}
+          <Transportation::CensusTractsTable::ValueAndPercentRow
+            @title={{get this.modeLookup mode}}
+            @allModalSplitData={{censusTracts}}
+            @variables={{array mode}}
+          />
+        {{/each}}
+        <Transportation::CensusTractsTable::ValueAndPercentRow
+          @title={{get this.modeLookup "trans_total"}}
           @allModalSplitData={{censusTracts}}
-          @variable='trans_total'
+          @variables={{array "trans_total"}}
         />
-        <Transportation::CensusTractsTable::ValueRow
-          @title="&nbsp;&nbsp;&nbsp;Car, truck, or van"
+        <Transportation::CensusTractsTable::ValueAndPercentRow
+          @title={{get this.modeLookup "trans_commuter_total"}}
           @allModalSplitData={{censusTracts}}
-          @variable='trans_auto_total'
+          @variables={{array "trans_commuter_total"}}
         />
-        <Transportation::CensusTractsTable::ValueRow
-          @title="&nbsp;&nbsp;&nbsp;Public transportation (excluding taxicab)"
+        <Transportation::CensusTractsTable::ValueAndPercentRow
+          @title={{if this.isRJTW "Workers" "Population"}}
           @allModalSplitData={{censusTracts}}
-          @variable='trans_public_total'
+          @variables={{array (if this.isRJTW "workers" "population")}}
+          data-test-censustracts-table-baseunit
         />
-        <Transportation::CensusTractsTable::ValueRow
-          @title="&nbsp;&nbsp;&nbsp;Total commuters (excluding work from home)"
+        <Transportation::CensusTractsTable::ValueAndPercentRow
+          @title={{get this.modeLookup "vehicle_occupancy"}}
           @allModalSplitData={{censusTracts}}
-          @variable='trans_commuter_total'
-        />
-        <tr>Modal Splits (of total commuters):</tr>
-        <Transportation::CensusTractsTable::PercentRow
-          @title="&nbsp;&nbsp;&nbsp;Auto"
-          @allModalSplitData={{censusTracts}}
-          @variables={{array 'trans_auto_total'}}
-        />
-        <Transportation::CensusTractsTable::PercentRow
-          @title="&nbsp;&nbsp;&nbsp;Public"
-          @allModalSplitData={{censusTracts}}
-          @variables={{array 'trans_public_total'}}
-        />
-        <Transportation::CensusTractsTable::PercentRow
-          @title="&nbsp;&nbsp;&nbsp;Total"
-          @allModalSplitData={{censusTracts}}
-          @variables={{array 'trans_auto_total' 'trans_public_total'}}
+          @variables={{array "vehicle_occupancy"}}
+          @noPercent=true
         />
       {{/let}}
     </tbody>

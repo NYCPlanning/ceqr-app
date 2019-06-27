@@ -14,10 +14,10 @@ module('Integration | Helper | get-aggregate-value', function(hooks) {
     this.set('modalSplits', modalSplits);
 
     // and variable is a valid modal-split variable
-    this.set('variable', 'trans_total');
+    this.set('variables', ['trans_total']);
 
     // When modalSplits and variable are passed to the helper
-    await render(hbs`{{get-aggregate-value modalSplits variable}}`);
+    await render(hbs`{{get-aggregate-value modalSplits variables}}`);
 
     // Then a numeric sum is calculated
     assert.ok(this.element.textContent.trim().match(/\d+/));

@@ -45,7 +45,7 @@ module('Unit | Service | readonly-ceqr-data-store', function(hooks) {
     service.init();
     const testType = 'testType';
     const testId = 'testId';
-    service.fetch = (type, id) => {
+    service._fetch = (type, id) => {
       assert.equal(type, testType);
       assert.equal(id, testId);
       return 'value';
