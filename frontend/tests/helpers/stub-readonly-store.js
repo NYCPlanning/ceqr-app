@@ -2,16 +2,28 @@ import Service from '@ember/service';
 import { composeModalSplit } from 'labs-ceqr/utils/modalSplit';
 import getTransportationCensusEstimateResponse from '../../mirage/helpers/get-transportation-census-estimate-response';
 
-export default function stubReadonlyStore(hooks, ret) {
+export default function stubReadonlyStore(hooks, mockModalSplit) {
   hooks.beforeEach(function() {
     const realStore = this.owner.lookup('service:readonly-ceqr-data-store');
     const readonlyDataStoreStub = Service.extend({
-      find(type, geoid) {
-        if (ret) ret.geoid = geoid;
-        return ret ? ret : getModalSplit(type, geoid);
-      },
       findByIds(type, ar) {
-        return ret ? new Array(ar.length).fill(ret) : getModalSplits(type, ar);
+        if(mockModalSplit){
+          return new Array(ar.length).fill(mockModalSplit)
+        } else {
+          if(type === 'ACS-modal-split') {
+            return getModalSplits('ACS', ar);
+          }
+          if(type === 'CTPP-modal-split') {
+            return getModalSplits('CTPP', ar);
+          }
+          return new Promise(function(resolve, reject) {
+            reject(`Fetch for ${type} not implemented`);
+          });
+        }
+      },
+      find(type, geoid) {
+        if(mockModalSplit) mockModalSplit.geoid = geoid;
+        return mockModalSplit ? mockModalSplit : getModalSplit(type, geoid);
       },
       init: function() { // eslint-disable-line
         this.set('storeHash', {});
@@ -21,7 +33,7 @@ export default function stubReadonlyStore(hooks, ret) {
     });
     this.owner.unregister('service:readonly-ceqr-data-store');
     this.owner.register('service:readonly-ceqr-data-store', readonlyDataStoreStub);
-  });  
+  });
 }
 
 function getModalSplits(type, geoids) {

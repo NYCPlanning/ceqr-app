@@ -9,7 +9,10 @@ export function getSplitPercent(params/*, hash*/) {
 
   if(modalSplitData && variables && Array.isArray(variables)) {
     // calculate the sum of given variables for the modal split
-    const partTotal = variables.reduce((runningSum, variable) => runningSum + modalSplitData[variable].value, 0);
+    const partTotal = variables.reduce((runningSum, variable) => {
+          return modalSplitData[variable] ? runningSum + modalSplitData[variable].value : runningSum;
+        }
+      , 0);
     // calculate percent
     const percent = (partTotal / modalSplitData.trans_commuter_total.value) * 100;
 

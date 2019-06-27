@@ -20,8 +20,9 @@
       }}
     />
   </MapboxGlSource>
-  
-  <Mapbox::CartoVectorSource @map={{map}} as |carto-source|>
+
+  <Mapbox::CartoVectorSource @sourceId="carto" @map={{map}} as |carto-source|>
+
     <carto-source.layer
       @id="subway-routes"
       @sql="select * from mta_subway_routes_v0"
@@ -29,7 +30,7 @@
         type="line"
         paint=(get-layer-style 'subway-routes' 'paint')
       }}
-    />
+     />
 
     <carto-source.layer
       @id="subway-stops"
@@ -38,8 +39,7 @@
         type="circle"
         paint=(get-layer-style 'subway-stops' 'paint')
       }}
-    />
-
+     />
     <carto-source.layer
       @id="tracts"
       @sql="select * from nyc_census_tracts_2010"
@@ -53,7 +53,7 @@
         @layerId={{layer.layerId}}
         @onFeatures={{this.setFirstHoveredFeatureId}}
         as |hoverer|
-      > 
+      >
         {{#if (and hoverer.point hoverer.features)}}
           <HoverCard @point={{hoverer.point}}>
             <Transportation::CensusTractsMap::CensusTractPopup
