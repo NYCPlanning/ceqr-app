@@ -64,17 +64,18 @@ module('Integration | Component | transportation/study-area-map', function(hooks
     `);
   });
 
-  test('it has tracts, buses, and subways in map', async function(assert) {
+  test('it has tracts and subways in map', async function(assert) {
 
     await render(hbs`{{transportation/study-area-map}}`);
 
+    assert.ok(this.layers.includes('subway-routes'));
+    assert.ok(this.layers.includes('subway-stops'));
+    assert.ok(this.layers.includes('tracts'));
     assert.ok(this.layers.includes('tracts-line'));
-    assert.ok(this.layers.includes('tracts-fill'));
     assert.ok(this.layers.includes('tracts-hover'));
     assert.ok(this.layers.includes('tracts-required'));
-    assert.ok(this.layers.includes('tracts-selected'));
-    assert.ok(this.layers.includes('subway'));
-    assert.ok(this.layers.includes('bus'));
+    assert.ok(this.layers.includes('tracts-user-selected'));
+    assert.ok(this.layers.includes('tracts-all-selected'));
   });
 
   test('it hovers, displays information', async function(assert) {
@@ -82,7 +83,7 @@ module('Integration | Component | transportation/study-area-map', function(hooks
 
     // To simulate an event, we go straight to simply calling
     // the event handler with whatever arguments (like clicked point)
-    // we want. 
+    // we want.
     simulateEvent(this.events, 'mousemove', { point: { x: 0, y: 0 }});
 
     await settled();
@@ -98,7 +99,7 @@ module('Integration | Component | transportation/study-area-map', function(hooks
 
     const geoid = renderedGeoId;
 
-    await render(hbs`{{transportation/study-area-map analysis=model.transportationAnalysis}}`);
+    await render(hbs`{{transportation/study-area-map project=model}}`);
     simulateEvent(this.events, 'click', {point: 'point'});
 
     await settled();

@@ -1,26 +1,51 @@
 <Mapbox::BasicMap
   @name="study-area-map"
+  @mapLoaded={{action mapLoaded}}
   @initOptions={{hash
     style="https://layers-api.planninglabs.nyc/v1/base/style.json"
     zoom=12
-    center=analysis.jtwStudyAreaCentroid
+    center=this.project.transportationAnalysis.jtwStudyAreaCentroid
   }} as |map|
 >
-  <Mapbox::CartoVectorSource @map={{map}} as |carto-source|>
-    <carto-source.layer
-      @id="tracts-line"
-      @sql="select * from nyc_census_tracts_2010"
+  <MapboxGlSource
+    @sourceId='bbls_geojson'
+    @map={{map.instance}}
+    @options={{hash type="geojson" data=project.bblsGeojson}} as |source|
+  >
+    <source.layer
       @layer={{hash
+        id="bbls"
         type="line"
-        paint=(hash line-color="green")
+        paint=(get-layer-style 'bbls' 'paint')
       }}
     />
+  </MapboxGlSource>
+
+  <Mapbox::CartoVectorSource @sourceId="carto" @map={{map}} as |carto-source|>
+
     <carto-source.layer
-      @id="tracts-fill"
+      @id="subway-routes"
+      @sql="select * from mta_subway_routes_v0"
+      @layer={{hash
+        type="line"
+        paint=(get-layer-style 'subway-routes' 'paint')
+      }}
+     />
+
+    <carto-source.layer
+      @id="subway-stops"
+      @sql="select * from mta_subway_stops_v0"
+      @layer={{hash
+        type="circle"
+        paint=(get-layer-style 'subway-stops' 'paint')
+      }}
+     />
+    <carto-source.layer
+      @id="tracts"
       @sql="select * from nyc_census_tracts_2010"
       @layer={{hash
         type="fill"
-        paint=(hash fill-opacity=0)
+        paint=(get-layer-style 'selectable-feature-content' 'paint')
       }} as |layer|
     >
       <Mapbox::FeatureHoverer
@@ -28,7 +53,7 @@
         @layerId={{layer.layerId}}
         @onFeatures={{this.setFirstHoveredFeatureId}}
         as |hoverer|
-      > 
+      >
         {{#if (and hoverer.point hoverer.features)}}
           <HoverCard @point={{hoverer.point}}>
             <Transportation::StudyAreaMap::CensusTractPopup
@@ -38,24 +63,32 @@
           </HoverCard>
         {{/if}}
       </Mapbox::FeatureHoverer>
+
       <Mapbox::FeatureSelector
         @map={{map}}
         @layerId={{layer.layerId}} as |selectedFeatures| >
         <Transportation::StudyAreaMap::StudySelectionToggler
           @selectedFeatureArray={{selectedFeatures}}
-          @analysis={{analysis}} />
+          @analysis={{this.project.transportationAnalysis}} />
       </Mapbox::FeatureSelector>
     </carto-source.layer>
+
+    <carto-source.layer
+      @id="tracts-line"
+      @sql="select * from nyc_census_tracts_2010"
+      @layer={{hash
+        type="line"
+        paint=(get-layer-style 'selectable-feature-line' 'paint')
+        layout=(get-layer-style 'selectable-feature-line' 'layout')
+      }}
+    />
 
     <carto-source.layer
       @id="tracts-hover"
       @sql="select * from nyc_census_tracts_2010"
       @layer={{hash
-        type="fill"
-        paint=(hash
-          fill-opacity=0.5
-          fill-color="#d6ff00"
-        )
+        type="line"
+        paint=(get-layer-style 'selectable-feature-hover' 'paint')
       }} as |layer|
     >
       <Mapbox::FeatureFilterer
@@ -71,29 +104,23 @@
       @sql="select * from nyc_census_tracts_2010"
       @layer={{hash
         type="fill"
-        paint=(hash
-          fill-opacity=0.5
-          fill-color="#002d00"
-        )
+        paint=(get-layer-style 'selectable-feature-selected-fill-bold' 'paint')
       }} as |layer|
     >
       <Mapbox::FeatureFilterer
         @map={{map}}
         @layerId={{layer.layerId}}
         @filterById="geoid"
-        @featureIds={{this.analysis.requiredJtwStudySelection}}
+        @featureIds={{this.project.transportationAnalysis.requiredJtwStudySelection}}
       />
     </carto-source.layer>
 
     <carto-source.layer
-      @id="tracts-selected"
+      @id="tracts-user-selected"
       @sql="select * from nyc_census_tracts_2010"
       @layer={{hash
         type="fill"
-        paint=(hash
-          fill-opacity=0.5
-          fill-color="green"
-        )
+        paint=(get-layer-style 'selectable-feature-selected-fill-light' 'paint')
       }} as |layer|
     >
       <Mapbox::FeatureFilterer
@@ -104,27 +131,23 @@
       />
     </carto-source.layer>
 
-
     <carto-source.layer
-      @id="subway"
-      @sql="select * from mta_subway_routes_v0"
+      @id="tracts-all-selected"
+      @sql="select * from nyc_census_tracts_2010"
       @layer={{hash
         type="line"
-        paint=(hash line-color="red")
-      }}
-     />
+        paint=(get-layer-style 'selectable-feature-selected-line' 'paint')
+        layout=(get-layer-style 'selectable-feature-selected-line' 'layout')
+      }} as |layer|
+    >
+      <Mapbox::FeatureFilterer
+        @map={{map}}
+        @layerId={{layer.layerId}}
+        @filterById="geoid"
+        @featureIds={{this.allJtwStudySelectionComputed}}
+      />
+    </carto-source.layer>
 
-    <carto-source.layer
-      @id="bus"
-      @sql="select * from mta_bus_stops_v0"
-      @layer={{hash
-        type="circle"
-        paint=(hash
-          circle-color="pink"
-          circle-radius=1
-        )
-      }}
-     />
 
   </Mapbox::CartoVectorSource>
 </Mapbox::BasicMap>

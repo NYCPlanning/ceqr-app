@@ -7,7 +7,7 @@
     {{! Add the source }}
     <MapboxGlSource
       @map={{map.instance}}
-      @sourceId={{this.elementId}}
+      @sourceId={{if this.sourceId this.sourceId this.elementId}}
       @options={{this.mapboxSourceOptions}}
      />
 
@@ -20,7 +20,7 @@
         unregisterWithParent=(action registry.unregisterLayer)
         map=map
         tiles=this.mapboxSourceOptions.tiles
-        _parentElementId=this.elementId
+        _parentElementId=(if this.sourceId this.sourceId this.elementId)
       )
     )
   }}
