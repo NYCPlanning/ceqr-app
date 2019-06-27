@@ -4,7 +4,7 @@
 [context.master]
     command = "yarn build --environment=production"
 
-[context.branch-deploy]
+[context.deploy-preview]
     command = "yarn build --environment=development"
 
 # enable entry to app through routes other than /
