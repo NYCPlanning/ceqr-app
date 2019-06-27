@@ -4,6 +4,6 @@ export default class ProjectShowTransportationExistingConditionsRoute extends Ro
   controllerName = 'project';
 
   redirect(model) {
-    this.transitionTo('project.show.transportation.existing-conditions.study-area', model.project.id);
+    this.transitionTo('project.show.transportation.existing-conditions.census-tracts', model.project.id);
   }
 }

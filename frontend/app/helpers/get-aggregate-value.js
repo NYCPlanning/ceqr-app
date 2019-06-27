@@ -1,7 +1,7 @@
 import { helper } from '@ember/component/helper';
 
 /**
- * Helper for StudyAreaTable component that calculates an aggregate modal split estimate
+ * Helper for CensusTractsTable component that calculates an aggregate modal split estimate
  * for a given variable, for a full set of modal split data from all census tracts in a 
  * study selection.
  */

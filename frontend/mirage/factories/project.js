@@ -14,23 +14,23 @@ export default Factory.extend({
   bblsVersion: 'mappluto_18v2',
   bblsGeojson: () => {
     return {
-      type: 'FeatureCollection',
-      features: [
+      "type": "FeatureCollection",
+      "features": [
         {
-          type: 'Feature',
-          properties: {},
-          geometry: {
-            type: 'MultiPolygon',
-            coordinates: [[[
+          "type": "Feature",
+          "properties": {},
+          "geometry": {
+            "type": "LineString",
+            "coordinates": [
               [-73.95944768975842, 40.80929214876363],
               [-73.96112392735277, 40.80699583564126],
               [-73.9635969491312, 40.808032096187006],
               [-73.96192107071839, 40.81033240266901],
-              [-73.95944768975842, 40.80929214876363],
-            ]]],
-          },
-        },
-      ],
+              [-73.95944768975842, 40.80929214876363]
+            ]
+          }
+        }
+      ]
     };
   },
   borough: 'Manhattan',

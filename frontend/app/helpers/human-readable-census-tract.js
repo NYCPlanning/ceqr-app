@@ -9,7 +9,7 @@ const COUNTY_LOOKUP = {
 }
 
 /** 
- * Helper for StudyAreaTable that composes a human-readable version of a census
+ * Helper for CensusTractsTable that composes a human-readable version of a census
  * tract from the geoid, for use as column headers
  */
 export function humanReadableCensusTract(params/*, hash*/) {

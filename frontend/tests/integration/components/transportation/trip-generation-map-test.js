@@ -1,10 +1,10 @@
-import { module } from 'qunit';
+import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
+import { render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 import setupMirage from 'ember-cli-mirage/test-support/setup-mirage';
 import Component from '@ember/component';
 import { registerEventHandler}  from '../../../helpers/mapbox/mapbox-stub-helpers';
-
 
 const DEFAULT_MAPBOX_GL_INSTANCE = {
   addSource: () => {},
@@ -17,8 +17,7 @@ const DEFAULT_MAPBOX_GL_INSTANCE = {
   off: () => {},
 };
 
-
-module('Integration | Component | transportation/jtw-map', function(hooks) {
+module('Integration | Component | transportation/trip-generation-map', function(hooks) {
   setupRenderingTest(hooks);
   setupMirage(hooks);
 
@@ -64,4 +63,17 @@ module('Integration | Component | transportation/jtw-map', function(hooks) {
     `);
   });
 
+  test('it has tracts and subways in map', async function(assert) {
+
+    await render(hbs`{{transportation/trip-generation-map}}`);
+
+    assert.ok(this.layers.includes('subway-routes'));
+    assert.ok(this.layers.includes('subway-stops'));
+    assert.ok(this.layers.includes('tracts'));
+    assert.ok(this.layers.includes('tracts-line'));
+    assert.ok(this.layers.includes('tracts-hover'));
+    assert.ok(this.layers.includes('tracts-required'));
+    assert.ok(this.layers.includes('tracts-user-selected'));
+    assert.ok(this.layers.includes('tracts-all-selected'));
+  });
 });

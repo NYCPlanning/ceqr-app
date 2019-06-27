@@ -1,6 +1,6 @@
 import { helper } from '@ember/component/helper';
 /**
- * Helper for StudyAreaTable component that calculates a modal split percent for a
+ * Helper for CensusTractsTable component that calculates a modal split percent for a
  * single modal split. Accepts multiple variables, so modal splits for a random subset of 
  * modes can be calculated
  */
