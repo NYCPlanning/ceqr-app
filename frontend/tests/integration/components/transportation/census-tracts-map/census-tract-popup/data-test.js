@@ -19,8 +19,8 @@ module('Integration | Component | transportation/census-tracts-map/census-tract-
     await render(hbs`
       {{#transportation/census-tracts-map/census-tract-popup/data geoid=geoid as |censusTractData|}}
         {{#censusTractData.loaded as |data|}}
-            {{data.value}}
-            {{data.geoid}}
+            {{get (get data 0) 'value'}}
+            {{get (get data 0) 'geoid'}}
         {{/censusTractData.loaded}}
       {{/transportation/census-tracts-map/census-tract-popup/data}}
     `);

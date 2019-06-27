@@ -18,13 +18,12 @@ module('Integration | Helper | find-modal-split', function(hooks) {
   test('it finds a record from the readonly store for the given id', async function(assert) {
     this.geoid = '1';
     await render(hbs`{{#let (get (find-modal-split geoid) 'value') as |modalSplit|}}
-        {{modalSplit.value}}
-        {{modalSplit.geoid}}
+        {{get (get modalSplit 0) 'value'}}
+        {{get (get modalSplit 0) 'geoid'}}
       {{/let}}`);
 
     const content = this.element.textContent.trim();
     assert.ok(content.includes(this.geoid));
     assert.ok(content.includes(modalSplit.value));
   });
-
 });

@@ -1,9 +1,15 @@
 import { helper } from '@ember/component/helper';
 
 export function getSplitValue(params/*, hash*/) {
-  const [modalSplitData, variable] = params;
+  const [modalSplitData, variable, includeMoe] = params;
 
-  return modalSplitData[variable] ? modalSplitData[variable].value : '';
+  const split = modalSplitData[variable];
+
+  if(split && includeMoe) {
+    return `${split.value}±${split.moe.toFixed(0)}`;
+  }
+
+  return split ? split.value : '';
 }
 
 export default helper(getSplitValue);

@@ -12,7 +12,7 @@ module('Integration | Component | transportation/census-tracts-table/value-row',
     // If title is a string
     this.set('title', 'testTitle');
     // And modal splits contains a modal split record
-    const modalSplits = this.owner.lookup('service:readonly-ceqr-data-store').findByIds(['1']);
+    const modalSplits = this.owner.lookup('service:readonly-ceqr-data-store').findByIds('ACS', ['1']);
     this.set('modalSplits', modalSplits);
     // And variable is a valid modal-split variable
     this.set('variable', 'trans_total');

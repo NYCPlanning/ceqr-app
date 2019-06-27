@@ -11,7 +11,7 @@ export function getSplitPercent(params/*, hash*/) {
     // calculate the sum of given variables for the modal split
     const partTotal = variables.reduce((runningSum, variable) => runningSum + modalSplitData[variable].value, 0);
     // calculate percent
-    const percent = partTotal / modalSplitData.trans_commuter_total.value * 100;
+    const percent = (partTotal / modalSplitData.trans_commuter_total.value) * 100;
 
     // return formatted percent 
     return isNaN(percent) ? '-' : `${percent.toFixed(1)} %`;

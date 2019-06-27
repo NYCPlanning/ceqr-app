@@ -24,7 +24,7 @@ Rails.application.routes.draw do
 
       # Read-only data
       jsonapi_resources :bbls
-      jsonapi_resources :transportation_census_estimates
+      jsonapi_resources :acs_estimates
     end
   end
 end
