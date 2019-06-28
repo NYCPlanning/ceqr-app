@@ -23,6 +23,7 @@ export default function() {
   this.passthrough('https://cartocdn-gusc-b.global.ssl.fastly.net/planninglabs/**');
   this.passthrough('https://cartocdn-gusc-c.global.ssl.fastly.net/planninglabs/**');
   this.passthrough('https://cartocdn-gusc-d.global.ssl.fastly.net/planninglabs/**');
+  this.passthrough('https://js-agent.newrelic.com/**');
 
   /**
    *

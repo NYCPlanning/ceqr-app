@@ -45,6 +45,9 @@ module.exports = function(environment) {
       }
     },
     SENTRY_DSN: process.env.SENTRY_DSN,
+    newRelic: {
+      licenseKey: process.env.NEW_RELIC_LICENSE_KEY
+    },
 
     modulePrefix: 'labs-ceqr',
     environment,
@@ -89,12 +92,16 @@ module.exports = function(environment) {
     ENV['ember-simple-auth-token'].tokenExpirationInvalidateSession = false;
   }
 
+  if (environment === 'review') {
+    ENV.newRelic.applicationId = process.env.NEW_RELIC_STAGING_APP_ID;
+  }
+
   if (environment === 'staging') {
-    // define staging
+    ENV.newRelic.applicationId = process.env.NEW_RELIC_STAGING_APP_ID;
   }
 
   if (environment === 'production') {
-    // define production
+    ENV.newRelic.applicationId = process.env.NEW_RELIC_PRODUCTION_APP_ID;
   }
 
   return ENV;
@@ -107,6 +114,10 @@ function getHost(environment) {
 
   if (environment === 'production') {
     return 'https://api.ceqr.app';
+  }
+
+  if (environment === 'review') {
+    return process.env.HOST_PR_REVIEW;
   }
 
   return process.env.HOST || '';
