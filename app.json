@@ -1,6 +1,10 @@
 {
   "env": {
-    "PROJECT_PATH": "backend"
+    "PROJECT_PATH": "backend",
+    "RACK_ENV": "staging",
+    "RAILS_ENV": "staging",
+    "JWT_SALT": "SALTYsaltySALT",
+    "SENDGRID_KEY": "thiswillnotsendemail"
   },
   "buildpacks": [
     { "url": "https://github.com/timanovsky/subdir-heroku-buildpack.git" },

@@ -5,7 +5,7 @@
     command = "yarn build --environment=production"
 
 [context.deploy-preview]
-    command = "yarn build --environment=development"
+    command = "yarn build --environment=review"
 
 # enable entry to app through routes other than /
 [[redirects]]

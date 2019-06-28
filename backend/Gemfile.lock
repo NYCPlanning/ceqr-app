@@ -104,6 +104,7 @@ GEM
     minitest (5.11.3)
     msgpack (1.2.10)
     multipart-post (2.1.1)
+    newrelic_rpm (6.4.0.356)
     nio4r (2.3.1)
     nokogiri (1.10.3)
       mini_portile2 (~> 2.4.0)
@@ -221,6 +222,7 @@ DEPENDENCIES
   jwt
   listen (>= 3.0.5, < 3.2)
   lograge
+  newrelic_rpm
   pg
   puma (~> 3.11)
   rack-cors
@@ -241,4 +243,4 @@ RUBY VERSION
    ruby 2.6.3p62
 
 BUNDLED WITH
-   2.0.1
+   2.0.2
