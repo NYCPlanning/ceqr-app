@@ -1,3 +1,9 @@
+export const selectableFeatureColors = {
+  'selected-fill-bold': 'rgba(59, 101, 216, 0.8)',
+  'selected-fill-light': 'rgba(59, 101, 216, 0.4)',
+  'selected-line': 'black',
+};
+
 export const selectableFeatureStyles = {
   'selectable-feature-content': {
     paint: {
@@ -34,19 +40,17 @@ export const selectableFeatureStyles = {
   },
   'selectable-feature-selected-fill-bold': {
     paint: {
-      'fill-color': 'rgba(59, 101, 216, 1)',
-      'fill-opacity': 0.8,
+      'fill-color': selectableFeatureColors['selected-fill-bold'],
     },
   },
   'selectable-feature-selected-fill-light': {
     paint: {
-      'fill-color': 'rgba(59, 101, 216, 1)',
-      'fill-opacity': 0.4,
+      'fill-color': selectableFeatureColors['selected-fill-light'],
     },
   },
   'selectable-feature-selected-line': {
     paint: {
-      'line-color': 'black',
+      'line-color': selectableFeatureColors['selected-line'],
       'line-opacity': 0.5,
       'line-width': {
         stops: [

@@ -7,6 +7,11 @@
     center=this.project.transportationAnalysis.jtwStudyAreaCentroid
   }} as |map|
 >
+  <Transportation::CensusTractsMap::Features
+    @showTransitZones={{this.showTransitZones}}
+    @showLandUse={{this.showLandUse}}
+  />
+
   <MapboxGlSource
     @sourceId='bbls_geojson'
     @map={{map.instance}}
@@ -22,6 +27,26 @@
   </MapboxGlSource>
 
   <Mapbox::CartoVectorSource @sourceId="carto" @map={{map}} as |carto-source|>
+    <carto-source.layer
+      @id='transit-zones-fill'
+      @sql='SELECT * from ceqr_data_traffic_zones_2019'
+      @layer={{hash
+        type='fill'
+        layout=(hash visibility=(if this.showTransitZones 'visible' 'none'))
+        paint=(get-layer-style 'transit-zones-fill' 'paint')
+      }}
+    />
+
+    <carto-source.layer
+      @id='land-use'
+      @sql='SELECT cartodb_id, the_geom, the_geom_webmercator, landuse FROM mappluto'
+      @layer={{hash
+        type='fill'
+        layout=(hash visibility=(if this.showLandUse 'visible' 'none'))
+        paint=(get-layer-style 'land-use' 'paint')
+      }}
+    />
+
 
     <carto-source.layer
       @id="subway-routes"
