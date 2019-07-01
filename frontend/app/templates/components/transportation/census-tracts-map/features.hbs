@@ -1,0 +1,42 @@
+<div class="map-ui">
+  <div data-test-tz-checkbox class="transit-zone-dropdown">
+    <UiCheckbox
+      @label="Show Transit Zones"
+      @checked={{showTransitZones}}
+      @onChange={{action (mut showTransitZones)}}
+    />
+  </div>
+  <div data-test-lu-checkbox class="land-use-dropdown">
+    <UiCheckbox
+      @label="Show Land Use"
+      @checked={{showLandUse}}
+      @onChange={{action (mut showLandUse)}}
+    />
+  </div>
+</div>
+
+<div class="map-legend">
+  <div class="ui list">
+    {{#if showTransitZones}}
+      {{#each (get-layer-category-colors 'transit-zone') as |categoryColor|}}
+        {{log categoryColor}}
+        {{log (get categoryColor 'color')}}
+        <div data-test-tz-legend-item class="item">
+          <i class="square icon" style={{get-color-style (get categoryColor 'color')}}></i>
+          <div class="content">Transit Zone {{get categoryColor 'category'}}</div>
+        </div>
+      {{/each}}
+    {{/if}}
+    {{#if (and showTransitZones showLandUse)}}
+      <div class="ui divider" style="margin: 0.5rem 0rem"></div>
+    {{/if}}
+    {{#if showLandUse}}
+      {{#each (get-layer-category-colors 'land-use') as |categoryColor|}}
+        <div data-test-lu-legend-item class="item">
+          <i class="square icon" style={{get-color-style (get categoryColor 'color')}}></i>
+          <div class="content">{{get landUseDescriptionsLookup (get categoryColor 'category')}}</div>
+        </div>
+      {{/each}}
+    {{/if}}
+  </div>
+</div>

@@ -26,6 +26,16 @@ export default class TransportationCensusTractsMapComponent extends Component {
   hoveredFeatureId = null;
 
   /**
+   * Flag for optionally displaying transit zones
+   */
+  showTransitZones = false;
+
+  /**
+   * Flag for optionally displaying land use
+   */
+  showLandUse = false;
+
+  /**
    * Sets hoveredFeatureId to geoid of the first feature in features array argument
    */
   @action
