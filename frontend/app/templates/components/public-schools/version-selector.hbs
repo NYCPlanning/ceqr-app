@@ -1,11 +1,11 @@
 <div class="ui labels">
   {{#if project.viewOnly}}
-    <div class="ui {{if dataOutdated "orange" "grey"}} medium label">
+    <div class="ui medium label">
       {{#if dataOutdated}}
         <UiPopup
           @tagName="i"
-          class="exclamation circle icon"
-          @content="New data available"
+          class="exclamation orange circle icon"
+          @content="Update available"
          />
 
       {{/if}}
@@ -15,12 +15,12 @@
       </div>
     </div>
   {{else}}
-    <div class="ui {{if dataOutdated "orange" "grey"}} medium label">
+    <div class="ui medium label">
       {{#if dataOutdated}}
         <UiPopup
           @tagName="i"
-          class="exclamation circle icon"
-          @content="New data available"
+          class="exclamation orange circle icon"
+          @content="Update available"
          />
 
       {{/if}}
@@ -47,12 +47,19 @@
             >
               November 2018
             </div>
+            <div
+              data-value="november-2018-q2"
+              class="item"
+              onClick={{action "changeDataVersion" "november-2018-q2"}}
+            >
+              November 2018 (with April 2019 SCA Capital Plan)
+            </div>
           </div>
         </UiDropdown>
       </div>
     </div>
   {{/if}}
-  <div class="ui {{if dataOutdated "orange" "grey"}} medium label">
+  <div class="ui medium label">
     Schools Multipliers:
     <div class="detail">
       {{humanize analysis.multiplierVersion}}

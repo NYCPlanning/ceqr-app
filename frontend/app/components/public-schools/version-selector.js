@@ -7,14 +7,15 @@ export default Component.extend({
   'public-schools': service(),
 
   dataOutdated: computed('analysis.dataVersion', function() {
-    return this.analysis.dataVersion !== 'november-2018';
+    return this.analysis.dataVersion !== 'november-2018-q2';
   }),
   
   actions: {
     async changeDataVersion(version) {
       const dataMultiplierMap = {
         "november-2017": "march-2014",
-        "november-2018": "november-2018"
+        "november-2018": "november-2018",
+        "november-2018-q2": "november-2018",
       }
       
       const analysis = await this.analysis;
