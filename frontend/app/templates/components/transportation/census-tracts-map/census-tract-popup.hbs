@@ -18,7 +18,10 @@
         </censusData.loading>
 
         <censusData.loaded as |data|>
-          <Transportation::CensusTractsMap::CensusTractPopup::ModalSplitFormatter @data={{data}}/>
+          <Transportation::CensusTractsMap::CensusTractPopup::ModalSplitFormatter
+            @acsData={{get data 0}}
+            @ctppData={{get data 1}}
+          />
         </censusData.loaded>
       </Transportation::CensusTractsMap::CensusTractPopup::Data>
     </div>

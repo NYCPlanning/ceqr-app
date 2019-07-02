@@ -1,15 +1,35 @@
-<table border='1' style='width:100%; border-collapse:collapse;'>
-  <tr>
-    <th>Transportation Mode</th>
-    <th>Count</th>
-    <th>MOE</th>
-  </tr>
-{{#each modalSplitData as |mode|}}
-  <tr>
-    <td data-test-mode={{mode.variable}}>{{mode.mode}}</td>
-    <td data-test-value={{mode.variable}}>{{mode.value}}</td>
-    <td data-test-moe={{mode.variable}}>{{mode.moe}}</td>
- </tr>
-{{/each}}
+<table class='ui celled structured table'>
+  <thead>
+    <tr>
+      <th></th>
+      <th class="center aligned" colspan="2">ACS</th>
+      <th class="center aligned" colspan="2">CTPP</th>
+    </tr>
+    <tr>
+      <th></th>
+      <th>Population: </th>
+      <th data-test-population>{{acsData.population.value}}</th>
+      <th>Workers: </th>
+      <th data-test-workers>{{ctppData.workers.value}}</th>
+    </tr>
+    <tr>
+      <th>Mode</th>
+      <th>Count</th>
+      <th>Percent</th>
+      <th>Count</th>
+      <th>Percent</th>
+    </tr>
+
+  </thead>
+  <tbody>
+    {{#each this.displayVariables as |variable|}}
+      <tr>
+       <td data-test-mode={{variable}}>{{get (get acsData variable) 'mode'}}</td>
+       <td data-test-acs-value={{variable}}>{{get-split-value acsData variable true}}</td>
+       <td data-test-acs-percent={{variable}}>{{get-split-percent acsData (array variable)}}</td>
+       <td data-test-ctpp-value={{variable}}>{{get-split-value ctppData variable true}}</td>
+       <td data-test-ctpp-percent={{variable}}>{{get-split-percent ctppData (array variable)}}</td>
+     </tr>
+    {{/each}}
+  </tbody>
 </table>
-<h5 data-test-population>Population: {{data.population.value}}</h5>

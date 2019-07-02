@@ -1,39 +1,43 @@
 import
 {
   fetchAndSaveModalSplit,
-  fetchModalSplit,
+  fetchACSModalSplit,
+  fetchCTPPModalSplit,
   getHeaders,
   composeModalSplit,
+  makeModalSplitObject, 
   addCommuterTotal,
+  addCombinedWalkOther,
   VARIABLE_MODE_LOOKUP,
-} from 'labs-ceqr/utils/modal-split';
+} from 'labs-ceqr/utils/modalSplit';
 import { module, test } from 'qunit';
 import { setupTest } from 'ember-qunit';
 import setupMirage from 'ember-cli-mirage/test-support/setup-mirage';
 import stubReadonlyStore from '../../helpers/stub-readonly-store';
+import getTransportationCensusEstimateResponse from '../../../mirage/helpers/get-transportation-census-estimate-response';
 
 module('Unit | Utility | modal-split', function(hooks) {
   setupTest(hooks);
-  setupMirage(hooks);
-  stubReadonlyStore(hooks);
+  setupMirage(hooks); stubReadonlyStore(hooks);
 
   test('it requests transportation-census-estimates and saves the composed result to the store', async function(assert) {
     const session = { data: { authenticated: { token: 'testToken' } }, isAuthenticated: true };
     const store = await this.owner.lookup('service:readonly-ceqr-data-store');
     const geoid = '1';
+    const type = 'ACS';
 
-    const modalSplit = await fetchAndSaveModalSplit(geoid, session, store);
+    const modalSplit = await fetchAndSaveModalSplit(type, geoid, session, store);
 
     assert.ok(modalSplit);
-    assert.ok(store.getRecord('modal-split', geoid));
+    assert.ok(store.getRecord(`${type}-modal-split`, geoid));
   });
 
-  test('it requests transportation-census-estimates from the server and returns the json-parsed "data"', async function(assert) {
+  test('it requests acs-estimates from the server and returns the json-parsed "data"', async function(assert) {
     // If a session exists with expected properties
     const session = { data: { authenticated: { token: 'testToken' } } };
 
     // When fetchModalSplit is called with a session and a geoid
-    const result = await fetchModalSplit(session, 'testGeoid');
+    const result = await fetchACSModalSplit(session, 'testGeoid');
 
     // Then data is requested from the server and processed correctly (the 'data' portion of the json-parsed result is returned)
     // confirmed by asserting:
@@ -42,6 +46,22 @@ module('Unit | Utility | modal-split', function(hooks) {
     assert.notOk(Object.keys(result).includes('data'));
     assert.ok(Array.isArray(result));
   });
+
+  test('it requests ctpp-estimates from the server and returns the json-parsed "data"', async function(assert) {
+    // If a session exists with expected properties
+    const session = { data: { authenticated: { token: 'testToken' } } };
+
+    // When fetchModalSplit is called with a session and a geoid
+    const result = await fetchCTPPModalSplit(session, 'testGeoid');
+
+    // Then data is requested from the server and processed correctly (the 'data' portion of the json-parsed result is returned)
+    // confirmed by asserting:
+    // - the 'data' key is not present
+    // - the returned object is an array
+    assert.notOk(Object.keys(result).includes('data'));
+    assert.ok(Array.isArray(result));
+  });
+
 
   test('it properly creates HTTP headers from session', function(assert) {
     // If a session exists that is not authenticated
@@ -74,14 +94,8 @@ module('Unit | Utility | modal-split', function(hooks) {
   });
 
   test('it composes a modal split from transportation census estimates', function(assert) {
-    // If raw transportation census estimates exist for then given variables and values
-    const estimates = [
-      { attributes: { variable: 'trans_total', value: 10 } },
-      { attributes: { variable: 'trans_auto_total', value: 5 } },
-      { attributes: { variable: 'trans_public_total', value: 2 } },
-      { attributes: { variable: 'trans_home', value: 1 } },
-      { attributes: { variable: 'some_madeup_var', value: 0 } },
-    ];
+    // If raw estimates exist
+    const { data: estimates } = getTransportationCensusEstimateResponse('ACS', 'geoid');
 
     // When modalSplit is composed from raw estimates
     const modalSplit = composeModalSplit(estimates);
@@ -99,27 +113,39 @@ module('Unit | Utility | modal-split', function(hooks) {
       const mode = VARIABLE_MODE_LOOKUP[split.variable] || 'Unknown';
       assert.equal(split.mode, mode);
     });
-    // Assert commuter total value was added
+    // Assert commuter total and walk/other properties were added
     assert.ok(modalSplit.trans_commuter_total);
+    assert.ok(modalSplit.trans_walk_other);
   });
 
   test('it adds commuter total', function(assert) {
     // If modalSplit object exists with trans_total and trans_home
-    const modalSplit =  {
-      trans_total: { variable: 'trans_total', value: 10 },
-      trans_home: { variable: 'trans_home', value: 1 }
-    };
-
+    const { data: estimates } = getTransportationCensusEstimateResponse('ACS', 'geoid');
+    const modalSplit = makeModalSplitObject(estimates);
+    
     // When commuter total is added
     addCommuterTotal(modalSplit);
 
     // Then 'trans_commuter_total' property is added to modalSplit
     assert.ok(modalSplit.trans_commuter_total);
     assert.ok(modalSplit.trans_commuter_total.mode);
-    assert.equal(modalSplit.trans_commuter_total.moe, null);
-    assert.equal(modalSplit.trans_commuter_total.variable, 'trans_commuter_total');
-    assert.equal(modalSplit.trans_commuter_total.value, modalSplit.trans_total.value - modalSplit.trans_home.value);
-   
-  })
+    assert.notOk(isNaN(modalSplit.trans_commuter_total.moe));
+    assert.notOk(isNaN(modalSplit.trans_commuter_total.value));
+  });
 
+  test('it adds walk/other', function(assert) {
+
+    // If modalSplit object exists with trans_total and trans_home
+    const { data: estimates } = getTransportationCensusEstimateResponse('ACS', 'geoid');
+    const modalSplit = makeModalSplitObject(estimates);
+    
+    // When walk/other is added
+    addCombinedWalkOther(modalSplit);
+
+    // Then 'trans_walk_other' property is added to modalSplit
+    assert.ok(modalSplit.trans_walk_other);
+    assert.ok(modalSplit.trans_walk_other.mode);
+    assert.notOk(isNaN(modalSplit.trans_walk_other.moe));
+    assert.notOk(isNaN(modalSplit.trans_walk_other.value));
+  });
 });

@@ -1,6 +1,6 @@
 import Service from '@ember/service';
 import { inject as service } from '@ember/service';
-import { fetchAndSaveModalSplit } from 'labs-ceqr/utils/modal-split';
+import { fetchAndSaveModalSplit } from 'labs-ceqr/utils/modalSplit';
 
 /**
  * A datastore for readonly CEQR data that does not fit nicely into the normal EmberData model.
@@ -59,8 +59,11 @@ export default Service.extend({
    */
   fetch(type, id) {
     const session = this.get('session');
-    if(type === 'modal-split') {
-      return fetchAndSaveModalSplit(id, session, this);
+    if(type === 'ACS-modal-split') {
+      return fetchAndSaveModalSplit('ACS', id, session, this);
+    }
+    if(type === 'CTPP-modal-split') {
+      return fetchAndSaveModalSplit('CTPP', id, session, this);
     }
     return new Promise(function(resolve, reject) {
       reject(`Fetch for ${type} not implemented`);

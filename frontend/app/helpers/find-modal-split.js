@@ -16,7 +16,10 @@ export default Helper.extend({
    * Task that wraps async call to get modal-split record from store
    */
   findModalSplitTask: task(function * (geoid) {
-    return yield this.readonlyStore.find('modal-split', geoid);
+      return yield Promise.all([
+        this.readonlyStore.find('ACS-modal-split', geoid),
+        this.readonlyStore.find('CTPP-modal-split', geoid),
+      ]);
   }),
 
   /**

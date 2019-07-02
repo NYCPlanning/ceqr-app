@@ -2,15 +2,15 @@ import JWT from 'jsonwebtoken';
 import ENV from 'labs-ceqr/config/environment';
 import cartoresponses from './fixtures/cartoresponses';
 import patchXMLHTTPRequest from './helpers/mirage-mapbox-gl-monkeypatch';
-import { faker } from 'ember-cli-mirage';
-
+import getTransportationCensusEstimateResponse from  './helpers/get-transportation-census-estimate-response';
 const secret = 'nevershareyoursecret';
 
 export default function() {
   patchXMLHTTPRequest();
-/**
+  /**
    *
-   * Passthroughs *
+   * Passthroughs
+   *
    */
   this.passthrough('/data-tables/**');
   this.passthrough('/ceqr-manual/**');
@@ -100,29 +100,27 @@ export default function() {
    * Transportation census estimates
    *
    */
-  this.get('transportation-census-estimates', function(schema, request) {
+  this.get('acs-estimates', function(schema, request) {
     const { queryParams } = request;
 
-    const estimates = createTransportationCensusEstimates(5);
+    const response = getTransportationCensusEstimateResponse('ACS');
     if(queryParams['filter[geoid]']) {
-      estimates.map((estimate) => estimate.geoid = queryParams['filter[geoid]']);
+      response.data.map((estimate) => estimate.geoid = queryParams['filter[geoid]']);
     }
 
-    const attributes = estimates.map((estimate) => { return {attributes: estimate} });
-    return { data: [ ... attributes ] };
+    return response;
   });
 
-}
+  this.get('ctpp-estimates', function(schema, request) {
+    const { queryParams } = request;
 
-function createTransportationCensusEstimates(num) {
-  const variables = ['population', 'trans_total', 'trans_auto_total', 'trans_public_total', 'trans_home'];
-  return new Array(num).fill({}).map((_, idx) => {
-    const variableIdx = idx % 5;
-    return {
-      geoid: `${idx.toString().padEnd(11, '0')}`,
-      variable: variables[variableIdx],
-      value: faker.random.number({min:10, max:1000}),
-      moe: faker.random.number({min:1, max:20}),
-    };
+    const response = getTransportationCensusEstimateResponse('CTPP');
+    if(queryParams['filter[geoid]']) {
+      response.data.map((estimate) => estimate.geoid = queryParams['filter[geoid]']);
+    }
+
+    return response;
   });
 }
+
+

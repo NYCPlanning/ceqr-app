@@ -1,4 +1,4 @@
-class Api::V1::TransportationCensusEstimateResource < JSONAPI::Resource
+class Api::V1::AcsEstimateResource < JSONAPI::Resource
   immutable
   model_name 'Db::NycAcs'
 

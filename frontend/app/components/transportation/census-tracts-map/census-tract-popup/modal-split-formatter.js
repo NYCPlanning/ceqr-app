@@ -1,31 +1,33 @@
 import Component from '@ember/component';
-import { computed } from '@ember-decorators/object';
 
 export const MODAL_SPLIT_POPUP_DISPLAY_VARIABLES = [
-  'trans_total',
   'trans_auto_total',
-  'trans_public_total'
-]
+  'trans_taxi',
+  'trans_public_subway',
+  'trans_public_bus',
+  'trans_walk_other',
+  'trans_commuter_total',
+];
+
 /**
- * ModalSplitFormatter component is responsible for correctly ingesting census-tract records
- * and formatting the data for display. Due to the data model, multiple records are required
- * to get the full data for a single census tract, and must be rendered correctly depending on
- * which variable a single record is for. For variable = "population", the data is presented separately.
- * All other variables are displayed in a table (see template for structure)
+ * ModalSplitFormatter component is responsible for correctly ingesting census estimate records
+ * and formatting the data for display.
  */
 export default class TransportationCensusTractsMapCensusTractPopupModalSplitFormatterComponent extends Component {
   /**
-   * Modal-split, composed from multiple 'transportation-census-estimate' rows
-   * (See utils/modal-split)
+   * ACS modal-split, composed from multiple 'acs-estimate' rows
+   * (See utils/modalSplit)
    */
-  data = {};
+  acsData = {};
 
   /**
-   * The set of modal split variables that should be displayed in the popup
+   * CTPP modal-split, composed from multiple 'ctpp-estimate' rows
+   * (See utils/modalSplit)
    */
-  @computed('data')
-  get modalSplitData() {
-    const { data } = this;
-    return MODAL_SPLIT_POPUP_DISPLAY_VARIABLES.map(variable => data[variable]);
-  }
+  ctppData = {};
+
+  /**
+   * Modal split variables to display in the popup
+   */
+  displayVariables = MODAL_SPLIT_POPUP_DISPLAY_VARIABLES;
 }

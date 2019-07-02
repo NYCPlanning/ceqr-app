@@ -1,4 +1,6 @@
 import Service from '@ember/service';
+import { composeModalSplit } from 'labs-ceqr/utils/modalSplit';
+import getTransportationCensusEstimateResponse from '../../mirage/helpers/get-transportation-census-estimate-response';
 
 export default function stubReadonlyStore(hooks, ret) {
   hooks.beforeEach(function() {
@@ -6,10 +8,10 @@ export default function stubReadonlyStore(hooks, ret) {
     const readonlyDataStoreStub = Service.extend({
       find(type, geoid) {
         if (ret) ret.geoid = geoid;
-        return ret ? ret : getModalSplit(geoid);
+        return ret ? ret : getModalSplit(type, geoid);
       },
-      findByIds(ar) {
-        return ret ? new Array(ar.length).fill(ret) : getModalSplits(ar);
+      findByIds(type, ar) {
+        return ret ? new Array(ar.length).fill(ret) : getModalSplits(type, ar);
       },
       init: function() { // eslint-disable-line
         this.set('storeHash', {});
@@ -22,26 +24,12 @@ export default function stubReadonlyStore(hooks, ret) {
   });  
 }
 
-function getModalSplits(geoids) {
-  return new Array(geoids.length).fill({}).map((_, idx) => getModalSplit(geoids[idx]));
+function getModalSplits(type, geoids) {
+  return new Array(geoids.length).fill({}).map((_, idx) => getModalSplit(type, geoids[idx]));
 }
 
-export function getModalSplit(geoid) {
-  const modalSplit = {};
-  [
-    'trans_total',
-    'trans_auto_total',
-    'trans_public_total',
-    'trans_commuter_total',
-    'population',
-  ].map(variable => {
-    modalSplit[variable] = {
-      variable,
-      value: Math.floor(Math.random() * 100),
-      moe: Math.floor(Math.random() * 100),
-      geoid,
-    };
-  });
-
+export function getModalSplit(type, geoid) {
+  const { data: estimates } = getTransportationCensusEstimateResponse(type, geoid);
+  const modalSplit = composeModalSplit(estimates);
   return modalSplit;
 }
