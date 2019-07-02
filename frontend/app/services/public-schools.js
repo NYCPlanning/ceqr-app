@@ -10,7 +10,7 @@ export default Service.extend({
 
   initialLoad: task(function*() {
     const multipliers = yield this.store.findRecord('ceqr-manual/public-schools', 'november-2018');
-    const dataTables = yield this.store.findRecord('data-tables/public-schools', 'may-2019');
+    const dataTables = yield this.store.findRecord('data-tables/public-schools', 'november-2018-q2');
 
     this.set('analysis.multipliers', multipliers);
     this.set('analysis.dataTables', dataTables);
