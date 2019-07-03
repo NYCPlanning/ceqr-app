@@ -159,7 +159,27 @@ i.icons .school-under-construction.icon {
     font-size: 1.1em;
   }
 }
-
+.census-tract-popup {
+  font-size: 12px !important;
+  width: auto !important;
+  th {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+  }
+  tbody {
+    td {
+      padding-top:    6px !important;
+      padding-bottom: 6px !important;
+      line-height: 12px !important;
+    }
+  }
+}
+.mapboxgl-map {
+  overflow: visible !important;
+}
+.mapboxgl-canvas {
+  outline: 0 !important;
+}
 .mapboxgl-popup {
   z-index: 2;
 }
@@ -178,10 +198,6 @@ i.icons .school-under-construction.icon {
 .traffic-zone-popup {
   margin: 5px 7px;
 }
-
-// .edit-cell input {
-//   width: 50px;
-// }
 
 .project.title {
   color: black;
