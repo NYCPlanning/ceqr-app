@@ -6,11 +6,14 @@ import { helper } from '@ember/component/helper';
  * study selection.
  */
 export function getAggregateValue(params/*, hash*/) {
-  const [allModalSplitData, variable] = params;
+  const [allModalSplitData, variables] = params;
 
-  if(allModalSplitData && Array.isArray(allModalSplitData)) {
+  if(allModalSplitData && Array.isArray(allModalSplitData) && variables && Array.isArray(variables)) {
     return allModalSplitData.reduce((runningSum, modalSplit) => {
-      return runningSum + modalSplit[variable].value
+      return runningSum + variables.reduce((runningSum, variable) => {
+          return modalSplit[variable] ? runningSum + parseFloat(modalSplit[variable].value) : runningSum;
+        }
+      , 0);
     }, 0);
   }
 }

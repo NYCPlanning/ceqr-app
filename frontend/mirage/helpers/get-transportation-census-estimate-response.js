@@ -1,4 +1,4 @@
-import { COMMUTER_VARIABLES } from 'labs-ceqr/utils/modalSplit';
+import { COMMUTER_VARIABLES, AUTO_BREAKDOWN_VARIABLES } from 'labs-ceqr/utils/modalSplit';
 import { faker } from 'ember-cli-mirage';
 
 export default function getTransportationCensusEstimateResponse(type) {
@@ -14,7 +14,8 @@ function createTransportationCensusEstimates(type, geoid) {
     'trans_total',
     'trans_auto_total',
     'trans_public_total',
-    ...COMMUTER_VARIABLES
+    ...COMMUTER_VARIABLES,
+    ...AUTO_BREAKDOWN_VARIABLES
   ];
 
   const censusEstimates = variables.map((variable, idx) => {

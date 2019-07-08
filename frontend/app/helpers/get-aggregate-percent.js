@@ -11,7 +11,9 @@ export function getAggregatePercent(params/*, hash*/) {
   if(allModalSplitData && Array.isArray(allModalSplitData) && variables && Array.isArray(variables)) {
     // calculate the aggregate of the sums of given variables for all modal splits
     const partTotal = allModalSplitData.reduce((runningSum, modalSplit) => {
-      return runningSum + variables.reduce((runningSum, variable) => runningSum + modalSplit[variable].value, 0);
+      return runningSum + variables.reduce((runningSum, variable) => {
+        return modalSplit[variable] ? runningSum + modalSplit[variable].value : runningSum;
+      }, 0);
     }, 0);
 
     // calculate the aggregate total for all modal splits

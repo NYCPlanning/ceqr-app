@@ -5,7 +5,7 @@ export function getSplitValue(params/*, hash*/) {
 
   const split = modalSplitData[variable];
 
-  if(split && includeMoe) {
+  if(split && includeMoe && split.moe) {
     return `${split.value}±${split.moe.toFixed(0)}`;
   }
 

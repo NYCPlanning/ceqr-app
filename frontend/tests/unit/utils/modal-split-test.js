@@ -8,6 +8,9 @@ import
   makeModalSplitObject, 
   addCommuterTotal,
   addCombinedWalkOther,
+  addVehicleOccupancy,
+  calculateVehicleOccupancy,
+  AUTO_OCCUPANCY_RATES,
   VARIABLE_MODE_LOOKUP,
 } from 'labs-ceqr/utils/modalSplit';
 import { module, test } from 'qunit';
@@ -147,5 +150,43 @@ module('Unit | Utility | modal-split', function(hooks) {
     assert.ok(modalSplit.trans_walk_other.mode);
     assert.notOk(isNaN(modalSplit.trans_walk_other.moe));
     assert.notOk(isNaN(modalSplit.trans_walk_other.value));
+  });
+
+  test('it adds vehicle occupancy', function(assert) {
+    // If modalSplit object exists with trans_total and trans_home
+    const { data: estimates } = getTransportationCensusEstimateResponse('ACS', 'geoid');
+    const modalSplit = makeModalSplitObject(estimates);
+    
+    // When Vehicle Occupancy is added
+    addVehicleOccupancy(modalSplit);
+
+    // Then 'vehicle_occupancy' property is added to modalSplit
+    assert.ok(modalSplit.vehicle_occupancy);
+    assert.ok(modalSplit.vehicle_occupancy.mode);
+    assert.notOk(modalSplit.vehicle_occupancy.moe);
+    assert.notOk(isNaN(modalSplit.vehicle_occupancy.value));
+  });
+
+  test('computeVehicleOccupancy gives expected numbers', function(assert) {
+    const modalSplitMock = {
+      'trans_auto_total': { value: 12+8+6+8+12+14, variable: 'trans_auto_total'},
+      'trans_auto_solo': { value: 12, variable: 'trans_auto_solo'},
+      'trans_auto_2': { value: 8, variable: 'trans_auto_2'},
+      'trans_auto_3': { value: 6, variable: 'trans_auto_3'},
+      'trans_auto_4': { value: 8, variable: 'trans_auto_4'},
+      'trans_auto_5_or_6': { value: 12, variable: 'trans_auto_5_or_6'},
+      'trans_auto_7_or_more': { value: 14, variable: 'trans_auto_7_or_more'},
+      'vehicle_occupancy': {}
+    }
+    let vehicleOccupancy = calculateVehicleOccupancy(modalSplitMock);
+    let expectedVehicleOccupancy = modalSplitMock.trans_auto_total.value / (
+      (modalSplitMock.trans_auto_solo.value / AUTO_OCCUPANCY_RATES.trans_auto_solo) + 
+      (modalSplitMock.trans_auto_2.value / AUTO_OCCUPANCY_RATES.trans_auto_2) + 
+      (modalSplitMock.trans_auto_3.value / AUTO_OCCUPANCY_RATES.trans_auto_3) + 
+      (modalSplitMock.trans_auto_4.value / AUTO_OCCUPANCY_RATES.trans_auto_4) + 
+      (modalSplitMock.trans_auto_5_or_6.value / AUTO_OCCUPANCY_RATES.trans_auto_5_or_6) + 
+      (modalSplitMock.trans_auto_7_or_more.value / AUTO_OCCUPANCY_RATES.trans_auto_7_or_more) 
+    );
+    assert.equal(vehicleOccupancy, expectedVehicleOccupancy.toFixed(2));
   });
 });
