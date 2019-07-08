@@ -5232,6 +5232,15 @@ ember-get-config@^0.2.2, ember-get-config@^0.2.3, ember-get-config@^0.2.4:
     ember-cli-version-checker "^2.1.0"
     ember-factory-for-polyfill "^1.3.1"
 
+ember-in-element-polyfill@^0.2.0:
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/ember-in-element-polyfill/-/ember-in-element-polyfill-0.2.0.tgz#3722b6488bd1609d7b501c3f208eff62ac3dbbef"
+  integrity sha512-cl7hWFhBcwbPbXOHjvupufwgQGRWnPNMXcJT9M/e07AbHVjbI7EnMqOfW1V2lJKsm6KQ1hT3frDcNQWZtS+6lQ==
+  dependencies:
+    debug "^3.1.0"
+    ember-cli-babel "^7.1.2"
+    ember-cli-version-checker "^2.1.0"
+
 "ember-inflector@^2.0.0 || ^3.0.0", ember-inflector@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/ember-inflector/-/ember-inflector-3.0.0.tgz#7e1ee8aaa0fa773ba0905d8b7c0786354d890ee1"
@@ -5264,16 +5273,17 @@ ember-macro-helpers@^1.0.0:
     ember-cli-test-info "^1.0.0"
     ember-weakmap "^3.0.0"
 
-ember-mapbox-gl@0.14.0:
-  version "0.14.0"
-  resolved "https://registry.yarnpkg.com/ember-mapbox-gl/-/ember-mapbox-gl-0.14.0.tgz#515431ce1245ddaa13bfda11fd463500f00bccb5"
+ember-mapbox-gl@0.15.0:
+  version "0.15.0"
+  resolved "https://registry.yarnpkg.com/ember-mapbox-gl/-/ember-mapbox-gl-0.15.0.tgz#a1dedd97719ce6f63aacf50af757716cd36aac53"
+  integrity sha512-QwUODDYmw+Dcz3uMacs0Ppv6Qi3LcJzBVvlSc4jS1is4Y7ajA6pXRQPG0ZZFUH0WnamBpWXF4178LAYmGCtOvA==
   dependencies:
     broccoli-funnel "^2.0.0"
     broccoli-merge-trees "^3.0.0"
     ember-auto-import "^1.2.18"
     ember-cli-babel "^7.1.4"
     ember-cli-htmlbars "^3.0.0"
-    ember-wormhole "^0.5.1"
+    ember-in-element-polyfill "^0.2.0"
 
 ember-math-helpers@^2.9.0:
   version "2.9.0"
@@ -5514,13 +5524,6 @@ ember-weakmap@^3.0.0:
     browserslist "^3.1.1"
     debug "^3.1.0"
     ember-cli-babel "^6.6.0"
-
-ember-wormhole@^0.5.1:
-  version "0.5.4"
-  resolved "https://registry.yarnpkg.com/ember-wormhole/-/ember-wormhole-0.5.4.tgz#968e80f093494f4aed266e750afa63919c61383d"
-  dependencies:
-    ember-cli-babel "^6.10.0"
-    ember-cli-htmlbars "^2.0.1"
 
 emojis-list@^2.0.0:
   version "2.1.0"
