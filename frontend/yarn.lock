@@ -666,6 +666,13 @@
     js-levenshtein "^1.1.3"
     semver "^5.3.0"
 
+"@babel/runtime@^7.0.0":
+  version "7.5.1"
+  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.5.1.tgz#51b56e216e87103ab3f7d6040b464c538e242888"
+  integrity sha512-g+hmPKs16iewFSmW57NkH9xpPkuYD1RV3UE2BCkXx9j+nhhRb9hsiSxPmEa67j35IecTQdn4iyMtHMbt5VoREg==
+  dependencies:
+    regenerator-runtime "^0.13.2"
+
 "@babel/runtime@^7.2.0":
   version "7.3.1"
   resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.3.1.tgz#574b03e8e8a9898eaf4a872a92ea20b7846f6f2a"
@@ -761,6 +768,22 @@
     esutils "^2.0.2"
     lodash "^4.17.11"
     to-fast-properties "^2.0.0"
+
+"@carto/carto-vl@1.3.0":
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/@carto/carto-vl/-/carto-vl-1.3.0.tgz#b98809ad18ae1cef8b39250b8ff4be78b62b2a10"
+  integrity sha512-f7K0C1Jq7UyIDObH+vzOcDIM3wHMWAzXse3yEdaTsTJq1pPBRCDWHHp0baCSsTWCTNRxzpO5vC97vSS8tFarvQ==
+  dependencies:
+    "@babel/runtime" "^7.0.0"
+    "@mapbox/vector-tile" "^1.3.0"
+    cartocolor "^4.0.0"
+    earcut "^2.1.2"
+    gl-matrix "^2.8.1"
+    jsep CartoDB/jsep#additional-char-ids-packaged-update-1
+    lineclip "^1.1.5"
+    lru-cache "^4.1.1"
+    mitt "^1.1.3"
+    pbf "^3.1.0"
 
 "@ember-decorators/argument@^0.8.13":
   version "0.8.21"
@@ -992,7 +1015,7 @@
   version "0.0.0"
   resolved "https://registry.yarnpkg.com/@mapbox/unitbezier/-/unitbezier-0.0.0.tgz#15651bd553a67b8581fb398810c98ad86a34524e"
 
-"@mapbox/vector-tile@^1.3.1":
+"@mapbox/vector-tile@^1.3.0", "@mapbox/vector-tile@^1.3.1":
   version "1.3.1"
   resolved "https://registry.yarnpkg.com/@mapbox/vector-tile/-/vector-tile-1.3.1.tgz#d3a74c90402d06e89ec66de49ec817ff53409666"
   dependencies:
@@ -3503,6 +3526,13 @@ cardinal@~0.4.2:
     ansicolors "~0.2.1"
     redeyed "~0.4.0"
 
+cartocolor@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/cartocolor/-/cartocolor-4.0.0.tgz#841a3222d8b5b22718d9d545b1e5b972cb26eb36"
+  integrity sha1-hBoyIti1sicY2dVFseW5cssm6zY=
+  dependencies:
+    colorbrewer "1.0.0"
+
 caseless@~0.12.0:
   version "0.12.0"
   resolved "https://registry.yarnpkg.com/caseless/-/caseless-0.12.0.tgz#1b681c21ff84033c826543090689420d187151dc"
@@ -3704,6 +3734,11 @@ color-convert@^1.9.0:
 color-name@1.1.3:
   version "1.1.3"
   resolved "https://registry.yarnpkg.com/color-name/-/color-name-1.1.3.tgz#a7d0558bd89c42f795dd42328f740831ca53bc25"
+
+colorbrewer@1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/colorbrewer/-/colorbrewer-1.0.0.tgz#4f97333b969ba7612382be4bc3394b341fb4c8a2"
+  integrity sha1-T5czO5abp2Ejgr5LwzlLNB+0yKI=
 
 colors@1.0.3:
   version "1.0.3"
@@ -4240,7 +4275,7 @@ duplexify@^3.4.2, duplexify@^3.6.0:
     readable-stream "^2.0.0"
     stream-shift "^1.0.0"
 
-earcut@^2.1.5:
+earcut@^2.1.2, earcut@^2.1.5:
   version "2.1.5"
   resolved "https://registry.yarnpkg.com/earcut/-/earcut-2.1.5.tgz#829280a9a3a0f5fee0529f0a47c3e4eff09b21e4"
 
@@ -4328,6 +4363,36 @@ ember-ast-hot-load@^0.0.81:
     ember-cli-babel ">=6.6.0"
     ember-cli-htmlbars "*"
 
+ember-auto-import@1.4.1:
+  version "1.4.1"
+  resolved "https://registry.yarnpkg.com/ember-auto-import/-/ember-auto-import-1.4.1.tgz#a2a602168f1446422e8ef8a8431667bb771b35c1"
+  integrity sha512-n1D0Xom6eWbg156lXAqSprf8RK85PLmCQj1Q8eUNHq7lhfFizYnwQ7ODcTJy6MR4/xrtim+SnfPHd6f3FFHtDQ==
+  dependencies:
+    "@babel/core" "^7.1.6"
+    "@babel/traverse" "^7.1.6"
+    "@babel/types" "^7.1.6"
+    babel-core "^6.26.3"
+    babel-plugin-syntax-dynamic-import "^6.18.0"
+    babel-template "^6.26.0"
+    babylon "^6.18.0"
+    broccoli-debug "^0.6.4"
+    broccoli-plugin "^1.3.0"
+    debug "^3.1.0"
+    ember-cli-babel "^6.6.0"
+    enhanced-resolve "^4.0.0"
+    fs-extra "^6.0.1"
+    fs-tree-diff "^1.0.0"
+    handlebars "~4.0.13"
+    js-string-escape "^1.0.1"
+    lodash "^4.17.10"
+    mkdirp "^0.5.1"
+    pkg-up "^2.0.0"
+    resolve "^1.7.1"
+    rimraf "^2.6.2"
+    symlink-or-copy "^1.2.0"
+    walk-sync "^0.3.3"
+    webpack "~4.28"
+
 ember-auto-import@^1.2.18:
   version "1.2.19"
   resolved "https://registry.yarnpkg.com/ember-auto-import/-/ember-auto-import-1.2.19.tgz#69a2da0d2c16ab88989c51381c415214e85d1af3"
@@ -4385,6 +4450,17 @@ ember-auto-import@^1.2.19, ember-auto-import@^1.2.21:
     symlink-or-copy "^1.2.0"
     walk-sync "^0.3.3"
     webpack "~4.28"
+
+ember-carto-vl@^0.0.3:
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/ember-carto-vl/-/ember-carto-vl-0.0.3.tgz#bb414ba09629c84e7964c44edea7c82dc4cf4245"
+  integrity sha512-9RwlABj2aiJvQcd7uvkPup4QRuTnbhAusZLvyNCKy8kEixuEC17jxGkyKgI/zotoyTVXEE3pQ2UTzWsVa5rBKA==
+  dependencies:
+    "@carto/carto-vl" "1.3.0"
+    ember-auto-import "1.4.1"
+    ember-cli-babel "^7.7.3"
+    ember-cli-htmlbars "^3.0.1"
+    ember-test-waiters "1.0.0"
 
 ember-changeset-validations@^2.0.0:
   version "2.0.0"
@@ -5504,6 +5580,13 @@ ember-test-selectors@2.1.0:
     ember-cli-babel "^6.8.2"
     ember-cli-version-checker "^3.1.2"
 
+ember-test-waiters@1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/ember-test-waiters/-/ember-test-waiters-1.0.0.tgz#6990daed15a31e4593dc153a33a20668f76abe5c"
+  integrity sha512-0VP7oTTur/wm2///9EuMwg1/6KP6yRAamyP7DaiYfrY1js1vHtZU2fDPgjwuL0QL4FG1chyUiL/Gi3+dIaqQmA==
+  dependencies:
+    ember-cli-babel "^7.1.2"
+
 ember-truth-helpers@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/ember-truth-helpers/-/ember-truth-helpers-2.1.0.tgz#d4dab4eee7945aa2388126485977baeb33ca0798"
@@ -6587,6 +6670,11 @@ git-repo-version@^1.0.2:
   dependencies:
     git-repo-info "^1.4.1"
 
+gl-matrix@^2.8.1:
+  version "2.8.1"
+  resolved "https://registry.yarnpkg.com/gl-matrix/-/gl-matrix-2.8.1.tgz#1c7873448eac61d2cd25803a074e837bd42581a3"
+  integrity sha512-0YCjVpE3pS5XWlN3J4X7AiAx65+nqAI54LndtVFnQZB6G/FVLkZH8y8V6R3cIoOQR4pUdfwQGd1iwyoXHJ4Qfw==
+
 gl-matrix@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/gl-matrix/-/gl-matrix-3.0.0.tgz#888301ac7650e148c3865370e13ec66d08a8381f"
@@ -7521,6 +7609,10 @@ jsbn@~0.1.0:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/jsbn/-/jsbn-0.1.1.tgz#a5e654c2e5a2deb5f201d96cefbca80c0ef2f513"
 
+jsep@CartoDB/jsep#additional-char-ids-packaged-update-1:
+  version "0.3.4"
+  resolved "https://codeload.github.com/CartoDB/jsep/tar.gz/f9873387e0165333c2d03b3a01a77f545982a587"
+
 jsesc@^1.3.0:
   version "1.3.0"
   resolved "https://registry.yarnpkg.com/jsesc/-/jsesc-1.3.0.tgz#46c3fec8c1892b12b0833db9bc7622176dbab34b"
@@ -7715,6 +7807,11 @@ libnpx@10.2.0:
     which "^1.3.0"
     y18n "^4.0.0"
     yargs "^11.0.0"
+
+lineclip@^1.1.5:
+  version "1.1.5"
+  resolved "https://registry.yarnpkg.com/lineclip/-/lineclip-1.1.5.tgz#2bf26067d94354feabf91e42768236db5616fd13"
+  integrity sha1-K/JgZ9lDVP6r+R5CdoI221YW/RM=
 
 linkify-it@^2.0.0:
   version "2.1.0"
@@ -8589,6 +8686,11 @@ mississippi@^3.0.0:
     stream-each "^1.1.0"
     through2 "^2.0.0"
 
+mitt@^1.1.3:
+  version "1.1.3"
+  resolved "https://registry.yarnpkg.com/mitt/-/mitt-1.1.3.tgz#528c506238a05dce11cd914a741ea2cc332da9b8"
+  integrity sha512-mUDCnVNsAi+eD6qA0HkRkwYczbLHJ49z17BGe2PYRhZL4wpZUFZGJHU7/5tmvohoma+Hdn0Vh/oJTiPEmgSruA==
+
 mixin-deep@^1.2.0:
   version "1.3.1"
   resolved "https://registry.yarnpkg.com/mixin-deep/-/mixin-deep-1.3.1.tgz#a49e7268dce1a0d9698e45326c5626df3543d0fe"
@@ -9435,7 +9537,7 @@ path-type@^1.0.0:
     pify "^2.0.0"
     pinkie-promise "^2.0.0"
 
-pbf@^3.0.5:
+pbf@^3.0.5, pbf@^3.1.0:
   version "3.2.0"
   resolved "https://registry.yarnpkg.com/pbf/-/pbf-3.2.0.tgz#e76f9f5114e395c25077ad6fe463b3507d6877fc"
   dependencies:
@@ -9951,6 +10053,11 @@ regenerator-runtime@^0.11.0:
 regenerator-runtime@^0.12.0:
   version "0.12.1"
   resolved "https://registry.yarnpkg.com/regenerator-runtime/-/regenerator-runtime-0.12.1.tgz#fa1a71544764c036f8c49b13a08b2594c9f8a0de"
+
+regenerator-runtime@^0.13.2:
+  version "0.13.2"
+  resolved "https://registry.yarnpkg.com/regenerator-runtime/-/regenerator-runtime-0.13.2.tgz#32e59c9a6fb9b1a4aff09b4930ca2d4477343447"
+  integrity sha512-S/TQAZJO+D3m9xeN1WTI8dLKBBiRgXBlTJvbWjCThHWZj9EvHK70Ff50/tYj2J/fvBY6JtFVwRuazHN2E7M9BA==
 
 regenerator-runtime@^0.9.5:
   version "0.9.6"

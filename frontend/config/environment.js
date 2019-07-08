@@ -53,6 +53,14 @@ module.exports = function(environment) {
     environment,
     rootURL: '/',
     locationType: 'auto',
+
+    'carto-vl': {
+      auth: {
+        username: 'planninglabs',
+        apiKey: 'default_public'
+      }
+    },
+
     EmberENV: {
       FEATURES: {
         // Here you can enable experimental features on an ember canary build

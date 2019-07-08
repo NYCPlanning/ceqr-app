@@ -1,9 +1,5 @@
 export const projectBblStyles = {
   'bbls': {
-    paint: {
-      'line-color': '#d7191c',
-      'line-width': 4,
-      'line-blur': 1,    
-    },
+    paint: "width: 4 color: #d7191c",
   },
 };
