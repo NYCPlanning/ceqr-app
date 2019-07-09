@@ -14,4 +14,24 @@ export default Factory.extend({
   project: association({
     totalUnits: 1000,
   }),
+  inOutDists: () => {
+    return {
+      am: {
+        in: 50,
+        out: 50
+      },
+      md: {
+        in: 50,
+        out: 50
+      },
+      pm: {
+        in: 50,
+        out: 50
+      },
+      saturday : {
+        in: 50,
+        out: 50
+      }
+    }
+  }
 });

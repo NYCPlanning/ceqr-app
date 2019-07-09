@@ -15,6 +15,8 @@ export default class TransportationAnalysisModel extends Model {
   @attr({defaultValue: () => []}) jtwStudySelection;
   // the computed centroid of the study selection
   @attr({defaultValue: () => []}) jtwStudyAreaCentroid;
+  // The percentage values for trip generation per-peak-hour In and Out trip distributions
+  @attr({defaultValue: () => []}) inOutDists;
 
   // Detailed Analysis trigger
   @computed(
@@ -199,4 +201,28 @@ export default class TransportationAnalysisModel extends Model {
   ratioFor(type) {
     return this.get(type) / this.thresholdFor(type);
   }
+
+  /**
+   *  Existing Conditions > Trip Generation variables
+  **/ 
+
+  // Constants defined by the Technical Manual, Chapter 16 pg. 5
+  get dailyTripRate() {
+    const dtrConstants = {
+      weekday:  8.075,
+      saturday: 9.6
+    }
+    return dtrConstants;
+  }
+
+  get temporalDistributions() {
+    const tdConstants = {
+      am:       10,
+      md:       5,
+      pm:       11,
+      saturday: 8
+    }
+    return tdConstants;
+  }
+
 }

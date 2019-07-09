@@ -1,0 +1,116 @@
+<div class="ui top attached clearing segment">
+  <h4 class="ui left floated header" style="margin: 7px 0;">
+    <div class="content">
+      Trip Generation Rates
+    </div>
+  </h4>
+</div>
+<table class="ui attached celled table">
+  <thead>
+    <tr>
+      <th class="four wide">
+        Residential Units
+      </th>
+      <th colspan="7" class="four wide">
+        Person Trip
+      </th>
+    </tr>
+    <tr>
+      <th class="one wide">
+      </th>
+      <th colspan="2" class="one wide">
+        Daily Trip Rate
+      </th>
+      <th class="four wide">
+        Peak Hour
+      </th>
+      <th clas="one wide">
+        Temporal
+      </th>
+      <th clas="one wide">
+        In
+      </th>
+      <th clas="one wide">
+        Out
+      </th>
+      <th clas="one wide">
+        Total
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td rowspan="6">
+        {{analysis.residentialUnits}}<br>
+        (DU)
+      </td>
+      <td rowspan="3">Weekday</td>
+      <td rowspan="3">{{analysis.dailyTripRate.weekday}}</td>
+      <td>AM</td>
+      <td>{{analysis.temporalDistributions.am}}</td>
+      <td>
+        <div class="ui input transparent edit-cell">
+          {{input type="number" min=0 max=100 value=analysis.inOutDists.am.in change=(action "setInOutDist" "am" "in")}}%
+        </div>
+      </td>
+      <td>
+        <div class="ui input transparent edit-cell">
+          {{input type="number" min=0 max=100 value=analysis.inOutDists.am.out change=(action "setInOutDist" "am" "out")}}%
+        </div>
+      </td>
+      <td>100%</td>
+    </tr>
+    <tr>
+      <td>MD</td>
+      <td>{{analysis.temporalDistributions.md}}</td>
+      <td>
+        <div class="ui input transparent edit-cell">
+          {{input type="number" min=0 max=100 value=analysis.inOutDists.md.in change=(action "setInOutDist" "md" "in")}}%
+        </div>
+      </td>
+      <td>
+        <div class="ui input transparent edit-cell">
+          {{input type="number" min=0 max=100 value=analysis.inOutDists.md.out change=(action "setInOutDist" "md" "out")}}%
+        </div>
+      </td>
+      <td>100%</td>
+    </tr>
+    <tr>
+      <td>PM</td>
+      <td>{{analysis.temporalDistributions.pm}}</td>
+      <td>
+        <div class="ui input transparent edit-cell">
+          {{input type="number" min=0 max=100 value=analysis.inOutDists.pm.in change=(action "setInOutDist" "pm" "in")}}%
+        </div>
+      </td>
+      <td>
+        <div class="ui input transparent edit-cell">
+          {{input type="number" min=0 max=100 value=analysis.inOutDists.pm.out change=(action "setInOutDist" "pm" "out")}}%
+        </div>
+      </td>
+      <td>100%</td>
+    </tr>
+    <tr>
+      <td>Saturday</td>
+      <td>{{analysis.dailyTripRate.saturday}}</td>
+      <td>Saturday</td>
+      <td>{{analysis.temporalDistributions.saturday}}</td>
+      <td>
+        <div class="ui input transparent edit-cell">
+          {{input type="number" min=0 max=100 value=analysis.inOutDists.saturday.in change=(action "setInOutDist" "saturday" "in")}}%
+        </div>
+      </td>
+      <td>
+        <div class="ui input transparent edit-cell">
+          {{input type="number" min=0 max=100 value=analysis.inOutDists.saturday.out change=(action "setInOutDist" "saturday" "out")}}%
+        </div>
+      </td>
+      <td>100%</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>&#47;DU</td>
+      <td colspan="5"></td>
+    </tr>
+  </tbody>
+</table>
