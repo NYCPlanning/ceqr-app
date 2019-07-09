@@ -1,5 +1,37 @@
 <div class="row">
   <div class="sixteen wide column">
-    Trip Gen Table
+    <Transportation::DataSourceToggle
+      @switch={{this.isRJTW}}
+      @falseLabel="Residential"
+      @trueLabel="Offices"
+    />
+  </div>
+</div>
+<div class="row">
+  <div class="sixteen wide column">
+    <Transportation::TripGenerationTables::ModalSplitsVehicleOccupancy
+      @analysis={{this.model.transportationAnalysis}}
+      @selectedCensusTractData={{await this.selectedCensusTractData}}
+      @modeLookup={{this.modeLookup}}
+      @commuterModes={{this.commuterModes}}
+      @modalSplitVariablesSubset={{modalSplitVariablesSubset}}
+    />
+  </div>
+</div>
+<div class="row">
+  <div class="sixteen wide column">
+    <Transportation::TripGenerationTables::TripGenerationRates
+      @analysis={{this.model.transportationAnalysis}}
+    />
+  </div>
+</div>
+<div class="row">
+  <div class="sixteen wide column">
+    <Transportation::TripGenerationTables::TripGenerationResults
+      @analysis={{this.model.transportationAnalysis}}
+      @selectedCensusTractData={{await this.selectedCensusTractData}}
+      @modeLookup={{this.modeLookup}}
+      @modalSplitVariablesSubset={{modalSplitVariablesSubset}}
+    />
   </div>
 </div>

@@ -7,7 +7,11 @@ export default function getTransportationCensusEstimateResponse(type) {
   return { data: [...attributes] };
 }
 
+// Ideally a unique geoid is passed in for each call to this function.
 function createTransportationCensusEstimates(type, geoid) {
+
+  const fakeGeoid = geoid ? geoid : `${(Math.random().toFixed(2)*100).toString().padEnd(11, '0')}`;
+
   const totalVariable = type === 'ACS' ? 'population' : 'workers';
   const variables = [
     totalVariable,
@@ -18,9 +22,9 @@ function createTransportationCensusEstimates(type, geoid) {
     ...AUTO_BREAKDOWN_VARIABLES
   ];
 
-  const censusEstimates = variables.map((variable, idx) => {
+  const censusEstimates = variables.map((variable) => {
     return {
-      geoid: geoid ? geoid : `${idx.toString().padEnd(11, '0')}`,
+      geoid: fakeGeoid,
       variable: variable,
       value: faker.random.number({min:10, max:1000}),
       moe: faker.random.number({min:1, max:20}),

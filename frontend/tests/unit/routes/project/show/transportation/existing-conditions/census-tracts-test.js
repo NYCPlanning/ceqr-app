@@ -9,8 +9,4 @@ module('Unit | Route | project/show/transportation/existing-conditions/census-tr
     assert.ok(route);
   });
 
-  test('it is bound to the project controller', function(assert) {
-    let route = this.owner.lookup('route:project/show/transportation/existing-conditions/census-tracts');
-    assert.equal(route.controllerName, 'project');
-  });
 });
