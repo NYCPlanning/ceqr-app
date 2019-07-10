@@ -13,8 +13,10 @@
       </div>
     </div>
   {{/link-to}}
+  {{log "in analysis steps"}}
+  {{log project.id}}
   {{#link-to
-    "project.show.transportation.existing-conditions.census-tracts"
+    "project.show.transportation.existing-conditions"
     project.id
     class="step"
   }}
