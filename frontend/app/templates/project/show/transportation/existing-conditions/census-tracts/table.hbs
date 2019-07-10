@@ -1,7 +1,28 @@
 <div class="row">
   <div class="sixteen wide column">
+    <div class="ui basic top attached segment">
+      <div class="ui secondary menu">
+        <a
+          class="item {{unless this.isRJTW "active"}}"
+          data-test-censustracts-table-isrjtw="false"
+          {{action (mut this.isRJTW) false}}
+        >
+          Journey To Work
+        </a>
+        <a
+          class="item {{if this.isRJTW "active"}}"
+          data-test-censustracts-table-isrjtw="true"
+          {{action (mut this.isRJTW) true}}
+        >
+          Reverse Journey To Work
+        </a>
+      </div>
+    </div>
     <Transportation::CensusTractsTable
-      @analysis={{this.model.transportationAnalysis}}
+      @selectedCensusTractIds={{this.selectedCensusTractIds}}
+      @selectedCensusTractData={{await this.selectedCensusTractData}}
+      @modeLookup={{this.modeLookup}}
+      @commuterModes={{this.commuterModes}}
     />
   </div>
 </div>

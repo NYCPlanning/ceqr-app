@@ -1,21 +1,3 @@
-<div class="ui basic top attached segment">
-  <div class="ui secondary menu">
-    <a
-      class="item {{unless this.isRJTW "active"}}"
-      data-test-censustracts-table-isrjtw="false"
-      {{action (mut this.isRJTW) false}}
-    >
-      Journey To Work
-    </a>
-    <a
-      class="item {{if this.isRJTW "active"}}"
-      data-test-censustracts-table-isrjtw="true"
-      {{action (mut this.isRJTW) true}}
-    >
-      Reverse Journey To Work
-    </a>
-  </div>
-</div>
 <div style="overflow-x: scroll;">
   <table class="ui celled table">
     <thead>
@@ -49,7 +31,7 @@
       </tr>
     </thead>
     <tbody>
-      {{#let (await this.selectedCensusTractData) as |censusTracts|}}
+      {{#let this.selectedCensusTractData as |censusTracts|}}
         {{#each this.commuterModes as |mode|}}
           <Transportation::CensusTractsTable::ValueAndPercentRow
             @title={{get this.modeLookup mode}}

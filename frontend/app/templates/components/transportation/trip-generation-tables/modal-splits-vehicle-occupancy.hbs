@@ -1,27 +1,65 @@
-<div class="ui top attached clearing segment">
-  <h4 class="ui left floated header">
-    <div class="content">
-      Modal Splits and Vehicle Occupancy
+<div class="ui sixteen column grid">
+  <div class="sixteen wide column">
+    <div class="ui top clearing segment">
+      <h4 class="ui left floated header">
+        <div class="content">
+          Modal Splits and Vehicle Occupancy
+        </div>
+      </h4>
     </div>
-  </h4>
+  </div>
+  <div class="eight wide column">
+    <table class="ui celled table">
+      <thead>
+        <tr>
+          <th colspan="2" class="two wide">
+            Modal Split
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each this.modalSplitVariablesSubset as |mode|}}
+          <tr>
+            <td>
+              {{get this.modeLookup mode}}
+            </td>
+            <td>
+              {{get-aggregate-percent this.selectedCensusTractData (array mode)}}
+            </td>
+          </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+  <div class="eight wide column">
+    <table class="ui celled table">
+      <thead>
+        <tr>
+          <th colspan="2" class="two wide">
+            Vehicle Occupancy
+          </th>
+        </tr>
+        <tr>
+          <th class="one wide">
+            Auto
+          </th>
+          <th class="taxi wide">
+            Auto
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr>
+            <td>
+              {{get-aggregate-value this.selectedCensusTractData (array 'vehicle_occupancy')}}
+            </td>
+            <td>
+              <div class="ui input transparent edit-cell">
+                {{input type="number"}}
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
-<table class="ui attached celled table">
-  <thead>
-    <tr>
-      <th colspan="2" class="two wide">
-        Modal Split
-      </th>
-      <th colspan="2" class="two wide">
-        Vehicle Occupancy
-      </th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>
-      </td>
-      <td>
-      </td>
-    </tr>
-  </tbody>
-</table>
