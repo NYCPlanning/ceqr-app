@@ -1,6 +1,5 @@
 import Component from '@ember/component';
 import { action } from '@ember-decorators/object';
-import analysisSteps from '../../public-schools/analysis-steps';
 
 export default class TransportationTripGenerationTablesTripGenerationRatesComponent extends Component {
 
@@ -8,7 +7,7 @@ export default class TransportationTripGenerationTablesTripGenerationRatesCompon
   // Must be passed from parent component.
   analysis = {}
 
-  /**
+/**
    * @param {string} time - either "am", "md", "pm" or "saturday"
    * @param {string} inOut - either "in" or "out"
   */

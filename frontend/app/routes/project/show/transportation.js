@@ -3,11 +3,11 @@ import RSVP from 'rsvp';
 
 export default class ProjectShowTransportationRoute extends Route {
 
-  setupController(controller) {
+  async setupController(controller, model) {
     const { project } = this.modelFor('project/show');
-    const transportationAnalysis = project.get('transportationAnalysis');
+    const transportationAnalysis = await project.get('transportationAnalysis');
 
-    controller.set('model', { project, transportationAnalysis }) ;
+    controller.set('model', { project, transportationAnalysis });
     controller.set('projectCtrl', this.controllerFor('project'));
   }
 }

@@ -7,9 +7,9 @@ export default class ProjectShowTransportationExistingConditionsRoute extends Ro
   }
 
   // sets up existing-conditions controller after redirect to `census-tracts` child route
-  setupController(controller) {
+  async setupController(controller) {
     const { project } = this.modelFor('project/show');
-    const transportationAnalysis = project.get('transportationAnalysis');
+    const transportationAnalysis = await project.get('transportationAnalysis');
 
     controller.set('model', { project, transportationAnalysis });
   }
