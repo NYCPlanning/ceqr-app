@@ -33,5 +33,8 @@ export default Factory.extend({
         out: 50
       }
     }
+  },
+  taxiVehicleOccupancy: () => {
+    return null;
   }
 });

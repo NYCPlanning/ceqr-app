@@ -17,6 +17,8 @@ export default class TransportationAnalysisModel extends Model {
   @attr({defaultValue: () => []}) jtwStudyAreaCentroid;
   // The percentage values for trip generation per-peak-hour In and Out trip distributions
   @attr({defaultValue: () => []}) inOutDists;
+  // User-entered taxi vehicle occupancy rate for "trip generation" existing conditions step
+  @attr({defaultValue: () => null}) taxiVehicleOccupancy;
 
   // Detailed Analysis trigger
   @computed(

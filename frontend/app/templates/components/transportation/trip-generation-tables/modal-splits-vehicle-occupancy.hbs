@@ -55,7 +55,7 @@
             </td>
             <td>
               <div class="ui input transparent edit-cell">
-                {{input type="number"}}
+                {{input type="number" min=0 value=this.analysis.taxiVehicleOccupancy change=(action "saveAnalysis")}}
               </div>
             </td>
           </tr>

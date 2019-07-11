@@ -7,7 +7,7 @@ export default class TransportationTripGenerationTablesTripGenerationRatesCompon
   // Must be passed from parent component.
   analysis = {}
 
-/**
+  /**
    * @param {string} time - either "am", "md", "pm" or "saturday"
    * @param {string} inOut - either "in" or "out"
   */
