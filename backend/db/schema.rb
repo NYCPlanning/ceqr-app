@@ -85,6 +85,7 @@ ActiveRecord::Schema.define(version: 2019_07_23_155612) do
     t.jsonb "multipliers"
     t.jsonb "data_tables", default: {"version"=>"november-2017", "cartoTables"=>{"lcgms"=>"ceqr_lcgms_v2017", "bluebook"=>"ceqr_bluebook_v2017", "esSchoolZones"=>"support_school_zones_es", "hsSchoolZones"=>"support_school_zones_hs", "msSchoolZones"=>"support_school_zones_ms", "enrollmentPctBySd"=>"enrollment_pct_by_sd_v2017", "housingPipelineSd"=>"ceqr_housing_pipeline_sd_v2017", "housingPipelineBoro"=>"ceqr_housing_pipeline_boro_v2017", "enrollmentProjectionsSd"=>"ceqr_enrollment_projections_sd_v2017", "enrollmentProjectionsBoro"=>"ceqr_enrollment_projections_boro_v2017"}, "sourceDates"=>{"lcgms"=>"September 10, 2018", "bluebook"=>"2016-17", "housingPipeline"=>"2016 to 2025", "demographicSnapshot"=>"2013 to 2018", "enrollmentProjections"=>"2016 to 2025"}, "enrollmentProjectionsMaxYear"=>2025, "enrollmentProjectionsMinYear"=>2015}, null: false
     t.bigint "data_package_id"
+    t.geometry "subdistricts_geom", limit: {:srid=>4326, :type=>"multi_polygon"}
     t.index ["data_package_id"], name: "index_public_schools_analyses_on_data_package_id"
   end
 

@@ -1,17 +1,17 @@
 FactoryBot.define do
   factory :project do
     name         { Faker::Address.street_name }
-    bbls         { [1000477501] }
+    bbls         { [1000477501, 2024240001, 1006760001, 4029900045, 3007770001] }
     bbls_geom    { generate(:multi_polygon) }
-    build_year   { Faker::Date.between(1.year.from_now, 30.years.from_now).year }
+    build_year   { Faker::Date.between(1.year.from_now, 6.years.from_now).year }
     senior_units { Faker::Number.between(0, 50) }
     total_units  { Faker::Number.between(75, 750) }
   end
 
   factory :project_api, class: Project do
     name         { Faker::Address.street_name }
-    bbls         { [1000477501] }
-    build_year   { Faker::Date.between(1.year.from_now, 30.years.from_now).year }
+    bbls         { [1000477501, 2024240001, 1006760001, 4029900045, 3007770001] }
+    build_year   { Faker::Date.between(1.year.from_now, 6.years.from_now).year }
     senior_units { Faker::Number.between(0, 50) }
     total_units  { Faker::Number.between(75, 750) }
   end
