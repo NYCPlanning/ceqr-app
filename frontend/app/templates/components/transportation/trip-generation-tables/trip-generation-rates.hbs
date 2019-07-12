@@ -44,10 +44,10 @@
         {{analysis.residentialUnits}}<br>
         (DU)
       </td>
-      <td rowspan="3">Weekday</td>
-      <td rowspan="3">{{analysis.dailyTripRate.weekday}}</td>
-      <td>AM</td>
-      <td>{{analysis.temporalDistributions.am}}</td>
+      <td rowspan="3">{{analysis.dailyTripRate.weekday.label}}</td>
+      <td rowspan="3">{{analysis.dailyTripRate.weekday.rate}}</td>
+      <td>{{analysis.temporalDistributions.am.label}}</td>
+      <td>{{analysis.temporalDistributions.am.percent}}</td>
       <td>
         <div class="ui input transparent edit-cell">
           {{input type="number" min=0 max=100 value=analysis.inOutDists.am.in change=(action "setInOutDist" "am" "in")}}%
@@ -61,8 +61,8 @@
       <td>100%</td>
     </tr>
     <tr>
-      <td>MD</td>
-      <td>{{analysis.temporalDistributions.md}}</td>
+      <td>{{analysis.temporalDistributions.md.label}}</td>
+      <td>{{analysis.temporalDistributions.md.percent}}</td>
       <td>
         <div class="ui input transparent edit-cell">
           {{input type="number" min=0 max=100 value=analysis.inOutDists.md.in change=(action "setInOutDist" "md" "in")}}%
@@ -76,8 +76,8 @@
       <td>100%</td>
     </tr>
     <tr>
-      <td>PM</td>
-      <td>{{analysis.temporalDistributions.pm}}</td>
+      <td>{{analysis.temporalDistributions.pm.label}}</td>
+      <td>{{analysis.temporalDistributions.pm.percent}}</td>
       <td>
         <div class="ui input transparent edit-cell">
           {{input type="number" min=0 max=100 value=analysis.inOutDists.pm.in change=(action "setInOutDist" "pm" "in")}}%
@@ -91,10 +91,10 @@
       <td>100%</td>
     </tr>
     <tr>
-      <td>Saturday</td>
-      <td>{{analysis.dailyTripRate.saturday}}</td>
-      <td>Saturday</td>
-      <td>{{analysis.temporalDistributions.saturday}}</td>
+      <td>{{analysis.dailyTripRate.saturday.label}}</td>
+      <td>{{analysis.dailyTripRate.saturday.rate}}</td>
+      <td>{{analysis.temporalDistributions.saturday.label}}</td>
+      <td>{{analysis.temporalDistributions.saturday.percent}}</td>
       <td>
         <div class="ui input transparent edit-cell">
           {{input type="number" min=0 max=100 value=analysis.inOutDists.saturday.in change=(action "setInOutDist" "saturday" "in")}}%

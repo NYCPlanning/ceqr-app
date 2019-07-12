@@ -27,6 +27,7 @@
       @selectedCensusTractData={{await this.selectedCensusTractData}}
       @modeLookup={{this.modeLookup}}
       @commuterModes={{this.commuterModes}}
+      @modalSplitVariablesSubset={{modalSplitVariablesSubset}}
     />
   </div>
 </div>
@@ -37,12 +38,13 @@
     />
   </div>
 </div>
-{{!-- <div class="row">
+<div class="row">
   <div class="sixteen wide column">
-    Trip Generation Results Table
-    <Transportation::TripGeneration::TripGenerationResultsTable
-      @analysis={{model.transportationAnalysis}}
+    <Transportation::TripGenerationTables::TripGenerationResults
+      @analysis={{this.model.transportationAnalysis}}
+      @selectedCensusTractData={{await this.selectedCensusTractData}}
+      @modeLookup={{this.modeLookup}}
+      @modalSplitVariablesSubset={{modalSplitVariablesSubset}}
     />
   </div>
 </div>
- --}}

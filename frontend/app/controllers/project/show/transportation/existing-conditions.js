@@ -12,6 +12,14 @@ export default class ProjectShowTransportationExistingConditionsController exten
   commuterModes = COMMUTER_VARIABLES;
   modeLookup = VARIABLE_MODE_LOOKUP;
 
+  modalSplitVariablesSubset = [
+    'trans_auto_total',
+    'trans_taxi',
+    'trans_public_bus',
+    'trans_public_subway',
+    'trans_walk'
+  ]
+
   isRJTW = false;
 
   @alias('model.transportationAnalysis') analysis;

@@ -211,18 +211,18 @@ export default class TransportationAnalysisModel extends Model {
   // Constants defined by the Technical Manual, Chapter 16 pg. 5
   get dailyTripRate() {
     const dtrConstants = {
-      weekday:  8.075,
-      saturday: 9.6
+      weekday:  {label: "Weekday", rate:  8.075},
+      saturday: {label: "Saturday", rate: 9.6}
     }
     return dtrConstants;
   }
 
   get temporalDistributions() {
     const tdConstants = {
-      am:       10,
-      md:       5,
-      pm:       11,
-      saturday: 8
+      am:       {label: "AM", percent: 10},
+      md:       {label: "MD", percent: 5},
+      pm:       {label: "PM", percent: 11},
+      saturday: {label: "Saturday", percent: 8}
     }
     return tdConstants;
   }

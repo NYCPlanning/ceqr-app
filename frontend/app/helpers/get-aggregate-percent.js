@@ -6,7 +6,7 @@ import { helper } from '@ember/component/helper';
  * Accepts multiple variables, so modal splits for a random subset of modes can be calculated.
  */
 export function getAggregatePercent(params/*, hash*/) {
-  const [allModalSplitData, variables] = params;
+  const [allModalSplitData, variables, includePctSign] = params;
 
   if(allModalSplitData && Array.isArray(allModalSplitData) && variables && Array.isArray(variables)) {
     // calculate the aggregate of the sums of given variables for all modal splits
@@ -25,7 +25,7 @@ export function getAggregatePercent(params/*, hash*/) {
     const percent = (partTotal/wholeTotal) * 100;
 
     // return formatted percent 
-    return isNaN(percent) ? '-' : `${percent.toFixed(1)} %`;
+    return isNaN(percent) ? '-' : ((includePctSign) ? `${percent.toFixed(1)} %` : percent.toFixed(1));
   }
 }
 

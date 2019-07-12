@@ -28,7 +28,7 @@ export default Factory.extend({
         in: 50,
         out: 50
       },
-      saturday : {
+      saturday: {
         in: 50,
         out: 50
       }

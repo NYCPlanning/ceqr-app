@@ -1,67 +1,69 @@
-<div style="overflow-x: scroll;">
-  <table class="ui celled table">
-    <thead>
-      <tr>
-        <th style="min-width: 220px;"> </th>
-        {{#each this.selectedCensusTractIds as |censusTract|}}
+{{#if (await this.selectedCensusTractData)}}
+  <div style="overflow-x: scroll;">
+    <table class="ui celled table">
+      <thead>
+        <tr>
+          <th style="min-width: 220px;"> </th>
+          {{#each this.selectedCensusTractIds as |censusTract|}}
+            <th class="two wide" colspan="2">
+              {{human-readable-census-tract censusTract}}
+            </th>
+          {{/each}}
           <th class="two wide" colspan="2">
-            {{human-readable-census-tract censusTract}}
+            Total
           </th>
-        {{/each}}
-        <th class="two wide" colspan="2">
-          Total
-        </th>
-      </tr>
-      <tr>
-        <th style="width: 220px;"> </th>
-        {{#each this.selectedCensusTractIds as |censusTract|}}
-          <th class="one wide" colspan="1">
-            Count
-          </th>
-          <th class="one wide" colspan="1">
-            Percent
-          </th>
-        {{/each}}
-          <th class="one wide" colspan="1">
-            Count
-          </th>
-          <th class="one wide" colspan="1">
-            Percent
-          </th>
-      </tr>
-    </thead>
-    <tbody>
-      {{#let this.selectedCensusTractData as |censusTracts|}}
-        {{#each this.commuterModes as |mode|}}
+        </tr>
+        <tr>
+          <th style="width: 220px;"> </th>
+          {{#each this.selectedCensusTractIds as |censusTract|}}
+            <th class="one wide" colspan="1">
+              Count
+            </th>
+            <th class="one wide" colspan="1">
+              Percent
+            </th>
+          {{/each}}
+            <th class="one wide" colspan="1">
+              Count
+            </th>
+            <th class="one wide" colspan="1">
+              Percent
+            </th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#let this.selectedCensusTractData as |censusTracts|}}
+          {{#each this.commuterModes as |mode|}}
+            <Transportation::CensusTractsTable::ValueAndPercentRow
+              @title={{get this.modeLookup mode}}
+              @allModalSplitData={{censusTracts}}
+              @variables={{array mode}}
+            />
+          {{/each}}
           <Transportation::CensusTractsTable::ValueAndPercentRow
-            @title={{get this.modeLookup mode}}
+            @title={{get this.modeLookup "trans_total"}}
             @allModalSplitData={{censusTracts}}
-            @variables={{array mode}}
+            @variables={{array "trans_total"}}
           />
-        {{/each}}
-        <Transportation::CensusTractsTable::ValueAndPercentRow
-          @title={{get this.modeLookup "trans_total"}}
-          @allModalSplitData={{censusTracts}}
-          @variables={{array "trans_total"}}
-        />
-        <Transportation::CensusTractsTable::ValueAndPercentRow
-          @title={{get this.modeLookup "trans_commuter_total"}}
-          @allModalSplitData={{censusTracts}}
-          @variables={{array "trans_commuter_total"}}
-        />
-        <Transportation::CensusTractsTable::ValueAndPercentRow
-          @title={{if this.isRJTW "Workers" "Population"}}
-          @allModalSplitData={{censusTracts}}
-          @variables={{array (if this.isRJTW "workers" "population")}}
-          data-test-censustracts-table-baseunit
-        />
-        <Transportation::CensusTractsTable::ValueAndPercentRow
-          @title={{get this.modeLookup "vehicle_occupancy"}}
-          @allModalSplitData={{censusTracts}}
-          @variables={{array "vehicle_occupancy"}}
-          @noPercent=true
-        />
-      {{/let}}
-    </tbody>
-  </table>
-</div>
+          <Transportation::CensusTractsTable::ValueAndPercentRow
+            @title={{get this.modeLookup "trans_commuter_total"}}
+            @allModalSplitData={{censusTracts}}
+            @variables={{array "trans_commuter_total"}}
+          />
+          <Transportation::CensusTractsTable::ValueAndPercentRow
+            @title={{if this.isRJTW "Workers" "Population"}}
+            @allModalSplitData={{censusTracts}}
+            @variables={{array (if this.isRJTW "workers" "population")}}
+            data-test-censustracts-table-baseunit
+          />
+          <Transportation::CensusTractsTable::ValueAndPercentRow
+            @title={{get this.modeLookup "vehicle_occupancy"}}
+            @allModalSplitData={{censusTracts}}
+            @variables={{array "vehicle_occupancy"}}
+            @noPercent=true
+          />
+        {{/let}}
+      </tbody>
+    </table>
+  </div>
+{{/if}}

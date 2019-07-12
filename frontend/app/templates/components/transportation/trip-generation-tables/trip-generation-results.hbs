@@ -1,0 +1,174 @@
+<div class="ui top attached clearing segment">
+  <h4 class="ui left floated header">
+    <div class="content">
+      Trip Generation Results
+    </div>
+  </h4>
+</div>
+<table class="ui attached celled table">
+  <thead>
+    <tr>
+      <th colspan="2">
+      </th>
+      <th colspan="6">
+        Person Trip
+      </th>
+      <th colspan="6">
+        Vehicle Trip
+      </th>
+    </tr>
+    <tr>
+      <th>
+        Peak Hour
+      </th>
+      <th>
+        In/Out
+      </th>
+      {{#each this.modalSplitVariablesSubset as |mode|}}
+        <th>
+          {{get this.modeLookup mode}}
+        </th>
+      {{/each}}
+      <th>
+        Total
+      </th>
+      <th>
+        Auto
+      </th>
+      <th>
+        Taxi
+      </th>
+      <th>
+        Delivery
+      </th>
+      <th>
+        Total
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#if (await this.selectedCensusTractData)}}
+      {{#each-in this.analysis.temporalDistributions as |time timeInfo|}}
+        {{#each (array (hash key='in' label="In") (hash key='out' label="Out") (hash key='total' label="Total")) as |inOutOrTotal idx|}}
+          <tr>
+            {{#if (is-equal idx 0)}}
+              <td rowspan="3">{{timeInfo.label}}</td>
+            {{/if}}
+            <td>{{inOutOrTotal.label}}</td>
+            {{#with (hash
+                trans_auto_total=(div (get-aggregate-percent this.selectedCensusTractData (array 'trans_auto_total') false) 100)
+                trans_taxi=(div (get-aggregate-percent this.selectedCensusTractData (array 'trans_taxi') false) 100)
+                trans_public_bus=(div (get-aggregate-percent this.selectedCensusTractData (array 'trans_public_bus') false) 100)
+                trans_public_subway=(div (get-aggregate-percent this.selectedCensusTractData (array 'trans_public_subway') false) 100)
+                trans_walk=(div (get-aggregate-percent this.selectedCensusTractData (array 'trans_walk') false) 100)
+            ) as |modeAggPcts|}}
+              {{#with this.analysis as |ta|}}
+                {{#with (div (get (get ta.temporalDistributions time) 'percent') 100) as |temporalDistPct|}}
+                  {{#if (and (not-eq time "saturday") (not-eq inOutOrTotal.key "total"))}}
+                    {{#with (hash
+                      trans_auto_total=(round (mult ta.residentialUnits ta.dailyTripRate.weekday.rate temporalDistPct (div (get (get ta.inOutDists time) inOutOrTotal.key) 100) modeAggPcts.trans_auto_total) decimals=2)
+                      trans_taxi=(round (mult ta.residentialUnits ta.dailyTripRate.weekday.rate temporalDistPct (div (get (get ta.inOutDists time) inOutOrTotal.key) 100) modeAggPcts.trans_taxi) decimals=2)
+                      trans_public_bus=(round (mult ta.residentialUnits ta.dailyTripRate.weekday.rate temporalDistPct (div (get (get ta.inOutDists time) inOutOrTotal.key) 100) modeAggPcts.trans_public_bus) decimals=2)
+                      trans_public_subway=(round (mult ta.residentialUnits ta.dailyTripRate.weekday.rate temporalDistPct (div (get (get ta.inOutDists time) inOutOrTotal.key) 100) modeAggPcts.trans_public_subway) decimals=2)
+                      trans_walk=(round (mult ta.residentialUnits ta.dailyTripRate.weekday.rate temporalDistPct (div (get (get ta.inOutDists time) inOutOrTotal.key) 100) modeAggPcts.trans_walk) decimals=2)
+                      ) as |modeCalcs|}}
+                        {{#each this.modalSplitVariablesSubset as |mode|}}
+                          <td>
+                            {{get modeCalcs mode}}
+                          </td>
+                        {{/each}}
+                        <td>
+                          {{round (add modeCalcs.trans_auto_total modeCalcs.trans_taxi modeCalcs.trans_public_bus modeCalcs.trans_public_subway modeCalcs.trans_walk) decimals=2}}
+                        </td>
+                    {{/with}}
+                  {{else if (not-eq time "saturday")}}
+                    {{#with (hash
+                      trans_auto_total=(round (add 
+                          (mult ta.residentialUnits ta.dailyTripRate.weekday.rate temporalDistPct (div (get (get ta.inOutDists time) 'in') 100) modeAggPcts.trans_auto_total)
+                          (mult ta.residentialUnits ta.dailyTripRate.weekday.rate temporalDistPct (div (get (get ta.inOutDists time) 'out') 100) modeAggPcts.trans_auto_total)
+                        ) decimals=2)
+                      trans_taxi=(round (add 
+                          (mult ta.residentialUnits ta.dailyTripRate.weekday.rate temporalDistPct (div (get (get ta.inOutDists time) 'in') 100) modeAggPcts.trans_taxi)
+                          (mult ta.residentialUnits ta.dailyTripRate.weekday.rate temporalDistPct (div (get (get ta.inOutDists time) 'out') 100) modeAggPcts.trans_taxi)
+                        ) decimals=2)
+                      trans_public_bus=(round (add 
+                          (mult ta.residentialUnits ta.dailyTripRate.weekday.rate temporalDistPct (div (get (get ta.inOutDists time) 'in') 100) modeAggPcts.trans_public_bus)
+                          (mult ta.residentialUnits ta.dailyTripRate.weekday.rate temporalDistPct (div (get (get ta.inOutDists time) 'out') 100) modeAggPcts.trans_public_bus)
+                        ) decimals=2)
+                      trans_public_subway=(round (add 
+                          (mult ta.residentialUnits ta.dailyTripRate.weekday.rate temporalDistPct (div (get (get ta.inOutDists time) 'in') 100) modeAggPcts.trans_public_subway)
+                          (mult ta.residentialUnits ta.dailyTripRate.weekday.rate temporalDistPct (div (get (get ta.inOutDists time) 'out') 100) modeAggPcts.trans_public_subway)
+                        ) decimals=2)
+                      trans_walk=(round (add 
+                          (mult ta.residentialUnits ta.dailyTripRate.weekday.rate temporalDistPct (div (get (get ta.inOutDists time) 'in') 100) modeAggPcts.trans_walk)
+                          (mult ta.residentialUnits ta.dailyTripRate.weekday.rate temporalDistPct (div (get (get ta.inOutDists time) 'out') 100) modeAggPcts.trans_walk)
+                        ) decimals=2)
+                      ) as |modeTotalCalcs|}}
+                        {{#each this.modalSplitVariablesSubset as |mode|}}
+                          <td>
+                            {{get modeTotalCalcs mode}}
+                          </td>
+                        {{/each}}
+                        <td>
+                          {{round (add modeTotalCalcs.trans_auto_total modeTotalCalcs.trans_taxi modeTotalCalcs.trans_public_bus modeTotalCalcs.trans_public_subway modeTotalCalcs.trans_walk) decimals=2}}
+                        </td>
+                    {{/with}}
+                  {{else if (not-eq inOutOrTotal.key "total")}}
+                    {{#with (hash
+                        trans_auto_total=(round (mult ta.residentialUnits ta.dailyTripRate.saturday.rate temporalDistPct (div (get (get ta.inOutDists time) inOutOrTotal.key) 100) modeAggPcts.trans_auto_total) decimals=2)
+                        trans_taxi=(round (mult ta.residentialUnits ta.dailyTripRate.saturday.rate temporalDistPct (div (get (get ta.inOutDists time) inOutOrTotal.key) 100) modeAggPcts.trans_taxi) decimals=2)
+                        trans_public_bus=(round (mult ta.residentialUnits ta.dailyTripRate.saturday.rate temporalDistPct (div (get (get ta.inOutDists time) inOutOrTotal.key) 100) modeAggPcts.trans_public_bus) decimals=2)
+                        trans_public_subway=(round (mult ta.residentialUnits ta.dailyTripRate.saturday.rate temporalDistPct (div (get (get ta.inOutDists time) inOutOrTotal.key) 100) modeAggPcts.trans_public_subway) decimals=2)
+                        trans_walk=(round (mult ta.residentialUnits ta.dailyTripRate.saturday.rate temporalDistPct (div (get (get ta.inOutDists time) inOutOrTotal.key) 100) modeAggPcts.trans_walk) decimals=2)
+                        ) as |modeCalcs|}}
+                          {{#each this.modalSplitVariablesSubset as |mode|}}
+                            <td>
+                              {{get modeCalcs mode}}
+                            </td>
+                          {{/each}}
+                          <td>
+                            {{round (add modeCalcs.trans_auto_total modeCalcs.trans_taxi modeCalcs.trans_public_bus modeCalcs.trans_public_subway modeCalcs.trans_walk) decimals=2}}
+                          </td>
+                      {{/with}}
+                  {{else}}
+                    {{#with (hash
+                      trans_auto_total=(round (add 
+                          (mult ta.residentialUnits ta.dailyTripRate.saturday.rate temporalDistPct (div (get (get ta.inOutDists time) 'in') 100) modeAggPcts.trans_auto_total)
+                          (mult ta.residentialUnits ta.dailyTripRate.saturday.rate temporalDistPct (div (get (get ta.inOutDists time) 'out') 100) modeAggPcts.trans_auto_total)
+                        ) decimals=2)
+                      trans_taxi=(round (add 
+                          (mult ta.residentialUnits ta.dailyTripRate.saturday.rate temporalDistPct (div (get (get ta.inOutDists time) 'in') 100) modeAggPcts.trans_taxi)
+                          (mult ta.residentialUnits ta.dailyTripRate.saturday.rate temporalDistPct (div (get (get ta.inOutDists time) 'out') 100) modeAggPcts.trans_taxi)
+                        ) decimals=2)
+                      trans_public_bus=(round (add 
+                          (mult ta.residentialUnits ta.dailyTripRate.saturday.rate temporalDistPct (div (get (get ta.inOutDists time) 'in') 100) modeAggPcts.trans_public_bus)
+                          (mult ta.residentialUnits ta.dailyTripRate.saturday.rate temporalDistPct (div (get (get ta.inOutDists time) 'out') 100) modeAggPcts.trans_public_bus)
+                        ) decimals=2)
+                      trans_public_subway=(round (add 
+                          (mult ta.residentialUnits ta.dailyTripRate.saturday.rate temporalDistPct (div (get (get ta.inOutDists time) 'in') 100) modeAggPcts.trans_public_subway)
+                          (mult ta.residentialUnits ta.dailyTripRate.saturday.rate temporalDistPct (div (get (get ta.inOutDists time) 'out') 100) modeAggPcts.trans_public_subway)
+                        ) decimals=2)
+                      trans_walk=(round (add 
+                          (mult ta.residentialUnits ta.dailyTripRate.saturday.rate temporalDistPct (div (get (get ta.inOutDists time) 'in') 100) modeAggPcts.trans_walk)
+                          (mult ta.residentialUnits ta.dailyTripRate.saturday.rate temporalDistPct (div (get (get ta.inOutDists time) 'out') 100) modeAggPcts.trans_walk)
+                        ) decimals=2)
+                      ) as |modeTotalCalcs|}}
+                        {{#each this.modalSplitVariablesSubset as |mode|}}
+                          <td>
+                            {{get modeTotalCalcs mode}}
+                          </td>
+                        {{/each}}
+                        <td>
+                          {{round (add modeTotalCalcs.trans_auto_total modeTotalCalcs.trans_taxi modeTotalCalcs.trans_public_bus modeTotalCalcs.trans_public_subway modeTotalCalcs.trans_walk) decimals=2}}
+                        </td>
+                    {{/with}}
+                  {{/if}}
+                {{/with}}
+              {{/with}}
+            {{/with}}
+          </tr>
+        {{/each}}
+      {{/each-in}}
+    {{/if}}
+  </tbody>
+</table>
