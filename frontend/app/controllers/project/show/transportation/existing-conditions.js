@@ -29,7 +29,10 @@ export default class ProjectShowTransportationExistingConditionsController exten
    */
   @computed('analysis.{requiredJtwStudySelection.[],jtwStudySelection.[]}')
   get selectedCensusTractIds() {
-    return [...this.get('analysis.jtwStudySelection'), ...this.get('analysis.requiredJtwStudySelection')];
+    if(this.model){
+      return [...this.analysis.jtwStudySelection, ...this.analysis.requiredJtwStudySelection];
+    }
+    return [];
   }
 
   /**
