@@ -19,6 +19,7 @@
       </div>
     </div>
     <Transportation::CensusTractsTable
+      @isRJTW={{this.isRJTW}}
       @selectedCensusTractIds={{this.selectedCensusTractIds}}
       @selectedCensusTractData={{await this.selectedCensusTractData}}
       @modeLookup={{this.modeLookup}}
