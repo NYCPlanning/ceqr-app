@@ -9,7 +9,7 @@
     {{/if}}
   </td>
 {{/each}}
-<td>{{get-aggregate-value this.allModalSplitData this.variables}}</td>
+<td>{{round (get-aggregate-value this.allModalSplitData this.variables) decimals=2}}</td>
 <td>
   {{#if noPercent}}
     -

@@ -51,7 +51,7 @@
       <tbody>
           <tr>
             <td>
-              {{get-aggregate-value this.selectedCensusTractData (array 'vehicle_occupancy')}}
+              {{round (get-aggregate-value this.selectedCensusTractData (array 'vehicle_occupancy')) decimals=2}}
             </td>
             <td>
               <div class="ui input transparent edit-cell">
