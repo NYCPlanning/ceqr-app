@@ -28,10 +28,36 @@ import round from '../../utils/round';
  * @todo experiment with typescript for calculation fragments
  */
 
+/* VARIABLES DEFINED in SubdistrictTotals
+  * buildings {array of objects} -> allBuildings filtered by district, subdistrict, and level
+  * enrollmentTotal {integer} -> aggregate of enroll for all buildings
+  * capacityTotal {integer} -> aggregate of capacity for all buildings
+  * capacityTotalNoAction {integer} -> aggregate of capacityFuture for all buildings where exlucded is false
+  * seatsTotal {integer} -> aggregate of seats for all buildings
+  * utilizationTotal {number} -> enrollmentTotal / capacityTotal
+  * enrollmentMetaTotal {integer} -> aggregate of enroll for all buildings WITHIN A LEVEL
+  * capacityMetaTotal {integer} -> aggregate of capacity for all buildings where excluded is false WITHIN A LEVEL
+  * seatsMetaTotal {integer} -> aggregate of seats for all buildings WITHIN A LEVEL
+  * utilizationMetaTotal {number} -> enrollmentMetaTotal / capacityMetaTotal
+  * ALIAS: enrollExistingConditions {integer} -> enrollmentTotal
+  * enrollNoAction {integer} -> enroll + students
+  * enrollNoActionDelta {integer} -> enrollNoAction - enrollExistingConditions
+  * ALIAS: capacityExisting {integer} -> capacityTotal
+  * ALIAS: capacityFuture {integer} -> capacityTotalNoAction
+  * capacityNoAction {integer} -> capacityFuture + scaCapacityIncrease
+  * capacityNoActionDelta {integer} -> capacityNoAction - capacityExisting
+  * capacityWithAction {integer} -> capacityNoAction + newCapacityWithAction
+  * capacityWithActionDelta {integer} -> capacityWithAction - capacityExisting
+  * capacityDifference {integer} -> capacityWithAction - capacityNoAction
+  * capacityDeltaDifference {integer} -> capacityWithActionDelta - capacityNoActionDelta
+  * seatsNoAction {integer} -> capacityNoAction - enrollNoAction
+  * utilizationNoAction {number} -> enrollNoAction / capacityNoAction
+*/
+
 export default EmberObject.extend({
   buildings: computed('allBuildings', function() {
     if (this.level === 'hs') {
-      return this.allBuildings.filter((b) => b.level === 'hs');
+      return []; // 365 Question: should this just NOT EXIST if a project has only high schools? --> would it cause problems later down the road if it didn't exist?
     } else {
       return this.allBuildings.filter(
         (b) => (
