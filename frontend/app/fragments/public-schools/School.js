@@ -25,6 +25,13 @@ import round from '../../utils/round';
  * @param {integer} capacityFuture - School's future capacity, defaults to the same as capacity but a user can change this
  * @param {integer} enroll - School's current enrollment
  */
+
+/* Variables defined in School
+ * {integer} seats -> capacity - enroll
+ * {integer} utilization -> enroll/capacity
+ * {integer} capacityDelta -> capacityFuture - capacity
+*/
+
 export default EmberObject.extend({
   seats: computed('excluded', 'enroll', 'capacity', function() {
     if (this.excluded) return Math.round(0 - this.enroll);

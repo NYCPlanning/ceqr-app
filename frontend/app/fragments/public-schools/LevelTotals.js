@@ -13,6 +13,32 @@ import sumOf from '../../utils/sumMapBy';
  * @param {integer} studentsWithAction - Number of students to be added by project under analysis
  */
 
+ /* VARIABLES DEFINED in LevelTotals
+  * existingConditionsEnrollment {array of objects} -> aggregate of enrollmenTotal in all subdistricts
+  * existingConditionsCapacity {integer} -> aggregate of capacityTotal in all subdistricts
+  * existingConditionsUtilization {number} -> existingConditionsEnrollment / existingConditionsCapacity
+  * existingConditionsSeats {integer} -> aggregate of seatsTotal in all subdistricts
+  * noActionCapacityDelta {integer} -> aggregate of capacityNoActionDelta in all subdistricts
+  * scaCapacityIncrease {integer} -> aggregate of scaCapacityIncrease in all subdistricts
+  * enrollTotal {integer} -> aggregate of enroll in all subdistricts
+  * studentsTotal {integer} -> aggregate of students in all subdistricts
+  * enrollNoActionTotal {integer} -> enrollTotal + studentsTotal
+  * enrollWithActionTotal {number} -> enrollNoActionTotal + studentsWithAction
+  * enrollNoActionDeltaTotal {integer} -> enrollNoActionTotal - enrollTotal
+  * enrollWithActionDeltaTotal {integer} -> enrollWithActionTotal - enrollTotal
+  * enrollDifferenceTotal {integer} -> enrollWithActionTotal - enrollNoActionTotal
+  * enrollDeltaDifference {integer} -> enrollWithActionDeltaTotal - enrollNoActionDeltaTotal
+  * capacityNoActionTotal {integer} -> aggregate of capacityNoAction in all subdistricts
+  * newSchoolSeats {integer} -> aggregate of newCapacityWithAction in all subdistricts
+  * capacityWithActionTotal {integer} -> capacityNoActionTotal + newSchoolSeats
+  * seatsNoActionTotal {integer} -> capacityNoActionTotal - enrollNoActionTotal
+  * seatsWithActionTotal {integer} -> capacityWithActionTotal - enrollWithActionTotal
+  * seatsDifferenceTotal {integer} -> seatsWithActionTotal - seatsNoActionTotal
+  * utilizationNoActionTotal {number} -> enrollNoActionTotal / capacityNoActionTotal
+  * utilizationWithActionTotal {number} -> enrollWithActionTotal / capacityWithActionTotal
+  * utilizationChangeTotal {number} -> utilizationWithActionTotal - utilizationNoActionTotal
+  * impact {boolean} -> utilizationChangeTotal >= 0.5 && utilizationWithActionTotal >= 1
+*/
 
 export default EmberObject.extend({ 
   // Existing Conditions
