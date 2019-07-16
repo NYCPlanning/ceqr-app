@@ -718,14 +718,7 @@ export default Factory.extend({
       subdistrict: 2
     }
   ],
-  subdistrictsFromUser: () => [
-    {
-      id: 171,
-      sdName: "District 17 - Subdistrict 1",
-      district: 17,
-      subdistrict: 1
-    }
-  ],
+  subdistrictsFromUser: () => [],
   bluebook: () => [
     {
       x: 997684,
