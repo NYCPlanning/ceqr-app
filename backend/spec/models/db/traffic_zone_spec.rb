@@ -8,7 +8,7 @@ RSpec.describe Db::TrafficZone, type: :model do
 
       expect(db.zone).to be_an Integer
 
-      expect(db.geom.geometry_type).to be RGeo::Feature::Polygon
+      expect(db.geom.geometry_type).to be RGeo::Feature::MultiPolygon
       expect(db.geom.srid).to eq(4326)
     end
   end
