@@ -232,8 +232,9 @@ export default Factory.extend({
     ],
   }),
 
-
-
+  
+  
+  
   // TRAIT for testing subdistrictTotals
   subdistrictTotalsTest: trait({
     project: association({
@@ -374,14 +375,13 @@ export default Factory.extend({
 
 
 
-
-
   project: association({
       borough: "Brooklyn",
       totalUnits: 500,
       seniorUnits: 50,
       buildYear: 2023
     }),
+
   multipliers: () => ({
     version: "november-2018",
     districts: [
@@ -718,7 +718,14 @@ export default Factory.extend({
       subdistrict: 2
     }
   ],
-  subdistrictsFromUser: () => [],
+  subdistrictsFromUser: () => [
+    {
+      id: 171,
+      sdName: "District 17 - Subdistrict 1",
+      district: 17,
+      subdistrict: 1
+    }
+  ],
   bluebook: () => [
     {
       x: 997684,
