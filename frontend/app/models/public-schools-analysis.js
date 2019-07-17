@@ -2,7 +2,7 @@ import DS from 'ember-data';
 import { computed } from '@ember/object';
 
 import SubdistrictTotals from '../fragments/public-schools/SubdistrictTotals';
-// import HighSchoolLevelTotals from '../fragments/public-schools/HighSchoolLevelTotals';
+import HighSchoolLevelTotals from '../fragments/public-schools/HighSchoolLevelTotals';
 import LevelTotals from '../fragments/public-schools/LevelTotals';
 
 export default DS.Model.extend({
