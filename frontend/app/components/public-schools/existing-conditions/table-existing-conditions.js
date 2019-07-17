@@ -21,6 +21,7 @@ export default Component.extend({
   },
 
   table: computed('activeSdId', 'activeSchoolsLevel', function() {
+    // 365 Note: this will now be obsolete because hs does not have subdistrict level analysis? How might this affect design?
     if (this.activeSchoolsLevel === 'hs') {
       return this.analysis.subdistrictTotals.findBy('level', 'hs');
     } else {

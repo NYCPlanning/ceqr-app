@@ -201,6 +201,7 @@
       </tr>
     </thead>
     <tbody>
+      {{!- 365 Note: iterating through hsLevelTotals.subdistricTotals FROM MODEL and using variables specific to subdistrict analysis, which no longer exists, can we replace this with values from new HighSchoolLevelTotals}}
       {{#each analysis.hsLevelTotals.subdistrictTotals as |p|}}
         <tr>
           <td>

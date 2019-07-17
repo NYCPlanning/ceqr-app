@@ -63,6 +63,7 @@ import round from '../../utils/round';
 
       //// IMPACT ////////////////////////////
       * impact {boolean} -> utilizationChangeTotal >= 0.5 && utilizationWithActionTotal >= 1
+      * mitigateSeatCount -> 
 */
 
 export default EmberObject.extend({
@@ -234,5 +235,23 @@ export default EmberObject.extend({
       (this.get('utilizationWithActionTotal') >= 1)
     );
   }),
+
+  // Mitigation
+  mitigateSeatCount: computed('enrollWithActionTotal', 'utilizationNoActionTotal', 'capacityWithActionTotal', function() {
+    const seatsToMitigateUtilization = this.get('enrollWithActionTotal') - (this.get('capacityWithActionTotal') - 1)
+
+    const seatsToMitigateChange = Math.ceil(
+      (this.get('enrollWithActionTotal') / (this.get('utilizationNoActionTotal') + 0.0499))
+      - this.get('capacityWithActionTotal')
+    )
+
+    return seatsToMitigateUtilization < seatsToMitigateChange ? seatsToMitigateUtilization : seatsToMitigateChange;
+  }),
+
+  // studentMultiplier--> 365 Question: is this just matched to subdistricts of the project? How do we get a borough level version?
+  // mitigateUnitCount
+  // mitigateUnitCount: computed('mitigateSeatCount', function() {
+  //   return Math.ceil(this.get('mitigateSeatCount') / this.get('subdistrictTotals')[0].get('studentMultiplier'));
+  // }),
 
 });

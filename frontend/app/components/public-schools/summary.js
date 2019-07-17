@@ -2,6 +2,7 @@ import Component from '@ember/component';
 import { computed } from '@ember/object';
 
 export default Component.extend({
+  // 365 Question: why is this only 'ps'??
   activeSchoolsLevel: 'ps',
 
   EC_active: false,
@@ -10,6 +11,7 @@ export default Component.extend({
   NA_utilchange: false,
   WA_schools: false,
 
+  // 365 Question: will the removal of 'hs' in subdistrictTotals affect this?
   levelTotals: computed('activeSchoolsLevel', function() {
     switch (this.activeSchoolsLevel) {
       case 'ps': return this.analysis.psLevelTotals;
@@ -40,8 +42,13 @@ export default Component.extend({
     return { enrollment, developments }
   }),
 
+  // 365 Question: how will this be affected? 
   NA_plannedSchools: computed('activeSchoolsLevel', 'levelTotals', function() {    
-    const capacity = this.levelTotals.scaCapacityIncrease;
+    const psIsCapacity = this.levelTotals.scaCapacityIncrease;
+    // is this necessary if the activeSchoolsLevel is 'PS'
+    const hsCapacity = this.scaCapacityIncreaseHighSchool;
+
+    const capacity = psIsCapacity + hsCapacity
 
     const schools = this.analysis.scaProjects
       .map(b => ({

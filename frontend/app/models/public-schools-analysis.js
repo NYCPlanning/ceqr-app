@@ -200,7 +200,7 @@ export default DS.Model.extend({
     ).compact();
   }),
 
-
+  // 365 Note: explain why this is defined in the model as opposed to HighSchoolLevelTotals
   scaCapacityIncreaseHighSchools: computed('scaProjects', function() {
   return this.scaProjects.filterBy('includeInCapacity', true)
     .reduce(function(acc, value) {
@@ -330,10 +330,9 @@ export default DS.Model.extend({
     });
   }),
 
-  // hsLevelTotals: computed('{subdistrictTotals,schoolsWithAction}.@each', function() {
-  //   return HighSchoolLevelTotals.create({
-  //     // subdistrictTotals: this.subdistrictTotals.filterBy('level', 'hs'),
-  //     studentsWithAction: this.estHsStudents || 0,
-  //   });
-  // }),
+  hsLevelTotals: computed('{subdistrictTotals,schoolsWithAction}.@each', function() {
+    return HighSchoolLevelTotals.create({
+      studentsWithAction: this.estHsStudents || 0,
+    });
+  }),
 });

@@ -38,6 +38,8 @@ import sumOf from '../../utils/sumMapBy';
   * utilizationWithActionTotal {number} -> enrollWithActionTotal / capacityWithActionTotal
   * utilizationChangeTotal {number} -> utilizationWithActionTotal - utilizationNoActionTotal
   * impact {boolean} -> utilizationChangeTotal >= 0.5 && utilizationWithActionTotal >= 1
+  * mitigateSeatCount -> 
+  * mitigateUnitCount -> 
 */
 
 export default EmberObject.extend({ 
