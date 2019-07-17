@@ -253,5 +253,4 @@ export default EmberObject.extend({
   // mitigateUnitCount: computed('mitigateSeatCount', function() {
   //   return Math.ceil(this.get('mitigateSeatCount') / this.get('subdistrictTotals')[0].get('studentMultiplier'));
   // }),
-
 });
