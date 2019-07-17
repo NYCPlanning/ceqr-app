@@ -177,17 +177,17 @@ export default EmberObject.extend({
     return this.capacityNoActionTotal - this.existingConditionsCapacity;
   }),
 
-  // #capacityWithActionTotal
-  capacityWithActionTotal: computed('capacityNoActionTotal', function() {
-    return this.get('capacityNoActionTotal') + this.get('newSchoolSeats');
-  }),
-
-  // newCapacityWithAction --> newSchoolSeats
+   // newCapacityWithAction --> newSchoolSeats
   newSchoolSeats: computed('schoolsWithAction.@each.hs_seats', function() {
     return this.schoolsWithAction.mapBy('hs_seats').reduce((acc, value) => {
       if (value === undefined) return acc;
       return acc + parseInt(value);
     }, 0);
+  }),
+
+  // #capacityWithActionTotal
+  capacityWithActionTotal: computed('capacityNoActionTotal', function() {
+    return this.get('capacityNoActionTotal') + this.get('newSchoolSeats');
   }),
 
   /////////// SEATS ///////////////////////////////////////////////////////////////////////////////////////////////////
