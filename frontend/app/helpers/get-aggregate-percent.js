@@ -24,7 +24,10 @@ export function getAggregatePercent(params/*, hash*/) {
 
     // calculate the aggregate total for all modal splits
     const wholeTotal = allModalSplitData.reduce((runningSum, modalSplit) => {
-      return runningSum + modalSplit.trans_commuter_total.value;
+      // TODO: Write some alert for if any mode variables have undefined value?
+      // Also, investigate whether users would like the wholeTotal to be invalidated if there's a modalSplit
+      // with missing trans_commuter_total value.
+      return modalSplit.trans_commuter_total ? runningSum + modalSplit.trans_commuter_total.value : runningSum;
     }, 0);
 
     // calculate to percent
