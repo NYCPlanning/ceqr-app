@@ -14,7 +14,7 @@ export function getSplitPercent(params/*, hash*/) {
         }
       , 0);
     // calculate percent
-    const percent = (partTotal / modalSplitData.trans_commuter_total.value) * 100;
+    const percent = modalSplitData.trans_commuter_total ? (partTotal / modalSplitData.trans_commuter_total.value) * 100 : undefined;
 
     // return formatted percent 
     return isNaN(percent) ? '-' : `${percent.toFixed(1)} %`;
