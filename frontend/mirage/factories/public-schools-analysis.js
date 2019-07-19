@@ -5459,7 +5459,128 @@ export default Factory.extend({
       "subdistrict": 1
     }
   ],
-  scaProjects: () => [],
+  scaProjects: () => [
+          // high schools
+      {
+      name: "Donuts Delight",
+      bldg_id: "SCA_DD1",
+      cartodb_id: 31,
+      district: 1,
+      subdistrict: 2,
+      source: "scaProjects",
+      includeInCapacity: true,
+      hs_capacity: 750,
+      ps_capacity: 100,
+      is_capacity: 100,
+      level: "hs"
+    },
+      {
+      name: "Avocado Adventure",
+      bldg_id: "SCA_AA1",
+      cartodb_id: 32,
+      district: 1,
+      subdistrict: 2,
+      source: "scaProjects",
+      includeInCapacity: true,
+      hs_capacity: 500,
+      ps_capacity: 100,
+      is_capacity: 100,
+      level: "hs"
+    },
+      {
+      name: "Clementine Canopy",
+      bldg_id: "SCA_CC1",
+      cartodb_id: 33,
+      district: 1,
+      subdistrict: 2,
+      source: "scaProjects",
+      includeInCapacity: false,
+      hs_capacity: 1500,
+      ps_capacity: 100,
+      is_capacity: 100,
+      level: "hs"
+    },
+    // middle schools
+      {
+      name: "Peach Party",
+      bldg_id: "SCA_PP1",
+      cartodb_id: 34,
+      district: 1,
+      subdistrict: 2,
+      source: "scaProjects",
+      includeInCapacity: true,
+      hs_capacity: 100,
+      ps_capacity: 100,
+      is_capacity: 1200,
+      level: "is"
+    },
+      {
+      name: "Passionfruit Pavilion",
+      bldg_id: "SCA_PP2",
+      cartodb_id: 35,
+      district: 1,
+      subdistrict: 2,
+      source: "scaProjects",
+      includeInCapacity: false,
+      hs_capacity: 100,
+      ps_capacity: 100,
+      is_capacity: 550,
+      level: "is"
+    },
+      {
+      name: "Tangerine Tent",
+      bldg_id: "SCA_TT1",
+      cartodb_id: 36,
+      district: 1,
+      subdistrict: 2,
+      source: "scaProjects",
+      includeInCapacity: true,
+      hs_capacity: 100,
+      ps_capacity: 100,
+      is_capacity: 600,
+      level: "is"
+    },
+    // primary schools
+      {
+      name: "Pineapple Paradise",
+      bldg_id: "SCA_PP2",
+      cartodb_id: 37,
+      district: 1,
+      subdistrict: 2,
+      source: "scaProjects",
+      includeInCapacity: true,
+      hs_capacity: 100,
+      ps_capacity: 300,
+      is_capacity: 100,
+      level: "ps"
+    },
+    {
+    name: "Olive Oasis",
+    bldg_id: "SCA_OO1",
+    cartodb_id: 38,
+    district: 1,
+    subdistrict: 2,
+    source: "scaProjects",
+    includeInCapacity: false,
+    hs_capacity: 100,
+    ps_capacity: 250,
+    is_capacity: 100,
+    level: "ps"
+  },
+    {
+    name: "Grapefruit Garage",
+    bldg_id: "SCA_GG1",
+    cartodb_id: 39,
+    district: 1,
+    subdistrict: 2,
+    source: "scaProjects",
+    includeInCapacity: true,
+    hs_capacity: 100,
+    ps_capacity: 350,
+    is_capacity: 100,
+    level: "ps"
+  },
+],
   doeUtilChanges: () => [
     {
       url: "http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/pep-meetings-archive",
@@ -6972,7 +7093,24 @@ export default Factory.extend({
       bldg_id_additional: ""
     }
   ],
-  residentialDevelopments: () => [],
+    residentialDevelopments: () => [
+      {
+        name: 'Hamster Heaven',
+        district: 1,
+        subdistrict: 2,
+        multipliers: {},
+        total_units: 60,
+        ps_students: 100
+      },
+      {
+        name: 'Pig Palace',
+        district: 1,
+        subdistrict: 2,
+        multipliers: {},
+        total_units: 50,
+        ps_students: 200
+    },
+  ],
   schoolsWithAction: () => [
     {
       id: 172,

@@ -2,6 +2,7 @@ import DS from 'ember-data';
 import { computed } from '@ember/object';
 
 import SubdistrictTotals from '../fragments/public-schools/SubdistrictTotals';
+import HighSchoolLevelTotals from '../fragments/public-schools/HighSchoolLevelTotals';
 import LevelTotals from '../fragments/public-schools/LevelTotals';
 
 export default DS.Model.extend({
@@ -199,6 +200,16 @@ export default DS.Model.extend({
     ).compact();
   }),
 
+  // 365 Note: make sure that this is an integer
+  scaCapacityIncreaseHighSchools: computed('scaProjects', function() {
+  return this.scaProjects.filterBy('includeInCapacity', true)
+    .reduce(function(acc, value) {
+      let v = parseInt(value.hs_capacity);
+      if (v) return acc + v;
+      return acc;
+    }, 0);
+}),
+
   subdistrictTotals: computed(
     'allSchools',
     'subdistricts',
@@ -210,36 +221,6 @@ export default DS.Model.extend({
     'scaProjects.@each.{includeInCapacity,ps_capacity,is_capacity,hs_capacity}',
     function() {
       let tables = [];
-
-      tables.push(SubdistrictTotals.create({
-        borough: this.borough,
-        level: 'hs',
-        allBuildings: this.allSchools,
-
-        studentMultiplier: this.currentMultiplier.hs,
-
-        enroll: this.hsProjections[0] ? this.hsProjections[0].hs : 0,
-
-        students: (
-          this.hsStudentsFromHousing
-          +
-          this.futureResidentialDev.reduce(function(acc, value) {
-            return acc + value.hs_students;
-          }, 0)
-        ),
-
-        scaCapacityIncrease: this.scaProjects
-          .filterBy('includeInCapacity', true)
-          .reduce(function(acc, value) {
-            let v = parseInt(value.hs_capacity);
-            if (v) return acc + v;
-            return acc;
-          }, 0),
-
-        newCapacityWithAction: this.schoolsWithAction.reduce(function(acc, value) {
-          return acc + parseInt(value.hs_seats);
-        }, 0),
-      }));
 
       this.subdistricts.map((sd) => {
         tables.push(SubdistrictTotals.create({
@@ -350,8 +331,13 @@ export default DS.Model.extend({
   }),
 
   hsLevelTotals: computed('{subdistrictTotals,schoolsWithAction}.@each', function() {
-    return LevelTotals.create({
-      subdistrictTotals: this.subdistrictTotals.filterBy('level', 'hs'),
+    return HighSchoolLevelTotals.create({
+      allBuildings: this.allSchools,
+      studentMultiplier: this.currentMultiplier.hs,
+      futureResidentialDev: this.futureResidentialDev,
+      hsStudentsFromHousing: this.hsStudentsFromHousing,
+      schoolsWithAction: this.schoolsWithAction,
+      scaCapacityIncrease: this.scaCapacityIncreaseHighSchools,
       studentsWithAction: this.estHsStudents || 0,
     });
   }),

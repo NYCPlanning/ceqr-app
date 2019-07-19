@@ -11,8 +11,6 @@ module('Unit | Fragment | SubdistrictTotals', function(hooks) {
     let schools =  [
       School.create({
         level: 'hs',
-        district: 1,
-        subdistrict: 2
       }),
       School.create({
         level: 'ps',
@@ -31,14 +29,16 @@ module('Unit | Fragment | SubdistrictTotals', function(hooks) {
       }),
     ];
 
-    let hs_school_totals = SubdistrictTotals.create({
+    let is_school_totals = SubdistrictTotals.create({
       allBuildings: schools,
-      level: 'hs'
+      level: 'is',
+      district: 1,
+      subdistrict: 2
     });
 
-    assert.deepEqual(hs_school_totals.buildings, [
+    assert.deepEqual(is_school_totals.buildings, [
       School.create({
-        level: 'hs',
+        level: 'is',
         district: 1,
         subdistrict: 2
       })
@@ -56,25 +56,25 @@ module('Unit | Fragment | SubdistrictTotals', function(hooks) {
         level: 'ps',
         district: 1,
         subdistrict: 2
-      })
+      }),
     ]);
   });
 
   test('#enrollmentTotal returns correct calculation', function(assert) {
     let schools = [
       School.create({
-        level: 'hs',
+        level: 'is',
         enroll: 125
       }),
       School.create({
-        level: 'hs',
+        level: 'is',
         enroll: 100
       })
     ];
 
     let school_totals = SubdistrictTotals.create({
       allBuildings: schools,
-      level: 'hs'
+      level: 'is'
     });
 
     assert.equal(school_totals.enrollmentTotal, 225);
@@ -84,15 +84,15 @@ module('Unit | Fragment | SubdistrictTotals', function(hooks) {
 test('#capacityTotal returns correct calculation', function(assert) {
   let schools = [
     School.create({
-      level: 'hs',
+      level: 'is',
       capacity: 140
     }),
     School.create({
-      level: 'hs',
+      level: 'is',
       capacity: 130
     }),
     School.create({
-      level: 'hs',
+      level: 'is',
       capacity: 400,
       excluded: true
     })
@@ -100,7 +100,7 @@ test('#capacityTotal returns correct calculation', function(assert) {
 
   let school_totals = SubdistrictTotals.create({
     allBuildings: schools,
-    level: 'hs'
+    level: 'is'
   });
 
   assert.equal(school_totals.capacityTotal, 270);
@@ -110,15 +110,15 @@ test('#capacityTotal returns correct calculation', function(assert) {
   test('#capacityTotalNoAction returns correct calculation', function(assert) {
     let schools = [
       School.create({
-        level: 'hs',
+        level: 'is',
         capacityFuture: 160
       }),
       School.create({
-        level: 'hs',
+        level: 'is',
         capacityFuture: 145
       }),
       School.create({
-        level: 'hs',
+        level: 'is',
         capacityFuture: 300,
         excluded: true
       }),
@@ -126,7 +126,7 @@ test('#capacityTotal returns correct calculation', function(assert) {
 
     let school_totals = SubdistrictTotals.create({
       allBuildings: schools,
-      level: 'hs'
+      level: 'is'
     });
 
     assert.equal(school_totals.capacityTotalNoAction, 305);
@@ -136,18 +136,18 @@ test('#capacityTotal returns correct calculation', function(assert) {
   test('#seatsTotal returns correct calculation', function(assert) {
     let schools = [
       School.create({
-        level: 'hs',
+        level: 'is',
         seats: 160
       }),
       School.create({
-        level: 'hs',
+        level: 'is',
         seats: 145
       })
     ];
 
     let school_totals = SubdistrictTotals.create({
       allBuildings: schools,
-      level: 'hs'
+      level: 'is'
     });
 
     assert.equal(school_totals.seatsTotal, 305);
@@ -156,7 +156,7 @@ test('#capacityTotal returns correct calculation', function(assert) {
 
   test('#utilizationTotal returns correct calculation', function(assert) {
     let school_totals = SubdistrictTotals.create({
-      level: 'hs',
+      level: 'is',
       enrollmentTotal: 102,
       capacityTotal:  177
     });
@@ -168,11 +168,11 @@ test('#capacityTotal returns correct calculation', function(assert) {
   test('#enrollmentMetaTotal returns correct calculation', function(assert) {
     let schools = [
       School.create({
-        level: 'hs',
+        level: 'is',
         enroll: 160
       }),
       School.create({
-        level: 'hs',
+        level: 'is',
         enroll: 170
       }),
       School.create({
@@ -197,11 +197,11 @@ test('#capacityTotal returns correct calculation', function(assert) {
   test('#capacityMetaTotal returns correct calculation', function(assert) {
     let schools = [
       School.create({
-        level: 'hs',
+        level: 'is',
         capacity: 160
       }),
       School.create({
-        level: 'hs',
+        level: 'is',
         capacity: 170
       }),
       School.create({
@@ -231,11 +231,11 @@ test('#capacityTotal returns correct calculation', function(assert) {
   test('#seatsMetaTotal returns correct calculation', function(assert) {
     let schools = [
       School.create({
-        level: 'hs',
+        level: 'is',
         seats: 160
       }),
       School.create({
-        level: 'hs',
+        level: 'is',
         seats: 170
       }),
       School.create({
@@ -259,7 +259,7 @@ test('#capacityTotal returns correct calculation', function(assert) {
 
   test('#utilizationMetaTotal returns correct calculation', function(assert) {
     let school_totals = SubdistrictTotals.create({
-      level: 'hs',
+      level: 'is',
       enrollmentMetaTotal: 131,
       capacityMetaTotal:  145
     });

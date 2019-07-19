@@ -34,7 +34,7 @@ export default Factory.extend({
     };
   },
   borough: 'Manhattan',
-  totalUnits: 1000,
+  totalUnits: 10000,
   seniorUnits: 0,
   affordableUnits: 0,
   commercialLandUse: () => [],

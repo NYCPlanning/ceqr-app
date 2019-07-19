@@ -201,32 +201,30 @@
       </tr>
     </thead>
     <tbody>
-      {{#each analysis.hsLevelTotals.subdistrictTotals as |p|}}
-        <tr>
-          <td>
-            {{analysis.borough}}
-          </td>
-          <td>
-            {{p.enroll}}
-          </td>
-          <td class="math--left">
-            <i class="plus circle icon"></i>
-            {{p.students}}
-          </td>
-          <td>
-            {{p.enrollNoAction}}
-          </td>
-          <td>
-            {{p.capacityNoAction}}
-          </td>
-          <td>
-            {{p.seatsNoAction}}
-          </td>
-          <td>
-            {{percentage p.utilizationNoAction}}
-          </td>
-        </tr>
-      {{/each}}
+      <tr>
+        <td>
+          {{analysis.borough}}
+        </td>
+        <td>
+          {{analysis.hsLevelTotals.existingConditionsEnrollment}}
+        </td>
+        <td class="math--left">
+          <i class="plus circle icon"></i>
+          {{analysis.hsLevelTotals.studentsTotal}}
+        </td>
+        <td>
+          {{analysis.hsLevelTotals.enrollNoActionTotal}}
+        </td>
+        <td>
+          {{analysis.hsLevelTotals.capacityNoActionTotal}}
+        </td>
+        <td>
+          {{analysis.hsLevelTotals.seatsNoActionTotal}}
+        </td>
+        <td>
+          {{percentage analysis.hsLevelTotals.utilizationNoActionTotal}}
+        </td>
+      </tr>
     </tbody>
   {{/if}}
 </table>
