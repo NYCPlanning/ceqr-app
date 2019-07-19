@@ -1,4 +1,12 @@
 <td>&nbsp;&nbsp;&nbsp;{{this.title}}</td>
+<td>{{round (get-aggregate-value this.allModalSplitData this.variables) decimals=2}}</td>
+<td>
+  {{#if noPercent}}
+    -
+  {{else}}
+    {{get-aggregate-percent this.allModalSplitData this.variables true}}
+  {{/if}}
+</td>
 {{#each this.allModalSplitData as |modalSplit|}}
   <td>{{get-split-value modalSplit this.variables.firstObject true}}</td>
   <td>
@@ -9,11 +17,3 @@
     {{/if}}
   </td>
 {{/each}}
-<td>{{get-aggregate-value this.allModalSplitData this.variables}}</td>
-<td>
-  {{#if noPercent}}
-    -
-  {{else}}
-    {{get-aggregate-percent this.allModalSplitData this.variables}}
-  {{/if}}
-</td>

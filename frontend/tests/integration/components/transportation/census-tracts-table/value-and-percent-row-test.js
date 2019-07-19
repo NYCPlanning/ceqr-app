@@ -18,10 +18,13 @@ module('Integration | Component | transportation/census-tracts-table/value-and-p
     this.set('variables', ['trans_total']);
 
     // When component is rendered with title, modalSplits, and variables array
-    await render(hbs`{{transportation/census-tracts-table/value-and-percent-row title=title allModalSplitData=modalSplits variables=variables}}`);
+    await render(hbs`{{transportation/census-tracts-table/value-and-percent-row
+      title=title allModalSplitData=modalSplits
+      variables=variables
+    }}`);
 
     // Then it renders the title, variable count and percent, and total variable count and percent
     const row = find('tr');
-    assert.ok(row.textContent.match(/testTitle\s+\d+±\d+\s+\d+\.\d+\s%\s+\d+\s+\d+\.\d+\s%/));
+    assert.ok(row.textContent.match(/testTitle\s+\d+\s+\d+\.\d+\s%\s+\d+±\d+\s+\d+\.\d+\s%/));
   });
 });

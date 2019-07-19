@@ -36,6 +36,10 @@ Router.map(function() {
 
   this.route('project', function() {
     this.route('new');
+    // we avoided using an underscore (:_id) specifically to
+    // not trigger default model lookup for the project/show route.
+    // See routes/project/show.js for custom .findRecord() call to include
+    // related resources.
     this.route('show', {path: '/:id'}, function() {
       this.route('edit');
 

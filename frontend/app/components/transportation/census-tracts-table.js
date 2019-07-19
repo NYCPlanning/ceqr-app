@@ -1,42 +1,34 @@
 import Component from '@ember/component';
-import { inject as service } from '@ember-decorators/service';
 import { computed } from '@ember-decorators/object';
-import { VARIABLE_MODE_LOOKUP, COMMUTER_VARIABLES } from '../../utils/modalSplit';
+import { getAggregateValue } from '../../helpers/get-aggregate-value';
 
 /**
  * CensusTractsTable component renders modal-split data for a project's study selection census tracts
- * in a table. The table updates as cenesus tracts are added to/removed from the study selection.
+ * in a table. The table updates as census tracts are added to/removed from the study selection.
  */
 export default class TransportationCensusTractsTableComponent extends Component {
-  @service store;
-  @service('readonly-ceqr-data-store') readonlyStore;
-
-  commuterModes = COMMUTER_VARIABLES;
-  modeLookup = VARIABLE_MODE_LOOKUP;
-
-  isRJTW = false;
 
   /**
-   * The transportation-analysis Model, passed down from the project/show/transportation-analysis controller
-   */
-  analysis = {};
+  * array of census tract IDs, each displayed as a column
+ * @param {string[]} 
+ */
+  selectedCensusTractIds = []
 
   /**
-   * Composite array containing geoids of all selected census tracts
-   */
-  @computed('analysis.{requiredJtwStudySelection.[],jtwStudySelection.[]}')
-  get selectedCensusTractIds() {
-    return [...this.get('analysis.jtwStudySelection'), ...this.get('analysis.requiredJtwStudySelection')];
+  * array of census tract modal splits, usually returned using readonlyStore.findByIds().
+  * Each modal split is displayed as a row.
+ * @param {modalSplit[]} 
+ */
+  selectedCensusTractData = []
+
+  // TODO: Figure out how to work around async selectedCensusTractData property.
+  // Then, move this into existing-conditions controller.
+  @computed('selectedCensusTractData.[]')
+  get vehicleOccupancyAvg() {
+    if(this.selectedCensusTractData){
+      return getAggregateValue([this.selectedCensusTractData, ["vehicle_occupancy"]]) / this.selectedCensusTractData.length;
+    }
+    return null;
   }
 
-  /**
-   * Promise that resolves to an array of modal-split objects for the selected census-tracts
-   */
-  // TODO: Return either ACS (JTW) or CTPP (RJTW) modal splits based on isRJTW
-  @computed('isRJTW', 'analysis.{requiredJtwStudySelection.[],jtwStudySelection.[]}')
-  get selectedCensusTractData() {
-    const readonlyStore = this.get('readonlyStore');
-    const selectedIds = this.get('selectedCensusTractIds');
-    return this.isRJTW ? readonlyStore.findByIds('CTPP-modal-split', selectedIds) : readonlyStore.findByIds('ACS-modal-split', selectedIds);
-  }
 }

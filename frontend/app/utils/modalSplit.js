@@ -91,6 +91,14 @@ export const AUTO_OCCUPANCY_RATES = {
   trans_auto_7_or_more: 7
 } 
 
+export const MODAL_SPLIT_VARIABLES_SUBSET = [
+  'trans_auto_total',
+  'trans_taxi',
+  'trans_public_bus',
+  'trans_public_subway',
+  'trans_walk'
+]
+
 /**
  * fetchAndSave function for readonly-ceqr-data-store fetch(); makes an
  * authenticated call to the rails backend to get estimates for a given geoid, 
