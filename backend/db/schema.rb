@@ -94,8 +94,8 @@ ActiveRecord::Schema.define(version: 2019_07_23_155612) do
     t.datetime "updated_at", null: false
     t.integer "project_id"
     t.geometry "jtw_study_area_centroid", limit: {:srid=>4326, :type=>"st_point"}, null: false
-    t.string "required_jtw_study_selection", limit: 11, default: [], null: false, array: true
-    t.string "jtw_study_selection", limit: 11, default: [], array: true
+    t.text "required_jtw_study_selection", default: [], null: false, array: true
+    t.text "jtw_study_selection", default: [], array: true
     t.jsonb "in_out_dists", default: {"am"=>{"in"=>50, "out"=>50}, "md"=>{"in"=>50, "out"=>50}, "pm"=>{"in"=>50, "out"=>50}, "saturday"=>{"in"=>50, "out"=>50}}
     t.float "taxi_vehicle_occupancy"
   end
