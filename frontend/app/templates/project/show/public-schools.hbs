@@ -13,6 +13,7 @@
     <div class="sixteen wide column">
       <PublicSchools::AnalysisSteps @project={{project}} />
     </div>
+
     <div
       class="ui inverted dimmer
         {{if public-schools.fullReload.isRunning "active"}}"
@@ -22,5 +23,16 @@
       </div>
     </div>
   </div>
+
+  {{#if showMap}}
+    <div class="row">
+      <div class="sixteen wide column">
+        <PublicSchools::ProjectMap
+          @project={{model.project}}
+          @analysis={{model.publicSchoolsAnalysis}}
+        />
+      </div>
+    </div>
+  {{/if}}
 {{/if}}
 {{outlet}}

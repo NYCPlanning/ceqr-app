@@ -1,12 +1,4 @@
 {{#if public-schools.fullReload.isIdle}}
-  {{#if showMap}}
-    <div class="sixteen wide column">
-      <PublicSchools::ProjectMap
-        @project={{model.project}}
-        @analysis={{model.publicSchoolsAnalysis}}
-      />
-    </div>
-  {{/if}}
   <div class="sixteen wide column">
     <PublicSchools::ExistingConditions::ExistingConditionsSteps
       @analysis={{model.publicSchoolsAnalysis}}
