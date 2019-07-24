@@ -1,17 +1,28 @@
 <h4 class="ui header attached top">
   Impact & Mitigation
 </h4>
-
 {{! template-lint-disable table-groups }}
 <table class="ui attached celled table">
   <thead>
     <tr>
-      <th>School Level</th>
-      <th>Utilization (%) with Project</th>
-      <th>Change in Utilization (%) from No Action</th>
-      <th>Triggers a Significant Adverse Impact</th>
-      <th>Estimated Seats to Mitigate</th>
-      <th>Equivalent Reduction in Units</th>
+      <th>
+        School Level
+      </th>
+      <th>
+        Utilization (%) with Project
+      </th>
+      <th>
+        Change in Utilization (%) from No Action
+      </th>
+      <th>
+        Triggers a Significant Adverse Impact
+      </th>
+      <th>
+        Estimated Seats to Mitigate
+      </th>
+      <th>
+        Equivalent Reduction in Units
+      </th>
     </tr>
   </thead>
  
@@ -128,15 +139,17 @@
                  )"
               data-inverted
             >
-              <i class="warning icon"></i> Likely
+              <i class="warning icon"></i>
+              Likely
             </div>
           {{else}}
             <div
               class="ui green label"
               data-tooltip="Utilization with project is below 100% or change in utilization is below 5%"
-              data-inverted=""
+              data-inverted
             >
-              <i class="check icon"></i> No
+              <i class="check icon"></i>
+              No
             </div>
           {{/if}}
         </td>
@@ -150,8 +163,9 @@
     </tbody>
   {{/if}}
 </table>
-
 <div class="ui icon warning message attached bottom">
   <i class="attention icon"></i>
-  <div class="content">The conclusions displayed in the tool are preliminary and will not reflect departures in analytical approach from CTM guidelines when deemed appropriate by the lead agency.</div>
+  <div class="content">
+    The conclusions displayed in the tool are preliminary and will not reflect departures in analytical approach from CTM guidelines when deemed appropriate by the lead agency.
+  </div>
 </div>

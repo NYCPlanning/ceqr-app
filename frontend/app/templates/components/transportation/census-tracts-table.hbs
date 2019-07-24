@@ -1,0 +1,81 @@
+{{#if (await this.selectedCensusTractData)}}
+  <div style="overflow-x: scroll;">
+    <table class="ui celled table">
+      <thead>
+        <tr>
+          <th class="two wide" style="min-width: 220px;" rowspan="2">
+          </th>
+          <th class="two wide" colspan="2">
+            Total
+          </th>
+          {{#each this.selectedCensusTractIds as |censusTract|}}
+            <th class="two wide" colspan="2">
+              {{human-readable-census-tract censusTract}}
+            </th>
+          {{/each}}
+        </tr>
+        <tr>
+          <th class="one wide" colspan="1">
+            Count
+          </th>
+          <th class="one wide" colspan="1">
+            Percent
+          </th>
+          {{#each this.selectedCensusTractIds as |censusTract|}}
+            <th class="one wide" colspan="1">
+              Count
+            </th>
+            <th class="one wide" colspan="1">
+              Percent
+            </th>
+          {{/each}}
+        </tr>
+      </thead>
+      <tbody>
+        {{#let this.selectedCensusTractData as |censusTracts|}}
+          {{#each this.commuterModes as |mode|}}
+            <Transportation::CensusTractsTable::ValueAndPercentRow
+              @title={{get this.modeLookup mode}}
+              @allModalSplitData={{censusTracts}}
+              @variables={{array mode}}
+            />
+          {{/each}}
+          <Transportation::CensusTractsTable::ValueAndPercentRow
+            @title={{get this.modeLookup "trans_total"}}
+            @allModalSplitData={{censusTracts}}
+            @variables={{array "trans_total"}}
+          />
+          <Transportation::CensusTractsTable::ValueAndPercentRow
+            @title={{get this.modeLookup "trans_commuter_total"}}
+            @allModalSplitData={{censusTracts}}
+            @variables={{array "trans_commuter_total"}}
+          />
+          <Transportation::CensusTractsTable::ValueAndPercentRow
+            @title={{if this.isRJTW "Workers" "Population"}}
+            @allModalSplitData={{censusTracts}}
+            @variables={{array (if this.isRJTW "workers" "population")}}
+            data-test-censustracts-table-baseunit
+          />
+          <tr style="background-color: rgb(249, 250, 251)">
+            <td></td>
+            <td colspan="2">Average</td>
+            <td colspan="{{mult censusTracts.length 2}}"></td>
+          </tr>
+          <tr>
+            <td>&nbsp;&nbsp;&nbsp;Vehicle Occupancy</td>
+            <td>{{round this.vehicleOccupancyAvg decimals=2}}</td>
+            <td>
+              -
+            </td>
+            {{#each censusTracts as |modalSplit|}}
+              <td>{{get-split-value modalSplit (array "vehicle_occupancy") true}}</td>
+              <td>
+                  -
+              </td>
+            {{/each}}
+          </tr>
+        {{/let}}
+      </tbody>
+    </table>
+  </div>
+{{/if}}

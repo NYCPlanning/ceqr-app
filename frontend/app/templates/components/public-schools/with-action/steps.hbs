@@ -1,14 +1,23 @@
 <div class="ui pointing menu">
-  {{#link-to "project.show.public-schools.with-action.scenario" project.id class="item"}}
+  {{#link-to
+    "project.show.public-schools.with-action.scenario"
+    project.id
+    class="item"
+  }}
     With Action Scenario
   {{/link-to}}
-
   <div class="right menu">
-    {{#link-to "project.show.public-schools.with-action.new-schools" project.id class="item"}}
-      With Action<br>Additional Schools
-      <div class="ui label blue">{{analysis.schoolsWithAction.length}}</div>
+    {{#link-to
+      "project.show.public-schools.with-action.new-schools"
+      project.id
+      class="item"
+    }}
+      With Action
+      <br />
+      Additional Schools
+      <div class="ui label blue">
+        {{analysis.schoolsWithAction.length}}
+      </div>
     {{/link-to}}
   </div>
 </div>
-
-

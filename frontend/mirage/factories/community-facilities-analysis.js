@@ -11,7 +11,8 @@ export default Factory.extend({
   noChildCareImpact: trait({
     project: association({
       borough: 'Bronx',
-      affordableUnits: 1
+      affordableUnits: 1,
+      totalUnits: null,
     })
   }),
 

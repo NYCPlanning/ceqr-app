@@ -1,8 +1,14 @@
 {
+  "env": {
+    "PROJECT_PATH": "backend",
+    "RACK_ENV": "staging",
+    "RAILS_ENV": "staging",
+    "JWT_SALT": "SALTYsaltySALT",
+    "SENDGRID_KEY": "thiswillnotsendemail"
+  },
   "buildpacks": [
-    { "url": "https://github.com/heroku/heroku-buildpack-nodejs" },
-    { "url": "https://github.com/heroku/heroku-buildpack-ruby" },
-    { "url": "https://github.com/heroku/heroku-buildpack-google-chrome" }
+    { "url": "https://github.com/timanovsky/subdir-heroku-buildpack.git" },
+    { "url": "https://github.com/heroku/heroku-buildpack-ruby" }
   ],
   "addons": [
     {

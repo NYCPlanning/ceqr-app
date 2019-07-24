@@ -1,34 +1,54 @@
 <div class="ui segment top attached">
-  <h4>{{project.name}} – Public School Students Generated</h4>
+  <h4>
+    {{project.name}}
+    – Public School Students Generated
+  </h4>
 </div>
-
 <table class="ui bottom attached celled table">
   <thead>
     <tr>
-      <th>Build Year</th>
-      <th>Housing Units for Analysis</th>
-      <th>PS Students</th>
-      <th>IS Students</th>
-      <th>HS Students</th>
+      <th>
+        Build Year
+      </th>
+      <th>
+        Housing Units for Analysis
+      </th>
+      <th>
+        PS Students
+      </th>
+      <th>
+        IS Students
+      </th>
+      <th>
+        HS Students
+      </th>
     </tr>
   </thead>
-
   <tbody>
     <tr>
-      <td>        
-        <div 
+      <td>
+        <div
           class="ui label large"
           data-tooltip="Build Year"
           data-position="bottom center"
-          data-inverted=""
+          data-inverted
         >
-          <i class="calendar alternate icon"></i>{{project.buildYear}}
+          <i class="calendar alternate icon"></i>
+          {{project.buildYear}}
         </div>
       </td>
-      {{#td-hover payload=(hash name="housingFromDev")}}{{project.netUnits}}{{/td-hover}}
-      {{#td-hover payload=(hash name="studentsFromDev" level="ps")}}{{analysis.estEsStudents}}{{/td-hover}}
-      {{#td-hover payload=(hash name="studentsFromDev" level="is")}}{{analysis.estIsStudents}}{{/td-hover}}
-      {{#td-hover payload=(hash name="studentsFromDev" level="hs")}}{{analysis.estHsStudents}}{{/td-hover}}
+      <TdHover @payload={{hash name="housingFromDev"}}>
+        {{project.netUnits}}
+      </TdHover>
+      <TdHover @payload={{hash name="studentsFromDev" level="ps"}}>
+        {{analysis.estEsStudents}}
+      </TdHover>
+      <TdHover @payload={{hash name="studentsFromDev" level="is"}}>
+        {{analysis.estIsStudents}}
+      </TdHover>
+      <TdHover @payload={{hash name="studentsFromDev" level="hs"}}>
+        {{analysis.estHsStudents}}
+      </TdHover>
     </tr>
   </tbody>
-</table> 
+</table>

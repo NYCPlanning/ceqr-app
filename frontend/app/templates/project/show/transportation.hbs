@@ -1,11 +1,10 @@
+{{! Shares the controller context from 'project' }}
 {{title "[Transportation]" prepend=false}}
-
-{{#if showAnalysisSteps}}
+{{#if this.projectCtrl.showAnalysisSteps}}
   <div class="row">
     <div class="sixteen wide column">
-        {{transportation/analysis-steps project=project}}
+      <Transportation::AnalysisSteps @project={{this.model.project}} />
     </div>
   </div>
 {{/if}}
-
 {{outlet}}

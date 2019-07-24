@@ -1,31 +1,39 @@
-<td class={{if isProjectBorough "active"}}>{{borough}}</td>
-
+<td class={{if isProjectBorough "active"}}>
+  {{borough}}
+</td>
 {{#if (eq borough "Bronx")}}
-  <td rowspan="5">{{analysis.project.totalUnits}}</td>
+  <td rowspan="5">
+    {{analysis.project.totalUnits}}
+  </td>
 {{/if}}
-
 <td class={{libraryClass}}>
   {{#if libraryImpact}}
-    {{#ui-popup title="Triggers a Further Library Analysis" content="The number of units in the project is greater then the threshold for Library analysis"}}
-      {{libraryThreshold}} <i class="yellow attention icon"></i>
-    {{/ui-popup}}
+    <UiPopup
+      @title="Triggers a Further Library Analysis"
+      @content="The number of units in the project is greater then the threshold for Library analysis"
+    >
+      {{libraryThreshold}}
+      <i class="yellow attention icon"></i>
+    </UiPopup>
   {{else}}
     {{libraryThreshold}}
   {{/if}}
 </td>
-
 {{#if (eq borough "Bronx")}}
-  <td rowspan="5">{{analysis.project.affordableUnits}}</td>
+  <td rowspan="5">
+    {{analysis.project.affordableUnits}}
+  </td>
 {{/if}}
-
 <td class={{childCareClass}}>
   {{#if childCareImpact}}
-    {{#ui-popup title="Triggers a Further Child Care Analysis" content="The number of units in the project is greater then the threshold for Child Care analysis"}}
-      {{childCareThreshold}} <i class="yellow attention icon"></i>
-    {{/ui-popup}}
+    <UiPopup
+      @title="Triggers a Further Child Care Analysis"
+      @content="The number of units in the project is greater then the threshold for Child Care analysis"
+    >
+      {{childCareThreshold}}
+      <i class="yellow attention icon"></i>
+    </UiPopup>
   {{else}}
     {{childCareThreshold}}
   {{/if}}
 </td>
-
-

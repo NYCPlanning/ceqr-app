@@ -14,7 +14,7 @@ export default Service.extend({
 
     this.set('analysis.multipliers', multipliers);
     this.set('analysis.dataTables', dataTables);
-    
+
     yield this.fullReload.perform();
   }),
 

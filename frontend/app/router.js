@@ -36,6 +36,10 @@ Router.map(function() {
 
   this.route('project', function() {
     this.route('new');
+    // we avoided using an underscore (:_id) specifically to
+    // not trigger default model lookup for the project/show route.
+    // See routes/project/show.js for custom .findRecord() call to include
+    // related resources.
     this.route('show', {path: '/:id'}, function() {
       this.route('edit');
 
@@ -65,15 +69,15 @@ Router.map(function() {
       });
 
       this.route('transportation', function() {
-        this.route('analysis-threshold', {path: '/'});
-        this.route('existing-conditions');
+        this.route('analysis-threshold');
+        this.route('existing-conditions', function() {
+          this.route('census-tracts');
+          this.route('journey-to-work');
+          this.route('trip-generation');
+        });
       });
 
       this.route('community-facilities', function() {
-        this.route('analysis-threshold', {path: '/'});
-      });
-
-      this.route('solid-waste', function() {
         this.route('analysis-threshold', {path: '/'});
       });
     });

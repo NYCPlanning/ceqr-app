@@ -13,7 +13,6 @@ export default class ProjectSerializer extends JSONAPISerializer {
 
     publicSchoolsAnalysis: { serialize: false },
     transportationAnalysis: { serialize: false },
-    communityFacilitiesAnalysis: { serialize: false },
-    solidWasteAnalysis: { serialize: false }
+    communityFacilitiesAnalysis: { serialize: false }
   }
 }

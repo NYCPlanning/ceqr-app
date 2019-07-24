@@ -1,0 +1,5 @@
+<ThrottleProperty @property={{this.geoid}} as |geoid|>
+  <NeedsAsync @needs={{find-modal-split geoid}} as |modalSplitData|>
+    {{yield modalSplitData}}
+  </NeedsAsync>
+</ThrottleProperty>

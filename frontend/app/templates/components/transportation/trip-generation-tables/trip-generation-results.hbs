@@ -1,0 +1,195 @@
+<div class="ui top attached clearing segment">
+  <h4 class="ui left floated header">
+    <div class="content">
+      Trip Generation Results
+    </div>
+  </h4>
+</div>
+<div style="overflow-x: scroll;">
+  <table class="ui attached celled table">
+    <thead>
+      <tr>
+        <th colspan="2">
+        </th>
+        <th colspan="6">
+          Person Trip
+        </th>
+        <th colspan="4">
+          Vehicle Trip
+        </th>
+      </tr>
+      <tr>
+        <th class="one wide">
+          Peak Hour
+        </th>
+        <th class="one wide">
+          In/Out
+        </th>
+        {{#each this.modalSplitVariablesSubset as |mode|}}
+          <th>
+            {{get this.modeLookup mode}}
+          </th>
+        {{/each}}
+        <th>
+          Total
+        </th>
+        <th>
+          Auto
+        </th>
+        <th>
+          Taxi
+        </th>
+        <th>
+          Delivery
+        </th>
+        <th>
+          Total
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#if (await this.selectedCensusTractData)}}
+        {{#each-in this.analysis.temporalDistributions as |time timeInfo|}}
+          {{#each (array (hash key='in' label="In") (hash key='out' label="Out") (hash key='total' label="Total")) as |inOutOrTotal idx|}}
+            <tr>
+              {{#if (is-equal idx 0)}}
+                <td rowspan="3">{{timeInfo.label}}</td>
+              {{/if}}
+              <td>{{inOutOrTotal.label}}</td>
+              {{#with (hash
+                  trans_auto_total=(div (get-aggregate-percent this.selectedCensusTractData (array 'trans_auto_total') false) 100)
+                  trans_taxi=(div (get-aggregate-percent this.selectedCensusTractData (array 'trans_taxi') false) 100)
+                  trans_public_bus=(div (get-aggregate-percent this.selectedCensusTractData (array 'trans_public_bus') false) 100)
+                  trans_public_subway=(div (get-aggregate-percent this.selectedCensusTractData (array 'trans_public_subway') false) 100)
+                  trans_walk=(div (get-aggregate-percent this.selectedCensusTractData (array 'trans_walk') false) 100)
+                  vehicle_occupancy=(get-aggregate-value this.selectedCensusTractData (array 'vehicle_occupancy'))
+              ) as |modeAggPcts|}}
+                {{#with this.analysis as |ta|}}
+                  {{#with (div (get (get ta.temporalDistributions time) 'percent') 100) as |temporalDistPct|}}
+                    {{#if (and (not-eq time "saturday") (not-eq inOutOrTotal.key "total"))}}
+                      {{#each this.modalSplitVariablesSubset as |mode|}}
+                        <td>
+                          {{round (get (get (get this.weekdayModeCalcs time) inOutOrTotal.key) mode)}}
+                        </td>
+                      {{/each}}
+                      <td>
+                        {{round (get (get this.weekdayModesTotals time) inOutOrTotal.key)}}
+                      </td>
+                      <td>
+                        {{round (get (get this.weekdayAutoVehicleTripCalcs time) inOutOrTotal.key)}}
+                      </td>
+                      <td>
+                        {{#if ta.taxiVehicleOccupancy}}
+                          {{round (get (get this.weekdayTaxiVehicleTripCalcs time) inOutOrTotal.key)}}
+                        {{else}}
+                          -
+                        {{/if}}
+                      </td>
+                      <td>
+                        -
+                      </td>
+                      <td>
+                        {{#if ta.taxiVehicleOccupancy}}
+                          {{round (get (get weekdayVehicleTripTotals time) inOutOrTotal.key)}}
+                        {{else}}
+                          -
+                        {{/if}}
+                      </td>
+                    {{else if (not-eq time "saturday")}}
+                      {{#each this.modalSplitVariablesSubset as |mode|}}
+                        <td>
+                          {{round (get (get this.totalsOfWeekdayMode time) mode)}}
+                        </td>
+                      {{/each}}
+                      <td>
+                        {{round (get this.totalsOfTotalsOfWeekdayMode time)}}
+                      </td>
+                      <td>
+                        {{round (get this.totalsOfWeekdayAutoVehicleTrip time)}}
+                      </td>
+                      <td>
+                        {{#if ta.taxiVehicleOccupancy}}
+                          {{round (get this.totalsOfWeekdayTaxiVehicleTrip time)}}
+                        {{else}}
+                          -
+                        {{/if}}
+                      </td>
+                      <td>
+                        -
+                      </td>
+                      <td>
+                        {{#if ta.taxiVehicleOccupancy}}
+                          {{round (get this.totalsOfTotalsOfWeekdayVehicleTrip time)}}
+                        {{else}}
+                          -
+                        {{/if}}
+                      </td>
+                    {{else if (not-eq inOutOrTotal.key "total")}}
+                      {{#each this.modalSplitVariablesSubset as |mode|}}
+                        <td>
+                          {{round (get (get this.saturdayModeCalcs inOutOrTotal.key) mode)}}
+                        </td>
+                      {{/each}}
+                      <td>
+                        {{round (get this.saturdayModesTotals inOutOrTotal.key)}}
+                      </td>
+                      <td>
+                        {{round (get this.saturdayAutoVehicleTripCalcs inOutOrTotal.key)}}
+                      </td>
+                      <td>
+                        {{#if ta.taxiVehicleOccupancy}}
+                          {{round (get this.saturdayTaxiVehicleTripCalcs inOutOrTotal.key)}}
+                        {{else}}
+                          -
+                        {{/if}}
+                      </td>
+                      <td>
+                        -
+                      </td>
+                      <td>
+                        {{#if ta.taxiVehicleOccupancy}}
+                          {{round (get this.saturdayVehicleTripTotals inOutOrTotal.key)}}
+                        {{else}}
+                          -
+                        {{/if}}
+                      </td>
+                    {{else}}
+                      {{#each this.modalSplitVariablesSubset as |mode|}}
+                        <td>
+                          {{round (get this.totalsOfSaturdayMode mode)}}
+                        </td>
+                      {{/each}}
+                      <td>
+                        {{round this.totalOfTotalsOfSaturdayMode}}
+                      </td>
+                      <td>
+                        {{round this.totalOfSaturdayAutoVehicleTrip}}
+                      </td>
+                      <td>
+                        {{#if ta.taxiVehicleOccupancy}}
+                          {{round this.totalOfSaturdayTaxiVehicleTrip}}
+                        {{else}}
+                          -
+                        {{/if}}
+                      </td>
+                      <td>
+                        -
+                      </td>
+                      <td>
+                        {{#if ta.taxiVehicleOccupancy}}
+                          {{round this.totalOfTotalsOfSaturdayVehicleTrip}}
+                        {{else}}
+                          -
+                        {{/if}}
+                      </td>
+                    {{/if}}
+                  {{/with}}
+                {{/with}}
+              {{/with}}
+            </tr>
+          {{/each}}
+        {{/each-in}}
+      {{/if}}
+    </tbody>
+  </table>
+</div>

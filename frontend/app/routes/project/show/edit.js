@@ -4,7 +4,7 @@ import { debug } from '@ember/debug';
 
 export default Route.extend({
   controllerName: 'edit-project',
-  
+
   'public-schools': service(),
   'project-orchestrator': service(),
 
@@ -15,14 +15,16 @@ export default Route.extend({
   },
 
   actions: {
-    save: async function(changeset) {                  
+    save: async function(changeset) {
       await changeset.validate();
 
       if (!changeset.isValid) return;
-      
+
       try {
         const project = await changeset.save();
-
+        // ensure changes to analyses triggered by project updates are reloaded
+        await project.transportationAnalysis.reload();
+        await project.publicSchoolsAnalysis.reload();
         this.get('public-schools').set('analysis', await project.publicSchoolsAnalysis);
         this.get('public-schools.fullReload').perform();
 
@@ -34,6 +36,6 @@ export default Route.extend({
 
     rollback: function(changeset) {
       return changeset.rollback();
-    } 
+    }
   }
 });

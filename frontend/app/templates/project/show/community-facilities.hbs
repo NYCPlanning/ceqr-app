@@ -1,11 +1,10 @@
+{{! Shares the controller context from 'project' }}
 {{title "[Community Facilities]" prepend=false}}
-
 {{#if showAnalysisSteps}}
   <div class="row">
     <div class="sixteen wide column">
-        {{community-facilities/analysis-steps project=project}}
+      <CommunityFacilities::AnalysisSteps @project={{project}} />
     </div>
   </div>
 {{/if}}
-
 {{outlet}}

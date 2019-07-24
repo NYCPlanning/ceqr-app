@@ -1,15 +1,35 @@
 import JWT from 'jsonwebtoken';
 import ENV from 'labs-ceqr/config/environment';
 import cartoresponses from './fixtures/cartoresponses';
-
+import patchXMLHTTPRequest from './helpers/mirage-mapbox-gl-monkeypatch';
+import getTransportationCensusEstimateResponse from  './helpers/get-transportation-census-estimate-response';
 const secret = 'nevershareyoursecret';
 
 export default function() {
-  // allow all static requests
+  patchXMLHTTPRequest();
+  /**
+   *
+   * Passthroughs
+   *
+   */
   this.passthrough('/data-tables/**');
   this.passthrough('/ceqr-manual/**');
+  this.passthrough('https://api.mapbox.com/**');
+  this.passthrough('https://layers-api.planninglabs.nyc/**');
+  this.passthrough('https://tiles.planninglabs.nyc/**');
+  this.passthrough('https://events.mapbox.com/events/**');
+  this.passthrough('https://planninglabs.carto.com/api/v1/map');
+  this.passthrough('https://cartocdn-gusc-a.global.ssl.fastly.net/planninglabs/**');
+  this.passthrough('https://cartocdn-gusc-b.global.ssl.fastly.net/planninglabs/**');
+  this.passthrough('https://cartocdn-gusc-c.global.ssl.fastly.net/planninglabs/**');
+  this.passthrough('https://cartocdn-gusc-d.global.ssl.fastly.net/planninglabs/**');
+  this.passthrough('https://js-agent.newrelic.com/**');
 
-  // Carto requests
+  /**
+   *
+   * Carto Data
+   *
+   */
   this.get(`https://${ENV.carto['domain']}/**`, function(schema, request) {
     const { response: { content: { text } } } = cartoresponses.log.entries.find((entry) => {
       // decode encoded uri so it's less noisy. trim it, then extract the columns
@@ -23,20 +43,33 @@ export default function() {
     return JSON.parse(text);
   });
 
+  this.urlPrefix = `${ENV.host}`;
+  /**
+   *
+   * Users/Auth
+   *
+   */
   this.post('/auth/v1/login', function() {
-    const token = JWT.sign({ id: 1, user: 'me@me.com' }, secret);
+    const token = JWT.sign({ user_id: 1, email: 'me@me.com' }, secret);
 
     return {
       token,
     };
   });
 
-  this.namespace = 'api/v1';
+  // everything after this is scoped to this namespace
+  this.namespace = '/api/v1';
+  this.get('/users/:id');
 
-  this.get('projects');
-  this.get('projects/:id');
-
-  this.post('projects', function(schema) {
+  /**
+   *
+   * Projects
+   *
+  }
+   */
+  this.get('/projects');
+  this.get('/projects/:id');
+  this.post('/projects', function(schema) {
     const attrs = this.normalizedRequestAttrs();
 
     attrs.borough = 'Manhattan';
@@ -45,36 +78,49 @@ export default function() {
     project.createPublicSchoolsAnalysis({ project });
     project.save();
 
-    return project;
-  });
+    return project; }); this.patch('/projects');
+  this.patch('/projects/:id');
 
-  this.patch('projects');
-
+  /**
+   *
+   * Analyses
+   *
+   */
   this.patch('public-schools-analyses/:id');
-
+  this.patch('transportation-analyses/:id');
+  /**
+   *
+   * BBLs
+   *
+   */
   this.get('bbls');
 
-  // These comments are here to help you get started. Feel free to delete them.
+  /**
+   *
+   * Transportation census estimates
+   *
+   */
+  this.get('acs-estimates', function(schema, request) {
+    const { queryParams } = request;
 
-  /*
-    Config (with defaults).
+    const response = getTransportationCensusEstimateResponse('ACS');
+    if(queryParams['filter[geoid]']) {
+      response.data.map((estimate) => estimate.geoid = queryParams['filter[geoid]']);
+    }
 
-    Note: these only affect routes defined *after* them!
-  */
+    return response;
+  });
 
-  // this.urlPrefix = '';    // make this `http://localhost:8080`, for example, if your API is on a different server
-  // this.namespace = '';    // make this `/api`, for example, if your API is namespaced
-  // this.timing = 400;      // delay for each request, automatically set to 0 during testing
+  this.get('ctpp-estimates', function(schema, request) {
+    const { queryParams } = request;
 
-  /*
-    Shorthand cheatsheet:
+    const response = getTransportationCensusEstimateResponse('CTPP');
+    if(queryParams['filter[geoid]']) {
+      response.data.map((estimate) => estimate.geoid = queryParams['filter[geoid]']);
+    }
 
-    this.get('/posts');
-    this.post('/posts');
-    this.get('/posts/:id');
-    this.put('/posts/:id'); // or this.patch
-    this.del('/posts/:id');
-
-    http://www.ember-cli-mirage.com/docs/v0.4.x/shorthands/
-  */
+    return response;
+  });
 }
+
+

@@ -2,20 +2,41 @@
 <table class="ui celled table">
   <thead>
     <tr>
-      <th class="three wide">Study Area</th>
+      <th class="three wide">
+        Study Area
+      </th>
       <th class="two wide">
-        Projected {{project.buildYear}} Enrollment
+        Projected
+        {{project.buildYear}}
+        Enrollment
         {{#if analysis.projectionOverMax}}
-          <div data-tooltip="Build year beyond maximum projections available. Using {{analysis.maxProjection}} enrollment projection." data-inverted="" class="ui orange label">
-            <i class="warning icon"></i> {{analysis.maxProjection}}
+          <div
+            data-tooltip="Build year beyond maximum projections available. Using
+              {{analysis.maxProjection}}
+               enrollment projection."
+            data-inverted
+            class="ui orange label"
+          >
+            <i class="warning icon"></i>
+            {{analysis.maxProjection}}
           </div>
         {{/if}}
       </th>
-      <th class="two wide">Students Introduced by No Action Residential Development</th>
-      <th class="two wide">Total No Action Enrollment</th>
-      <th class="one wide">Capacity</th>
-      <th class="one wide">Available Seats</th>
-      <th class="one wide">Utilization (%)</th>
+      <th class="two wide">
+        Students Introduced by No Action Residential Development
+      </th>
+      <th class="two wide">
+        Total No Action Enrollment
+      </th>
+      <th class="one wide">
+        Capacity
+      </th>
+      <th class="one wide">
+        Available Seats
+      </th>
+      <th class="one wide">
+        Utilization (%)
+      </th>
     </tr>
   </thead>
 
@@ -174,42 +195,75 @@
   {{#if analysis.hsAnalysis}}
     <thead>
       <tr>
-        <th colspan="7">High Schools</th>
+        <th colspan="7">
+          High Schools
+        </th>
       </tr>
     </thead>
-
     <tbody>
       {{#each analysis.hsLevelTotals.subdistrictTotals as |p|}}
         <tr>
-          <td>{{analysis.borough}}</td>
-          <td>{{p.enroll}}</td>
-          <td class="math--left"><i class="plus circle icon"></i>{{p.students}}</td>
-          <td>{{p.enrollNoAction}}</td>
-          <td>{{p.capacityNoAction}}</td>
-          <td>{{p.seatsNoAction}}</td>
-          <td>{{percentage p.utilizationNoAction}}</td>
+          <td>
+            {{analysis.borough}}
+          </td>
+          <td>
+            {{p.enroll}}
+          </td>
+          <td class="math--left">
+            <i class="plus circle icon"></i>
+            {{p.students}}
+          </td>
+          <td>
+            {{p.enrollNoAction}}
+          </td>
+          <td>
+            {{p.capacityNoAction}}
+          </td>
+          <td>
+            {{p.seatsNoAction}}
+          </td>
+          <td>
+            {{percentage p.utilizationNoAction}}
+          </td>
         </tr>
       {{/each}}
     </tbody>
   {{/if}}
 </table>
-
 <div class="ui icon message">
   <i class="database icon"></i>
   <div class="content">
     <div class="header">
-      <a target="_blank" rel="noopener" href="http://www.nycsca.org/Community/Capital-Plan-Reports-Data#Demographic-Projection-68">
-        Enrollment Projections for New York City Public Schools by the Statistical Forecasting [{{analysis.dataTables.sourceDates.enrollmentProjections}}] <i class="external alternate icon"></i>
+      <a
+        target="_blank"
+        rel="noopener"
+        href="http://www.nycsca.org/Community/Capital-Plan-Reports-Data#Demographic-Projection-68"
+      >
+        Enrollment Projections for New York City Public Schools by the Statistical Forecasting [
+        {{analysis.dataTables.sourceDates.enrollmentProjections}}
+        ]
+        <i class="external alternate icon"></i>
       </a>
     </div>
-    <p>The demographic projections take into account the birth, enrollment, and migration trends for five and ten years into the future.
-      The enrollment projection is then combined with projected housing growth to derive the total projected enrollment.</p>
+    <p>
+      The demographic projections take into account the birth, enrollment, and migration trends for five and ten years into the future.
+      The enrollment projection is then combined with projected housing growth to derive the total projected enrollment.
+    </p>
     <div class="header">
-      <a target="_blank" rel="noopener" href="http://www.nycsca.org/Community/Capital-Plan-Reports-Data#Housing-Projections-70">
-       Projected New Housing Starts as Used in Enrollment Projections [{{analysis.dataTables.sourceDates.housingPipeline}}] <i class="external alternate icon"></i>
+      <a
+        target="_blank"
+        rel="noopener"
+        href="http://www.nycsca.org/Community/Capital-Plan-Reports-Data#Housing-Projections-70"
+      >
+        Projected New Housing Starts as Used in Enrollment Projections [
+        {{analysis.dataTables.sourceDates.housingPipeline}}
+        ]
+        <i class="external alternate icon"></i>
       </a>
     </div>
-    <p>The Department of Education collaborates with other City Agencies to develop a comprehensive list of new 
-      housing starts and incorporates the expected increase in school-age population into its projections.</p>
+    <p>
+      The Department of Education collaborates with other City Agencies to develop a comprehensive list of new 
+      housing starts and incorporates the expected increase in school-age population into its projections.
+    </p>
   </div>
 </div>

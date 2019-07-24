@@ -1,34 +1,46 @@
 <div class="ui grid">
   {{#if public-schools.fullReload.isIdle}}
     <div class="row" style="margin-top: 10px">
-      <div class="sixteen wide column">     
-        <div class="ui {{if analysis.detailedAnalysis "yellow" "grey"}} segment">
+      <div class="sixteen wide column">
+        <div
+          class="ui {{if analysis.detailedAnalysis "yellow" "grey"}} segment"
+        >
           <h3>
             Does this project require a detailed analysis of potential indirect effects on public school capacity?
-            <div class="ui big horizontal label {{if analysis.detailedAnalysis "yellow" "grey"}}">
+            <div
+              class="ui big horizontal label
+                {{if analysis.detailedAnalysis "yellow" "grey"}}"
+            >
               {{if analysis.detailedAnalysis "Yes" "No"}}
             </div>
           </h3>
         </div>
       </div>
     </div>
-
     <div class="row">
       <div class="sixteen wide column">
-        {{public-schools/analysis-threshold/threshold-result analysis=analysis}}
+        <PublicSchools::AnalysisThreshold::ThresholdResult
+          @analysis={{analysis}}
+         />
+
       </div>
     </div>
-
     {{#if (eq analysis.multiplierVersion "march-2014")}}
       <div class="row">
         <div class="sixteen wide column">
-          {{public-schools/analysis-threshold/mar-2014-multipliers analysis=analysis}}
+          <PublicSchools::AnalysisThreshold::MarTwentyFourteenMultipliers
+            @analysis={{analysis}}
+           />
+
         </div>
       </div>
     {{else if (eq analysis.multiplierVersion "november-2018")}}
       <div class="row">
         <div class="sixteen wide column">
-          {{public-schools/analysis-threshold/nov-2018-multipliers analysis=analysis}}
+          <PublicSchools::AnalysisThreshold::NovTwentyEighteenMultipliers
+            @analysis={{analysis}}
+           />
+
         </div>
       </div>
     {{/if}}

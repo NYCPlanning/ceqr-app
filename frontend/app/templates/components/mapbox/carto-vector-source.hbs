@@ -1,0 +1,27 @@
+<Mapbox::LayerRegistry
+  @didUpdateLayersRegistry={{action "handleUpdatedLayersRegistry"
+  }} as |registry|
+>
+  {{! if tiles URLs exist, begin rendering }}
+  {{#if this.mapboxSourceOptions.tiles}}
+    {{! Add the source }}
+    <MapboxGlSource
+      @map={{map.instance}}
+      @sourceId={{if this.sourceId this.sourceId this.elementId}}
+      @options={{this.mapboxSourceOptions}}
+     />
+
+  {{/if}}
+  {{yield
+    (hash
+      layer=(component
+        "mapbox/carto-layer"
+        registerWithParent=(action registry.registerLayer)
+        unregisterWithParent=(action registry.unregisterLayer)
+        map=map
+        tiles=this.mapboxSourceOptions.tiles
+        _parentElementId=(if this.sourceId this.sourceId this.elementId)
+      )
+    )
+  }}
+</Mapbox::LayerRegistry>

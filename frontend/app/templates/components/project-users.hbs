@@ -5,30 +5,31 @@
       Users
     </div>
   </h3>
-
   <h4 class="ui top attached header">
     Editors
   </h4>
-
   <div class="ui bottom attached segment">
     <div class="ui divided list">
-      <div class="item">          
+      <div class="item">
         <div class="middle aligned content">
           {{currentUser.user.email}}
-          <div class="right floated content">(you)</div>
+          <div class="right floated content">
+            (you)
+          </div>
         </div>
       </div>
-      
       {{#each projectEditors as |user|}}
         <div class="item">
           <div class="middle aligned content">
             {{user.email}}
-            
             <div class="right floated content">
               <div class="ui dropdown icon item user-edit">
                 <i class="cog icon"></i>
                 <div class="menu">
-                  <div class="item" onclick={{action "changeAccess" user "viewer"}}>
+                  <div
+                    class="item"
+                    onclick={{action "changeAccess" user "viewer"}}
+                  >
                     Make Viewer
                   </div>
                   <div class="item" onclick={{action "removeUser" user}}>
@@ -42,11 +43,9 @@
       {{/each}}
     </div>
   </div>
-
   <h4 class="ui top attached header">
     Viewers
   </h4>
-
   <div class="ui bottom attached segment">
     {{#if projectViewers}}
       <div class="ui divided list">
@@ -54,12 +53,14 @@
           <div class="item">
             <div class="middle aligned content">
               {{user.email}}
-              
               <div class="right floated content">
                 <div class="ui dropdown icon item user-edit">
                   <i class="cog icon"></i>
                   <div class="menu">
-                    <div class="yellow item" onclick={{action "changeAccess" user "editor"}}>
+                    <div
+                      class="yellow item"
+                      onclick={{action "changeAccess" user "editor"}}
+                    >
                       Make Editor
                     </div>
                     <div class="red item" onclick={{action "removeUser" user}}>
@@ -77,36 +78,39 @@
     {{/if}}
   </div>
 </div>
-
 <div class="ui bottom attached segment">
   <form class="ui form" {{action "addUser" on="submit"}}>
     <div class="field">
-      {{input
-        type="text"
-        name="email"
-        value=email
-        placeholder="Email"
-      }}
+      {{input type="text" name="email" value=email placeholder="Email"}}
     </div>
-
     <div class="two fields">
       <div class="field">
-        {{#ui-dropdown class="selection" selected=permission onChange=(action (mut permission))}}
-          <div class="default text">Access Level</div>
+        <UiDropdown
+          class="selection"
+          @selected={{permission}}
+          @onChange={{action (mut permission)}}
+        >
+          <div class="default text">
+            Access Level
+          </div>
           <i class="dropdown icon"></i>
           <div class="menu">
-            <div data-value="editor" class="item">Editor</div>
-            <div data-value="viewer" class="item">Viewer</div>
+            <div data-value="editor" class="item">
+              Editor
+            </div>
+            <div data-value="viewer" class="item">
+              Viewer
+            </div>
           </div>
-        {{/ui-dropdown}}
+        </UiDropdown>
       </div>
-
       <div class="field">
-        <button class="ui blue button" type="submit">Add</button>
+        <button class="ui blue button" type="submit">
+          Add
+        </button>
       </div>
     </div>
   </form>
-
   {{#if error}}
     <div class="ui error message">
       {{error.message}}

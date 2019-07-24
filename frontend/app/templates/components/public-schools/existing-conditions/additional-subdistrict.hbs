@@ -1,44 +1,60 @@
 <div class="ui message">
-  <div class="header">Instructions</div>
+  <div class="header">
+    Instructions
+  </div>
   <p>
     If the project spans multiple school districts or school sub-districts or if the project is in a 
     school choice district, consult lead agency if additional sub-districts should be included in the analysis.
   </p>
 </div>
-
 <div class="ui segment divided grid">
-  {{#if 
-    (or analysis.esSchoolChoice analysis.isSchoolChoice (gt analysis.subdistrictsFromDb.length 1))
+  {{#if
+    (or
+      analysis.esSchoolChoice
+      analysis.isSchoolChoice
+      (gt analysis.subdistrictsFromDb.length 1)
+    )
   }}
     <div class="sixteen wide column">
       <div class="row">
         <div class="ui message warning">
           {{#if analysis.esSchoolChoice}}
-            <div class="header"><i class="attention icon"></i> Project in Elementary School Choice district</div>
-            <p>This project is located in an elementary school choice district. Confirm with lead agency that a district-wide study area is appropriate.</p>
+            <div class="header">
+              <i class="attention icon"></i>
+              Project in Elementary School Choice district
+            </div>
+            <p>
+              This project is located in an elementary school choice district. Confirm with lead agency that a district-wide study area is appropriate.
+            </p>
           {{/if}}
-
           {{#if analysis.isSchoolChoice}}
-            <div class="header"><i class="attention icon"></i> Project in Intermediate School Choice district</div>
-            <p>This project is located in an intermediate school choice district. Confirm with lead agency that a district-wide study area is appropriate.</p>
+            <div class="header">
+              <i class="attention icon"></i>
+              Project in Intermediate School Choice district
+            </div>
+            <p>
+              This project is located in an intermediate school choice district. Confirm with lead agency that a district-wide study area is appropriate.
+            </p>
           {{/if}}
-
           {{#if (gt analysis.subdistrictsFromDb.length 1)}}
-            <div class="header"><i class="attention icon"></i> Project straddles two or more subdistricts</div>
-            <p>Confirm with lead agency that a district-wide study area is appropriate.</p>
+            <div class="header">
+              <i class="attention icon"></i>
+              Project straddles two or more subdistricts
+            </div>
+            <p>
+              Confirm with lead agency that a district-wide study area is appropriate.
+            </p>
           {{/if}}
         </div>
       </div>
     </div>
   {{/if}}
-
   <div class="eight wide column">
     <h4 class="ui header">
       Subdistricts derived from BBLs
     </h4>
-
     <div class="ui list">
-      {{#each analysis.subdistrictsFromDb as |sd|}}  
+      {{#each analysis.subdistrictsFromDb as |sd|}}
         <div class="item">
           <div class="ui label">
             {{sd.sdName}}
@@ -47,14 +63,13 @@
       {{/each}}
     </div>
   </div>
-  <div class="eight wide column">    
+  <div class="eight wide column">
     <div class="row">
       <h4 class="ui header">
         Additional Subdistricts
       </h4>
-      
       <div class="ui list">
-        {{#each analysis.subdistrictsFromUser as |sd|}}  
+        {{#each analysis.subdistrictsFromUser as |sd|}}
           <div class="item">
             <div class="ui blue label">
               {{sd.sdName}}
@@ -63,45 +78,57 @@
           </div>
         {{/each}}
       </div>
-
-      {{#ui-dropdown 
+      <UiDropdown
         class="selection"
-        selected=district
-        onChange=(action "setDistrict")
-      }}
-        <div class="default text">District</div>
-          <i class="dropdown icon"></i>
-          <div class="menu">
-            {{#each districts as |d|}}
-              <div data-value={{d.district}} class="item">
-                District {{d.district}}
-              </div>
-            {{/each}}
+        @selected={{district}}
+        @onChange={{action "setDistrict"}}
+      >
+        <div class="default text">
+          District
         </div>
-      {{/ui-dropdown}}
-
-
-      {{#ui-dropdown 
-        class=(if district (if fetchSubdistricts.isRunning "disabled loading selection" "selection") "selection disabled")
-        selected=subdistrict 
-        onChange=(action "setSubdistrict")
-      }}
-        <div class="default text">Subdistrict</div>
-          <i class="dropdown icon"></i>
-          <div class="menu">
-            {{#each subdistricts as |d|}}
-              <div data-value={{d.subdistrict}} class="item">
-                Subdistrict {{d.subdistrict}}
-              </div>
-            {{/each}}
+        <i class="dropdown icon"></i>
+        <div class="menu">
+          {{#each districts as |d|}}
+            <div data-value={{d.district}} class="item">
+              District
+              {{d.district}}
+            </div>
+          {{/each}}
         </div>
-      {{/ui-dropdown}}
-
-      <button class="ui button" {{action "addSubdistrict"}}>Add</button>
+      </UiDropdown>
+      <UiDropdown
+        class={{if
+          district
+          (if fetchSubdistricts.isRunning disabled loading)
+          "selection disabled"
+        }}
+        @selected={{subdistrict}}
+        @onChange={{action "setSubdistrict"}}
+      >
+        <div class="default text">
+          Subdistrict
+        </div>
+        <i class="dropdown icon"></i>
+        <div class="menu">
+          {{#each subdistricts as |d|}}
+            <div data-value={{d.subdistrict}} class="item">
+              Subdistrict
+              {{d.subdistrict}}
+            </div>
+          {{/each}}
+        </div>
+      </UiDropdown>
+      <button class="ui button" {{action "addSubdistrict"}}>
+        Add
+      </button>
     </div>
   </div>
 </div>
-
-<div class="ui inverted dimmer {{if public-schools.addSubdistrict.isRunning "active"}}">
-  <div class="ui text loader">Loading</div>
+<div
+  class="ui inverted dimmer
+    {{if public-schools.addSubdistrict.isRunning "active"}}"
+>
+  <div class="ui text loader">
+    Loading
+  </div>
 </div>

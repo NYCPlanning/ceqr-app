@@ -4,22 +4,32 @@ import { attr, belongsTo } from '@ember-decorators/data';
 import { computed } from '@ember-decorators/object';
 import { alias } from '@ember-decorators/object/computed';
 
-export default class TransportationAnalysisModel extends Model {    
+export default class TransportationAnalysisModel extends Model {
   @belongsTo project;
 
   // Attributes
   @attr('number') trafficZone;
+  // the geoids of REQUIRED census tracts in study selection; determined by bbl intersect
+  @attr({defaultValue: () => []}) requiredJtwStudySelection;
+  // the geoids of additional user-defined study selection
+  @attr({defaultValue: () => []}) jtwStudySelection;
+  // the computed centroid of the study selection
+  @attr({defaultValue: () => []}) jtwStudyAreaCentroid;
+  // The percentage values for trip generation per-peak-hour In and Out trip distributions
+  @attr({defaultValue: () => {}}) inOutDists;
+  // User-entered taxi vehicle occupancy rate for "trip generation" existing conditions step
+  @attr({defaultValue: () => null}) taxiVehicleOccupancy;
 
   // Detailed Analysis trigger
   @computed(
-    'weightedAverage',
+    'sumOfRatios',
     'hasFastFood'
   )
   get detailedAnalysis() {
     return (
       this.hasFastFood ||
       this.hasCommunityFacility ||
-      this.weightedAverageOver1
+      this.sumOfRatiosOver1
     )
   }
 
@@ -32,7 +42,7 @@ export default class TransportationAnalysisModel extends Model {
     'communityFacilitySqFtRatio',
     'offStreetParkingSpacesRatio'
   )
-  get weightedAverage() {
+  get sumOfRatios() {
     return (
       this.residentialUnitsRatio +
       this.officeSqFtRatio +
@@ -56,10 +66,10 @@ export default class TransportationAnalysisModel extends Model {
     return !!this.get('project.communityFacilityLandUse').length;
   }
 
-  // Weighted Average boolean
-  @computed('weightedAverage')
-  get weightedAverageOver1() {
-    return this.weightedAverage > 1;
+  // Sum of Ratios boolean
+  @computed('sumOfRatios')
+  get sumOfRatiosOver1() {
+    return this.sumOfRatios > 1;
   }
   
   // Residential units
@@ -193,4 +203,28 @@ export default class TransportationAnalysisModel extends Model {
   ratioFor(type) {
     return this.get(type) / this.thresholdFor(type);
   }
+
+  /**
+   *  Existing Conditions > Trip Generation variables
+  **/ 
+
+  // Constants defined by the Technical Manual, Chapter 16 pg. 5
+  get dailyTripRate() {
+    const dtrConstants = {
+      weekday:  {label: "Weekday", rate:  8.075},
+      saturday: {label: "Saturday", rate: 9.6}
+    }
+    return dtrConstants;
+  }
+
+  get temporalDistributions() {
+    const tdConstants = {
+      am:       {label: "AM",       percent: 10, decimal: .10 },
+      md:       {label: "MD",       percent: 5,  decimal: .05 },
+      pm:       {label: "PM",       percent: 11, decimal: .11 },
+      saturday: {label: "Saturday", percent: 8,  decimal: .08 }
+    }
+    return tdConstants;
+  }
+
 }

@@ -1,0 +1,6 @@
+{{#if this.tiles}}
+  <MapboxGlLayer @map={{map.instance}} @layer={{mapboxLayerOptions}} />
+  {{#if hasBlock}}
+    {{yield (hash layerId=mapboxLayerOptions.id)}}
+  {{/if}}
+{{/if}}

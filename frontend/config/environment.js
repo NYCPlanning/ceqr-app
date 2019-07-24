@@ -1,16 +1,21 @@
 'use strict';
 
 module.exports = function(environment) {
+
   let ENV = {
+    host: getHost(environment),
     'mapbox-gl': {
-      accessToken: 'pk.eyJ1IjoicGljaG90IiwiYSI6ImNqbWIzYzFyeTVrbHAzcW9nbmRmeXNmbHcifQ.VEiOF5YV_9kxwXekZ3fWLA'
+      accessToken: 'pk.eyJ1IjoicGljaG90IiwiYSI6ImNqbWIzYzFyeTVrbHAzcW9nbmRmeXNmbHcifQ.VEiOF5YV_9kxwXekZ3fWLA',
+      map: {
+        style: 'mapbox://styles/mapbox/light-v9',
+      },
     },
     carto: {
       username: 'planninglabs',
       domain: 'planninglabs.carto.com',
     },
     'ember-simple-auth-token': {
-      serverTokenEndpoint: '/auth/v1/login',
+      serverTokenEndpoint: `${getHost(environment)}/auth/v1/login`,
       refreshAccessTokens: false,
       tokenExpireName: 'exp',
       tokenExpirationInvalidateSession: true,
@@ -40,6 +45,9 @@ module.exports = function(environment) {
       }
     },
     SENTRY_DSN: process.env.SENTRY_DSN,
+    newRelic: {
+      licenseKey: process.env.NEW_RELIC_LICENSE_KEY
+    },
 
     modulePrefix: 'labs-ceqr',
     environment,
@@ -63,16 +71,11 @@ module.exports = function(environment) {
   };
 
   if (environment === 'development') {
-    ENV['ember-simple-auth-token'].refreshAccessTokens = false;
     ENV['ember-simple-auth-token'].tokenExpirationInvalidateSession = false;
     ENV['ember-cli-mirage'] = {
-      enabled: typeof process.env.RAILS_ENV === 'undefined',
+      enabled: process.env.DISABLE_MIRAGE ? false : typeof process.env.RAILS_ENV === 'undefined',
     }
-    // ENV.APP.LOG_RESOLVER = true;
-    // ENV.APP.LOG_ACTIVE_GENERATION = true;
-    // ENV.APP.LOG_TRANSITIONS = true;
-    // ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
-    // ENV.APP.LOG_VIEW_LOOKUPS = true;
+    ENV.shouldThrowOnError = true;
   }
 
   if (environment === 'test') {
@@ -86,13 +89,36 @@ module.exports = function(environment) {
     ENV.APP.rootElement = '#ember-testing';
     ENV.APP.autoboot = false;
 
-    ENV['ember-simple-auth-token'].refreshAccessTokens = false;
     ENV['ember-simple-auth-token'].tokenExpirationInvalidateSession = false;
   }
 
+  if (environment === 'review') {
+    ENV.newRelic.applicationId = process.env.NEW_RELIC_STAGING_APP_ID;
+  }
+
+  if (environment === 'staging') {
+    ENV.newRelic.applicationId = process.env.NEW_RELIC_STAGING_APP_ID;
+  }
+
   if (environment === 'production') {
-    // here you can enable a production-specific feature
+    ENV.newRelic.applicationId = process.env.NEW_RELIC_PRODUCTION_APP_ID;
   }
 
   return ENV;
 };
+
+function getHost(environment) {
+  if (environment === 'staging') {
+    return 'https://staging.api.ceqr.app';
+  }
+
+  if (environment === 'production') {
+    return 'https://api.ceqr.app';
+  }
+
+  if (environment === 'review') {
+    return process.env.HOST_PR_REVIEW;
+  }
+
+  return process.env.HOST || '';
+}

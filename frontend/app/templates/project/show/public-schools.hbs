@@ -1,27 +1,38 @@
+{{! Shares the controller context from 'project' }}
 {{title "[Public Schools]" prepend=false}}
-
 <div class="row">
   <div class="sixteen wide column" style="z-index: 1">
-   {{public-schools/version-selector analysis=model.publicSchoolsAnalysis project=project}}
+    <PublicSchools::VersionSelector
+      @analysis={{model.publicSchoolsAnalysis}}
+      @project={{project}}
+     />
   </div>
 </div>
-
 {{#if showAnalysisSteps}}
   <div class="row">
     <div class="sixteen wide column">
-        {{public-schools/analysis-steps project=project}}
+      <PublicSchools::AnalysisSteps @project={{project}} />
     </div>
 
-    <div class="ui inverted dimmer {{if public-schools.fullReload.isRunning "active"}}">
-      <div class="ui text loader">Loading</div>
+    <div
+      class="ui inverted dimmer
+        {{if public-schools.fullReload.isRunning "active"}}"
+    >
+      <div class="ui text loader">
+        Loading
+      </div>
     </div>
   </div>
-{{/if}}
 
-{{#if (and showMap public-schools.fullReload.isIdle)}}
-  <div class="sixteen wide column">
-    {{public-schools/project-map project=model.project analysis=model.publicSchoolsAnalysis}}
-  </div>
+  {{#if showMap}}
+    <div class="row">
+      <div class="sixteen wide column">
+        <PublicSchools::ProjectMap
+          @project={{model.project}}
+          @analysis={{model.publicSchoolsAnalysis}}
+        />
+      </div>
+    </div>
+  {{/if}}
 {{/if}}
-
 {{outlet}}

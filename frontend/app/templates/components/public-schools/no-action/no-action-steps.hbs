@@ -1,23 +1,54 @@
 <div class="ui pointing menu">
-  {{#link-to "project.show.public-schools.no-action.scenario" project.id class="item"}}
+  {{#link-to
+    "project.show.public-schools.no-action.scenario"
+    project.id
+    class="item"
+  }}
     No Action Scenario
   {{/link-to}}
-
   <div class="right menu">
-    {{#link-to "project.show.public-schools.no-action.under-construction" project.id class="item"}}
-      SCA Schools<br>Under Construction
-      <div class="ui label {{if (gt analysis.scaProjects.length 0) "orange" "green"}}">{{analysis.scaProjects.length}}</div>
+    {{#link-to
+      "project.show.public-schools.no-action.under-construction"
+      project.id
+      class="item"
+    }}
+      SCA Schools
+      <br />
+      Under Construction
+      <div
+        class="ui label
+          {{if (gt analysis.scaProjects.length 0) "orange" "green"}}"
+      >
+        {{analysis.scaProjects.length}}
+      </div>
     {{/link-to}}
-
-    {{#link-to "project.show.public-schools.no-action.utilization-changes" project.id class="item"}}
-      DOE Significant<br>Utilization Changes
-      <div class="ui label {{if (gt analysis.doeUtilChangesCount 0) "orange" "green"}}">{{analysis.doeUtilChangesCount}}</div>
+    {{#link-to
+      "project.show.public-schools.no-action.utilization-changes"
+      project.id
+      class="item"
+    }}
+      DOE Significant
+      <br />
+      Utilization Changes
+      <div
+        class="ui label
+          {{if (gt analysis.doeUtilChangesCount 0) "orange" "green"}}"
+      >
+        {{analysis.doeUtilChangesCount}}
+      </div>
     {{/link-to}}
-
-    {{#link-to "project.show.public-schools.no-action.residential-development" project.id class="item"}}
-      Additional<br>Residential Development
+    {{#link-to
+      "project.show.public-schools.no-action.residential-development"
+      project.id
+      class="item"
+    }}
+      Additional
+      <br />
+      Residential Development
       {{#if (gt analysis.futureResidentialDev.length 0)}}
-        <div class="ui label blue">{{analysis.futureResidentialDev.length}}</div>
+        <div class="ui label blue">
+          {{analysis.futureResidentialDev.length}}
+        </div>
       {{/if}}
     {{/link-to}}
   </div>

@@ -15,6 +15,29 @@ module.exports = function(defaults) {
     // Example to include jQuery slim instead of default build
     jquery: {
       slim: true
+    },
+
+    autoImport: {
+      alias: {
+        // if in development mode, use development version of mapbox-gl for easier debugging
+        // mapbox-gl-dev is unminified and therefore easier to read 
+        ...(process.env.EMBER_ENV === 'development' ? {'mapbox-gl': 'mapbox-gl/dist/mapbox-gl-dev'} : {})
+      },
+    },
+
+    'ember-ast-hot-load': {
+      helpers: [
+        'page-title',
+        'find-modal-split',
+        'get-aggregate-value',
+        'get-aggregate-percent',
+        'get-split-value',
+        'get-split-percent',
+        'human-readable-census-tract',
+        'map-color-for',
+        'percentage'
+      ],
+      enabled: true
     }
   });
 

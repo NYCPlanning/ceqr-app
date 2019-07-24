@@ -1,0 +1,18 @@
+<div class="ui basic top attached segment">
+  <div class="ui secondary menu">
+    <a
+      class="item {{unless this.switch "active"}}"
+      data-test-censustracts-table-isrjtw="false"
+      {{action (mut this.switch) false}}
+    >
+      {{this.falseLabel}}
+    </a>
+    <a
+      class="item {{if this.switch "active"}}"
+      data-test-censustracts-table-isrjtw="true"
+      {{action (mut this.switch) true}}
+    >
+      {{this.trueLabel}}
+    </a>
+  </div>
+</div>

@@ -1,1 +1,10 @@
-{{outlet}}
+{{! transportation/existing-conditions controller template }}
+{{outlet 'map'}}
+<div class="row">
+  <div class="sixteen wide column">
+    <Transportation::ExistingConditions::ExistingConditionsSteps
+      @project={{this.model.project}}
+    />
+  </div>
+</div>
+{{outlet 'table'}}

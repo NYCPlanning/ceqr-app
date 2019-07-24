@@ -1,11 +1,10 @@
-{{#ui-dropdown 
-  selected=currentChapter
-  class="chapter-dropdown"
-}}
-  <div class="default text">Select Chapter</div>
+<UiDropdown @selected={{currentChapter}} class="chapter-dropdown">
+  <div class="default text">
+    Select Chapter
+  </div>
   <i class="dropdown icon"></i>
   <div class="menu">
-    <div 
+    <div
       data-value="community-facilities"
       class="item"
       onClick={{action "gotoChapter" "community-facilities"}}
@@ -15,7 +14,7 @@
         Community Facilities
       </h3>
     </div>
-    <div 
+    <div
       data-value="public-schools"
       class="item"
       onClick={{action "gotoChapter" "public-schools"}}
@@ -25,16 +24,6 @@
         Public Schools
       </h3>
     </div>
-    {{!-- <div
-      data-value="solid-waste"
-      class="item"
-      onClick={{action "gotoChapter" "solid-waste"}}
-    >
-      <h3>
-        <i class="trash alternate icon"></i>
-        Solid Waste
-      </h3>
-    </div> --}}
     <div
       data-value="transportation"
       class="item"
@@ -46,4 +35,4 @@
       </h3>
     </div>
   </div>
-{{/ui-dropdown}}
+</UiDropdown>

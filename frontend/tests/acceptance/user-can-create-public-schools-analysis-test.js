@@ -8,6 +8,8 @@ module('Acceptance | user can create public schools analysis', function(hooks) {
   setupMirage(hooks);
 
   test('visiting /', async function(assert) {
+    this.server.create('user');
+
     await visit('/');
     await fillIn('[data-test-login-form="email"]', 'user@email.com');
     await fillIn('[data-test-login-form="password"]', 'password');
