@@ -6,3 +6,4 @@
 
 # Ignore .env
 .env
+node_modules
