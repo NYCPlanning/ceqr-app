@@ -69,7 +69,7 @@ Router.map(function() {
       });
 
       this.route('transportation', function() {
-        this.route('analysis-threshold', {path: '/'});
+        this.route('analysis-threshold');
         this.route('existing-conditions', function() {
           this.route('census-tracts');
           this.route('journey-to-work');
