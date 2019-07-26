@@ -68,7 +68,9 @@
               -
             </td>
             {{#each censusTracts as |modalSplit|}}
-              <td>{{get-split-value modalSplit (array "vehicle_occupancy") true}}</td>
+              <td>
+                {{get-split-value modalSplit (array "vehicle_occupancy")}}<span class="moe"> {{get-split-moe modalSplit (array "vehicle_occupancy")}}</span>
+              </td>
               <td>
                   -
               </td>

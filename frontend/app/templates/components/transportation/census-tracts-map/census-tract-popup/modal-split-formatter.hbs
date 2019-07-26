@@ -25,10 +25,18 @@
     {{#each this.displayVariables as |variable|}}
       <tr>
        <td data-test-mode={{variable}}>{{get (get acsData variable) 'mode'}}</td>
-       <td class="single line" data-test-acs-value={{variable}}>{{get-split-value acsData variable true}}</td>
-       <td class="single line" data-test-acs-percent={{variable}}>{{get-split-percent acsData (array variable)}}</td>
-       <td class="single line" data-test-ctpp-value={{variable}}>{{get-split-value ctppData variable true}}</td>
-       <td class="single line" data-test-ctpp-percent={{variable}}>{{get-split-percent ctppData (array variable)}}</td>
+       <td class="single line" data-test-acs-value={{variable}}>
+         {{get-split-value acsData variable}}<span class="moe"> {{get-split-moe acsData variable}}</span>
+       </td>
+       <td class="single line" data-test-acs-percent={{variable}}>
+         {{get-split-percent acsData (array variable)}}
+        </td>
+       <td class="single line" data-test-ctpp-value={{variable}}>
+         {{get-split-value ctppData variable}}<span class="moe"> {{get-split-moe ctppData variable}}</span>
+       </td>
+       <td class="single line" data-test-ctpp-percent={{variable}}>
+         {{get-split-percent ctppData (array variable)}}
+       </td>
      </tr>
     {{/each}}
   </tbody>

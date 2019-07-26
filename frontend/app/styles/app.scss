@@ -1,3 +1,5 @@
+$gray: #828892;
+
 // Body & containter
 
 html, body {
@@ -253,6 +255,13 @@ td {
       right: -0.6em;
     }
   }
+}
+
+.moe {
+  color: $gray;
+  font-size: 0.7em;
+  vertical-align: top;
+  white-space: nowrap;
 }
 
 // Tooltips
