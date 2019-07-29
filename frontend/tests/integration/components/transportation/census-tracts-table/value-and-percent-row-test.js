@@ -25,6 +25,6 @@ module('Integration | Component | transportation/census-tracts-table/value-and-p
 
     // Then it renders the title, variable count and percent, and total variable count and percent
     const row = find('tr');
-    assert.ok(row.textContent.match(/testTitle\s+\d+\s+\d+\.\d+\s%\s+\d+±\d+\s+\d+\.\d+\s%/));
+    assert.ok(row.textContent.match(/testTitle\s+\d+\s+\d+\.\d+\s%\s+\d+\s±\d+\s+\d+\.\d+\s%/));
   });
 });
