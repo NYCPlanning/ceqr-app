@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_23_155612) do
+ActiveRecord::Schema.define(version: 2019_07_30_152227) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -25,12 +25,13 @@ ActiveRecord::Schema.define(version: 2019_07_23_155612) do
 
   create_table "data_packages", force: :cascade do |t|
     t.text "name"
-    t.text "analysis"
+    t.text "package"
     t.date "release_date"
-    t.jsonb "config"
-    t.jsonb "datasets"
+    t.jsonb "schemas"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "version"
+    t.index ["package", "version"], name: "index_data_packages_on_package_and_version"
   end
 
   create_table "project_permissions", force: :cascade do |t|
