@@ -16,8 +16,9 @@ Rails.application.routes.draw do
 
       jsonapi_resources :projects
       jsonapi_resources :project_permissions
+      jsonapi_resources :data_packages
 
-      # Chapters
+      # Analyses
       jsonapi_resources :public_schools_analyses
       jsonapi_resources :transportation_analyses
       jsonapi_resources :community_facilities_analyses

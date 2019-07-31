@@ -3,7 +3,6 @@ import { computed } from '@ember/object';
 import { inject as service } from '@ember/service';
 
 export default Controller.extend({  
-  'public-schools': service(),
   router: service(),
 
   project: computed.alias('model.project'),

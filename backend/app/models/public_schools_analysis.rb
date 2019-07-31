@@ -21,10 +21,6 @@ class PublicSchoolsAnalysis < ApplicationRecord
 # for future data_package refactor
 # self.data_package.schemas["sca_bluebook"]["table"]
 
-### MULTIPLIERS
-  def multipliers
-    self.data_package.config['multipliers']
-  end
 
 ### SUBDISTRICTS FROM DB
 # array of objects --> district & subdistrict info

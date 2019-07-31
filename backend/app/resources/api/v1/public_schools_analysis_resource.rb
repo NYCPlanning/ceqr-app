@@ -1,7 +1,7 @@
 class Api::V1::PublicSchoolsAnalysisResource < JSONAPI::Resource
   attributes(
     :multipliers,
-    :data_tables,
+    :new_data_available,
 
     :es_school_choice,
     :is_school_choice,
@@ -27,4 +27,17 @@ class Api::V1::PublicSchoolsAnalysisResource < JSONAPI::Resource
   )
 
   has_one :project
+  has_one :data_package
+  
+  def multipliers
+    multiplier_version = data_package.version == "november_2017" ? "march-2014" : "november-2018"
+    
+    file_path = Rails.root.join('public', 'ceqr-manual', 'public-schools', "#{multiplier_version}.json").to_s
+    file = File.read(file_path)
+    JSON.parse(file)
+  end
+
+  def new_data_available
+    DataPackage.latest_for('public_schools').id != data_package.id
+  end
 end

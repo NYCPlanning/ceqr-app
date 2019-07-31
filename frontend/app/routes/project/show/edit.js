@@ -5,7 +5,6 @@ import { debug } from '@ember/debug';
 export default Route.extend({
   controllerName: 'edit-project',
 
-  'public-schools': service(),
   'project-orchestrator': service(),
 
   afterModel(model) {
@@ -25,8 +24,6 @@ export default Route.extend({
         // ensure changes to analyses triggered by project updates are reloaded
         await project.transportationAnalysis.reload();
         await project.publicSchoolsAnalysis.reload();
-        this.get('public-schools').set('analysis', await project.publicSchoolsAnalysis);
-        this.get('public-schools.fullReload').perform();
 
         history.back();
       } catch(err) {

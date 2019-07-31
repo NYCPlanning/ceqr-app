@@ -8,9 +8,12 @@ export default Route.extend({
     const { project } = this.modelFor('project/show');
     const publicSchoolsAnalysis = await project.publicSchoolsAnalysis;
 
+    const availablePackages = this.store.query('data-package', { filter: { package: 'public_schools' } });  
+    
     return RSVP.hash({
       project,
-      publicSchoolsAnalysis
+      publicSchoolsAnalysis,
+      availablePackages
     });
   },
 

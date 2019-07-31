@@ -6,6 +6,9 @@ import LevelTotals from '../fragments/public-schools/LevelTotals';
 
 export default DS.Model.extend({
   project: DS.belongsTo('project'),
+  dataPackage: DS.belongsTo('data-package'),
+
+  newDataAvailable: DS.attr('boolean'),
 
   // Analysis Model triggers across
   detailedAnalysis: computed.alias('indirectEffect'),
@@ -32,10 +35,9 @@ export default DS.Model.extend({
   }),
 
   // Schools Data version
-  dataTables: DS.attr(''),
-  dataVersion: computed.alias('dataTables.version'),
-  maxProjection: computed.alias('dataTables.enrollmentProjectionsMaxYear'),
-  minProjection: computed.alias('dataTables.enrollmentProjectionsMinYear'),
+  dataVersion: computed.alias('dataPackage.version'),
+  maxProjection: computed.alias('dataPackage.schemas.sca_enrollment_projections_by_sd.maxYear'),
+  minProjection: computed.alias('dataPackage.schemas.sca_enrollment_projections_by_sd.minYear'),
 
   // Derived from map
   esSchoolChoice: DS.attr('boolean'),

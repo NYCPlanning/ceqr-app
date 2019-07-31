@@ -1,17 +1,26 @@
 {{! Shares the controller context from 'project' }}
 {{title "[Public Schools]" prepend=false}}
 <div class="row">
-  <div class="sixteen wide column" style="z-index: 1">
+  <div class="eight wide column" style="z-index: 1">
     <PublicSchools::VersionSelector
       @analysis={{model.publicSchoolsAnalysis}}
-      @project={{project}}
-     />
+      @project={{model.project}}
+      @availablePackages={{model.availablePackages}}
+    />
+  </div>
+  <div class="eight wide column right aligned">
+    <div class="ui medium label">
+      Schools Multipliers:
+      <div class="detail">
+        {{humanize model.publicSchoolsAnalysis.multiplierVersion}}
+      </div>
+    </div>
   </div>
 </div>
 {{#if showAnalysisSteps}}
   <div class="row">
     <div class="sixteen wide column">
-      <PublicSchools::AnalysisSteps @project={{project}} />
+      <PublicSchools::AnalysisSteps @project={{model.project}} />
     </div>
 
     <div

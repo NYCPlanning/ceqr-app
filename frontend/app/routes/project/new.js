@@ -7,7 +7,6 @@ export default Route.extend({
   controllerName: 'edit-project',
   
   currentUser: service(),
-  'public-schools': service(),
   'project-orchestrator': service(),
   
   async model() {

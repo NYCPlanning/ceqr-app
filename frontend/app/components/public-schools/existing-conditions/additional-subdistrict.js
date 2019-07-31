@@ -4,13 +4,11 @@ import { task } from 'ember-concurrency';
 import { inject as service } from '@ember/service';
 
 export default Component.extend({
-  'public-schools': service(),
   mapservice: service(),
   
   init() {
     this._super(...arguments);
     this.fetchDistricts.perform();
-    this.get('public-schools').set('analysis', this.analysis);
   },
 
   fetchDistricts: task(function*() {
