@@ -78,7 +78,7 @@
   </thead>
   <tbody>
     {{#each buildings as |b|}}
-      <TrHover class={{b.org_level}} @source={{b.source}} @id={{b.cartodb_id}}>
+      <TrHover class={{b.level}} @source={{b.source}} @id={{b.cartodb_id}}>
         <td>
           {{b.org_id}}
         </td>
@@ -94,7 +94,7 @@
           {{else}}
             <i
               class="circle school icon"
-              style={{map-color-for b.org_level}}
+              style={{map-color-for b.level}}
             ></i>
           {{/if}}
           {{b.name}}
@@ -109,7 +109,7 @@
           {{b.address}}
         </td>
         <td>
-          {{b.org_level}}
+          {{b.level}}
         </td>
         <td>
           {{b.enroll}}

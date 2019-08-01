@@ -4,6 +4,7 @@ import { computed } from '@ember/object';
 
 export default Component.extend({
   store: service(),
+  'ceqr-data': service(),
   
   borough: computed('project.bbls.[]', function() {
     const bbls = this.project.get('bbls');
@@ -44,8 +45,6 @@ export default Component.extend({
         return;
       }
 
-
-
       // if additional bbl is not in same boro
       if (
         this.project.get('bbls').length > 0 &&
@@ -56,16 +55,16 @@ export default Component.extend({
         return;
       }
 
-      const results = await this.store.query('bbl', { filter: { bbl } });
-      
+      const valid_bbl = await this.get('ceqr-data').valid_bbl(bbl, '18v2');
+
       // if no bbl exists
-      if (results.length !== 1) {
+      if (!valid_bbl) {
         this.set('error', {message: 'The entered BBL does not exist in the current version of MapPLUTO'});
         this.set('bbl', null);
         return;
       }
 
-      this.project.set('bblsVersion', results.get('firstObject.version'));
+      this.project.set('bblsVersion', '18v2');
       this.project.get('bbls').pushObject(bbl);
       this.set('bbl', null);
     },

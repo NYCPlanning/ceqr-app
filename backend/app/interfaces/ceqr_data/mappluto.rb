@@ -7,5 +7,9 @@ module CeqrData
         @dataset.select{ ST_MULTI(ST_UNION(geom)) }.where(bbl: bbls).first[:st_multi]
       )
     end
+
+    def bbl_exists?(bbl)
+      !!query.where(bbl: bbl).first
+    end
   end
 end

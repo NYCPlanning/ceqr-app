@@ -1,6 +1,5 @@
 class TransportationAnalysis < ApplicationRecord
   before_save :compute_for_model_update
-
   before_create :compute_for_project_create_or_update
 
   belongs_to :project

@@ -1,19 +1,6 @@
 class PublicSchoolsAnalysis < ApplicationRecord
-
-  after_create :set_subdistricts
-  after_create :set_es_school_choice
-  after_create :set_is_school_choice
-  # after_create :set_subdistrict_attributes
-  after_create :set_bluebook
-  after_create :set_lcgms
-  after_create :set_sca_projects
-  after_create :set_future_enrollment_multipliers
-  after_create :set_hs_projections
-  after_create :set_future_enrollment_projections
-  after_create :set_hs_students_from_housing
-  after_create :set_future_enrollment_new_housing
-  after_create :set_doe_util_changes
-  # Missing set_subdistricts on project update
+  before_save :compute_for_model_update
+  before_create :compute_for_project_create_or_update
 
   belongs_to :project
   belongs_to :data_package
@@ -21,6 +8,25 @@ class PublicSchoolsAnalysis < ApplicationRecord
 # for future data_package refactor
 # self.data_package.schemas["sca_bluebook"]["table"]
 
+def compute_for_model_update
+  
+end
+
+def compute_for_project_create_or_update
+  set_subdistricts
+  # set_subdistrict_attributes
+  set_es_school_choice
+  set_is_school_choice
+  set_bluebook
+  set_lcgms
+  set_sca_projects
+  set_future_enrollment_multipliers
+  set_hs_projections
+  set_future_enrollment_projections
+  set_hs_students_from_housing
+  set_future_enrollment_new_housing
+  set_doe_util_changes
+end
 
 ### SUBDISTRICTS FROM DB
 # array of objects --> district & subdistrict info
@@ -35,8 +41,6 @@ class PublicSchoolsAnalysis < ApplicationRecord
         sdName: "District #{sd[:district]} - Subdistrict #{sd[:subdistrict]}"
       }
     end
-
-    self.save!
   end
 
   ### PRIMARY SCHOOL CHOICE
@@ -49,8 +53,6 @@ class PublicSchoolsAnalysis < ApplicationRecord
     es_school_choice_boolean = es_school_choice_array.include? true
 
     self.es_school_choice = es_school_choice_boolean
-
-    self.save!
   end
 
   ### INTERMEDIATE SCHOOL CHOICE
@@ -63,8 +65,6 @@ class PublicSchoolsAnalysis < ApplicationRecord
     is_school_choice_boolean = is_school_choice_array.include? true
 
     self.is_school_choice = is_school_choice_boolean
-
-    self.save!
   end
 
 ### AGGREGATED GEOMETRY OF ALL SUBDISTRICTS FOR PROJECT
@@ -99,8 +99,6 @@ class PublicSchoolsAnalysis < ApplicationRecord
 
     # set our analysis.bluebook to the populated new_bluebook_array
     self.bluebook = new_bluebook_array
-
-    self.save!
   end
 
 ### LCGMS SCHOOLS
@@ -141,8 +139,6 @@ class PublicSchoolsAnalysis < ApplicationRecord
     end
 
     self.lcgms = new_lcgms_array
-
-    self.save!
   end
 
 ### SCA PROJECTS SCHOOLS
@@ -172,8 +168,6 @@ class PublicSchoolsAnalysis < ApplicationRecord
       end
 
     self.sca_projects = new_sca_projects_array
-
-    self.save!
   end
 
 ### FUTURE ENROLLMENT MULTIPLIERS
@@ -190,9 +184,6 @@ class PublicSchoolsAnalysis < ApplicationRecord
         multiplier: em[:multiplier]
       }
     end
-
-    self.save!
-
   end
 
 ### HS PROJECTIONS
@@ -208,9 +199,6 @@ class PublicSchoolsAnalysis < ApplicationRecord
       borough: pr[:borough]
     }
   end
-
-  self.save!
-
 end
 
 ### FUTURE ENROLLMENT PROJECTIONS
@@ -226,14 +214,11 @@ def set_future_enrollment_projections
   self.future_enrollment_projections = enrollment_projection_by_district.map do |pr|
     {
       ps: pr[:ps],
-      is: pr[:is],
+      ms: pr[:is], # this is legacy and should change to 'is'
       district: pr[:district],
       school_year: pr[:school_year]
     }
   end
-
-  self.save!
-
 end
 
 ### HS STUDENTS FROM HOUSING
@@ -245,9 +230,6 @@ def set_hs_students_from_housing
   hs_students = high_school_students_from_housing.map{|s| s[:hs_students]}
 
   self.hs_students_from_housing = hs_students.first
-
-  self.save!
-
 end
 
 ### FUTURE ENROLLMENT NEW HOUSING
@@ -265,9 +247,6 @@ def set_future_enrollment_new_housing
       students: e[:students]
     }
   end
-
-  self.save!
-
 end
 
 ### DOE UTIL CHANGES
@@ -296,9 +275,6 @@ def set_doe_util_changes
       bldg_id_additional: d[:bldg_id_additional]
     }
   end
-
-  self.save!
-
 end
 
 ################################################################################
@@ -326,7 +302,7 @@ end
   # finds the first object in the bluebook array that matches org_id, bldg_id, level, and dataVersion of
   # the new data grabbed from the database (e.g. ps_schools)
   def find_existing_bluebook_school(schools, level)
-    self.bluebook.find {|bluebook| bluebook[:org_id] == schools[:org_id] && bluebook[:bldg_id] == schools[:bldg_id] && bluebook[:level] == level && x[:dataVersion] == data_tables['version']}
+    self.bluebook.find {|bluebook| bluebook[:org_id] == schools[:org_id] && bluebook[:bldg_id] == schools[:bldg_id] && bluebook[:level] == level}
   end
 
   # formats the data into a object with reformatted properties
@@ -343,14 +319,13 @@ end
       district: school[:district].to_s,
       subdistrict: school[:subdistrict].to_s,
       source: 'bluebook',
-      capacity: school["#{db_level}_capacity"],
-      capacityFuture: school["#{db_level}_capacity"],
-      enroll: school["#{db_level}_enroll"],
-    address: school[:address],
+      capacity: school["#{db_level}_capacity".to_sym],
+      capacityFuture: school["#{db_level}_capacity".to_sym],
+      enroll: school["#{db_level}_enroll".to_sym],
+      address: school[:address],
       bldg_name: school[:bldg_name],
       borocode: school[:borocode],
-      excluded: school[:excluded],
-      dataVersion: data_tables['version']
+      excluded: school[:excluded]
     }
   end
 
@@ -415,8 +390,7 @@ end
       enroll: school["#{level}_enroll"],
       capacity: lcgmsCapacity,
       address: school[:address],
-      borocode: borocode,
-      dataVersion: data_tables['version']
+      borocode: borocode
     }
   end
 
@@ -447,32 +421,31 @@ end
       ps_capacity: ps_capacity,
       is_capacity: is_capacity,
       hs_capacity: hs_capacity,
-      includeInCapacity: includeInCapacity,
-      dataVersion: data_tables['version']
+      includeInCapacity: includeInCapacity
     }
   end
 
 ################################################################################
 ### PRIVATE METHODS FOR HS_PROJECTIONS & FUTURE_ENROLLMENT_PROJECTIONS
 
-  def buildYearMaxed
-    projectionsOverMax = project.build_year > data_tables['enrollmentProjectionsMaxYear']
+  def buildYearMaxed    
+    maxYear = data_package.schemas["sca_enrollment_projections_by_sd"]["maxYear"]
 
-    projectionsOverMax == true ? data_tables['enrollmentProjectionsMaxYear'] : project.build_year
+    project.build_year > maxYear ? maxYear : project.build_year
   end
 
 ### TEST VERSIONS
 
-def testVersionSubdistrict
-  '2017'
-end
+  def testVersionSubdistrict
+    '2017'
+  end
 
-def testVersionMost
-  '2018'
-end
+  def testVersionMost
+    '2018'
+  end
 
-def testVersionDoe
-  '062018'
-end
+  def testVersionDoe
+    '062018'
+  end
 
 end

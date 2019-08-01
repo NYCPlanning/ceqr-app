@@ -1,0 +1,3 @@
+class CeqrDataController < ApplicationController
+
+end

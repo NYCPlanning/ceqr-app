@@ -28,7 +28,7 @@ export default DS.Model.extend({
       case 'march-2014':
         return this.multipliers.boroughs.findBy('name', this.borough) || {};
       case 'november-2018':
-        return this.multipliers.districts.findBy('csd', this.district) || {};
+        return this.multipliers.districts.findBy('csd', parseInt(this.district)) || {};
       default:
         return {};
     }

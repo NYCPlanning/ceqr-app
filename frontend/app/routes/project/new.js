@@ -1,7 +1,6 @@
 import Route from '@ember/routing/route';
 import RSVP from 'rsvp';
 import { inject as service } from '@ember/service';
-// import { debug } from '@ember/debug';
 
 export default Route.extend({
   controllerName: 'edit-project',
