@@ -1,5 +1,5 @@
 module CeqrData
-  class HousingPipelineByBoro < Base  
+  class ScaHousingPipelineByBoro < Base  
     self.schema = "sca_housing_pipeline_by_boro"
 
     # high school students added by new housing in borough

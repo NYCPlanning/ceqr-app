@@ -2,9 +2,9 @@ require 'rails_helper'
 
 RSpec.describe "CeqrData SCA Capital Projects", type: :model do
   context "All SCA Capital Project Schools " do
-    let(:sca_capital_project_2018) { CeqrData::ScaCapitalProject.version('2018') }
-    let(:sca_capital_project_022019) { CeqrData::ScaCapitalProject.version('022019') }
-    let(:school_subdistrict) { CeqrData::SchoolSubdistrict.version('2017') }
+    let(:sca_capital_project_2018) { CeqrData::ScaCapitalProjects.version('2018') }
+    let(:sca_capital_project_022019) { CeqrData::ScaCapitalProjects.version('022019') }
+    let(:school_subdistrict) { CeqrData::DoeSchoolSubdistricts.version('2017') }
 
     it "returns an array of SCA schools that match subdistrict VERSION 2018" do
       subdistrict_pairs = ["(2,3)"]

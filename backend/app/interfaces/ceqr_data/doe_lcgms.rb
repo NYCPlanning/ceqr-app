@@ -1,5 +1,5 @@
 module CeqrData
-  class LcgmsSchool < Base  
+  class DoeLcgms < Base  
     self.schema = "doe_lcgms"
 
     # all lcgms schools that intersect a district & subdistrict

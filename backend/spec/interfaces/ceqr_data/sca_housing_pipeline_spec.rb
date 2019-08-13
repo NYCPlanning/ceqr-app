@@ -2,8 +2,8 @@ require 'rails_helper'
 
 RSpec.describe "CeqrData SCA HousingPipeline", type: :model do
   context "by school districts" do
-    let(:sca_housing_pipeline_by_sd_2018) { CeqrData::HousingPipelineBySd.version('2018') }
-    let(:sca_housing_pipeline_by_sd_2017) { CeqrData::HousingPipelineBySd.version('2017') }
+    let(:sca_housing_pipeline_by_sd_2018) { CeqrData::ScaHousingPipelineBySd.version('2018') }
+    let(:sca_housing_pipeline_by_sd_2017) { CeqrData::ScaHousingPipelineBySd.version('2017') }
 
     it "returns future_enrollment_new_housing value 2018" do
       subdistricts = ["(2,1)"]
@@ -35,8 +35,8 @@ RSpec.describe "CeqrData SCA HousingPipeline", type: :model do
   end
 
   context "by boroughs" do
-    let(:sca_housing_pipeline_by_boro_2018) { CeqrData::HousingPipelineByBoro.version('2018') }
-    let(:sca_housing_pipeline_by_boro_2017) { CeqrData::HousingPipelineByBoro.version('2017') }
+    let(:sca_housing_pipeline_by_boro_2018) { CeqrData::ScaHousingPipelineByBoro.version('2018') }
+    let(:sca_housing_pipeline_by_boro_2017) { CeqrData::ScaHousingPipelineByBoro.version('2017') }
 
     it "returns hs_students_from_housing value" do
       project_borough = "Manhattan"

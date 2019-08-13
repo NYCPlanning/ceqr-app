@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "CeqrData School Subdistrict", type: :model do
   context "school subdistrict" do
-    let(:school_subdistrict_2017) { CeqrData::SchoolSubdistrict.version('2017') }
+    let(:school_subdistrict_2017) { CeqrData::DoeSchoolSubdistricts.version('2017') }
 
     it "returns an array of subdistricts intersecting with a given polygon VERSION 2017" do
       geom = RGeo::Cartesian.preferred_factory(srid: 4326).parse_wkt("MULTIPOLYGON (((-74.0099084890881 40.708117924001066, -74.01022903213298 40.70775652803635, -74.01112059856906 40.708288226011604, -74.01079076752514 40.708695737776026, -74.0099084890881 40.708117924001066)))")

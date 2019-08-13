@@ -5,8 +5,8 @@ FactoryBot.define do
     package      { "public_schools" }
     release_date { Faker::Date.between(2.years.ago, 1.year.ago) }
     schemas      { { 
-      "lcgms": { "table": "2018" },
-      "school_subdistricts": { "table": "2017"},
+      "doe_lcgms": { "table": "2018" },
+      "doe_school_subdistricts": { "table": "2017"},
     } }
   end
 end

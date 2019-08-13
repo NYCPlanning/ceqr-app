@@ -46,7 +46,7 @@ class TransportationAnalysis < ApplicationRecord
 
     # Find, set, and save the traffic zone
     def compute_traffic_zone
-      zones = CeqrData::TrafficZone.version(testVersion2).for_geom(project.bbls_geom)
+      zones = CeqrData::TrafficZones.version(testVersion2).for_geom(project.bbls_geom)
 
       # Currently set traffic zone to most conservative touched by study area
       self.traffic_zone = zones.max

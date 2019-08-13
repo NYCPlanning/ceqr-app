@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe TransportationAnalysis, type: :model do    
   before do
-    @trafficZoneMock = class_double('TrafficZone')
+    @trafficZoneMock = class_double('TrafficZones')
     @trafficZoneObject = double()
 
     allow(@trafficZoneMock).to receive(:version).and_return(@trafficZoneObject)
@@ -18,7 +18,7 @@ RSpec.describe TransportationAnalysis, type: :model do
     allow(@censusTractObject).to receive(:touches_geoids).and_return(['bananas'])
     allow(@censusTractObject).to receive(:st_union_geoids_centroid).and_return(generate(:point))
 
-    stub_const("#{CeqrData}::TrafficZone", @trafficZoneMock)
+    stub_const("#{CeqrData}::TrafficZones", @trafficZoneMock)
     stub_const("#{CeqrData}::CensusTract", @censusTractMock)
   end
 

@@ -3,9 +3,9 @@ require 'rails_helper'
 RSpec.describe "CeqrData Doe Lcgms", type: :model do
   ### LCGMS SCHOOLS
   context "All Lcgms Schools" do
-    let(:lcgms_school_2018) { CeqrData::LcgmsSchool.version('2018') }
-    let(:lcgms_school_2017) { CeqrData::LcgmsSchool.version('2017') }
-    let(:school_subdistrict) { CeqrData::SchoolSubdistrict.version('2017') }
+    let(:lcgms_school_2018) { CeqrData::DoeLcgms.version('2018') }
+    let(:lcgms_school_2017) { CeqrData::DoeLcgms.version('2017') }
+    let(:school_subdistrict) { CeqrData::DoeSchoolSubdistricts.version('2017') }
 
     # lcgms_schools VERSION 2018
     it "returns an array of lcmgs schools that match subdistrict VERSION 2018" do

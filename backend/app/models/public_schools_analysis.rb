@@ -1,39 +1,47 @@
 class PublicSchoolsAnalysis < ApplicationRecord
-  before_save :compute_for_model_update
   before_create :compute_for_project_create_or_update
 
   belongs_to :project
   belongs_to :data_package
 
-# for future data_package refactor
-# self.data_package.schemas["sca_bluebook"]["table"]
+  def compute_for_project_create_or_update
+    set_subdistricts_from_db
+    set_es_school_choice
+    set_is_school_choice
+    set_bluebook
+    set_lcgms
+    set_sca_projects
+    set_future_enrollment_multipliers
+    set_hs_projections
+    set_future_enrollment_projections
+    set_hs_students_from_housing
+    set_future_enrollment_new_housing
+    set_doe_util_changes
+  end
 
-def compute_for_model_update
-  
-end
+  private
 
-def compute_for_project_create_or_update
-  set_subdistricts
-  # set_subdistrict_attributes
-  set_es_school_choice
-  set_is_school_choice
-  set_bluebook
-  set_lcgms
-  set_sca_projects
-  set_future_enrollment_multipliers
-  set_hs_projections
-  set_future_enrollment_projections
-  set_hs_students_from_housing
-  set_future_enrollment_new_housing
-  set_doe_util_changes
-end
+  def subdistrict_pairs
+    subdistricts = self.subdistricts_from_db + self.subdistricts_from_user
+    subdistricts.map { |sd| "(#{sd['district']},#{sd['subdistrict']})" }
+  end
 
-### SUBDISTRICTS FROM DB
-# array of objects --> district & subdistrict info
-  def set_subdistricts
-    subdistricts = CeqrData::SchoolSubdistrict.version(testVersionSubdistrict).intersecting_with_bbls(project.bbls_geom)
+  def subdistricts
+    @subdistricts ||= CeqrData::DoeSchoolSubdistricts.version(
+      data_package.table_for("doe_school_subdistricts")
+    ).for_subdistrict_pairs(
+      subdistrict_pairs
+    )
+  end
 
-    self.subdistricts_from_db = subdistricts.map do |sd|
+  def set_subdistricts_from_db     
+    sd = CeqrData::DoeSchoolSubdistricts.version(
+      data_package.table_for("doe_school_subdistricts")
+    ).intersecting_with_bbls(
+      project.bbls_geom
+    )
+
+    self.subdistricts_from_db = sd.map do |sd|
       {
         district: sd[:district].to_s,
         subdistrict: sd[:subdistrict].to_s,
@@ -46,41 +54,28 @@ end
   ### PRIMARY SCHOOL CHOICE
   # boolean for whether project is within a school choice zone
   def set_es_school_choice
-    subdistricts = CeqrData::SchoolSubdistrict.version(testVersionSubdistrict).for_subdistrict_pairs(subdistrict_pairs)
-
     es_school_choice_array = subdistricts.map {|sd| sd[:school_choice_ps]}
 
-    es_school_choice_boolean = es_school_choice_array.include? true
-
-    self.es_school_choice = es_school_choice_boolean
+    self.es_school_choice = es_school_choice_array.include? true
   end
 
   ### INTERMEDIATE SCHOOL CHOICE
   # boolean for whether project is in a school choice zone
   def set_is_school_choice
-    subdistricts = CeqrData::SchoolSubdistrict.version(testVersionSubdistrict).for_subdistrict_pairs(subdistrict_pairs)
-
     is_school_choice_array = subdistricts.map {|sd| sd[:school_choice_is]}
 
-    is_school_choice_boolean = is_school_choice_array.include? true
-
-    self.is_school_choice = is_school_choice_boolean
+    self.is_school_choice = is_school_choice_array.include? true
   end
-
-### AGGREGATED GEOMETRY OF ALL SUBDISTRICTS FOR PROJECT
-  # def set_subdistrict_attributes
-  #   sd_pairs = (self.subdistricts_from_db + self.subdistricts_from_user).map { |sd| "(#{sd['district']},#{sd['subdistrict']})" }
-
-  #   self.subdistricts_geom = Db::SchoolSubdistrict.st_union_subdistricts(sd_pairs)
-  # end
 
 ### BLUEBOOK SCHOOLS
 # array of objects --> bluebook is one type of schools database
   def set_bluebook
     # subdistrict_pairs are e.g. "(<district>, <subdistrict>)" and defined in private methods
-    ps_schools = CeqrData::ScaBluebook.version(testVersionMost).ps_schools_in_subdistricts(subdistrict_pairs)
-    is_schools = CeqrData::ScaBluebook.version(testVersionMost).is_schools_in_subdistricts(subdistrict_pairs)
-    hs_schools = CeqrData::ScaBluebook.version(testVersionMost).high_schools_in_boro(project.boroIntegers)
+    db = CeqrData::ScaBluebook.version(data_package.table_for("sca_bluebook"))
+    
+    ps_schools = db.ps_schools_in_subdistricts(subdistrict_pairs)
+    is_schools = db.is_schools_in_subdistricts(subdistrict_pairs)
+    hs_schools = db.high_schools_in_boro(project.boroIntegers)
 
     # new_bluebook resets to an empty array each time bluebook database is queried
     # e.g. a user adds a BBL to their project within a different school subdistrict
@@ -104,9 +99,6 @@ end
 ### LCGMS SCHOOLS
 # array of objects --> lcgms is another type of schools database
   def set_lcgms
-    # subdistrict_pairs are e.g. "(<district>, <subdistrict>)" and defined in private methods
-    subdistricts = CeqrData::SchoolSubdistrict.version(testVersionSubdistrict).for_subdistrict_pairs(subdistrict_pairs)
-
     # set new this array to empty each time database is queried
     new_lcgms_array = []
 
@@ -116,7 +108,11 @@ end
     subdistricts.each do |subdistrict|
       subdistrict_geom = subdistrict[:geom]
 
-      lcgms_schools = CeqrData::LcgmsSchool.version(testVersionMost).lcgms_intersecting_subdistrict_geom(subdistrict_geom)
+      lcgms_schools = CeqrData::DoeLcgms.version(
+        data_package.table_for("doe_lcgms")
+      ).lcgms_intersecting_subdistrict_geom(
+        subdistrict_geom
+      )
 
       lcgms_schools.each do |school|
         # LCGMS data also does not have borocode
@@ -144,9 +140,6 @@ end
 ### SCA PROJECTS SCHOOLS
 # array of objects --> schools that are currently under construction by the SCA
   def set_sca_projects
-    # subdistrict_pairs are e.g. "(<district>, <subdistrict>)" and defined in private methods
-    subdistricts = CeqrData::SchoolSubdistrict.version(testVersionSubdistrict).for_subdistrict_pairs(subdistrict_pairs)
-
     # set new this array to empty each time database is queried
     new_sca_projects_array = []
 
@@ -156,7 +149,11 @@ end
     subdistricts.each do |subdistrict|
       subdistrict_geom = subdistrict[:geom]
 
-      sca_schools = CeqrData::ScaCapitalProject.version(testVersionMost).sca_projects_intersecting_subdistrict_geom(subdistrict_geom)
+      sca_schools = CeqrData::ScaCapitalProjects.version(
+        data_package.table_for("sca_capital_projects")
+      ).sca_projects_intersecting_subdistrict_geom(
+        subdistrict_geom
+      )
 
       # here we push the reformatted objects into new_sca_projects_array
       # for school_object_lcgms (defined in private methods) we have two arguments:
@@ -174,7 +171,11 @@ end
 # array of objects with "multiplier" values based on subdistrict, district, & level
   def set_future_enrollment_multipliers
     # subdistrict_pairs are e.g. "(<district>, <subdistrict>)" and defined in private methods
-    enrollment_pct_by_sd = CeqrData::ScaEnrollmentPctBySd.version(testVersionMost).enrollment_percent_by_subdistrict(subdistrict_pairs)
+    enrollment_pct_by_sd = CeqrData::ScaEnrollmentPctBySd.version(
+      data_package.table_for("sca_enrollment_pct_by_sd")
+    ).enrollment_percent_by_subdistrict(
+      subdistrict_pairs
+    )
 
     self.future_enrollment_multipliers = enrollment_pct_by_sd.map do |em|
       {
@@ -190,8 +191,12 @@ end
 # array of objects --> number of high school students projected in a borough by a certain year
   def set_hs_projections
   # buildYearMaxed is defined in private methods
-  enrollment_projection_by_boro = CeqrData::ScaEnrollmentProjectionsByBoro.version(testVersionMost).enrollment_projection_by_boro_for_year(buildYearMaxed.to_s, project.borough)
-  #
+  enrollment_projection_by_boro = CeqrData::ScaEnrollmentProjectionsByBoro.version(
+    data_package.table_for("sca_enrollment_projections_by_boro")
+  ).enrollment_projection_by_boro_for_year(
+    buildYearMaxed.to_s, project.borough
+  )
+
   self.hs_projections = enrollment_projection_by_boro.map do |pr|
     {
       hs: pr[:hs],
@@ -209,7 +214,9 @@ def set_future_enrollment_projections
 
   districts = subdistricts.map { |d| d['district'] }
 
-  enrollment_projection_by_district = CeqrData::ScaEnrollmentProjectionsBySd.version(testVersionMost).enrollment_projection_by_subdistrict_for_year(buildYearMaxed, districts)
+  enrollment_projection_by_district = CeqrData::ScaEnrollmentProjectionsBySd.version(
+    data_package.table_for("sca_enrollment_projections_by_sd")
+  ).enrollment_projection_by_subdistrict_for_year(buildYearMaxed, districts)
 
   self.future_enrollment_projections = enrollment_projection_by_district.map do |pr|
     {
@@ -225,7 +232,9 @@ end
 # value --> number of high school students added by new housing that will be built within same borough(s) as project
 # this housing is SEPARATE from the housing added by the user's project
 def set_hs_students_from_housing
-  high_school_students_from_housing = CeqrData::HousingPipelineByBoro.version(testVersionMost).high_school_students_from_new_housing_by_boro(project.borough)
+  high_school_students_from_housing = CeqrData::ScaHousingPipelineByBoro.version(
+    data_package.table_for("sca_housing_pipeline_by_boro")
+  ).high_school_students_from_new_housing_by_boro(project.borough)
 
   hs_students = high_school_students_from_housing.map{|s| s[:hs_students]}
 
@@ -237,7 +246,9 @@ end
 # this housing is SEPARATE from the housing added by the user's project
 def set_future_enrollment_new_housing
   # subdistrict_pairs are e.g. "(<district>, <subdistrict>)" and defined in private methods
-  future_enrollment_new_housing_by_subdistrict = CeqrData::HousingPipelineBySd.version(testVersionMost).ps_is_students_from_new_housing_by_subdistrict(subdistrict_pairs)
+  future_enrollment_new_housing_by_subdistrict = CeqrData::ScaHousingPipelineBySd.version(
+    data_package.table_for("sca_housing_pipeline_by_sd")
+  ).ps_is_students_from_new_housing_by_subdistrict(subdistrict_pairs)
 
   self.future_enrollment_new_housing = future_enrollment_new_housing_by_subdistrict.map do |e|
     {
@@ -258,10 +269,9 @@ def set_doe_util_changes
 
   buildings_ids_array = buildings.map {|b| b['bldg_id']}.uniq
 
-  # NO LONGER NEEDED NOW THAT WE'RE USING SEQUEL
-  # buildingsBldgIds = buildings_ids_array.map {|b| "'#{b}'"}.join(',')
-
-  doe_significant_utilization_changes = CeqrData::DoeSignificantUtilizationChanges.version(testVersionDoe).doe_util_changes_matching_with_building_ids(buildings_ids_array)
+  doe_significant_utilization_changes = CeqrData::DoeSignificantUtilizationChanges.version(
+    data_package.table_for("doe_significant_utilization_changes")
+  ).doe_util_changes_matching_with_building_ids(buildings_ids_array)
 
   self.doe_util_changes = doe_significant_utilization_changes.map do |d|
     {
@@ -277,27 +287,7 @@ def set_doe_util_changes
   end
 end
 
-################################################################################
-### PRIVATE METHODS to be used inside methods above
-
-  private
-
 ### PRIVATE METHODS FOR BLUEBOOK SCHOOLS
-
-# subdistrict_pairs is used for querying data matching a project's subdistricts
-  def subdistrict_pairs
-    subdistricts = self.subdistricts_from_db + self.subdistricts_from_user
-    subdistricts.map { |sd| "(#{sd['district']},#{sd['subdistrict']})" }
-  end
-
-  # IF WE USE OTHER SEQUEL OPTION
-  # def subdistrict_pairs
-  #   allSubdistricts = self.subdistricts_from_db + self.subdistricts_from_user
-  #   districts_subdistricts = allSubdistricts.map do |sd| {district: sd[:district], subdistrict: sd[:subdistrict]} end
-  #   # creates array of arrays --> e.g. [[1,2], [15,3]] --> this is used for the Sequel method value_list which checks for an array of arrays
-  #   # that function as pairs (NEED TO EXPLAIN MORE HERE?)
-  #   districts_subdistricts.map {|sd| sd.values}
-  # end
 
   # finds the first object in the bluebook array that matches org_id, bldg_id, level, and dataVersion of
   # the new data grabbed from the database (e.g. ps_schools)
@@ -335,15 +325,15 @@ end
   # if the object does not already exist, it is formatted by school_objects() and then pushed into the array
   def create_new_schools(new_level_school, level, new_bluebook_array)
     new_level_school.each do |school|
-          existing = find_existing_bluebook_school(school, level)
+      existing = find_existing_bluebook_school(school, level)
 
-          if existing
-            new_bluebook_array << existing
-          else
-            new_bluebook_array << school_object_bluebook(school, level)
-          end
+      if existing
+        new_bluebook_array << existing
+      else
+        new_bluebook_array << school_object_bluebook(school, level)
       end
     end
+  end
 
 ################################################################################
 ### PRIVATE METHODS FOR LCGMS SCHOOLS
@@ -352,16 +342,16 @@ end
 # the string in column "bldg_id" is prefaced with a letter that denotes which borough the building is in
 # (this is more reliable than "org_id" because "bldg_id" is more specific)
   def lcgms_borocode_lookup(bldg_id)
-     # grab first letter of bldg_id
-      borocode = bldg_id.gsub(/^[a-zA-Z]/)
+    # grab first letter of bldg_id
+    borocode = bldg_id.gsub(/^[a-zA-Z]/)
 
-      case borocode.first
-      when 'M' then '1' #Manhattan
-      when 'X' then '2' #Bronx
-      when 'K' then '3' #Brooklyn
-      when 'Q' then '4' #Queens
-      when 'S' then '5' #Staten Island
-      end
+    case borocode.first
+    when 'M' then '1' #Manhattan
+    when 'X' then '2' #Bronx
+    when 'K' then '3' #Brooklyn
+    when 'Q' then '4' #Queens
+    when 'S' then '5' #Staten Island
+    end
   end
 
 # lcgms capacity is input by the user
@@ -432,20 +422,6 @@ end
     maxYear = data_package.schemas["sca_enrollment_projections_by_sd"]["maxYear"]
 
     project.build_year > maxYear ? maxYear : project.build_year
-  end
-
-### TEST VERSIONS
-
-  def testVersionSubdistrict
-    '2017'
-  end
-
-  def testVersionMost
-    '2018'
-  end
-
-  def testVersionDoe
-    '062018'
   end
 
 end

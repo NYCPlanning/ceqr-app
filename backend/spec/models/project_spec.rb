@@ -2,14 +2,14 @@ require 'rails_helper'
 
 RSpec.describe Project, type: :model do
   before do 
-    @ceqr_data = class_double('TrafficZone')
+    @ceqr_data = class_double('TrafficZones')
     @ceqr_dataObject = double()
 
     allow(@ceqr_data).to receive(:version).and_return(@ceqr_dataObject)
 
     allow(@ceqr_dataObject).to receive(:for_geom).and_return([2])
 
-    stub_const("#{CeqrData}::TrafficZone", @ceqr_data)
+    stub_const("#{CeqrData}::TrafficZones", @ceqr_data)
   end
   
   describe "#create" do

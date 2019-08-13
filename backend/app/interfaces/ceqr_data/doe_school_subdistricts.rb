@@ -1,5 +1,5 @@
 module CeqrData
-  class SchoolSubdistrict < Base  
+  class DoeSchoolSubdistricts < Base  
     self.schema = "doe_school_subdistricts"
 
     # all subdistricts that intersect with a project's bbl's geometry
@@ -16,13 +16,5 @@ module CeqrData
           :geom, :district, :subdistrict, :school_choice_ps, :school_choice_is
       ).where(Sequel.lit("(district, subdistrict) IN (VALUES #{subdistrict_pairs.join(',')})")).all
     end
-
-    # other option: .where([:district, :subdistrict]=>subdistrict_pairs)
-
-    # union all of subdistrict geometry for a project
-    # def st_union_subdistricts(subdistrict_pairs)
-    #    @dataset.select{ ST_MULTI(ST_UNION(geom)) }.where(Sequel.lit("(district, subdistrict) IN (VALUES #{subdistrict_pairs.join(',')})")).first.st_multi
-    # end
-
   end
 end

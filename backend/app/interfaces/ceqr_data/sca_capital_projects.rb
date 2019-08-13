@@ -1,5 +1,5 @@
 module CeqrData
-  class ScaCapitalProject < Base  
+  class ScaCapitalProjects < Base  
     self.schema = "sca_capital_projects"
 
     # all SCA Capital Project schools that intersect a district & subdistrict

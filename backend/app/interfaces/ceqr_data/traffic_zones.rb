@@ -1,5 +1,5 @@
 module CeqrData
-  class TrafficZone < Base
+  class TrafficZones < Base
     self.schema = "traffic_zones"
 
   # primary and intermediate school student enrollment projections by year and borough
