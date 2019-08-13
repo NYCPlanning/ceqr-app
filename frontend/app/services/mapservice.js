@@ -10,9 +10,7 @@ export default Service.extend({
     this.set('map', {});
   },
 
-  fitToSubdistricts() {
-    this.get('mapdata.subdistrictGeojson').then(
-      (g) => this.get('map').fitBounds(bbox(g))
-    );
+  fitToSubdistricts(geojson) {
+    this.get('map').fitBounds(bbox(geojson));
   }
 });

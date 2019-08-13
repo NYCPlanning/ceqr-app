@@ -19,19 +19,19 @@ class PublicSchoolsAnalysis < ApplicationRecord
     set_doe_util_changes
   end
 
-  private
-
-  def subdistrict_pairs
-    subdistricts = self.subdistricts_from_db + self.subdistricts_from_user
-    subdistricts.map { |sd| "(#{sd['district']},#{sd['subdistrict']})" }
-  end
-
   def subdistricts
     @subdistricts ||= CeqrData::DoeSchoolSubdistricts.version(
       data_package.table_for("doe_school_subdistricts")
     ).for_subdistrict_pairs(
       subdistrict_pairs
     )
+  end
+
+  private
+
+  def subdistrict_pairs
+    subdistricts = self.subdistricts_from_db + self.subdistricts_from_user
+    subdistricts.map { |sd| "(#{sd['district']},#{sd['subdistrict']})" }
   end
 
   def set_subdistricts_from_db     

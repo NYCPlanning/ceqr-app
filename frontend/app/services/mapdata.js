@@ -17,18 +17,7 @@ export default Service.extend({
   },
 
   // Geojson
-  subdistrictGeojson: computed('analysis.subdistrictCartoIds.[]', function() {    
-    return this.fetchSubdistricts.perform();
-  }),
-  fetchSubdistricts: task(function*() {
-    return yield carto.SQL(`
-      SELECT cartodb_id, the_geom,
-        schooldist AS district,
-        zone AS subdistrict
-      FROM doe_schoolsubdistricts_v2017
-      WHERE cartodb_id IN (${this.analysis.subdistrictCartoIds.join(',')})
-    `, 'geojson');
-  }).drop(),
+
 
   bluebookGeojson: computed('analysis.bluebook.[]', function() {
     return this.fetchBluebookGeojson.perform();

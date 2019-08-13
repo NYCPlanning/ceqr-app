@@ -72,6 +72,8 @@ export default DS.Model.extend({
   // School District & Subdistricts
   subdistrictsFromDb: DS.attr('', { defaultValue() { return []; } }),
   subdistrictsFromUser: DS.attr('', { defaultValue() { return []; } }),
+  subdistrictsGeojson: DS.attr(''),
+
 
   subdistricts: computed('subdistrictsFromDb.@each', 'subdistrictsFromUser.@each', function() {
     return this.subdistrictsFromDb.concat(this.subdistrictsFromUser);
@@ -79,17 +81,8 @@ export default DS.Model.extend({
   district: computed('subdistrictsFromDb', function() {
     return this.subdistrictsFromDb[0].district;
   }),
-
   multiSubdistrict: computed('subdistricts', function() {
     return (this.get('subdistricts').length > 1)
-  }),
-  subdistrictCartoIds: computed('subdistricts', function() {
-    return this.get('subdistricts').mapBy('cartodb_id');
-  }),
-  subdistrictSqlPairs: computed('subdistricts', function() {
-    return this.get('subdistricts').map(
-      (f) => `(${f.district}, ${f.subdistrict})`
-    );
   }),
 
   // By Subdistrict

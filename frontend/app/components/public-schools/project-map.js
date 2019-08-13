@@ -122,7 +122,7 @@ export default Component.extend({
       map.addControl(nav, 'top-right');
 
       this.set('mapservice.map', map);
-      this.get('mapservice').fitToSubdistricts();
+      this.get('mapservice').fitToSubdistricts(this.analysis.subdistrictsGeojson);
 
       this.set('map', map);
     },

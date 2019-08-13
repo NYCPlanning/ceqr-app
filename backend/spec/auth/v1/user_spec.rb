@@ -19,7 +19,7 @@ RSpec.describe 'Users AUTH', type: :request do
         before { post '/auth/v1/signup', params: { user: user_approved }.to_json, headers: headers }
 
         it 'creates a new user with approved status' do
-          u = User.first
+          u = User.find_by_email(user_approved[:email])
   
           expect(u.account_approved).to be true
           expect(response).to have_http_status(201)
@@ -36,7 +36,7 @@ RSpec.describe 'Users AUTH', type: :request do
         it 'sends account confirmation email' do
           mail = ActionMailer::Base.deliveries.last
 
-          expect(mail.to).to include 'test@planning.nyc.gov'
+          expect(mail.to).to include user_approved[:email]
           expect(mail.subject).to eq '[CEQR App] Account Activation'
         end
       end
@@ -45,7 +45,7 @@ RSpec.describe 'Users AUTH', type: :request do
         before { post '/auth/v1/signup', params: { user: user_public }.to_json, headers: headers }
         
         it 'creates a new user with pending approved status' do
-          u = User.first
+          u = User.find_by_email(user_public[:email])
 
           expect(u.account_approved).to be false
           expect(response).to have_http_status(202)
@@ -62,7 +62,7 @@ RSpec.describe 'Users AUTH', type: :request do
         it 'sends account review email to user' do
           mails = ActionMailer::Base.deliveries
 
-          expect(mails.map(&:to)).to include ['test@example.com']
+          expect(mails.map(&:to)).to include [user_public[:email]]
           expect(mails.map(&:subject)).to include '[CEQR App] Account waiting for approval'
         end
 
@@ -75,16 +75,15 @@ RSpec.describe 'Users AUTH', type: :request do
     end
 
     context 'when invalid request' do
-      before { post '/auth/v1/signup', params: {}, headers: headers }
-
       it 'does not create a new user' do
-        expect(User.first).to be nil
+        expect {
+          post '/auth/v1/signup', params: {}, headers: headers
+        }.to_not change {
+          User.count
+        }
+      
         expect(response).to have_http_status(422)
-      end
-
-      it 'returns failure message' do
-        expect(json['message'])
-          .to match(/param is missing or the value is empty: user/)
+        expect(json['message']).to match(/param is missing or the value is empty: user/)
       end
     end
   end
@@ -97,7 +96,7 @@ RSpec.describe 'Users AUTH', type: :request do
       before { put '/auth/v1/validate', params: { token: token }.to_json, headers: headers }
   
       it 'validates the user' do      
-        expect(User.first.email_validated).to be true
+        expect(User.find_by_email(user.email).email_validated).to be true
       end
       
       it 'returns a 200' do
@@ -111,7 +110,7 @@ RSpec.describe 'Users AUTH', type: :request do
       before { put '/auth/v1/validate', params: { token: expired_token }.to_json, headers: headers }
 
       it 'does not validate the user' do
-        expect(User.first.email_validated).to be false
+        expect(User.find_by_email(user.email).email_validated).to be false
       end
       
       it 'returns a 401' do
@@ -123,7 +122,7 @@ RSpec.describe 'Users AUTH', type: :request do
       before { put '/auth/v1/validate', params: { token: 'badtoken' }.to_json, headers: headers }
   
       it 'does not validate the user' do
-        expect(User.first.email_validated).to be false
+        expect(User.find_by_email(user.email).email_validated).to be false
       end
       
       it 'returns a 401' do
@@ -157,7 +156,7 @@ RSpec.describe 'Users AUTH', type: :request do
       before { put "/auth/v1/password-reset", params: { token: token, password: 'newpass' }.to_json, headers: headers }
       
       it 'resets the user password' do
-        expect(User.first.authenticate('newpass')).to eq user
+        expect(User.find_by_email(user.email).authenticate('newpass')).to eq user
       end
       
       it 'returns a 200' do

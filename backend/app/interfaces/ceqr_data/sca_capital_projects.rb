@@ -3,8 +3,7 @@ module CeqrData
     self.schema = "sca_capital_projects"
 
     # all SCA Capital Project schools that intersect a district & subdistrict
-    def sca_projects_intersecting_subdistrict_geom(subdistricts_geom)
-      geom_parsed = parse_wkb(subdistricts_geom)
+    def sca_projects_intersecting_subdistrict_geom(subdistrict_geom)
       @dataset.select(
         :geom,
         :project_dsf,
@@ -21,7 +20,7 @@ module CeqrData
         :funding_current_budget,
         :funding_previous,
         :pct_funded
-      ).where{st_intersects(st_geomfromtext("#{geom_parsed}", "#{geom_parsed.srid}"), :geom)}
+      ).where{st_intersects(st_geomfromtext("#{subdistrict_geom}", "#{subdistrict_geom.srid}"), :geom)}
     end
   end
 end
