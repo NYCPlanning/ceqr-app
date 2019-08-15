@@ -300,7 +300,7 @@
   </map.source>
 
   <map.source
-    @options={{hash type="geojson" data=(await mapdata.scaProjectsGeojson)
+    @options={{hash type="geojson" data=project.publicSchoolsAnalysis.scaProjectsGeojson
     }} as |source|
   >
     <source.layer
@@ -308,7 +308,7 @@
         id="scaprojects-hover"
         type="circle"
         paint=(hash circle-color="#A0A0A0" circle-radius=12 circle-opacity=0.7)
-        filter=(array "==" (array "get" "cartodb_id") 0)
+        filter=(array "==" (array "get" "id") 0)
       }}
      />
 

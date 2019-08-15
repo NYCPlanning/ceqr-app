@@ -305,10 +305,8 @@ end
   # we check that if "is" is passed in as the level, it searches for "ms" when populating values
   def school_object_bluebook(school, level)
     level == "is" ? db_level = "ms" : db_level = level
-    school_id = `#{school[:org_id]}-#{school[:bldg_id]}-#{level}`
 
     {
-      id: school_id,
       name: school[:name],
       org_id: school[:org_id],
       bldg_id: school[:bldg_id],
@@ -425,10 +423,23 @@ end
       district: district_source[:district].to_s,
       subdistrict: district_source[:subdistrict].to_s,
       source: 'scaprojects',
+      capacity: school[:capacity],
+      guessed_pct: school[:guessed_pct],
       ps_capacity: ps_capacity,
       is_capacity: is_capacity,
       hs_capacity: hs_capacity,
-      includeInCapacity: includeInCapacity
+      planned_end_date: school[:planned_end_date],
+      pct_funded: school[:pct_funded],
+      funding_previous: school[:funding_previous],
+      funding_current_budget: school[:funding_current_budget],
+      total_est_cost: school[:total_est_cost],
+
+      includeInCapacity: includeInCapacity,
+      geojson: RGeo::GeoJSON.encode(
+        RGeo::GeoJSON::Feature.new(
+          RGeo::WKRep::WKBParser.new(nil, support_ewkb: true).parse(school[:geom])
+        )
+      )
     }
   end
 

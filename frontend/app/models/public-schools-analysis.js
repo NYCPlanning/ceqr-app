@@ -80,7 +80,7 @@ export default DS.Model.extend({
     return this.subdistrictsFromDb.concat(this.subdistrictsFromUser);
   }),
   district: computed('subdistrictsFromDb', function() {
-    return this.subdistrictsFromDb[0].district;
+    return parseInt(this.subdistrictsFromDb[0].district);
   }),
   multiSubdistrict: computed('subdistricts', function() {
     return (this.get('subdistricts').length > 1)
@@ -89,10 +89,9 @@ export default DS.Model.extend({
   // By Subdistrict
   bluebook: DS.attr('public-schools/schools', { defaultValue() { return []; } }),
   lcgms: DS.attr('public-schools/schools', { defaultValue() { return []; } }),
-  scaProjects: DS.attr('', { defaultValue() { return []; } }),
 
   buildingsGeojson: computed('bluebook', 'lcgms', 'scaProjects', function() {
-    const buildings = this.get('bluebook').concat(this.get('lcgms'));
+    const buildings = this.bluebook.concat(this.get('lcgms'));
     
     const features = buildings.map((b) => {
       const geojson = b.geojson;
@@ -103,7 +102,27 @@ export default DS.Model.extend({
         org_id: b.org_id,
         bldg_id: b.bldg_id,
         source: b.source,
-        id: `${b.source}-${b.org_id}-${b.bldg_id}`
+        id: b.id,
+      }
+
+      return geojson;
+    });
+    
+    return turf.featureCollection(features);
+  }),
+
+  scaProjects: DS.attr('public-schools/sca-projects', { defaultValue() { return []; } }),
+  scaProjectsGeojson: computed('scaProjects', function() {
+    const features = this.scaProjects.map((b) => {
+      const geojson = b.geojson;
+
+      geojson.properties = {
+        name: b.name,
+        org_id: b.org_id,
+        source: b.source,
+        org_level: b.org_level,
+        level: b.org_level,
+        id: b.id,
       }
 
       return geojson;

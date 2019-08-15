@@ -35,12 +35,12 @@ export default Component.extend({
   zoneName: null,
   mapColors,
 
-  dotHover({id}) {
-    if (this.get('map')) this.get('map').setFilter('buildings-hover', ["==", ["get", "id"], id]);
+  dotHover({source, id}) {
+    if (this.get('map')) this.get('map').setFilter(`${source}-hover`, ["==", ["get", "id"], id]);
   },
 
-  dotUnhover() {
-    if (this.get('map')) this.get('map').setFilter('buildings-hover', ["==", ["get", "id"], 0]);
+  dotUnhover({source}) {
+    if (this.get('map')) this.get('map').setFilter(`${source}-hover`, ["==", ["get", "id"], 0]);
   },
 
   actions: {
@@ -60,33 +60,34 @@ export default Component.extend({
 
     displayPopup(e) {
       this.get('map').getCanvas().style.cursor = 'default';
-      let features = this.map.queryRenderedFeatures(e.point, { layers: ['buildings'] })
+      let features = this.map.queryRenderedFeatures(e.point, { layers: ['buildings', 'scaprojects'] })
 
       if (features.length) {
         const schools = features.map((b) => ({ 
-          ...b.properties
+          ...b.properties,
+          layer_id: b.layer.id
         }));
 
         let html = `<table class="ui simple table inverted">
           <thead>
-            <tr><th>Org ID</th><th>Bldg ID</th><th>Org Name</th><th>Level</th></tr>
+            <tr><th>Org Name</th><th>Org ID</th><th>Bldg ID</th><th>Level</th></tr>
           </thead>
         `;
         schools.forEach((s) => {
-          this.dotHover({source: s.source, id: s.id});
-          this.get('tablehover').trigger('hover', {source: s.source, id: s.id});
-          
+          this.dotHover({source: s.layer_id, id: s.id});
+          this.get('tablehover').trigger('hover', {source: s.layer_id, id: s.id});
+
           let org_name;
-          if (s.type === 'lcgms') {
+          if (s.source === 'lcgms') {
             org_name = `${s.name}<br>(newly built)`
-          } else if (s.type === 'scaprojects') {
+          } else if (s.source === 'scaprojects') {
             org_name = `${s.name}<br>(under construction)`
           } else {
             org_name = s.name
           }
           
           let row = `<tr>
-            <td>${org_name}</td>  
+            <td>${org_name}</td>
             <td>${s.org_id || ""}</td>
             <td>${s.bldg_id || ""}</td>
             <td>${s.level}</td>
@@ -102,8 +103,7 @@ export default Component.extend({
       } else {
         this.get('schoolPopup').remove();
 
-        this.get('tablehover').trigger('unhover', {source: 'bluebook'});
-        this.get('tablehover').trigger('unhover', {source: 'lcgms'});
+        this.get('tablehover').trigger('unhover', {source: 'buildings'});
         this.get('tablehover').trigger('unhover', {source: 'scaprojects'});
 
         this.get('map').getCanvas().style.cursor = '';

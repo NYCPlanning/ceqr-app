@@ -8,6 +8,7 @@ import round from '../../utils/round';
  * just one school level in one unique combination of bldg_id and org_id
  *
  * @constructor
+ * @param {string} id - Aggregate unique identifier combining source, org_id, bldg_id, and level
  * @param {string} name - Name of school
  * @param {string} bldg_name - Building name, sometimes different from school name for multi-building schools
  * @param {string} address - Address of school
@@ -27,6 +28,10 @@ import round from '../../utils/round';
  * @param {json} geojson - Geojson feature of school's point
  */
 export default EmberObject.extend({
+  id: computed('source', 'org_id', 'bldg_id', 'level', function () {
+    return `${this.source}-${this.org_id}-${this.bldg_id}-${this.level}`;
+  }),
+  
   seats: computed('excluded', 'enroll', 'capacity', function() {
     if (this.excluded) return Math.round(0 - this.enroll);
     if (!this.capacity) return 0;
