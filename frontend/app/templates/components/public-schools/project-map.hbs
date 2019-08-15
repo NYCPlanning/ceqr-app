@@ -249,38 +249,47 @@
 
   </map.source>
   <map.source
-    @options={{hash type="geojson" data=(await mapdata.lcgmsGeojson)
+    @options={{hash type="geojson" data=project.publicSchoolsAnalysis.buildingsGeojson
     }} as |source|
   >
     <source.layer
       @layer={{hash
-        id="lcgms-hover"
+        id="buildings-hover"
         type="circle"
         paint=(hash circle-color="#A0A0A0" circle-radius=12 circle-opacity=0.7)
-        filter=(array "==" (array "get" "cartodb_id") 0)
+        filter=(array "==" (array "get" "id") 0)
       }}
      />
 
     <source.layer
       @layer={{hash
-        id="lcgms"
+        id="buildings"
         type="circle"
+        filter=(array
+          "case"
+          project.publicSchoolsAnalysis.hsAnalysis true
+          (array "match" (array "get" "level") (array "ps" "is") true false)
+        )
         paint=(hash
           circle-radius=6
-          circle-stroke-width=4
+          circle-stroke-width=(array
+            "case"
+            (array "==" (array "get" "source") "lcgms") 4
+            0
+          )
           circle-stroke-color="#21BA45"
           circle-stroke-opacity=0.7
           circle-color=(array
             "case"
-            (array "==" (array "get" "org_level") "PS")
+            (array "==" (array "get" "level") "ps")
             mapColors.ps
-            (array "==" (array "get" "org_level") "PSIS")
+            (array "==" (array "get" "level") "PSIS")
             mapColors.psis
-            (array "==" (array "get" "org_level") "IS")
+            (array "==" (array "get" "level") "is")
             mapColors.is
-            (array "==" (array "get" "org_level") "ISHS")
+            (array "==" (array "get" "level") "ISHS")
             mapColors.ishs
-            (array "==" (array "get" "org_level") "HS")
+            (array "==" (array "get" "level") "hs")
             mapColors.hs
             "#333333"
           )
@@ -289,44 +298,7 @@
      />
 
   </map.source>
-  <map.source
-    @options={{hash type="geojson" data=(await mapdata.bluebookGeojson)
-    }} as |source|
-  >
-    <source.layer
-      @layer={{hash
-        id="bluebook-hover"
-        type="circle"
-        paint=(hash circle-color="#A0A0A0" circle-radius=12 circle-opacity=0.7)
-        filter=(array "==" (array "get" "cartodb_id") 0)
-      }}
-     />
 
-    <source.layer
-      @layer={{hash
-        id="bluebook"
-        type="circle"
-        paint=(hash
-          circle-radius=6
-          circle-color=(array
-            "case"
-            (array "==" (array "get" "org_level") "PS")
-            mapColors.ps
-            (array "==" (array "get" "org_level") "PSIS")
-            mapColors.psis
-            (array "==" (array "get" "org_level") "IS")
-            mapColors.is
-            (array "==" (array "get" "org_level") "ISHS")
-            mapColors.ishs
-            (array "==" (array "get" "org_level") "HS")
-            mapColors.hs
-            "#333333"
-          )
-        )
-      }}
-     />
-
-  </map.source>
   <map.source
     @options={{hash type="geojson" data=(await mapdata.scaProjectsGeojson)
     }} as |source|

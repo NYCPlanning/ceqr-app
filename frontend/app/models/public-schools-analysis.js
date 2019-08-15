@@ -4,6 +4,8 @@ import { computed } from '@ember/object';
 import SubdistrictTotals from '../fragments/public-schools/SubdistrictTotals';
 import LevelTotals from '../fragments/public-schools/LevelTotals';
 
+import turf from '@turf/helpers';
+
 export default DS.Model.extend({
   project: DS.belongsTo('project'),
   dataPackage: DS.belongsTo('data-package'),
@@ -74,7 +76,6 @@ export default DS.Model.extend({
   subdistrictsFromUser: DS.attr('', { defaultValue() { return []; } }),
   subdistrictsGeojson: DS.attr(''),
 
-
   subdistricts: computed('subdistrictsFromDb.@each', 'subdistrictsFromUser.@each', function() {
     return this.subdistrictsFromDb.concat(this.subdistrictsFromUser);
   }),
@@ -87,32 +88,28 @@ export default DS.Model.extend({
 
   // By Subdistrict
   bluebook: DS.attr('public-schools/schools', { defaultValue() { return []; } }),
-  bluebook_findExisting(building, org_level) {
-    return this.bluebook.filter(
-      (e) =>
-        e.org_id === building.org_id
-        &&
-        e.bldg_id === building.bldg_id
-        &&
-        e.level === org_level
-        &&
-        e.dataVersion === this.dataVersion
-    )[0];
-  },
-  bluebookSqlPairs: computed('bluebook', function() {
-    return this.bluebook.map(
-      (f) => `('${f.org_id}', '${f.bldg_id}')`
-    ).uniq();
-  }),
-
   lcgms: DS.attr('public-schools/schools', { defaultValue() { return []; } }),
-  lcgmsCartoIds: computed('lcgms', function() {
-    return this.get('lcgms').mapBy('cartodb_id');
-  }),
-
   scaProjects: DS.attr('', { defaultValue() { return []; } }),
-  scaProjectsCartoIds: computed('scaProjects.@each', function() {
-    return this.scaProjects.mapBy('cartodb_id');
+
+  buildingsGeojson: computed('bluebook', 'lcgms', 'scaProjects', function() {
+    const buildings = this.get('bluebook').concat(this.get('lcgms'));
+    
+    const features = buildings.map((b) => {
+      const geojson = b.geojson;
+
+      geojson.properties = {
+        level: b.level,
+        name: b.name,
+        org_id: b.org_id,
+        bldg_id: b.bldg_id,
+        source: b.source,
+        id: `${b.source}-${b.org_id}-${b.bldg_id}`
+      }
+
+      return geojson;
+    });
+    
+    return turf.featureCollection(features);
   }),
 
   buildings: computed('bluebook', 'lcgms', 'scaProjects', function() {

@@ -24,6 +24,7 @@ import round from '../../utils/round';
  * @param {integer} capacity - School's current capacity
  * @param {integer} capacityFuture - School's future capacity, defaults to the same as capacity but a user can change this
  * @param {integer} enroll - School's current enrollment
+ * @param {json} geojson - Geojson feature of school's point
  */
 export default EmberObject.extend({
   seats: computed('excluded', 'enroll', 'capacity', function() {

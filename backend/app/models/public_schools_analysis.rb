@@ -4,6 +4,21 @@ class PublicSchoolsAnalysis < ApplicationRecord
   belongs_to :project
   belongs_to :data_package
 
+  def compute_for_updated_bbls!
+    compute_for_project_create_or_update
+    save!
+  end
+
+  def subdistricts
+    CeqrData::DoeSchoolSubdistricts.version(
+      data_package.table_for("doe_school_subdistricts")
+    ).for_subdistrict_pairs(
+      subdistrict_pairs
+    )
+  end
+
+  private
+
   def compute_for_project_create_or_update
     set_subdistricts_from_db
     set_es_school_choice
@@ -18,16 +33,6 @@ class PublicSchoolsAnalysis < ApplicationRecord
     set_future_enrollment_new_housing
     set_doe_util_changes
   end
-
-  def subdistricts
-    @subdistricts ||= CeqrData::DoeSchoolSubdistricts.version(
-      data_package.table_for("doe_school_subdistricts")
-    ).for_subdistrict_pairs(
-      subdistrict_pairs
-    )
-  end
-
-  private
 
   def subdistrict_pairs
     subdistricts = self.subdistricts_from_db + self.subdistricts_from_user
@@ -300,8 +305,10 @@ end
   # we check that if "is" is passed in as the level, it searches for "ms" when populating values
   def school_object_bluebook(school, level)
     level == "is" ? db_level = "ms" : db_level = level
+    school_id = `#{school[:org_id]}-#{school[:bldg_id]}-#{level}`
 
     {
+      id: school_id,
       name: school[:name],
       org_id: school[:org_id],
       bldg_id: school[:bldg_id],
@@ -315,7 +322,12 @@ end
       address: school[:address],
       bldg_name: school[:bldg_name],
       borocode: school[:borocode],
-      excluded: school[:excluded]
+      excluded: school[:excluded],
+      geojson: RGeo::GeoJSON.encode(
+        RGeo::GeoJSON::Feature.new(
+          RGeo::WKRep::WKBParser.new(nil, support_ewkb: true).parse(school[:geom])
+        )
+      )
     }
   end
 
@@ -380,7 +392,12 @@ end
       enroll: school["#{level}_enroll"],
       capacity: lcgmsCapacity,
       address: school[:address],
-      borocode: borocode
+      borocode: borocode,
+      geojson: RGeo::GeoJSON.encode(
+        RGeo::GeoJSON::Feature.new(
+          RGeo::WKRep::WKBParser.new(nil, support_ewkb: true).parse(school[:geom])
+        )
+      )
     }
   end
 
@@ -407,7 +424,7 @@ end
       org_level: school[:org_level],
       district: district_source[:district].to_s,
       subdistrict: district_source[:subdistrict].to_s,
-      source: 'SCA Projects',
+      source: 'scaprojects',
       ps_capacity: ps_capacity,
       is_capacity: is_capacity,
       hs_capacity: hs_capacity,

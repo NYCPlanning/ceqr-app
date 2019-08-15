@@ -18,35 +18,6 @@ export default Service.extend({
 
   // Geojson
 
-
-  bluebookGeojson: computed('analysis.bluebook.[]', function() {
-    return this.fetchBluebookGeojson.perform();
-  }),
-  fetchBluebookGeojson: task(function*() {
-    return yield carto.SQL(`
-      SELECT *
-      FROM ${this.analysis.dataTables.cartoTables.bluebook}
-      WHERE (org_id, bldg_id) IN (VALUES ${this.analysis.bluebookSqlPairs.join(',')})
-    `, 'geojson');
-  }).drop(),
-
-
-  lcgmsGeojson: computed('analysis.lcgmsCartoIds.[]', function() {
-    if (this.analysis.lcgmsCartoIds.length) {
-      return this.fetchLcgmsGeojson.perform();
-    } else {
-      return this.blankGeojsonPromise();
-    }
-  }),
-  fetchLcgmsGeojson: task(function*() {
-    return yield carto.SQL(`
-      SELECT the_geom, cartodb_id, name, org_level, cartodb_id, bldg_id, org_id
-      FROM ${this.analysis.dataTables.cartoTables.lcgms}
-      WHERE cartodb_id IN (${this.analysis.lcgmsCartoIds.join(',')})   
-    `, 'geojson');
-  }).drop(),
-
-
   esZonesGeojson: computed('analysis.subdistrictCartoIds.[]', function() {
     return this.fetchEsZones.perform();
   }),
