@@ -8,7 +8,9 @@
   {{/if}}
 </td>
 {{#each this.allModalSplitData as |modalSplit|}}
-  <td>{{get-split-value modalSplit this.variables.firstObject true}}</td>
+  <td>
+    {{get-split-value modalSplit this.variables.firstObject}}<span class="moe"> {{get-split-moe modalSplit this.variables.firstObject}}</span>
+  </td>
   <td>
     {{#if noPercent}}
       -

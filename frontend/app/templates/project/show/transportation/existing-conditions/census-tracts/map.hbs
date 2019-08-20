@@ -1,7 +1,9 @@
 <div class="row">
   <div class="sixteen wide column">
-    <Transportation::CensusTractsMap
-      @project={{this.model.project}}
-    />
+    {{#if this.model.project}}
+      <Transportation::CensusTractsMap
+        @project={{this.model.project}}
+      />
+    {{/if}}
   </div>
 </div>
