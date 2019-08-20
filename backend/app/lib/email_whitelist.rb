@@ -85,6 +85,7 @@ class EmailWhitelist
     'ddc.nyc.gov',
     'sustainability.nyc.gov',
     'moec.nyc.gov',
+    'lpc.nyc.gov',
 
     # Testing address
     'pichot.us'
