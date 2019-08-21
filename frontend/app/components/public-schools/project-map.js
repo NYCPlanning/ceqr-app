@@ -8,6 +8,7 @@ import mapColors from '../../utils/mapColors';
 export default Component.extend({  
   tablehover: service(),
   mapservice: service(),
+  mapdata: service(),
   router: service(),
   map: null,
   
@@ -16,6 +17,8 @@ export default Component.extend({
   
     this.tablehover.on('hover', this, 'dotHover');
     this.tablehover.on('unhover', this, 'dotUnhover');
+
+    this.mapdata.set('project', this.project);
 
     this.set('schoolPopup', new mapboxgl.Popup({
       closeButton: false,
@@ -30,7 +33,7 @@ export default Component.extend({
 
   // UI attributes
   showZones: false,
-  schoolZone: 'es',
+  schoolZone: 'ps',
   hsAnalysis: false,
   zoneName: null,
   mapColors,

@@ -90,7 +90,7 @@ export default DS.Model.extend({
   bluebook: DS.attr('public-schools/schools', { defaultValue() { return []; } }),
   lcgms: DS.attr('public-schools/schools', { defaultValue() { return []; } }),
 
-  buildingsGeojson: computed('bluebook', 'lcgms', 'scaProjects', function() {
+  buildingsGeojson: computed('bluebook', 'lcgms', function() {
     const buildings = this.bluebook.concat(this.get('lcgms'));
     
     const features = buildings.map((b) => {
