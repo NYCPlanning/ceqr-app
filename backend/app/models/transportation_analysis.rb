@@ -15,16 +15,9 @@ class TransportationAnalysis < ApplicationRecord
   end
 
   private
-  def testVersion
-    '2010'
-  end
-
-  def testVersion2
-    '2014'
-  end
     # # Find and set the intersecting Census Tracts
     def compute_required_study_selection
-      tracts = CeqrData::NycCensusTracts.version(testVersion).for_geom(project.bbls_geom)
+      tracts = CeqrData::NycCensusTracts.version('2010').for_geom(project.bbls_geom)
       self.required_jtw_study_selection = tracts || []
     end
 
@@ -33,20 +26,20 @@ class TransportationAnalysis < ApplicationRecord
       geoids = self.required_jtw_study_selection + self.jtw_study_selection
       # Why are we getting back empty arrays? Does this indicate something else is wrong?
       if geoids != []
-        centroid = CeqrData::NycCensusTracts.version(testVersion).st_union_geoids_centroid(geoids)
+        centroid = CeqrData::NycCensusTracts.version('2010').st_union_geoids_centroid(geoids)
         self.jtw_study_area_centroid = centroid
       end
     end
 
     # Find and set the adjacent Census Tracts as initial study selection
     def compute_initial_study_selection
-      tracts = CeqrData::NycCensusTracts.version(testVersion).touches_geoids(self.required_jtw_study_selection)
+      tracts = CeqrData::NycCensusTracts.version('2010').touches_geoids(self.required_jtw_study_selection)
       self.jtw_study_selection = tracts || []
     end
 
     # Find, set, and save the traffic zone
     def compute_traffic_zone
-      zones = CeqrData::TrafficZones.version(testVersion2).for_geom(project.bbls_geom)
+      zones = CeqrData::TrafficZones.version('2014').for_geom(project.bbls_geom)
 
       # Currently set traffic zone to most conservative touched by study area
       self.traffic_zone = zones.max
