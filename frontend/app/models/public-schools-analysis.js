@@ -252,7 +252,7 @@ export default DS.Model.extend({
         }, 0),
       }));
 
-      this.subdistricts.map((sd) => {
+      this.subdistricts.map((sd) => {        
         tables.push(SubdistrictTotals.create({
           ...sd,
           level: 'ps',

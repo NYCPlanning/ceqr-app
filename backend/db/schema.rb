@@ -83,7 +83,6 @@ ActiveRecord::Schema.define(version: 2019_08_21_153514) do
     t.datetime "updated_at", null: false
     t.integer "project_id"
     t.bigint "data_package_id"
-    t.geometry "subdistricts_geom", limit: {:srid=>4326, :type=>"multi_polygon"}
     t.index ["data_package_id"], name: "index_public_schools_analyses_on_data_package_id"
   end
 

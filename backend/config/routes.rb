@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   namespace :ceqr_data do
     namespace :v1 do
       get 'mappluto/validate/:bbl', to: 'mappluto#validate'
+      get 'doe_school_subdistricts/:version/subdistricts', to: 'doe_school_subdistricts#subdistricts'
     end
   end
 

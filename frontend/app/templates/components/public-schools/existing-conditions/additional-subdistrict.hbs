@@ -89,19 +89,14 @@
         <i class="dropdown icon"></i>
         <div class="menu">
           {{#each districts as |d|}}
-            <div data-value={{d.district}} class="item">
-              District
-              {{d.district}}
+            <div data-value={{d}} class="item">
+              District {{d}}
             </div>
           {{/each}}
         </div>
       </UiDropdown>
       <UiDropdown
-        class={{if
-          district
-          (if fetchSubdistricts.isRunning disabled loading)
-          "selection disabled"
-        }}
+        class="selection {{unless district "disabled"}}"
         @selected={{subdistrict}}
         @onChange={{action "setSubdistrict"}}
       >
@@ -110,15 +105,12 @@
         </div>
         <i class="dropdown icon"></i>
         <div class="menu">
-          {{#each subdistricts as |d|}}
-            <div data-value={{d.subdistrict}} class="item">
-              Subdistrict
-              {{d.subdistrict}}
-            </div>
+          {{#each subdistricts as |sd|}}
+            <div data-value={{sd}} class="item">Subdistrict {{sd}}</div>
           {{/each}}
         </div>
       </UiDropdown>
-      <button class="ui button" {{action "addSubdistrict"}}>
+      <button class="ui button {{unless subdistrict "disabled"}}" {{action "addSubdistrict"}}>
         Add
       </button>
     </div>

@@ -677,36 +677,6 @@ export default Factory.extend({
     thresholdHsStudents: 150,
     thresholdPsIsStudents: 50
   }),
-  dataTables: () => ({
-    id: "november-2018",
-    version: "november-2018",
-    cartoTables: {
-      lcgms: "ceqr_lcgms_v2018",
-      bluebook: "ceqr_bluebook_v2018",
-      esSchoolZones: "support_school_zones_es",
-      hsSchoolZones: "support_school_zones_hs",
-      msSchoolZones: "support_school_zones_ms",
-      enrollmentPctBySd: "enrollment_pct_by_sd_v2018",
-      housingPipelineSd: "ceqr_housing_pipeline_sd_v2018",
-      scaCapitalProjects: "sca_capital_projects_v2018",
-      housingPipelineBoro: "ceqr_housing_pipeline_boro_v2018",
-      enrollmentProjectionsSd: "ceqr_enrollment_projections_sd_v2018",
-      doeSignificantUtilChanges: "doe_significant_utilization_changes_v062018",
-      enrollmentProjectionsBoro: "ceqr_enrollment_projections_boro_v2018"
-    },
-    sourceDates: {
-      lcgms: "December 19, 2018",
-      bluebook: "2017-18",
-      housingPipeline: "2018 to 2027",
-      lcgmsSchoolYear: "2018-19",
-      scaCapitalProjects: "November 2018",
-      demographicSnapshot: false,
-      enrollmentProjections: "2018 to 2027",
-      doeSignificantUtilChanges: "April 2018"
-    },
-    enrollmentProjectionsMaxYear: 2027,
-    enrollmentProjectionsMinYear: 2017
-  }),
   esSchoolChoice: false,
   isSchoolChoice: true,
   subdistrictsFromDb: () => [

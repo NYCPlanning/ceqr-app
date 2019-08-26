@@ -5,14 +5,12 @@ class SeedDataPackage < ActiveRecord::Migration[5.2]
     PublicSchoolsAnalysis.all.each do |a|
       case a.data_tables["version"]
       when "november-2017"
-        a.data_package = DataPackage.where(package: "public_schools", version: "november_2017").first
+        a.update_column(:data_package_id, DataPackage.where(package: "public_schools", version: "november_2017").first.id)
       when "november-2018"
-        a.data_package = DataPackage.where(package: "public_schools", version: "november_2018").first
+        a.update_column(:data_package_id, DataPackage.where(package: "public_schools", version: "november_2018").first.id)
       when "november-2018-q2"
-        a.data_package = DataPackage.where(package: "public_schools", version: "november_2018_q2").first
+        a.update_column(:data_package_id, DataPackage.where(package: "public_schools", version: "november_2018_q2").first.id)
       end
-
-      a.save!
     end
 
     DataPackage.where(version: nil).destroy_all

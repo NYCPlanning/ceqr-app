@@ -1,5 +1,5 @@
 class CeqrData::NycAcs < DataRecord
-  self.table_name = "nyc_acs"
+  self.schema = "nyc_acs"
 
 # THERE'S NO GEOMETRY FOR NYC ACS TABLE??
   # def self.st_union_geoids_centroid(geoids)

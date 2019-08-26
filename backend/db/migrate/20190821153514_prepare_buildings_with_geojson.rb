@@ -14,6 +14,7 @@ class PrepareBuildingsWithGeojson < ActiveRecord::Migration[5.2]
           puts "empty bluebook"
           puts "analysis id: #{analysis.id}"
           puts bb
+          analysis.bluebook.delete(bb)
           next
         end
 

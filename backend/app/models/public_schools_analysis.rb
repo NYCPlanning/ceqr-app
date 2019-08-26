@@ -1,5 +1,6 @@
 class PublicSchoolsAnalysis < ApplicationRecord
   before_create :compute_for_project_create_or_update
+  before_update :compute_for_project_create_or_update, if: Proc.new { data_package_id_changed? || subdistricts_from_user_changed? }
 
   belongs_to :project
   belongs_to :data_package
@@ -36,7 +37,7 @@ class PublicSchoolsAnalysis < ApplicationRecord
 
   def subdistrict_pairs
     subdistricts = self.subdistricts_from_db + self.subdistricts_from_user
-    subdistricts.map { |sd| "(#{sd['district']},#{sd['subdistrict']})" }
+    subdistricts.map { |sd| "(#{sd['district'].to_i},#{sd['subdistrict'].to_i})" }
   end
 
   def set_subdistricts_from_db     
@@ -48,8 +49,8 @@ class PublicSchoolsAnalysis < ApplicationRecord
 
     self.subdistricts_from_db = sd.map do |sd|
       {
-        district: sd[:district].to_s,
-        subdistrict: sd[:subdistrict].to_s,
+        district: sd[:district],
+        subdistrict: sd[:subdistrict],
         id: "#{sd[:district]}#{sd[:subdistrict]}",
         sdName: "District #{sd[:district]} - Subdistrict #{sd[:subdistrict]}"
       }
@@ -185,8 +186,8 @@ class PublicSchoolsAnalysis < ApplicationRecord
     self.future_enrollment_multipliers = enrollment_pct_by_sd.map do |em|
       {
         level: em[:level],
-        district: em[:district].to_s,
-        subdistrict: em[:subdistrict].to_s,
+        district: em[:district],
+        subdistrict: em[:subdistrict],
         multiplier: em[:multiplier]
       }
     end
@@ -311,8 +312,8 @@ end
       org_id: school[:org_id],
       bldg_id: school[:bldg_id],
       level: level,
-      district: school[:district].to_s,
-      subdistrict: school[:subdistrict].to_s,
+      district: school[:district],
+      subdistrict: school[:subdistrict],
       source: 'bluebook',
       capacity: school["#{db_level}_capacity".to_sym],
       capacityFuture: school["#{db_level}_capacity".to_sym],
@@ -364,31 +365,28 @@ end
     end
   end
 
-# lcgms capacity is input by the user
-# if the database is queried again, and a user has already input a value,
-# we check for this as previousSaved, and populate the capacity property with this value
-# otherwise the capacity property is an empty string
-  def lcgmsCapacity
-    previousSaved = self.lcgms.find{|lcgms| lcgms[:org_id] == school[:org_id]}
-    previousSaved ? previousSaved['capacity'] : ''
-  end
-
 # "school" is the new queried data,
 # "district_source" is the subdistricts object queried from the database that matches subdistricts_pair
 # "level" is ps, is, or hs
 # borocode is determined from lcgms_borocode_lookup
   def school_object_lcgms(school, district_source, level, borocode)
+    # lcgms capacity is input by the user
+    # if the database is queried again, and a user has already input a value,
+    # we check for this as previousSaved, and populate the capacity property with this value
+    # otherwise the capacity property is an empty string
+    existingLcgms = self.lcgms.find{|lcgms| lcgms[:org_id] == school[:org_id]}
+    
     {
       name: school[:name],
       org_id: school[:org_id],
       bldg_id: school[:bldg_id],
       level: level,
       grades: school[:grades],
-      district: district_source[:district].to_s,
-      subdistrict: district_source[:subdistrict].to_s,
+      district: district_source[:district],
+      subdistrict: district_source[:subdistrict],
       source: 'lcgms',
       enroll: school["#{level}_enroll"],
-      capacity: lcgmsCapacity,
+      capacity: existingLcgms ? existingLcgms['capacity'] : 0,
       address: school[:address],
       borocode: borocode,
       geojson: RGeo::GeoJSON.encode(
@@ -420,8 +418,8 @@ end
       name: school[:name],
       project_dsf: school[:project_dsf],
       org_level: school[:org_level],
-      district: district_source[:district].to_s,
-      subdistrict: district_source[:subdistrict].to_s,
+      district: district_source[:district],
+      subdistrict: district_source[:subdistrict],
       source: 'scaprojects',
       capacity: school[:capacity],
       guessed_pct: school[:guessed_pct],

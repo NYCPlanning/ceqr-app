@@ -12,4 +12,12 @@ export default class CeqrDataService extends Service {
 
     return body.valid;
   }
+
+  async subdistricts(version) {
+    const response = await fetch(`${ENV.host}/ceqr_data/v1/doe_school_subdistricts/${version}/subdistricts`, {
+      method: 'GET'
+    });
+
+    return await response.json();
+  }
 }

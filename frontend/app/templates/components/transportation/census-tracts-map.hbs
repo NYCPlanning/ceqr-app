@@ -39,7 +39,7 @@
 
     <carto-source.layer
       @id='land-use'
-      @sql='SELECT cartodb_id, the_geom, the_geom_webmercator, landuse FROM mappluto'
+      @sql='SELECT the_geom, the_geom_webmercator, landuse FROM mappluto'
       @layer={{hash
         type='fill'
         layout=(hash visibility=(if this.showLandUse 'visible' 'none'))
