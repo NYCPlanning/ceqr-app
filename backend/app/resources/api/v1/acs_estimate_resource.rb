@@ -1,6 +1,6 @@
 class Api::V1::AcsEstimateResource < JSONAPI::Resource
   immutable
-  model_name 'CeqrData::NycAcs'
+  model_name 'Db::NycAcs'
 
   attributes(
     :geoid,
@@ -18,7 +18,7 @@ class Api::V1::AcsEstimateResource < JSONAPI::Resource
   end
 
   def version
-    CeqrData::NycAcs.version
+    Db::NycAcs.version
   end
 
   filter :variable
