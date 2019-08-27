@@ -1,6 +1,5 @@
 import Route from '@ember/routing/route';
 import { inject as service } from '@ember/service';
-import { debug } from '@ember/debug';
 
 export default Route.extend({
   controllerName: 'edit-project',
@@ -19,16 +18,8 @@ export default Route.extend({
 
       if (!changeset.isValid) return;
 
-      try {
-        const project = await changeset.save();
-        // ensure changes to analyses triggered by project updates are reloaded
-        await project.transportationAnalysis.reload();
-        await project.publicSchoolsAnalysis.reload();
-
-        history.back();
-      } catch(err) {
-        debug(err);
-      }
+      this.get('project-orchestrator').set('changeset', changeset);
+      this.get('project-orchestrator.saveProject').perform();
     },
 
     rollback: function(changeset) {

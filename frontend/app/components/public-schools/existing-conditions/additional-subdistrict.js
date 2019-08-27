@@ -6,6 +6,7 @@ import { computed } from '@ember/object';
 export default Component.extend({
   mapservice: service(),
   'ceqr-data': service(),
+  'project-orchestrator': service(),
   
   init() {
     this._super(...arguments);
@@ -17,7 +18,14 @@ export default Component.extend({
 
   fetchSubdistricts: task(function*() {
     const dataPackage = yield this.get('analysis.dataPackage');  
-    const allSubdistricts = yield this.get('ceqr-data').subdistricts(dataPackage.schemas.doe_school_subdistricts.table);
+    const response = yield this.get('ceqr-data').subdistricts(dataPackage.schemas.doe_school_subdistricts.table);
+
+    const allSubdistricts = response.reject((sd) => {
+      const fromUser = this.analysis.subdistrictsFromUser.find((a) => { return (sd.district === a.district && sd.subdistrict === a.subdistrict) });
+      const fromDb   = this.analysis.subdistrictsFromDb.find((a) => { return (sd.district === a.district && sd.subdistrict === a.subdistrict) });
+      
+      return (!!fromUser || !!fromDb)
+    });
 
     this.set('allSubdistricts', allSubdistricts);
 
@@ -28,10 +36,6 @@ export default Component.extend({
   subdistricts: computed('district', function() {
     if (!this.district) return [];
     return this.allSubdistricts.filterBy('district', this.district).mapBy('subdistrict');
-  }),
-
-  saveAnalysis: task(function*() {
-    yield this.analysis.save();
   }),
   
   actions: {
@@ -56,7 +60,8 @@ export default Component.extend({
       this.set('analysis.subdistrictsFromUser', subdistricts);
       this.set('subdistrict', null);
 
-      this.saveAnalysis.perform().then(
+      this.get('project-orchestrator').set('analysis', this.analysis);
+      this.get('project-orchestrator.saveAnalysis').perform().then(
         () => this.mapservice.fitToSubdistricts()
       );
     },
@@ -65,7 +70,8 @@ export default Component.extend({
       const subdistricts = this.analysis.subdistrictsFromUser;
       this.set('analysis.subdistrictsFromUser', subdistricts.removeObject(sd));
 
-      this.saveAnalysis.perform().then(
+      this.get('project-orchestrator').set('analysis', this.analysis);
+      this.get('project-orchestrator.saveAnalysis').perform().then(
         () => this.mapservice.fitToSubdistricts()
       );
     },
