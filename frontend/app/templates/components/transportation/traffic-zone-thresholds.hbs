@@ -5,7 +5,7 @@
       CEQR Traffic Zones
     </div>
   </h4>
-  <h4 class="ui right floated header">
+  {{!-- <h4 class="ui right floated header">
     <div class="ui secondary menu">
       <a
         class="item {{if (eq trafficZonesView "thresholds") "active"}}"
@@ -20,7 +20,7 @@
         Map
       </a>
     </div>
-  </h4>
+  </h4> --}}
 </div>
 {{#if (eq trafficZonesView "thresholds")}}
   <table class="ui attached celled table">
@@ -242,7 +242,7 @@
     </div>
   </div>
 {{else if (eq trafficZonesView "map")}}
-  <div class="ui attached segment">
+  {{!-- <div class="ui attached segment">
     <Transportation::TrafficZoneMap
       @project={{project}}
       @analysis={{analysis}}
@@ -267,5 +267,5 @@
         Traffic Zone map defined in Map 16-1: CEQR Traffic Zones
       </p>
     </div>
-  </div>
+  </div> --}}
 {{/if}}

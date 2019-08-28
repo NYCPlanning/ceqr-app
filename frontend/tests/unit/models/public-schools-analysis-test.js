@@ -220,8 +220,6 @@ module('Unit | Model | public schools analysis', function(hooks) {
       tested variables:
       * subdistricts (array)
       * multiSubdistrict (boolean)
-      * subdistrictCartoIds (array)
-      * subdistrictSqlPairs (array)
 
     */
 
@@ -231,7 +229,6 @@ module('Unit | Model | public schools analysis', function(hooks) {
           id: 172,
           sdName: "District 17 - Subdistrict 2",
           district: 17,
-          cartodb_id: 25,
           subdistrict: 2
         }
       ],
@@ -240,7 +237,6 @@ module('Unit | Model | public schools analysis', function(hooks) {
           id: 185,
           sdName: "District 18 - Subdistrict 5",
           district: 17,
-          cartodb_id: 24,
           subdistrict: 5
         }
       ],
@@ -253,8 +249,6 @@ module('Unit | Model | public schools analysis', function(hooks) {
     assert.equal(analysis.subdistricts.length, 2)
     assert.equal(analysis.subdistricts[1].id, 185);
     assert.equal(analysis.multiSubdistrict, true);
-    assert.equal(analysis.subdistrictCartoIds[1], 24);
-    assert.equal(analysis.subdistrictSqlPairs[1], '(17, 5)') // `(${f.district}, ${f.subdistrict})`
   });
 
   //
@@ -267,10 +261,7 @@ module('Unit | Model | public schools analysis', function(hooks) {
       tested variables:
       * buildings (array of objects)
       * allSchools (array of objects)
-      * lcgmsCartoIds (array)
-      * scaProjectsCartoIds (array)
       * buildingsBldgIds (array)
-      * bluebookSqlPairs (array)
 
     */
 
@@ -309,12 +300,9 @@ module('Unit | Model | public schools analysis', function(hooks) {
     assert.equal(lcgmsSchools[1].name, 'Strawberry Sunrise')
     // ^^ do we need to test that .compact works and that no null values are added to this allSchools concatenation?
 
-    assert.equal(analysis.lcgmsCartoIds[1], 22) // this.get('lcgms').mapBy('cartodb_id');
-    assert.equal(analysis.scaProjectsCartoIds[1], 32) // this.scaProjects.mapBy('cartodb_id');
     assert.equal(analysis.buildingsBldgIds[2], 'K091') // this.get('buildings').mapBy('bldg_id').uniq(); --> this one tests that the unique values "K022" are excluded
     assert.equal(analysis.buildingsBldgIds[3], 'LCGMS_BB1') // this.get('buildings').mapBy('bldg_id').uniq();
     assert.equal(analysis.buildingsBldgIds[6], 'SCA_DD1') // this.get('buildings').mapBy('bldg_id').uniq();
-    assert.equal(analysis.bluebookSqlPairs[2], "('K091', 'K091')") // `('${f.org_id}', '${f.bldg_id}')`
   });
 
   test('calculates projectionOverMax correctly', async function(assert) {
@@ -337,9 +325,6 @@ module('Unit | Model | public schools analysis', function(hooks) {
     let analysisMirage2027 = server.create('public-schools-analysis', {
       project: association({
         buildYear: 2027
-      }),
-      dataTables: () => ({
-          enrollmentProjectionsMaxYear: 2025,
       })
     });
 
@@ -347,21 +332,15 @@ module('Unit | Model | public schools analysis', function(hooks) {
     let analysisMirage2024 = server.create('public-schools-analysis', {
       project: association({
         buildYear: 2024
-      }),
-      dataTables: () => ({
-          enrollmentProjectionsMaxYear: 2025,
       })
     });
 
-    let project2027 = await this.owner.lookup('service:store').findRecord(
-      'project', analysisMirage2027.projectId, { include: 'public-schools-analysis' }
+    let analysis2024 = await this.owner.lookup('service:store').findRecord(
+      'public-schools-analysis', analysisMirage2024.id, { include: 'data-package,project' }
     );
-    let project2024 = await this.owner.lookup('service:store').findRecord(
-      'project', analysisMirage2024.projectId, { include: 'public-schools-analysis' }
+    let analysis2027 = await this.owner.lookup('service:store').findRecord(
+      'public-schools-analysis', analysisMirage2027.id, { include: 'data-package,project' }
     );
-
-    let analysis2027 = await project2027.get('publicSchoolsAnalysis');
-    let analysis2024 = await project2024.get('publicSchoolsAnalysis');
 
     assert.equal(analysis2027.maxProjection, 2025) // maxProjection = datatables.enrollmentProjectionsMaxYear
     assert.equal(analysis2027.projectionOverMax, true) // project.buildYear (2027) < maxProjection (2025), then false

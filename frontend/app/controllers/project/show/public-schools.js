@@ -4,7 +4,6 @@ import { computed } from '@ember-decorators/object';
 import { alias } from '@ember-decorators/object/computed';
 
 export default class ProjectShowPublicSchoolsController extends Controller {
-  'public-schools' = service();
   router = service();
   
   @alias('model.project') project;

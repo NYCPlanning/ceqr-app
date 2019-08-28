@@ -77,7 +77,7 @@
       <button
         data-test-create-project
         class="ui primary button
-          {{if project-orchestrator.createProject.isRunning "loading"}}"
+          {{if project-orchestrator.projectTask.isRunning "loading"}}"
         {{action "save"}}
       >
         Create Project
@@ -89,7 +89,10 @@
       <button class="ui button" {{action "back"}}>
         Back
       </button>
-      <button class="ui primary button" {{action "save"}}>
+      <button 
+        class="ui primary button
+          {{if project-orchestrator.projectTask.isRunning "loading"}}"
+        {{action "save"}}>
         Save Project
         <i class="arrow right icon"></i>
       </button>

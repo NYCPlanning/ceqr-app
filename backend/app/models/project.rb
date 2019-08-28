@@ -1,8 +1,8 @@
-class Project < ApplicationRecord  
+class Project < ApplicationRecord
   before_save :set_bbl_attributes
   after_create :create_analyses!
   after_update :refresh_analyses!
-  
+
   validates_presence_of :bbls
 
   has_many :editor_permissions, -> { where("permission = 'editor'") }, class_name: 'ProjectPermission'
@@ -18,10 +18,13 @@ class Project < ApplicationRecord
   has_one :transportation_analysis, dependent: :destroy
   has_one :community_facilities_analysis, dependent: :destroy
 
+  def boro_code
+    codes = bbls.map {|b| b[0].to_i }
+    codes.max
+  end
+
   def borough
-    boro_integers = bbls.map {|b| b[0].to_i }
-    
-    case boro_integers.max
+    case boro_code
     when 1 then "Manhattan"
     when 2 then "Bronx"
     when 3 then "Brooklyn"
@@ -33,8 +36,10 @@ class Project < ApplicationRecord
   private
 
   def set_bbl_attributes
-    self.bbls_geom = Db::Bbl.st_union_bbls(bbls)
-    self.bbls_version = Db::Bbl.version
+    mappluto = CeqrData::Mappluto.version('18v2')
+
+    self.bbls_geom = mappluto.st_union_bbls(bbls)
+    self.bbls_version = mappluto.version
   end
 
   # Create all analyses on creation of project, need better validations here.
@@ -48,6 +53,9 @@ class Project < ApplicationRecord
 
   def refresh_analyses!
     # analysis models should know what they need to do to refresh
-    transportation_analysis.compute_for_updated_bbls! if saved_change_to_bbls?
+    if saved_change_to_bbls?
+      public_schools_analysis.compute_for_updated_bbls!
+      transportation_analysis.compute_for_updated_bbls!
+    end
   end
 end

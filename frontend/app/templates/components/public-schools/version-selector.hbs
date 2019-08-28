@@ -1,29 +1,17 @@
-<div class="ui labels">
-  {{#if project.viewOnly}}
-    <div class="ui medium label">
-      {{#if dataOutdated}}
-        <UiPopup
-          @tagName="i"
-          class="exclamation orange circle icon"
-          @content="Update available"
-         />
-      {{/if}}
-      Data Package:
-      <div class="detail">
+
+  <div class="ui medium label">
+    {{#if analysis.newDataAvailable}}
+      <UiPopup
+        @tagName="i"
+        class="exclamation orange circle icon"
+        @content="Update available"
+        />
+    {{/if}}
+    Data Package:
+    <div class="detail">
+      {{#if project.viewOnly}}
         {{humanize analysis.dataVersion}}
-      </div>
-    </div>
-  {{else}}
-    <div class="ui medium label">
-      {{#if dataOutdated}}
-        <UiPopup
-          @tagName="i"
-          class="exclamation orange circle icon"
-          @content="Update available"
-         />
-      {{/if}}
-      Data Package:
-      <div class="detail">
+      {{else}}
         <UiDropdown
           @selected={{analysis.dataVersion}}
           class="public-schools-data-dropdown"
@@ -31,36 +19,18 @@
           <div class="text"></div>
           <i class="dropdown icon"></i>
           <div class="menu">
-            <div
-              data-value="november-2017"
-              class="item"
-              onClick={{action "changeDataVersion" "november-2017"}}
-            >
-              November 2017 (old multipliers)
-            </div>
-            <div
-              data-value="november-2018"
-              class="item"
-              onClick={{action "changeDataVersion" "november-2018"}}
-            >
-              November 2018
-            </div>
-            <div
-              data-value="november-2018-q2"
-              class="item"
-              onClick={{action "changeDataVersion" "november-2018-q2"}}
-            >
-              November 2018 (with April 2019 SCA Capital Plan)
-            </div>
+            {{#each availablePackages as |package|}}
+              <div
+                data-value={{package.version}}
+                class="item"
+                onClick={{action "changeDataPackage" package}}
+              >
+                {{package.name}}
+              </div>
+            {{/each}}
           </div>
         </UiDropdown>
-      </div>
-    </div>
-  {{/if}}
-  <div class="ui medium label">
-    Schools Multipliers:
-    <div class="detail">
-      {{humanize analysis.multiplierVersion}}
+      {{/if}}
     </div>
   </div>
-</div>
+

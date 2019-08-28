@@ -1,71 +1,67 @@
 import Component from '@ember/component';
-import carto from 'carto-promises-utility/utils/carto';
 import { task } from 'ember-concurrency';
 import { inject as service } from '@ember/service';
+import { computed } from '@ember/object';
 
 export default Component.extend({
-  'public-schools': service(),
   mapservice: service(),
+  'ceqr-data': service(),
+  'project-orchestrator': service(),
   
   init() {
     this._super(...arguments);
-    this.fetchDistricts.perform();
-    this.get('public-schools').set('analysis', this.analysis);
+    this.fetchSubdistricts.perform();
+
+    this.districts = [];
+    this.allSubdistricts = [];
   },
 
-  fetchDistricts: task(function*() {
-    const districts = yield carto.SQL(`
-      SELECT DISTINCT schooldist AS district
-      FROM doe_schoolsubdistricts_v2017
-      ORDER BY schooldist`);
+  fetchSubdistricts: task(function*() {
+    const dataPackage = yield this.get('analysis.dataPackage');  
+    const response = yield this.get('ceqr-data').subdistricts(dataPackage.schemas.doe_school_subdistricts.table);
+
+    const allSubdistricts = response.reject((sd) => {
+      const fromUser = this.analysis.subdistrictsFromUser.find((a) => { return (sd.district === a.district && sd.subdistrict === a.subdistrict) });
+      const fromDb   = this.analysis.subdistrictsFromDb.find((a) => { return (sd.district === a.district && sd.subdistrict === a.subdistrict) });
+      
+      return (!!fromUser || !!fromDb)
+    });
+
+    this.set('allSubdistricts', allSubdistricts);
+
+    const districts = allSubdistricts.mapBy('district').uniq();
     this.set('districts', districts);
   }),
 
-  fetchSubdistricts: task(function*() {
-    const subdistricts = yield carto.SQL(`
-      SELECT zone AS subdistrict
-      FROM doe_schoolsubdistricts_v2017
-      WHERE schooldist = ${this.district}
-      ORDER BY zone`);
-    this.set('subdistricts', subdistricts);
-  }),
-
-  addSubdistrict: task(function*() {
-    const sd = yield carto.SQL(`
-      SELECT cartodb_id, schooldist AS district, zone AS subdistrict
-      FROM doe_schoolsubdistricts_v2017
-      WHERE schooldist = ${this.district} AND zone = ${this.subdistrict}
-    `)
-
-    const subdistricts = this.analysis.subdistrictsFromUser;
-    subdistricts.push({
-      district: sd[0].district,
-      subdistrict: sd[0].subdistrict,
-      cartodb_id: sd[0].cartodb_id,
-      id: parseInt(`${sd[0].district}${sd[0].subdistrict}`),
-      sdName: `District ${sd[0].district} - Subdistrict ${sd[0].subdistrict}`
-    });
-
-    this.set('analysis.subdistrictsFromUser', subdistricts);
-    yield this.get('public-schools.fullReload').unlinked().perform();
-
-    this.set('subdistrict', null);
+  subdistricts: computed('district', function() {
+    if (!this.district) return [];
+    return this.allSubdistricts.filterBy('district', this.district).mapBy('subdistrict');
   }),
   
   actions: {
     setDistrict(district) {
-      this.set('district', district);
-
+      this.set('district', parseInt(district));
       this.set('subdistrict', null);
-      this.fetchSubdistricts.perform();
     },
 
     setSubdistrict(subdistrict) {
-      this.set('subdistrict', subdistrict);
+      this.set('subdistrict', parseInt(subdistrict));
     },
 
     addSubdistrict() {
-      this.addSubdistrict.perform().then(
+      const subdistricts = this.analysis.subdistrictsFromUser;
+      subdistricts.push({
+        district: parseInt(this.district),
+        subdistrict: parseInt(this.subdistrict),
+        id: `${this.district}${this.subdistrict}`,
+        sdName: `District ${this.district} - Subdistrict ${this.subdistrict}`
+      });
+  
+      this.set('analysis.subdistrictsFromUser', subdistricts);
+      this.set('subdistrict', null);
+
+      this.get('project-orchestrator').set('analysis', this.analysis);
+      this.get('project-orchestrator.saveAnalysis').perform().then(
         () => this.mapservice.fitToSubdistricts()
       );
     },
@@ -74,7 +70,8 @@ export default Component.extend({
       const subdistricts = this.analysis.subdistrictsFromUser;
       this.set('analysis.subdistrictsFromUser', subdistricts.removeObject(sd));
 
-      this.get('public-schools.fullReload').perform().then(
+      this.get('project-orchestrator').set('analysis', this.analysis);
+      this.get('project-orchestrator.saveAnalysis').perform().then(
         () => this.mapservice.fitToSubdistricts()
       );
     },

@@ -7,19 +7,18 @@ import mapColors from '../../utils/mapColors';
 
 export default Component.extend({  
   tablehover: service(),
-  mapdata: service(),
   mapservice: service(),
+  mapdata: service(),
   router: service(),
   map: null,
   
   didReceiveAttrs() {
     this._super(...arguments);
-    
-    this.mapdata.set('project', this.project);
-    this.mapdata.set('analysis', this.analysis);
-
+  
     this.tablehover.on('hover', this, 'dotHover');
     this.tablehover.on('unhover', this, 'dotUnhover');
+
+    this.mapdata.set('project', this.project);
 
     this.set('schoolPopup', new mapboxgl.Popup({
       closeButton: false,
@@ -34,26 +33,26 @@ export default Component.extend({
 
   // UI attributes
   showZones: false,
-  schoolZone: 'es',
+  schoolZone: 'ps',
   hsAnalysis: false,
   zoneName: null,
   mapColors,
 
   dotHover({source, id}) {
-    if (this.get('map')) this.get('map').setFilter(`${source}-hover`, ["==", ["get", "cartodb_id"], id])
+    if (this.get('map')) this.get('map').setFilter(`${source}-hover`, ["==", ["get", "id"], id]);
   },
 
   dotUnhover({source}) {
-    if (this.get('map')) this.get('map').setFilter(`${source}-hover`, ["==", ["get", "cartodb_id"], 0])
+    if (this.get('map')) this.get('map').setFilter(`${source}-hover`, ["==", ["get", "id"], 0]);
   },
 
   actions: {
     zoneHover(e) {
       if (this.get('showZones') && `${this.get('schoolZone')}-zones-hover` === e.features[0].layer.id) {
         if (e.features[0].properties.remarks === "null") {
-          this.set('zoneName', e.features[0].properties.dbn)
+          this.set('zoneName', e.features[0].properties.dbn);
         } else {
-          this.set('zoneName', e.features[0].properties.remarks)
+          this.set('zoneName', e.features[0].properties.remarks);
         }
       }
     },
@@ -64,37 +63,37 @@ export default Component.extend({
 
     displayPopup(e) {
       this.get('map').getCanvas().style.cursor = 'default';
-      let features = this.map.queryRenderedFeatures(e.point, { layers: ['bluebook','lcgms','scaprojects'] })
-      
+      let features = this.map.queryRenderedFeatures(e.point, { layers: ['buildings', 'scaprojects'] })
+
       if (features.length) {
         const schools = features.map((b) => ({ 
-          type: b.layer.id,
-          ...b.properties
-        }))
+          ...b.properties,
+          layer_id: b.layer.id
+        }));
 
         let html = `<table class="ui simple table inverted">
           <thead>
-            <tr><th>Org ID</th><th>Bldg ID</th><th>Org Name</th><th>Level</th></tr>
+            <tr><th>Org Name</th><th>Org ID</th><th>Bldg ID</th><th>Level</th></tr>
           </thead>
         `;
         schools.forEach((s) => {
-          this.dotHover({source: s.type, id: s.cartodb_id})
-          this.get('tablehover').trigger('hover', {source: s.type, id: s.cartodb_id});
-          
+          this.dotHover({source: s.layer_id, id: s.id});
+          this.get('tablehover').trigger('hover', {source: s.layer_id, id: s.id});
+
           let org_name;
-          if (s.type === 'lcgms') {
+          if (s.source === 'lcgms') {
             org_name = `${s.name}<br>(newly built)`
-          } else if (s.type === 'scaprojects') {
+          } else if (s.source === 'scaprojects') {
             org_name = `${s.name}<br>(under construction)`
           } else {
             org_name = s.name
           }
           
           let row = `<tr>
-            <td>${org_name}</td>  
+            <td>${org_name}</td>
             <td>${s.org_id || ""}</td>
             <td>${s.bldg_id || ""}</td>
-            <td>${s.org_level}</td>
+            <td>${s.level}</td>
           </tr>`;
           html = html + row;
         });
@@ -107,8 +106,7 @@ export default Component.extend({
       } else {
         this.get('schoolPopup').remove();
 
-        this.get('tablehover').trigger('unhover', {source: 'bluebook'});
-        this.get('tablehover').trigger('unhover', {source: 'lcgms'});
+        this.get('tablehover').trigger('unhover', {source: 'buildings'});
         this.get('tablehover').trigger('unhover', {source: 'scaprojects'});
 
         this.get('map').getCanvas().style.cursor = '';
@@ -122,7 +120,7 @@ export default Component.extend({
       map.addControl(nav, 'top-right');
 
       this.set('mapservice.map', map);
-      this.get('mapservice').fitToSubdistricts();
+      this.get('mapservice').fitToSubdistricts(this.analysis.subdistrictsGeojson);
 
       this.set('map', map);
     },

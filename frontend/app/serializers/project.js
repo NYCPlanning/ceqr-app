@@ -10,6 +10,8 @@ export default class ProjectSerializer extends JSONAPISerializer {
     viewOnly:    { serialize: false },
     bblsGeojson: { serialize: false },
     bblsVersion: { serialize: false },
+    borough:     { serialize: false },
+    boroCode:    { serialize: false },
 
     publicSchoolsAnalysis: { serialize: false },
     transportationAnalysis: { serialize: false },

@@ -1,12 +1,10 @@
-{{#if public-schools.fullReload.isIdle}}
-  <div class="sixteen wide column">
-    <PublicSchools::WithAction::Steps
-      @project={{project}}
-      @analysis={{model.publicSchoolsAnalysis}}
-     />
+<div class="sixteen wide column">
+  <PublicSchools::WithAction::Steps
+    @project={{project}}
+    @analysis={{model.publicSchoolsAnalysis}}
+    />
 
-  </div>
-  <div class="sixteen wide column">
-    {{outlet}}
-  </div>
-{{/if}}
+</div>
+<div class="sixteen wide column">
+  {{outlet}}
+</div>

@@ -108,6 +108,10 @@ module.exports = function(environment) {
 };
 
 function getHost(environment) {
+  if (process.env.HOST) {
+    return process.env.HOST;
+  }
+  
   if (environment === 'staging') {
     return 'https://staging.api.ceqr.app';
   }
@@ -120,5 +124,5 @@ function getHost(environment) {
     return process.env.HOST_PR_REVIEW;
   }
 
-  return process.env.HOST || '';
+  return '';
 }

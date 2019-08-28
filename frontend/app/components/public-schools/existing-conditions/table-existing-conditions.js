@@ -14,18 +14,18 @@ export default Component.extend({
   didReceiveAttrs() {
     this._super(...arguments);
     const analysis = this.analysis;
-    
+
     if (analysis) {
-      this.set('activeSdId', (analysis.subdistricts[0].id).toString());
+      this.set('activeSdId', analysis.subdistricts[0].id);
     }
   },
 
-  table: computed('activeSdId', 'activeSchoolsLevel', function() {
+  table: computed('activeSdId', 'activeSchoolsLevel', function() {    
     if (this.activeSchoolsLevel === 'hs') {
       return this.analysis.subdistrictTotals.findBy('level', 'hs');
     } else {
       return this.analysis.subdistrictTotals.find(
-        (total) => (total.id === parseInt(this.activeSdId) && total.level === this.activeSchoolsLevel)
+        (total) => (parseInt(total.id) === parseInt(this.activeSdId) && total.level === this.activeSchoolsLevel)
       );
     }
   }),
@@ -35,7 +35,7 @@ export default Component.extend({
   }),
 
   sd: computed('activeSdId', function() {
-    return this.analysis.subdistricts.findBy('id', parseInt(this.activeSdId));
+    return this.analysis.subdistricts.findBy('id', this.activeSdId);
   }),
 
   actions: {

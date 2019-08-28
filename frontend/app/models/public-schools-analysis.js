@@ -4,15 +4,19 @@ import { computed } from '@ember/object';
 import SubdistrictTotals from '../fragments/public-schools/SubdistrictTotals';
 import LevelTotals from '../fragments/public-schools/LevelTotals';
 
+import turf from '@turf/helpers';
+
 export default DS.Model.extend({
   project: DS.belongsTo('project'),
+  dataPackage: DS.belongsTo('data-package'),
+
+  newDataAvailable: DS.attr('boolean'),
 
   // Analysis Model triggers across
   detailedAnalysis: computed.alias('indirectEffect'),
 
   // Aliases from project
   borough: computed.alias('project.borough'),
-  boroCode: computed.alias('project.boroCode'),
   netUnits: computed.alias('project.netUnits'),
   bbls: computed.alias('project.bbls'),
   buildYear: computed.alias('project.buildYear'),
@@ -25,17 +29,16 @@ export default DS.Model.extend({
       case 'march-2014':
         return this.multipliers.boroughs.findBy('name', this.borough) || {};
       case 'november-2018':
-        return this.multipliers.districts.findBy('csd', this.district) || {};
+        return this.multipliers.districts.findBy('csd', parseInt(this.district)) || {};
       default:
         return {};
     }
   }),
 
   // Schools Data version
-  dataTables: DS.attr(''),
-  dataVersion: computed.alias('dataTables.version'),
-  maxProjection: computed.alias('dataTables.enrollmentProjectionsMaxYear'),
-  minProjection: computed.alias('dataTables.enrollmentProjectionsMinYear'),
+  dataVersion: computed.alias('dataPackage.version'),
+  maxProjection: computed.alias('dataPackage.schemas.sca_enrollment_projections_by_sd.maxYear'),
+  minProjection: computed.alias('dataPackage.schemas.sca_enrollment_projections_by_sd.minYear'),
 
   // Derived from map
   esSchoolChoice: DS.attr('boolean'),
@@ -70,54 +73,61 @@ export default DS.Model.extend({
   // School District & Subdistricts
   subdistrictsFromDb: DS.attr('', { defaultValue() { return []; } }),
   subdistrictsFromUser: DS.attr('', { defaultValue() { return []; } }),
+  subdistrictsGeojson: DS.attr(''),
 
   subdistricts: computed('subdistrictsFromDb.@each', 'subdistrictsFromUser.@each', function() {
     return this.subdistrictsFromDb.concat(this.subdistrictsFromUser);
   }),
   district: computed('subdistrictsFromDb', function() {
-    return this.subdistrictsFromDb[0].district;
+    return parseInt(this.subdistrictsFromDb[0].district);
   }),
-
   multiSubdistrict: computed('subdistricts', function() {
     return (this.get('subdistricts').length > 1)
-  }),
-  subdistrictCartoIds: computed('subdistricts', function() {
-    return this.get('subdistricts').mapBy('cartodb_id');
-  }),
-  subdistrictSqlPairs: computed('subdistricts', function() {
-    return this.get('subdistricts').map(
-      (f) => `(${f.district}, ${f.subdistrict})`
-    );
   }),
 
   // By Subdistrict
   bluebook: DS.attr('public-schools/schools', { defaultValue() { return []; } }),
-  bluebook_findExisting(building, org_level) {
-    return this.bluebook.filter(
-      (e) =>
-        e.org_id === building.org_id
-        &&
-        e.bldg_id === building.bldg_id
-        &&
-        e.level === org_level
-        &&
-        e.dataVersion === this.dataVersion
-    )[0];
-  },
-  bluebookSqlPairs: computed('bluebook', function() {
-    return this.bluebook.map(
-      (f) => `('${f.org_id}', '${f.bldg_id}')`
-    ).uniq();
-  }),
-
   lcgms: DS.attr('public-schools/schools', { defaultValue() { return []; } }),
-  lcgmsCartoIds: computed('lcgms', function() {
-    return this.get('lcgms').mapBy('cartodb_id');
+
+  buildingsGeojson: computed('bluebook', 'lcgms', function() {
+    const buildings = this.bluebook.concat(this.get('lcgms'));
+    
+    const features = buildings.map((b) => {
+      const geojson = b.geojson;
+
+      geojson.properties = {
+        level: b.level,
+        name: b.name,
+        org_id: b.org_id,
+        bldg_id: b.bldg_id,
+        source: b.source,
+        id: b.id,
+      }
+
+      return geojson;
+    });
+    
+    return turf.featureCollection(features);
   }),
 
-  scaProjects: DS.attr('', { defaultValue() { return []; } }),
-  scaProjectsCartoIds: computed('scaProjects.@each', function() {
-    return this.scaProjects.mapBy('cartodb_id');
+  scaProjects: DS.attr('public-schools/sca-projects', { defaultValue() { return []; } }),
+  scaProjectsGeojson: computed('scaProjects', function() {
+    const features = this.scaProjects.map((b) => {
+      const geojson = b.geojson;
+
+      geojson.properties = {
+        name: b.name,
+        org_id: b.org_id,
+        source: b.source,
+        org_level: b.org_level,
+        level: b.org_level,
+        id: b.id,
+      }
+
+      return geojson;
+    });
+    
+    return turf.featureCollection(features);
   }),
 
   buildings: computed('bluebook', 'lcgms', 'scaProjects', function() {
@@ -241,7 +251,7 @@ export default DS.Model.extend({
         }, 0),
       }));
 
-      this.subdistricts.map((sd) => {
+      this.subdistricts.map((sd) => {        
         tables.push(SubdistrictTotals.create({
           ...sd,
           level: 'ps',

@@ -14,6 +14,7 @@ class Api::V1::ProjectResource < JSONAPI::Resource
 
     :ceqr_number,
     :borough,
+    :boro_code,
   
     :created_at,
     :updated_at,
