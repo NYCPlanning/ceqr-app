@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_21_153514) do
+ActiveRecord::Schema.define(version: 2019_08_28_152150) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -46,7 +46,6 @@ ActiveRecord::Schema.define(version: 2019_08_21_153514) do
     t.text "name"
     t.text "bbls", default: [], null: false, array: true
     t.integer "build_year"
-    t.text "borough"
     t.text "updated_by"
     t.datetime "updated_at", null: false
     t.datetime "created_at", null: false
@@ -65,7 +64,6 @@ ActiveRecord::Schema.define(version: 2019_08_21_153514) do
   create_table "public_schools_analyses", force: :cascade do |t|
     t.boolean "es_school_choice"
     t.boolean "is_school_choice"
-    t.boolean "direct_effect"
     t.float "hs_students_from_housing"
     t.jsonb "subdistricts_from_db", default: [], null: false, array: true
     t.jsonb "subdistricts_from_user", default: [], null: false, array: true

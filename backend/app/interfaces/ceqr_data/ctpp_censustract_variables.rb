@@ -13,5 +13,3 @@ module CeqrData
     # end
   end
 end
-
-

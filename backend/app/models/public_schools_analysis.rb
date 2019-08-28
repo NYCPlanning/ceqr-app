@@ -81,7 +81,7 @@ class PublicSchoolsAnalysis < ApplicationRecord
     
     ps_schools = db.ps_schools_in_subdistricts(subdistrict_pairs)
     is_schools = db.is_schools_in_subdistricts(subdistrict_pairs)
-    hs_schools = db.high_schools_in_boro(project.boroIntegers)
+    hs_schools = db.high_schools_in_boro(project.boro_code)
 
     # new_bluebook resets to an empty array each time bluebook database is queried
     # e.g. a user adds a BBL to their project within a different school subdistrict

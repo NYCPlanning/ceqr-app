@@ -25,16 +25,18 @@ export default DS.Model.extend({
   bblsGeojson: DS.attr(''),
   
   borough: DS.attr('string'),
-  boroCode: computed('borough', function() {
-    switch (this.borough) {
-      case 'Manhattan': return 1;
-      case 'Bronx': return 2;
-      case 'Brooklyn': return 3;
-      case 'Queens': return 4;
-      case 'Staten Island': return 5;
-      default: return null;
-    }
-  }),
+  boroCode: DS.attr('number'),
+
+  // boroCode: computed('borough', function() {
+  //   switch (this.borough) {
+  //     case 'Manhattan': return 1;
+  //     case 'Bronx': return 2;
+  //     case 'Brooklyn': return 3;
+  //     case 'Queens': return 4;
+  //     case 'Staten Island': return 5;
+  //     default: return null;
+  //   }
+  // }),
   boroAbbr: computed('borough', function() {
     return boroughToAbbr(this.borough);
   }),

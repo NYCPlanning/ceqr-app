@@ -18,12 +18,13 @@ class Project < ApplicationRecord
   has_one :transportation_analysis, dependent: :destroy
   has_one :community_facilities_analysis, dependent: :destroy
 
-  def boroIntegers
-    bbls.map {|b| b[0].to_i }
+  def boro_code
+    codes = bbls.map {|b| b[0].to_i }
+    codes.max
   end
 
   def borough
-    case boroIntegers.max
+    case boro_code
     when 1 then "Manhattan"
     when 2 then "Bronx"
     when 3 then "Brooklyn"
