@@ -8,10 +8,10 @@ module('Integration | Helper | schoolYear', function(hooks) {
 
   // Replace this with your real tests.
   test('it renders', async function(assert) {
-    this.set('inputValue', '1234');
+    this.set('inputValue', {minYear: 2010, maxYear: 2011});
 
     await render(hbs`{{school-year inputValue}}`);
 
-    assert.equal(this.element.textContent.trim(), '1234');
+    assert.equal(this.element.textContent.trim(), '2010-2011');
   });
 });

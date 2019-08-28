@@ -8,12 +8,12 @@ RSpec.describe "CeqrData SCA Enrollment Projections", type: :model do
   
     # future_enrollment_projections VERSION 2018
     it "returns an array of future_enrollment_projections VERSION 2018" do
-      district = '2'
-      buildYearMaxed = '2023'
+      district = 2
+      buildYearMaxed = 2023
 
       future_enrollment_projections = sca_enrollment_projections_by_sd_2018.enrollment_projection_by_subdistrict_for_year(buildYearMaxed, district)
 
-      expect(future_enrollment_projections.first[:district]).to be_a String
+      expect(future_enrollment_projections.first[:district]).to be_a Integer
       expect(future_enrollment_projections.first[:ps]).to be_an Integer
       expect(future_enrollment_projections.first[:is]).to be_an Integer
       expect(future_enrollment_projections.first[:school_year]).to be_a String
@@ -24,12 +24,12 @@ RSpec.describe "CeqrData SCA Enrollment Projections", type: :model do
 
     # future_enrollment_projections VERSION 2017
     it "returns an array of future_enrollment_projections VERSION 2017" do
-      district = '2'
+      district = 2
       buildYearMaxed = '2023'
 
       future_enrollment_projections = sca_enrollment_projections_by_sd_2017.enrollment_projection_by_subdistrict_for_year(buildYearMaxed, district)
 
-      expect(future_enrollment_projections.first[:district]).to be_a String
+      expect(future_enrollment_projections.first[:district]).to be_a Integer
       expect(future_enrollment_projections.first[:ps]).to be_an Integer
       expect(future_enrollment_projections.first[:is]).to be_an Integer
       expect(future_enrollment_projections.first[:school_year]).to be_a String

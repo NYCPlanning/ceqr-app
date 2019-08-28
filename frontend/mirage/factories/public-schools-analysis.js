@@ -5,6 +5,357 @@ import { Factory, trait, association } from 'ember-cli-mirage';
 // Editing the factory directly might affect other tests.
 
 export default Factory.extend({
+  dataPackage: association({
+    name: 'November 2017',
+    package: 'public_schools',
+    version: 'november_2017',
+    release_date: Date.now,
+    schemas: () => {
+      return {
+        "doe_school_subdistricts": { table: "2017" },
+        "doe_lcgms": {
+          table: "2017",
+          version: "2018-09-10",
+          minYear: 2017,
+          maxYear: 2018,
+        },
+        "sca_bluebook": {
+          table: "2017",
+          minYear: 2016,
+          maxYear: 2017,
+        },
+        "doe_school_zones_ps": { table: "2018" },
+        "doe_school_zones_is": { table: "2018" },
+        "doe_school_zones_hs": { table: "2018" },
+        "sca_enrollment_pct_by_sd": { table: "2017" },
+        "sca_housing_pipeline_by_boro": {
+          minYear: 2016,
+          maxYear: 2025,
+          table: "2017",
+        },
+        "sca_housing_pipeline_by_sd": {
+          minYear: 2016,
+          maxYear: 2025,
+          table: "2017",
+        },
+        "sca_enrollment_projections_by_boro": {
+          minYear: 2015,
+          maxYear: 2025,
+          table: "2017",
+        },
+        "sca_enrollment_projections_by_sd": {
+          minYear: 2015,
+          maxYear: 2025,
+          table: "2017",
+        },
+        "doe_significant_utilization_changes": {
+          table: "062018",
+          version: "2018-02-01",
+        },
+        "sca_capital_projects": {
+          table: "2018",
+          version: "2018-12-04",
+        }
+      };
+    }
+  }),
+
+  multipliers: () => ({
+    version: "november-2018",
+    districts: [
+      {
+        hs: 0.02,
+        is: 0.03,
+        ps: 0.05,
+        csd: 1,
+        borocode: "mn",
+        hsThreshold: 7126,
+        psisThreshold: 630
+      },
+      {
+        hs: 0.02,
+        is: 0.02,
+        ps: 0.05,
+        csd: 2,
+        borocode: "mn",
+        hsThreshold: 7126,
+        psisThreshold: 725
+      },
+      {
+        hs: 0.02,
+        is: 0.03,
+        ps: 0.06,
+        csd: 3,
+        borocode: "mn",
+        hsThreshold: 7126,
+        psisThreshold: 569
+      },
+      {
+        hs: 0.02,
+        is: 0.05,
+        ps: 0.13,
+        csd: 4,
+        borocode: "mn",
+        hsThreshold: 7126,
+        psisThreshold: 292
+      },
+      {
+        hs: 0.02,
+        is: 0.06,
+        ps: 0.16,
+        csd: 5,
+        borocode: "mn",
+        hsThreshold: 7126,
+        psisThreshold: 225
+      },
+      {
+        hs: 0.02,
+        is: 0.06,
+        ps: 0.15,
+        csd: 6,
+        borocode: "mn",
+        hsThreshold: 7126,
+        psisThreshold: 242
+      },
+      {
+        hs: 0.15,
+        is: 0.19,
+        ps: 0.37,
+        csd: 7,
+        borocode: "bx",
+        hsThreshold: 980,
+        psisThreshold: 90
+      },
+      {
+        hs: 0.15,
+        is: 0.15,
+        ps: 0.31,
+        csd: 8,
+        borocode: "bx",
+        hsThreshold: 980,
+        psisThreshold: 109
+      },
+      {
+        hs: 0.15,
+        is: 0.11,
+        ps: 0.34,
+        csd: 9,
+        borocode: "bx",
+        hsThreshold: 980,
+        psisThreshold: 109
+      },
+      {
+        hs: 0.15,
+        is: 0.12,
+        ps: 0.33,
+        csd: 10,
+        borocode: "bx",
+        hsThreshold: 980,
+        psisThreshold: 111
+      },
+      {
+        hs: 0.15,
+        is: 0.11,
+        ps: 0.26,
+        csd: 11,
+        borocode: "bx",
+        hsThreshold: 980,
+        psisThreshold: 134
+      },
+      {
+        hs: 0.15,
+        is: 0.13,
+        ps: 0.33,
+        csd: 12,
+        borocode: "bx",
+        hsThreshold: 980,
+        psisThreshold: 107
+      },
+      {
+        hs: 0.09,
+        is: 0.03,
+        ps: 0.07,
+        csd: 13,
+        borocode: "bk",
+        hsThreshold: 1767,
+        psisThreshold: 480
+      },
+      {
+        hs: 0.09,
+        is: 0.02,
+        ps: 0.07,
+        csd: 14,
+        borocode: "bk",
+        hsThreshold: 1767,
+        psisThreshold: 586
+      },
+      {
+        hs: 0.09,
+        is: 0.05,
+        ps: 0.18,
+        csd: 15,
+        borocode: "bk",
+        hsThreshold: 1767,
+        psisThreshold: 220
+      },
+      {
+        hs: 0.09,
+        is: 0.08,
+        ps: 0.13,
+        csd: 16,
+        borocode: "bk",
+        hsThreshold: 1767,
+        psisThreshold: 246
+      },
+      {
+        hs: 0.09,
+        is: 0.09,
+        ps: 0.24,
+        csd: 17,
+        borocode: "bk",
+        hsThreshold: 1767,
+        psisThreshold: 152
+      },
+      {
+        hs: 0.09,
+        is: 0.16,
+        ps: 0.27,
+        csd: 18,
+        borocode: "bk",
+        hsThreshold: 1767,
+        psisThreshold: 118
+      },
+      {
+        hs: 0.09,
+        is: 0.15,
+        ps: 0.38,
+        csd: 19,
+        borocode: "bk",
+        hsThreshold: 1767,
+        psisThreshold: 94
+      },
+      {
+        hs: 0.09,
+        is: 0.07,
+        ps: 0.31,
+        csd: 20,
+        borocode: "bk",
+        hsThreshold: 1767,
+        psisThreshold: 132
+      },
+      {
+        hs: 0.09,
+        is: 0.07,
+        ps: 0.24,
+        csd: 21,
+        borocode: "bk",
+        hsThreshold: 1767,
+        psisThreshold: 161
+      },
+      {
+        hs: 0.09,
+        is: 0.11,
+        ps: 0.27,
+        csd: 22,
+        borocode: "bk",
+        hsThreshold: 1767,
+        psisThreshold: 132
+      },
+      {
+        hs: 0.09,
+        is: 0.16,
+        ps: 0.27,
+        csd: 23,
+        borocode: "bk",
+        hsThreshold: 1767,
+        psisThreshold: 118
+      },
+      {
+        hs: 0.09,
+        is: 0.04,
+        ps: 0.18,
+        csd: 32,
+        borocode: "bk",
+        hsThreshold: 1767,
+        psisThreshold: 235
+      },
+      {
+        hs: 0.13,
+        is: 0.1,
+        ps: 0.23,
+        csd: 24,
+        borocode: "qn",
+        hsThreshold: 1172,
+        psisThreshold: 150
+      },
+      {
+        hs: 0.13,
+        is: 0.08,
+        ps: 0.23,
+        csd: 25,
+        borocode: "qn",
+        hsThreshold: 1172,
+        psisThreshold: 160
+      },
+      {
+        hs: 0.13,
+        is: 0.14,
+        ps: 0.31,
+        csd: 26,
+        borocode: "qn",
+        hsThreshold: 1172,
+        psisThreshold: 111
+      },
+      {
+        hs: 0.13,
+        is: 0.14,
+        ps: 0.31,
+        csd: 27,
+        borocode: "qn",
+        hsThreshold: 1172,
+        psisThreshold: 111
+      },
+      {
+        hs: 0.13,
+        is: 0.15,
+        ps: 0.31,
+        csd: 28,
+        borocode: "qn",
+        hsThreshold: 1172,
+        psisThreshold: 109
+      },
+      {
+        hs: 0.13,
+        is: 0.16,
+        ps: 0.36,
+        csd: 29,
+        borocode: "qn",
+        hsThreshold: 1172,
+        psisThreshold: 96
+      },
+      {
+        hs: 0.13,
+        is: 0.04,
+        ps: 0.16,
+        csd: 30,
+        borocode: "qn",
+        hsThreshold: 1172,
+        psisThreshold: 250
+      },
+      {
+        hs: 0.13,
+        is: 0.11,
+        ps: 0.28,
+        csd: 31,
+        borocode: "si",
+        hsThreshold: 1205,
+        psisThreshold: 128
+      }
+    ],
+    thresholdHsStudents: 150,
+    thresholdPsIsStudents: 50
+  }),
+  
   // TRAIT for list of schools, including bluebook, lcgms, and scaProjects
   schoolsForTests: trait({
       bluebook: [
@@ -381,302 +732,6 @@ export default Factory.extend({
       seniorUnits: 50,
       buildYear: 2023
     }),
-
-  multipliers: () => ({
-    version: "november-2018",
-    districts: [
-      {
-        hs: 0.02,
-        is: 0.03,
-        ps: 0.05,
-        csd: 1,
-        borocode: "mn",
-        hsThreshold: 7126,
-        psisThreshold: 630
-      },
-      {
-        hs: 0.02,
-        is: 0.02,
-        ps: 0.05,
-        csd: 2,
-        borocode: "mn",
-        hsThreshold: 7126,
-        psisThreshold: 725
-      },
-      {
-        hs: 0.02,
-        is: 0.03,
-        ps: 0.06,
-        csd: 3,
-        borocode: "mn",
-        hsThreshold: 7126,
-        psisThreshold: 569
-      },
-      {
-        hs: 0.02,
-        is: 0.05,
-        ps: 0.13,
-        csd: 4,
-        borocode: "mn",
-        hsThreshold: 7126,
-        psisThreshold: 292
-      },
-      {
-        hs: 0.02,
-        is: 0.06,
-        ps: 0.16,
-        csd: 5,
-        borocode: "mn",
-        hsThreshold: 7126,
-        psisThreshold: 225
-      },
-      {
-        hs: 0.02,
-        is: 0.06,
-        ps: 0.15,
-        csd: 6,
-        borocode: "mn",
-        hsThreshold: 7126,
-        psisThreshold: 242
-      },
-      {
-        hs: 0.15,
-        is: 0.19,
-        ps: 0.37,
-        csd: 7,
-        borocode: "bx",
-        hsThreshold: 980,
-        psisThreshold: 90
-      },
-      {
-        hs: 0.15,
-        is: 0.15,
-        ps: 0.31,
-        csd: 8,
-        borocode: "bx",
-        hsThreshold: 980,
-        psisThreshold: 109
-      },
-      {
-        hs: 0.15,
-        is: 0.11,
-        ps: 0.34,
-        csd: 9,
-        borocode: "bx",
-        hsThreshold: 980,
-        psisThreshold: 109
-      },
-      {
-        hs: 0.15,
-        is: 0.12,
-        ps: 0.33,
-        csd: 10,
-        borocode: "bx",
-        hsThreshold: 980,
-        psisThreshold: 111
-      },
-      {
-        hs: 0.15,
-        is: 0.11,
-        ps: 0.26,
-        csd: 11,
-        borocode: "bx",
-        hsThreshold: 980,
-        psisThreshold: 134
-      },
-      {
-        hs: 0.15,
-        is: 0.13,
-        ps: 0.33,
-        csd: 12,
-        borocode: "bx",
-        hsThreshold: 980,
-        psisThreshold: 107
-      },
-      {
-        hs: 0.09,
-        is: 0.03,
-        ps: 0.07,
-        csd: 13,
-        borocode: "bk",
-        hsThreshold: 1767,
-        psisThreshold: 480
-      },
-      {
-        hs: 0.09,
-        is: 0.02,
-        ps: 0.07,
-        csd: 14,
-        borocode: "bk",
-        hsThreshold: 1767,
-        psisThreshold: 586
-      },
-      {
-        hs: 0.09,
-        is: 0.05,
-        ps: 0.18,
-        csd: 15,
-        borocode: "bk",
-        hsThreshold: 1767,
-        psisThreshold: 220
-      },
-      {
-        hs: 0.09,
-        is: 0.08,
-        ps: 0.13,
-        csd: 16,
-        borocode: "bk",
-        hsThreshold: 1767,
-        psisThreshold: 246
-      },
-      {
-        hs: 0.09,
-        is: 0.09,
-        ps: 0.24,
-        csd: 17,
-        borocode: "bk",
-        hsThreshold: 1767,
-        psisThreshold: 152
-      },
-      {
-        hs: 0.09,
-        is: 0.16,
-        ps: 0.27,
-        csd: 18,
-        borocode: "bk",
-        hsThreshold: 1767,
-        psisThreshold: 118
-      },
-      {
-        hs: 0.09,
-        is: 0.15,
-        ps: 0.38,
-        csd: 19,
-        borocode: "bk",
-        hsThreshold: 1767,
-        psisThreshold: 94
-      },
-      {
-        hs: 0.09,
-        is: 0.07,
-        ps: 0.31,
-        csd: 20,
-        borocode: "bk",
-        hsThreshold: 1767,
-        psisThreshold: 132
-      },
-      {
-        hs: 0.09,
-        is: 0.07,
-        ps: 0.24,
-        csd: 21,
-        borocode: "bk",
-        hsThreshold: 1767,
-        psisThreshold: 161
-      },
-      {
-        hs: 0.09,
-        is: 0.11,
-        ps: 0.27,
-        csd: 22,
-        borocode: "bk",
-        hsThreshold: 1767,
-        psisThreshold: 132
-      },
-      {
-        hs: 0.09,
-        is: 0.16,
-        ps: 0.27,
-        csd: 23,
-        borocode: "bk",
-        hsThreshold: 1767,
-        psisThreshold: 118
-      },
-      {
-        hs: 0.09,
-        is: 0.04,
-        ps: 0.18,
-        csd: 32,
-        borocode: "bk",
-        hsThreshold: 1767,
-        psisThreshold: 235
-      },
-      {
-        hs: 0.13,
-        is: 0.1,
-        ps: 0.23,
-        csd: 24,
-        borocode: "qn",
-        hsThreshold: 1172,
-        psisThreshold: 150
-      },
-      {
-        hs: 0.13,
-        is: 0.08,
-        ps: 0.23,
-        csd: 25,
-        borocode: "qn",
-        hsThreshold: 1172,
-        psisThreshold: 160
-      },
-      {
-        hs: 0.13,
-        is: 0.14,
-        ps: 0.31,
-        csd: 26,
-        borocode: "qn",
-        hsThreshold: 1172,
-        psisThreshold: 111
-      },
-      {
-        hs: 0.13,
-        is: 0.14,
-        ps: 0.31,
-        csd: 27,
-        borocode: "qn",
-        hsThreshold: 1172,
-        psisThreshold: 111
-      },
-      {
-        hs: 0.13,
-        is: 0.15,
-        ps: 0.31,
-        csd: 28,
-        borocode: "qn",
-        hsThreshold: 1172,
-        psisThreshold: 109
-      },
-      {
-        hs: 0.13,
-        is: 0.16,
-        ps: 0.36,
-        csd: 29,
-        borocode: "qn",
-        hsThreshold: 1172,
-        psisThreshold: 96
-      },
-      {
-        hs: 0.13,
-        is: 0.04,
-        ps: 0.16,
-        csd: 30,
-        borocode: "qn",
-        hsThreshold: 1172,
-        psisThreshold: 250
-      },
-      {
-        hs: 0.13,
-        is: 0.11,
-        ps: 0.28,
-        csd: 31,
-        borocode: "si",
-        hsThreshold: 1205,
-        psisThreshold: 128
-      }
-    ],
-    thresholdHsStudents: 150,
-    thresholdPsIsStudents: 50
-  }),
   esSchoolChoice: false,
   isSchoolChoice: true,
   subdistrictsFromDb: () => [
