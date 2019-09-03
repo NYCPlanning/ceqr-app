@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_23_155612) do
+ActiveRecord::Schema.define(version: 2019_08_28_152150) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -25,12 +25,13 @@ ActiveRecord::Schema.define(version: 2019_07_23_155612) do
 
   create_table "data_packages", force: :cascade do |t|
     t.text "name"
-    t.text "analysis"
+    t.text "package"
     t.date "release_date"
-    t.jsonb "config"
-    t.jsonb "datasets"
+    t.jsonb "schemas"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "version"
+    t.index ["package", "version"], name: "index_data_packages_on_package_and_version"
   end
 
   create_table "project_permissions", force: :cascade do |t|
@@ -45,7 +46,6 @@ ActiveRecord::Schema.define(version: 2019_07_23_155612) do
     t.text "name"
     t.text "bbls", default: [], null: false, array: true
     t.integer "build_year"
-    t.text "borough"
     t.text "updated_by"
     t.datetime "updated_at", null: false
     t.datetime "created_at", null: false
@@ -64,9 +64,7 @@ ActiveRecord::Schema.define(version: 2019_07_23_155612) do
   create_table "public_schools_analyses", force: :cascade do |t|
     t.boolean "es_school_choice"
     t.boolean "is_school_choice"
-    t.boolean "direct_effect"
     t.float "hs_students_from_housing"
-    t.text "manual_version", default: "march-2014"
     t.jsonb "subdistricts_from_db", default: [], null: false, array: true
     t.jsonb "subdistricts_from_user", default: [], null: false, array: true
     t.jsonb "bluebook", default: [], null: false, array: true
@@ -82,8 +80,6 @@ ActiveRecord::Schema.define(version: 2019_07_23_155612) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "project_id"
-    t.jsonb "multipliers"
-    t.jsonb "data_tables", default: {"version"=>"november-2017", "cartoTables"=>{"lcgms"=>"ceqr_lcgms_v2017", "bluebook"=>"ceqr_bluebook_v2017", "esSchoolZones"=>"support_school_zones_es", "hsSchoolZones"=>"support_school_zones_hs", "msSchoolZones"=>"support_school_zones_ms", "enrollmentPctBySd"=>"enrollment_pct_by_sd_v2017", "housingPipelineSd"=>"ceqr_housing_pipeline_sd_v2017", "housingPipelineBoro"=>"ceqr_housing_pipeline_boro_v2017", "enrollmentProjectionsSd"=>"ceqr_enrollment_projections_sd_v2017", "enrollmentProjectionsBoro"=>"ceqr_enrollment_projections_boro_v2017"}, "sourceDates"=>{"lcgms"=>"September 10, 2018", "bluebook"=>"2016-17", "housingPipeline"=>"2016 to 2025", "demographicSnapshot"=>"2013 to 2018", "enrollmentProjections"=>"2016 to 2025"}, "enrollmentProjectionsMaxYear"=>2025, "enrollmentProjectionsMinYear"=>2015}, null: false
     t.bigint "data_package_id"
     t.index ["data_package_id"], name: "index_public_schools_analyses_on_data_package_id"
   end

@@ -6,6 +6,8 @@ ruby '2.6.3'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.2.1'
 gem 'pg'
+gem 'sequel_pg', :require=>'sequel'
+
 # Use Puma as the app server
 gem 'puma', '~> 3.11'
 # Use Redis adapter to run Action Cable in production
@@ -45,6 +47,7 @@ end
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'pry'
 
   gem 'dotenv-rails'
 
@@ -55,7 +58,7 @@ group :development, :test do
   gem 'rspec-activemodel-mocks'
   gem 'lograge'
 
-  # This is a jsonapi test helper tied to another JSONAPI (previous JSONAPI Suite, now called Graphiti) ruby gem. 
+  # This is a jsonapi test helper tied to another JSONAPI (previous JSONAPI Suite, now called Graphiti) ruby gem.
   # It was the most elegant, in my opinion.
   # gem 'graphiti_spec_helpers'
 

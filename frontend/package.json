@@ -92,7 +92,8 @@
   "dependencies": {
     "@sentry/browser": "^4.6.3",
     "@turf/bbox": "^6.0.1",
-    "@turf/centroid": "^6.0.2"
+    "@turf/centroid": "^6.0.2",
+    "@turf/helpers": "^6.1.4"
   },
   "ember-addon": {
     "paths": [

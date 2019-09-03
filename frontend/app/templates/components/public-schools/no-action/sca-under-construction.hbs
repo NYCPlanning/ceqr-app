@@ -77,7 +77,7 @@
           <TrHover
             class={{b.org_level}}
             @source="scaprojects"
-            @id={{b.cartodb_id}}
+            @id={{b.id}}
           >
             <td>
               <i class="icons">
@@ -105,7 +105,7 @@
                     <tr>
                       <td>Funding in SCA Capital Plan</td>
                       <td>$
-                  {{b.funding_budget_15_19}}
+                  {{b.funding_current_budget}}
                    mil.</td>
                     </tr>
                     <tr>
@@ -181,9 +181,7 @@
           rel="noopener"
           href="https://data.cityofnewyork.us/Education/Capacity-Projects-by-schools/a94k-kjys"
         >
-          Capacity Projects by schools [
-          {{analysis.dataTables.sourceDates.scaCapitalProjects}}
-          ]
+          Capacity Projects by schools [{{analysis.dataPackage.schemas.sca_capital_projects.version}}]
           <i class="external alternate icon"></i>
         </a>
       </div>

@@ -35,7 +35,8 @@ module.exports = function(defaults) {
         'get-split-percent',
         'human-readable-census-tract',
         'map-color-for',
-        'percentage'
+        'percentage',
+        'school-year'
       ],
       enabled: true
     }
