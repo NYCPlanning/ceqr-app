@@ -1,5 +1,14 @@
 {{! transportation/existing-conditions controller template }}
-{{outlet 'map'}}
+<div class="row">
+  <div class="sixteen wide column">
+    {{#if this.model.project}}
+      <Transportation::CensusTractsMap
+        @project={{this.model.project}}
+      />
+    {{/if}}
+  </div>
+</div>
+
 <div class="row">
   <div class="sixteen wide column">
     <Transportation::ExistingConditions::ExistingConditionsSteps
@@ -7,4 +16,4 @@
     />
   </div>
 </div>
-{{outlet 'table'}}
+{{outlet}}
