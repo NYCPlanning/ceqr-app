@@ -9,7 +9,7 @@ class UserMailer < ApplicationMailer
 
   def account_in_review
     @user = params[:user]
-    @from = ENV['ADMIN_EMAILS'],
+    @from = ENV['ADMIN_EMAILS']
 
     mail(to: @user.email, from: @from, subject: '[CEQR App] Account waiting for approval')
   end
