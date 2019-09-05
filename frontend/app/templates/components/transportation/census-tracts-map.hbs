@@ -109,6 +109,17 @@
     />
 
     <carto-source.layer
+      @id="tracts-label"
+      @sql="select * from nyc_census_tracts_2010"
+      @layer={{hash
+        type="symbol"
+        minzoom=11
+        paint=(get-layer-style 'selectable-feature-label' 'paint')
+        layout=(get-layer-style 'selectable-feature-label' 'layout')
+      }}
+    />
+
+    <carto-source.layer
       @id="tracts-hover"
       @sql="select * from nyc_census_tracts_2010"
       @layer={{hash
