@@ -86,6 +86,7 @@ class EmailWhitelist
     'sustainability.nyc.gov',
     'moec.nyc.gov',
     'lpc.nyc.gov',
+    'bsa.nyc.gov',
 
     # Testing address
     'pichot.us'
