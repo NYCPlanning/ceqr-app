@@ -14,6 +14,10 @@ class TransportationAnalysis < ApplicationRecord
     save!
   end
 
+  def selected_census_tract_geoids
+    required_jtw_study_selection + jtw_study_selection
+  end
+
   private
     # # Find and set the intersecting Census Tracts
     def compute_required_study_selection
@@ -45,6 +49,38 @@ class TransportationAnalysis < ApplicationRecord
       self.traffic_zone = zones.max
     end
 
+    # Query and build json blob of ACS modal splits
+    def compute_acs_modal_splits
+      tract_data = CeqrData::NycAcs.version('2017').query.where(geoid: selected_census_tract_geoids).all
+
+      self.acs_modal_splits = selected_census_tract_geoids.map do |geoid|
+        tract = {}
+
+        variables = tract_data.filter {|t| t[:geoid] == geoid}
+        variables.each do |v|
+          tract[v[:variable]] = v
+        end
+
+        tract
+      end
+    end
+
+    # Query and build json blob of ACS modal splits
+    def compute_ctpp_modal_splits
+      tract_data = CeqrData::CtppCensustractVariables.version('2006_2010').query.where(geoid: selected_census_tract_geoids).all
+
+      self.ctpp_modal_splits = selected_census_tract_geoids.map do |geoid|
+        tract = {}
+
+        variables = tract_data.filter {|t| t[:geoid] == geoid}
+        variables.each do |v|
+          tract[v[:variable]] = v
+        end
+
+        tract
+      end
+    end
+
     # Call methods to compute data that needs to be refreshed when the model is updated
     def compute_for_model_update
       compute_study_area_centroid
@@ -57,5 +93,7 @@ class TransportationAnalysis < ApplicationRecord
       compute_required_study_selection
       compute_initial_study_selection
       compute_study_area_centroid
+      compute_acs_modal_splits
+      compute_ctpp_modal_splits
     end
 end

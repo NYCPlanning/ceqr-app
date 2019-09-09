@@ -13,6 +13,10 @@ export default class TransportationAnalysisModel extends Model {
   @attr({defaultValue: () => []}) requiredJtwStudySelection;
   // the geoids of additional user-defined study selection
   @attr({defaultValue: () => []}) jtwStudySelection;
+  // array of census tract variables from acs data
+  @attr({defaultValue: () => []}) acsModalSplits;
+  // array of census tract variables from ctpp data
+  @attr({defaultValue: () => []}) ctppModalSplits;
   // the computed centroid of the study selection
   @attr({defaultValue: () => []}) jtwStudyAreaCentroid;
   // The percentage values for trip generation per-peak-hour In and Out trip distributions
