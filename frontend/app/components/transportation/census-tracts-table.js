@@ -14,13 +14,6 @@ export default class TransportationCensusTractsTableComponent extends Component 
  */
   selectedCensusTractIds = []
 
-  /**
-  * array of census tract modal splits, usually returned using readonlyStore.findByIds().
-  * Each modal split is displayed as a row.
- * @param {modalSplit[]} 
- */
-  selectedCensusTractData = []
-
   // TODO: Figure out how to work around async selectedCensusTractData property.
   // Then, move this into existing-conditions controller.
   @computed('selectedCensusTractData.[]')
@@ -31,4 +24,16 @@ export default class TransportationCensusTractsTableComponent extends Component 
     return null;
   }
 
+  /**
+  * array of census tract modal splits, usually returned using readonlyStore.findByIds().
+  * Each modal split is displayed as a row.
+  */
+  @computed('acsModalSplits', 'ctppModalSplits', 'isRJTW')
+  get selectedCensusTractData() {
+    if (this.isRJTW) {
+      return this.ctppModalSplits;
+    } else {
+      return this.acsModalSplits;
+    }
+  }
 }

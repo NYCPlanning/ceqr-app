@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_28_152150) do
+ActiveRecord::Schema.define(version: 2019_09_05_211217) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -94,6 +94,8 @@ ActiveRecord::Schema.define(version: 2019_08_28_152150) do
     t.text "jtw_study_selection", default: [], array: true
     t.jsonb "in_out_dists", default: {"am"=>{"in"=>50, "out"=>50}, "md"=>{"in"=>50, "out"=>50}, "pm"=>{"in"=>50, "out"=>50}, "saturday"=>{"in"=>50, "out"=>50}}
     t.float "taxi_vehicle_occupancy"
+    t.jsonb "acs_modal_splits", default: [], null: false, array: true
+    t.jsonb "ctpp_modal_splits", default: [], null: false, array: true
   end
 
   create_table "users", force: :cascade do |t|

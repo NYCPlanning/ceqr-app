@@ -19,7 +19,7 @@ export function humanReadableCensusTract(params/*, hash*/) {
   const county = COUNTY_LOOKUP[countyCode];
   const tractCode = geoid.substring(5);
 
-  return `Census Tract ${tractCode}, ${county}, New York`;
+  return `${tractCode}, ${county}`;
 }
 
 export default helper(humanReadableCensusTract);
