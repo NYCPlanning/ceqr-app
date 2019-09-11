@@ -198,7 +198,8 @@ if DataPackage.where(package: "nyc_acs", version: "2017").first.nil?
     package: "nyc_acs",
     release_date: Date.parse('2018-01-01'),
     schemas: {
-      "nyc_acs": { table: "2017" }
+      "nyc_acs": { table: "2017" },
+      "nyc_census_tract_boundaries": { table: "2010" }
     }
   })
 end

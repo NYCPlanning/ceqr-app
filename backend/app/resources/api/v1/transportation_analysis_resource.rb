@@ -11,5 +11,6 @@ class Api::V1::TransportationAnalysisResource < JSONAPI::Resource
   )
 
   has_one :project
-
+  has_one :nyc_acs_data_package, class_name: "DataPackage"
+  has_one :ctpp_data_package, class_name: "DataPackage"
 end
