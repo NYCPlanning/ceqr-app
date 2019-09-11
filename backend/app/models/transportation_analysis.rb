@@ -3,6 +3,8 @@ class TransportationAnalysis < ApplicationRecord
   before_create :compute_for_project_create_or_update
 
   belongs_to :project
+  belongs_to :nyc_acs_data_package, class_name: "DataPackage"
+  belongs_to :ctpp_data_package, class_name: "DataPackage"
 
   # This is a workaround for a lot of fancy inititalization that the activerecord-postgis-adapter does
   # for the attribute types it defines. 'ActiveRecord::ConnectionAdapters::PostGIS::OID::Spatial' is extended
@@ -21,7 +23,9 @@ class TransportationAnalysis < ApplicationRecord
   private
     # # Find and set the intersecting Census Tracts
     def compute_required_study_selection
-      tracts = CeqrData::NycCensusTracts.version('2010').for_geom(project.bbls_geom)
+      tracts = CeqrData::NycCensusTracts.version(
+        nyc_acs_data_package.table_for('nyc_census_tract_boundaries')
+      ).for_geom(project.bbls_geom)
       self.required_jtw_study_selection = tracts || []
     end
 
@@ -30,14 +34,19 @@ class TransportationAnalysis < ApplicationRecord
       geoids = self.required_jtw_study_selection + self.jtw_study_selection
       # Why are we getting back empty arrays? Does this indicate something else is wrong?
       if geoids != []
-        centroid = CeqrData::NycCensusTracts.version('2010').st_union_geoids_centroid(geoids)
+        centroid = CeqrData::NycCensusTracts.version(
+          nyc_acs_data_package.table_for('nyc_census_tract_boundaries')
+        ).st_union_geoids_centroid(geoids)
         self.jtw_study_area_centroid = centroid
       end
     end
 
     # Find and set the adjacent Census Tracts as initial study selection
     def compute_initial_study_selection
-      tracts = CeqrData::NycCensusTracts.version('2010').touches_geoids(self.required_jtw_study_selection)
+      tracts = CeqrData::NycCensusTracts.version(
+        nyc_acs_data_package.table_for('nyc_census_tract_boundaries')
+      ).touches_geoids(self.required_jtw_study_selection)
+
       self.jtw_study_selection = tracts || []
     end
 
@@ -51,7 +60,9 @@ class TransportationAnalysis < ApplicationRecord
 
     # Query and build json blob of ACS modal splits
     def compute_acs_modal_splits
-      tract_data = CeqrData::NycAcs.version('2017').query.where(geoid: selected_census_tract_geoids).all
+      tract_data = CeqrData::NycAcs.version(
+        nyc_acs_data_package.table_for('nyc_acs')
+      ).query.where(geoid: selected_census_tract_geoids).all
 
       self.acs_modal_splits = selected_census_tract_geoids.map do |geoid|
         tract = {}
@@ -67,7 +78,9 @@ class TransportationAnalysis < ApplicationRecord
 
     # Query and build json blob of ACS modal splits
     def compute_ctpp_modal_splits
-      tract_data = CeqrData::CtppCensustractVariables.version('2006_2010').query.where(geoid: selected_census_tract_geoids).all
+      tract_data = CeqrData::CtppCensustractVariables.version(
+        ctpp_data_package.table_for('ctpp_censustract_variables')
+      ).query.where(geoid: selected_census_tract_geoids).all
 
       self.ctpp_modal_splits = selected_census_tract_geoids.map do |geoid|
         tract = {}

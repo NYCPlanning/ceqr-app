@@ -6,6 +6,22 @@ import { alias } from '@ember-decorators/object/computed';
 
 export default class TransportationAnalysisModel extends Model {
   @belongsTo project;
+  @belongsTo('dataPackage') nycAcsDataPackage;
+  @belongsTo('dataPackage') ctppDataPackage;
+
+  // Function to be passed to data-package-selector component to update data package
+  updateDataPackage = (dataPackage) => {
+    switch (dataPackage.package) {
+      case "nyc_acs":
+        this.set('nycAcsDataPackage', dataPackage);  
+        break;
+      case "ctpp":
+        this.set('ctppDataPackage', dataPackage);  
+        break;
+    }
+
+    this.save();
+  }
 
   // Attributes
   @attr('number') trafficZone;

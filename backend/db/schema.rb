@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_05_211217) do
+ActiveRecord::Schema.define(version: 2019_09_09_213144) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -96,6 +96,8 @@ ActiveRecord::Schema.define(version: 2019_09_05_211217) do
     t.float "taxi_vehicle_occupancy"
     t.jsonb "acs_modal_splits", default: [], null: false, array: true
     t.jsonb "ctpp_modal_splits", default: [], null: false, array: true
+    t.bigint "nyc_acs_data_package_id"
+    t.bigint "ctpp_data_package_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -111,5 +113,7 @@ ActiveRecord::Schema.define(version: 2019_09_05_211217) do
   add_foreign_key "community_facilities_analyses", "projects"
   add_foreign_key "public_schools_analyses", "data_packages"
   add_foreign_key "public_schools_analyses", "projects"
+  add_foreign_key "transportation_analyses", "data_packages", column: "ctpp_data_package_id"
+  add_foreign_key "transportation_analyses", "data_packages", column: "nyc_acs_data_package_id"
   add_foreign_key "transportation_analyses", "projects"
 end
