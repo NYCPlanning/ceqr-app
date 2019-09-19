@@ -46,8 +46,15 @@ class Project < ApplicationRecord
   # Note: this method will likely grow in the time it takes to process,
   # candidate for concurrency and eventual refactor
   def create_analyses!
-    create_public_schools_analysis(data_package: DataPackage.latest_for(:public_schools))
-    create_transportation_analysis
+    create_public_schools_analysis(
+      data_package: DataPackage.latest_for(:public_schools)
+    )
+
+    create_transportation_analysis(
+      nyc_acs_data_package: DataPackage.latest_for(:nyc_acs),
+      ctpp_data_package: DataPackage.latest_for(:ctpp)
+    )
+
     create_community_facilities_analysis
   end
 

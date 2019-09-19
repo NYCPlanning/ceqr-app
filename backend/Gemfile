@@ -66,5 +66,6 @@ group :development, :test do
 end
 
 group :test do
+  gem 'json_schemer'
   gem 'database_cleaner', '~> 1.6'
 end
