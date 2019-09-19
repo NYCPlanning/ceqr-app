@@ -29,6 +29,8 @@ RSpec.describe PublicSchoolsAnalysis, type: :model do
     stub_const("#{CeqrData}::DoeSchoolSubdistricts", @schoolSubdistrictMock)
   end
 
+  describe "saving "
+
   it "sets subdistricts correctly" do
     expect(project.public_schools_analysis.subdistricts_from_db[0]['district']).to eq(15)
     expect(project.public_schools_analysis.subdistricts_from_db[0]['subdistrict']).to eq(1)
@@ -42,6 +44,8 @@ RSpec.describe PublicSchoolsAnalysis, type: :model do
   it "sets bluebook correctly" do
     expect(project.public_schools_analysis.bluebook[0]['district']).to eq(15)
     expect(project.public_schools_analysis.bluebook[0]['subdistrict']).to eq(1)
+
+    expect(project.public_schools_analysis.bluebook.first).to match_json_schema("bluebook")
   end
 
   it "sets lcgms correctly" do
