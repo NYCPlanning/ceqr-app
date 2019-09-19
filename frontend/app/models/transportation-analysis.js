@@ -34,7 +34,7 @@ export default class TransportationAnalysisModel extends Model {
   // array of census tract variables from ctpp data
   @attr({defaultValue: () => []}) ctppModalSplits;
   // the computed centroid of the study selection
-  @attr({defaultValue: () => []}) jtwStudyAreaCentroid;
+  @attr({defaultValue: () => {}}) jtwStudyAreaCentroid;
   // The percentage values for trip generation per-peak-hour In and Out trip distributions
   @attr({defaultValue: () => {}}) inOutDists;
   // User-entered taxi vehicle occupancy rate for "trip generation" existing conditions step
