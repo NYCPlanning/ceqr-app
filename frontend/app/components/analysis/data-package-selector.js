@@ -9,8 +9,6 @@ export default class AnalysisDataPackageSelectorComponent extends Component {
   @computed('dataPackageType')
   get availablePackages() {
     const packages = this.store.query('data-package', { filter: { package: this.dataPackageType } });
-    console.log(packages);
-    console.log(this.currentPackage);
     
     return packages.without(this.currentPackage);
   }

@@ -2,7 +2,6 @@ import JWT from 'jsonwebtoken';
 import ENV from 'labs-ceqr/config/environment';
 import cartoresponses from './fixtures/cartoresponses';
 import patchXMLHTTPRequest from './helpers/mirage-mapbox-gl-monkeypatch';
-import getTransportationCensusEstimateResponse from  './helpers/get-transportation-census-estimate-response';
 const secret = 'nevershareyoursecret';
 
 export default function() {
@@ -72,6 +71,7 @@ export default function() {
   // everything after this is scoped to this namespace
   this.namespace = '/api/v1';
   this.get('/users/:id');
+  this.get('/data-packages');
 
   /**
    *
@@ -174,33 +174,4 @@ export default function() {
   this.get('public-schools-analyses/:id');
   this.patch('public-schools-analyses/:id');
   this.patch('transportation-analyses/:id');
-
-  /**
-   *
-   * Transportation census estimates
-   *
-   */
-  this.get('acs-estimates', function(schema, request) {
-    const { queryParams } = request;
-
-    const response = getTransportationCensusEstimateResponse('ACS');
-    if(queryParams['filter[geoid]']) {
-      response.data.map((estimate) => estimate.geoid = queryParams['filter[geoid]']);
-    }
-
-    return response;
-  });
-
-  this.get('ctpp-estimates', function(schema, request) {
-    const { queryParams } = request;
-
-    const response = getTransportationCensusEstimateResponse('CTPP');
-    if(queryParams['filter[geoid]']) {
-      response.data.map((estimate) => estimate.geoid = queryParams['filter[geoid]']);
-    }
-
-    return response;
-  });
 }
-
-
