@@ -26,9 +26,7 @@ class Api::V1::PublicSchoolsAnalysisResource < JSONAPI::Resource
     :doe_util_changes,
 
     # computed geojson
-    :subdistricts_geojson,
-    :bluebook_geojson,
-    :lcgms_geojson
+    :subdistricts_geojson
   )
 
   has_one :project
@@ -54,13 +52,5 @@ class Api::V1::PublicSchoolsAnalysisResource < JSONAPI::Resource
         end
       )
     )
-  end
-
-  def bluebook_geojson
-
-  end
-
-  def lcgms_geojson
-
   end
 end

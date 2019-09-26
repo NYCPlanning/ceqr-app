@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_09_213144) do
+ActiveRecord::Schema.define(version: 2019_09_26_163036) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -49,8 +49,8 @@ ActiveRecord::Schema.define(version: 2019_09_09_213144) do
     t.text "updated_by"
     t.datetime "updated_at", null: false
     t.datetime "created_at", null: false
-    t.integer "senior_units"
-    t.integer "total_units"
+    t.integer "senior_units", default: 0, null: false
+    t.integer "total_units", default: 0, null: false
     t.text "ceqr_number"
     t.jsonb "commercial_land_use", default: [], null: false, array: true
     t.jsonb "industrial_land_use", default: [], null: false, array: true
@@ -89,15 +89,25 @@ ActiveRecord::Schema.define(version: 2019_09_09_213144) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "project_id"
-    t.geometry "jtw_study_area_centroid", limit: {:srid=>4326, :type=>"st_point"}, null: false
-    t.text "required_jtw_study_selection", default: [], null: false, array: true
-    t.text "jtw_study_selection", default: [], array: true
-    t.jsonb "in_out_dists", default: {"am"=>{"in"=>50, "out"=>50}, "md"=>{"in"=>50, "out"=>50}, "pm"=>{"in"=>50, "out"=>50}, "saturday"=>{"in"=>50, "out"=>50}}
-    t.float "taxi_vehicle_occupancy"
-    t.jsonb "acs_modal_splits", default: [], null: false, array: true
-    t.jsonb "ctpp_modal_splits", default: [], null: false, array: true
-    t.bigint "nyc_acs_data_package_id"
-    t.bigint "ctpp_data_package_id"
+    t.geometry "census_tracts_centroid", limit: {:srid=>4326, :type=>"st_point"}, null: false
+    t.text "required_census_tracts_selection", default: [], null: false, array: true
+    t.text "census_tracts_selection", default: [], array: true
+  end
+
+  create_table "transportation_planning_factors", force: :cascade do |t|
+    t.jsonb "mode_splits", default: {}, null: false
+    t.boolean "mode_splits_from_user", default: true, null: false
+    t.jsonb "census_tract_variables", default: [], null: false, array: true
+    t.jsonb "vehicle_occupancy", default: {}, null: false
+    t.text "modes_for_analysis", default: [], null: false, array: true
+    t.text "land_use", null: false
+    t.jsonb "in_out_splits", default: {}, null: false
+    t.jsonb "truck_in_out_splits", default: {}, null: false
+    t.jsonb "table_notes", default: {}, null: false
+    t.bigint "data_package_id"
+    t.bigint "transportation_analysis_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
@@ -113,7 +123,7 @@ ActiveRecord::Schema.define(version: 2019_09_09_213144) do
   add_foreign_key "community_facilities_analyses", "projects"
   add_foreign_key "public_schools_analyses", "data_packages"
   add_foreign_key "public_schools_analyses", "projects"
-  add_foreign_key "transportation_analyses", "data_packages", column: "ctpp_data_package_id"
-  add_foreign_key "transportation_analyses", "data_packages", column: "nyc_acs_data_package_id"
   add_foreign_key "transportation_analyses", "projects"
+  add_foreign_key "transportation_planning_factors", "data_packages"
+  add_foreign_key "transportation_planning_factors", "transportation_analyses"
 end
