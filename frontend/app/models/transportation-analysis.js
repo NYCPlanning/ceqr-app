@@ -1,44 +1,22 @@
 import DS from 'ember-data';
 const { Model } = DS;
-import { attr, belongsTo } from '@ember-decorators/data';
+import { attr, belongsTo, hasMany } from '@ember-decorators/data';
 import { computed } from '@ember-decorators/object';
 import { alias } from '@ember-decorators/object/computed';
 
 export default class TransportationAnalysisModel extends Model {
   @belongsTo project;
-  @belongsTo('dataPackage') nycAcsDataPackage;
-  @belongsTo('dataPackage') ctppDataPackage;
-
-  // Function to be passed to data-package-selector component to update data package
-  updateDataPackage = (dataPackage) => {
-    switch (dataPackage.package) {
-      case "nyc_acs":
-        this.set('nycAcsDataPackage', dataPackage);  
-        break;
-      case "ctpp":
-        this.set('ctppDataPackage', dataPackage);  
-        break;
-    }
-
-    this.save();
-  }
+  @hasMany('transportationPlanningFactor') transportationPlanningFactors;
 
   // Attributes
   @attr('number') trafficZone;
   // the geoids of REQUIRED census tracts in study selection; determined by bbl intersect
-  @attr({defaultValue: () => []}) requiredJtwStudySelection;
+  @attr({defaultValue: () => []}) requiredCensusTractsSelection;
   // the geoids of additional user-defined study selection
-  @attr({defaultValue: () => []}) jtwStudySelection;
-  // array of census tract variables from acs data
-  @attr({defaultValue: () => []}) acsModalSplits;
-  // array of census tract variables from ctpp data
-  @attr({defaultValue: () => []}) ctppModalSplits;
+  @attr({defaultValue: () => []}) censusTractsSelection;
   // the computed centroid of the study selection
-  @attr({defaultValue: () => {}}) jtwStudyAreaCentroid;
-  // The percentage values for trip generation per-peak-hour In and Out trip distributions
-  @attr({defaultValue: () => {}}) inOutDists;
-  // User-entered taxi vehicle occupancy rate for "trip generation" existing conditions step
-  @attr({defaultValue: () => null}) taxiVehicleOccupancy;
+  @attr({defaultValue: () => {}}) censusTractsCentroid;
+
 
   // Detailed Analysis trigger
   @computed(

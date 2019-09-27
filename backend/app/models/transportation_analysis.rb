@@ -47,8 +47,7 @@ class TransportationAnalysis < ApplicationRecord
       2010
     end
   
-    def set_transportation_planning_factors      
-      # create missing planning factors
+    def set_transportation_planning_factors            
       project.land_uses.each do |land_use|
         factors = transportation_planning_factors.find_by(land_use: land_use)
 
@@ -58,8 +57,6 @@ class TransportationAnalysis < ApplicationRecord
             transportation_analysis_id: self.id
           )
         end
-        
-        # transportation_planning_factors.create!(land_use: land_use) if factors.nil?
       end
 
       # delete any planning factors no longer needed

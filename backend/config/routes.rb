@@ -27,9 +27,8 @@ Rails.application.routes.draw do
 
       # Analyses
       jsonapi_resources :public_schools_analyses
-      jsonapi_resources :transportation_analyses do
-        jsonapi_related_resources :transportation_planning_factors
-      end
+      jsonapi_resources :transportation_analyses
+      jsonapi_resources :transportation_planning_factors
       jsonapi_resources :community_facilities_analyses
     end
   end

@@ -41,7 +41,7 @@ class Project < ApplicationRecord
     uses = uses | industrial_land_use.map {|lu| lu["type"] }
     uses = uses | community_facility_land_use.map {|lu| lu["type"] }
 
-    uses
+    uses.compact
   end
 
   private

@@ -70,6 +70,13 @@ Router.map(function() {
 
       this.route('transportation', function() {
         this.route('analysis-threshold');
+        this.route('tdf', function() {
+          this.route('planning-factors', function() {
+            this.route('show', { path: '/:id' });
+          });
+          this.route('trip-results');
+        });
+        
         this.route('existing-conditions', function() {
           this.route('census-tracts');
           this.route('journey-to-work');
