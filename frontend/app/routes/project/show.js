@@ -17,7 +17,10 @@ export default Route.extend({
     );
 
     return RSVP.hash({
-      project
+      project,
+      publicSchoolsAnalysis: project.publicSchoolsAnalysis,
+      transportationAnalysis: project.transportationAnalysis,
+      communityFacilitiesAnalysis: project.communityFacilitiesAnalysis
     });
   },
 });

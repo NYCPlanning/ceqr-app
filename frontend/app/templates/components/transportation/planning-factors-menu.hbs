@@ -1,0 +1,14 @@
+<div class="ui menu fluid">  
+  {{#each factors as |factor|}}
+    {{#link-to
+      "project.show.transportation.tdf.planning-factors.show"
+      factor.id
+      class="item"
+    }}
+      {{humanize factor.landUse}}
+      <div class="ui horizontal label">
+        {{pluralize (format-number factor.units) factor.unitName}}
+      </div>
+    {{/link-to}}
+  {{/each}}
+</div>

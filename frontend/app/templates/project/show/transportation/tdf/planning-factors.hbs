@@ -1,13 +1,7 @@
 <div class="row">
   <div class="sixteen wide column">
-    <div class="ui menu">  
-      <a class="item active">Editorials</a>
-      <a class="item">Reviews</a>
-      <a class="item">Upcoming Events</a>
-    </div>
+    <Transportation::PlanningFactorsMenu @factors={{model.transportationPlanningFactors}} />
   </div>
 </div>
-
-{{log model}}
 
 {{outlet}}
