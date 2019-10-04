@@ -29,6 +29,8 @@ gem 'rack-cors'
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'jsonapi-resources'
+gem 'jsonapi-authorization'
+gem 'pundit'
 
 gem 'rgeo'
 gem 'rgeo-geojson'

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_27_161838) do
+ActiveRecord::Schema.define(version: 2019_09_27_205621) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -117,6 +117,7 @@ ActiveRecord::Schema.define(version: 2019_09_27_161838) do
     t.boolean "email_validated", default: false
     t.text "password_digest"
     t.boolean "account_approved", default: false
+    t.boolean "admin", default: false, null: false
     t.index ["email"], name: "user_email_unique", unique: true
   end
 
