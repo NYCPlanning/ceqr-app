@@ -42,7 +42,10 @@ RSpec.describe 'Users AUTH', type: :request do
       end
 
       context 'when email is not on whitelist' do
-        before { post '/auth/v1/signup', params: { user: user_public }.to_json, headers: headers }
+        before do
+          ENV['ADMIN_EMAILS'] = 'test@example.com'
+          post '/auth/v1/signup', params: { user: user_public }.to_json, headers: headers
+        end
         
         it 'creates a new user with pending approved status' do
           u = User.find_by_email(user_public[:email])
@@ -177,4 +180,3 @@ RSpec.describe 'Users AUTH', type: :request do
     end
   end
 end
-
