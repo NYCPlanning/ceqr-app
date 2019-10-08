@@ -1,0 +1,52 @@
+<div class="sixteen wide column">
+  <h3 class="ui header" style="margin-bottom: 10px">In/Out Splits</h3>
+</div>
+
+<div class="eight wide column">
+  <table class="ui celled table">
+    <thead>
+      <tr>
+        <th class="six wide">Day</th>
+        <th class="six wide">In</th>
+        <th class="six wide">Out</th>
+      </tr>
+    </thead>
+    <tbody class="ui form">
+      <tr>
+        <td>AM</td>
+        <td><Transportation::Tdf::InOutSplits::Input @data={{data}} @day="am" @direction="in" /></td>
+        <td>{{input type="number" value=data.am.out}}</td>
+      </tr>
+      <tr>
+        <td>Midday</td>
+        <td>{{input type="number" value=data.md.in}}</td>
+        <td>{{input type="number" value=data.md.out}}</td>
+      </tr>
+      <tr>
+        <td>PM</td>
+        <td>{{input type="number" value=data.pm.in}}</td>
+        <td>{{input type="number" value=data.pm.out}}</td>
+      </tr>
+      <tr>
+        <td>Saturday</td>
+        <td>{{input type="number" value=data.sat.in}}</td>
+        <td>{{input type="number" value=data.sat.out}}</td>
+      </tr>
+      <tr>
+        <td colspan="3">
+          <div class="ui blue button right floated">
+            Save
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="3">
+          <Transportation::Tdf::TableNote 
+            @tableName="tripGenerationRates"
+            @factor={{factor}}
+          />
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

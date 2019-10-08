@@ -5,6 +5,18 @@ import { computed } from '@ember-decorators/object';
 import { alias } from '@ember-decorators/object/computed';
 
 export default class TransportationPlanningFactorModel extends Model {
+  // Set defaults on values not received from server
+  ready() {
+    if (Object.keys(this.inOutSplits).length === 0) {
+      this.set('inOutSplits', {
+        am:  { in: 50, out: 50 },
+        md:  { in: 50, out: 50 },
+        pm:  { in: 50, out: 50 },
+        sat: { in: 50, out: 50 }
+      });
+    }
+  }
+  
   @belongsTo transportationAnalysis;
   @belongsTo dataPackage;
   
@@ -24,13 +36,12 @@ export default class TransportationPlanningFactorModel extends Model {
   @attr({defaultValue: () => {}}) inOutSplits;
   @attr({defaultValue: () => {}}) truckInOutSplits;
 
-  @alias('unitsOfAnalysis.units') units;
-  @alias('unitsOfAnalysis.unitName') unitName;
-  @alias('unitsOfAnalysis.tripGenRatePerUnit') tripGenRatePerUnit;
-  @alias('unitsOfAnalysis.tripGenerationRates') tripGenerationRates;
+  @alias('ceqrManualDefaults.units') units;
+  @alias('ceqrManualDefaults.unitName') unitName;
+  @alias('ceqrManualDefaults.tripGenRatePerUnit') tripGenRatePerUnit;
   
   @computed('transportationAnalysis.project.{totalUnits,commercialLandUse}')
-  get unitsOfAnalysis() {
+  get ceqrManualDefaults() {
     if (this.landUse === 'residential') {
       const units = this.get('transportationAnalysis.project.totalUnits');
       
