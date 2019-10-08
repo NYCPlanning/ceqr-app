@@ -1,18 +1,34 @@
 import DS from 'ember-data';
 const { Model } = DS;
 import { attr, belongsTo } from '@ember-decorators/data';
-import { computed } from '@ember-decorators/object';
+import { computed, observer } from '@ember-decorators/object';
 import { alias } from '@ember-decorators/object/computed';
 
 export default class TransportationPlanningFactorModel extends Model {
   // Set defaults on values not received from server
   ready() {
+    // Default inOutSplits
     if (Object.keys(this.inOutSplits).length === 0) {
       this.set('inOutSplits', {
         am:  { in: 50, out: 50 },
         md:  { in: 50, out: 50 },
         pm:  { in: 50, out: 50 },
         sat: { in: 50, out: 50 }
+      });
+    }
+
+    // Default truckInOutSplits
+    if (Object.keys(this.truckInOutSplits).length === 0) {
+      this.set('truckInOutSplits', {
+        allDay:  { in: 50, out: 50 }
+      });
+    }
+
+    // Default truckInOutSplits
+    if (Object.keys(this.vehicleOccupancy).length === 0) {
+      this.set('vehicleOccupancy', {
+        auto: { allPeriods: 1 },
+        taxi: { allPeriods: 1 }
       });
     }
   }
@@ -31,6 +47,19 @@ export default class TransportationPlanningFactorModel extends Model {
   @attr({defaultValue: () => {}}) modeSplits;
   // User-entered vehicle occupancy rate for "trip generation" existing conditions step
   @attr({defaultValue: () => {}}) vehicleOccupancy;
+  @computed('vehicleOccupancy')
+  get calculatedVehicleOccupancy() {
+    if (this.modeSplitsFromUser) {
+      const occupancy = this.vehicleOccupancy;
+      
+      // TODO: Calculate vehicle occupancy from census tracts
+      occupancy['auto'] = { allPeriods: 1 };
+
+      return occupancy;
+    } else {
+      return this.vehicleOccupancy;
+    }
+  }
 
   // The percentage values for trip generation per-peak-hour In and Out trip distributions
   @attr({defaultValue: () => {}}) inOutSplits;

@@ -6,35 +6,19 @@
   <table class="ui celled table">
     <thead>
       <tr>
-        <th class="six wide">Day</th>
-        <th class="six wide">In</th>
-        <th class="six wide">Out</th>
+        <th class="two wide">Day</th>
+        <th class="two wide">In</th>
+        <th class="two wide">Out</th>
       </tr>
     </thead>
     <tbody class="ui form">
-      <tr>
-        <td>AM</td>
-        <td><Transportation::Tdf::InOutSplits::Input @data={{data}} @day="am" @direction="in" /></td>
-        <td>{{input type="number" value=data.am.out}}</td>
-      </tr>
-      <tr>
-        <td>Midday</td>
-        <td>{{input type="number" value=data.md.in}}</td>
-        <td>{{input type="number" value=data.md.out}}</td>
-      </tr>
-      <tr>
-        <td>PM</td>
-        <td>{{input type="number" value=data.pm.in}}</td>
-        <td>{{input type="number" value=data.pm.out}}</td>
-      </tr>
-      <tr>
-        <td>Saturday</td>
-        <td>{{input type="number" value=data.sat.in}}</td>
-        <td>{{input type="number" value=data.sat.out}}</td>
-      </tr>
+      <Transportation::Tdf::InOutSplits::TableRow @data={{data.am}} @label="AM" />
+      <Transportation::Tdf::InOutSplits::TableRow @data={{data.md}} @label="Midday" />
+      <Transportation::Tdf::InOutSplits::TableRow @data={{data.pm}} @label="PM" />
+      <Transportation::Tdf::InOutSplits::TableRow @data={{data.sat}} @label="Saturday" />
       <tr>
         <td colspan="3">
-          <div class="ui blue button right floated">
+          <div class="ui blue button right floated" onClick={{action saveFactor}}>
             Save
           </div>
         </td>
