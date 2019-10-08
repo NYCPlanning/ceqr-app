@@ -181,7 +181,7 @@
   </map.source>
   <MapboxGlOn
     @event="mousemove"
-    @layerId="es-zones-hover"
+    @layerId="ps-zones-hover"
     @action={{action "zoneHover"}}
     @eventSource={{map.instance}}
    />
@@ -202,7 +202,7 @@
 
   <MapboxGlOn
     @event="mouseleave"
-    @layerId="es-zones-hover"
+    @layerId="ps-zones-hover"
     @action={{action "zoneUnhover"}}
     @eventSource={{map.instance}}
    />
