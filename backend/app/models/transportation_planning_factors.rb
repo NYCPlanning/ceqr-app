@@ -9,8 +9,6 @@ class TransportationPlanningFactors < ApplicationRecord
   validates :land_use, presence: true
 
   def set_default_values
-    self.modes_for_analysis = DEFAULT_MODES_FOR_ANALYSIS
-
     # Use update_column here not to trigger the before_update for data_package changes
     # it all saves the data_package so that it is accessible in set_census_tract_variables method
     if land_use == "residential"
@@ -35,15 +33,6 @@ class TransportationPlanningFactors < ApplicationRecord
     set_census_tract_variables
     save!
   end
-
-  DEFAULT_MODES_FOR_ANALYSIS = [
-    "auto",
-    "taxi",
-    "bus",
-    "subway",
-    "walk",
-    "railroad"
-  ]
 
   private
 

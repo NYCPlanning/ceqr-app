@@ -76,12 +76,6 @@ Router.map(function() {
           });
           this.route('trip-results');
         });
-        
-        this.route('existing-conditions', function() {
-          this.route('census-tracts');
-          this.route('journey-to-work');
-          this.route('trip-generation');
-        });
       });
 
       this.route('community-facilities', function() {

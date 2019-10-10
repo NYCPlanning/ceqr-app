@@ -36,7 +36,8 @@ module.exports = function(defaults) {
         'human-readable-census-tract',
         'map-color-for',
         'percentage',
-        'school-year'
+        'school-year',
+        'mode-label'
       ],
       enabled: true
     }

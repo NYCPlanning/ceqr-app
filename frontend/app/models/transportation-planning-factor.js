@@ -1,10 +1,26 @@
 import DS from 'ember-data';
 const { Model } = DS;
 import { attr, belongsTo } from '@ember-decorators/data';
-import { computed, observer } from '@ember-decorators/object';
+import { computed } from '@ember-decorators/object';
 import { alias } from '@ember-decorators/object/computed';
+import CensusTractsCalculator from '../calculators/transportation/census-tracts';
+import EmberObject from '@ember/object';
 
 export default class TransportationPlanningFactorModel extends Model {
+  MODES = [
+    "auto",
+    "taxi",
+    "bus",
+    "subway",
+    "railroad",
+    "walk",
+    "ferry",
+    "streetcar",
+    "bicycle",
+    "motorcycle",
+    "other"
+  ]
+  
   // Set defaults on values not received from server
   ready() {
     // Default inOutSplits
@@ -24,12 +40,32 @@ export default class TransportationPlanningFactorModel extends Model {
       });
     }
 
+    // Default modeSplits
+    if (Object.keys(this.modeSplits).length === 0) {
+      const modeSplits = {};
+      this.MODES.forEach((m) => modeSplits[m] = { allPeriods: 0 });
+      
+      this.set('modeSplits', EmberObject.create(modeSplits));
+    }
+
     // Default truckInOutSplits
     if (Object.keys(this.vehicleOccupancy).length === 0) {
       this.set('vehicleOccupancy', {
         auto: { allPeriods: 1 },
         taxi: { allPeriods: 1 }
       });
+    }
+
+    // Default modesForAnalysis
+    if (Object.keys(this.modesForAnalysis).length === 0) {
+      this.set('modesForAnalysis',     [
+        "auto",
+        "taxi",
+        "bus",
+        "subway",
+        "walk",
+        "railroad"
+      ]);
     }
   }
   
@@ -42,22 +78,37 @@ export default class TransportationPlanningFactorModel extends Model {
   
   // Census tract variable data if landUse is residential or office
   @attr({defaultValue: () => []}) censusTractVariables;
-  
+  @computed('censusTractVariables')
+  get censusTractsCalculator() {
+    return CensusTractsCalculator.create({
+      censusTracts: this.censusTractVariables,
+      modesForAnalysis: this.modesForAnalysis
+    });
+  }
+
   @attr('boolean') modeSplitsFromUser;
-  @attr({defaultValue: () => {}}) modeSplits;
+  @attr('ember-object', {defaultValue: () => {} }) modeSplits;
+  
+  @computed('modeSplitsFromUser')
+  get calculatedModeSplits() {
+    if (this.modeSplitsFromUser) {
+      return this.modeSplits;
+    } else {
+      return this.censusTractsCalculator.modeSplits;
+    }
+  }
+
   // User-entered vehicle occupancy rate for "trip generation" existing conditions step
   @attr({defaultValue: () => {}}) vehicleOccupancy;
-  @computed('vehicleOccupancy')
+  @computed('modeSplitsFromUser', 'vehicleOccupancy', 'censusTractsCalculator')
   get calculatedVehicleOccupancy() {
     if (this.modeSplitsFromUser) {
-      const occupancy = this.vehicleOccupancy;
-      
-      // TODO: Calculate vehicle occupancy from census tracts
-      occupancy['auto'] = { allPeriods: 1 };
-
-      return occupancy;
-    } else {
       return this.vehicleOccupancy;
+    } else {
+      return {
+        ...this.vehicleOccupancy,
+        auto: { allPeriods: this.censusTractsCalculator.autoVehicleOccupancy }
+      };
     }
   }
 
@@ -69,6 +120,16 @@ export default class TransportationPlanningFactorModel extends Model {
   @alias('ceqrManualDefaults.unitName') unitName;
   @alias('ceqrManualDefaults.tripGenRatePerUnit') tripGenRatePerUnit;
   
+  @computed('modesForAnalysis')
+  get activeModes() {
+    return this.MODES.filter((m) => this.modesForAnalysis.includes(m));
+  }
+
+  @computed('modesForAnalysis')
+  get inactiveModes() {
+    return this.MODES.reject((m) => this.modesForAnalysis.includes(m));
+  }
+
   @computed('transportationAnalysis.project.{totalUnits,commercialLandUse}')
   get ceqrManualDefaults() {
     if (this.landUse === 'residential') {

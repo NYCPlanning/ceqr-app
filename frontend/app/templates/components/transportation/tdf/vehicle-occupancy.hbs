@@ -12,28 +12,26 @@
     </thead>
     <tbody class="ui form">
       <tr>
-        <td><i class="car icon"></i> Auto (Car, Truck, Van)</td>
+        <td>{{mode-label 'auto'}}</td>
         <td>
           {{#if factor.modeSplitsFromUser}}
             {{input type="number" step=".01" min="0" value=editData.auto.allPeriods}}
           {{else}}
-            {{viewData.auto.allPeriods}}
+            {{showData.auto.allPeriods}}
           {{/if}}
         </td>
       </tr>
       <tr>
-        <td><i class="taxi icon"></i> Taxi</td>
+        <td>{{mode-label 'taxi'}}</td>
         <td>{{input type="number" step=".01" min="0" value=editData.taxi.allPeriods}}</td>
       </tr>
-      {{#if factor.modeSplitsFromUser}}
-        <tr>
-          <td colspan="3">
-            <div class="ui blue button right floated" onClick={{action saveFactor}}>
-              Save
-            </div>
-          </td>
-        </tr>
-      {{/if}}
+      <tr>
+        <td colspan="3">
+          <div class="ui blue button right floated" onClick={{action saveFactor}}>
+            Save
+          </div>
+        </td>
+      </tr>
       <tr>
         <td colspan="3">
           <Transportation::Tdf::TableNote 

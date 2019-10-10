@@ -1,1 +1,84 @@
-{{yield}}
+<div class="eight wide column">
+  <div class="row">
+    <div class="eight wide column">
+      <h3 class="ui header left floated">Modal Splits</h3>
+      <div class="ui buttons right floated">
+        <button class="ui button {{if (eq modeSplitsFromUser false) 'positive'}}" onClick={{action (mut modeSplitsFromUser) false}}>ACS 2018</button>
+        <div class="or"></div>
+        <button class="ui button {{if (eq modeSplitsFromUser true) 'positive'}}" onClick={{action (mut modeSplitsFromUser) true}}>Manual</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="eight wide column"></div>
+
+<div class="eight wide column">
+  <table class="ui celled table">
+    <thead>
+      <tr>
+        <th class="eight wide">
+          Mode
+          <div class="ui small blue button right floated" onClick={{action "toggleEditModes"}}>
+            {{if editModes "Done" "Edit"}}
+          </div>
+        </th>
+        <th class="eight wide">All Periods</th>
+      </tr>
+    </thead>
+    <tbody class="ui form">
+      {{#each activeModes as |mode|}}
+        <Transportation::Tdf::ModalSplits::TableRow
+          @mode={{mode}}
+          @modeActive=true
+          @addActiveMode={{addActiveMode}}
+          @removeActiveMode={{removeActiveMode}}
+          
+          @editData={{editData}}
+          @showData={{showData}}
+          
+          @showInput={{modeSplitsFromUser}}
+          @editModes={{editModes}}
+        />
+      {{/each}}
+      <tr class="warning">
+        <td><strong>TOTAL</strong></td>
+        <td>{{totalPercent}} %</td>
+      </tr>
+      {{#if editModes}}
+        {{#each inactiveModes as |mode|}}
+          <Transportation::Tdf::ModalSplits::TableRow
+          @mode={{mode}}
+          @addActiveMode={{addActiveMode}}
+          @removeActiveMode={{removeActiveMode}}
+          
+          @editData={{editData}}
+          @showData={{showData}}
+          
+          @showInput={{modeSplitsFromUser}}
+          @editModes={{editModes}}
+          />
+        {{/each}}
+      {{/if}}
+      <tr>
+        <td colspan="2">
+          <div class="ui blue button right floated" onClick={{action saveFactor}}>
+            Save
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <Transportation::Tdf::TableNote 
+            @tableName="modalSplits"
+            @factor={{factor}}
+          />
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="eight wide column">
+  Map
+</div>
