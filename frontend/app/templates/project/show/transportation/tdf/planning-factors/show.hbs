@@ -2,7 +2,10 @@
 
 <Transportation::Tdf::TemporalDistribution @factor={{model.transportationPlanningFactor}} />
 
-<Transportation::Tdf::ModalSplits @factor={{model.transportationPlanningFactor}} />
+<Transportation::Tdf::ModalSplits
+  @factor={{model.transportationPlanningFactor}}
+  @analysis={{model.transportationAnalysis}}
+/>
 
 <Transportation::Tdf::InOutSplits @factor={{model.transportationPlanningFactor}} />
 

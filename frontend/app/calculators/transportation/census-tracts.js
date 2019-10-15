@@ -1,6 +1,7 @@
 import EmberObject from '@ember/object';
 import { computed } from '@ember-decorators/object';
 import round from '../../utils/round';
+import { censusTractVariableForMode, MODE_VARIABLE_LOOKUP } from '../../utils/censusTractVariableForMode';
 
 /**
  * TransportationTdfCalculator is an EmberObject that calculates Trip Results for given inputs.
@@ -10,27 +11,13 @@ import round from '../../utils/round';
  * @param {array} modesForAnalysis - an array of all mode ids 
  */
 
-export default class TransportationCensusTractsCalculator extends EmberObject {
-  MODE_TO_VARIABLE = {
-    auto:       "trans_auto_total",
-    taxi:       "trans_taxi",
-    bus:        "trans_public_bus",
-    subway:     "trans_public_subway",
-    railroad:   "trans_public_rail",
-    walk:       "trans_walk",
-    ferry:      "trans_public_ferry",
-    streetcar:  "trans_public_streetcar",
-    bicycle:    "trans_bicycle",
-    motorcycle: "trans_motorcycle",
-    other:      "trans_other"
-  }
-  
+export default class TransportationCensusTractsCalculator extends EmberObject {  
   @computed('totalCount', 'censusTracts')
   get modeSplits() {
     let splits = {};
     
-    Object.keys(this.MODE_TO_VARIABLE).forEach((mode) => {
-      const count = this.sumFor(this.MODE_TO_VARIABLE[mode]);
+    Object.keys(MODE_VARIABLE_LOOKUP).forEach((mode) => {
+      const count = this.sumFor(censusTractVariableForMode(mode));
       
       splits[mode] = { allPeriods: 100 * round(count / this.totalCount, 3), count};
     });
@@ -40,7 +27,7 @@ export default class TransportationCensusTractsCalculator extends EmberObject {
 
   @computed('modesForAnalysis')
   get totalCount() {
-    return this.modesForAnalysis.reduce((pv, m) => pv + this.sumFor(this.MODE_TO_VARIABLE[m]), 0);
+    return this.modesForAnalysis.reduce((pv, m) => pv + this.sumFor(censusTractVariableForMode(m)), 0);
   }
 
   @computed('censusTracts')

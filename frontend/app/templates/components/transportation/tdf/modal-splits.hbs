@@ -3,9 +3,9 @@
     <div class="eight wide column">
       <h3 class="ui header left floated">Modal Splits</h3>
       <div class="ui buttons right floated">
-        <button class="ui button {{if (eq modeSplitsFromUser false) 'positive'}}" onClick={{action (mut modeSplitsFromUser) false}}>ACS 2018</button>
+        <button class="ui button {{if (eq modeSplitsFromUser true) 'positive'}}" onClick={{action toggleManualModeSplits}}>Manual</button>
         <div class="or"></div>
-        <button class="ui button {{if (eq modeSplitsFromUser true) 'positive'}}" onClick={{action (mut modeSplitsFromUser) true}}>Manual</button>
+        <button class="ui button {{if (eq modeSplitsFromUser false) 'positive'}}" onClick={{action toggleCensusTractModeSplits}}>ACS 2018</button>
       </div>
     </div>
   </div>
@@ -17,16 +17,23 @@
   <table class="ui celled table">
     <thead>
       <tr>
-        <th class="eight wide">
+        <th class="four wide">
           Mode
           <div class="ui small blue button right floated" onClick={{action "toggleEditModes"}}>
             {{if editModes "Done" "Edit"}}
           </div>
         </th>
-        <th class="eight wide">All Periods</th>
+        <th class="four wide">
+          All Periods
+          {{#if (not modeSplitsFromUser)}}
+            <div class="ui small blue button right floated" onClick={{action "toggleSeeCensusTracts"}}>
+              {{if seeCensusTracts "Done" "See Census Tracts"}}
+            </div>
+          {{/if}}
+        </th>
       </tr>
     </thead>
-    <tbody class="ui form">
+    <tbody class="ui form {{if censusTracksChanging.isRunning "loading"}}">
       {{#each activeModes as |mode|}}
         <Transportation::Tdf::ModalSplits::TableRow
           @mode={{mode}}
@@ -48,15 +55,15 @@
       {{#if editModes}}
         {{#each inactiveModes as |mode|}}
           <Transportation::Tdf::ModalSplits::TableRow
-          @mode={{mode}}
-          @addActiveMode={{addActiveMode}}
-          @removeActiveMode={{removeActiveMode}}
-          
-          @editData={{editData}}
-          @showData={{showData}}
-          
-          @showInput={{modeSplitsFromUser}}
-          @editModes={{editModes}}
+            @mode={{mode}}
+            @addActiveMode={{addActiveMode}}
+            @removeActiveMode={{removeActiveMode}}
+            
+            @editData={{editData}}
+            @showData={{showData}}
+            
+            @showInput={{modeSplitsFromUser}}
+            @editModes={{editModes}}
           />
         {{/each}}
       {{/if}}
@@ -79,6 +86,39 @@
   </table>
 </div>
 
+
 <div class="eight wide column">
-  Map
+  {{#if seeCensusTracts}}
+    <table class="ui celled table">
+      <thead>    
+        {{#each analysis.requiredCensusTractsSelection as |geoid|}}
+          <th>
+            {{geoid}}
+          </th>
+        {{/each}}
+        {{#each analysis.censusTractsSelection as |geoid|}}
+          <th>
+            {{geoid}}
+            <button class="ui tiny icon right floated button" onclick={{action removeCensusTract geoid}}>
+              <i class="times floated right icon"></i>
+            </button>
+          </th>
+        {{/each}}
+      </thead>
+      <tbody class="ui form {{if censusTracksChanging.isRunning "loading"}}">
+        {{#each activeModes as |mode|}}
+          <tr>
+            {{#each censusTractVariables as |tract|}}
+              <Transportation::Tdf::ModalSplits::CensusTractTableCell
+                @mode={{mode}}
+                @tract={{tract}}
+              />
+            {{/each}}
+          </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  {{else}}
+    Map
+  {{/if}}
 </div>
