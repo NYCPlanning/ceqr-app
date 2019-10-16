@@ -29,12 +29,10 @@ class ProjectPolicy < ApplicationPolicy
   end
 
   def add_to_project_permissions?(permissions)
-    binding.pry
     update?
   end
 
   def replace_project_permissions?(data_package)
-    binding.pry
     update?
   end
 

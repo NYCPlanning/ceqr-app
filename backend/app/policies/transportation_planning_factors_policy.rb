@@ -18,4 +18,8 @@ class TransportationPlanningFactorsPolicy < ApplicationPolicy
   def destroy?
     true
   end
+
+  def replace_data_package?(dp)
+    true
+  end
 end
