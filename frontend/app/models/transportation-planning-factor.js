@@ -201,15 +201,7 @@ export default class TransportationPlanningFactorModel extends Model {
   // TODO: needs updating
   // Function to be passed to data-package-selector component to update data package
   updateDataPackage = (dataPackage) => {
-    switch (dataPackage.package) {
-      case "nyc_acs":
-        this.set('nycAcsDataPackage', dataPackage);  
-        break;
-      case "ctpp":
-        this.set('ctppDataPackage', dataPackage);  
-        break;
-    }
-
+    this.set('dataPackage', dataPackage);  
     this.save();
   }
 }

@@ -28,11 +28,15 @@ export default class TransportationTdfModalSplitsComponent extends Component {
   toggleManualModeSplits() {
     this.factor.set('modeSplitsFromUser', true);
     this.set('seeCensusTracts', false);
+
+    this.factor.save();
   }
 
   @action
   toggleCensusTractModeSplits() {
     this.factor.set('modeSplitsFromUser', false);
+
+    this.factor.save();
   }
 
   @action

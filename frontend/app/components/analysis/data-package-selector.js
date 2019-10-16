@@ -6,17 +6,22 @@ import { action } from '@ember-decorators/object';
 export default class AnalysisDataPackageSelectorComponent extends Component {
   @service store;
 
-  @computed('dataPackageType')
+  // didReceiveAttrs() {
+  //   this._super(...arguments);
+  //   const allPackages = this.store.query('data-package', { filter: { package: this.currentPackage.get('package') } });
+  //   this.set('availablePackages', allPackages.without(this.currentPackage));
+  // }
+
+  @computed('currentPackage')
   get availablePackages() {
-    const packages = this.store.query('data-package', { filter: { package: this.dataPackageType } });
-    
-    return packages.without(this.currentPackage);
+    const allPackages = this.store.query('data-package', { filter: { package: this.currentPackage.get('package') } });
+    return allPackages.without(this.currentPackage);
   }
 
   @computed('availablePackages', 'currentPackage')
   get newDataAvailable() {
     if (!this.currentPackage) return false;
-    return this.availablePackages.any((p) => { return p.releaseDate > this.currentPackage.releaseDate });
+    return this.availablePackages.any((p) => { return p.releaseDate > this.currentPackage.get('releaseDate') });
   }
 
   @action

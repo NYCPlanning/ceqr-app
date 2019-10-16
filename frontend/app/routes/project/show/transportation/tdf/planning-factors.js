@@ -12,4 +12,13 @@ export default class ProjectShowTransportationTdfPlanningFactorsRoute extends Ro
       transportationPlanningFactors
     });
   }
+
+  afterModel(model) {
+    if (model.transportationPlanningFactors.length) {
+      const project = model.project;
+      const factor  = model.transportationPlanningFactors.firstObject;
+
+      this.replaceWith('project.show.transportation.tdf.planning-factors.show', project.id, factor.id);
+    }
+  }
 }
