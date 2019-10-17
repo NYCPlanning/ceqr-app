@@ -3,11 +3,11 @@
   @mapLoaded={{action this.mapLoaded}}
   @initOptions={{hash
     style="https://layers-api.planninglabs.nyc/v1/base/style.json"
-    zoom=12
-    center=this.project.transportationAnalysis.jtwStudyAreaCentroid
+    zoom=14
+    center=censusTractsCentroidLngLat
   }} as |map|
 >
-  <Transportation::CensusTractsMap::Features
+  <Transportation::Tdf::ModalSplits::CensusTractsMap::Features
     @showTransitZones={{this.showTransitZones}}
     @showLandUse={{this.showLandUse}}
   />
@@ -73,28 +73,29 @@
         paint=(get-layer-style 'selectable-feature-content' 'paint')
       }} as |layer|
     >
-      <Mapbox::FeatureHoverer
+      {{!-- <Mapbox::FeatureHoverer
         @map={{map}}
         @layerId={{layer.layerId}}
-        @onFeatures={{this.setFirstHoveredFeatureId}}
+        @onFeatures={{setFirstHoveredFeatureId}}
         as |hoverer|
       >
         {{#if (and hoverer.point hoverer.features)}}
           <HoverCard @point={{hoverer.point}}>
-            <Transportation::CensusTractsMap::CensusTractPopup
+            <Transportation::Tdf::ModalSplits::CensusTractsMap::CensusTractPopup
               @feature={{hoverer.features.firstObject}}
               data-test-popup='census-tract'
             />
           </HoverCard>
         {{/if}}
-      </Mapbox::FeatureHoverer>
+      </Mapbox::FeatureHoverer> --}}
 
       <Mapbox::FeatureSelector
         @map={{map}}
         @layerId={{layer.layerId}} as |selectedFeatures| >
-        <Transportation::CensusTractsMap::StudySelectionToggler
+        <Transportation::Tdf::ModalSplits::CensusTractsMap::StudySelectionToggler
           @selectedFeatureArray={{selectedFeatures}}
-          @analysis={{this.project.transportationAnalysis}} />
+          @factor={{factor}}
+        />
       </Mapbox::FeatureSelector>
     </carto-source.layer>
 
@@ -131,7 +132,7 @@
         @map={{map}}
         @layerId={{layer.layerId}}
         @filterById="geoid"
-        @featureIds={{array this.hoveredFeatureId}}
+        @featureIds={{array hoveredFeatureId}}
       />
     </carto-source.layer>
 
@@ -147,7 +148,7 @@
         @map={{map}}
         @layerId={{layer.layerId}}
         @filterById="geoid"
-        @featureIds={{this.project.transportationAnalysis.requiredJtwStudySelection}}
+        @featureIds={{analysis.requiredCensusTractsSelection}}
       />
     </carto-source.layer>
 
@@ -163,7 +164,7 @@
         @map={{map}}
         @layerId={{layer.layerId}}
         @filterById="geoid"
-        @featureIds={{this.jtwStudySelectionComputed}}
+        @featureIds={{analysis.censusTractsSelection}}
       />
     </carto-source.layer>
 
@@ -180,7 +181,7 @@
         @map={{map}}
         @layerId={{layer.layerId}}
         @filterById="geoid"
-        @featureIds={{this.allJtwStudySelectionComputed}}
+        @featureIds={{completeCensusTractsSelection}}
       />
     </carto-source.layer>
 

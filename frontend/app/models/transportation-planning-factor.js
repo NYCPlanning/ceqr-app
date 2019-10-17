@@ -78,7 +78,7 @@ export default class TransportationPlanningFactorModel extends Model {
   
   // Census tract variable data if landUse is residential or office
   @attr({defaultValue: () => []}) censusTractVariables;
-  @computed('censusTractVariables')
+  @computed('censusTractVariables', 'transportationAnalysis.censusTractsSelection')
   get censusTractsCalculator() {
     return CensusTractsCalculator.create({
       censusTracts: this.censusTractVariables,
@@ -89,7 +89,7 @@ export default class TransportationPlanningFactorModel extends Model {
   @attr('boolean') modeSplitsFromUser;
   @attr('ember-object', {defaultValue: () => {} }) modeSplits;
   
-  @computed('modeSplitsFromUser')
+  @computed('modeSplitsFromUser', 'censusTractsCalculator')
   get calculatedModeSplits() {
     if (this.modeSplitsFromUser) {
       return this.modeSplits;

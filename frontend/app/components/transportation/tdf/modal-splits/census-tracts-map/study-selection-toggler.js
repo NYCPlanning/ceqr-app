@@ -32,9 +32,10 @@ export default class TransportationCensusTractsMapStudySelectionTogglerComponent
    * back to the server
    */
   async toggleCensusTract(selectedCensusTractFeatureArray) {
-    const analysis = await this.analysis;
-    const existingStudySelection = analysis.get('jtwStudySelection');
-    const requiredStudySelection = analysis.get('requiredJtwStudySelection');
+    const analysis = await this.factor.transportationAnalysis;
+    
+    const existingStudySelection = analysis.get('censusTractsSelection');
+    const requiredStudySelection = analysis.get('requiredCensusTractsSelection');
     // check that selectedCensusTractFeature array exists and has an item
     if (selectedCensusTractFeatureArray && selectedCensusTractFeatureArray.length) {
       let { geoid } = selectedCensusTractFeatureArray[0].properties || {};
@@ -45,7 +46,8 @@ export default class TransportationCensusTractsMapStudySelectionTogglerComponent
         } else {
           existingStudySelection.pushObject(geoid);
         }
-        analysis.save();
+        await analysis.save();
+        await this.factor.reload();
       }
     }
   }

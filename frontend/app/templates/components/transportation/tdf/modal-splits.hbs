@@ -14,8 +14,7 @@
 <div class="eight wide column">
   {{#if (not modeSplitsFromUser)}}
     <Analysis::DataPackageSelector
-      @title="ACS"
-      @currentPackage={{factor.dataPackage}}
+      @currentPackage={{dataPackage}}
       @updateDataPackageAction={{factor.updateDataPackage}}
     />
   {{/if}}
@@ -127,6 +126,10 @@
       </tbody>
     </table>
   {{else}}
-    Map
+    <Transportation::Tdf::ModalSplits::CensusTractsMap 
+      @analysis={{analysis}}
+      @project={{project}}
+      @factor={{factor}}
+    />
   {{/if}}
 </div>

@@ -7,14 +7,15 @@ export default class ProjectShowTransportationTdfPlanningFactorsShowRoute extend
     const { project, transportationAnalysis } = this.modelFor('project/show');
     const transportationPlanningFactor = await this.get('store').findRecord(
       'transportation-planning-factor',
-      params.transportation_planning_factor_id,
-      { include: 'data-package' },
+      params.transportation_planning_factor_id
     )
+    const dataPackage = await transportationPlanningFactor.dataPackage;
 
     return RSVP.hash({
       project,
       transportationAnalysis,
-      transportationPlanningFactor
+      transportationPlanningFactor,
+      dataPackage
     });
   }
 

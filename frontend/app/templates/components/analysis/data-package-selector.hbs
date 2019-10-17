@@ -6,10 +6,10 @@
         @content="Update available"
       />
     {{/if}}
-    {{title}}
+    {{uppercase (humanize currentPackage.package)}}
     <div class="detail">
       <UiDropdown
-        @selected={{currentPackage.version}}
+        @selected={{currentPackage}}
         class="public-schools-data-dropdown"
       >
         <div class="text"></div>
@@ -17,7 +17,7 @@
         <div class="menu">
           {{#each availablePackages as |package|}}
             <div
-              data-value={{package.version}}
+              data-value={{package}}
               class="item"
               onClick={{action "changeDataPackage" package}}
             >

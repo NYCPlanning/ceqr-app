@@ -19,7 +19,7 @@ export default class TransportationCensusTractsMapComponent extends Component {
   /**
    * The project model
    */
-  project = {};
+  analysis = {};
   /**
    * The identifier (geoid) of the currenlty hovered feature in the map
   */
@@ -50,20 +50,25 @@ export default class TransportationCensusTractsMapComponent extends Component {
   /**
    * Computed property that enables feature filterer to receive array mutations in didReceiveAttrs()
    */
-  @computed('project.transportationAnalysis.jtwStudySelection.[]')
-  get jtwStudySelectionComputed() {
-    const selectedFeatures = this.get('project.transportationAnalysis.jtwStudySelection') || [];
-    return [...selectedFeatures];
-  }
+  // @computed('analysis.censusTractsSelection.[]')
+  // get jtwStudySelectionComputed() {
+  //   const selectedFeatures = this.get('analysis.censusTractsSelection') || [];
+  //   return [...selectedFeatures];
+  // }
 
   /**
    * Computed property that enables feature filterer to filter on required and normal study selection
    */
-  @computed('project.transportationAnalysis.{jtwStudySelection.[],requiredJtwStudySelection.[]}')
-  get allJtwStudySelectionComputed() {
-    const selectedFeatures = this.get('project.transportationAnalysis.jtwStudySelection') || [];
-    const requiredFeatures = this.get('project.transportationAnalysis.requiredJtwStudySelection') || [];
+  @computed('analysis.{censusTractsSelection.[],requiredCensusTractsSelection.[]}')
+  get completeCensusTractsSelection() {
+    const selectedFeatures = this.get('analysis.censusTractsSelection') || [];
+    const requiredFeatures = this.get('analysis.requiredCensusTractsSelection') || [];
     return [...selectedFeatures, ...requiredFeatures];
+  }
+
+  @computed('analysis.censusTractsCentroid')
+  get censusTractsCentroidLngLat() {
+    return this.analysis.censusTractsCentroid.features.firstObject.geometry.coordinates
   }
 
   /**

@@ -18,6 +18,11 @@ export default class AnalysisDataPackageSelectorComponent extends Component {
     return allPackages.without(this.currentPackage);
   }
 
+  @computed('currentPackage', 'availablePackages')
+  get selectedVersion() {
+    return this.currentPackage.get('version');
+  }
+
   @computed('availablePackages', 'currentPackage')
   get newDataAvailable() {
     if (!this.currentPackage) return false;
