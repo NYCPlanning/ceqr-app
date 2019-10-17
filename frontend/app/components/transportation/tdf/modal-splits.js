@@ -69,6 +69,12 @@ export default class TransportationTdfModalSplitsComponent extends Component {
   }
 
   @action
+  addCensusTract(tract) {    
+    this.analysis.censusTractsSelection.push(tract);
+    this.saveAnalysisAndRefreshFactor.perform();
+  }
+
+  @action
   removeCensusTract(tract) {    
     this.analysis.set('censusTractsSelection', this.analysis.censusTractsSelection.without(tract));
     this.saveAnalysisAndRefreshFactor.perform();

@@ -73,21 +73,21 @@
         paint=(get-layer-style 'selectable-feature-content' 'paint')
       }} as |layer|
     >
-      {{!-- <Mapbox::FeatureHoverer
+      <Mapbox::FeatureHoverer
         @map={{map}}
         @layerId={{layer.layerId}}
         @onFeatures={{setFirstHoveredFeatureId}}
         as |hoverer|
       >
-        {{#if (and hoverer.point hoverer.features)}}
+        {{!-- {{#if (and hoverer.point hoverer.features)}}
           <HoverCard @point={{hoverer.point}}>
             <Transportation::Tdf::ModalSplits::CensusTractsMap::CensusTractPopup
               @feature={{hoverer.features.firstObject}}
               data-test-popup='census-tract'
             />
           </HoverCard>
-        {{/if}}
-      </Mapbox::FeatureHoverer> --}}
+        {{/if}} --}}
+      </Mapbox::FeatureHoverer>
 
       <Mapbox::FeatureSelector
         @map={{map}}
@@ -95,6 +95,8 @@
         <Transportation::Tdf::ModalSplits::CensusTractsMap::StudySelectionToggler
           @selectedFeatureArray={{selectedFeatures}}
           @factor={{factor}}
+          @addCensusTract={{addCensusTract}}
+          @removeCensusTract={{removeCensusTract}}
         />
       </Mapbox::FeatureSelector>
     </carto-source.layer>

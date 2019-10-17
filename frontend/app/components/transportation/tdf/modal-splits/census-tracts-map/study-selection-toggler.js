@@ -31,7 +31,7 @@ export default class TransportationCensusTractsMapStudySelectionTogglerComponent
    * jtwStudySelection array, or removes it if it already exists, and saves the analysis model
    * back to the server
    */
-  async toggleCensusTract(selectedCensusTractFeatureArray) {
+  async toggleCensusTract(selectedCensusTractFeatureArray) {    
     const analysis = await this.factor.transportationAnalysis;
     
     const existingStudySelection = analysis.get('censusTractsSelection');
@@ -42,12 +42,12 @@ export default class TransportationCensusTractsMapStudySelectionTogglerComponent
       // check that the feature has a geoid property and is not part of the required selection
       if(geoid && !requiredStudySelection.includes(geoid)) {
         if(existingStudySelection.includes(geoid)){
-          existingStudySelection.removeObject(geoid);
+          this.removeCensusTract(geoid);
+          // existingStudySelection.removeObject(geoid);
         } else {
-          existingStudySelection.pushObject(geoid);
+          // existingStudySelection.pushObject(geoid);
+          this.addCensusTract(geoid);
         }
-        await analysis.save();
-        await this.factor.reload();
       }
     }
   }

@@ -37,7 +37,8 @@ module.exports = function(defaults) {
         'map-color-for',
         'percentage',
         'school-year',
-        'mode-label'
+        'mode-label',
+        'humanize-geoid'
       ],
       enabled: true
     }

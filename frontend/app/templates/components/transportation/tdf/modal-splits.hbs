@@ -17,6 +17,10 @@
       @currentPackage={{dataPackage}}
       @updateDataPackageAction={{factor.updateDataPackage}}
     />
+          
+    <div class="ui small blue button right floated" onClick={{action "toggleSeeCensusTracts"}}>
+      {{if seeCensusTracts "See Map" "See Table"}}
+    </div>
   {{/if}}
 </div>
 
@@ -32,11 +36,6 @@
         </th>
         <th class="four wide">
           All Periods
-          {{#if (not modeSplitsFromUser)}}
-            <div class="ui small blue button right floated" onClick={{action "toggleSeeCensusTracts"}}>
-              {{if seeCensusTracts "Done" "See Census Tracts"}}
-            </div>
-          {{/if}}
         </th>
       </tr>
     </thead>
@@ -95,20 +94,48 @@
 
 
 <div class="eight wide column">
-  {{#if seeCensusTracts}}
-    <table class="ui celled table">
+  {{#if (not modeSplitsFromUser)}}
+    {{!-- Map, hidden with inline CSS if table is being displayed --}}
+    <div class="ui {{if censusTracksChanging.isRunning "loading"}} segment" style="{{if seeCensusTracts "display:none"}}">
+      <h4>Selected Census Tracts</h4>
+      
+      {{#each analysis.requiredCensusTractsSelection as |geoid|}}
+        <div class="ui grey label">
+          {{humanize-geoid geoid}}
+        </div>
+      {{/each}}
+      {{#each analysis.censusTractsSelection as |geoid|}}
+        <div class="ui blue label">
+          {{humanize-geoid geoid}}
+          <i class="delete icon" onclick={{action removeCensusTract geoid}}></i>
+        </div>
+      {{/each}}
+      
+      <Transportation::Tdf::ModalSplits::CensusTractsMap 
+        @analysis={{analysis}}
+        @project={{project}}
+        @factor={{factor}}
+        @addCensusTract={{action addCensusTract}}
+        @removeCensusTract={{action removeCensusTract}}
+      />
+    </div>
+
+    {{!-- Census Tract table, hidden with inline CSS if table is being displayed --}}
+    <table class="ui celled table" style="{{if (not seeCensusTracts) "display:none"}}">
       <thead>    
         {{#each analysis.requiredCensusTractsSelection as |geoid|}}
           <th>
-            {{geoid}}
+            <div class="ui grey label">
+              {{humanize-geoid geoid}}
+            </div>
           </th>
         {{/each}}
         {{#each analysis.censusTractsSelection as |geoid|}}
           <th>
-            {{geoid}}
-            <button class="ui tiny icon right floated button" onclick={{action removeCensusTract geoid}}>
-              <i class="times floated right icon"></i>
-            </button>
+            <div class="ui blue label">
+              {{humanize-geoid geoid}}
+              <i class="delete icon" onclick={{action removeCensusTract geoid}}></i>
+            </div>
           </th>
         {{/each}}
       </thead>
@@ -125,11 +152,5 @@
         {{/each}}
       </tbody>
     </table>
-  {{else}}
-    <Transportation::Tdf::ModalSplits::CensusTractsMap 
-      @analysis={{analysis}}
-      @project={{project}}
-      @factor={{factor}}
-    />
   {{/if}}
 </div>
