@@ -19,9 +19,12 @@ export default class TransportationTdfModalSplitsComponent extends Component {
   @alias('factor.inactiveModes') inactiveModes;
 
   // Compute when any land use is changed
-  @computed('factor.calculatedModeSplits.{auto,taxi,bus,subway,railroad,walk,ferry,streetcar,bicycle,motorcycle,other}.allPeriods')
-  get totalPercent() {
-    return this.factor.modesForAnalysis.reduce((pv, key) => pv + parseFloat(this.showData[key].allPeriods), 0);
+  @computed('activeModes', 'calculatedModeSplits.{auto,taxi,bus,subway,railroad,walk,ferry,streetcar,bicycle,motorcycle,other}.allPeriods')
+  get total() {
+    return {
+      percent: Math.round(this.factor.modesForAnalysis.reduce((pv, key) => pv + parseFloat(this.showData[key].allPeriods), 0)),
+      count:   this.factor.modesForAnalysis.reduce((pv, key) => pv + parseFloat(this.showData[key].count), 0)
+    }
   }
 
   @action

@@ -74,7 +74,10 @@ Router.map(function() {
           this.route('planning-factors', function() {
             this.route('show', { path: '/:transportation_planning_factor_id' });
           });
-          this.route('trip-results');
+          this.route('trip-results', function() {
+            this.route('show', { path: '/:transportation_planning_factor_id' });
+            this.route('total');
+          });
         });
       });
 

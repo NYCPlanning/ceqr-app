@@ -1,0 +1,26 @@
+<h4 class="ui header top attached">Person Trips</h4>
+
+  <table class="ui celled bottom attached table">
+    <thead>
+      <tr>
+        <th class="four wide">
+          Mode
+        </th>
+        <th class="four wide">
+          In
+        </th>
+        <th class="four wide">
+          Out
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each factor.activeModes as |mode|}}
+        <tr>
+          <td>{{mode-label mode}}</td>
+          <td></td>
+          <td></td>
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>

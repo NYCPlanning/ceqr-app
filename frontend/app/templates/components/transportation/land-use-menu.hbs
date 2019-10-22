@@ -1,7 +1,7 @@
 <div class="ui menu fluid">  
   {{#each factors as |factor|}}
     {{#link-to
-      "project.show.transportation.tdf.planning-factors.show"
+      factorLink
       factor.id
       class="item"
     }}
@@ -11,4 +11,13 @@
       </div>
     {{/link-to}}
   {{/each}}
+
+  {{#if showTotalLink}}
+    {{#link-to
+      totalLink
+      class="item right floated"
+    }}
+      Trip Totals
+    {{/link-to}}
+  {{/if}}
 </div>

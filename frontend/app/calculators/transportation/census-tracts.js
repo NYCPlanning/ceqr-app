@@ -19,7 +19,7 @@ export default class TransportationCensusTractsCalculator extends EmberObject {
     Object.keys(MODE_VARIABLE_LOOKUP).forEach((mode) => {
       const count = this.sumFor(censusTractVariableForMode(mode));
       
-      splits[mode] = { allPeriods: 100 * round(count / this.totalCount, 3), count};
+      splits[mode] = { allPeriods: round(100 * (count / this.totalCount), 1), count};
     });
 
     return splits;

@@ -1,0 +1,45 @@
+<Transportation::Tdf::TripResults::PeakHourTrips @factor={{model.transportationPlanningFactor}} />
+
+<div class="sixteen wide column">
+  <h3 class="ui header" style="margin-bottom: 10px;">AM</h3>
+</div>
+
+
+<div class="eight wide column">
+  <Transportation::Tdf::TripResults::PersonTrips
+    @factor={{model.transportationPlanningFactor}}
+  />
+</div>
+
+<div class="eight wide column">
+  <h4 class="ui header top attached">Vehicle Trips</h4>
+  <table class="ui celled bottom attached table">
+    <thead>
+      <tr>
+        <th class="four wide">
+          Mode
+        </th>
+        <th class="four wide">
+          In
+        </th>
+        <th class="four wide">
+          Out
+        </th>
+      </tr>
+    </thead>
+  </table>
+</div>
+
+<div class="sixteen wide column">
+  <h3 class="ui header" style="margin-bottom: 10px;">Midday</h3>
+</div>
+
+<div class="sixteen wide column">
+  <h3 class="ui header" style="margin-bottom: 10px;">PM</h3>
+</div>
+
+<div class="sixteen wide column">
+  <h3 class="ui header" style="margin-bottom: 10px;">Satruday</h3>
+</div>
+
+{{outlet}}

@@ -19,7 +19,7 @@
     />
           
     <div class="ui small blue button right floated" onClick={{action "toggleSeeCensusTracts"}}>
-      {{if seeCensusTracts "See Map" "See Table"}}
+      {{if seeCensusTracts "View Map" "View Table"}}
     </div>
   {{/if}}
 </div>
@@ -56,7 +56,7 @@
       {{/each}}
       <tr class="warning">
         <td><strong>TOTAL</strong></td>
-        <td>{{totalPercent}} %</td>
+        <td>{{total.percent}} % ({{total.count}})</td>
       </tr>
       {{#if editModes}}
         {{#each inactiveModes as |mode|}}

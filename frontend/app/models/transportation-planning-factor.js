@@ -131,6 +131,43 @@ export default class TransportationPlanningFactorModel extends Model {
   }
 
   @computed('transportationAnalysis.project.{totalUnits,commercialLandUse}')
+  get peakHourTrips() {
+    if (this.landUse === 'residential') {
+      const units = this.get('transportationAnalysis.project.totalUnits');
+      const normalizedUnits = units / this.ceqrManualDefaults.tripGenRatePerUnit;
+
+      const weekdayUnits  = normalizedUnits * this.ceqrManualDefaults.tripGenerationRates.weekday.rate;
+      const saturdayUnits = normalizedUnits * this.ceqrManualDefaults.tripGenerationRates.saturday.rate;
+
+      return {
+        am:       Math.round(weekdayUnits * this.ceqrManualDefaults.temporalDistribution.am.percent),
+        md:       Math.round(weekdayUnits * this.ceqrManualDefaults.temporalDistribution.md.percent),
+        pm:       Math.round(weekdayUnits * this.ceqrManualDefaults.temporalDistribution.pm.percent),
+        saturday: Math.round(saturdayUnits * this.ceqrManualDefaults.temporalDistribution.saturday.percent)
+      }
+    }
+
+    if (this.landUse === 'office') {      
+      const units = this.get('transportationAnalysis.project.commercialLandUse').findBy('type', 'office').grossSqFt;
+      const normalizedUnits = units / this.ceqrManualDefaults.tripGenRatePerUnit;
+
+      const weekdayUnits  = normalizedUnits * this.ceqrManualDefaults.tripGenerationRates.weekday.rate;
+      const saturdayUnits = normalizedUnits * this.ceqrManualDefaults.tripGenerationRates.saturday.rate;
+
+      return {
+        am:       Math.round(weekdayUnits * this.ceqrManualDefaults.temporalDistribution.am.percent),
+        md:       Math.round(weekdayUnits * this.ceqrManualDefaults.temporalDistribution.md.percent),
+        pm:       Math.round(weekdayUnits * this.ceqrManualDefaults.temporalDistribution.pm.percent),
+        saturday: Math.round(saturdayUnits * this.ceqrManualDefaults.temporalDistribution.saturday.percent)
+      }
+    }
+
+    return {};
+  }
+
+  
+
+  @computed('transportationAnalysis.project.{totalUnits,commercialLandUse}')
   get ceqrManualDefaults() {
     if (this.landUse === 'residential') {
       const units = this.get('transportationAnalysis.project.totalUnits');
