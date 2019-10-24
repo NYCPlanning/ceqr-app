@@ -4,6 +4,7 @@ import { attr, belongsTo } from '@ember-decorators/data';
 import { computed } from '@ember-decorators/object';
 import { alias } from '@ember-decorators/object/computed';
 import CensusTractsCalculator from '../calculators/transportation/census-tracts';
+import TripResultsCalculator from '../calculators/transportation/trip-results';
 import EmberObject from '@ember/object';
 
 export default class TransportationPlanningFactorModel extends Model {
@@ -26,10 +27,10 @@ export default class TransportationPlanningFactorModel extends Model {
     // Default inOutSplits
     if (Object.keys(this.inOutSplits).length === 0) {
       this.set('inOutSplits', {
-        am:  { in: 50, out: 50 },
-        md:  { in: 50, out: 50 },
-        pm:  { in: 50, out: 50 },
-        sat: { in: 50, out: 50 }
+        am:       { in: 50, out: 50 },
+        md:       { in: 50, out: 50 },
+        pm:       { in: 50, out: 50 },
+        saturday: { in: 50, out: 50 }
       });
     }
 
@@ -116,9 +117,21 @@ export default class TransportationPlanningFactorModel extends Model {
   @attr({defaultValue: () => {}}) inOutSplits;
   @attr({defaultValue: () => {}}) truckInOutSplits;
 
-  @alias('ceqrManualDefaults.units') units;
-  @alias('ceqrManualDefaults.unitName') unitName;
-  @alias('ceqrManualDefaults.tripGenRatePerUnit') tripGenRatePerUnit;
+  @computed('transportationAnalysis.project.{totalUnits,commercialLandUse}', 'landUse')
+  get units() {
+    if (this.landUse === 'residential') {
+      return this.get('transportationAnalysis.project.totalUnits');
+    }
+    if (this.landUse === 'office') {
+      const commercialLandUse = this.get('transportationAnalysis.project.commercialLandUse');
+      return commercialLandUse.findBy('type', 'office').grossSqFt;
+    }
+
+    return 0;
+  }
+  @alias('calculatedTripResults.defaults.unitName') unitName;
+  @alias('calculatedTripResults.defaults.tripGenRatePerUnit') tripGenRatePerUnit;
+  @alias('calculatedTripResults.defaults') defaults;
   
   @computed('modesForAnalysis')
   get activeModes() {
@@ -130,115 +143,17 @@ export default class TransportationPlanningFactorModel extends Model {
     return this.MODES.reject((m) => this.modesForAnalysis.includes(m));
   }
 
-  @computed('transportationAnalysis.project.{totalUnits,commercialLandUse}')
-  get peakHourTrips() {
-    if (this.landUse === 'residential') {
-      const units = this.get('transportationAnalysis.project.totalUnits');
-      const normalizedUnits = units / this.ceqrManualDefaults.tripGenRatePerUnit;
-
-      const weekdayUnits  = normalizedUnits * this.ceqrManualDefaults.tripGenerationRates.weekday.rate;
-      const saturdayUnits = normalizedUnits * this.ceqrManualDefaults.tripGenerationRates.saturday.rate;
-
-      return {
-        am:       Math.round(weekdayUnits * this.ceqrManualDefaults.temporalDistribution.am.percent),
-        md:       Math.round(weekdayUnits * this.ceqrManualDefaults.temporalDistribution.md.percent),
-        pm:       Math.round(weekdayUnits * this.ceqrManualDefaults.temporalDistribution.pm.percent),
-        saturday: Math.round(saturdayUnits * this.ceqrManualDefaults.temporalDistribution.saturday.percent)
-      }
-    }
-
-    if (this.landUse === 'office') {      
-      const units = this.get('transportationAnalysis.project.commercialLandUse').findBy('type', 'office').grossSqFt;
-      const normalizedUnits = units / this.ceqrManualDefaults.tripGenRatePerUnit;
-
-      const weekdayUnits  = normalizedUnits * this.ceqrManualDefaults.tripGenerationRates.weekday.rate;
-      const saturdayUnits = normalizedUnits * this.ceqrManualDefaults.tripGenerationRates.saturday.rate;
-
-      return {
-        am:       Math.round(weekdayUnits * this.ceqrManualDefaults.temporalDistribution.am.percent),
-        md:       Math.round(weekdayUnits * this.ceqrManualDefaults.temporalDistribution.md.percent),
-        pm:       Math.round(weekdayUnits * this.ceqrManualDefaults.temporalDistribution.pm.percent),
-        saturday: Math.round(saturdayUnits * this.ceqrManualDefaults.temporalDistribution.saturday.percent)
-      }
-    }
-
-    return {};
-  }
-
-  
-
-  @computed('transportationAnalysis.project.{totalUnits,commercialLandUse}')
-  get ceqrManualDefaults() {
-    if (this.landUse === 'residential') {
-      const units = this.get('transportationAnalysis.project.totalUnits');
-      
-      return {
-        units,
-        unitName: 'DU',
-        tripGenRatePerUnit: 1,
-        tripGenerationRates: {
-          weekday:  {label: "Weekday",  rate: 8.075 },
-          saturday: {label: "Saturday", rate: 9.6 },
-          source: "2014 CEQR Technical Manual"
-        },
-        truckTripGenerationRates: {
-          weekday:  {label: "Weekday",  rate: 0.06 },
-          saturday: {label: "Saturday", rate: 0.02 }
-        },
-        temporalDistribution: {
-          am:       {label: "AM",       percent: .10 },
-          md:       {label: "Midday",   percent: .05 },
-          pm:       {label: "PM",       percent: .11 },
-          saturday: {label: "Saturday", percent: .08 }
-        },
-        truckTemporalDistribution: {
-          am:       {label: "AM",       percent: .12 },
-          md:       {label: "Midday",   percent: .09 },
-          pm:       {label: "PM",       percent: .02 },
-          saturday: {label: "Saturday", percent: .09 }
-        }
-      };
-    }
-
-    if (this.landUse === 'office') {
-      const commercialLandUse = this.get('transportationAnalysis.project.commercialLandUse');
-      const units = commercialLandUse.findBy('type', 'office').grossSqFt;
-
-      return {
-        units,
-        unitName: 'sq ft',
-        tripGenRatePerUnit: 1000,
-        tripGenerationRates: {
-          weekday:  {label: "Weekday",  rate: 18 },
-          saturday: {label: "Saturday", rate: 3.9 }
-        },
-        truckTripGenerationRates: {
-          weekday:  {label: "Weekday",  rate: 0.32 },
-          saturday: {label: "Saturday", rate: 0.01 }
-        },
-        temporalDistribution: {
-          am:       {label: "AM",       percent: .12 },
-          md:       {label: "Midday",   percent: .15 },
-          pm:       {label: "PM",       percent: .14 },
-          saturday: {label: "Saturday", percent: .17 }
-        },
-        truckTemporalDistribution: {
-          am:       {label: "AM",       percent: .10 },
-          md:       {label: "Midday",   percent: .11 },
-          pm:       {label: "PM",       percent: .02 },
-          saturday: {label: "Saturday", percent: .11 }
-        }
-      };
-    }
-
-    return {};
-  }
-
-
-  // TODO: needs updating
-  // Function to be passed to data-package-selector component to update data package
-  updateDataPackage = (dataPackage) => {
-    this.set('dataPackage', dataPackage);  
-    this.save();
+  @computed('landUse', 'activeModes', 'transportationAnalysis.project')
+  get calculatedTripResults() {
+    return TripResultsCalculator.create({
+      landUse: this.landUse,
+      modeSplits: this.calculatedModeSplits,
+      inOutSplits: this.inOutSplits,
+      truckInOutSplits: this.truckInOutSplits,
+      vehicleOccupancy: this.calculatedVehicleOccupancy,
+      project: this.get('transportationAnalysis.project'),
+      modes: this.activeModes,
+      units: this.units
+    });
   }
 }

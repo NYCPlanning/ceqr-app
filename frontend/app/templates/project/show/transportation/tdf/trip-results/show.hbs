@@ -1,45 +1,69 @@
-<Transportation::Tdf::TripResults::PeakHourTrips @factor={{model.transportationPlanningFactor}} />
+<Transportation::Tdf::TripResults::PeakHourTrips @results={{model.transportationPlanningFactor.calculatedTripResults.personTrips}} />
 
 <div class="sixteen wide column">
   <h3 class="ui header" style="margin-bottom: 10px;">AM</h3>
 </div>
 
-
 <div class="eight wide column">
   <Transportation::Tdf::TripResults::PersonTrips
-    @factor={{model.transportationPlanningFactor}}
+    @modes={{model.transportationPlanningFactor.activeModes}}
+    @results={{model.transportationPlanningFactor.calculatedTripResults.personTrips.am}}
   />
 </div>
 
 <div class="eight wide column">
-  <h4 class="ui header top attached">Vehicle Trips</h4>
-  <table class="ui celled bottom attached table">
-    <thead>
-      <tr>
-        <th class="four wide">
-          Mode
-        </th>
-        <th class="four wide">
-          In
-        </th>
-        <th class="four wide">
-          Out
-        </th>
-      </tr>
-    </thead>
-  </table>
+  <Transportation::Tdf::TripResults::VehicleTrips
+    @vehicleTrips={{model.transportationPlanningFactor.calculatedTripResults.vehicleTrips.am}}
+  />
 </div>
 
 <div class="sixteen wide column">
   <h3 class="ui header" style="margin-bottom: 10px;">Midday</h3>
 </div>
 
+<div class="eight wide column">
+  <Transportation::Tdf::TripResults::PersonTrips
+    @modes={{model.transportationPlanningFactor.activeModes}}
+    @results={{model.transportationPlanningFactor.calculatedTripResults.personTrips.md}}
+  />
+</div>
+
+<div class="eight wide column">
+  <Transportation::Tdf::TripResults::VehicleTrips
+    @vehicleTrips={{model.transportationPlanningFactor.calculatedTripResults.vehicleTrips.md}}
+  />
+</div>
+
 <div class="sixteen wide column">
   <h3 class="ui header" style="margin-bottom: 10px;">PM</h3>
+</div>
+
+<div class="eight wide column">
+  <Transportation::Tdf::TripResults::PersonTrips
+    @modes={{model.transportationPlanningFactor.activeModes}}
+    @results={{model.transportationPlanningFactor.calculatedTripResults.personTrips.pm}}
+  />
+</div>
+
+<div class="eight wide column">
+  <Transportation::Tdf::TripResults::VehicleTrips
+    @vehicleTrips={{model.transportationPlanningFactor.calculatedTripResults.vehicleTrips.pm}}
+  />
 </div>
 
 <div class="sixteen wide column">
   <h3 class="ui header" style="margin-bottom: 10px;">Satruday</h3>
 </div>
 
-{{outlet}}
+<div class="eight wide column">
+  <Transportation::Tdf::TripResults::PersonTrips
+    @modes={{model.transportationPlanningFactor.activeModes}}
+    @results={{model.transportationPlanningFactor.calculatedTripResults.personTrips.saturday}}
+  />
+</div>
+
+<div class="eight wide column">
+  <Transportation::Tdf::TripResults::VehicleTrips
+    @vehicleTrips={{model.transportationPlanningFactor.calculatedTripResults.vehicleTrips.saturday}}
+  />
+</div>

@@ -15,6 +15,8 @@ export function modeLabel(params) {
     case 'bicycle':    return htmlSafe('<i class="bicycle icon"></i> Bicycle');
     case 'motorcycle': return htmlSafe('<i class="motorcycle icon"></i> Motorcycle');
     case 'other':      return htmlSafe('Other Means');
+    case 'truck':      return htmlSafe('<i class="truck icon"></i> Truck (delivery)')
+    default:           return params[0].capitalize();
   }
 }
 

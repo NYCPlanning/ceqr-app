@@ -15,12 +15,19 @@
       </tr>
     </thead>
     <tbody>
-      {{#each factor.activeModes as |mode|}}
+      {{#each rows as |row|}}
         <tr>
-          <td>{{mode-label mode}}</td>
-          <td></td>
-          <td></td>
+          <td>{{mode-label row.mode}}</td>
+          <td>{{row.in}}</td>
+          <td>{{row.out}}</td>
         </tr>
       {{/each}}
     </tbody>
+    <tfoot>
+      <tr class="ui warning">
+        <td>TOTAL</td>
+        <td>{{total.in}}</td>
+        <td>{{total.out}}</td>
+      </tr>
+    </tfoot>
   </table>
