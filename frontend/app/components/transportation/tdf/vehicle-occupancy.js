@@ -5,8 +5,7 @@ import { action } from '@ember-decorators/object';
 export default class TransportationTdfVehicleOccupancyComponent extends Component {
   classNames = ["row"];
 
-  @alias('factor.calculatedVehicleOccupancy') showData;
-  @alias('factor.vehicleOccupancy') editData;
+  @alias('factor.vehicleOccupancy') vehicleOccupancy;
 
   @action
   saveFactor() {

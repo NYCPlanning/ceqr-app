@@ -1,3 +1,17 @@
+export const MODES = [
+  "auto",
+  "taxi",
+  "bus",
+  "subway",
+  "railroad",
+  "walk",
+  "ferry",
+  "streetcar",
+  "bicycle",
+  "motorcycle",
+  "other"
+]
+
 export const MODE_VARIABLE_LOOKUP = {
   auto:       "trans_auto_total",
   taxi:       "trans_taxi",

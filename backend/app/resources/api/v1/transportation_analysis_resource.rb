@@ -5,7 +5,8 @@ module Api
         :traffic_zone,
         :census_tracts_selection,
         :required_census_tracts_selection,
-        :census_tracts_centroid
+        :census_tracts_centroid,
+        :modes_for_analysis
       )
 
       def census_tracts_centroid     

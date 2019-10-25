@@ -1,4 +1,4 @@
-<Transportation::Tdf::TripResults::PeakHourTrips @results={{model.transportationPlanningFactor.calculatedTripResults.personTrips}} />
+<Transportation::Tdf::TripResults::PeakHourTrips @results={{model.transportationPlanningFactor.tripResults.personTrips}} />
 
 <div class="sixteen wide column">
   <h3 class="ui header" style="margin-bottom: 10px;">AM</h3>
@@ -7,13 +7,13 @@
 <div class="eight wide column">
   <Transportation::Tdf::TripResults::PersonTrips
     @modes={{model.transportationPlanningFactor.activeModes}}
-    @results={{model.transportationPlanningFactor.calculatedTripResults.personTrips.am}}
+    @results={{model.transportationPlanningFactor.tripResults.personTrips.am}}
   />
 </div>
 
 <div class="eight wide column">
   <Transportation::Tdf::TripResults::VehicleTrips
-    @vehicleTrips={{model.transportationPlanningFactor.calculatedTripResults.vehicleTrips.am}}
+    @vehicleTrips={{model.transportationPlanningFactor.tripResults.vehicleTrips.am}}
   />
 </div>
 
@@ -24,13 +24,13 @@
 <div class="eight wide column">
   <Transportation::Tdf::TripResults::PersonTrips
     @modes={{model.transportationPlanningFactor.activeModes}}
-    @results={{model.transportationPlanningFactor.calculatedTripResults.personTrips.md}}
+    @results={{model.transportationPlanningFactor.tripResults.personTrips.md}}
   />
 </div>
 
 <div class="eight wide column">
   <Transportation::Tdf::TripResults::VehicleTrips
-    @vehicleTrips={{model.transportationPlanningFactor.calculatedTripResults.vehicleTrips.md}}
+    @vehicleTrips={{model.transportationPlanningFactor.tripResults.vehicleTrips.md}}
   />
 </div>
 
@@ -41,13 +41,13 @@
 <div class="eight wide column">
   <Transportation::Tdf::TripResults::PersonTrips
     @modes={{model.transportationPlanningFactor.activeModes}}
-    @results={{model.transportationPlanningFactor.calculatedTripResults.personTrips.pm}}
+    @results={{model.transportationPlanningFactor.tripResults.personTrips.pm}}
   />
 </div>
 
 <div class="eight wide column">
   <Transportation::Tdf::TripResults::VehicleTrips
-    @vehicleTrips={{model.transportationPlanningFactor.calculatedTripResults.vehicleTrips.pm}}
+    @vehicleTrips={{model.transportationPlanningFactor.tripResults.vehicleTrips.pm}}
   />
 </div>
 
@@ -58,12 +58,12 @@
 <div class="eight wide column">
   <Transportation::Tdf::TripResults::PersonTrips
     @modes={{model.transportationPlanningFactor.activeModes}}
-    @results={{model.transportationPlanningFactor.calculatedTripResults.personTrips.saturday}}
+    @results={{model.transportationPlanningFactor.tripResults.personTrips.saturday}}
   />
 </div>
 
 <div class="eight wide column">
   <Transportation::Tdf::TripResults::VehicleTrips
-    @vehicleTrips={{model.transportationPlanningFactor.calculatedTripResults.vehicleTrips.saturday}}
+    @vehicleTrips={{model.transportationPlanningFactor.tripResults.vehicleTrips.saturday}}
   />
 </div>

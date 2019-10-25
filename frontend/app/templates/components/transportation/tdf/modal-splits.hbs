@@ -3,16 +3,16 @@
     <div class="eight wide column">
       <h3 class="ui header left floated">Modal Splits</h3>
       <div class="ui buttons right floated">
-        <button class="ui button {{if (eq modeSplitsFromUser true) 'positive'}}" onClick={{action toggleManualModeSplits}}>Manual</button>
+        <button class="ui button {{if (eq manualModeSplits true) 'positive'}}" onClick={{action toggleManualModeSplits}}>Manual</button>
         <div class="or"></div>
-        <button class="ui button {{if (eq modeSplitsFromUser false) 'positive'}}" onClick={{action toggleCensusTractModeSplits}}>Census Tracts</button>
+        <button class="ui button {{if (eq manualModeSplits false) 'positive'}}" onClick={{action toggleCensusTractModeSplits}}>Census Tracts</button>
       </div>
     </div>
   </div>
 </div>
 
 <div class="eight wide column">
-  {{#if (not modeSplitsFromUser)}}
+  {{#if (not manualModeSplits)}}
     <Analysis::DataPackageSelector
       @currentPackage={{dataPackage}}
       @updateDataPackageAction={{factor.updateDataPackage}}
@@ -47,16 +47,20 @@
           @addActiveMode={{addActiveMode}}
           @removeActiveMode={{removeActiveMode}}
           
-          @editData={{editData}}
-          @showData={{showData}}
+          @modeSplits={{modeSplits}}
           
-          @showInput={{modeSplitsFromUser}}
+          @showInput={{manualModeSplits}}
           @editModes={{editModes}}
         />
       {{/each}}
       <tr class="warning">
         <td><strong>TOTAL</strong></td>
-        <td>{{total.percent}} % ({{total.count}})</td>
+        <td>
+          {{total.percent}} % 
+          {{#if (not manualModeSplits)}}
+            ({{total.count}})
+          {{/if}}  
+        </td>
       </tr>
       {{#if editModes}}
         {{#each inactiveModes as |mode|}}
@@ -65,10 +69,9 @@
             @addActiveMode={{addActiveMode}}
             @removeActiveMode={{removeActiveMode}}
             
-            @editData={{editData}}
-            @showData={{showData}}
+            @modeSplits={{modeSplits}}
             
-            @showInput={{modeSplitsFromUser}}
+            @showInput={{manualModeSplits}}
             @editModes={{editModes}}
           />
         {{/each}}
@@ -94,9 +97,9 @@
 
 
 <div class="eight wide column">
-  {{#if (not modeSplitsFromUser)}}
+  {{#if (not manualModeSplits)}}
     {{!-- Map, hidden with inline CSS if table is being displayed --}}
-    <div class="ui {{if censusTracksChanging.isRunning "loading"}} segment" style="{{if seeCensusTracts "display:none"}}">
+    <div class="ui {{if censusTracksChanging.isRunning "loading"}} segment" style="{{if seeCensusTracts "display:none;"}}">
       <h4>Selected Census Tracts</h4>
       
       {{#each analysis.requiredCensusTractsSelection as |geoid|}}
@@ -121,7 +124,7 @@
     </div>
 
     {{!-- Census Tract table, hidden with inline CSS if table is being displayed --}}
-    <table class="ui celled table" style="{{if (not seeCensusTracts) "display:none"}}">
+    <table class="ui celled table" style="{{if (not seeCensusTracts) "display:none;"}}">
       <thead>    
         {{#each analysis.requiredCensusTractsSelection as |geoid|}}
           <th>

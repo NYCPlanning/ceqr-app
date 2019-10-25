@@ -4,16 +4,16 @@ import { computed } from '@ember-decorators/object';
 export default class TransportationTdfModalSplitsTableRowComponent extends Component {
   tagName = 'tr';
 
-  @computed('showData', 'mode')
+  @computed('modeSplits', 'mode')
   get modeCount() {
-    return this.showData[this.mode]['count'];
+    return this.modeSplits[this.mode]['count'];
   }
 
-  @computed('showData', 'editData', 'mode')
+  @computed('modeSplits', 'mode')
   get modePercent() {
-    return this.showData[this.mode]['allPeriods'];
+    return this.modeSplits[this.mode]['allPeriods'];
   }
   set modePercent(value) {
-    this.editData.set(`${this.mode}.allPeriods`, value);
+    this.modeSplits.set(`${this.mode}.allPeriods`, value);
   }
 }

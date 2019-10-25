@@ -9,27 +9,26 @@ export default class TransportationTdfModalSplitsComponent extends Component {
   editModes = false;
   seeCensusTracts = false;
 
-  @alias('factor.calculatedModeSplits') showData;
-  @alias('factor.modeSplits') editData;
+  @alias('factor.modeSplits') modeSplits;
   @alias('factor.censusTractVariables') censusTractVariables;
 
-  @alias('factor.modeSplitsFromUser') modeSplitsFromUser;
+  @alias('factor.manualModeSplits') manualModeSplits;
 
   @alias('factor.activeModes') activeModes;
   @alias('factor.inactiveModes') inactiveModes;
 
   // Compute when any land use is changed
-  @computed('activeModes', 'calculatedModeSplits.{auto,taxi,bus,subway,railroad,walk,ferry,streetcar,bicycle,motorcycle,other}.allPeriods')
+  @computed('activeModes', 'modeSplits.{auto,taxi,bus,subway,railroad,walk,ferry,streetcar,bicycle,motorcycle,other}.allPeriods')
   get total() {
     return {
-      percent: Math.round(this.factor.modesForAnalysis.reduce((pv, key) => pv + parseFloat(this.showData[key].allPeriods), 0)),
-      count:   this.factor.modesForAnalysis.reduce((pv, key) => pv + parseFloat(this.showData[key].count), 0)
+      percent: Math.round(this.factor.modesForAnalysis.reduce((pv, key) => pv + parseFloat(this.modeSplits[key].allPeriods), 0)),
+      count:   this.factor.modesForAnalysis.reduce((pv, key) => pv + parseFloat(this.modeSplits[key].count), 0)
     }
   }
 
   @action
   toggleManualModeSplits() {
-    this.factor.set('modeSplitsFromUser', true);
+    this.factor.set('manualModeSplits', true);
     this.set('seeCensusTracts', false);
 
     this.factor.save();
@@ -37,7 +36,7 @@ export default class TransportationTdfModalSplitsComponent extends Component {
 
   @action
   toggleCensusTractModeSplits() {
-    this.factor.set('modeSplitsFromUser', false);
+    this.factor.set('manualModeSplits', false);
 
     this.factor.save();
   }
@@ -59,16 +58,16 @@ export default class TransportationTdfModalSplitsComponent extends Component {
 
   @action
   addActiveMode(event) {
-    this.factor.modesForAnalysis.push(event.value);
-    this.factor.save();
+    this.analysis.modesForAnalysis.push(event.value);
+    this.analysis.save();
   }
 
   @action
   removeActiveMode(event) {
-    const modes = this.factor.modesForAnalysis.without(event.value);
+    const modes = this.analysis.modesForAnalysis.without(event.value);
 
-    this.factor.set('modesForAnalysis', modes);
-    this.factor.save();
+    this.analysis.set('modesForAnalysis', modes);
+    this.analysis.save();
   }
 
   @action

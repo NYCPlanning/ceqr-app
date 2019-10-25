@@ -9,7 +9,7 @@ class TransportationAnalysis < ApplicationRecord
 
 
   belongs_to :project
-  has_many :transportation_planning_factors, class_name: 'TransportationPlanningFactors'
+  has_many :transportation_planning_factors, class_name: 'TransportationPlanningFactors', dependent: :destroy
 
   def selected_census_tract_geoids
     required_census_tracts_selection + census_tracts_selection

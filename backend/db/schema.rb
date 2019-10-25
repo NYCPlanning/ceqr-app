@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_27_205621) do
+ActiveRecord::Schema.define(version: 2019_10_25_151122) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -92,14 +92,14 @@ ActiveRecord::Schema.define(version: 2019_09_27_205621) do
     t.geometry "census_tracts_centroid", limit: {:srid=>4326, :type=>"st_point"}, null: false
     t.text "required_census_tracts_selection", default: [], null: false, array: true
     t.text "census_tracts_selection", default: [], array: true
+    t.text "modes_for_analysis", default: [], null: false, array: true
   end
 
   create_table "transportation_planning_factors", force: :cascade do |t|
-    t.jsonb "mode_splits", default: {}, null: false
-    t.boolean "mode_splits_from_user", default: true, null: false
+    t.jsonb "mode_splits_from_user", default: {}, null: false
+    t.boolean "manual_mode_splits", default: true, null: false
     t.jsonb "census_tract_variables", default: [], null: false, array: true
-    t.jsonb "vehicle_occupancy", default: {}, null: false
-    t.text "modes_for_analysis", default: [], null: false, array: true
+    t.jsonb "vehicle_occupancy_from_user", default: {}, null: false
     t.text "land_use", null: false
     t.jsonb "in_out_splits", default: {}, null: false
     t.jsonb "truck_in_out_splits", default: {}, null: false

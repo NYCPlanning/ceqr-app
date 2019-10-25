@@ -3,8 +3,24 @@ const { Model } = DS;
 import { attr, belongsTo, hasMany } from '@ember-decorators/data';
 import { computed } from '@ember-decorators/object';
 import { alias } from '@ember-decorators/object/computed';
+import TripResultsTotalsCalculator from '../calculators/transportation/trip-results-totals';
+import { MODES } from 'labs-ceqr/utils/censusTractVariableForMode';
 
 export default class TransportationAnalysisModel extends Model {
+  ready() {
+    // Default modesForAnalysis
+    if (Object.keys(this.modesForAnalysis).length === 0) {
+      this.set('modesForAnalysis', [
+        "auto",
+        "taxi",
+        "bus",
+        "subway",
+        "walk",
+        "railroad"
+      ]);
+    }
+  }
+  
   @belongsTo project;
   @hasMany('transportationPlanningFactor') transportationPlanningFactors;
 
@@ -16,7 +32,19 @@ export default class TransportationAnalysisModel extends Model {
   @attr({defaultValue: () => []}) censusTractsSelection;
   // the computed centroid of the study selection
   @attr({defaultValue: () => {}}) censusTractsCentroid;
+  // array of transport modes being analyzed
+  @attr({defaultValue: () => []}) modesForAnalysis;
 
+
+  @computed('modesForAnalysis.@each')
+  get activeModes() {
+    return MODES.filter((m) => this.modesForAnalysis.includes(m));
+  }
+
+  @computed('modesForAnalysis.@each')
+  get inactiveModes() {
+    return MODES.reject((m) => this.modesForAnalysis.includes(m));
+  }
 
   // Detailed Analysis trigger
   @computed(
@@ -31,6 +59,7 @@ export default class TransportationAnalysisModel extends Model {
     )
   }
 
+  // Sum of Ratios
   @computed(
     'residentialUnitsRatio',
     'officeSqFtRatio',
@@ -52,6 +81,12 @@ export default class TransportationAnalysisModel extends Model {
     )
   }
 
+  // Sum of Ratios boolean
+  @computed('sumOfRatios')
+  get sumOfRatiosOver1() {
+    return this.sumOfRatios > 1;
+  }
+
   // Fast Food boolean
   @computed('project.commercialLandUse.[]')
   get hasFastFood() {
@@ -62,12 +97,6 @@ export default class TransportationAnalysisModel extends Model {
   @computed('project.communityFacilityLandUse.[]')
   get hasCommunityFacility() {
     return !!this.get('project.communityFacilityLandUse').length;
-  }
-
-  // Sum of Ratios boolean
-  @computed('sumOfRatios')
-  get sumOfRatiosOver1() {
-    return this.sumOfRatios > 1;
   }
   
   // Residential units
@@ -140,6 +169,14 @@ export default class TransportationAnalysisModel extends Model {
   @computed('offStreetParkingSpaces')
   get offStreetParkingSpacesRatio() {
     return this.ratioFor('offStreetParkingSpaces');
+  }
+
+  @computed('transportationPlanningFactors.@each.tripResults')
+  get tripTotals() {
+    return TripResultsTotalsCalculator.create({
+      tripResults: this.transportationPlanningFactors.map((factor) => factor.tripResults),
+      modes: this.modesForAnalysis
+    });
   }
 
   trafficZoneThresholds = {

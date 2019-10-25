@@ -14,16 +14,16 @@
       <tr>
         <td>{{mode-label 'auto'}}</td>
         <td>
-          {{#if factor.modeSplitsFromUser}}
-            {{input type="number" step=".01" min="0" value=editData.auto.allPeriods}}
+          {{#if factor.manualModeSplits}}
+            {{input type="number" step=".01" min="0" value=vehicleOccupancy.auto.allPeriods}}
           {{else}}
-            {{showData.auto.allPeriods}}
+            {{vehicleOccupancy.auto.allPeriods}}
           {{/if}}
         </td>
       </tr>
       <tr>
         <td>{{mode-label 'taxi'}}</td>
-        <td>{{input type="number" step=".01" min="0" value=editData.taxi.allPeriods}}</td>
+        <td>{{input type="number" step=".01" min="0" value=vehicleOccupancy.taxi.allPeriods}}</td>
       </tr>
       <tr>
         <td colspan="3">
