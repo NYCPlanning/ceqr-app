@@ -1,4 +1,4 @@
-<div class="eight wide column">
+<div class="eight wide column" style="margin-bottom: 10px;">
   <div class="row">
     <div class="eight wide column">
       <h3 class="ui header left floated">Modal Splits</h3>
@@ -11,12 +11,13 @@
   </div>
 </div>
 
-<div class="eight wide column">
+<div class="eight wide column" style="z-index: 10;">
   {{#if (not manualModeSplits)}}
     <Analysis::DataPackageSelector
+      style="display: inline-block;"
       @currentPackage={{factor.dataPackage}}
       @availablePackages={{availablePackages}}
-      @updateDataPackageAction={{factor.updateDataPackage}}
+      @changeDataPackageAction={{action changeDataPackage}}
     />
           
     <div class="ui small blue button right floated" onClick={{action "toggleSeeCensusTracts"}}>

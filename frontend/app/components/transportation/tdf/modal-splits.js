@@ -82,6 +82,12 @@ export default class TransportationTdfModalSplitsComponent extends Component {
     this.saveAnalysisAndRefreshFactor.perform();
   }
 
+  @action
+  changeDataPackage(dp) {
+    this.factor.set('dataPackage', dp);
+    this.saveFactorAndRefresh.perform();
+  }
+
   // Ember Concurrency Tasks and Groups
   @taskGroup censusTracksChanging;
 
@@ -89,5 +95,10 @@ export default class TransportationTdfModalSplitsComponent extends Component {
   *saveAnalysisAndRefreshFactor() {
     yield this.analysis.save();
     yield this.analysis.transportationPlanningFactors.forEach((factor) => factor.reload());
+  }
+
+  @task({ group: 'censusTracksChanging' })
+  *saveFactorAndRefresh() {
+    yield this.factor.save();
   }
 }

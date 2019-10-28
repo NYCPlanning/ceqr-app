@@ -6,7 +6,6 @@ import { action } from '@ember-decorators/object';
 export default class AnalysisDataPackageSelectorComponent extends Component {
   @service store;
 
-
   @computed('availablePackages', 'currentPackage')
   get newDataAvailable() {
     if (!this.currentPackage) return false;
@@ -15,6 +14,6 @@ export default class AnalysisDataPackageSelectorComponent extends Component {
 
   @action
   changeDataPackage(dp) {
-    this.updateDataPackageAction(dp);
+    this.changeDataPackageAction(dp);
   }
 }
