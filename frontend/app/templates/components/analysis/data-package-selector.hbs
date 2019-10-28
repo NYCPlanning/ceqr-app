@@ -1,30 +1,33 @@
-  <div class="ui label">
-    {{#if newDataAvailable}}
-      <UiPopup
-        @tagName="i"
-        class="exclamation orange circle icon"
-        @content="Update available"
-      />
-    {{/if}}
-    {{uppercase (humanize currentPackage.package)}}
-    <div class="detail">
-      <UiDropdown
-        @selected={{currentPackage}}
-        class="public-schools-data-dropdown"
-      >
-        <div class="text"></div>
-        <i class="dropdown floated right icon"></i>
-        <div class="menu">
-          {{#each availablePackages as |package|}}
-            <div
-              data-value={{package}}
-              class="item"
-              onClick={{action "changeDataPackage" package}}
-            >
-              {{package.name}}
-            </div>
-          {{/each}}
-        </div>
-      </UiDropdown>
-    </div>
+{{log currentPackage.version}}
+
+<div class="ui label">
+  {{#if newDataAvailable}}
+    <UiPopup
+      @tagName="i"
+      class="exclamation orange circle icon"
+      @content="Update available"
+    />
+  {{/if}}
+  {{uppercase (humanize currentPackage.package)}}
+  <div class="detail">
+    <UiDropdown
+      @selected={{currentPackage.version}}
+      class="data-package-selection-dropdown"
+    >
+      <div class="text"></div>
+      <i class="dropdown icon"></i>
+      <div class="menu">
+        {{#each availablePackages as |package|}}
+          {{log package.version}}
+          <div
+            data-value={{package.version}}
+            class="item"
+            onClick={{action "changeDataPackage" package}}
+          >
+            {{package.name}}
+          </div>
+        {{/each}}
+      </div>
+    </UiDropdown>
   </div>
+</div>

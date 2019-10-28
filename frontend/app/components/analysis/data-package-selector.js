@@ -6,22 +6,6 @@ import { action } from '@ember-decorators/object';
 export default class AnalysisDataPackageSelectorComponent extends Component {
   @service store;
 
-  // didReceiveAttrs() {
-  //   this._super(...arguments);
-  //   const allPackages = this.store.query('data-package', { filter: { package: this.currentPackage.get('package') } });
-  //   this.set('availablePackages', allPackages.without(this.currentPackage));
-  // }
-
-  @computed('currentPackage')
-  get availablePackages() {
-    const allPackages = this.store.query('data-package', { filter: { package: this.currentPackage.get('package') } });
-    return allPackages.without(this.currentPackage);
-  }
-
-  @computed('currentPackage', 'availablePackages')
-  get selectedVersion() {
-    return this.currentPackage.get('version');
-  }
 
   @computed('availablePackages', 'currentPackage')
   get newDataAvailable() {
