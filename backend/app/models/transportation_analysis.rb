@@ -49,6 +49,9 @@ class TransportationAnalysis < ApplicationRecord
   
     def set_transportation_planning_factors            
       project.land_uses.each do |land_use|
+        # Currently, only create TransportationPlanningFactors for residential and office land uses
+        next unless ["residential", "office"].include? land_use
+        
         factors = transportation_planning_factors.find_by(land_use: land_use)
 
         if factors.nil?

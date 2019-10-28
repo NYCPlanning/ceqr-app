@@ -99,9 +99,8 @@
 <div class="eight wide column">
   {{#if (not manualModeSplits)}}
     {{!-- Map, hidden with inline CSS if table is being displayed --}}
-    <div class="ui {{if censusTracksChanging.isRunning "loading"}} segment" style="{{if seeCensusTracts "display:none;"}}">
-      <h4>Selected Census Tracts</h4>
-      
+    <h4 class="ui header top attached" style="{{if seeCensusTracts "display:none;"}}">Selected Census Tracts</h4>
+    <div class="ui basic bottom attached {{if censusTracksChanging.isRunning "loading"}} segment" style="{{if seeCensusTracts "display:none;"}}">
       {{#each analysis.requiredCensusTractsSelection as |geoid|}}
         <div class="ui grey label">
           {{humanize-geoid geoid}}

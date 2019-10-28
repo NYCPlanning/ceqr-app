@@ -1,8 +1,19 @@
 import Route from '@ember/routing/route';
+import { inject as service } from '@ember-decorators/service';
 
 export default class ProjectShowTransportationTdfIndexRoute extends Route {
+  @service router;
+
   // redirect(model) {
-  //   // let project = await model.project;
-  //   this.transitionTo('project.show.transportation.tdf.planning-factors', model.project);
+    // console.log(this.routeName);
+    // console.log(this.router.currentRouteName);
+    // window.router = this.router;
+
+    // if (this.router.currentRouteName === this.routeName) {
+    //   this.replaceWith('project.show.transportation.tdf.planning-factors', model.project);
+    // }
+    
+    // let project = await model.project;
+    // this.transitionTo('project.show.transportation.tdf.planning-factors', model.project);
   // }
 }

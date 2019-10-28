@@ -55,7 +55,7 @@ export default class TransportationPlanningFactorModel extends Model {
   
   // Census tract variable data if landUse is residential or office
   @attr({defaultValue: () => []}) censusTractVariables;
-  @computed('censusTractVariables', 'transportationAnalysis.censusTractsSelection')
+  @computed('censusTractVariables', 'transportationAnalysis.censusTractsSelection.@each')
   get censusTractsCalculator() {
     return CensusTractsCalculator.create({
       censusTracts: this.censusTractVariables,

@@ -24,9 +24,9 @@ export default class TransportationTripResultsTotalsCalculator extends EmberObje
         let inTotal = 0;
         let outTotal = 0;
         
-        this.tripResults.forEach((tripResults) => {
-          inTotal  =+ tripResults[temporalId][mode].in
-          outTotal =+ tripResults[temporalId][mode].out
+        this.tripResults.forEach(({ personTrips }) => {          
+          inTotal  =+ personTrips[temporalId][mode].in
+          outTotal =+ personTrips[temporalId][mode].out
         });
 
         results[temporalId][mode] = {
@@ -48,6 +48,24 @@ export default class TransportationTripResultsTotalsCalculator extends EmberObje
       pm: {},
       saturday: {}
     };
+
+    ["am", "md", "pm", "saturday"].forEach((temporalId) => {
+      this.modes.forEach((mode) => {
+        let inTotal = 0;
+        let outTotal = 0;
+        
+        this.tripResults.forEach(({ vehicleTrips }) => {          
+          inTotal  =+ vehicleTrips[temporalId][mode].in
+          outTotal =+ vehicleTrips[temporalId][mode].out
+        });
+
+        results[temporalId][mode] = {
+          in: inTotal,
+          out: outTotal,
+          total: inTotal + outTotal
+        }
+      });
+    });
 
     return results;
   }

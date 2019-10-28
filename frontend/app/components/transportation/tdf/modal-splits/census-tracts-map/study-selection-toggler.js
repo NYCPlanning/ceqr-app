@@ -32,7 +32,7 @@ export default class TransportationCensusTractsMapStudySelectionTogglerComponent
    * back to the server
    */
   async toggleCensusTract(selectedCensusTractFeatureArray) {    
-    const analysis = await this.factor.transportationAnalysis;
+    const analysis = this.analysis;
     
     const existingStudySelection = analysis.get('censusTractsSelection');
     const requiredStudySelection = analysis.get('requiredCensusTractsSelection');

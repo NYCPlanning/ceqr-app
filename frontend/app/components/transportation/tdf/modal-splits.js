@@ -88,6 +88,6 @@ export default class TransportationTdfModalSplitsComponent extends Component {
   @task({ group: 'censusTracksChanging' })
   *saveAnalysisAndRefreshFactor() {
     yield this.analysis.save();
-    yield this.factor.reload();
+    yield this.analysis.transportationPlanningFactors.forEach((factor) => factor.reload());
   }
 }

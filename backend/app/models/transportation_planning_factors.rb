@@ -13,10 +13,10 @@ class TransportationPlanningFactors < ApplicationRecord
     # it all saves the data_package so that it is accessible in set_census_tract_variables method
     if land_use == "residential"
       update_column('data_package_id', DataPackage.latest_for('nyc_acs').id)
-      manual_mode_splits = false
+      update_column('manual_mode_splits', false);
     elsif land_use == "office"
       update_column('data_package_id', DataPackage.latest_for('ctpp').id)
-      manual_mode_splits = false
+      update_column('manual_mode_splits', false);
     end
 
     set_census_tract_variables
