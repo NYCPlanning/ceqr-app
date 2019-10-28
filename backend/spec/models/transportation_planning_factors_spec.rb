@@ -10,7 +10,6 @@ RSpec.describe TransportationPlanningFactors, type: :model do
 
       expect(factor_land_uses).to eq(["residential"])
       expect(factors.data_package.package).to eq("nyc_acs")
-      expect(factors.modes_for_analysis).to eq(["auto", "taxi", "bus", "subway", "walk", "railroad"])
       expect(factors.census_tract_variables).to_not be_empty
     end
   end
@@ -24,21 +23,18 @@ RSpec.describe TransportationPlanningFactors, type: :model do
 
       expect(factor_land_uses).to eq(["office"])
       expect(factors.data_package.package).to eq("ctpp")
-      expect(factors.modes_for_analysis).to eq(["auto", "taxi", "bus", "subway", "walk", "railroad"])
       expect(factors.census_tract_variables).to_not be_empty
     end
   end
 
   context "when not residential or office land use" do
-    it "sets defaults correctly" do
+    it "does not create factor" do
       project = create(:project, commercial_land_use: [{"type": "local-retail"}])
 
       factor_land_uses = project.transportation_analysis.transportation_planning_factors.map &:land_use
       factor = project.transportation_analysis.transportation_planning_factors.find_by(land_use: "local-retail")
       
-      expect(factor_land_uses).to eq(["local-retail"])
-      expect(factor.data_package_id).to be_nil
-      expect(factor.census_tract_variables).to be_empty
+      expect(factor).to be_nil
     end
   end
 
@@ -51,7 +47,6 @@ RSpec.describe TransportationPlanningFactors, type: :model do
 
       factor_land_uses = project.transportation_analysis.transportation_planning_factors.map &:land_use
 
-      expect(factor_land_uses).to include "local-retail"
       expect(factor_land_uses).to include "residential"
       expect(factor_land_uses).to include "office"
     end
