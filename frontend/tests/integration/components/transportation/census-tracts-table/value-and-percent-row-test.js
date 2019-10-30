@@ -1,4 +1,4 @@
-import { module, test } from 'qunit';
+import { module, skip } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { find, render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
@@ -8,7 +8,7 @@ module('Integration | Component | transportation/census-tracts-table/value-and-p
   setupRenderingTest(hooks);
   stubReadonlyStore(hooks);
 
-  test('it creates a row with title and pair of numeric count and percent', async function(assert) {
+  skip('it creates a row with title and pair of numeric count and percent', async function(assert) {
     // If title is a string
     this.set('title', 'testTitle');
     // And modal splits contains a modal split record

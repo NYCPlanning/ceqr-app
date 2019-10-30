@@ -8,10 +8,10 @@ module('Integration | Helper | humanize-geoid', function(hooks) {
 
   // Replace this with your real tests.
   test('it renders', async function(assert) {
-    this.set('inputValue', '1234');
+    this.set('inputValue', '48201223155');
 
     await render(hbs`{{humanize-geoid inputValue}}`);
 
-    assert.equal(this.element.textContent.trim(), '1234');
+    assert.equal(this.element.textContent.trim(), '2231.55');
   });
 });
