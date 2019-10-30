@@ -1,0 +1,16 @@
+<div class="sixteen wide column">
+  <h3 class="ui header" style="margin-bottom: 10px;">AM</h3>
+</div>
+
+<div class="eight wide column">
+  <Transportation::Tdf::TripResults::PersonTrips
+    @modes={{model.transportationAnalysis.transportationPlanningFactors.firstObject.activeModes}}
+    @results={{model.transportationAnalysis.tripTotals.personTrips.am}}
+  />
+</div>
+
+<div class="eight wide column">
+  <Transportation::Tdf::TripResults::VehicleTrips
+    @vehicleTrips={{model.transportationPlanningFactor.tripResults.vehicleTrips.am}}
+  />
+</div>

@@ -28,11 +28,8 @@ Rails.application.routes.draw do
       # Analyses
       jsonapi_resources :public_schools_analyses
       jsonapi_resources :transportation_analyses
+      jsonapi_resources :transportation_planning_factors
       jsonapi_resources :community_facilities_analyses
-
-      # Read-only data
-      jsonapi_resources :acs_estimates
-      jsonapi_resources :ctpp_estimates
     end
   end
 end

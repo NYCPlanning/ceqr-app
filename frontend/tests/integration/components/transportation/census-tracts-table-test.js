@@ -1,4 +1,4 @@
-import { module, test } from 'qunit';
+import { module, skip } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { find, render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
@@ -131,27 +131,8 @@ module('Integration | Component | transportation/census-tracts-table', function(
 
   });
 
-  test('it toggles between JTW and RJTW labels', async function(assert) {
 
-    // get ref to row displaying base unit values and percents
-    let baseUnitModeRow = find('[data-test-censustracts-table-baseunit]');
-
-    // Table is in JTW mode on load
-    assert.equal(baseUnitModeRow.querySelector('td:first-child').textContent.includes('Population'), true);
-    assert.equal(baseUnitModeRow.querySelector('td:first-child').textContent.includes('Workers'), false);
-
-    this.set('isRJTW', true);
-    // Table switches to RJTW mode after clicking RJTW button
-    assert.equal(baseUnitModeRow.querySelector('td:first-child').textContent.includes('Population'), false);
-    assert.equal(baseUnitModeRow.querySelector('td:first-child').textContent.includes('Workers'), true);
-
-    this.set('isRJTW', false);
-    // Table switches back to JTW mode after clicking JTW button
-    assert.equal(baseUnitModeRow.querySelector('td:first-child').textContent.includes('Population'), true);
-    assert.equal(baseUnitModeRow.querySelector('td:first-child').textContent.includes('Workers'), false);
-  });
-
-  test('it displays a table with columns and subcolumns for all selected census tracts', async function(assert) {
+  skip('it displays a table with columns and subcolumns for all selected census tracts', async function(assert) {
 
     // Table will have # of top level headers = # of required geoids + # of selected geoids + 2
     // (one for titles column, and one for 'Total' aggregate values column)
@@ -164,7 +145,7 @@ module('Integration | Component | transportation/census-tracts-table', function(
 
   });
 
-  test('it displays table with rows for transportation modes, each row displaying a count and a percent for each census tract column', async function(assert) {
+  skip('it displays table with rows for transportation modes, each row displaying a count and a percent for each census tract column', async function(assert) {
 
     const table = find('tbody');
 

@@ -27,21 +27,10 @@ export default DS.Model.extend({
   borough: DS.attr('string'),
   boroCode: DS.attr('number'),
 
-  // boroCode: computed('borough', function() {
-  //   switch (this.borough) {
-  //     case 'Manhattan': return 1;
-  //     case 'Bronx': return 2;
-  //     case 'Brooklyn': return 3;
-  //     case 'Queens': return 4;
-  //     case 'Staten Island': return 5;
-  //     default: return null;
-  //   }
-  // }),
   boroAbbr: computed('borough', function() {
     return boroughToAbbr(this.borough);
   }),
 
-  
   // Analysis Framework
   totalUnits: DS.attr('number', { defaultValue: 0 }),
   seniorUnits: DS.attr('number', { defaultValue: 0 }),
@@ -57,7 +46,6 @@ export default DS.Model.extend({
   netUnits: computed('totalUnits', 'seniorUnits', function() {
     return this.get('totalUnits') - this.get('seniorUnits');
   }),
-
 
   // Analyses Relationships
   publicSchoolsAnalysis: DS.belongsTo('public-schools-analysis'),

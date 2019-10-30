@@ -1,0 +1,32 @@
+<div class="sixteen wide column">
+  <h3 class="ui header" style="margin-bottom: 10px">Truck Trip Generation Rates</h3>
+</div>
+
+<div class="eight wide column">
+  <table class="ui celled table">
+    <thead>
+      <tr>
+        <th class="eight wide">Day</th>
+        <th class="eight wide">Total (Per {{factor.tripGenRatePerUnit}} {{factor.unitName}})</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td data-label="Day">{{data.weekday.label}}</td>
+        <td data-label="Total">{{data.weekday.rate}}</td>
+      </tr>
+      <tr>
+        <td data-label="Day">{{data.saturday.label}}</td>
+        <td data-label="Total">{{data.saturday.rate}}</td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <Transportation::Tdf::TableNote 
+            @tableName="truckTripGenerationRates"
+            @factor={{factor}}
+          />
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

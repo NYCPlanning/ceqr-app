@@ -1,14 +1,50 @@
 require 'rails_helper'
 
 RSpec.describe 'public_schools_analysis', type: :request do
-  describe 'GET /api/v1/public_schools_analysis' do    
-    let(:user) { create(:user) }
-    let!(:project) { create(:project) }
-    let(:headers) { jsonapi_headers }  
-    
-    before do
-      ProjectPermission.create(user: user, project: project, permission: 'editor')
-      get "/api/v1/public-schools-analyses/#{project.public_schools_analysis.id}", headers: headers
+  let(:user) { create(:user) }
+  let(:headers) { jsonapi_headers }  
+  
+  let!(:p1) { create(:project, name: "Mine") }
+  let!(:p2) { create(:project, name: "Someone Else") }
+  let!(:p3) { create(:project, name: "Yours") }
+
+  before do
+    create(:project_permission, project: p1, user: user, permission: 'editor')
+    create(:project_permission, project: p2, user: user, permission: 'viewer')
+  end
+
+  describe 'GET /api/v1/projects/:id/public-schools-analysis' do
+    it "accessible if project is editable" do
+      get "/api/v1/projects/#{p1.id}/public-schools-analysis", headers: headers
+      expect(response.status).to eq(200)
+    end
+
+    it "accessible if project is viewable" do
+      get "/api/v1/projects/#{p2.id}/public-schools-analysis", headers: headers
+      expect(response.status).to eq(200)
+    end
+
+    it "not accessible if project is neither editable nor viewable" do
+      get "/api/v1/projects/#{p3.id}/public-schools-analysis", headers: headers
+      expect(response.status).to eq(404)
+    end
+  end
+  
+  
+  describe 'GET /api/v1/public-schools-analysis' do    
+    it "accessible if project is editable" do
+      get "/api/v1/public-schools-analyses/#{p1.public_schools_analysis.id}", headers: headers
+      expect(response.status).to eq(200)
+    end
+
+    it "accessible if project is viewable" do
+      get "/api/v1/public-schools-analyses/#{p2.public_schools_analysis.id}", headers: headers
+      expect(response.status).to eq(200)
+    end
+
+    it "not accessible if project is neither editable nor viewable" do
+      get "/api/v1/public-schools-analyses/#{p3.public_schools_analysis.id}", headers: headers
+      expect(response.status).to eq(403)
     end
     
     describe "public schools analysis" do      

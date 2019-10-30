@@ -26,6 +26,45 @@ export const selectableFeatureStyles = {
       'line-join': 'round',
     },
   },
+  'selectable-feature-label': {
+    paint: {
+      "text-color": "#626262",
+      "text-halo-color": "#FFFFFF",
+      "text-halo-width": 2,
+      "text-halo-blur": 2,
+      "text-opacity": {
+        "stops": [
+          [
+            12,
+            0
+          ],
+          [
+            13,
+            1
+          ]
+        ]
+      }
+    },
+    'layout': {
+      "text-field": "{ctlabel}",
+      "text-font": [
+        "Open Sans Semibold",
+        "Arial Unicode MS Bold"
+      ],
+      "text-size": {
+        "stops": [
+          [
+            11,
+            8
+          ],
+          [
+            14,
+            16
+          ]
+        ]
+      }
+    }
+  },
   'selectable-feature-hover': {
     paint: {
       'line-color': '#585858',

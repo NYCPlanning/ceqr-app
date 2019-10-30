@@ -33,6 +33,17 @@ class Project < ApplicationRecord
     end
   end
 
+  def land_uses
+    uses = []
+
+    uses << "residential" if self.total_units > 0
+    uses = uses | commercial_land_use.map {|lu| lu["type"] }
+    uses = uses | industrial_land_use.map {|lu| lu["type"] }
+    uses = uses | community_facility_land_use.map {|lu| lu["type"] }
+
+    uses.compact
+  end
+
   private
 
   def set_bbl_attributes
@@ -46,7 +57,10 @@ class Project < ApplicationRecord
   # Note: this method will likely grow in the time it takes to process,
   # candidate for concurrency and eventual refactor
   def create_analyses!
-    create_public_schools_analysis(data_package: DataPackage.latest_for(:public_schools))
+    create_public_schools_analysis(
+      data_package: DataPackage.latest_for(:public_schools)
+    )
+
     create_transportation_analysis
     create_community_facilities_analysis
   end
@@ -56,6 +70,17 @@ class Project < ApplicationRecord
     if saved_change_to_bbls?
       public_schools_analysis.compute_for_updated_bbls!
       transportation_analysis.compute_for_updated_bbls!
+    end
+
+    # if change to land uses in RWCDS
+    if (
+      saved_change_to_total_units? ||
+      saved_change_to_commercial_land_use? ||
+      saved_change_to_industrial_land_use? ||
+      saved_change_to_community_facility_land_use? ||
+      saved_change_to_parking_land_use?
+    )
+      transportation_analysis.compute_for_changed_land_use!
     end
   end
 end

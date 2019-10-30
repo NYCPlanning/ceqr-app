@@ -4403,6 +4403,13 @@ ember-changeset@^2.0.0:
     ember-cli-babel "^6.16.0"
     ember-deep-set "^0.2.0"
 
+ember-cli-accounting@^2.0.2:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/ember-cli-accounting/-/ember-cli-accounting-2.0.2.tgz#40fb4d00c038b26c090a4023a05a9d31efe4652f"
+  integrity sha512-J2tL4LD11e13Ah5gI9nVoeFJ2dlEIEbQc9J+4zS4UP1Ej0bENU5Z0xWGBq3fU+zQixHl4pn/bhmuZtjS2cpCfg==
+  dependencies:
+    ember-cli-babel "^6.10.0"
+
 ember-cli-app-version@^3.2.0:
   version "3.2.0"
   resolved "https://registry.yarnpkg.com/ember-cli-app-version/-/ember-cli-app-version-3.2.0.tgz#7b9ad0e1b63ae0518648356ee24c703e922bc26e"
@@ -5244,6 +5251,13 @@ ember-in-element-polyfill@^0.2.0:
 "ember-inflector@^2.0.0 || ^3.0.0", ember-inflector@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/ember-inflector/-/ember-inflector-3.0.0.tgz#7e1ee8aaa0fa773ba0905d8b7c0786354d890ee1"
+  dependencies:
+    ember-cli-babel "^6.6.0"
+
+ember-inflector@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/ember-inflector/-/ember-inflector-3.0.1.tgz#04be6df4d7e4000f6d6bd70787cdc995f77be4ab"
+  integrity sha512-fngrwMsnhkBt51KZgwNwQYxgURwV4lxtoHdjxf7RueGZ5zM7frJLevhHw7pbQNGqXZ3N+MRkhfNOLkdDK9kFdA==
   dependencies:
     ember-cli-babel "^6.6.0"
 

@@ -1,0 +1,29 @@
+<strong>
+  {{#if (and emptyNote (not addingNote))}}
+    <a style="cursor: pointer" class="ui link blue" onClick={{action (mut addingNote) true}}>
+      Add Note
+    </a>
+  {{else if addingNote}}
+    <a style="cursor: pointer" class="ui link blue" onClick={{action saveNote}}>
+      Save Note
+    </a>
+  {{else}}
+    <a style="cursor: pointer" class="ui link blue" onClick={{action (mut addingNote) true}}>
+      Edit Note
+    </a>
+  {{/if}}
+</strong>
+
+{{#if addingNote}}
+  <div class="ui form">
+    <div class="field">
+      {{textarea
+        name="note"
+        value=tableNote
+        rows="4"
+      }}
+    </div>
+  </div>
+{{else if (not emptyNote)}}
+  <p style="color: #767676">{{tableNote}}</p>
+{{/if}}

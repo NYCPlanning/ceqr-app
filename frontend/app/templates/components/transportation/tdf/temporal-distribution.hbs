@@ -1,0 +1,40 @@
+<div class="sixteen wide column">
+  <h3 class="ui header">Temporal Distribution</h3>
+</div>
+
+<div class="eight wide column">
+  <table class="ui celled table">
+    <thead>
+      <tr>
+        <th class="eight wide">Time of Day</th>
+        <th class="eight wide">Percent</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>{{data.am.label}}</td>
+        <td>{{mult data.am.percent 100}} %</td>
+      </tr>
+      <tr>
+        <td>{{data.md.label}}</td>
+        <td>{{mult data.md.percent 100}} %</td>
+      </tr>
+      <tr>
+        <td>{{data.pm.label}}</td>
+        <td>{{mult data.pm.percent 100}} %</td>
+      </tr>
+      <tr>
+        <td>{{data.saturday.label}}</td>
+        <td>{{mult data.saturday.percent 100}} %</td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <Transportation::Tdf::TableNote 
+            @tableName="temporalDistribution"
+            @factor={{factor}}
+          />
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
