@@ -8,5 +8,7 @@ class AdjustTransportationPlanningFactors < ActiveRecord::Migration[5.2]
     rename_column :transportation_planning_factors, :mode_splits_from_user, :manual_mode_splits
     rename_column :transportation_planning_factors, :mode_splits, :mode_splits_from_user
     rename_column :transportation_planning_factors, :vehicle_occupancy, :vehicle_occupancy_from_user
+
+    TransportationAnalysis.all.each &:compute_for_changed_land_use!
   end
 end
