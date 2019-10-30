@@ -100,54 +100,6 @@ export const MODAL_SPLIT_VARIABLES_SUBSET = [
 ]
 
 /**
- * fetchAndSave function for readonly-ceqr-data-store fetch(); makes an
- * authenticated call to the rails backend to get estimates for a given geoid, 
- * and composes the results into a single modal-split object
- * @param type The type of estimate to request, ACS or CTPP
- * @param geoid The geoid to get estimate resources for
- * @param session The session, used to authenticate the request
- * @param store The store to save the formatted modal-split object back to
- * @returns Formatted modal-split object
- */
-export async function fetchAndSaveModalSplit(type, geoid, session, store) {
-  try {
-    const rawModalSplitEstimates = type === 'ACS' ? await fetchACSModalSplit(session, geoid) : await fetchCTPPModalSplit(session,geoid);
-    const modalSplit = composeModalSplit(rawModalSplitEstimates);
-    store.add(`${type}-modal-split`, geoid, modalSplit);
-    return modalSplit;
-  } catch (e) {
-    console.log(`Error fetching acs-modal-split data for geoid: ${geoid}`, e); // eslint-disable-line
-    return {};
-  }
-}
-
-/**
- * Helper function to request the resources from the server
- */
-export async function fetchACSModalSplit(session, geoid) {
-  const path = `acs-estimates?filter[geoid]=${geoid}`;
-  const res = await fetch(
-    `${ENV.host}/api/v1/${path}`,
-    { headers: getHeaders(session) }
-  );
-  const rawACSModalSplitEstimates = await res.json();
-  return rawACSModalSplitEstimates.data;
-}
-
-/**
- * Helper function to request the resources from the server
- */
-export async function fetchCTPPModalSplit(session, geoid) {
-  const path = `ctpp-estimates?filter[geoid]=${geoid}`;
-  const res = await fetch(
-    `${ENV.host}/api/v1/${path}`,
-    { headers: getHeaders(session) }
-  );
-  const rawCTPPModalSplitEstimates = await res.json();
-  return rawCTPPModalSplitEstimates.data;
-}
-
-/**
  * Helper function to create headers for making authenticated call
  * @params session The session
  */

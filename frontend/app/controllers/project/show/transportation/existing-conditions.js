@@ -23,21 +23,10 @@ export default class ProjectShowTransportationExistingConditionsController exten
    */
   @computed('analysis.{requiredJtwStudySelection.[],jtwStudySelection.[]}')
   get selectedCensusTractIds() {
-    if(this.model){
+    if(this.analysis){
       return [...this.analysis.jtwStudySelection, ...this.analysis.requiredJtwStudySelection];
     }
     return [];
-  }
-
-  /**
-   * Promise that resolves to an array of modal-split objects for the selected census-tracts
-   */
-  @computed('isRJTW', 'analysis.{requiredJtwStudySelection.[],jtwStudySelection.[]}')
-  get selectedCensusTractData() {
-    const readonlyStore = this.get('readonlyStore');
-    const selectedIds = this.get('selectedCensusTractIds');
-    let selectedData = this.isRJTW ? readonlyStore.findByIds('CTPP-modal-split', selectedIds) : readonlyStore.findByIds('ACS-modal-split', selectedIds);
-    return selectedData;
   }
 
 }

@@ -69,11 +69,15 @@ Router.map(function() {
       });
 
       this.route('transportation', function() {
-        this.route('analysis-threshold');
-        this.route('existing-conditions', function() {
-          this.route('census-tracts');
-          this.route('journey-to-work');
-          this.route('trip-generation');
+        this.route('analysis-threshold', {path: '/'});
+        this.route('tdf', function() {
+          this.route('planning-factors', function() {
+            this.route('show', { path: '/:transportation_planning_factor_id' });
+          });
+          this.route('trip-results', function() {
+            this.route('show', { path: '/:transportation_planning_factor_id' });
+            this.route('total');
+          });
         });
       });
 

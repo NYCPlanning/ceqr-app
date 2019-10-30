@@ -1,4 +1,4 @@
-import { module, test } from 'qunit';
+import { module, skip } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render, settled, find } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
@@ -64,7 +64,7 @@ module('Integration | Component | transportation/census-tracts-map', function(ho
     `);
   });
 
-  test('it has tracts and subways in map', async function(assert) {
+  skip('it has tracts and subways in map', async function(assert) {
 
     await render(hbs`{{transportation/census-tracts-map}}`);
 
@@ -78,7 +78,7 @@ module('Integration | Component | transportation/census-tracts-map', function(ho
     assert.ok(this.layers.includes('tracts-all-selected'));
   });
 
-  test('it hovers, displays information', async function(assert) {
+  skip('it hovers, displays information', async function(assert) {
     await render(hbs`{{transportation/census-tracts-map}}`);
 
     // To simulate an event, we go straight to simply calling
@@ -91,7 +91,7 @@ module('Integration | Component | transportation/census-tracts-map', function(ho
     assert.ok(find("[data-test-popup='census-tract']"));
   });
 
-  test('it selects features on click', async function(assert) {
+  skip('it selects features on click', async function(assert) {
     // If a project exists with a transportation analysis
     const project = server.create('project');
     this.model = await this.owner.lookup('service:store')

@@ -1,0 +1,33 @@
+  <h4 class="ui header top attached">Vehicle Trips</h4>
+
+  <table class="ui celled bottom attached table">
+    <thead>
+      <tr>
+        <th class="four wide">
+          Mode
+        </th>
+        <th class="four wide">
+          In
+        </th>
+        <th class="four wide">
+          Out
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each rows as |row|}}
+        <tr>
+          <td>{{mode-label row.mode}}</td>
+          <td>{{row.in}}</td>
+          <td>{{row.out}}</td>
+        </tr>
+      {{/each}}
+    </tbody>
+    <tfoot>
+      <tr class="ui warning">
+        <td>TOTAL</td>
+        <td>{{total.in}}</td>
+        <td>{{total.out}}</td>
+      </tr>
+    </tfoot>
+  </table>

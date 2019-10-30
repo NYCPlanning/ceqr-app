@@ -5,8 +5,7 @@ export default class ProjectShowCommunityFacilitiesRoute extends Route {
   controllerName = 'project';
   
   async model() {
-    const { project } = this.modelFor('project/show');
-    const communityFacilitiesAnalysis = await project.get('communityFacilitiesAnalysis');
+    const { project, communityFacilitiesAnalysis } = this.modelFor('project/show');
 
     return RSVP.hash({
       project,

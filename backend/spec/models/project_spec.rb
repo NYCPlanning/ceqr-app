@@ -47,7 +47,18 @@ RSpec.describe Project, type: :model do
     end
   end
 
-  describe "#refresh_analysis!" do
+  describe "#land_uses" do
+    it "returns land uses that have been set" do
+      project = create(:project, 
+        total_units: 200,
+        commercial_land_use: [{type: "office"}]
+      )
+      
+      expect(project.land_uses).to eq(['residential', 'office'])
+    end
+  end
+
+  describe "updating attributes when bbls change" do
     it "loads new Transportation data if bbls have changed" do
       project = create(:project)
 

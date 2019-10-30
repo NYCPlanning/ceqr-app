@@ -1,0 +1,23 @@
+<div class="ui menu fluid">  
+  {{#each factors as |factor|}}
+    {{#link-to
+      factorLink
+      factor.id
+      class="item"
+    }}
+      {{humanize factor.landUse}}
+      <div class="ui horizontal label">
+        {{pluralize (format-number factor.units) factor.unitName}}
+      </div>
+    {{/link-to}}
+  {{/each}}
+
+  {{!-- {{#if showTotalLink}}
+    {{#link-to
+      totalLink
+      class="item right floated"
+    }}
+      Trip Totals
+    {{/link-to}}
+  {{/if}} --}}
+</div>

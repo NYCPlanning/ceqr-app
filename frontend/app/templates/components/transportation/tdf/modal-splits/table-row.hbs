@@ -1,0 +1,24 @@
+<td>
+  {{#if editModes}}
+    <UiCheckbox
+      @checked={{modeActive}}
+      @value={{mode}}
+      @onChecked={{action addActiveMode}}
+      @onUnchecked={{action removeActiveMode}}
+    />  
+  {{/if}}
+
+  {{mode-label mode}}
+</td>
+<td>
+  {{#if showInput}}
+    <div class="ui right labeled input">
+      {{input type="number" max="100" min="0" step="0.1" value=modePercent}}
+      <div class="ui basic label">
+        %
+      </div>
+    </div>
+  {{else}}    
+    {{modePercent}} % ({{modeCount}})
+  {{/if}}
+</td>

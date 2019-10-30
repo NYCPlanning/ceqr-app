@@ -1,0 +1,30 @@
+{
+  "definitions": {},
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "http://example.com/root.json",
+  "type": "object",
+  "required": [
+    "population",
+    "trans_home",
+    "trans_taxi",
+    "trans_walk",
+    "trans_other",
+    "trans_total",
+    "trans_auto_2",
+    "trans_auto_3",
+    "trans_auto_4",
+    "trans_bicycle",
+    "trans_auto_solo",
+    "trans_auto_total",
+    "trans_motorcycle",
+    "trans_public_bus",
+    "trans_auto_5_or_6",
+    "trans_public_rail",
+    "trans_public_ferry",
+    "trans_public_total",
+    "trans_public_subway",
+    "trans_auto_7_or_more",
+    "trans_public_streetcar",
+    "trans_auto_carpool_total"
+  ]
+}
