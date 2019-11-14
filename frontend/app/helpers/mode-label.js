@@ -5,7 +5,7 @@ export function modeLabel(params) {
   
   switch (params[0]) {
     case 'auto':       return htmlSafe('<i class="car icon"></i> Auto (Car, Truck, Van)');
-    case 'taxi':       return htmlSafe('<i class="taxi icon"></i> Taxicab');
+    case 'taxi':       return htmlSafe(`<i class="taxi icon"></i> Taxicab <div class="ui small label">Balanced</div>`);
     case 'bus':        return htmlSafe('<i class="bus icon"></i> Bus (or Trolleybus)');
     case 'subway':     return htmlSafe('<i class="subway icon"></i> Subway (or Elevated)');
     case 'railroad':   return htmlSafe('<i class="train icon"></i> Railroad');

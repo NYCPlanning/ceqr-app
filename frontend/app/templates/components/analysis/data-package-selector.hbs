@@ -1,5 +1,3 @@
-{{log currentPackage.version}}
-
 <div class="ui label">
   {{#if newDataAvailable}}
     <UiPopup
@@ -18,7 +16,6 @@
       <i class="dropdown icon"></i>
       <div class="menu">
         {{#each availablePackages as |package|}}
-          {{log package.version}}
           <div
             data-value={{package.version}}
             class="item"
