@@ -14,7 +14,8 @@
     "build": "ember build",
     "lint:js": "eslint ./*.js app config lib server tests",
     "start": "ember serve",
-    "test": "ember test"
+    "test": "ember test",
+    "start-with-backend": "HOST='http://localhost:3000' DISABLE_MIRAGE=true ember s"
   },
   "engines": {
     "node": "^8 || ^10"

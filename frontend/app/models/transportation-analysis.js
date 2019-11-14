@@ -185,7 +185,7 @@ export default class TransportationAnalysisModel extends Model {
       zone2: 200,
       zone3: 200,
       zone4: 200,
-      zone5: 200
+      zone5: 100
     },
     officeSqFt: {
       zone1: 115000,
