@@ -7,6 +7,7 @@ Rails.application.routes.draw do
 
       put 'validate', to: 'users#validate'
       put 'password-reset', to: 'users#update_password'
+      put 'approve', to: 'users#approve'
     end
   end
 

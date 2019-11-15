@@ -18,7 +18,9 @@ module Auth
           user = User.create!(user_params)
 
           UserMailer.with(user: user).account_in_review.deliver_later
-          AdminMailer.with(user: user).account_in_review.deliver_later
+          
+          token = JsonWebToken.encode({ action: 'approve', email: user.email })
+          AdminMailer.with(user: user, token: token, base_url: get_base_url_from_referer(request)).account_in_review.deliver_later
 
           response = { message: Message.account_in_review }
           json_response(response, :accepted)
@@ -63,7 +65,29 @@ module Auth
         json_response(response, :ok)
       end
 
+      def approve
+        token = JsonWebToken.decode(approve_params['token'])
+
+        unless token['action'] == 'approve'
+          raise ActionController::ParameterMissing, 'Incorrect action'
+        end
+
+        user = User.find_by(email: token['email'])
+        user.update!(email_validated: true, account_approved: true)
+
+        UserMailer.with(user: user).account_approved.deliver_later
+
+        response = { message: Message.account_approved, email: token['email'] }
+        json_response(response, :ok)
+      end
+
       private
+
+      def approve_params
+        params.permit(
+          :token
+        )
+      end
 
       def password_reset_params
         params.permit(

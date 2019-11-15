@@ -43,6 +43,10 @@ class Message
     "Account validated. Please login to continue."
   end
 
+  def self.account_approved
+    "Account approved. The user can now login."
+  end
+
   def self.password_reset_sent
     "Password reset email sent"
   end
