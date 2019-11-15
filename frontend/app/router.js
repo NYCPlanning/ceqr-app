@@ -32,6 +32,7 @@ Router.map(function() {
   this.route('signup', function() {
     this.route('email');
     this.route('in-review');
+    this.route('approve');
   });
 
   this.route('project', function() {

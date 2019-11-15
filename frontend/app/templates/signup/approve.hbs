@@ -1,0 +1,23 @@
+<div class="ui grid container">
+  <div class="six wide centered center aligned column">
+    {{#if (eq model.status 200)}}    
+      <h2 class="ui blue header">
+        <div class="content">
+          Successful account activation
+        </div>
+      </h2>
+      <p>
+        The account for user <strong>{{model.body.email}}</strong> has been approved. They have been notified by email.
+      </p>
+    {{else}}
+      <h2 class="ui blue header">
+        <div class="content">
+          An error occured
+        </div>
+      </h2>
+      <p>
+        We were not able to approve this user.
+      </p>
+    {{/if}}
+  </div>
+</div>
