@@ -1,17 +1,12 @@
 import Component from '@ember/component';
-import { inject as service } from '@ember/service';
 import mapboxgl from 'mapbox-gl';
 import centroid from '@turf/centroid';
 
 export default Component.extend({
-  mapdata: service(),
   map: null,
 
   didReceiveAttrs() {
     this._super(...arguments);
-
-    this.mapdata.set('analysis', this.analysis);
-    this.mapdata.set('project', this.project);
 
     this.set('zonePopup', new mapboxgl.Popup({
       closeButton: false,

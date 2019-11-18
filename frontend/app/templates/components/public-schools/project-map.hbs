@@ -113,113 +113,38 @@
   </map.source>
   {{! Map Layers for Hovering }}
   <map.source
-    @options={{hash type="geojson" data=(await mapdata.psZonesGeojson)
-    }} as |source|
+    @sourceId="schoolZones"
+    @options={{hash type="geojson" data=schoolZonesGeojson}} as |source|
   >
     <source.layer
-      @layer={{hash id="ps-zones-hover" type="fill" paint=(hash fill-opacity=0)
-      }}
+      @layer={{hash id="zones-hover" type="fill" paint=(hash fill-opacity=0)}}
      />
 
-    {{#if (and showZones (eq schoolZone "ps"))}}
-      <source.layer
-        @layer={{hash
-          id="ps-zones"
-          type="line"
-          paint=(hash
-            line-color="#000000" line-width=2 line-dasharray=(array 1 1)
-          )
-        }}
-      />
-    {{/if}}
-
-  </map.source>
-  <map.source
-    @options={{hash type="geojson" data=(await mapdata.isZonesGeojson)
-    }} as |source|
-  >
     <source.layer
-      @layer={{hash id="is-zones-hover" type="fill" paint=(hash fill-opacity=0)
+      @layer={{hash
+        id="zones"
+        type="line"
+        paint=(hash
+          line-color="#000000" line-width=2 line-dasharray=(array 1 1)
+        )
       }}
-     />
-
-    {{#if (and showZones (eq schoolZone "is"))}}
-      <source.layer
-        @layer={{hash
-          id="ms-zones"
-          type="line"
-          paint=(hash
-            line-color="#000000" line-width=2 line-dasharray=(array 1 1)
-          )
-        }}
-      />
-    {{/if}}
-
+    />
   </map.source>
-
-  <map.source
-    @options={{hash type="geojson" data=(await mapdata.hsZonesGeojson)
-    }} as |source|
-  >
-    <source.layer
-      @layer={{hash id="hs-zones-hover" type="fill" paint=(hash fill-opacity=0)
-      }}
-     />
-
-    {{#if (and showZones (eq schoolZone "hs"))}}
-      <source.layer
-        @layer={{hash
-          id="hs-zones"
-          type="line"
-          paint=(hash
-            line-color="#000000" line-width=2 line-dasharray=(array 1 1)
-          )
-        }}
-      />
-    {{/if}}
-
-  </map.source>
-  <MapboxGlOn
-    @event="mousemove"
-    @layerId="ps-zones-hover"
-    @action={{action "zoneHover"}}
-    @eventSource={{map.instance}}
-   />
 
   <MapboxGlOn
     @event="mousemove"
-    @layerId="is-zones-hover"
-    @action={{action "zoneHover"}}
-    @eventSource={{map.instance}}
-   />
-
-  <MapboxGlOn
-    @event="mousemove"
-    @layerId="hs-zones-hover"
+    @layerId="zones-hover"
     @action={{action "zoneHover"}}
     @eventSource={{map.instance}}
    />
 
   <MapboxGlOn
     @event="mouseleave"
-    @layerId="ps-zones-hover"
+    @layerId="zones-hover"
     @action={{action "zoneUnhover"}}
     @eventSource={{map.instance}}
    />
 
-  <MapboxGlOn
-    @event="mouseleave"
-    @layerId="is-zones-hover"
-    @action={{action "zoneUnhover"}}
-    @eventSource={{map.instance}}
-   />
-
-  <MapboxGlOn
-    @event="mouseleave"
-    @layerId="hs-zones-hover"
-    @action={{action "zoneUnhover"}}
-    @eventSource={{map.instance}}
-   />
 
   <map.source
     @options={{hash type="geojson" data=project.bblsGeojson}} as |source|

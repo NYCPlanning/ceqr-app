@@ -15,6 +15,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       get 'mappluto/validate/:bbl', to: 'mappluto#validate'
       get 'doe_school_subdistricts/:version/subdistricts', to: 'doe_school_subdistricts#subdistricts'
+      get 'doe_school_zones/:level/:version/geojson', to: 'doe_school_zones#geojson'
     end
   end
 
