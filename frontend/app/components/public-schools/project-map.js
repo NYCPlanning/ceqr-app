@@ -1,14 +1,16 @@
 import Component from '@ember/component';
 import { inject as service } from '@ember/service';
-// import { observer } from '@ember/object';
-// import { alias } from '@ember/object/computed';
+import { observer } from '@ember/object';
+import { task } from 'ember-concurrency';
+import fetch from 'fetch';
 import mapboxgl from 'mapbox-gl';
-import mapColors from '../../utils/mapColors';
+import mapColors from 'labs-ceqr/utils/mapColors';
+
+import ENV from 'labs-ceqr/config/environment';
 
 export default Component.extend({  
   tablehover: service(),
   mapservice: service(),
-  mapdata: service(),
   router: service(),
   map: null,
   
@@ -18,12 +20,15 @@ export default Component.extend({
     this.tablehover.on('hover', this, 'dotHover');
     this.tablehover.on('unhover', this, 'dotUnhover');
 
-    this.mapdata.set('project', this.project);
-
     this.set('schoolPopup', new mapboxgl.Popup({
       closeButton: false,
       closeOnClick: false
     }))
+
+    this.set('schoolZonesGeojson', {
+      type: "FeatureCollection",
+      features: [],
+    });
   },
 
   willDestroyElement() {
@@ -46,9 +51,32 @@ export default Component.extend({
     if (this.get('map')) this.get('map').setFilter(`${source}-hover`, ["==", ["get", "id"], 0]);
   },
 
+  toggleZones: observer('showZones', 'schoolZone', function() { // eslint-disable-line
+    if (this.showZones != false) {
+      this.fetchSchoolZones.perform();
+    } else {
+      this.set('schoolZonesGeojson', {
+        type: "FeatureCollection",
+        features: [],
+      });
+    }
+  }),
+
+  fetchSchoolZones: task(function*() {
+    const version = this.analysis.get(`dataPackage.schemas.doe_school_zones_${this.schoolZone}.table`);
+
+    const response = yield fetch(`${ENV.host}/ceqr_data/v1/doe_school_zones/${this.schoolZone}/${version}/geojson?borocode=${this.project.boroCode}`, {
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json' }
+    });
+    const geojson = yield response.json();
+
+    this.set('schoolZonesGeojson', geojson);
+  }).drop(),
+
   actions: {
     zoneHover(e) {
-      if (this.get('showZones') && `${this.get('schoolZone')}-zones-hover` === e.features[0].layer.id) {
+      if (this.get('showZones') && 'zones-hover' === e.features[0].layer.id) {
         if (e.features[0].properties.remarks === "null") {
           this.set('zoneName', e.features[0].properties.dbn);
         } else {
