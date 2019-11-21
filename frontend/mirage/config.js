@@ -27,9 +27,8 @@ export default function() {
 
   // CartoVL map
   this.post('https://planninglabs.carto.com/api/v1/map', function() {
-    return JSON.parse(cartoMap);
+    return cartoMap;
   });
-  this.passthrough('https://planninglabs.carto.com/api/v1/map');
 
   /**
    *
