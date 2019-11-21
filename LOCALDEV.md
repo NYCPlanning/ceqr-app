@@ -52,6 +52,7 @@ CEQR App has two Postgis databases:
 Rails config sits in a `.env` file that is not checked into version control. This allows configuring through environment variables in production. To get started, copy the config example:
 
 ```
+cd backend
 cp .env-example .env
 ```
 
