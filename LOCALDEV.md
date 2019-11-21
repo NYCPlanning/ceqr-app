@@ -78,10 +78,10 @@ bundle install
 
 *NOTE:* You may encounter issues installing gems. If you do, investigate the errors. You may require additional libraries that can be install with homebrew.
 
-Next, the database needs to be created. If Rails is installed correctly, you this command should create the `ceqr_rails` database and load the schema.
+Next, the database needs to be created. If Rails is installed correctly, you this command should create the `ceqr_rails` database, load the schema, and seed the db with some initial data.
 
 ```
-bin/rails db:create db:schema:load
+bin/rails db:create db:schema:load db:seed
 ```
 
 ### Setting up Ember
