@@ -81,7 +81,7 @@ bundle install
 Next, the database needs to be created. If Rails is installed correctly, you this command should create the `ceqr_rails` database and load the schema.
 
 ```
-rails db:create db:schema:load
+bin/rails db:create db:schema:load
 ```
 
 ### Setting up Ember
@@ -101,7 +101,7 @@ For the backend:
 
 ```
 cd backend/
-rails s
+bin/rails s
 ```
 
 For the frontend:
