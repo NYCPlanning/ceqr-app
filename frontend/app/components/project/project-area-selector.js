@@ -53,7 +53,8 @@ export default Component.extend({
         return;
       }
 
-      const valid_bbl = await this.get('ceqr-data').valid_bbl(bbl, '18v2');
+      const bblVersion = this.project.get('dataPackage.schemas.mappluto.table');
+      const valid_bbl = await this.get('ceqr-data').valid_bbl(bbl, bblVersion);
 
       // if no bbl exists
       if (!valid_bbl) {
@@ -62,7 +63,6 @@ export default Component.extend({
         return;
       }
 
-      this.project.set('bblsVersion', '18v2');
       this.project.get('bbls').pushObject(bbl);
       this.set('bbl', null);
     },

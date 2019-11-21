@@ -46,6 +46,10 @@ export default class ProjectProjectAreaSelectorMapComponent extends Component {
     map.on('data', onMapStyleLoaded);
 
     map.addControl(new mapboxgl.NavigationControl(), 'top-right');
-    map.fitBounds(bbox(buffer(this.project.get('bblsGeojson'), 0.1, {units: 'kilometers'})));
+
+    const projectGeojson = this.project.get('bblsGeojson');
+    if (projectGeojson) {
+      map.fitBounds(bbox(buffer(projectGeojson, 0.1, {units: 'kilometers'})));
+    }
   }
 }

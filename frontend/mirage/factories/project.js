@@ -11,7 +11,6 @@ export default Factory.extend({
   name: faker.address.streetName,
   buildYear: 2018,
   bbls: () => ['1019730001'],
-  bblsVersion: 'mappluto_18v2',
   bblsGeojson: () => {
     return {
       "type": "FeatureCollection",
