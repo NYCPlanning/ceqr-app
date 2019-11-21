@@ -16,8 +16,11 @@ export default Route.extend({
       }
     );
 
+    const mapplutoVersions = await this.store.query('data-package', { filter: { package: 'mappluto' } });
+
     return RSVP.hash({
       project,
+      mapplutoVersions,
       publicSchoolsAnalysis: project.publicSchoolsAnalysis,
       transportationAnalysis: project.transportationAnalysis,
       communityFacilitiesAnalysis: project.communityFacilitiesAnalysis

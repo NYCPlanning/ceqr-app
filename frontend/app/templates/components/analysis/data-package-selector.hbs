@@ -1,16 +1,16 @@
-<div class="ui label">
+<div class="ui column">
   {{#if newDataAvailable}}
-    <UiPopup
-      @tagName="i"
-      class="exclamation orange circle icon"
-      @content="Update available"
-    />
+    <div class="row" style="margin-bottom: 10px;">
+      <div class="ui label">
+        <i class="exclamation orange circle icon"></i> New data available
+      </div>
+    </div>
   {{/if}}
-  {{uppercase (humanize currentPackage.package)}}
-  <div class="detail">
+
+  <div class="row" style="margin-bottom: 10px;">
     <UiDropdown
       @selected={{currentPackage.version}}
-      class="data-package-selection-dropdown"
+      class="selection fluid"
     >
       <div class="text"></div>
       <i class="dropdown icon"></i>

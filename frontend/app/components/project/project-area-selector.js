@@ -5,23 +5,6 @@ import { computed } from '@ember/object';
 export default Component.extend({
   store: service(),
   'ceqr-data': service(),
-  
-  borough: computed('project.bbls.[]', function() {
-    const bbls = this.project.get('bbls');
-    
-    if (bbls.length === 0) return null;
-
-    const boroCode = parseInt(bbls.get('firstObject').charAt(0))
-
-    switch (boroCode) {
-      case 1: return 'Manhattan';
-      case 2: return 'Bronx';
-      case 3: return 'Brooklyn';
-      case 4: return 'Queens';
-      case 5: return 'Staten Island';
-      default: return null;
-    }
-  }),
 
   bblsVersion: computed('project.bblsVersion', function() {
     const bblsVersion = this.project.get('bblsVersion');
@@ -34,9 +17,24 @@ export default Component.extend({
   }),
 
   actions: {
-    async addBbl(bbl) {
-      this.set('error', null);
+    changeDataPackage(dp) {
+      this.project.set('dataPackage', dp);
+    },
+    
+    toggleBbl(_bbl) {
+      const bbl = _bbl.toString();
       
+      if (this.project.get('bbls').includes(bbl)) {
+        this.send('removeBbl', bbl);
+      } else {
+        this.send('addBbl', bbl);
+      }
+    },
+    
+    async addBbl(_bbl) {
+      this.set('error', null);
+      const bbl = _bbl.toString();
+
       const bblRegex = /\b[1-5]{1}[0-9]{5}[0-9]{4}\b/;
       
       if (!bbl.match(bblRegex)) {

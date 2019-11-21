@@ -36,6 +36,10 @@ class ProjectPolicy < ApplicationPolicy
     update?
   end
 
+  def replace_data_package?(dp)
+    update?
+  end
+
   class Scope < Scope
     def resolve
       if user.admin?

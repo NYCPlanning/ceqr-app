@@ -11,12 +11,9 @@ module Api
         :build_year,
         
         :bbls,
-        :bbls_version,
         :bbls_geojson, #computed
     
         :ceqr_number,
-        :borough,
-        :boro_code,
       
         :created_at,
         :updated_at,
@@ -36,6 +33,8 @@ module Api
       has_many :editors, relation_name: :editors
       has_many :viewers, relation_name: :viewers
       has_many :project_permissions
+
+      belongs_to :data_package
     
       relationship :public_schools_analysis, to: :one, foreign_key_on: :related
       relationship :transportation_analysis, to: :one, foreign_key_on: :related

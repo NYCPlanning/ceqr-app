@@ -10,8 +10,12 @@ export default Route.extend({
   
   async model() {
     const project = await this.store.createRecord('project');
+    const mapplutoVersions = await this.store.query('data-package', { filter: { package: 'mappluto' } });
 
-    return RSVP.hash({ project });
+    return RSVP.hash({ 
+      project,
+      mapplutoVersions
+    });
   },
 
   actions: {

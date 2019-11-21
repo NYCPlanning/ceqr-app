@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_25_151122) do
+ActiveRecord::Schema.define(version: 2019_11_20_163401) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -57,8 +57,8 @@ ActiveRecord::Schema.define(version: 2019_10_25_151122) do
     t.jsonb "community_facility_land_use", default: [], null: false, array: true
     t.jsonb "parking_land_use", default: [], null: false, array: true
     t.geometry "bbls_geom", limit: {:srid=>4326, :type=>"multi_polygon"}, null: false
-    t.text "bbls_version"
     t.integer "affordable_units", default: 0, null: false
+    t.bigint "data_package_id"
   end
 
   create_table "public_schools_analyses", force: :cascade do |t|
@@ -122,6 +122,7 @@ ActiveRecord::Schema.define(version: 2019_10_25_151122) do
   end
 
   add_foreign_key "community_facilities_analyses", "projects"
+  add_foreign_key "projects", "data_packages"
   add_foreign_key "public_schools_analyses", "data_packages"
   add_foreign_key "public_schools_analyses", "projects"
   add_foreign_key "transportation_analyses", "projects"
