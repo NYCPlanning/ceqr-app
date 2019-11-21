@@ -58,11 +58,12 @@ cp .env-example .env
 
 Next, edit `.env` to the appropriate settings. Descriptions of each are below:
 
-- `JWT_SALT` - salt for the JSON Web Token used for user sessions. Necessary, but only really important in production.
-- `SENDGRID_KEY` - Sendgrid key for sending emails. Can be found in Heroku account.
-- `ADMIN_EMAILS` - A comma seperated list (no spaces) of email addresses used for admin emails (example: user account in need of verification.)
-- `CEQR_DATA_DB_URL` - Postgres url string to the `ceqr_data` database. Remember to use `postgis://` as the prefix.
 - `DATABASE_URL` - Postgres url string to the `ceqr_rails` database. Locally, this should point to your develompent database. Rails will automatically swap to `ceqr_test` when the test suite is run. Remember to use `postgis://` as the prefix.
+- `CEQR_DATA_DB_URL` - Postgres url string to the `ceqr_data` database. Remember to use `postgis://` as the prefix.
+- `JWT_SALT` - salt for the JSON Web Token used for user sessions. Necessary, but only really important in production.
+- `ADMIN_EMAILS` - A comma seperated list (no spaces) of email addresses used for admin emails (example: user account in need of verification.)
+- `SENDGRID_KEY` - Sendgrid key for sending emails. Can be found in Heroku account.
+
 
 ### Setting up Rails
 
