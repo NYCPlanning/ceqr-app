@@ -211,7 +211,19 @@ if DataPackage.where(package: "mappluto", version: "18v2").first.nil?
     package: "mappluto",
     release_date: Date.parse('2018-12-01'),
     schemas: {
-      "mappluto": { table: "18v2" }
+      "mappluto": { table: "18v2", carto: "mappluto_18v2" },
+    }
+  })
+end
+
+if DataPackage.where(package: "mappluto", version: "19v1").first.nil?
+  DataPackage.create({
+    name: "MapPLUTO 19v1",
+    version: "19v1",
+    package: "mappluto",
+    release_date: Date.parse('2019-03-01'),
+    schemas: {
+      "mappluto": { table: "19v1", carto: "mappluto_19v1" }
     }
   })
 end

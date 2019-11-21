@@ -5,6 +5,8 @@ class Project < ApplicationRecord
 
   validates_presence_of :bbls
 
+  belongs_to :data_package
+
   has_many :editor_permissions, -> { where("permission = 'editor'") }, class_name: 'ProjectPermission'
   has_many :viewer_permissions, -> { where("permission = 'viewer'") }, class_name: 'ProjectPermission'
 
@@ -47,10 +49,9 @@ class Project < ApplicationRecord
   private
 
   def set_bbl_attributes
-    mappluto = CeqrData::Mappluto.version('18v2')
+    mappluto = CeqrData::Mappluto.version(data_package.table_for('mappluto'))
 
     self.bbls_geom = mappluto.st_union_bbls(bbls)
-    self.bbls_version = mappluto.version
   end
 
   # Create all analyses on creation of project, need better validations here.

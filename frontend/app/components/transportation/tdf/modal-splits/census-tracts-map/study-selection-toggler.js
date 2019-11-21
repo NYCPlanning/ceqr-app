@@ -43,9 +43,7 @@ export default class TransportationCensusTractsMapStudySelectionTogglerComponent
       if(geoid && !requiredStudySelection.includes(geoid)) {
         if(existingStudySelection.includes(geoid)){
           this.removeCensusTract(geoid);
-          // existingStudySelection.removeObject(geoid);
         } else {
-          // existingStudySelection.pushObject(geoid);
           this.addCensusTract(geoid);
         }
       }

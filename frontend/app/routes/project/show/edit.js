@@ -1,9 +1,9 @@
 import Route from '@ember/routing/route';
 import { inject as service } from '@ember/service';
+import RSVP from 'rsvp';
 
 export default Route.extend({
   controllerName: 'edit-project',
-
   'project-orchestrator': service(),
 
   afterModel(model) {
