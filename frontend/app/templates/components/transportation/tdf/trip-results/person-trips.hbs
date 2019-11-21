@@ -6,11 +6,14 @@
         <th class="four wide">
           Mode
         </th>
-        <th class="four wide">
+        <th class="two wide">
           In
         </th>
-        <th class="four wide">
+        <th class="two wide">
           Out
+        </th>
+        <th class="two wide">
+          Total
         </th>
       </tr>
     </thead>
@@ -20,6 +23,7 @@
           <td>{{mode-label row.mode}}</td>
           <td>{{row.in}}</td>
           <td>{{row.out}}</td>
+          <td>{{row.total}}</td>
         </tr>
       {{/each}}
     </tbody>
@@ -28,6 +32,7 @@
         <td>TOTAL</td>
         <td>{{total.in}}</td>
         <td>{{total.out}}</td>
+        <td>{{total.total}}</td>
       </tr>
     </tfoot>
   </table>
