@@ -36,6 +36,10 @@ class ProjectPolicy < ApplicationPolicy
     update?
   end
 
+  def create_with_data_package?(dp)
+    create?
+  end
+
   def replace_data_package?(dp)
     update?
   end
