@@ -1,14 +1,19 @@
-import { Factory, faker } from 'ember-cli-mirage';
+import { Factory, faker, association } from 'ember-cli-mirage';
 
-export default Factory.extend({
+export default Factory.extend({  
   afterCreate(project, server) {
     server.create('public-schools-analysis', { project });
     server.create('transportation-analysis', { project });
     server.create('community-facilities-analysis', { project });
-
-    let dataPackage = server.create('data-package');
-    project.dataPackage = dataPackage;
   },
+
+  dataPackage: association({
+    schemas: {
+      mappluto: {
+        carto: 'mappluto_18v2'
+      }
+    }
+  }),
 
   viewOnly: false,
   name: faker.address.streetName,
