@@ -23,14 +23,15 @@ RSpec.describe 'projects', type: :request do
           type: 'projects',
           attributes: attributes.transform_keys {|k| k.to_s.gsub(/_/, '-') },
           relationships: {
-            data_package: {
-              type: "data_package",
-              id: DataPackage.latest_for('mappluto').id
+            'data-package': {
+              'data': {
+                type: "data-packages",
+                id: DataPackage.latest_for('mappluto').id
+              }
             }
           }
         }
       }.to_json
-      
       
       post '/api/v1/projects', headers: headers, params: params
 
