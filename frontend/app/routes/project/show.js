@@ -11,7 +11,8 @@ export default Route.extend({
       { include: [
           'public-schools-analysis',
           'transportation-analysis',
-          'community-facilities-analysis'
+          'community-facilities-analysis',
+          'data-package'
         ].join(',')
       }
     );

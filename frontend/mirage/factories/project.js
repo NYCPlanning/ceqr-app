@@ -5,6 +5,9 @@ export default Factory.extend({
     server.create('public-schools-analysis', { project });
     server.create('transportation-analysis', { project });
     server.create('community-facilities-analysis', { project });
+
+    let dataPackage = server.create('data-package');
+    project.dataPackage = dataPackage;
   },
 
   viewOnly: false,
@@ -32,7 +35,6 @@ export default Factory.extend({
       ]
     };
   },
-  borough: 'Manhattan',
   totalUnits: 1000,
   seniorUnits: 0,
   affordableUnits: 0,
@@ -41,48 +43,3 @@ export default Factory.extend({
   communityFacilityLandUse: () => [],
   parkingLandUse: () => [],
 });
-
-// Example Production "Project":
-// {
-//   "viewOnly": false,
-//   "created_at": "2019-04-09T18:22:01.101Z",
-//   "updated_at": "2019-04-09T18:27:09.600Z",
-//   "updated_by": "wgardner@planning.nyc.gov",
-//   "name": "Prospect Park Acres",
-//   "buildYear": 2020,
-//   "ceqrNumber": "",
-//   "bbls": [
-//     "3011170001"
-//   ],
-//   "bblsVersion": "mappluto_18v2",
-//   "bblsGeojson": {
-//     "type": "FeatureCollection",
-//     "features": [
-//       {
-//         "type": "Feature",
-//         "geometry": {
-//           "type": "MultiPolygon",
-//           "coordinates": [ [coordinates], [coordinates], [coordinates] ]
-//         },
-//         "properties": {}
-//       }
-//     ]
-//   },
-//   "borough": "Brooklyn",
-//   "totalUnits": 10000,
-//   "seniorUnits": 0,
-//   "affordableUnits": 0,
-//   "commercialLandUse": [
-//     {
-//       "name": "Fast Food Restaurant",
-//       "type": "fast-food",
-//       "grossSqFt": 5000
-//     }
-//   ],
-//   "industrialLandUse": [],
-//   "communityFacilityLandUse": [],
-//   "parkingLandUse": [],
-//   "publicSchoolsAnalysis": "335",
-//   "transportationAnalysis": "243",
-//   "communityFacilitiesAnalysis": "243",
-// }
