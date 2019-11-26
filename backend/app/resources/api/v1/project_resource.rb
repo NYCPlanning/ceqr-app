@@ -39,6 +39,7 @@ module Api
       relationship :public_schools_analysis, to: :one, foreign_key_on: :related
       relationship :transportation_analysis, to: :one, foreign_key_on: :related
       relationship :community_facilities_analysis, to: :one, foreign_key_on: :related
+      relationship :air_quality_analysis, to: :one, foreign_key_on: :related
     
       def view_only
         self.viewers.map(&:id).include? current_user.id

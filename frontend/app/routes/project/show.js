@@ -12,6 +12,7 @@ export default Route.extend({
           'public-schools-analysis',
           'transportation-analysis',
           'community-facilities-analysis',
+          'air-quality-analysis',
           'data-package'
         ].join(',')
       }
@@ -24,7 +25,8 @@ export default Route.extend({
       mapplutoVersions,
       publicSchoolsAnalysis: project.publicSchoolsAnalysis,
       transportationAnalysis: project.transportationAnalysis,
-      communityFacilitiesAnalysis: project.communityFacilitiesAnalysis
+      communityFacilitiesAnalysis: project.communityFacilitiesAnalysis,
+      airQualityAnalysis: project.airQualityAnalysis
     });
   },
 });
