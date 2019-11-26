@@ -25,7 +25,7 @@ I suggest using [`rbenv`](https://github.com/rbenv/rbenv) installed with Homebre
 ```
 brew install rbenv
 rbenv init
-rbenv install 2.6.0
+rbenv install 2.6.4
 ```
 
 ### Installing Node
