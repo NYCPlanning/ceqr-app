@@ -25,7 +25,7 @@ I suggest using [`rbenv`](https://github.com/rbenv/rbenv) installed with Homebre
 ```
 brew install rbenv
 rbenv init
-rbenv install 2.6.0
+rbenv install 2.6.4
 ```
 
 ### Installing Node
@@ -52,16 +52,18 @@ CEQR App has two Postgis databases:
 Rails config sits in a `.env` file that is not checked into version control. This allows configuring through environment variables in production. To get started, copy the config example:
 
 ```
+cd backend
 cp .env-example .env
 ```
 
 Next, edit `.env` to the appropriate settings. Descriptions of each are below:
 
+- `DATABASE_URL` - Postgres url string to the `ceqr_rails` database. Locally, this should point to your development database. Rails will automatically swap to `ceqr_test` when the test suite is run. Remember to use `postgis://` as the prefix.
+- `CEQR_DATA_DB_URL` - Postgres url string to the read-only production `ceqr_data`  running on Digital Ocean. Remember to use `postgis://` as the prefix. See 1Password for database connection string.
 - `JWT_SALT` - salt for the JSON Web Token used for user sessions. Necessary, but only really important in production.
-- `SENDGRID_KEY` - Sendgrid key for sending emails. Can be found in Heroku account.
 - `ADMIN_EMAILS` - A comma seperated list (no spaces) of email addresses used for admin emails (example: user account in need of verification.)
-- `CEQR_DATA_DB_URL` - Postgres url string to the `ceqr_data` database. Remember to use `postgis://` as the prefix.
-- `DATABASE_URL` - Postgres url string to the `ceqr_rails` database. Locally, this should point to your develompent database. Rails will automatically swap to `ceqr_test` when the test suite is run. Remember to use `postgis://` as the prefix.
+- `SENDGRID_KEY` - Sendgrid key for sending emails. Can be found in Heroku account.
+
 
 ### Setting up Rails
 
@@ -76,10 +78,10 @@ bundle install
 
 *NOTE:* You may encounter issues installing gems. If you do, investigate the errors. You may require additional libraries that can be install with homebrew.
 
-Next, the database needs to be created. If Rails is installed correctly, you this command should create the `ceqr_rails` database and load the schema.
+Next, the database needs to be created. If Rails is installed correctly, this command will create the `ceqr_rails` database, load the schema, and seed the db with some initial data.
 
 ```
-rails db:create db:schema:load
+bin/rails db:create db:schema:load db:seed
 ```
 
 ### Setting up Ember
@@ -99,7 +101,7 @@ For the backend:
 
 ```
 cd backend/
-rails s
+bin/rails s
 ```
 
 For the frontend:
