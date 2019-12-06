@@ -13,10 +13,10 @@
 
         Name                   Command              State            Ports
     -------------------------------------------------------------------------------
-    app_ceqr_frontend_1   ./frontend-entrypoint.sh        Up(health: starting)  0.0.0.0:4200->4200/tcp, 7020/tcp, 7357/tcp
-    app_ceqr_service_1    ./service-entrypoint.sh         Up(healthy)       0.0.0.0:3000->3000/tcp
-    app_migrate_1   ./migrate.sh                    Exit 0
-    app_postgis_1   docker-entrypoint.sh postgres   Up       0.0.0.0:5432->5432/tcp
+    ceqr-app_frontend_1   ./frontend-entrypoint.sh        Up(health: starting)  0.0.0.0:4200->4200/tcp, 7020/tcp, 7357/tcp
+    ceqr-app_backend_1    ./service-entrypoint.sh         Up(healthy)       0.0.0.0:3000->3000/tcp
+    ceqr-app_migrate_1   ./migrate.sh                    Exit 0
+    ceqr-app_postgis_1   docker-entrypoint.sh postgres   Up       0.0.0.0:5432->5432/tcp
     ```
     Some things to note:
      - `migrate` service is a short-lived container that sets up your backend for you. That's why it is State: Exit 0

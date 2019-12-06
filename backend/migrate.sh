@@ -6,7 +6,7 @@ until psql -h "postgis" -U "postgres" -c '\q'; do
 done
 echo "postgres is up"
 
-create_cmd="bundle exec rails db:create"
+create_cmd="bundle exec rails db:create db:schema:load db:seed"
 migrate_cmd="bundle exec rails db:migrate"
 
 ceqr_tables=$(psql -h "postgis" -U "postgres" -lqt | cut -d \| -f 1 | grep ceqr)
