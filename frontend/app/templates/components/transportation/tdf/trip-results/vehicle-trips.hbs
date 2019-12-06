@@ -20,7 +20,7 @@
     <tbody>
       {{#each rows as |row|}}
         <tr>
-          <td>{{mode-label row.mode}}</td>
+          <td>{{mode-label row.mode}} {{#if (eq row.mode 'taxi')}}<div class="ui small label">Balanced</div>{{/if}}</td>
           <td>{{row.in}}</td>
           <td>{{row.out}}</td>
           <td>{{row.total}}</td>

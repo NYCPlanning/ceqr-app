@@ -121,8 +121,15 @@ export default class TransportationTripResultsCalculator extends EmberObject {
       ["auto", "taxi"].forEach((mode) => {
         if (!this.modes.includes(mode)) return;
         
-        const modeIn    = Math.round(this.personTrips[temporalId][mode].in   / this.vehicleOccupancy[mode].allPeriods);
-        const modeOut   = Math.round(this.personTrips[temporalId][mode].out  / this.vehicleOccupancy[mode].allPeriods);
+        let modeIn    = Math.round(this.personTrips[temporalId][mode].in   / this.vehicleOccupancy[mode].allPeriods);
+        let modeOut   = Math.round(this.personTrips[temporalId][mode].out  / this.vehicleOccupancy[mode].allPeriods);
+
+        // Make Taxi "Balanced" by doubling vehicle trips
+        if (mode === "taxi") {
+          modeIn  = modeIn * 2;
+          modeOut = modeOut * 2;
+        }
+
         const modeTotal = modeIn + modeOut; 
 
         results[temporalId]["total"].in    = modeIn    + results[temporalId]["total"].in;
