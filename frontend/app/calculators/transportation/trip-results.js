@@ -34,20 +34,14 @@ export default class TransportationTripResultsCalculator extends EmberObject {
     ["am", "md", "pm", "saturday"].forEach((temporalId) => {
       let personTrips;
       if (temporalId === "saturday") {
-        personTrips = Math.round(this.normalizedUnits * this.defaults.tripGenerationRates.saturday.rate);
+        personTrips = this.normalizedUnits * this.defaults.tripGenerationRates.saturday.rate;
       } else {
-        personTrips = Math.round(this.normalizedUnits * this.defaults.tripGenerationRates.weekday.rate);
+        personTrips = this.normalizedUnits * this.defaults.tripGenerationRates.weekday.rate;
       }
 
-      const totalTrips = Math.round(personTrips * this.defaults.temporalDistribution[temporalId].percent);
-      const totalIn    = Math.round(totalTrips * (parseInt(this.inOutSplits[temporalId].in) / 100));
-      const totalOut   = Math.round(totalTrips * (parseInt(this.inOutSplits[temporalId].out) / 100));
-      
-      results[temporalId]["allModesTotal"] = {
-        in:    totalIn,
-        out:   totalOut,
-        total: totalTrips,
-      }
+      const totalTrips = (personTrips * this.defaults.temporalDistribution[temporalId].percent) / 100;
+      const totalIn    = (totalTrips * (parseFloat(this.inOutSplits[temporalId].in) / 100));
+      const totalOut   = (totalTrips * (parseFloat(this.inOutSplits[temporalId].out) / 100));
 
       results[temporalId]["total"] = {
         in:    0,
@@ -56,7 +50,7 @@ export default class TransportationTripResultsCalculator extends EmberObject {
       };
 
       this.modes.forEach((mode) => {
-        const modeSplit = (parseInt(this.modeSplits[mode].allPeriods) / 100);
+        const modeSplit = (parseFloat(this.modeSplits[mode].allPeriods) / 100);
         // Per mode
         const modeIn   = Math.round(modeSplit * totalIn);
         const modeOut   = Math.round(modeSplit * totalOut);
@@ -72,6 +66,12 @@ export default class TransportationTripResultsCalculator extends EmberObject {
           total: modeTotal
         }
       });
+
+      results[temporalId]["allModesTotal"] = {
+        in:    totalIn,
+        out:   totalOut,
+        total: totalTrips,
+      }
     });
 
     return results;
@@ -89,20 +89,22 @@ export default class TransportationTripResultsCalculator extends EmberObject {
     ["am", "md", "pm", "saturday"].forEach((temporalId) => {
       let truckTrips;
       if (temporalId === "saturday") {
-        truckTrips = Math.round(this.normalizedUnits * this.defaults.truckTripGenerationRates.saturday.rate);
+        truckTrips = this.normalizedUnits * this.defaults.truckTripGenerationRates.saturday.rate;
       } else {
-        truckTrips = Math.round(this.normalizedUnits * this.defaults.truckTripGenerationRates.weekday.rate);
+        truckTrips = this.normalizedUnits * this.defaults.truckTripGenerationRates.weekday.rate;
       }
 
       const truckIn = Math.round(
         truckTrips *
-        (parseInt(this.truckInOutSplits.allDay.in)  / 100) *
-        this.defaults.truckTemporalDistribution[temporalId].percent
+        (parseFloat(this.truckInOutSplits.allDay.in)  / 100) *
+        this.defaults.truckTemporalDistribution[temporalId].percent / 
+        100
       );
       const truckOut = Math.round(
         truckTrips *
-        (parseInt(this.truckInOutSplits.allDay.out) / 100) *
-        this.defaults.truckTemporalDistribution[temporalId].percent
+        (parseFloat(this.truckInOutSplits.allDay.out) / 100) *
+        this.defaults.truckTemporalDistribution[temporalId].percent /
+        100
       );
       const truckTotal = truckIn + truckOut;
       
@@ -164,16 +166,16 @@ export default class TransportationTripResultsCalculator extends EmberObject {
           saturday: {label: "Saturday", rate: 0.02 }
         },
         temporalDistribution: {
-          am:       {label: "AM",       percent: .10 },
-          md:       {label: "Midday",   percent: .05 },
-          pm:       {label: "PM",       percent: .11 },
-          saturday: {label: "Saturday", percent: .08 }
+          am:       {label: "AM",       percent: 10 },
+          md:       {label: "Midday",   percent: 5  },
+          pm:       {label: "PM",       percent: 11 },
+          saturday: {label: "Saturday", percent: 8  }
         },
         truckTemporalDistribution: {
-          am:       {label: "AM",       percent: .12 },
-          md:       {label: "Midday",   percent: .09 },
-          pm:       {label: "PM",       percent: .02 },
-          saturday: {label: "Saturday", percent: .09 }
+          am:       {label: "AM",       percent: 12 },
+          md:       {label: "Midday",   percent: 9  },
+          pm:       {label: "PM",       percent: 2  },
+          saturday: {label: "Saturday", percent: 9  }
         }
       };
     }
@@ -192,16 +194,16 @@ export default class TransportationTripResultsCalculator extends EmberObject {
           saturday: {label: "Saturday", rate: 0.01 }
         },
         temporalDistribution: {
-          am:       {label: "AM",       percent: .12 },
-          md:       {label: "Midday",   percent: .15 },
-          pm:       {label: "PM",       percent: .14 },
-          saturday: {label: "Saturday", percent: .17 }
+          am:       {label: "AM",       percent: 12 },
+          md:       {label: "Midday",   percent: 15 },
+          pm:       {label: "PM",       percent: 14 },
+          saturday: {label: "Saturday", percent: 17 }
         },
         truckTemporalDistribution: {
-          am:       {label: "AM",       percent: .10 },
-          md:       {label: "Midday",   percent: .11 },
-          pm:       {label: "PM",       percent: .02 },
-          saturday: {label: "Saturday", percent: .11 }
+          am:       {label: "AM",       percent: 10 },
+          md:       {label: "Midday",   percent: 11 },
+          pm:       {label: "PM",       percent: 2  },
+          saturday: {label: "Saturday", percent: 11 }
         }
       };
     }
