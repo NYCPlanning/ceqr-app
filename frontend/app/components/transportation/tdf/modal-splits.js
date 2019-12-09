@@ -18,11 +18,18 @@ export default class TransportationTdfModalSplitsComponent extends Component {
   @alias('factor.inactiveModes') inactiveModes;
 
   // Compute when any land use is changed
-  @computed('activeModes', 'modeSplits.{auto,taxi,bus,subway,railroad,walk,ferry,streetcar,bicycle,motorcycle,other}.allPeriods')
+  @computed(
+    'activeModes',
+    'modeSplits.{auto,taxi,bus,subway,railroad,walk,ferry,streetcar,bicycle,motorcycle,other}.{allPeriods,am,pm,md,saturday}',
+  )
   get total() {
     return {
-      percent: Math.round(this.factor.modesForAnalysis.reduce((pv, key) => pv + parseFloat(this.modeSplits[key].allPeriods), 0)),
-      count:   this.factor.modesForAnalysis.reduce((pv, key) => pv + parseFloat(this.modeSplits[key].count), 0)
+      allPeriods: this.factor.modesForAnalysis.reduce((pv, key) => pv + parseFloat(this.modeSplits[key].allPeriods), 0),
+      am:         this.factor.modesForAnalysis.reduce((pv, key) => pv + parseFloat(this.modeSplits[key].am), 0),
+      md:         this.factor.modesForAnalysis.reduce((pv, key) => pv + parseFloat(this.modeSplits[key].md), 0),
+      pm:         this.factor.modesForAnalysis.reduce((pv, key) => pv + parseFloat(this.modeSplits[key].pm), 0),
+      saturday:   this.factor.modesForAnalysis.reduce((pv, key) => pv + parseFloat(this.modeSplits[key].saturday), 0),
+      count:      this.factor.modesForAnalysis.reduce((pv, key) => pv + parseFloat(this.modeSplits[key].count), 0)
     }
   }
 
@@ -42,6 +49,13 @@ export default class TransportationTdfModalSplitsComponent extends Component {
   }
 
   @action
+  toggleTemporalModeSplits(bool) {
+    this.factor.set('temporalModeSplits', bool);
+
+    this.factor.save();
+  }
+
+  @action
   saveFactor() {
     this.factor.save();
   }
@@ -52,8 +66,9 @@ export default class TransportationTdfModalSplitsComponent extends Component {
   }
 
   @action
-  toggleSeeCensusTracts() {
-    this.toggleProperty("seeCensusTracts");
+  toggleSeeCensusTracts(bool) {
+    this.set('seeCensusTracts', bool);
+    // this.toggleProperty("seeCensusTracts");
   }
 
   @action

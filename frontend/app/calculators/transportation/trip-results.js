@@ -13,6 +13,8 @@ import { computed } from '@ember-decorators/object';
  * @param {object} inOutSplits
  * @param {object} truckInOutSplits
  * @param {object} vehicleOccupancy
+ * @param {boolean} manualModeSplits
+ * @param {boolean} temporalModeSplits
  */
 
 export default class TransportationTripResultsCalculator extends EmberObject {
@@ -50,7 +52,14 @@ export default class TransportationTripResultsCalculator extends EmberObject {
       };
 
       this.modes.forEach((mode) => {
-        const modeSplit = (parseFloat(this.modeSplits[mode].allPeriods) / 100);
+        let period;
+        if (this.manualModeSplits) {
+          period = this.temporalModeSplits ? temporalId : "allPeriods"
+        } else {
+          period = "allPeriods";
+        }
+
+        const modeSplit = (parseFloat(this.modeSplits[mode][period]) / 100);
         // Per mode
         const modeIn   = Math.round(modeSplit * totalIn);
         const modeOut   = Math.round(modeSplit * totalOut);

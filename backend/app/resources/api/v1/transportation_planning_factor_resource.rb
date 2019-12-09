@@ -6,6 +6,7 @@ module Api
       attributes(
         :land_use,
         :manual_mode_splits,
+        :temporal_mode_splits,
         :mode_splits_from_user,
         :census_tract_variables,
         :vehicle_occupancy_from_user,

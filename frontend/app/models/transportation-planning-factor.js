@@ -33,7 +33,12 @@ export default class TransportationPlanningFactorModel extends Model {
     // Default modeSplits
     if (Object.keys(this.modeSplitsFromUser).length === 0) {
       const modeSplitsFromUser = {};
-      MODES.forEach((m) => modeSplitsFromUser[m] = { allPeriods: 0 });
+      MODES.forEach((m) => modeSplitsFromUser[m] = { 
+        am:       0,
+        md:       0,
+        pm:       0,
+        saturday: 0
+      });
       
       this.set('modeSplitsFromUser', EmberObject.create(modeSplitsFromUser));
     }
@@ -64,6 +69,7 @@ export default class TransportationPlanningFactorModel extends Model {
   }
 
   @attr('boolean') manualModeSplits;
+  @attr('boolean') temporalModeSplits;
   @attr('ember-object', {defaultValue: () => {} }) modeSplitsFromUser;
   
   @computed('manualModeSplits', 'censusTractsCalculator', 'modeSplitsFromUser')
@@ -137,6 +143,8 @@ export default class TransportationPlanningFactorModel extends Model {
       truckInOutSplits: this.truckInOutSplits,
       vehicleOccupancy: this.vehicleOccupancy,
       project: this.get('transportationAnalysis.project'),
+      manualModeSplits: this.manualModeSplits,
+      temporalModeSplits: this.temporalModeSplits,
       modes: this.activeModes,
       units: this.units
     });

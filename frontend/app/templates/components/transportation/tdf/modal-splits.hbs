@@ -1,34 +1,31 @@
-<div class="eight wide column" style="margin-bottom: 10px;">
+<div class="sixteen wide column" style="margin-bottom: 10px;">
   <div class="row">
     <div class="eight wide column">
       <h3 class="ui header left floated">Modal Splits</h3>
-      <div class="ui buttons right floated">
-        <button class="ui button {{if (eq manualModeSplits true) 'positive'}}" onClick={{action toggleManualModeSplits}}>Manual</button>
-        <div class="or"></div>
-        <button class="ui button {{if (eq manualModeSplits false) 'positive'}}" onClick={{action toggleCensusTractModeSplits}}>Census Tracts</button>
-      </div>
     </div>
   </div>
 </div>
-<div class="eight wide column">
-  {{#if (not manualModeSplits)}}
-    <div class="ui small blue button" onClick={{action "toggleSeeCensusTracts"}}>
-      {{if seeCensusTracts "Map View" "Table View"}}
-    </div>
-    
-    <Analysis::DataPackageSelector
-      style="display: inline-block;"
-      @currentPackage={{factor.dataPackage}}
-      @availablePackages={{availablePackages}}
-      @changeDataPackageAction={{action changeDataPackage}}
-    />
-  {{/if}}
-</div>
 
 {{#if manualModeSplits}}
-  <div class="eight wide column">
+  <div class="{{if factor.temporalModeSplits "sixteen" "eight"}} wide column">
     <table class="ui celled table">
       <thead>
+        <tr>
+          <td class="four wide">
+            <div class="ui small buttons">
+              <button class="ui button {{if factor.manualModeSplits 'positive'}}" onClick={{action toggleManualModeSplits}}>Manual</button>
+              <div class="or"></div>
+              <button class="ui button {{if (not factor.manualModeSplits) 'positive'}}" onClick={{action toggleCensusTractModeSplits}}>Census Tracts</button>
+            </div>
+          </td>
+          <td colspan={{if factor.temporalModeSplits "4" "1"}}>
+            <div class="ui small buttons">
+              <button class="ui button {{if factor.temporalModeSplits 'positive'}}" onClick={{action toggleTemporalModeSplits true}}>Temporal Splits</button>
+              <div class="or"></div>
+              <button class="ui button {{if (not factor.temporalModeSplits) 'positive'}}" onClick={{action toggleTemporalModeSplits false}}>All Periods</button>
+            </div>
+          </td>
+        </tr>
         <tr>
           <th class="four wide">
             <span style="color: #2185D0;">Mode</span>
@@ -40,9 +37,25 @@
                 <i class="icon blue pencil alternate" onClick={{action "toggleEditModes"}} style="cursor: pointer;"></i>
               {{/if}}
           </th>
-          <th class="four wide">
-            All Periods
-          </th>
+          {{#if factor.temporalModeSplits}}
+            <th class="two wide">
+              AM
+            </th>
+            <th class="two wide">
+              MD
+            </th>
+            <th class="two wide">
+              PM
+            </th>
+            <th class="two wide">
+              Sat
+            </th>
+          {{else}}
+            <th class="four wide">
+              All Periods
+            </th>
+          {{/if}}
+
         </tr>
       </thead>
       <tbody class="ui form {{if censusTracksChanging.isRunning "loading"}}">
@@ -56,18 +69,26 @@
             @modeSplits={{modeSplits}}
             
             @showInput={{manualModeSplits}}
+            @showTemporalModeSplits={{factor.temporalModeSplits}}
             @editModes={{editModes}}
           />
         {{/each}}
 
         <tr class="warning">
-          <td><strong>TOTAL</strong></td>
-          <td>
-            {{total.percent}} % 
-            {{#if (not manualModeSplits)}}
-              ({{total.count}})
-            {{/if}}  
-          </td>
+          <td><strong>TOTAL</strong></td>          
+          {{#if factor.temporalModeSplits}}
+            <td>{{total.am}}</td>
+            <td>{{total.md}}</td>
+            <td>{{total.pm}}</td>
+            <td>{{total.saturday}}</td>
+          {{else}}
+            <td>
+              {{total.allPeriods}} % 
+              {{#if (not manualModeSplits)}}
+                ({{total.count}})
+              {{/if}}
+            </td>
+          {{/if}}
         </tr>
     
         {{#if editModes}}
@@ -80,12 +101,13 @@
               @modeSplits={{modeSplits}}
               
               @showInput={{manualModeSplits}}
+              @showTemporalModeSplits={{factor.temporalModeSplits}}
               @editModes={{editModes}}
             />
           {{/each}}
         {{/if}}
         <tr>
-          <td colspan="2">
+          <td colspan={{if factor.temporalModeSplits "5" "2"}}>
             <Transportation::Tdf::TableNote 
               @tableName="modalSplits"
               @factor={{factor}}
@@ -99,6 +121,32 @@
   <div class="sixteen wide column">
     <table class="ui celled table">
       <thead>
+        <tr>
+          <td>
+            <div class="ui small buttons">
+              <button class="ui button {{if factor.manualModeSplits 'positive'}}" onClick={{action toggleManualModeSplits}}>Manual</button>
+              <div class="or"></div>
+              <button class="ui button {{if (not factor.manualModeSplits) 'positive'}}" onClick={{action toggleCensusTractModeSplits}}>Census Tracts</button>
+            </div>
+          </td>
+          <td>
+            {{!-- Census Tract calculations only product on period --}}
+          </td>
+          <td colspan="{{if seeCensusTracts (add analysis.censusTractsSelection.length analysis.requiredCensusTractsSelection.length) 1}}">
+            <div class="ui small buttons">
+              <button class="ui button {{if (not seeCensusTracts) 'positive'}}" onClick={{action toggleSeeCensusTracts false}}>Map</button>
+              <div class="or"></div>
+              <button class="ui button {{if seeCensusTracts 'positive'}}" onClick={{action toggleSeeCensusTracts true}}>Table</button>
+            </div>
+            
+            <Analysis::DataPackageSelector
+              style="display: inline-block;"
+              @currentPackage={{factor.dataPackage}}
+              @availablePackages={{availablePackages}}
+              @changeDataPackageAction={{action changeDataPackage}}
+            />
+          </td>
+        </tr>
         <tr>
           <th class="four wide">
             <span style="color: #2185D0;">Mode</span>
@@ -158,6 +206,7 @@
             @modeSplits={{modeSplits}}
             
             @showInput={{manualModeSplits}}
+            @showTemporalModeSplits={{factor.temporalModeSplits}}
             @editModes={{editModes}}
           >
             {{#if (eq idx 0)}}
@@ -187,7 +236,7 @@
         <tr class="warning">
           <td><strong>TOTAL</strong></td>
           <td>
-            {{total.percent}} % 
+            {{total.allPeriods}} % 
             {{#if (not manualModeSplits)}}
               ({{total.count}})
             {{/if}}  
@@ -213,6 +262,7 @@
               @modeSplits={{modeSplits}}
               
               @showInput={{manualModeSplits}}
+              @showTemporalModeSplits={{factor.temporalModeSplits}}
               @editModes={{editModes}}
             />
           {{/each}}
