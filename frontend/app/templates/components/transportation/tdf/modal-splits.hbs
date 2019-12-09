@@ -11,16 +11,18 @@
   </div>
 </div>
 <div class="eight wide column">
-  <div class="ui small blue button" onClick={{action "toggleSeeCensusTracts"}}>
-    {{if seeCensusTracts "Map View" "Table View"}}
-  </div>
-  
-  <Analysis::DataPackageSelector
-    style="display: inline-block;"
-    @currentPackage={{factor.dataPackage}}
-    @availablePackages={{availablePackages}}
-    @changeDataPackageAction={{action changeDataPackage}}
-  />
+  {{#if (not manualModeSplits)}}
+    <div class="ui small blue button" onClick={{action "toggleSeeCensusTracts"}}>
+      {{if seeCensusTracts "Map View" "Table View"}}
+    </div>
+    
+    <Analysis::DataPackageSelector
+      style="display: inline-block;"
+      @currentPackage={{factor.dataPackage}}
+      @availablePackages={{availablePackages}}
+      @changeDataPackageAction={{action changeDataPackage}}
+    />
+  {{/if}}
 </div>
 
 {{#if manualModeSplits}}
