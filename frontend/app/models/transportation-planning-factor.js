@@ -34,10 +34,11 @@ export default class TransportationPlanningFactorModel extends Model {
     if (Object.keys(this.modeSplitsFromUser).length === 0) {
       const modeSplitsFromUser = {};
       MODES.forEach((m) => modeSplitsFromUser[m] = { 
-        am:       0,
-        md:       0,
-        pm:       0,
-        saturday: 0
+        am:         0,
+        md:         0,
+        pm:         0,
+        saturday:   0,
+        allPeriods: 0
       });
       
       this.set('modeSplitsFromUser', EmberObject.create(modeSplitsFromUser));
