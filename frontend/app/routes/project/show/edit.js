@@ -3,7 +3,6 @@ import { inject as service } from '@ember/service';
 
 export default Route.extend({
   controllerName: 'edit-project',
-
   'project-orchestrator': service(),
 
   afterModel(model) {

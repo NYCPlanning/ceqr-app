@@ -1,0 +1,86 @@
+<Mapbox::BasicMap
+  @name="project-area-selector-map"
+  @mapLoaded={{action this.mapLoaded}}
+  @initOptions={{hash
+    style="https://layers-api.planninglabs.nyc/v1/base/style.json"
+  }} as |map|
+>
+  <Mapbox::CartoVectorSource @sourceId="carto" @map={{map}} as |carto-source|>
+    <carto-source.layer
+      @id='pluto-line'
+      @sql={{mapplutoSql}}
+      @layer={{hash
+        type='line'
+        paint=(get-layer-style 'pluto-line' 'paint')
+      }}
+    />
+
+    <carto-source.layer
+      @id='pluto-labels'
+      @sql={{mapplutoSql}}
+      @layer={{hash
+        type='symbol'
+        layout=(get-layer-style 'pluto-labels' 'layout')
+        paint=(get-layer-style 'pluto-labels' 'paint')
+      }}
+    />
+
+    <carto-source.layer
+      @id="pluto-selected"
+      @sql={{mapplutoSql}}
+      @layer={{hash
+        type="fill"
+        paint=(get-layer-style 'selectable-feature-content' 'paint')
+      }} as |layer|
+    >
+      <Mapbox::FeatureHoverer
+        @map={{map}}
+        @layerId={{layer.layerId}}
+        @onFeatures={{setFirstHoveredFeatureId}}
+      />
+
+      <Mapbox::FeatureSelector
+        @map={{map}}
+        @layerId={{layer.layerId}} as |selectedFeatures|
+      >
+        <Project::ProjectAreaSelectionToggler
+          @selectedBbls={{selectedFeatures}}
+          @toggleBbl={{toggleBbl}}
+        />
+      </Mapbox::FeatureSelector>
+    </carto-source.layer>
+
+    <carto-source.layer
+      @id="tracts-hover"
+      @sql={{mapplutoSql}}
+      @layer={{hash
+        type="line"
+        paint=(get-layer-style 'selectable-feature-line' 'paint')
+        layout=(get-layer-style 'selectable-feature-line' 'layout')
+      }} as |layer|
+    >
+      <Mapbox::FeatureFilterer
+        @map={{map}}
+        @layerId={{layer.layerId}}
+        @filterById="bbl"
+        @featureIds={{array hoveredFeatureId}}
+      />
+    </carto-source.layer>
+
+    <carto-source.layer
+      @id="project-area"
+      @sql={{mapplutoSql}}
+      @layer={{hash
+        type="line"
+        paint=(get-layer-style 'bbls' 'paint')
+      }} as |layer|
+    >
+      <Mapbox::FeatureFilterer
+        @map={{map}}
+        @layerId={{layer.layerId}}
+        @filterById="bbl"
+        @featureIds={{selectedBbls}}
+      />
+    </carto-source.layer>
+  </Mapbox::CartoVectorSource>
+</Mapbox::BasicMap>

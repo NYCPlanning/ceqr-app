@@ -1,0 +1,67 @@
+<div class="sixteen wide column">
+  <h3 class="ui header" style="margin-bottom: 10px;">AM</h3>
+</div>
+
+<div class="eight wide column">
+  <Transportation::Tdf::TripResults::PersonTrips
+    @modes={{model.transportationPlanningFactor.activeModes}}
+    @results={{model.transportationPlanningFactor.tripResults.personTrips.am}}
+  />
+</div>
+
+<div class="eight wide column">
+  <Transportation::Tdf::TripResults::VehicleTrips
+    @vehicleTrips={{model.transportationPlanningFactor.tripResults.vehicleTrips.am}}
+  />
+</div>
+
+<div class="sixteen wide column">
+  <h3 class="ui header" style="margin-bottom: 10px;">Midday</h3>
+</div>
+
+<div class="eight wide column">
+  <Transportation::Tdf::TripResults::PersonTrips
+    @modes={{model.transportationPlanningFactor.activeModes}}
+    @results={{model.transportationPlanningFactor.tripResults.personTrips.md}}
+  />
+</div>
+
+<div class="eight wide column">
+  <Transportation::Tdf::TripResults::VehicleTrips
+    @vehicleTrips={{model.transportationPlanningFactor.tripResults.vehicleTrips.md}}
+  />
+</div>
+
+<div class="sixteen wide column">
+  <h3 class="ui header" style="margin-bottom: 10px;">PM</h3>
+</div>
+
+<div class="eight wide column">
+  <Transportation::Tdf::TripResults::PersonTrips
+    @modes={{model.transportationPlanningFactor.activeModes}}
+    @results={{model.transportationPlanningFactor.tripResults.personTrips.pm}}
+  />
+</div>
+
+<div class="eight wide column">
+  <Transportation::Tdf::TripResults::VehicleTrips
+    @vehicleTrips={{model.transportationPlanningFactor.tripResults.vehicleTrips.pm}}
+  />
+</div>
+
+<div class="sixteen wide column">
+  <h3 class="ui header" style="margin-bottom: 10px;">Satruday</h3>
+</div>
+
+<div class="eight wide column">
+  <Transportation::Tdf::TripResults::PersonTrips
+    @modes={{model.transportationPlanningFactor.activeModes}}
+    @results={{model.transportationPlanningFactor.tripResults.personTrips.saturday}}
+  />
+</div>
+
+<div class="eight wide column">
+  <Transportation::Tdf::TripResults::VehicleTrips
+    @vehicleTrips={{model.transportationPlanningFactor.tripResults.vehicleTrips.saturday}}
+  />
+</div>

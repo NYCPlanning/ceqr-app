@@ -1,0 +1,117 @@
+{
+  "definitions": {},
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "http://example.com/root.json",
+  "type": "object",
+  "required": [
+    "name",
+    "level",
+    "enroll",
+    "org_id",
+    "source",
+    "address",
+    "bldg_id",
+    "geojson",
+    "borocode",
+    "capacity",
+    "district",
+    "excluded",
+    "bldg_name",
+    "subdistrict",
+    "capacityFuture"
+  ],
+  "properties": {
+    "name": {
+      "$id": "#/properties/name",
+      "type": "string",
+      "default": "",
+      "examples": [
+        "P.S. 7 - Q"
+      ]
+    },
+    "level": {
+      "$id": "#/properties/level",
+      "type": "string",
+      "default": "",
+      "examples": [
+        "ps"
+      ]
+    },
+    "enroll": {
+      "$id": "#/properties/enroll",
+      "type": "integer",
+      "default": 0
+    },
+    "org_id": {
+      "$id": "#/properties/org_id",
+      "type": "string",
+      "default": "",
+      "examples": [
+        "Q007"
+      ]
+    },
+    "source": {
+      "$id": "#/properties/source",
+      "type": "string",
+      "title": "The Source Schema",
+      "default": "",
+      "examples": [
+        "bluebook"
+      ],
+      "pattern": "^(.*)$"
+    },
+    "address": {
+      "$id": "#/properties/address",
+      "type": "string",
+      "examples": [
+        "80-55 CORNISH AVENUE"
+      ]
+    },
+    "bldg_id": {
+      "$id": "#/properties/bldg_id",
+      "type": "string",
+      "examples": [
+        "Q007"
+      ]
+    },
+    "geojson": {
+      "$id": "#/properties/geojson",
+      "type": "object",
+      "required": [
+        "type",
+        "geometry",
+        "properties"
+      ]
+    },
+    "borocode": {
+      "$id": "#/properties/borocode",
+      "type": "integer"
+    },
+    "capacity": {
+      "$id": "#/properties/capacity",
+      "type": "integer",
+      "default": 0
+    },
+    "district": {
+      "$id": "#/properties/district",
+      "type": "integer"
+    },
+    "excluded": {
+      "$id": "#/properties/excluded",
+      "type": "boolean"
+    },
+    "bldg_name": {
+      "$id": "#/properties/bldg_name",
+      "type": "string"
+    },
+    "subdistrict": {
+      "$id": "#/properties/subdistrict",
+      "type": "integer"
+    },
+    "capacityFuture": {
+      "$id": "#/properties/capacityFuture",
+      "type": "integer",
+      "default": 0
+    }
+  }
+}

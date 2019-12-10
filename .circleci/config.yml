@@ -7,7 +7,7 @@ jobs:
   rails_tests:
     docker:
       # specify the version you desire here
-      - image: circleci/ruby:2.6.3
+      - image: circleci/ruby:2.6.4
         environment:
           DATABASE_URL: postgis://ceqr@127.0.0.1/ceqr_test
           JWT_SALT: TEST_RANDOM_KEY

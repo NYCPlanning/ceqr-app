@@ -10,6 +10,8 @@ export default DS.Model.extend({
   viewers: DS.hasMany('user', { inverse: 'viewable_projects' }),
   projectPermissions: DS.hasMany('project-permissions'),
 
+  dataPackage: DS.belongsTo('dataPackage'),
+
   viewOnly: DS.attr('boolean'),
 
   created_at: DS.attr('string'),
@@ -24,24 +26,24 @@ export default DS.Model.extend({
   bblsVersion: DS.attr('string'),
   bblsGeojson: DS.attr(''),
   
-  borough: DS.attr('string'),
-  boroCode: DS.attr('number'),
-
-  // boroCode: computed('borough', function() {
-  //   switch (this.borough) {
-  //     case 'Manhattan': return 1;
-  //     case 'Bronx': return 2;
-  //     case 'Brooklyn': return 3;
-  //     case 'Queens': return 4;
-  //     case 'Staten Island': return 5;
-  //     default: return null;
-  //   }
-  // }),
+  borough: computed('boroCode', function() {
+    switch (this.boroCode) {
+      case 1: return 'Manhattan';
+      case 2: return 'Bronx';
+      case 3: return 'Brooklyn';
+      case 4: return 'Queens';
+      case 5: return 'Staten Island';
+      default: return null;
+    }
+  }),
+  boroCode: computed('bbls.[]', function() {
+    if (this.bbls.length === 0) return null;
+    return parseInt(this.bbls.firstObject.charAt(0));
+  }),
   boroAbbr: computed('borough', function() {
     return boroughToAbbr(this.borough);
   }),
 
-  
   // Analysis Framework
   totalUnits: DS.attr('number', { defaultValue: 0 }),
   seniorUnits: DS.attr('number', { defaultValue: 0 }),
@@ -58,9 +60,9 @@ export default DS.Model.extend({
     return this.get('totalUnits') - this.get('seniorUnits');
   }),
 
-
   // Analyses Relationships
   publicSchoolsAnalysis: DS.belongsTo('public-schools-analysis'),
   transportationAnalysis: DS.belongsTo('transportation-analysis'),
   communityFacilitiesAnalysis: DS.belongsTo('community-facilities-analysis'),
+  airQualityAnalysis: DS.belongsTo('air-quality-analysis')
 });

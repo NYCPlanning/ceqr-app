@@ -1,8 +1,5 @@
 import
 {
-  fetchAndSaveModalSplit,
-  fetchACSModalSplit,
-  fetchCTPPModalSplit,
   getHeaders,
   composeModalSplit,
   makeModalSplitObject, 
@@ -22,49 +19,6 @@ import getTransportationCensusEstimateResponse from '../../../mirage/helpers/get
 module('Unit | Utility | modal-split', function(hooks) {
   setupTest(hooks);
   setupMirage(hooks); stubReadonlyStore(hooks);
-
-  test('it requests transportation-census-estimates and saves the composed result to the store', async function(assert) {
-    const session = { data: { authenticated: { token: 'testToken' } }, isAuthenticated: true };
-    const store = await this.owner.lookup('service:readonly-ceqr-data-store');
-    const geoid = '1';
-    const type = 'ACS';
-
-    const modalSplit = await fetchAndSaveModalSplit(type, geoid, session, store);
-
-    assert.ok(modalSplit);
-    assert.ok(store.getRecord(`${type}-modal-split`, geoid));
-  });
-
-  test('it requests acs-estimates from the server and returns the json-parsed "data"', async function(assert) {
-    // If a session exists with expected properties
-    const session = { data: { authenticated: { token: 'testToken' } } };
-
-    // When fetchModalSplit is called with a session and a geoid
-    const result = await fetchACSModalSplit(session, 'testGeoid');
-
-    // Then data is requested from the server and processed correctly (the 'data' portion of the json-parsed result is returned)
-    // confirmed by asserting:
-    // - the 'data' key is not present
-    // - the returned object is an array
-    assert.notOk(Object.keys(result).includes('data'));
-    assert.ok(Array.isArray(result));
-  });
-
-  test('it requests ctpp-estimates from the server and returns the json-parsed "data"', async function(assert) {
-    // If a session exists with expected properties
-    const session = { data: { authenticated: { token: 'testToken' } } };
-
-    // When fetchModalSplit is called with a session and a geoid
-    const result = await fetchCTPPModalSplit(session, 'testGeoid');
-
-    // Then data is requested from the server and processed correctly (the 'data' portion of the json-parsed result is returned)
-    // confirmed by asserting:
-    // - the 'data' key is not present
-    // - the returned object is an array
-    assert.notOk(Object.keys(result).includes('data'));
-    assert.ok(Array.isArray(result));
-  });
-
 
   test('it properly creates HTTP headers from session', function(assert) {
     // If a session exists that is not authenticated

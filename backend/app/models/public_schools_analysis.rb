@@ -1,6 +1,8 @@
 class PublicSchoolsAnalysis < ApplicationRecord
   before_create :compute_for_project_create_or_update
-  before_update :compute_for_project_create_or_update, if: Proc.new { data_package_id_changed? || subdistricts_from_user_changed? }
+  
+  before_update :compute_for_project_create_or_update,
+    if: Proc.new { data_package_id_changed? || subdistricts_from_user_changed? }
 
   belongs_to :project
   belongs_to :data_package

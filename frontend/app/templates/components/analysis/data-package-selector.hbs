@@ -1,0 +1,30 @@
+<div class="ui column">
+  {{#if newDataAvailable}}
+    <div class="row" style="margin-bottom: 10px;">
+      <div class="ui label">
+        <i class="exclamation orange circle icon"></i> New data available
+      </div>
+    </div>
+  {{/if}}
+
+  <div class="row" style="margin-bottom: 10px;">
+    <UiDropdown
+      @selected={{currentPackage.version}}
+      class="selection fluid"
+    >
+      <div class="text"></div>
+      <i class="dropdown icon"></i>
+      <div class="menu">
+        {{#each availablePackages as |package|}}
+          <div
+            data-value={{package.version}}
+            class="item"
+            onClick={{action "changeDataPackage" package}}
+          >
+            {{package.name}}
+          </div>
+        {{/each}}
+      </div>
+    </UiDropdown>
+  </div>
+</div>

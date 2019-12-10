@@ -1,4 +1,31 @@
 <div class="row">
+  <div class="one wide column">
+    <i class="ui huge {{if model.transportationAnalysis.detailedAnalysis "yellow exclamation circle" "green check"}} icon"></i>
+  </div>
+  <div class="fifteen wide column" style="margin-top: 1em;">    
+    <h2>
+      {{#if model.transportationAnalysis.detailedAnalysis}}
+        TDF Memo Required
+      {{else}}
+        TDF Memo Not Required
+      {{/if}}
+    </h2>
+
+    {{#if model.transportationAnalysis.detailedAnalysis}}
+      <p>Verify the numbers below before you set your Planning Factors.</p>
+
+      {{#link-to
+        "project.show.transportation.tdf.planning-factors"
+        model.project.id
+        class="ui primary button"
+      }}
+        Planning Factors <i class="ui icon caret right"></i>
+      {{/link-to}}
+    {{/if}}
+  </div>
+</div>
+
+<div class="row">
   <div class="sixteen wide column">
     <div
       class="ui
@@ -33,5 +60,16 @@
       @project={{model.project}}
      />
 
+  </div>
+</div>
+<div class="row">
+  <div class="sixteen wide column">
+    {{#link-to
+      "project.show.transportation.tdf.planning-factors"
+      model.project.id
+      class="ui primary massive button"
+    }}
+      Next <i class="ui icon caret right"></i>
+    {{/link-to}}
   </div>
 </div>

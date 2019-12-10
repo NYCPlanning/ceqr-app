@@ -1,0 +1,65 @@
+<td>
+  {{#if editModes}}
+    <UiCheckbox
+      @checked={{modeActive}}
+      @value={{mode}}
+      @onChecked={{action addActiveMode}}
+      @onUnchecked={{action removeActiveMode}}
+    />  
+  {{/if}}
+
+  {{mode-label mode}}
+</td>
+
+{{#if showInput}}
+  {{#if showTemporalModeSplits}}
+    <td>
+      <div class="ui right labeled input">
+        {{input type="number" max="100" min="0" step="0.1" value=amPercent}}
+        <div class="ui basic label">
+          %
+        </div>
+      </div>
+    </td>
+    <td>
+      <div class="ui right labeled input">
+        {{input type="number" max="100" min="0" step="0.1" value=mdPercent}}
+        <div class="ui basic label">
+          %
+        </div>
+      </div>
+    </td>
+    <td>
+      <div class="ui right labeled input">
+        {{input type="number" max="100" min="0" step="0.1" value=pmPercent}}
+        <div class="ui basic label">
+          %
+        </div>
+      </div>
+    </td>
+    <td>
+      <div class="ui right labeled input">
+        {{input type="number" max="100" min="0" step="0.1" value=satPercent}}
+        <div class="ui basic label">
+          %
+        </div>
+      </div>
+    </td>
+  {{else}}
+    <td>
+      <div class="ui right labeled input">
+        {{input type="number" max="100" min="0" step="0.1" value=allPeriodPercent}}
+        <div class="ui basic label">
+          %
+        </div>
+      </div>
+    </td>
+  {{/if}}
+{{else}}    
+  <td>
+    {{allPeriodPercent}} % ({{count}})
+  </td>
+{{/if}}
+
+
+{{yield}}

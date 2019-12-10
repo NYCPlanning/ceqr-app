@@ -11,13 +11,22 @@ export default Route.extend({
       { include: [
           'public-schools-analysis',
           'transportation-analysis',
-          'community-facilities-analysis'
+          'community-facilities-analysis',
+          'air-quality-analysis',
+          'data-package'
         ].join(',')
       }
     );
 
+    const mapplutoVersions = await this.store.query('data-package', { filter: { package: 'mappluto' } });
+
     return RSVP.hash({
-      project
+      project,
+      mapplutoVersions,
+      publicSchoolsAnalysis: project.publicSchoolsAnalysis,
+      transportationAnalysis: project.transportationAnalysis,
+      communityFacilitiesAnalysis: project.communityFacilitiesAnalysis,
+      airQualityAnalysis: project.airQualityAnalysis
     });
   },
 });

@@ -1,0 +1,38 @@
+  <h4 class="ui header top attached">Vehicle Trips</h4>
+
+  <table class="ui celled bottom attached table">
+    <thead>
+      <tr>
+        <th class="four wide">
+          Mode
+        </th>
+        <th class="two wide">
+          In
+        </th>
+        <th class="two wide">
+          Out
+        </th>
+        <th class="two wide">
+          Total
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each rows as |row|}}
+        <tr>
+          <td>{{mode-label row.mode}} {{#if (eq row.mode 'taxi')}}<div class="ui small label">Balanced</div>{{/if}}</td>
+          <td>{{row.in}}</td>
+          <td>{{row.out}}</td>
+          <td>{{row.total}}</td>
+        </tr>
+      {{/each}}
+    </tbody>
+    <tfoot>
+      <tr class="ui warning">
+        <td>TOTAL</td>
+        <td>{{total.in}}</td>
+        <td>{{total.out}}</td>
+        <td>{{total.total}}</td>
+      </tr>
+    </tfoot>
+  </table>

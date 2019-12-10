@@ -1,24 +1,50 @@
 import DS from 'ember-data';
 const { Model } = DS;
-import { attr, belongsTo } from '@ember-decorators/data';
+import { attr, belongsTo, hasMany } from '@ember-decorators/data';
 import { computed } from '@ember-decorators/object';
 import { alias } from '@ember-decorators/object/computed';
+import TripResultsTotalsCalculator from '../calculators/transportation/trip-results-totals';
+import { MODES } from 'labs-ceqr/utils/censusTractVariableForMode';
 
 export default class TransportationAnalysisModel extends Model {
+  ready() {
+    // Default modesForAnalysis
+    if (Object.keys(this.modesForAnalysis).length === 0) {
+      this.set('modesForAnalysis', [
+        "auto",
+        "taxi",
+        "bus",
+        "subway",
+        "walk",
+        "railroad"
+      ]);
+    }
+  }
+  
   @belongsTo project;
+  @hasMany('transportationPlanningFactor') transportationPlanningFactors;
 
   // Attributes
   @attr('number') trafficZone;
   // the geoids of REQUIRED census tracts in study selection; determined by bbl intersect
-  @attr({defaultValue: () => []}) requiredJtwStudySelection;
+  @attr({defaultValue: () => []}) requiredCensusTractsSelection;
   // the geoids of additional user-defined study selection
-  @attr({defaultValue: () => []}) jtwStudySelection;
+  @attr({defaultValue: () => []}) censusTractsSelection;
   // the computed centroid of the study selection
-  @attr({defaultValue: () => []}) jtwStudyAreaCentroid;
-  // The percentage values for trip generation per-peak-hour In and Out trip distributions
-  @attr({defaultValue: () => {}}) inOutDists;
-  // User-entered taxi vehicle occupancy rate for "trip generation" existing conditions step
-  @attr({defaultValue: () => null}) taxiVehicleOccupancy;
+  @attr({defaultValue: () => {}}) censusTractsCentroid;
+  // array of transport modes being analyzed
+  @attr({defaultValue: () => []}) modesForAnalysis;
+
+
+  @computed('modesForAnalysis.@each')
+  get activeModes() {
+    return MODES.filter((m) => this.modesForAnalysis.includes(m));
+  }
+
+  @computed('modesForAnalysis.@each')
+  get inactiveModes() {
+    return MODES.reject((m) => this.modesForAnalysis.includes(m));
+  }
 
   // Detailed Analysis trigger
   @computed(
@@ -33,6 +59,7 @@ export default class TransportationAnalysisModel extends Model {
     )
   }
 
+  // Sum of Ratios
   @computed(
     'residentialUnitsRatio',
     'officeSqFtRatio',
@@ -54,6 +81,12 @@ export default class TransportationAnalysisModel extends Model {
     )
   }
 
+  // Sum of Ratios boolean
+  @computed('sumOfRatios')
+  get sumOfRatiosOver1() {
+    return this.sumOfRatios > 1;
+  }
+
   // Fast Food boolean
   @computed('project.commercialLandUse.[]')
   get hasFastFood() {
@@ -64,12 +97,6 @@ export default class TransportationAnalysisModel extends Model {
   @computed('project.communityFacilityLandUse.[]')
   get hasCommunityFacility() {
     return !!this.get('project.communityFacilityLandUse').length;
-  }
-
-  // Sum of Ratios boolean
-  @computed('sumOfRatios')
-  get sumOfRatiosOver1() {
-    return this.sumOfRatios > 1;
   }
   
   // Residential units
@@ -144,13 +171,21 @@ export default class TransportationAnalysisModel extends Model {
     return this.ratioFor('offStreetParkingSpaces');
   }
 
+  @computed('transportationPlanningFactors.@each.tripResults')
+  get tripTotals() {
+    return TripResultsTotalsCalculator.create({
+      tripResults: this.transportationPlanningFactors.map((factor) => factor.tripResults),
+      modes: this.modesForAnalysis
+    });
+  }
+
   trafficZoneThresholds = {
     residentialUnits: {
       zone1: 240,
       zone2: 200,
       zone3: 200,
       zone4: 200,
-      zone5: 200
+      zone5: 100
     },
     officeSqFt: {
       zone1: 115000,
@@ -203,28 +238,4 @@ export default class TransportationAnalysisModel extends Model {
   ratioFor(type) {
     return this.get(type) / this.thresholdFor(type);
   }
-
-  /**
-   *  Existing Conditions > Trip Generation variables
-  **/ 
-
-  // Constants defined by the Technical Manual, Chapter 16 pg. 5
-  get dailyTripRate() {
-    const dtrConstants = {
-      weekday:  {label: "Weekday", rate:  8.075},
-      saturday: {label: "Saturday", rate: 9.6}
-    }
-    return dtrConstants;
-  }
-
-  get temporalDistributions() {
-    const tdConstants = {
-      am:       {label: "AM",       percent: 10, decimal: .10 },
-      md:       {label: "MD",       percent: 5,  decimal: .05 },
-      pm:       {label: "PM",       percent: 11, decimal: .11 },
-      saturday: {label: "Saturday", percent: 8,  decimal: .08 }
-    }
-    return tdConstants;
-  }
-
 }

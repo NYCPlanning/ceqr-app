@@ -589,7 +589,7 @@ export default Factory.extend({
   // TRAIT for testing subdistrictTotals
   subdistrictTotalsTest: trait({
     project: association({
-      borough: "Brooklyn",
+      bbls: ["3023910001"],
       totalUnits: 500,
       seniorUnits: 50
     }),
@@ -727,7 +727,7 @@ export default Factory.extend({
 
 
   project: association({
-      borough: "Brooklyn",
+      bbls: ["3023910001"],
       totalUnits: 500,
       seniorUnits: 50,
       buildYear: 2023

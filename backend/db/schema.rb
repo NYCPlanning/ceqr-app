@@ -10,12 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_28_152150) do
+ActiveRecord::Schema.define(version: 2019_12_09_194132) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
   enable_extension "postgis"
+
+  create_table "air_quality_analyses", force: :cascade do |t|
+    t.bigint "project_id", null: false
+    t.boolean "in_area_of_concern"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "community_facilities_analyses", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -49,16 +56,16 @@ ActiveRecord::Schema.define(version: 2019_08_28_152150) do
     t.text "updated_by"
     t.datetime "updated_at", null: false
     t.datetime "created_at", null: false
-    t.integer "senior_units"
-    t.integer "total_units"
+    t.integer "senior_units", default: 0, null: false
+    t.integer "total_units", default: 0, null: false
     t.text "ceqr_number"
     t.jsonb "commercial_land_use", default: [], null: false, array: true
     t.jsonb "industrial_land_use", default: [], null: false, array: true
     t.jsonb "community_facility_land_use", default: [], null: false, array: true
     t.jsonb "parking_land_use", default: [], null: false, array: true
     t.geometry "bbls_geom", limit: {:srid=>4326, :type=>"multi_polygon"}, null: false
-    t.text "bbls_version"
     t.integer "affordable_units", default: 0, null: false
+    t.bigint "data_package_id"
   end
 
   create_table "public_schools_analyses", force: :cascade do |t|
@@ -89,11 +96,26 @@ ActiveRecord::Schema.define(version: 2019_08_28_152150) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "project_id"
-    t.geometry "jtw_study_area_centroid", limit: {:srid=>4326, :type=>"st_point"}, null: false
-    t.text "required_jtw_study_selection", default: [], null: false, array: true
-    t.text "jtw_study_selection", default: [], array: true
-    t.jsonb "in_out_dists", default: {"am"=>{"in"=>50, "out"=>50}, "md"=>{"in"=>50, "out"=>50}, "pm"=>{"in"=>50, "out"=>50}, "saturday"=>{"in"=>50, "out"=>50}}
-    t.float "taxi_vehicle_occupancy"
+    t.geometry "census_tracts_centroid", limit: {:srid=>4326, :type=>"st_point"}, null: false
+    t.text "required_census_tracts_selection", default: [], null: false, array: true
+    t.text "census_tracts_selection", default: [], array: true
+    t.text "modes_for_analysis", default: [], null: false, array: true
+  end
+
+  create_table "transportation_planning_factors", force: :cascade do |t|
+    t.jsonb "mode_splits_from_user", default: {}, null: false
+    t.boolean "manual_mode_splits", default: true, null: false
+    t.jsonb "census_tract_variables", default: [], null: false, array: true
+    t.jsonb "vehicle_occupancy_from_user", default: {}, null: false
+    t.text "land_use", null: false
+    t.jsonb "in_out_splits", default: {}, null: false
+    t.jsonb "truck_in_out_splits", default: {}, null: false
+    t.jsonb "table_notes", default: {}, null: false
+    t.bigint "data_package_id"
+    t.bigint "transportation_analysis_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.boolean "temporal_mode_splits", default: false, null: false
   end
 
   create_table "users", force: :cascade do |t|
@@ -103,11 +125,16 @@ ActiveRecord::Schema.define(version: 2019_08_28_152150) do
     t.boolean "email_validated", default: false
     t.text "password_digest"
     t.boolean "account_approved", default: false
+    t.boolean "admin", default: false, null: false
     t.index ["email"], name: "user_email_unique", unique: true
   end
 
+  add_foreign_key "air_quality_analyses", "projects"
   add_foreign_key "community_facilities_analyses", "projects"
+  add_foreign_key "projects", "data_packages"
   add_foreign_key "public_schools_analyses", "data_packages"
   add_foreign_key "public_schools_analyses", "projects"
   add_foreign_key "transportation_analyses", "projects"
+  add_foreign_key "transportation_planning_factors", "data_packages"
+  add_foreign_key "transportation_planning_factors", "transportation_analyses"
 end

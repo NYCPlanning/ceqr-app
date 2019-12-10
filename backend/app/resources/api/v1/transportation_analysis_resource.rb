@@ -1,13 +1,24 @@
-class Api::V1::TransportationAnalysisResource < JSONAPI::Resource
-  attributes(
-    :traffic_zone,
-    :jtw_study_selection,
-    :required_jtw_study_selection,
-    :jtw_study_area_centroid,
-    :in_out_dists,
-    :taxi_vehicle_occupancy
-  )
+module Api
+  module V1
+    class TransportationAnalysisResource < BaseResource
+      attributes(
+        :traffic_zone,
+        :census_tracts_selection,
+        :required_census_tracts_selection,
+        :census_tracts_centroid,
+        :modes_for_analysis
+      )
 
-  has_one :project
-
+      def census_tracts_centroid     
+        RGeo::GeoJSON.encode(
+          RGeo::GeoJSON::FeatureCollection.new(  
+            [RGeo::GeoJSON::Feature.new(@model.census_tracts_centroid)]
+          )
+        )
+      end
+    
+      has_one :project
+      has_many :transportation_planning_factors
+    end
+  end
 end

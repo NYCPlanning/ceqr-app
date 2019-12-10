@@ -14,7 +14,8 @@
     "build": "ember build",
     "lint:js": "eslint ./*.js app config lib server tests",
     "start": "ember serve",
-    "test": "ember test"
+    "test": "ember test",
+    "start-with-backend": "HOST='http://localhost:3000' DISABLE_MIRAGE=true ember s"
   },
   "engines": {
     "node": "^8 || ^10"
@@ -34,6 +35,7 @@
     "ember-changeset": "^2.0.0",
     "ember-changeset-validations": "^2.0.0",
     "ember-cli": "~3.7.1",
+    "ember-cli-accounting": "^2.0.2",
     "ember-cli-app-version": "^3.2.0",
     "ember-cli-babel": "^7.5.0",
     "ember-cli-cjs-transform": "^1.3.1",
@@ -61,6 +63,7 @@
     "ember-decorators": "^5.1.3",
     "ember-export-application-global": "^2.0.0",
     "ember-font-awesome": "^4.0.0-rc.4",
+    "ember-inflector": "^3.0.1",
     "ember-load-initializers": "^2.0.0",
     "ember-lodash": "^4.19.4",
     "ember-mapbox-gl": "0.15.0",
@@ -92,6 +95,7 @@
   "dependencies": {
     "@sentry/browser": "^4.6.3",
     "@turf/bbox": "^6.0.1",
+    "@turf/buffer": "^5.1.5",
     "@turf/centroid": "^6.0.2",
     "@turf/helpers": "^6.1.4"
   },

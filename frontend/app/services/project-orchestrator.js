@@ -24,7 +24,10 @@ export default class ProjectOrchestratorService extends Service {
     try {
       const project = yield this.get('changeset').save();
       // ensure changes to analyses triggered by project updates are reloaded
-      yield project.transportationAnalysis.reload();
+      const transportationAnalysis = yield project.transportationAnalysis.reload();
+      yield transportationAnalysis.transportationPlanningFactors.reload();
+      yield transportationAnalysis.transportationPlanningFactors;
+
       yield project.publicSchoolsAnalysis.reload();
       yield project.communityFacilitiesAnalysis.reload();
 

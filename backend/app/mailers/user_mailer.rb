@@ -14,6 +14,13 @@ class UserMailer < ApplicationMailer
     mail(to: @user.email, from: @from, subject: '[CEQR App] Account waiting for approval')
   end
 
+  def account_approved
+    @user = params[:user]
+    @from = ENV['ADMIN_EMAILS']
+
+    mail(to: @user.email, from: @from, subject: '[CEQR App] Account approved')
+  end
+
   def password_reset
     @user = params[:user]
     @token = params[:token]

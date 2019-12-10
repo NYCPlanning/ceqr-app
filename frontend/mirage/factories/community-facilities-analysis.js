@@ -3,14 +3,14 @@ import { Factory, association, trait } from 'ember-cli-mirage';
 export default Factory.extend({
   childCareImpact: trait({
     project: association({
-      borough: 'Bronx',
+      bbls: ['2024130001'],
       affordableUnits: 142
     })
   }),
 
   noChildCareImpact: trait({
     project: association({
-      borough: 'Bronx',
+      bbls: ['2024130001'],
       affordableUnits: 1,
       totalUnits: null,
     })
@@ -18,14 +18,14 @@ export default Factory.extend({
 
   libraryImpact: trait({
     project: association({
-      borough: 'Bronx',
+      bbls: ['2024130001'],
       totalUnits: 683
     })
   }),
 
   noLibraryImpact: trait({
     project: association({
-      borough: 'Bronx',
+      bbls: ['2024130001'],
       totalUnits: 1
     })
   }),

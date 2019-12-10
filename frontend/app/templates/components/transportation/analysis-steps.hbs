@@ -1,4 +1,4 @@
-<div class="ui tiny steps fluid">
+<div class="ui tiny steps">
   {{#link-to
     "project.show.transportation.analysis-threshold"
     project.id
@@ -14,38 +14,25 @@
     </div>
   {{/link-to}}
   {{#link-to
-    "project.show.transportation.existing-conditions"
+    "project.show.transportation.tdf.planning-factors"
     project.id
     class="step"
   }}
     <div class="content">
       <div class="title">
-        Existing Conditions
-      </div>
-      <div class="description">
-        Transportation demand factors
+        Planning Factors
       </div>
     </div>
   {{/link-to}}
+  
   {{#link-to
-    "project.show.community-facilities"
+    "project.show.transportation.tdf.trip-results"
     project.id
-    class="step disabled"
+    class="step"
   }}
     <div class="content">
       <div class="title">
-        No Action Scenario
-      </div>
-    </div>
-  {{/link-to}}
-  {{#link-to
-    "project.show.community-facilities"
-    project.id
-    class="step disabled"
-  }}
-    <div class="content">
-      <div class="title">
-        With Action Scenario
+        Trip Results
       </div>
     </div>
   {{/link-to}}

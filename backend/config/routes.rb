@@ -7,6 +7,7 @@ Rails.application.routes.draw do
 
       put 'validate', to: 'users#validate'
       put 'password-reset', to: 'users#update_password'
+      put 'approve', to: 'users#approve'
     end
   end
 
@@ -14,6 +15,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       get 'mappluto/validate/:bbl', to: 'mappluto#validate'
       get 'doe_school_subdistricts/:version/subdistricts', to: 'doe_school_subdistricts#subdistricts'
+      get 'doe_school_zones/:level/:version/geojson', to: 'doe_school_zones#geojson'
     end
   end
 
@@ -28,11 +30,8 @@ Rails.application.routes.draw do
       # Analyses
       jsonapi_resources :public_schools_analyses
       jsonapi_resources :transportation_analyses
+      jsonapi_resources :transportation_planning_factors
       jsonapi_resources :community_facilities_analyses
-
-      # Read-only data
-      jsonapi_resources :acs_estimates
-      jsonapi_resources :ctpp_estimates
     end
   end
 end

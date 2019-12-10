@@ -198,7 +198,8 @@ if DataPackage.where(package: "nyc_acs", version: "2017").first.nil?
     package: "nyc_acs",
     release_date: Date.parse('2018-01-01'),
     schemas: {
-      "nyc_acs": { table: "2017" }
+      "nyc_acs": { table: "2017" },
+      "nyc_census_tract_boundaries": { table: "2010" }
     }
   })
 end
@@ -210,7 +211,19 @@ if DataPackage.where(package: "mappluto", version: "18v2").first.nil?
     package: "mappluto",
     release_date: Date.parse('2018-12-01'),
     schemas: {
-      "mappluto": { table: "18v2" }
+      "mappluto": { table: "18v2", carto: "mappluto_18v2" },
+    }
+  })
+end
+
+if DataPackage.where(package: "mappluto", version: "19v1").first.nil?
+  DataPackage.create({
+    name: "MapPLUTO 19v1",
+    version: "19v1",
+    package: "mappluto",
+    release_date: Date.parse('2019-03-01'),
+    schemas: {
+      "mappluto": { table: "19v1", carto: "mappluto_19v1" }
     }
   })
 end

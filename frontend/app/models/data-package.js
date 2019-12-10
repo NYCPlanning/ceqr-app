@@ -6,6 +6,6 @@ export default class DataPackageModel extends Model {
   @attr('string') name;
   @attr('string') package;
   @attr('string') version;
-  @attr('date') release_date;
+  @attr('date') releaseDate;
   @attr('') schemas;
 }

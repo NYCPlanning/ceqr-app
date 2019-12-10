@@ -1,4 +1,4 @@
-import { module, test } from 'qunit';
+import { module, skip } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
@@ -63,7 +63,7 @@ module('Integration | Component | transportation/trip-generation-map', function(
     `);
   });
 
-  test('it has tracts and subways in map', async function(assert) {
+  skip('it has tracts and subways in map', async function(assert) {
 
     await render(hbs`{{transportation/trip-generation-map}}`);
 
