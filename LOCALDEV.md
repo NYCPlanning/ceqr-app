@@ -28,6 +28,8 @@ rbenv init
 rbenv install 2.6.4
 ```
 
+If you're having trouble installing `2.6.4` run `brew upgrade ruby-build`
+
 ### Installing Node
 
 macOS will come with `node` installed. I use [`n`](https://github.com/tj/n) to manage node versions. Our current configuration expects [`yarn`](https://yarnpkg.com/en/) to manage javascript dependencies.
@@ -108,7 +110,7 @@ For the frontend:
 
 ```
 cd frontend/
-yarn serve-with-backend
+yarn serve-with-rails
 ```
 
 ### Troubleshooting Rails server
@@ -123,7 +125,7 @@ lsof -wni tcp:3000
 ```
 kill -9 <pid>
 ```
-3. Try `rails s` again. 
+3. Try `rails s` again.
 
 ### Running the tests
 
