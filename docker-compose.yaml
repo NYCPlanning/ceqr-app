@@ -53,3 +53,4 @@ services:
       - ./backend:/app
     environment:
       DATABASE_URL: postgis://postgres@postgis:5432/ceqr_rails
+      CEQR_DATA_DB_URL: postgis://doadmin:${PSQL_PASSWORD}@ceqr-data-readonly-do-user-1939427-0.db.ondigitalocean.com:25060/ceqr_data
