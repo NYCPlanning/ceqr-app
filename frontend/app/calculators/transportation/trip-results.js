@@ -134,11 +134,17 @@ export default class TransportationTripResultsCalculator extends EmberObject {
         
         let modeIn    = Math.round(this.personTrips[temporalId][mode].in   / this.vehicleOccupancy[mode].allPeriods);
         let modeOut   = Math.round(this.personTrips[temporalId][mode].out  / this.vehicleOccupancy[mode].allPeriods);
+        let unbalancedIn;
+        let unbalancedOut;
+
 
         // Make Taxi "Balanced" by doubling vehicle trips
         if (mode === "taxi") {
-          modeIn  = modeIn * 2;
-          modeOut = modeOut * 2;
+          unbalancedIn  = modeIn;
+          unbalancedOut = modeOut;
+
+          modeIn  = unbalancedIn + unbalancedOut;
+          modeOut = unbalancedIn + unbalancedOut;
         }
 
         const modeTotal = modeIn + modeOut; 
@@ -150,7 +156,11 @@ export default class TransportationTripResultsCalculator extends EmberObject {
         results[temporalId][mode] = { 
           in:    modeIn, 
           out:   modeOut,
-          total: modeTotal
+          total: modeTotal,
+
+          unbalancedIn,
+          unbalancedOut,
+          unbalancedTotal: unbalancedIn + unbalancedOut
         }
       });
     });
