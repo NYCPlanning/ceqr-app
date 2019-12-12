@@ -13,11 +13,17 @@
     <tbody class="ui form">
       <tr>
         <td>{{mode-label 'auto'}}</td>
-        <td>
-          {{#if factor.manualModeSplits}}
-            {{input type="number" step=".01" min="0" value=vehicleOccupancy.auto.allPeriods}}
-          {{else}}
-            {{vehicleOccupancy.auto.allPeriods}}
+        <td class="vehicle-occupancy--auto">
+          {{input type="number" step=".01" min="0" value=vehicleOccupancy.auto.allPeriods}}
+
+          {{#if (not factor.manualModeSplits)}}
+            <UiPopup @content="Average calculated using selected Census Tracts">
+              <div class="ui basic blue label"> 
+                {{factor.censusTractsCalculator.autoVehicleOccupancy}}
+                
+                <div class="detail"><i class="icon question circle"></i></div>
+              </div>
+            </UiPopup>
           {{/if}}
         </td>
       </tr>
