@@ -15,6 +15,7 @@ import { computed } from '@ember-decorators/object';
  * @param {object} vehicleOccupancy
  * @param {boolean} manualModeSplits
  * @param {boolean} temporalModeSplits
+ * @param {boolean} temporalVehicleOccupancy
  */
 
 export default class TransportationTripResultsCalculator extends EmberObject {
@@ -132,11 +133,12 @@ export default class TransportationTripResultsCalculator extends EmberObject {
       ["auto", "taxi"].forEach((mode) => {
         if (!this.modes.includes(mode)) return;
         
-        let modeIn    = Math.round(this.personTrips[temporalId][mode].in   / this.vehicleOccupancy[mode].allPeriods);
-        let modeOut   = Math.round(this.personTrips[temporalId][mode].out  / this.vehicleOccupancy[mode].allPeriods);
         let unbalancedIn;
         let unbalancedOut;
+        let vehicleOccupancy = this.temporalVehicleOccupancy ? this.vehicleOccupancy[mode][temporalId] : this.vehicleOccupancy[mode].allPeriods;
 
+        let modeIn    = Math.round(this.personTrips[temporalId][mode].in   / vehicleOccupancy);
+        let modeOut   = Math.round(this.personTrips[temporalId][mode].out  / vehicleOccupancy);
 
         // Make Taxi "Balanced" by doubling vehicle trips
         if (mode === "taxi") {
