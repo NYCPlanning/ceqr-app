@@ -42,9 +42,25 @@
 
 5.  🥳 **That's IT!!!!!!** 🥳
 
+##### Docker Tips  
+- When you `docker-compose up` for the first time (or if you cleanup the `postgis` volume that contains `ceqr_rails`), you'll have to Create an Account in CEQR App, then create a test project(s):  
+  - Create Account  
+  ![](docs/images/2019-12-12-12-27-32.png)
+  ![](docs/images/2019-12-12-12-24-37.png)
+  - Check your terminal console for the email URL to validate.  Copy and paste the `http://localhost:4200...` url in your browser to validate.  
+  ![](docs/images/2019-12-12-12-25-05.png)
+  - Successful validation:
+  ![](docs/images/2019-12-12-12-25-59.png)  
 
+- If you want to stop the containers, click `CTRL + C`
+  - Your `ceqr-rails` database (the user you created and projects) will be persisted in a docker volume connected to the `postgis` container.  
+  - Restarting the containers with `docker-compose up` will return you to the state of the app you left it in.
+- If you want to cleanup and start with a blank slate, run:  
+  ```sh
+  docker-compose down --volume
+  ```   
+  ![](docs/images/2019-12-12-12-29-07.png)
 ### Local Development
-
 If you don't want to run the ember frontend inside the docker container, that's fine! It's slow! I feel ya! You can run the ember frontend on your local machine, hooked up to the docker backend like:
 ```sh
 cd frontend
