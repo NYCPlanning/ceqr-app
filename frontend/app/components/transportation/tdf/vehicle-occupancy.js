@@ -11,4 +11,11 @@ export default class TransportationTdfVehicleOccupancyComponent extends Componen
   saveFactor() {
     this.factor.save();
   }
+
+  @action
+  toggleTemporalVehicleOccupancy(bool) {
+    this.factor.set('temporalVehicleOccupancy', bool);
+
+    this.factor.save();
+  }
 }

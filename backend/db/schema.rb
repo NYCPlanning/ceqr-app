@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_09_194132) do
+ActiveRecord::Schema.define(version: 2019_12_12_200643) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -116,6 +116,7 @@ ActiveRecord::Schema.define(version: 2019_12_09_194132) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "temporal_mode_splits", default: false, null: false
+    t.boolean "temporal_vehicle_occupancy", default: false, null: false
   end
 
   create_table "users", force: :cascade do |t|
