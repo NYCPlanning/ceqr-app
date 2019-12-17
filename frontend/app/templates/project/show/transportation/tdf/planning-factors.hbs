@@ -1,22 +1,13 @@
 <div class="row">
-  <div class="sixteen wide column">
-    <Transportation::LandUseMenu 
-      @tdfSection="planning-factors"
-      @factors={{model.transportationPlanningFactors}}
-    />
+  <div class="sixteen wide column sticky-transportation-bar">
+    {{#sticky-element top=65}}
+      <Transportation::LandUseMenu
+        @tdfSection="planning-factors"
+        @factors={{model.transportationPlanningFactors}}
+        @model={{model}}
+      />
+    {{/sticky-element}}
   </div>
 </div>
 
 {{outlet}}
-
-<div class="row">
-  <div class="sixteen wide column">
-    {{#link-to
-      "project.show.transportation.tdf.trip-results"
-      model.project.id
-      class="ui primary massive button"
-    }}
-      Next <i class="ui icon caret right"></i>
-    {{/link-to}}
-  </div>
-</div>
