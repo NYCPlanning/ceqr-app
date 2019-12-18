@@ -9,7 +9,7 @@ CEQR App runs on a Rails API and Ember frontend.
 There are two ways to run the app: 
 
 - [Run Locally](LOCALDEV.md)
-- [Use Docker](DOCKER.md) *(currently not working)*
+- [Use Docker](DOCKER.md)
 
 ## Architecture
 

@@ -1,15 +1,30 @@
 ## Running with Docker and docker-compose
-1. Install Docker & docker-compose on your machine, if you don't already have 'em
-([macOs](https://runnable.com/docker/install-docker-on-macos), [windows 10](https://runnable.com/docker/install-docker-on-windows-10), [linux](https://runnable.com/docker/install-docker-on-linux))
 
-2. Create a .env file from .env-example-docker-compose, which requires only one variable -- the password for the test_ceqr_app user to connect to the production, read-only ceqr_data postgres cluster
-3. Start up the ceqr app, with environment defined and all deps installed, and bring up the postgis with all dbs created and migrations applied:
+##### Requirements
+- Docker & docker-compose installed and running on your machine
+  - [macOs](https://runnable.com/docker/install-docker-on-macos), [windows 10](https://runnable.com/docker/install-docker-on-windows-10), [linux](https://runnable.com/docker/install-docker-on-linux)
+
+### Getting Started
+1. **Install frontend dependencies locally**
+   ```sh
+   # in your terminal:
+   cd frontend  
+   yarn
+   ```
+2. **Create a local .env file from [backend/.env-example](backend/.env-example)**.  In your `.env` copy that is `.gitignore`'d, update the variables as needed (see in-file comments for instructions)
+   ```sh
+   cd backend
+   cp .env-example .env
+   ```
+3. **Start up the ceqr app**, with environment defined and all deps installed, and bring up the postgis with all dbs created and migrations applied:
+    ```sh
+    docker-compose up # append "-d" if you'd like it to run in background, as a daemon
     ```
-    $ docker-compose up -d
-    ```
-4. Confirm everything is OK:
-    ```
-    $ docker-compose ps
+4. **Confirm everything is OK** 
+    ```sh
+    docker-compose ps
+
+    # should output =>
 
         Name                   Command              State            Ports
     -------------------------------------------------------------------------------
@@ -18,31 +33,45 @@
     ceqr-app_migrate_1   ./migrate.sh                    Exit 0
     ceqr-app_postgis_1   docker-entrypoint.sh postgres   Up       0.0.0.0:5432->5432/tcp
     ```
-    Some things to note:
+    _Note:_
      - `migrate` service is a short-lived container that sets up your backend for you. That's why it is State: Exit 0
-     - `ceqr_frontend` takes a _while_ to start up (ember builds are slow, this is a [known issue](https://docs.docker.com/docker-for-mac/troubleshoot/#/known-issues)), but the health check should give you signal on when things are good to go. Thankfully, after the initial super slow build, re-build for files changed during development are pretty seamless and speedy.
+     - `frontend` takes a _while_ to start up (ember builds are slow, this is a [known issue](https://docs.docker.com/docker-for-mac/troubleshoot/#/known-issues)), but the health check should give you signal on when things are good to go. Thankfully, after the initial super slow build, re-build for files changed during development are pretty seamless and speedy.
 
-    To mess with env configuration, port mapping, etc check out `docker-compose.yml`.
-     - The env for ceqr app is defined in the `environment` section of the `ceqr` service. If you want to define your env from a file, swap out `env` section for [`env_file` section](https://docs.docker.com/compose/compose-file/#env_file)
+    To mess with env configuration like port mapping, etc check out `docker-compose.yml`.
      - Port mappings are defined in `ports` sections; to change the port a service is mapped to and exposed on on your machine, change the first port in the mapping, i.e. "3001:3000" if you want ceqr running on port 3001 on your machine
 
-5.  That's IT!!!!!!
+5.  🥳 **That's IT!!!!!!** 🥳
 
+##### Docker Tips  
+- When you `docker-compose up` for the first time (or if you cleanup the `postgis` volume that contains `ceqr_rails`), you'll have to Create an Account in CEQR App, then create a test project(s):  
+  - Create Account  
+  ![](docs/images/2019-12-12-12-27-32.png)
+  ![](docs/images/2019-12-12-12-24-37.png)
+  - Check your terminal console for the email URL to validate.  Copy and paste the `http://localhost:4200...` url in your browser to validate.  
+  ![](docs/images/2019-12-12-12-25-05.png)
+  - Successful validation:
+  ![](docs/images/2019-12-12-12-25-59.png)  
 
+- If you want to stop the containers, click `CTRL + C`
+  - Your `ceqr-rails` database (the user you created and projects) will be persisted in a docker volume connected to the `postgis` container.  
+  - Restarting the containers with `docker-compose up` will return you to the state of the app you left it in.
+- If you want to cleanup and start with a blank slate, run:  
+  ```sh
+  docker-compose down --volume
+  ```   
+  ![](docs/images/2019-12-12-12-29-07.png)
 ### Local Development
-
 If you don't want to run the ember frontend inside the docker container, that's fine! It's slow! I feel ya! You can run the ember frontend on your local machine, hooked up to the docker backend like:
-```
-$ cd frontend
-$ HOST=http://localhost:3000 DISABLE_MIRAGE=true ember s
+```sh
+cd frontend
+HOST=http://localhost:3000 DISABLE_MIRAGE=true ember s
 ```
 
-If you have updated frontend or backend packages, you can run the install/updates on your local machine or inside the docker containers (nice if you don't have yarn/bundler installed, for instance) like:
+If you have updated backend packages, you can run the install/updates on your local machine or inside the docker containers (nice if you don't have bundler installed, for instance) like:
+```sh
+docker exec backend bundle install # to install new backend packages
 ```
-$ docker exec frontend yarn // to install new frontend packages
-$ docker exec backend bundle install // to install new backend packages
-```
-Alternatively, if you delete `/node_modules` or `Gemfile.lock`, bringing up the containers will re-run the package installation (see `frontend/entrypoint.sh` and `backend/entrypoint.sh`)
+Alternatively, if you delete `Gemfile.lock`, bringing up the containers will re-run the package installation (see `backend/entrypoint.sh`)
 
 
 Ember server will live-reload changes to the frontend app for you, so there is no need to restart the docker services when making changes to files in `frontend/`
@@ -52,27 +81,30 @@ Rails reloads the entire server on every request by default in development more,
 
 
 ### Debugging
-You can access an interactive [byebug](https://github.com/deivid-rodriguez/byebug) debug terminal by attaching to the backend service like:
+You can enter the running rails application by running:
 ```sh
-$ docker attach ceqr_backend_1
+docker exec -it ceqr-app_backend_1 bash
 ```
-Beware, you may have trouble detatching (I can't figure it out), so do this in a terminal window you don't mind closing when you're done.
+This is helpful if you want to run interactive rails commands, like `rails dbconsole` to get a psql session on your development `ceqr_rails` or `rails console` to inspect the state of the running application and troubleshoot.
 
 
 You can debug client-side frontend javascript in the browser as usual
 
 
 ### Testing
-To run ember tests in docker container:
+##### Rails
 ```sh
-$ docker-compose exec frontend ember t
-ok 1 Chrome 73.0 ...
-...
-```
+docker-compose exec backend rspec
 
-To run rails tests in docker container:
-```sh
-$ docker-compose exec backend rspec
+# outputs =>
 I, [2019-05-30T18:03:06.336418 #16473]  INFO -- sentry: ** [Raven] Raven 2.9.0 configured not to capture errors: DSN not set
 ...................
+```
+##### Ember
+```sh
+docker-compose exec frontend ember t
+
+# outputs =>
+ok 1 Chrome 73.0 ...
+...
 ```

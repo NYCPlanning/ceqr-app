@@ -7,7 +7,7 @@ import { computed } from '@ember-decorators/object';
  * @constructor
  * @param {string} landUse
  * @param {integer} units
- * @param {object} project - an array of all mode ids 
+ * @param {object} project - an array of all mode ids
  * @param {array} modes - array of modes to be analyzed
  * @param {object} modeSplits
  * @param {object} inOutSplits
@@ -15,6 +15,7 @@ import { computed } from '@ember-decorators/object';
  * @param {object} vehicleOccupancy
  * @param {boolean} manualModeSplits
  * @param {boolean} temporalModeSplits
+ * @param {boolean} temporalVehicleOccupancy
  */
 
 export default class TransportationTripResultsCalculator extends EmberObject {
@@ -69,8 +70,8 @@ export default class TransportationTripResultsCalculator extends EmberObject {
         results[temporalId]["total"].out   = modeOut   + results[temporalId]["total"].out;
         results[temporalId]["total"].total = modeTotal + results[temporalId]["total"].total;
 
-        results[temporalId][mode] = { 
-          in:    modeIn, 
+        results[temporalId][mode] = {
+          in:    modeIn,
           out:   modeOut,
           total: modeTotal
         }
@@ -106,7 +107,7 @@ export default class TransportationTripResultsCalculator extends EmberObject {
       const truckIn = Math.round(
         truckTrips *
         (parseFloat(this.truckInOutSplits.allDay.in)  / 100) *
-        this.defaults.truckTemporalDistribution[temporalId].percent / 
+        this.defaults.truckTemporalDistribution[temporalId].percent /
         100
       );
       const truckOut = Math.round(
@@ -116,7 +117,7 @@ export default class TransportationTripResultsCalculator extends EmberObject {
         100
       );
       const truckTotal = truckIn + truckOut;
-      
+
       results[temporalId]["truck"] = {
         in:    truckIn,
         out:   truckOut,
@@ -128,15 +129,16 @@ export default class TransportationTripResultsCalculator extends EmberObject {
         out:   truckOut,
         total: truckTotal
       };
-      
+
       ["auto", "taxi"].forEach((mode) => {
         if (!this.modes.includes(mode)) return;
-        
-        let modeIn    = Math.round(this.personTrips[temporalId][mode].in   / this.vehicleOccupancy[mode].allPeriods);
-        let modeOut   = Math.round(this.personTrips[temporalId][mode].out  / this.vehicleOccupancy[mode].allPeriods);
+
         let unbalancedIn;
         let unbalancedOut;
+        let vehicleOccupancy = this.temporalVehicleOccupancy ? this.vehicleOccupancy[mode][temporalId] : this.vehicleOccupancy[mode].allPeriods;
 
+        let modeIn    = Math.round(this.personTrips[temporalId][mode].in   / vehicleOccupancy);
+        let modeOut   = Math.round(this.personTrips[temporalId][mode].out  / vehicleOccupancy);
 
         // Make Taxi "Balanced" by doubling vehicle trips
         if (mode === "taxi") {
@@ -147,14 +149,14 @@ export default class TransportationTripResultsCalculator extends EmberObject {
           modeOut = unbalancedIn + unbalancedOut;
         }
 
-        const modeTotal = modeIn + modeOut; 
+        const modeTotal = modeIn + modeOut;
 
         results[temporalId]["total"].in    = modeIn    + results[temporalId]["total"].in;
         results[temporalId]["total"].out   = modeOut   + results[temporalId]["total"].out;
         results[temporalId]["total"].total = modeTotal + results[temporalId]["total"].total;
 
-        results[temporalId][mode] = { 
-          in:    modeIn, 
+        results[temporalId][mode] = {
+          in:    modeIn,
           out:   modeOut,
           total: modeTotal,
 
