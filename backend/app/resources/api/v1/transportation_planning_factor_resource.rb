@@ -7,6 +7,7 @@ module Api
         :land_use,
         :manual_mode_splits,
         :temporal_mode_splits,
+        :temporal_vehicle_occupancy,
         :mode_splits_from_user,
         :census_tract_variables,
         :vehicle_occupancy_from_user,

@@ -47,8 +47,20 @@ export default class TransportationPlanningFactorModel extends Model {
     // Default truckInOutSplits
     if (Object.keys(this.vehicleOccupancyFromUser).length === 0) {
       this.set('vehicleOccupancyFromUser', {
-        auto: { allPeriods: 1 },
-        taxi: { allPeriods: 1 }
+        auto: { 
+          am:         1,
+          md:         1,
+          pm:         1,
+          saturday:   1,
+          allPeriods: 1 
+        },
+        taxi: { 
+          am:         1,
+          md:         1,
+          pm:         1,
+          saturday:   1,
+          allPeriods: 1 
+        }
       });
     }
   }
@@ -71,6 +83,7 @@ export default class TransportationPlanningFactorModel extends Model {
 
   @attr('boolean') manualModeSplits;
   @attr('boolean') temporalModeSplits;
+  @attr('boolean') temporalVehicleOccupancy;
   @attr('ember-object', {defaultValue: () => {} }) modeSplitsFromUser;
   
   @computed('manualModeSplits', 'censusTractsCalculator', 'modeSplitsFromUser')
@@ -89,14 +102,7 @@ export default class TransportationPlanningFactorModel extends Model {
   @attr({defaultValue: () => {}}) vehicleOccupancyFromUser;
   @computed('manualModeSplits', 'vehicleOccupancyFromUser', 'censusTractsCalculator')
   get vehicleOccupancy() {
-    if (this.manualModeSplits) {
-      return this.vehicleOccupancyFromUser;
-    } else {
-      return {
-        ...this.vehicleOccupancyFromUser,
-        auto: { allPeriods: this.censusTractsCalculator.autoVehicleOccupancy }
-      };
-    }
+    return this.vehicleOccupancyFromUser;
   }
   set vehicleOccupancy(value) {
     this.set('vehicleOccupancyFromUser', value);
@@ -146,6 +152,7 @@ export default class TransportationPlanningFactorModel extends Model {
       project: this.get('transportationAnalysis.project'),
       manualModeSplits: this.manualModeSplits,
       temporalModeSplits: this.temporalModeSplits,
+      temporalVehicleOccupancy: this.temporalVehicleOccupancy,
       modes: this.activeModes,
       units: this.units
     });

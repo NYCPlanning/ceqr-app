@@ -1,5 +1,6 @@
 import Component from '@ember/component';
 import { computed, action } from '@ember-decorators/object';
+import mapboxgl from 'mapbox-gl';
 
 /**
  * Helper function to ensure 'bbls' layer is the top-most layer. MapboxGL styleIsLoaded() check,
@@ -77,5 +78,7 @@ export default class TransportationCensusTractsMapComponent extends Component {
   @action
   mapLoaded(map) {
     map.on('data', onMapStyleLoaded);
+
+    map.addControl(new mapboxgl.NavigationControl(), 'top-right');
   }
 }
