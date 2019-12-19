@@ -1,5 +1,5 @@
 <div class="ui menu fluid">
-  {{#each factors as |factor|}}
+  {{#each model.transportationPlanningFactors as |factor|}}
     {{#link-to
       factorLink
       factor.id
@@ -12,19 +12,21 @@
     {{/link-to}}
   {{/each}}
 
-    <div class="sixteen wide column">
-      {{#link-to
-        "project.show.transportation.tdf.trip-results"
-        model.project.id
-        class="ui primary massive button"
-      }}
-        Next <i class="ui icon caret right"></i>
-      {{/link-to}}
-    </div>
+  <div class="ui horizontal">
+    {{#link-to
+      "project.show.transportation.tdf.trip-results"
+      model.project.id
+      class="ui primary button"
+    }}
+      Next <i class="ui icon caret right"></i>
+    {{/link-to}}
+  </div>
 
-    <div class="ui blue button">
+  <div class="ui horizontal">
+    <div class="ui primary button" onClick={{action saveFactors}}>
       Save
     </div>
+  </div>
 
   {{!-- {{#if showTotalLink}}
     {{#link-to
