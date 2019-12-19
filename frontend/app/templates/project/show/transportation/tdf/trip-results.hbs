@@ -1,10 +1,12 @@
 <div class="row">
-  <div class="sixteen wide column">
-    <Transportation::LandUseMenu
-      @showTotalLink={{true}}
-      @tdfSection="trip-results"
-      @factors={{model.transportationPlanningFactors}}
-    />
+  <div class="sixteen wide column sticky-transportation-bar">
+    {{#sticky-element top=65}}
+      <Transportation::LandUseMenu
+        @showTotalLink={{true}}
+        @tdfSection="trip-results"
+        @factors={{model.transportationPlanningFactors}}
+      />
+    {{/sticky-element}}
   </div>
 </div>
 
