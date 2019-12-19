@@ -9,6 +9,7 @@
   @availablePackages={{model.availablePackages}}
 />
 
+{{log "tPF" model.transportationPlanningFactor}}
 <Transportation::Tdf::InOutSplits @factor={{model.transportationPlanningFactor}} />
 
 <Transportation::Tdf::VehicleOccupancy @factor={{model.transportationPlanningFactor}} />
