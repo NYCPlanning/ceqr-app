@@ -3,6 +3,12 @@ import { Factory } from 'ember-cli-mirage';
 export default Factory.extend({
   landUse: 'residential',
   manualModeSplits: false,
+  inOutSplits: () => ({
+    am: { in: 50, out: 50 },
+    md: { in: 50, out: 50 },
+    pm: { in: 50, out: 50 },
+    saturday: { in: 50, out: 50 }
+  }),
   censusTractVariables: () => [
     {
       "population": {
