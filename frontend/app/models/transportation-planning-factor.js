@@ -10,66 +10,13 @@ import EmberObject from '@ember/object';
 
 export default class TransportationPlanningFactorModel extends Model {
 
-  
-  // Set defaults on values not received from server
-  ready() {
-    // Default inOutSplits
-    if (Object.keys(this.inOutSplits).length === 0) {
-      this.set('inOutSplits', {
-        am:       { in: 50, out: 50 },
-        md:       { in: 50, out: 50 },
-        pm:       { in: 50, out: 50 },
-        saturday: { in: 50, out: 50 }
-      });
-    }
-
-    // Default truckInOutSplits
-    if (Object.keys(this.truckInOutSplits).length === 0) {
-      this.set('truckInOutSplits', {
-        allDay:  { in: 50, out: 50 }
-      });
-    }
-
-    // Default modeSplits
-    if (Object.keys(this.modeSplitsFromUser).length === 0) {
-      const modeSplitsFromUser = {};
-      MODES.forEach((m) => modeSplitsFromUser[m] = { 
-        am:         0,
-        md:         0,
-        pm:         0,
-        saturday:   0,
-        allPeriods: 0
-      });
-      
-      this.set('modeSplitsFromUser', EmberObject.create(modeSplitsFromUser));
-    }
-
-    // Default truckInOutSplits
-    if (Object.keys(this.vehicleOccupancyFromUser).length === 0) {
-      this.set('vehicleOccupancyFromUser', {
-        auto: { 
-          am:         1,
-          md:         1,
-          pm:         1,
-          saturday:   1,
-          allPeriods: 1 
-        },
-        taxi: { 
-          am:         1,
-          md:         1,
-          pm:         1,
-          saturday:   1,
-          allPeriods: 1 
-        }
-      });
-    }
-  }
-  
   @belongsTo transportationAnalysis;
   @belongsTo dataPackage;
   
   @attr('string') landUse;
-  @attr({defaultValue: () => {}}) tableNotes;
+  @attr({
+    defaultValue: () => {return {}}
+  }) tableNotes;
   
   // Census tract variable data if landUse is residential or office
   @attr({defaultValue: () => []}) censusTractVariables;
@@ -84,7 +31,19 @@ export default class TransportationPlanningFactorModel extends Model {
   @attr('boolean') manualModeSplits;
   @attr('boolean') temporalModeSplits;
   @attr('boolean') temporalVehicleOccupancy;
-  @attr('ember-object', {defaultValue: () => {} }) modeSplitsFromUser;
+  @attr('ember-object', {
+    defaultValue: () => {
+      const modeSplitsFromUser = {};
+      MODES.forEach((m) => modeSplitsFromUser[m] = {
+        am:         0,
+        md:         0,
+        pm:         0,
+        saturday:   0,
+        allPeriods: 0
+      });
+      return EmberObject.create(modeSplitsFromUser);
+    }
+  }) modeSplitsFromUser;
   
   @computed('manualModeSplits', 'censusTractsCalculator', 'modeSplitsFromUser')
   get modeSplits() {
@@ -99,7 +58,26 @@ export default class TransportationPlanningFactorModel extends Model {
   }
 
   // User-entered vehicle occupancy rate for "trip generation" existing conditions step
-  @attr({defaultValue: () => {}}) vehicleOccupancyFromUser;
+  @attr({
+    defaultValue: () => {
+      return {
+        auto: { 
+          am:         1,
+          md:         1,
+          pm:         1,
+          saturday:   1,
+          allPeriods: 1 
+        },
+        taxi: { 
+          am:         1,
+          md:         1,
+          pm:         1,
+          saturday:   1,
+          allPeriods: 1 
+        }
+      };
+    }
+  }) vehicleOccupancyFromUser;
   @computed('manualModeSplits', 'vehicleOccupancyFromUser', 'censusTractsCalculator')
   get vehicleOccupancy() {
     return this.vehicleOccupancyFromUser;
@@ -109,8 +87,20 @@ export default class TransportationPlanningFactorModel extends Model {
   }
 
   // The percentage values for trip generation per-peak-hour In and Out trip distributions
-  @attr({defaultValue: () => {}}) inOutSplits;
-  @attr({defaultValue: () => {}}) truckInOutSplits;
+  @attr({ defaultValue: () => {
+    return {
+        am:       { in: 50, out: 50 },
+        md:       { in: 50, out: 50 },
+        pm:       { in: 50, out: 50 },
+        saturday: { in: 50, out: 50 }
+      }
+    }
+  }) inOutSplits;
+  @attr({defaultValue: () => {
+    return {
+      allDay:  { in: 50, out: 50 }
+    };
+  }}) truckInOutSplits;
 
   @computed('transportationAnalysis.project.{totalUnits,commercialLandUse}', 'landUse')
   get units() {
