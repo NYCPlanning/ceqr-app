@@ -8,9 +8,11 @@ export default Route.extend({
     const project = await this.get('store').findRecord(
       'project',
       params.id,
-      { include: [
+      {
+        include: [
           'public-schools-analysis',
           'transportation-analysis',
+          'transportation-analysis.transportation-planning-factors',
           'community-facilities-analysis',
           'air-quality-analysis',
           'data-package'

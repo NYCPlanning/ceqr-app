@@ -18,7 +18,12 @@
             {{#each model as |project|}}
               <tr class="project-row">
                 <td>
-                  {{#link-to "project.show" project.id class="project-name"}}
+                  {{#link-to
+                    "project.show"
+                    project.id
+                    class="project-name"
+                    data-test-project=project.id
+                  }}
                     {{project.name}}
                   {{/link-to}}
                   {{#if project.ceqrNumber}}

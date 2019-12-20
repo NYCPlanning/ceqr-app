@@ -123,11 +123,14 @@
       <thead>
         <tr>
           <td>
-            <div class="ui small buttons">
-              <button class="ui button {{if factor.manualModeSplits 'positive'}}" onClick={{action toggleManualModeSplits}}>Manual</button>
-              <div class="or"></div>
-              <button class="ui button {{if (not factor.manualModeSplits) 'positive'}}" onClick={{action toggleCensusTractModeSplits}}>Census Tracts</button>
-            </div>
+            {{#if factor.transportationAnalysis.project.viewOnly}}
+            {{else}}
+              <div class="ui small buttons" data-test-manual-mode-toggle>
+                <button class="ui button {{if factor.manualModeSplits 'positive'}}" onClick={{action toggleManualModeSplits}}>Manual</button>
+                <div class="or"></div>
+                <button class="ui button {{if (not factor.manualModeSplits) 'positive'}}" onClick={{action toggleCensusTractModeSplits}}>Census Tracts</button>
+              </div>
+            {{/if}}
           </td>
           <td>
             {{!-- Census Tract calculations only product on period --}}
