@@ -1,19 +1,34 @@
-import { Factory, association } from 'ember-cli-mirage';
+import { Factory } from 'ember-cli-mirage';
 
 export default Factory.extend({
   trafficZone: 2,
-  requiredJtwStudySelection: () => [
+  requiredCensusTractsSelection: () => [
       "36061020300"
   ],
-  jtwStudySelection: () => [
+  censusTractsSelection: () => [
     '36061020500', '36061021100', '36061019701', '36061020701', '36061020101', '36061019900'
   ],
-  jtwStudyAreaCentroid: () => [
-    -73.964251, 40.8080809
+  censusTractsCentroid: () => {
+    return {
+      features: [
+        {
+          geometry: {
+            coordinates: [
+              -73.964251, 40.8080809
+            ],
+          },
+        },
+      ]
+    }
+  },
+  modesForAnalysis: () => [
+    "auto",
+    "taxi",
+    "bus",
+    "subway",
+    "walk",
+    "railroad"
   ],
-  project: association({
-    totalUnits: 1000,
-  }),
   inOutDists: () => {
     return {
       am: {

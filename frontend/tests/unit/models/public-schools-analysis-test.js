@@ -240,6 +240,7 @@ module('Unit | Model | public schools analysis', function(hooks) {
           subdistrict: 5
         }
       ],
+      project: this.server.create('project'),
     });
     let project = await this.owner.lookup('service:store').findRecord(
       'project', analysisMirage.projectId, { include: 'public-schools-analysis' }
@@ -322,17 +323,19 @@ module('Unit | Model | public schools analysis', function(hooks) {
     */
 
     // project with build year 2027
-    let analysisMirage2027 = server.create('public-schools-analysis', {
-      project: association({
+    let analysisMirage2027 = this.server.create('public-schools-analysis', {
+      project: this.server.create('project', {
         buildYear: 2027
-      })
+      }),
+      dataPackage: this.server.create('data-package', 'publicSchools'),
     });
 
     // project with build year 2024
-    let analysisMirage2024 = server.create('public-schools-analysis', {
-      project: association({
-        buildYear: 2024
-      })
+    let analysisMirage2024 = this.server.create('public-schools-analysis', {
+      project: this.server.create('project', {
+        buildYear: 2024,
+      }),
+      dataPackage: this.server.create('data-package', 'publicSchools'),
     });
 
     let analysis2024 = await this.owner.lookup('service:store').findRecord(
@@ -385,6 +388,7 @@ module('Unit | Model | public schools analysis', function(hooks) {
     */
 
     let analysisMirage = server.create('public-schools-analysis', {
+      project: this.server.create('project'),
       doeUtilChanges: [
         {
           title: "",

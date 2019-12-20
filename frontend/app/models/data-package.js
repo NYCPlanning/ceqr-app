@@ -1,6 +1,6 @@
 import DS from 'ember-data';
 const { Model } = DS;
-import { attr } from '@ember-decorators/data';
+import { attr, hasMany } from '@ember-decorators/data';
 
 export default class DataPackageModel extends Model {
   @attr('string') name;
@@ -8,4 +8,7 @@ export default class DataPackageModel extends Model {
   @attr('string') version;
   @attr('date') releaseDate;
   @attr('') schemas;
+
+  @hasMany('project') projects;
+  @hasMany('transportationPlanningFactor') transportationPlanningFactors;
 }
