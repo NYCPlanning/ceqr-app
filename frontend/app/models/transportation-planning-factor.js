@@ -10,6 +10,67 @@ import EmberObject from '@ember/object';
 
 export default class TransportationPlanningFactorModel extends Model {
 
+
+    // Set defaults on values not received from server.
+    // For any property set through the ready() hook,
+    // if using Object.keys() to check if it is undefined,
+    // then make sure to set the defaultValue of the property to an empty object.
+    // This assumes that/follows the lead of the server in returning an empty object by default
+    // (instead of undefined) for those properties.
+    // TODO: refactor so that the
+    ready() {
+      // Default inOutSplits
+      if (Object.keys(this.inOutSplits).length === 0) {
+        this.set('inOutSplits', {
+          am:       { in: 50, out: 50 },
+          md:       { in: 50, out: 50 },
+          pm:       { in: 50, out: 50 },
+          saturday: { in: 50, out: 50 }
+        });
+      }
+
+      // Default truckInOutSplits
+      if (Object.keys(this.truckInOutSplits).length === 0) {
+        this.set('truckInOutSplits', {
+          allDay:  { in: 50, out: 50 }
+        });
+      }
+
+      // Default modeSplits
+      if (Object.keys(this.modeSplitsFromUser).length === 0) {
+        const modeSplitsFromUser = {};
+        MODES.forEach((m) => modeSplitsFromUser[m] = {
+          am:         0,
+          md:         0,
+          pm:         0,
+          saturday:   0,
+          allPeriods: 0
+        });
+
+        this.set('modeSplitsFromUser', EmberObject.create(modeSplitsFromUser));
+      }
+
+      // Default truckInOutSplits
+      if (Object.keys(this.vehicleOccupancyFromUser).length === 0) {
+        this.set('vehicleOccupancyFromUser', {
+          auto: {
+            am:         1,
+            md:         1,
+            pm:         1,
+            saturday:   1,
+            allPeriods: 1
+          },
+          taxi: {
+            am:         1,
+            md:         1,
+            pm:         1,
+            saturday:   1,
+            allPeriods: 1
+          }
+        });
+      }
+    }
+
   @belongsTo transportationAnalysis;
   @belongsTo dataPackage;
 
@@ -33,15 +94,7 @@ export default class TransportationPlanningFactorModel extends Model {
   @attr('boolean') temporalVehicleOccupancy;
   @attr('ember-object', {
     defaultValue: () => {
-      const modeSplitsFromUser = {};
-      MODES.forEach((m) => modeSplitsFromUser[m] = {
-        am:         0,
-        md:         0,
-        pm:         0,
-        saturday:   0,
-        allPeriods: 0
-      });
-      return EmberObject.create(modeSplitsFromUser);
+      return {};
     }
   }) modeSplitsFromUser;
 
@@ -60,22 +113,7 @@ export default class TransportationPlanningFactorModel extends Model {
   // User-entered vehicle occupancy rate for "trip generation" existing conditions step
   @attr({
     defaultValue: () => {
-      return {
-        auto: {
-          am:         1,
-          md:         1,
-          pm:         1,
-          saturday:   1,
-          allPeriods: 1
-        },
-        taxi: {
-          am:         1,
-          md:         1,
-          pm:         1,
-          saturday:   1,
-          allPeriods: 1
-        }
-      };
+      return {};
     }
   }) vehicleOccupancyFromUser;
   @computed('manualModeSplits', 'vehicleOccupancyFromUser', 'censusTractsCalculator')
@@ -88,18 +126,11 @@ export default class TransportationPlanningFactorModel extends Model {
 
   // The percentage values for trip generation per-peak-hour In and Out trip distributions
   @attr({ defaultValue: () => {
-    return {
-        am:       { in: 50, out: 50 },
-        md:       { in: 50, out: 50 },
-        pm:       { in: 50, out: 50 },
-        saturday: { in: 50, out: 50 }
-      }
+    return {}
     }
   }) inOutSplits;
   @attr({defaultValue: () => {
-    return {
-      allDay:  { in: 50, out: 50 }
-    };
+    return {};
   }}) truckInOutSplits;
 
   @computed('transportationAnalysis.project.{totalUnits,commercialLandUse}', 'landUse')
@@ -108,7 +139,6 @@ export default class TransportationPlanningFactorModel extends Model {
       return this.get('transportationAnalysis.project.totalUnits');
     }
     if (this.landUse === 'office') {
-      console.log('hitting?');
       const commercialLandUse = this.get('transportationAnalysis.project.commercialLandUse');
       return commercialLandUse.findBy('type', 'office').grossSqFt;
     }

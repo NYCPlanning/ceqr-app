@@ -3,21 +3,6 @@ import { Factory } from 'ember-cli-mirage';
 export default Factory.extend({
   landUse: 'residential',
   manualModeSplits: false,
-  // modeSplitsFromUser: () => {},
-  // vehicleOccupancyFromUser: () => {},
-  inOutSplits: () => {
-    return {
-      am:       { in: 50, out: 50 },
-      md:       { in: 50, out: 50 },
-      pm:       { in: 50, out: 50 },
-      saturday: { in: 50, out: 50 }
-    }
-  },
-  truckInOutSplits: () => {
-    return {
-      allDay:  { in: 50, out: 50 }
-    }
-  },
   censusTractVariables: () => [
     {
       "population": {
