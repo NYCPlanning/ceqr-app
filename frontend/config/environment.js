@@ -73,7 +73,7 @@ module.exports = function(environment) {
   if (environment === 'development') {
     ENV['ember-simple-auth-token'].tokenExpirationInvalidateSession = false;
     ENV['ember-cli-mirage'] = {
-      enabled: process.env.DISABLE_MIRAGE ? false : typeof process.env.RAILS_ENV === 'undefined',
+      enabled: process.env.DISABLE_MIRAGE ? false : true,
     }
     ENV.shouldThrowOnError = true;
   }
@@ -111,7 +111,7 @@ function getHost(environment) {
   if (process.env.HOST) {
     return process.env.HOST;
   }
-  
+
   if (environment === 'staging') {
     return 'https://staging.api.ceqr.app';
   }
