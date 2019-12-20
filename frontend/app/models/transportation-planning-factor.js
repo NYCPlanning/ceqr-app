@@ -12,12 +12,12 @@ export default class TransportationPlanningFactorModel extends Model {
 
   @belongsTo transportationAnalysis;
   @belongsTo dataPackage;
-  
+
   @attr('string') landUse;
   @attr({
     defaultValue: () => {return {}}
   }) tableNotes;
-  
+
   // Census tract variable data if landUse is residential or office
   @attr({defaultValue: () => []}) censusTractVariables;
   @computed('censusTractVariables', 'transportationAnalysis.censusTractsSelection.@each')
@@ -44,7 +44,7 @@ export default class TransportationPlanningFactorModel extends Model {
       return EmberObject.create(modeSplitsFromUser);
     }
   }) modeSplitsFromUser;
-  
+
   @computed('manualModeSplits', 'censusTractsCalculator', 'modeSplitsFromUser')
   get modeSplits() {
     if (this.manualModeSplits) {
@@ -61,19 +61,19 @@ export default class TransportationPlanningFactorModel extends Model {
   @attr({
     defaultValue: () => {
       return {
-        auto: { 
+        auto: {
           am:         1,
           md:         1,
           pm:         1,
           saturday:   1,
-          allPeriods: 1 
+          allPeriods: 1
         },
-        taxi: { 
+        taxi: {
           am:         1,
           md:         1,
           pm:         1,
           saturday:   1,
-          allPeriods: 1 
+          allPeriods: 1
         }
       };
     }
@@ -108,6 +108,7 @@ export default class TransportationPlanningFactorModel extends Model {
       return this.get('transportationAnalysis.project.totalUnits');
     }
     if (this.landUse === 'office') {
+      console.log('hitting?');
       const commercialLandUse = this.get('transportationAnalysis.project.commercialLandUse');
       return commercialLandUse.findBy('type', 'office').grossSqFt;
     }
@@ -117,7 +118,7 @@ export default class TransportationPlanningFactorModel extends Model {
   @alias('tripResults.defaults.unitName') unitName;
   @alias('tripResults.defaults.tripGenRatePerUnit') tripGenRatePerUnit;
   @alias('tripResults.defaults') defaults;
-  
+
   @alias('transportationAnalysis.modesForAnalysis') modesForAnalysis;
   @alias('transportationAnalysis.activeModes') activeModes;
   @alias('transportationAnalysis.inactiveModes') inactiveModes;

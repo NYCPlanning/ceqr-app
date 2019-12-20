@@ -33,7 +33,5 @@ module('Acceptance | 492 view only transportation', function(hooks) {
     await click('[data-test-transportation-step="planning-factors"]');
 
    assert.equal(1,1);
-
-   await this.pauseTest();
   });
 });
