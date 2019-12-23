@@ -12,7 +12,13 @@
     {{/link-to}}
   {{/each}}
 
-  <div class="ui horizontal">
+  <div class="ui segment">
+    <div class="ui primary button" data-test-button="saveFactors" onClick={{action saveFactors}}>
+      Save
+    </div>
+  </div>
+
+  <div class="ui segment">
     {{#link-to
       "project.show.transportation.tdf.trip-results"
       model.project.id
@@ -20,12 +26,6 @@
     }}
       Next <i class="ui icon caret right"></i>
     {{/link-to}}
-  </div>
-
-  <div class="ui horizontal">
-    <div class="ui primary button" data-test-button="saveFactors" onClick={{action saveFactors}}>
-      Save
-    </div>
   </div>
 
   {{!-- {{#if showTotalLink}}
