@@ -327,3 +327,8 @@ table.school-summary-sections {
 .sticky-transportation-bar {
   z-index: 9999;
 }
+
+.ceqr-no-border.ui.menu {
+  border: none !important;
+  box-shadow: none !important;
+}

@@ -1,39 +1,34 @@
-<div class="ui menu fluid">
-  {{#each model.transportationPlanningFactors as |factor|}}
-    {{#link-to
-      factorLink
-      factor.id
-      class="item"
-    }}
-      <span data-test-land-use-tab="{{factor.landUse}}">{{humanize factor.landUse}}</span>
-      <div class="ui horizontal label">
-        {{pluralize (format-number factor.units) factor.unitName}}
-      </div>
-    {{/link-to}}
-  {{/each}}
+<div class="ui grid">
+  <div class="eight wide column">
+    <div class="ui two item menu">
+      {{#each model.transportationPlanningFactors as |factor|}}
+        {{#link-to
+          factorLink
+          factor.id
+          class="item"
+        }}
+          <span data-test-land-use-tab="{{factor.landUse}}">{{humanize factor.landUse}}</span>
+          <div class="ui horizontal label">
+            {{pluralize (format-number factor.units) factor.unitName}}
+          </div>
+        {{/link-to}}
+      {{/each}}
+    </div>
+  </div>
 
-  <div class="ui segment">
-    <div class="ui primary button" data-test-button="saveFactors" onClick={{action saveFactors}}>
+  <div class="four wide column">
+    <div class="fluid ui positive button" data-test-button="saveFactors" onClick={{action saveFactors}}>
       Save
     </div>
   </div>
 
-  <div class="ui segment">
+  <div class="four wide column">
     {{#link-to
       "project.show.transportation.tdf.trip-results"
       model.project.id
-      class="ui primary button"
+      class="fluid ui primary button"
     }}
-      Next <i class="ui icon caret right"></i>
+      Next
     {{/link-to}}
   </div>
-
-  {{!-- {{#if showTotalLink}}
-    {{#link-to
-      totalLink
-      class="item right floated"
-    }}
-      Trip Totals
-    {{/link-to}}
-  {{/if}} --}}
 </div>

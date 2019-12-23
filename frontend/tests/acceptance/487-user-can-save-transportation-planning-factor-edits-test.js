@@ -46,6 +46,8 @@ module('Acceptance | 487 user can save transportation planning factor edits', fu
 
     await click('[data-test-transportation-step="planning-factors"]');
 
+    await this.pauseTest();
+
     // ###### RESIDENTIAL TAB ############################
     // this checks that the correct elements are showing up, and that the user is currently on the RESIDENTIAL TAB
     assert.equal(this.element.querySelector('[data-test-total-per="residential"]').textContent, 'Total (Per 1 DU)');
