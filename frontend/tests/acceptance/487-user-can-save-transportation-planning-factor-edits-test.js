@@ -100,4 +100,54 @@ module('Acceptance | 487 user can save transportation planning factor edits', fu
     // "out" value should be 100 minus "in" value
     assert.equal(this.server.db.transportationPlanningFactors.lastObject.inOutSplits.am.out, 71);
   });
+
+  test('User can save changes made to transportation Trip Results notes', async function(assert) {
+    server.logging = true;
+
+    this.server.create('user');
+    this.server.create('project', {
+      commercialLandUse: [
+        {
+          name: "Office",
+          type: "office",
+          grossSqFt: 100,
+        },
+      ],
+      publicSchoolsAnalysis: this.server.create('publicSchoolsAnalysis'),
+      transportationAnalysis: this.server.create('transportationAnalysis', {
+        transportationPlanningFactors: [
+          this.server.create('transportationPlanningFactor', {
+            dataPackage: this.server.create('dataPackage', 'nycAcs'),
+            landUse: 'residential',
+          }),
+          this.server.create('transportationPlanningFactor', {
+            dataPackage: this.server.create('dataPackage', 'nycAcs'),
+            landUse: 'office',
+          }),
+        ],
+       }),
+       communityFacilitiesAnalysis: this.server.create('communityFacilitiesAnalysis'),
+    });
+
+    await visit('/');
+    await fillIn('[data-test-login-form="email"]', 'user@email.com');
+    await fillIn('[data-test-login-form="password"]', 'password');
+    await click('[data-test-login-form="login"]');
+
+    await click('[data-test-project="1"]');
+
+    await click('[data-test-chapter="transportation"]');
+
+    await click('[data-test-transportation-step="trip-results"]');
+
+    await click('[data-test-button="add note"]');
+
+    await fillIn('[data-test-text-area="table note"]', 'peaches & cream');
+
+    await click('[data-test-button="save note"]');
+
+    assert.equal(this.element.querySelector('[data-test-text="table note"]').textContent, 'peaches & cream');
+
+    assert.equal(this.server.db.transportationPlanningFactors.firstObject.tableNotes.personTrips, 'peaches & cream');
+  });
 });
