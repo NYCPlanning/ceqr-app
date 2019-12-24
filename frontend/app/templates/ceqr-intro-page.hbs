@@ -1,0 +1,28 @@
+<div class="cell route-{{currentRouteName}}">
+  <div class="grid-container">
+
+    <br>
+    <h2>Welcome to CEQR App!</h2>
+
+    <br>
+    <p>CEQR App is a new product from the NYC Department of City Planning that's here to help you work through the CEQR process more quickly
+    and efficiently. By using the most up-to-date data sources, we have developed dynamic tools for several CEQR chapters to speed up the process
+    and improve your workflow. Please don't hesitate with feedback, we're excited to improve this process together!</p>
+
+    <p>Let's get started by creating a new project.</p>
+
+    <div>
+      {{#link-to
+        "project.new"
+        class="ui green button"
+      }}
+        New Project
+      {{/link-to}}
+    </div>
+
+    <font color="blue">Email Us</font>
+
+  </div>
+</div>
+
+{{outlet}}
