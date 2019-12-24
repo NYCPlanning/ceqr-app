@@ -2,8 +2,9 @@ import EmberRouter from '@ember/routing/router';
 import config from './config/environment';
 import { inject as service } from '@ember/service';
 import { scheduleOnce } from '@ember/runloop';
+import RouterScroll from 'ember-router-scroll';
 
-const Router = EmberRouter.extend({
+const Router = EmberRouter.extend(RouterScroll, {
   location: config.locationType,
   rootURL: config.rootURL,
   metrics: service(),
@@ -47,13 +48,13 @@ Router.map(function() {
       // CEQR chapter routes
       this.route('public-schools', function() {
         this.route('analysis-threshold', {path: '/'});
-        
+
         this.route('existing-conditions', function() {
           this.route('schools', {path: '/'});
           this.route('study-area');
           this.route('new-schools');
         });
-        
+
         this.route('no-action', function() {
           this.route('scenario', {path: '/'});
           this.route('under-construction');
