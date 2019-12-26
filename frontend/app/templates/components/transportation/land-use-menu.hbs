@@ -16,19 +16,30 @@
     </div>
   </div>
 
-  <div class="four wide column middle aligned">
-    <div class="fluid ui positive button" data-test-button="saveFactors" onClick={{action saveFactors}}>
-      Save
+  {{#if (eq tdfSection "planning-factors")}}
+    <div class="four wide column middle aligned banana2">
+      <div class="fluid ui positive button" data-test-button="saveFactors" onClick={{action saveFactors}}>
+        Save
+      </div>
     </div>
-  </div>
-
-  <div class="four wide column middle aligned">
-    {{#link-to
-      "project.show.transportation.tdf.trip-results"
-      model.project.id
-      class="fluid ui primary button"
-    }}
-      Next
-    {{/link-to}}
-  </div>
+    <div class="four wide column middle aligned banana">
+      {{#link-to
+        "project.show.transportation.tdf.trip-results"
+        model.project.id
+        class="fluid ui primary button"
+      }}
+        Next
+      {{/link-to}}
+    </div>
+  {{else}}
+    <div class="four wide column middle aligned">
+      {{#link-to
+        "project.show"
+        model.project.id
+        class="fluid ui positive button"
+      }}
+      Save & Return to Dashboard
+      {{/link-to}}
+    </div>
+  {{/if}}
 </div>
