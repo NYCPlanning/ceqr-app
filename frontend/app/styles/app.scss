@@ -23,7 +23,7 @@ body .ui.grid.container {
 .beta-notice {
   position: fixed;
   display: block;
-  
+
   color: #fff;
   font-size: 12px;
   font-weight: bold;
@@ -79,12 +79,12 @@ footer {
 
 .icon.no-size {
   font-size: 1em !important;
-  vertical-align: inherit; 
+  vertical-align: inherit;
 }
 
 //public schools
 #study-area-map,
-// transportation 
+// transportation
 #census-tracts-map, #trip-generation-map, #jtw-map {
   height: 550px;
 }
@@ -231,7 +231,7 @@ tr.hover, td.hover {
 td {
   &.math--bottom {
     position: relative;
-  
+
     .icon {
       position: absolute;
       bottom: -0.4em;
@@ -243,7 +243,7 @@ td {
   &.math--left {
     position: relative;
     padding-left: 1.4em !important;
-  
+
     .icon {
       position: absolute;
       left: -0.6em;
@@ -253,7 +253,7 @@ td {
   &.math--right {
     position: relative;
     padding-right: 1.4em !important;
-  
+
     .icon {
       position: absolute;
       right: -0.6em;
@@ -286,7 +286,7 @@ i.icon.tooltip {
 // Summary Page
 table.school-summary-sections {
   border-collapse: collapse !important;
-  
+
   tr.highlight {
     cursor: pointer;
   }
@@ -322,4 +322,16 @@ table.school-summary-sections {
 .map-tooltip {
   position: absolute;
   z-index: 9999;
+}
+
+.sticky-transportation-bar {
+  z-index: 9999;
+  padding-right: 0rem !important;
+  padding-left: 0rem !important;
+}
+
+.transpo-factors-bar {
+  background-color: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 7px 2px -2px rgba(0,0,0,0.1);
+  position: relative;
 }

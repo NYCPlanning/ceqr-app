@@ -41,15 +41,15 @@
           {{mode-label 'auto'}}
           {{#if (not factor.manualModeSplits)}}
             <UiPopup style="float: right;" @content="Average calculated using selected Census Tracts">
-              <div class="ui basic blue horizontal label"> 
+              <div class="ui basic blue horizontal label">
                 {{factor.censusTractsCalculator.autoVehicleOccupancy}}
-                
+
                 <div class="detail"><i class="icon question circle"></i></div>
               </div>
             </UiPopup>
           {{/if}}
         </td>
-        
+
         {{#if factor.temporalVehicleOccupancy}}
           <td>{{input type="number" step=".01" min="0" value=vehicleOccupancy.auto.am}}</td>
           <td>{{input type="number" step=".01" min="0" value=vehicleOccupancy.auto.md}}</td>
@@ -61,7 +61,7 @@
       </tr>
       <tr>
         <td>{{mode-label 'taxi'}}</td>
-        
+
         {{#if factor.temporalVehicleOccupancy}}
           <td>{{input type="number" step=".01" min="0" value=vehicleOccupancy.taxi.am}}</td>
           <td>{{input type="number" step=".01" min="0" value=vehicleOccupancy.taxi.md}}</td>
@@ -73,14 +73,7 @@
       </tr>
       <tr>
         <td colspan="5">
-          <div class="ui blue button right floated" onClick={{action saveFactor}}>
-            Save
-          </div>
-        </td>
-      </tr>
-      <tr>
-        <td colspan="5">
-          <Transportation::Tdf::TableNote 
+          <Transportation::Tdf::TableNote
             @tableName="vehicleOccupancy"
             @factor={{factor}}
           />
