@@ -15,14 +15,7 @@
       <Transportation::Tdf::InOutSplits::TableRow @data={{data.allDay}} @label="All Day" />
       <tr>
         <td colspan="3">
-          <div class="ui blue button right floated" onClick={{action saveFactor}}>
-            Save
-          </div>
-        </td>
-      </tr>
-      <tr>
-        <td colspan="3">
-          <Transportation::Tdf::TableNote 
+          <Transportation::Tdf::TableNote
             @tableName="truckDirectionalDistribution"
             @factor={{factor}}
           />

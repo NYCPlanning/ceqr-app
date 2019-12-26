@@ -11,6 +11,7 @@ export default Route.extend({
       { include: [
           'public-schools-analysis',
           'transportation-analysis',
+          'transportation-analysis.transportation-planning-factors',
           'community-facilities-analysis',
           'air-quality-analysis',
           'data-package'

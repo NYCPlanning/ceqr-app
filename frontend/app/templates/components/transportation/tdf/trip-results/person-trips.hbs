@@ -34,5 +34,13 @@
         <td>{{total.out}}</td>
         <td>{{total.total}}</td>
       </tr>
+      <tr>
+        <td>
+          <Transportation::Tdf::TableNote
+            @tableName="personTrips"
+            @factor={{factor}}
+          />
+        </td>
+      </tr>
     </tfoot>
   </table>
