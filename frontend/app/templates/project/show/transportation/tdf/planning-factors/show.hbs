@@ -9,12 +9,12 @@
   @availablePackages={{model.availablePackages}}
 />
 
-<Transportation::Tdf::InOutSplits @factor={{model.transportationPlanningFactor}} />
+<Transportation::Tdf::InOutSplits @factor={{model.transportationPlanningFactor}} @model={{model}} />
 
-<Transportation::Tdf::VehicleOccupancy @factor={{model.transportationPlanningFactor}} />
+<Transportation::Tdf::VehicleOccupancy @factor={{model.transportationPlanningFactor}} @model={{model}} />
 
 <Transportation::Tdf::TruckTripGenerationRates @factor={{model.transportationPlanningFactor}} />
 
 <Transportation::Tdf::TruckTemporalDistribution @factor={{model.transportationPlanningFactor}} />
 
-<Transportation::Tdf::TruckDirectionalDistribution @factor={{model.transportationPlanningFactor}} />
+<Transportation::Tdf::TruckDirectionalDistribution @factor={{model.transportationPlanningFactor}} @model={{model}} />

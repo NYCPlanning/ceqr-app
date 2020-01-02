@@ -10,7 +10,7 @@ import EmberObject from '@ember/object';
 
 export default class TransportationPlanningFactorModel extends Model {
 
-  
+
   // Set defaults on values not received from server
   ready() {
     // Default inOutSplits
@@ -33,44 +33,44 @@ export default class TransportationPlanningFactorModel extends Model {
     // Default modeSplits
     if (Object.keys(this.modeSplitsFromUser).length === 0) {
       const modeSplitsFromUser = {};
-      MODES.forEach((m) => modeSplitsFromUser[m] = { 
+      MODES.forEach((m) => modeSplitsFromUser[m] = {
         am:         0,
         md:         0,
         pm:         0,
         saturday:   0,
         allPeriods: 0
       });
-      
+
       this.set('modeSplitsFromUser', EmberObject.create(modeSplitsFromUser));
     }
 
     // Default truckInOutSplits
     if (Object.keys(this.vehicleOccupancyFromUser).length === 0) {
       this.set('vehicleOccupancyFromUser', {
-        auto: { 
+        auto: {
           am:         1,
           md:         1,
           pm:         1,
           saturday:   1,
-          allPeriods: 1 
+          allPeriods: 1
         },
-        taxi: { 
+        taxi: {
           am:         1,
           md:         1,
           pm:         1,
           saturday:   1,
-          allPeriods: 1 
+          allPeriods: 1
         }
       });
     }
   }
-  
+
   @belongsTo transportationAnalysis;
   @belongsTo dataPackage;
-  
+
   @attr('string') landUse;
   @attr({defaultValue: () => {}}) tableNotes;
-  
+
   // Census tract variable data if landUse is residential or office
   @attr({defaultValue: () => []}) censusTractVariables;
   @computed('censusTractVariables', 'transportationAnalysis.censusTractsSelection.@each')
@@ -81,11 +81,12 @@ export default class TransportationPlanningFactorModel extends Model {
     });
   }
 
+  @attr('boolean', {defaultValue: false }) isEditing;
   @attr('boolean') manualModeSplits;
   @attr('boolean') temporalModeSplits;
   @attr('boolean') temporalVehicleOccupancy;
   @attr('ember-object', {defaultValue: () => {} }) modeSplitsFromUser;
-  
+
   @computed('manualModeSplits', 'censusTractsCalculator', 'modeSplitsFromUser')
   get modeSplits() {
     if (this.manualModeSplits) {
@@ -127,11 +128,10 @@ export default class TransportationPlanningFactorModel extends Model {
   @alias('tripResults.defaults.unitName') unitName;
   @alias('tripResults.defaults.tripGenRatePerUnit') tripGenRatePerUnit;
   @alias('tripResults.defaults') defaults;
-  
+
   @alias('transportationAnalysis.modesForAnalysis') modesForAnalysis;
   @alias('transportationAnalysis.activeModes') activeModes;
   @alias('transportationAnalysis.inactiveModes') inactiveModes;
-
 
   @computed(
     'landUse',

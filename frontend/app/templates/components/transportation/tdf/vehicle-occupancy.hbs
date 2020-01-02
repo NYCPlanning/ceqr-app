@@ -51,24 +51,24 @@
         </td>
 
         {{#if factor.temporalVehicleOccupancy}}
-          <td>{{input type="number" step=".01" min="0" value=vehicleOccupancy.auto.am}}</td>
-          <td>{{input type="number" step=".01" min="0" value=vehicleOccupancy.auto.md}}</td>
-          <td>{{input type="number" step=".01" min="0" value=vehicleOccupancy.auto.pm}}</td>
-          <td>{{input type="number" step=".01" min="0" value=vehicleOccupancy.auto.saturday}}</td>
+          <td>{{input type="number" step=".01" min="0" value=vehicleOccupancy.auto.am input=(action "setIsEditing")}}</td>
+          <td>{{input type="number" step=".01" min="0" value=vehicleOccupancy.auto.md input=(action "setIsEditing")}}</td>
+          <td>{{input type="number" step=".01" min="0" value=vehicleOccupancy.auto.pm input=(action "setIsEditing")}}</td>
+          <td>{{input type="number" step=".01" min="0" value=vehicleOccupancy.auto.saturday input=(action "setIsEditing")}}</td>
         {{else}}
-          <td>{{input type="number" step=".01" min="0" value=vehicleOccupancy.auto.allPeriods}}</td>
+          <td>{{input type="number" step=".01" min="0" value=vehicleOccupancy.auto.allPeriods input=(action "setIsEditing")}}</td>
         {{/if}}
       </tr>
       <tr>
         <td>{{mode-label 'taxi'}}</td>
 
         {{#if factor.temporalVehicleOccupancy}}
-          <td>{{input type="number" step=".01" min="0" value=vehicleOccupancy.taxi.am}}</td>
-          <td>{{input type="number" step=".01" min="0" value=vehicleOccupancy.taxi.md}}</td>
-          <td>{{input type="number" step=".01" min="0" value=vehicleOccupancy.taxi.pm}}</td>
-          <td>{{input type="number" step=".01" min="0" value=vehicleOccupancy.taxi.saturday}}</td>
+          <td>{{input type="number" step=".01" min="0" value=vehicleOccupancy.taxi.am input=(action "setIsEditing")}}</td>
+          <td>{{input type="number" step=".01" min="0" value=vehicleOccupancy.taxi.md input=(action "setIsEditing")}}</td>
+          <td>{{input type="number" step=".01" min="0" value=vehicleOccupancy.taxi.pm input=(action "setIsEditing")}}</td>
+          <td>{{input type="number" step=".01" min="0" value=vehicleOccupancy.taxi.saturday input=(action "setIsEditing")}}</td>
         {{else}}
-          <td>{{input type="number" step=".01" min="0" value=vehicleOccupancy.taxi.allPeriods}}</td>
+          <td>{{input type="number" step=".01" min="0" value=vehicleOccupancy.taxi.allPeriods input=(action "setIsEditing")}}</td>
         {{/if}}
       </tr>
       <tr>

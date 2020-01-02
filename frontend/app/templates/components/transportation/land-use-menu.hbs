@@ -1,47 +1,52 @@
-<div class="transpo-factors-bar">
-  <div class="ui grid">
-    <div class="eight wide column">
-      <div class="ui two item menu">
-        {{#each model.transportationPlanningFactors as |factor|}}
-          {{#link-to
-            factorLink
-            factor.id
-            class="item"
-          }}
-            <span data-test-land-use-tab="{{factor.landUse}}">{{humanize factor.landUse}}</span>
-            <div class="ui horizontal label">
-              {{pluralize (format-number factor.units) factor.unitName}}
-            </div>
-          {{/link-to}}
-        {{/each}}
-      </div>
-    </div>
-
-    {{#if (eq tdfSection "planning-factors")}}
-      <div class="four wide column middle aligned">
-        <div class="fluid ui positive button" data-test-button="saveFactors" onClick={{action saveFactors}}>
-          Save
+{{#sticky-element top=79}}
+  {{notification-container position="top"}}
+  <div class="transpo-factors-bar">
+    <div class="ui grid">
+      <div class="eight wide column">
+        <div class="ui two item menu">
+          {{#each model.transportationPlanningFactors as |factor|}}
+            {{#link-to
+              factorLink
+              factor.id
+              class="item"
+            }}
+              <span data-test-land-use-tab="{{factor.landUse}}">{{humanize factor.landUse}}</span>
+              <div class="ui horizontal label">
+                {{pluralize (format-number factor.units) factor.unitName}}
+              </div>
+            {{/link-to}}
+          {{/each}}
         </div>
       </div>
-      <div class="four wide column middle aligned">
-        {{#link-to
-          "project.show.transportation.tdf.trip-results"
-          model.project.id
-          class="fluid ui primary button"
-        }}
-          Next
-        {{/link-to}}
-      </div>
-    {{else}}
-      <div class="four wide column middle aligned">
-        {{#link-to
-          "project.show"
-          model.project.id
-          class="fluid ui positive button"
-        }}
-        Save & Return to Dashboard
-        {{/link-to}}
-      </div>
-    {{/if}}
+
+      {{#if (eq tdfSection "planning-factors")}}
+        <div class="four wide column middle aligned">
+          <div class="fluid ui positive {{if (not isEditing) "disabled"}} button"
+            data-test-button="saveFactors"
+            onClick={{action saveFactors}}
+          >Save
+          </div>
+        </div>
+        <div class="four wide column middle aligned">
+          {{#link-to
+            "project.show.transportation.tdf.trip-results"
+            model.project.id
+            class="fluid ui primary button"
+          }}
+            Next
+          {{/link-to}}
+        </div>
+      {{else}}
+        <div class="four wide column middle aligned">
+          {{#link-to
+            "project.show"
+            model.project.id
+            class="fluid ui positive button"
+          }}
+          Save and Return to Dashboard
+          {{/link-to}}
+        </div>
+      {{/if}}
+    </div>
   </div>
-</div>
+{{/sticky-element}}

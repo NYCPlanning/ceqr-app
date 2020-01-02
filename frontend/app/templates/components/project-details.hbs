@@ -1,3 +1,4 @@
+{{notification-container position="top"}}
 <div class="ui grey segment">
   <form class="ui form">
     <div class="field">
@@ -89,7 +90,7 @@
       <button class="ui button" {{action "back"}}>
         Back
       </button>
-      <button 
+      <button
         class="ui primary button
           {{if project-orchestrator.projectTask.isRunning "loading"}}"
         {{action "save"}}>
