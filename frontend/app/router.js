@@ -98,6 +98,7 @@ Router.map(function() {
   });
 
   this.route('four-oh-four', { path: "*path" });
+  this.route('ceqr-intro-page');
 });
 
 export default Router;
