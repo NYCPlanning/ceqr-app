@@ -333,3 +333,18 @@ table.school-summary-sections {
   box-shadow: 0 7px 2px -2px rgba(0,0,0,0.1);
   position: relative;
 }
+
+.chocolate {
+  background-color: rgba(248, 248, 249, 1);
+  color: black;
+  width: 13rem;
+
+  .fa {
+    display: none;
+  }
+
+  // .c-notification__icon {
+  //   color: black;
+  // }
+  // height: 3 rem;
+}
