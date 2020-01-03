@@ -14,7 +14,7 @@ module('Acceptance | user can create public schools analysis', function(hooks) {
     await fillIn('[data-test-login-form="email"]', 'user@email.com');
     await fillIn('[data-test-login-form="password"]', 'password');
     await click('[data-test-login-form="login"]');
-    await click('[data-test-new-project]');
+    await click('[data-test-new-project="intro page"]');
     await fillIn("[data-test-new-project='project-name']", 'Prospect Acres')
     await click("[data-test-new-project='build-year']");
     await click("[data-test-new-project='2021']", '');
