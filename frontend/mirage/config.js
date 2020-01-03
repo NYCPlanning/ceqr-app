@@ -15,7 +15,7 @@ export default function() {
   this.passthrough('/data-tables/**');
   this.passthrough('/ceqr-manual/**');
   this.passthrough('https://api.mapbox.com/**');
-  this.passthrough('https://layers-api.planninglabs.nyc/**');
+  this.passthrough('https://labs-layers-api.herokuapp.com/**');
   this.passthrough('https://tiles.planninglabs.nyc/**');
   this.passthrough('https://events.mapbox.com/events/**');
   

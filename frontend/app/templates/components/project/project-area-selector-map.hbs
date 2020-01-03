@@ -2,7 +2,7 @@
   @name="project-area-selector-map"
   @mapLoaded={{action this.mapLoaded}}
   @initOptions={{hash
-    style="https://layers-api.planninglabs.nyc/v1/base/style.json"
+    style="https://labs-layers-api.herokuapp.com/v1/base/style.json"
   }} as |map|
 >
   <Mapbox::CartoVectorSource @sourceId="carto" @map={{map}} as |carto-source|>
