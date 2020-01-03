@@ -11,6 +11,13 @@ export default Route.extend({
     });
   },
 
+  afterModel(model) {
+    // if a user has NOT created any projects, reroute them to the intro page
+    if (model.length < 1) {
+      this.transitionTo('ceqr-intro-page');
+    }
+  },
+
   actions: {
     deleteModal(id) {
       this.set('deleteProjectId', id);
