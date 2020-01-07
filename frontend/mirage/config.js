@@ -25,6 +25,9 @@ export default function() {
   this.passthrough('https://cartocdn-gusc-d.global.ssl.fastly.net/planninglabs/**');
   this.passthrough('https://js-agent.newrelic.com/**');
 
+  // related to ember-cli-code-coverage. required to be open to report back findings
+  this.passthrough('/write-coverage');
+
   // CartoVL map
   this.post('https://planninglabs.carto.com/api/v1/map', function() {
     return cartoMap;
