@@ -1,5 +1,4 @@
-import Route from '@ember/routing/route';
+import ScrollableRoute from '../../../scrollable-route';
 
-export default class ProjectShowTransportationAnalysisThresholdRoute extends Route {
-
+export default class ProjectShowTransportationAnalysisThresholdRoute extends ScrollableRoute {
 }

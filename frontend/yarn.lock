@@ -5799,6 +5799,22 @@ ember-validators@^2.0.0:
     ember-cli-babel "^6.9.2"
     ember-require-module "^0.3.0"
 
+ember-weakmap@^3.0.0:
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/ember-weakmap/-/ember-weakmap-3.2.0.tgz#663871d7a8bb085c5b1cedcb3fb183857990343f"
+  dependencies:
+    browserslist "^3.1.1"
+    debug "^3.1.0"
+    ember-cli-babel "^6.6.0"
+
+ember-window-mock@^0.5.4:
+  version "0.5.4"
+  resolved "https://registry.yarnpkg.com/ember-window-mock/-/ember-window-mock-0.5.4.tgz#a495250e823241922f78d2406f1e8217635b277c"
+  integrity sha512-clJz0Un2vgGdNwjF2hLOtRfDASuGLePfwspfM1CHHwm8cm3jYMQvcLzP/6p7pyDNW36vgz5eKYygWATkpqUUmg==
+  dependencies:
+    broccoli-funnel "^2.0.1"
+    ember-cli-babel "^6.16.0"
+
 emojis-list@^2.0.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/emojis-list/-/emojis-list-2.1.0.tgz#4daa4d9db00f9819880c79fa457ae5b09a1fd389"

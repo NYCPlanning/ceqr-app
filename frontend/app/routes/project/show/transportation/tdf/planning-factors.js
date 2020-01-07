@@ -1,7 +1,7 @@
-import Route from '@ember/routing/route';
+import ScrollableRoute from '../../../../scrollable-route';
 import RSVP from 'rsvp';
 
-export default class ProjectShowTransportationTdfPlanningFactorsRoute extends Route {
+export default class ProjectShowTransportationTdfPlanningFactorsRoute extends ScrollableRoute {
   async model() {
     const { project, transportationAnalysis } = this.modelFor('project/show');
     const transportationPlanningFactors = await transportationAnalysis.transportationPlanningFactors;
