@@ -18,7 +18,7 @@ export default function() {
   this.passthrough('https://layers-api.planninglabs.nyc/**');
   this.passthrough('https://tiles.planninglabs.nyc/**');
   this.passthrough('https://events.mapbox.com/events/**');
-  
+
   this.passthrough('https://cartocdn-gusc-a.global.ssl.fastly.net/planninglabs/**');
   this.passthrough('https://cartocdn-gusc-b.global.ssl.fastly.net/planninglabs/**');
   this.passthrough('https://cartocdn-gusc-c.global.ssl.fastly.net/planninglabs/**');
@@ -65,7 +65,7 @@ export default function() {
     };
   });
 
-  
+
   /**
    *
    * BBLs
@@ -97,8 +97,8 @@ export default function() {
     attrs.borough = 'Manhattan';
 
     const project = schema.projects.create(attrs);
-    project.createPublicSchoolsAnalysis({ 
-      project, 
+    project.createPublicSchoolsAnalysis({
+      project,
       multipliers: {
         version: "november-2018",
         districts: [
@@ -167,12 +167,12 @@ export default function() {
         }
       ]
     });
-    
+
     window.project = project;
-    
+
     project.save();
 
-    return project; }); 
+    return project; });
   this.patch('/projects');
   this.patch('/projects/:id');
 
@@ -190,4 +190,6 @@ export default function() {
 
   this.get('transportation-planning-factors');
   this.get('transportation-planning-factors/:id');
+  this.post('transportation-planning-factors');
+  this.patch('transportation-planning-factors/:id');
 }

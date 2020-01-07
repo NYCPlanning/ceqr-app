@@ -14,8 +14,13 @@ export default class TransportationLandUseMenuComponent extends Component {
     return `project.show.transportation.tdf.${this.tdfSection}.total`;
   }
 
-  @action
-   saveFactors() {
-     this.model.transportationPlanningFactors.save();
+    @action
+    saveFactors() {
+      try {
+        // save the model changes to the server
+        this.model.transportationPlanningFactors.save();
+      } catch (e) {
+        // TODO: notify user that an error has occurred
+      }
+    }
   }
-}
