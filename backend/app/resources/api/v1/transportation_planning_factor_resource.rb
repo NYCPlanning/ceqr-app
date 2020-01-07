@@ -2,7 +2,7 @@ module Api
   module V1
     class TransportationPlanningFactorResource < BaseResource
       model_name 'TransportationPlanningFactors'
-      
+
       attributes(
         :land_use,
         :manual_mode_splits,
