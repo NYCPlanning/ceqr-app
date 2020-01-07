@@ -3461,7 +3461,7 @@ browserify-zlib@^0.2.0:
   dependencies:
     pako "~1.0.5"
 
-browserslist@^3.1.1, browserslist@^3.2.6:
+browserslist@^3.2.6:
   version "3.2.8"
   resolved "https://registry.yarnpkg.com/browserslist/-/browserslist-3.2.8.tgz#b0005361d6471f0f5952797a76fc985f1f978fc6"
   dependencies:
@@ -3693,13 +3693,10 @@ caniuse-api@^3.0.0:
     lodash.memoize "^4.1.2"
     lodash.uniq "^4.5.0"
 
-caniuse-lite@^1.0.0, caniuse-lite@^1.0.30000925:
-  version "1.0.30000927"
-  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30000927.tgz#114a9de4ff1e01f5790fe578ecd93421c7524665"
-
-caniuse-lite@^1.0.30000844:
-  version "1.0.30000900"
-  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30000900.tgz#015cfe37897a3386a3075a914498800c29afe77e"
+caniuse-lite@^1.0.0, caniuse-lite@^1.0.30000844, caniuse-lite@^1.0.30000925:
+  version "1.0.30001019"
+  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001019.tgz#857e3fccaad2b2feb3f1f6d8a8f62d747ea648e1"
+  integrity sha512-6ljkLtF1KM5fQ+5ZN0wuyVvvebJxgJPTmScOMaFuQN2QuOzvRJnWSKfzQskQU5IOU4Gap3zasYPIinzwUjoj/g==
 
 capture-exit@^1.2.0:
   version "1.2.0"
@@ -5477,7 +5474,7 @@ ember-get-config@^0.2.2, ember-get-config@^0.2.3, ember-get-config@^0.2.4:
     broccoli-file-creator "^1.1.1"
     ember-cli-babel "^6.3.0"
 
-"ember-getowner-polyfill@^1.1.0 || ^2.0.0", ember-getowner-polyfill@^2.0.0, ember-getowner-polyfill@^2.0.1:
+"ember-getowner-polyfill@^1.1.0 || ^2.0.0", ember-getowner-polyfill@^2.0.0, ember-getowner-polyfill@^2.2.0:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/ember-getowner-polyfill/-/ember-getowner-polyfill-2.2.0.tgz#38e7dccbcac69d5ec694000329ec0b2be651d2b2"
   dependencies:
@@ -5530,14 +5527,14 @@ ember-lodash@^4.19.4:
     ember-cli-babel "^7.0.0"
     lodash-es "^4.17.4"
 
-ember-macro-helpers@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/ember-macro-helpers/-/ember-macro-helpers-1.0.0.tgz#bdb875f5752814f3e0c886e2ed650f01cc302712"
+ember-macro-helpers@^4.2.2:
+  version "4.2.2"
+  resolved "https://registry.yarnpkg.com/ember-macro-helpers/-/ember-macro-helpers-4.2.2.tgz#dfb28b2b21f9fd49ade599f68c99e73ce5692cdc"
+  integrity sha512-E46MnpjMu+ZXRw/5A1tADZKFJADGpSAcsclcaBNfV/B1aRPV3PTTnCpDvYC1wfJ4kwwUh0DRLDH/OpBv+/41pQ==
   dependencies:
-    ember-cli-babel "^6.6.0"
+    ember-cli-babel "^7.7.3"
     ember-cli-string-utils "^1.1.0"
     ember-cli-test-info "^1.0.0"
-    ember-weakmap "^3.0.0"
 
 ember-mapbox-gl@0.15.0:
   version "0.15.0"
@@ -5577,13 +5574,14 @@ ember-metrics@^0.13.0:
     ember-getowner-polyfill "^2.0.0"
     ember-runtime-enumerable-includes-polyfill "^2.0.0"
 
-ember-moment@^7.8.0:
-  version "7.8.0"
-  resolved "https://registry.yarnpkg.com/ember-moment/-/ember-moment-7.8.0.tgz#12f33f786b9b8b08d7ca46314b8a59d38cc39048"
+ember-moment@^8.0.0:
+  version "8.0.0"
+  resolved "https://registry.yarnpkg.com/ember-moment/-/ember-moment-8.0.0.tgz#f3993711df0af444558f0f3922dc3f412af72410"
+  integrity sha512-JbwmTiS75EEXFWGR5P8rXykISpDf6EH8L8IpxsF6FaRwJ/4odXV/yf8cKh6gpzxoags9OJ8qxyQqG0Prhgs9Sg==
   dependencies:
     ember-cli-babel "^6.7.2"
-    ember-getowner-polyfill "^2.0.1"
-    ember-macro-helpers "^1.0.0"
+    ember-getowner-polyfill "^2.2.0"
+    ember-macro-helpers "^4.2.2"
 
 ember-needs-async@0.3.0:
   version "0.3.0"
@@ -5800,14 +5798,6 @@ ember-validators@^2.0.0:
   dependencies:
     ember-cli-babel "^6.9.2"
     ember-require-module "^0.3.0"
-
-ember-weakmap@^3.0.0:
-  version "3.2.0"
-  resolved "https://registry.yarnpkg.com/ember-weakmap/-/ember-weakmap-3.2.0.tgz#663871d7a8bb085c5b1cedcb3fb183857990343f"
-  dependencies:
-    browserslist "^3.1.1"
-    debug "^3.1.0"
-    ember-cli-babel "^6.6.0"
 
 emojis-list@^2.0.0:
   version "2.1.0"
