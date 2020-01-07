@@ -23,6 +23,10 @@ module.exports = function(defaults) {
         // mapbox-gl-dev is unminified and therefore easier to read 
         ...(process.env.EMBER_ENV === 'development' ? {'mapbox-gl': 'mapbox-gl/dist/mapbox-gl-dev'} : {})
       },
+      webpack: {
+        // required for the jwa (jsonwebtoken) dependency
+        node: { crypto: true, stream: true, buffer: true }
+      },
     },
 
     'ember-ast-hot-load': {
