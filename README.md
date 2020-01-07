@@ -1,3 +1,5 @@
+[![codecov](https://codecov.io/gh/NYCPlanning/ceqr-app/branch/master/graph/badge.svg)](https://codecov.io/gh/NYCPlanning/ceqr-app)
+
 # CEQR App
 
 CEQR App is a collection of data tools whose purpose is to improve the accuracy and speed of environmental review.
