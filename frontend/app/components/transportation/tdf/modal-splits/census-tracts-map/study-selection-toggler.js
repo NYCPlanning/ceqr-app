@@ -28,7 +28,7 @@ export default class TransportationCensusTractsMapStudySelectionTogglerComponent
 
   /**
    * Method to handle feature selection; adds a selected feature geoid to the analysis'
-   * jtwStudySelection array, or removes it if it already exists, and saves the analysis model
+   * censusTractsSelection array, or removes it if it already exists, and saves the analysis model
    * back to the server
    */
   async toggleCensusTract(selectedCensusTractFeatureArray) {    

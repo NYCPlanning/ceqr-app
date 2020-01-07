@@ -4,7 +4,7 @@
   @initOptions={{hash
     style="https://layers-api.planninglabs.nyc/v1/base/style.json"
     zoom=12
-    center=this.project.transportationAnalysis.jtwStudyAreaCentroid
+    center=this.project.transportationAnalysis.censusTractsCentroid
   }} as |map|
 >
   <MapboxGlSource
@@ -103,7 +103,7 @@
         @map={{map}}
         @layerId={{layer.layerId}}
         @filterById="geoid"
-        @featureIds={{this.project.transportationAnalysis.requiredJtwStudySelection}}
+        @featureIds={{this.project.transportationAnalysis.requiredCensusTractsSelection}}
       />
     </carto-source.layer>
 
