@@ -67,7 +67,7 @@ jobs:
   ember_tests:
     docker:
       # specify the version you desire here
-      - image: circleci/node:8-browsers
+      - image: circleci/node:10.18-browsers
         environment:
           BUILD_CONTEXT: test
 
@@ -84,7 +84,9 @@ jobs:
       # run tests!
       - run:
           name: run tests
-          command: yarn test
+          command: COVERAGE=true yarn test
+
+      - run: curl -s https://codecov.io/bash | bash
 
       # collect reports
       - store_test_results:

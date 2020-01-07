@@ -27,6 +27,11 @@ module.exports = function(defaults) {
         // required for the jwa (jsonwebtoken) dependency
         node: { crypto: true, stream: true, buffer: true }
       },
+      // something to do with babel transpliation for mbgl. see https://github.com/mapbox/mapbox-gl-js/issues/3422
+      skipBabel: [{
+        package: 'mapbox-gl',
+        semverRange: '*'
+      }],
     },
 
     'ember-ast-hot-load': {
