@@ -180,4 +180,7 @@ export default function() {
   this.get('public-schools-analyses/:id');
   this.patch('public-schools-analyses/:id');
   this.patch('transportation-analyses/:id');
+
+  this.get('transportation-planning-factors');
+  this.get('transportation-planning-factors/:id');
 }
