@@ -670,13 +670,6 @@ export default Factory.extend({
 }),
 
 
-
-  project: association({
-      bbls: ["3023910001"],
-      totalUnits: 500,
-      seniorUnits: 50,
-      buildYear: 2023
-    }),
   esSchoolChoice: false,
   isSchoolChoice: true,
   subdistrictsFromDb: () => [

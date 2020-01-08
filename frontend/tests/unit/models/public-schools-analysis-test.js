@@ -240,6 +240,7 @@ module('Unit | Model | public schools analysis', function(hooks) {
           subdistrict: 5
         }
       ],
+      project: this.server.create('project'),
     });
     let project = await this.owner.lookup('service:store').findRecord(
       'project', analysisMirage.projectId, { include: 'public-schools-analysis' }
@@ -387,6 +388,7 @@ module('Unit | Model | public schools analysis', function(hooks) {
     */
 
     let analysisMirage = server.create('public-schools-analysis', {
+      project: this.server.create('project'),
       doeUtilChanges: [
         {
           title: "",
