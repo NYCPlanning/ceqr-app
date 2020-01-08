@@ -1,11 +1,6 @@
 import { Factory, faker } from 'ember-cli-mirage';
 
 export default Factory.extend({
-  afterCreate(project, server) {
-    server.create('public-schools-analysis', { project });
-    server.create('transportation-analysis', { project });
-    server.create('community-facilities-analysis', { project });
-  },
   viewOnly: false,
   name: faker.address.streetName,
   buildYear: 2018,

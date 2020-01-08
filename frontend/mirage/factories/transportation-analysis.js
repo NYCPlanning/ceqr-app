@@ -1,4 +1,4 @@
-import { Factory, association } from 'ember-cli-mirage';
+import { Factory } from 'ember-cli-mirage';
 
 export default Factory.extend({
   trafficZone: 2,
@@ -11,9 +11,6 @@ export default Factory.extend({
   censusTractsCentroid: () => [
     -73.964251, 40.8080809
   ],
-  project: association({
-    totalUnits: 1000,
-  }),
   inOutDists: () => {
     return {
       am: {
