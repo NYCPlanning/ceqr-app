@@ -69,10 +69,14 @@ export default class TransportationPlanningFactorModel extends Model {
   @belongsTo dataPackage;
   
   @attr('string') landUse;
-  @attr({defaultValue: () => {}}) tableNotes;
-  
+  @attr({
+    defaultValue: () => {
+      return {};
+    }
+  }) tableNotes;
+
   // Census tract variable data if landUse is residential or office
-  @attr({defaultValue: () => []}) censusTractVariables;
+  @attr({ defaultValue: () => [] }) censusTractVariables;
   @computed('censusTractVariables', 'transportationAnalysis.censusTractsSelection.@each')
   get censusTractsCalculator() {
     return CensusTractsCalculator.create({
@@ -84,8 +88,12 @@ export default class TransportationPlanningFactorModel extends Model {
   @attr('boolean') manualModeSplits;
   @attr('boolean') temporalModeSplits;
   @attr('boolean') temporalVehicleOccupancy;
-  @attr('ember-object', {defaultValue: () => {} }) modeSplitsFromUser;
-  
+  @attr('ember-object', {
+    defaultValue: () => {
+      return {};
+    }
+  }) modeSplitsFromUser;
+
   @computed('manualModeSplits', 'censusTractsCalculator', 'modeSplitsFromUser')
   get modeSplits() {
     if (this.manualModeSplits) {
@@ -99,7 +107,11 @@ export default class TransportationPlanningFactorModel extends Model {
   }
 
   // User-entered vehicle occupancy rate for "trip generation" existing conditions step
-  @attr({defaultValue: () => {}}) vehicleOccupancyFromUser;
+  @attr({
+    defaultValue: () => {
+      return {};
+    }
+  }) vehicleOccupancyFromUser;
   @computed('manualModeSplits', 'vehicleOccupancyFromUser', 'censusTractsCalculator')
   get vehicleOccupancy() {
     return this.vehicleOccupancyFromUser;
@@ -109,8 +121,16 @@ export default class TransportationPlanningFactorModel extends Model {
   }
 
   // The percentage values for trip generation per-peak-hour In and Out trip distributions
-  @attr({defaultValue: () => {}}) inOutSplits;
-  @attr({defaultValue: () => {}}) truckInOutSplits;
+  @attr({
+    defaultValue: () => {
+      return {};
+    }
+  }) inOutSplits;
+  @attr({
+    defaultValue: () => {
+      return {};
+    }
+  }) truckInOutSplits;
 
   @computed('transportationAnalysis.project.{totalUnits,commercialLandUse}', 'landUse')
   get units() {
