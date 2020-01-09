@@ -8,8 +8,26 @@ export default Factory.extend({
   censusTractsSelection: () => [
     '36061020500', '36061021100', '36061019701', '36061020701', '36061020101', '36061019900'
   ],
-  censusTractsCentroid: () => [
-    -73.964251, 40.8080809
+  censusTractsCentroid: () => {
+    return {
+      features: [
+        {
+          geometry: {
+            coordinates: [
+              -73.964251, 40.8080809
+            ],
+          },
+        },
+      ]
+    }
+  },
+  modesForAnalysis: () => [
+    "auto",
+    "taxi",
+    "bus",
+    "subway",
+    "walk",
+    "railroad"
   ],
   inOutDists: () => {
     return {

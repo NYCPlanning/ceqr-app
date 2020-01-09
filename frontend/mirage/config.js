@@ -78,6 +78,7 @@ export default function() {
   this.namespace = '/api/v1';
   this.get('/users/:id');
   this.get('/data-packages');
+  this.get('/data-packages/:id');
 
   /**
    *
@@ -179,6 +180,9 @@ export default function() {
    */
   this.get('public-schools-analyses/:id');
   this.patch('public-schools-analyses/:id');
+
+  this.get('transportation-analyses');
+  this.get('transportation-analyses/:id');
   this.patch('transportation-analyses/:id');
 
   this.get('transportation-planning-factors');
