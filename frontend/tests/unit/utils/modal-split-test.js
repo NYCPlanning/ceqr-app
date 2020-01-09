@@ -12,7 +12,7 @@ import
 } from 'labs-ceqr/utils/modalSplit';
 import { module, test } from 'qunit';
 import { setupTest } from 'ember-qunit';
-import setupMirage from 'ember-cli-mirage/test-support/setup-mirage';
+import { setupMirage } from "ember-cli-mirage/test-support";
 import stubReadonlyStore from '../../helpers/stub-readonly-store';
 import getTransportationCensusEstimateResponse from '../../../mirage/helpers/get-transportation-census-estimate-response';
 

@@ -1,5 +1,5 @@
 import { COMMUTER_VARIABLES, AUTO_BREAKDOWN_VARIABLES } from 'labs-ceqr/utils/modalSplit';
-import { faker } from 'ember-cli-mirage';
+import faker from 'faker';
 
 export default function getTransportationCensusEstimateResponse(type) {
   const estimates = createTransportationCensusEstimates(type);

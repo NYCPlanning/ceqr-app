@@ -2,7 +2,7 @@ import { module, skip } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
-import setupMirage from 'ember-cli-mirage/test-support/setup-mirage';
+import { setupMirage } from "ember-cli-mirage/test-support";
 import Component from '@ember/component';
 import { registerEventHandler}  from '../../../helpers/mapbox/mapbox-stub-helpers';
 
