@@ -1,6 +1,6 @@
 import { module, skip } from 'qunit';
 import { setupTest } from 'ember-qunit';
-import setupMirage from 'ember-cli-mirage/test-support/setup-mirage';
+import { setupMirage } from "ember-cli-mirage/test-support";
 
 module('Unit | Component | transportation/census-tracts-map', function(hooks) {
   setupTest(hooks);

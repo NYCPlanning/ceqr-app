@@ -1,7 +1,7 @@
 import { module, test } from 'qunit';
 import { visit, fillIn, click, find, currentURL } from '@ember/test-helpers';
 import { setupApplicationTest } from 'ember-qunit';
-import setupMirage from 'ember-cli-mirage/test-support/setup-mirage';
+import { setupMirage } from "ember-cli-mirage/test-support";
 
 module('Acceptance | user can create public schools analysis', function(hooks) {
   setupApplicationTest(hooks);
