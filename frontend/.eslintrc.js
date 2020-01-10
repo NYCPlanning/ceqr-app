@@ -5,7 +5,7 @@ module.exports = {
   root: true,
   parser: 'babel-eslint',
   parserOptions: {
-    ecmaVersion: 2017,
+    ecmaVersion: 2018,
     sourceType: 'module'
   },
   plugins: [
@@ -29,13 +29,6 @@ module.exports = {
         'config/**/*.js',
         'lib/*/index.js'
       ],
-      parserOptions: {
-        ecmaVersion: 2017,
-        sourceType: 'module',
-        ecmaFeatures: {
-          experimentalObjectRestSpread: true
-        }
-      },
       env: {
         browser: false,
         node: true
