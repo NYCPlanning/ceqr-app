@@ -13,6 +13,7 @@ module.exports = {
   ],
   extends: [
     'eslint:recommended',
+    'airbnb-base',
     'plugin:ember/recommended'
   ],
   env: {
