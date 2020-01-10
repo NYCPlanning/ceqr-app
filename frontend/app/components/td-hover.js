@@ -8,7 +8,7 @@ export default Component.extend({
   classNameBindings: ['hover'],
   attributeBindings: ['rowspan'],
   hover: false,
-  
+
   init() {
     this._super(...arguments);
     this.get('tablehover').on('hover', this, 'setHover');
@@ -29,10 +29,10 @@ export default Component.extend({
   },
 
   mouseEnter() {
-    this.get('tablehover').trigger('hover', this.get('payload'))
+    this.get('tablehover').trigger('hover', this.get('payload'));
   },
 
   mouseLeave() {
-    this.get('tablehover').trigger('unhover', this.get('payload'))
+    this.get('tablehover').trigger('unhover', this.get('payload'));
   },
 });

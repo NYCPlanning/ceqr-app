@@ -4,16 +4,14 @@ import { computed } from '@ember/object';
 export default class TransportationTdfTripResultsPersonTripsComponent extends Component {
   @computed('modes', 'results')
   get rows() {
-    return this.modes.map((mode) => {
-      return { 
-        mode,
-        ...this.results[mode],
-      }
-    });
+    return this.modes.map((mode) => ({
+      mode,
+      ...this.results[mode],
+    }));
   }
 
   @computed('modes', 'results')
   get total() {
-    return this.results["total"];
+    return this.results.total;
   }
 }

@@ -10,5 +10,5 @@ export default Route.extend({
     } else {
       this.transitionTo('login');
     }
-  }
+  },
 });

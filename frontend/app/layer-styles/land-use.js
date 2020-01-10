@@ -8,8 +8,8 @@ export const landUseColors = {
   '07': '#dac0e8',
   '08': '#5CA2D1',
   '09': '#8ece7c',
-  '10': '#bab8b6',
-  '11': '#5f5f60',
+  10: '#bab8b6',
+  11: '#5f5f60',
 };
 
 export const landUseStyles = {

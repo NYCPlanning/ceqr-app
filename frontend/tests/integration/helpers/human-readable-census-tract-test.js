@@ -12,17 +12,17 @@ module('Integration | Helper | human-readable-census-tract', function(hooks) {
     const state = '36';
     const censusTract = '111111';
 
-    // Bronx County 
+    // Bronx County
     this.set('bronxGeoid', `${state}005${censusTract}`);
     await render(hbs`{{human-readable-census-tract bronxGeoid}}`);
     assert.equal(this.element.textContent.trim(), `${censusTract}, Bronx County`);
 
-    // Queen's County 
+    // Queen's County
     this.set('queensGeoid', `${state}047${censusTract}`);
     await render(hbs`{{human-readable-census-tract queensGeoid}}`);
     assert.equal(this.element.textContent.trim(), `${censusTract}, Queen's County`);
 
-    // New York County 
+    // New York County
     this.set('newYorkGeoid', `${state}061${censusTract}`);
     await render(hbs`{{human-readable-census-tract newYorkGeoid}}`);
     assert.equal(this.element.textContent.trim(), `${censusTract}, New York County`);

@@ -7,19 +7,17 @@ export default class ProjectOrchestratorService extends Service {
 
   @taskGroup projectTask;
 
-  @task({ group: 'projectTask' })
-  *createProject() {
-    try {        
+  @task({ group: 'projectTask' })* createProject() {
+    try {
       const project = yield this.get('changeset').save();
 
       this.router.transitionTo('project.show', project.id);
-    } catch(err) {
+    } catch (err) {
       debug(err);
     }
   }
 
-  @task({ group: 'projectTask' })
-  *saveProject() {
+  @task({ group: 'projectTask' })* saveProject() {
     try {
       const project = yield this.get('changeset').save();
       // ensure changes to analyses triggered by project updates are reloaded
@@ -31,13 +29,12 @@ export default class ProjectOrchestratorService extends Service {
       yield project.communityFacilitiesAnalysis.reload();
 
       history.back();
-    } catch(err) {
+    } catch (err) {
       debug(err);
     }
   }
 
-  @task({ group: 'projectTask' })
-  *saveAnalysis() {
+  @task({ group: 'projectTask' })* saveAnalysis() {
     yield this.get('analysis').save();
   }
 }

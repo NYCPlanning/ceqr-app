@@ -1,5 +1,5 @@
-import EmberObject from '@ember/object';
-import { computed } from '@ember/object';
+import { computed } from EmberObject from '@ember/object';
+
 
 /**
  *

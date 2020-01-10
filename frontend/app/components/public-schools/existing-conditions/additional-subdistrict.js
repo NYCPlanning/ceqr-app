@@ -7,7 +7,7 @@ export default Component.extend({
   mapservice: service(),
   'ceqr-data': service(),
   'project-orchestrator': service(),
-  
+
   init() {
     this._super(...arguments);
     this.fetchSubdistricts.perform();
@@ -16,15 +16,15 @@ export default Component.extend({
     this.allSubdistricts = [];
   },
 
-  fetchSubdistricts: task(function*() {
-    const dataPackage = yield this.get('analysis.dataPackage');  
+  fetchSubdistricts: task(function* () {
+    const dataPackage = yield this.get('analysis.dataPackage');
     const response = yield this.get('ceqr-data').subdistricts(dataPackage.schemas.doe_school_subdistricts.table);
 
     const allSubdistricts = response.reject((sd) => {
-      const fromUser = this.analysis.subdistrictsFromUser.find((a) => { return (sd.district === a.district && sd.subdistrict === a.subdistrict) });
-      const fromDb   = this.analysis.subdistrictsFromDb.find((a) => { return (sd.district === a.district && sd.subdistrict === a.subdistrict) });
-      
-      return (!!fromUser || !!fromDb)
+      const fromUser = this.analysis.subdistrictsFromUser.find((a) => (sd.district === a.district && sd.subdistrict === a.subdistrict));
+      const fromDb = this.analysis.subdistrictsFromDb.find((a) => (sd.district === a.district && sd.subdistrict === a.subdistrict));
+
+      return (!!fromUser || !!fromDb);
     });
 
     this.set('allSubdistricts', allSubdistricts);
@@ -37,7 +37,7 @@ export default Component.extend({
     if (!this.district) return [];
     return this.allSubdistricts.filterBy('district', this.district).mapBy('subdistrict');
   }),
-  
+
   actions: {
     setDistrict(district) {
       this.set('district', parseInt(district));
@@ -54,15 +54,15 @@ export default Component.extend({
         district: parseInt(this.district),
         subdistrict: parseInt(this.subdistrict),
         id: `${this.district}${this.subdistrict}`,
-        sdName: `District ${this.district} - Subdistrict ${this.subdistrict}`
+        sdName: `District ${this.district} - Subdistrict ${this.subdistrict}`,
       });
-  
+
       this.set('analysis.subdistrictsFromUser', subdistricts);
       this.set('subdistrict', null);
 
       this.get('project-orchestrator').set('analysis', this.analysis);
       this.get('project-orchestrator.saveAnalysis').perform().then(
-        () => this.mapservice.fitToSubdistricts()
+        () => this.mapservice.fitToSubdistricts(),
       );
     },
 
@@ -72,8 +72,8 @@ export default Component.extend({
 
       this.get('project-orchestrator').set('analysis', this.analysis);
       this.get('project-orchestrator.saveAnalysis').perform().then(
-        () => this.mapservice.fitToSubdistricts()
+        () => this.mapservice.fitToSubdistricts(),
       );
     },
-  }
+  },
 });

@@ -8,22 +8,20 @@ module('Integration | Component | transportation/data-source-toggle', function(h
 
   hooks.beforeEach(async function() {
     this.isRJTW = false;
-    this.falseLabel = "Journey To Work";
-    this.trueLabel = "Journey To Work";
+    this.falseLabel = 'Journey To Work';
+    this.trueLabel = 'Journey To Work';
 
     await render(hbs`{{transportation/data-source-toggle
       switch=this.isRJTW
       falseLabel=this.falseLabel
       trueLabel=this.trueLabel
     }}`);
-
-  })
+  });
 
   test('it toggles the switch and indicates its state', async function(assert) {
-
     // get refs to Journey To Work and Reverse Journey To Work buttons.
-    let jtwButton  = find('[data-test-censustracts-table-isrjtw="false"]');
-    let rjtwButton = find('[data-test-censustracts-table-isrjtw="true"]');
+    const jtwButton = find('[data-test-censustracts-table-isrjtw="false"]');
+    const rjtwButton = find('[data-test-censustracts-table-isrjtw="true"]');
 
     // Table is in JTW mode on load
     assert.equal(jtwButton.classList.contains('active'), true);
@@ -40,8 +38,5 @@ module('Integration | Component | transportation/data-source-toggle', function(h
 
     assert.equal(jtwButton.classList.contains('active'), true);
     assert.equal(rjtwButton.classList.contains('active'), false);
-
-
-  })
-
+  });
 });

@@ -6,14 +6,14 @@ import { landUseStyles, landUseColors } from 'labs-ceqr/layer-styles/land-use';
 import { plutoLineStyles } from 'labs-ceqr/layer-styles/pluto-line';
 import { plutoLabelsStyles } from 'labs-ceqr/layer-styles/pluto-labels';
 
-export const styles  = {
+export const styles = {
   ...subwayStyles,
   ...selectableFeatureStyles,
   ...projectBblStyles,
   ...transitZoneStyles,
   ...landUseStyles,
   ...plutoLineStyles,
-  ...plutoLabelsStyles
+  ...plutoLabelsStyles,
 };
 
 export const colors = {

@@ -5,7 +5,7 @@ import ENV from 'labs-ceqr/config/environment';
 export default class CeqrDataService extends Service {
   async valid_bbl(bbl, version) {
     const response = await fetch(`${ENV.host}/ceqr_data/v1/mappluto/validate/${bbl}?version=${version}`, {
-      method: 'GET'
+      method: 'GET',
     });
 
     const body = await response.json();
@@ -15,7 +15,7 @@ export default class CeqrDataService extends Service {
 
   async subdistricts(version) {
     const response = await fetch(`${ENV.host}/ceqr_data/v1/doe_school_subdistricts/${version}/subdistricts`, {
-      method: 'GET'
+      method: 'GET',
     });
 
     return await response.json();

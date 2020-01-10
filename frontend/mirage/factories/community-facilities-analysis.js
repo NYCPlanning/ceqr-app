@@ -4,8 +4,8 @@ export default Factory.extend({
   childCareImpact: trait({
     project: association({
       bbls: ['2024130001'],
-      affordableUnits: 142
-    })
+      affordableUnits: 142,
+    }),
   }),
 
   noChildCareImpact: trait({
@@ -13,20 +13,20 @@ export default Factory.extend({
       bbls: ['2024130001'],
       affordableUnits: 1,
       totalUnits: null,
-    })
+    }),
   }),
 
   libraryImpact: trait({
     project: association({
       bbls: ['2024130001'],
-      totalUnits: 683
-    })
+      totalUnits: 683,
+    }),
   }),
 
   noLibraryImpact: trait({
     project: association({
       bbls: ['2024130001'],
-      totalUnits: 1
-    })
+      totalUnits: 1,
+    }),
   }),
 });

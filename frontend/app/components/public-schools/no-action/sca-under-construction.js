@@ -10,25 +10,25 @@ export default Component.extend({
   },
 
   tables: computed('analysis.subdistricts.[]', function() {
-    let tables = this.get('analysis.subdistricts').map((sd) => {
-      let buildings = this.get('analysis.scaProjects').filter(
-        (b) => (b.district === sd.district && b.subdistrict === sd.subdistrict)
+    const tables = this.get('analysis.subdistricts').map((sd) => {
+      const buildings = this.get('analysis.scaProjects').filter(
+        (b) => (b.district === sd.district && b.subdistrict === sd.subdistrict),
       );
-      
+
       if (isEmpty(buildings)) return null;
       return {
         ...sd,
-        buildings
+        buildings,
       };
     });
-    
+
     return tables.compact();
   }),
 
   actions: {
-    save: function() {
+    save() {
       this.set('saving', true);
       this.get('analysis').save().then(() => this.set('saving', false));
     },
-  }
+  },
 });

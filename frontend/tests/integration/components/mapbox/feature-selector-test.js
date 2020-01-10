@@ -11,12 +11,12 @@ module('Integration | Component | mapbox/feature-selector', function(hooks) {
     const events = {};
     this.map = {
       instance: {
-      on(event, action) {
-        events[event] = action;
-      },
+        on(event, action) {
+          events[event] = action;
+        },
         off() {},
         queryRenderedFeatures: (point) => point,
-      }
+      },
     };
 
     // If the component is rendered with a map that returns the point passed to queryRenderedFeatures
@@ -27,7 +27,7 @@ module('Integration | Component | mapbox/feature-selector', function(hooks) {
     `);
 
     // When the event registered for "click" event is called with an object containing "point" property
-    events['click']({ point })
+    events.click({ point });
     await settled();
 
     // Then the component should yield the result of queryRenderedFeatures

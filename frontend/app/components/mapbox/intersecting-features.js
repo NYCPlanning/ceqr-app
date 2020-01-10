@@ -22,14 +22,13 @@ export default class MapboxIntersectingFeatures extends Component {
   // features at given @point and in layers of @options.layers
   _intersectingFeatures = null;
 
-  didReceiveAttrs(){
+  didReceiveAttrs() {
     const { map, point, options } = this;
     const { instance } = map;
-    let queriedFeatures = instance.queryRenderedFeatures(point, { ...options });
+    const queriedFeatures = instance.queryRenderedFeatures(point, { ...options });
     this.set('_intersectingFeatures', queriedFeatures);
-    if(this.handleIntersectingFeatures){
+    if (this.handleIntersectingFeatures) {
       this.handleIntersectingFeatures(queriedFeatures);
     }
   }
-
 }

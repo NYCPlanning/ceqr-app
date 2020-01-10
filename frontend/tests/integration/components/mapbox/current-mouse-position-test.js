@@ -7,7 +7,7 @@ module('Integration | Component | mapbox/current-mouse-position', function(hooks
   setupRenderingTest(hooks);
 
   test('it renders', async function(assert) {
-    let events = {};
+    const events = {};
     this.map = {
       instance: {
         on(event, action) {
@@ -23,7 +23,7 @@ module('Integration | Component | mapbox/current-mouse-position', function(hooks
       {{/mapbox/current-mouse-position}}
     `);
 
-    events['mousemove']({ point: { x: 0, y: 0} });
+    events.mousemove({ point: { x: 0, y: 0 } });
 
     await settled();
 

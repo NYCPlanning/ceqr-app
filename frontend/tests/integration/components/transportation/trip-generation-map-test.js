@@ -2,9 +2,9 @@ import { module, skip } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
-import { setupMirage } from "ember-cli-mirage/test-support";
+import { setupMirage } from 'ember-cli-mirage/test-support';
 import Component from '@ember/component';
-import { registerEventHandler}  from '../../../helpers/mapbox/mapbox-stub-helpers';
+import { registerEventHandler } from '../../../helpers/mapbox/mapbox-stub-helpers';
 
 const DEFAULT_MAPBOX_GL_INSTANCE = {
   addSource: () => {},
@@ -24,32 +24,30 @@ module('Integration | Component | transportation/trip-generation-map', function(
   hooks.beforeEach(async function() {
     this.events = {};
     this.layers = [];
-    this.filters = {}
+    this.filters = {};
     this.map = {
       ...DEFAULT_MAPBOX_GL_INSTANCE,
       addLayer: ({ id }) => {
         this.layers.push(id);
       },
-      queryRenderedFeatures: () => {
-        return [{
-          type: 'Feature',
-          properties: {
-            geoid: 'test',
-          },
-        }]
-      },
+      queryRenderedFeatures: () => [{
+        type: 'Feature',
+        properties: {
+          geoid: 'test',
+        },
+      }],
       setFilter: (layerId, filter) => {
         this.filters[layerId] = filter;
       },
       // On render, component templates like `current-map-position.js`
-      // will associate action handlers to fired mouse events and 
-      // mantain a list of these associations. 
+      // will associate action handlers to fired mouse events and
+      // mantain a list of these associations.
       // We simulate this association list locally (with the `events` object)
       // so that we can make ad hoc calls to action handlers. See comment below
       // in `it hovers, displays information`.
       on: (event, action) => {
         registerEventHandler(this.events, event, action);
-      }
+      },
     };
 
     const that = this;
@@ -64,7 +62,6 @@ module('Integration | Component | transportation/trip-generation-map', function(
   });
 
   skip('it has tracts and subways in map', async function(assert) {
-
     await render(hbs`{{transportation/trip-generation-map}}`);
 
     assert.ok(this.layers.includes('subway-routes'));

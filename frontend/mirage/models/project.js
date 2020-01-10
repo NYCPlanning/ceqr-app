@@ -5,5 +5,5 @@ export default Model.extend({
   transportationAnalysis: belongsTo(),
   communityFacilitiesAnalysis: belongsTo(),
   airQualityAnalysis: belongsTo(),
-  dataPackage: belongsTo()
+  dataPackage: belongsTo(),
 });

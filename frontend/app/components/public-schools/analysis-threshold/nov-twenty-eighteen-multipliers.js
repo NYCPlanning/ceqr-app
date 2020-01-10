@@ -6,7 +6,7 @@ export default class Nov2018Multipliers extends Component {
   get multipliers() {
     const districts = this.analysis.get('multipliers.districts');
     if (!districts) return {};
-    
+
     const bx = districts.filterBy('borocode', 'bx').sortBy('csd');
     const bk = districts.filterBy('borocode', 'bk').sortBy('csd');
     const mn = districts.filterBy('borocode', 'mn').sortBy('csd');
@@ -20,5 +20,5 @@ export default class Nov2018Multipliers extends Component {
       qn: { count: qn.length, districts: qn },
       si: { count: si.length, districts: si },
     };
-  } 
+  }
 }

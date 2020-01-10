@@ -33,18 +33,16 @@ export default class CommunityFacilitiesTrThresholdComponent extends Component {
   @computed('isProjectBorough', 'libraryImpact')
   get libraryClass() {
     if (this.isProjectBorough) {
-      return this.libraryImpact ? "warning" : "active";
-    } else {
-      return null;
+      return this.libraryImpact ? 'warning' : 'active';
     }
+    return null;
   }
 
   @computed('isProjectBorough', 'childCareImpact')
   get childCareClass() {
     if (this.isProjectBorough) {
-      return this.childCareImpact ? "warning" : "active";
-    } else {
-      return null;
+      return this.childCareImpact ? 'warning' : 'active';
     }
+    return null;
   }
 }

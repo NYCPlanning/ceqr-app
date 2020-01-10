@@ -7,17 +7,17 @@ import ENV from 'labs-ceqr/config/environment';
 
 export default Component.extend({
   router: service(),
-  
-  didInsertElement() {    
+
+  didInsertElement() {
     $('.ui.form').form({
       fields: {
         password: ['minLength[6]', 'empty'],
-      }
+      },
     });
   },
 
   actions: {
-    resetPassword: function(password) {
+    resetPassword(password) {
       fetch(`${ENV.host}/auth/v1/password-reset`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
@@ -28,14 +28,12 @@ export default Component.extend({
             message: 'Password reset successfully.',
             type: 'success',
             sticky: true,
-          })
-          this.router.transitionTo('login')
+          });
+          this.router.transitionTo('login');
         } else if (res.status === 422) {
-          res.json().then(({ message }) =>
-            this.set('error', { message })
-          )
+          res.json().then(({ message }) => this.set('error', { message }));
         }
-      })
-    }
-  }
+      });
+    },
+  },
 });

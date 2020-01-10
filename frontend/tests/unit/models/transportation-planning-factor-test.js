@@ -6,8 +6,8 @@ module('Unit | Model | transportation planning factor', function(hooks) {
 
   // Replace this with your real tests.
   skip('it exists', function(assert) {
-    let store = this.owner.lookup('service:store');
-    let model = store.createRecord('transportation-planning-factor', {});
+    const store = this.owner.lookup('service:store');
+    const model = store.createRecord('transportation-planning-factor', {});
     assert.ok(model);
   });
 });

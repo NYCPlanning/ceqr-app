@@ -6,7 +6,7 @@ export const MODAL_SPLIT_POPUP_DISPLAY_VARIABLES = [
   'trans_public_subway',
   'trans_public_bus',
   'trans_walk_other',
-  'trans_commuter_total'
+  'trans_commuter_total',
 ];
 
 /**

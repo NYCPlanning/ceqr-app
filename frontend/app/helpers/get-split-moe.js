@@ -1,11 +1,11 @@
 import { helper } from '@ember/component/helper';
 
-export function getSplitMoe(params/*, hash*/) {
+export function getSplitMoe(params/* , hash */) {
   const [modalSplitData, variable] = params;
 
   const split = modalSplitData[variable];
 
-  if(split && split.moe) {
+  if (split && split.moe) {
     return `±${split.moe.toFixed(0)}`;
   }
 

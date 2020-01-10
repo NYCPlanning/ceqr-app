@@ -18,77 +18,76 @@ export default Component.extend({
     }
   }),
 
-  EC_newSchoolsOpened: computed('activeSchoolsLevel', 'analysis.lcmgs', function() {    
+  EC_newSchoolsOpened: computed('activeSchoolsLevel', 'analysis.lcmgs', function() {
     const schools = this.analysis.lcgms.filterBy('level', this.activeSchoolsLevel);
 
     const enrollment = schools.mapBy('enroll').reduce((a, v) => a + parseInt(v), 0);
-    const capacity   = schools.mapBy('capacity').reduce((a, v) => a + parseInt(v), 0);
+    const capacity = schools.mapBy('capacity').reduce((a, v) => a + parseInt(v), 0);
 
     return { enrollment, capacity, schools };
   }),
 
   NA_newResidentialDevelopment: computed('activeSchoolsLevel', function() {
-    const developments = this.analysis.futureResidentialDev.map(b => {
+    const developments = this.analysis.futureResidentialDev.map((b) => {
       b.set('enrollment', b.get(`${this.activeSchoolsLevel}_students`));
       return b;
     });
 
     const enrollment = developments
       .mapBy(`${this.activeSchoolsLevel}_students`)
-      .reduce((a, v) => a + parseInt(v), 0);      
+      .reduce((a, v) => a + parseInt(v), 0);
 
-    return { enrollment, developments }
+    return { enrollment, developments };
   }),
 
-  NA_plannedSchools: computed('activeSchoolsLevel', 'levelTotals', function() {    
+  NA_plannedSchools: computed('activeSchoolsLevel', 'levelTotals', function() {
     const capacity = this.levelTotals.scaCapacityIncrease;
 
     const schools = this.analysis.scaProjects
-      .map(b => ({
+      .map((b) => ({
         ...b,
-        capacity: b[`${this.activeSchoolsLevel}_capacity`]
+        capacity: b[`${this.activeSchoolsLevel}_capacity`],
       }))
       .filter((b) => b.includeInCapacity && b.capacity > 0);
 
-    return { capacity, schools }
+    return { capacity, schools };
   }),
 
   NA_significantUtilChanges: computed('activeSchoolsLevel', 'analysis.buildings.[]', function() {
     const schools = this.analysis.buildings
       .map((b) => ({
         ...b,
-        capacityDelta: parseInt(b.capacityFuture) - parseInt(b.capacity)
+        capacityDelta: parseInt(b.capacityFuture) - parseInt(b.capacity),
       }))
       .filter(
-        (b) => 
-          ('capacityFuture' in b)
+        (b) => ('capacityFuture' in b)
           && (parseInt(b.capacity) !== parseInt(b.capacityFuture))
-          && b.level === this.activeSchoolsLevel
+          && b.level === this.activeSchoolsLevel,
       );
-    
+
     const capacityDelta = schools
       .reduce((a, b) => a + b.capacityDelta, 0);
 
-    return { capacityDelta, schools }
+    return { capacityDelta, schools };
   }),
 
   WA_newSchools: computed('activeSchoolsLevel', 'analysis.schoolsWithAction.[]', function() {
     const schools = this.analysis.schoolsWithAction
-      .map(b => ({
+      .map((b) => ({
         ...b,
-        capacity: parseInt(b[`${this.activeSchoolsLevel}_seats`])
+        capacity: parseInt(b[`${this.activeSchoolsLevel}_seats`]),
       }));
 
     const capacity = schools
       .mapBy('capacity')
       .reduce((a, v) => a + parseInt(v), 0);
 
-    return { capacity, schools }
+    return { capacity, schools };
   }),
 
   actions: {
-    toggle: function(prop) {
+    toggle(prop) {
       this.toggleProperty(prop);
     },
-  }
+  },
 });

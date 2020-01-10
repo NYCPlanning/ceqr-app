@@ -8,7 +8,7 @@ export default class TransportationTdfModalSplitsCensusTractTableCellTotalCompon
   @computed('activeModes', 'tract')
   get tractTotal() {
     let total = 0;
-    
+
     this.activeModes.forEach((mode) => {
       const key = censusTractVariableForMode(mode);
       total += this.tract[key].value;

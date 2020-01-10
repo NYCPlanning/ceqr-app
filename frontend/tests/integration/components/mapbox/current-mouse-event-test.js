@@ -7,15 +7,15 @@ module('Integration | Component | mapbox/current-mouse-event', function(hooks) {
   setupRenderingTest(hooks);
 
   test('it yields event arguments for the bound event', async function(assert) {
-    let events = {};
+    const events = {};
     this.map = {
       instance: {
         on(event, action) {
           events[event] = action;
         },
         off() {},
-      }
-    }
+      },
+    };
 
     // if the mouse event template is rendered for event='click'
     await render(hbs`
@@ -25,7 +25,7 @@ module('Integration | Component | mapbox/current-mouse-event', function(hooks) {
     `);
 
     // when the registered function is called with an argument
-    events['click']('eventArgs');
+    events.click('eventArgs');
     await settled();
 
     // then the point will be yielded by the component

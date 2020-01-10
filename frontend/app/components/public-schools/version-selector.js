@@ -4,7 +4,7 @@ import { inject as service } from '@ember/service';
 export default Component.extend({
   store: service(),
   'project-orchestrator': service(),
-  
+
   actions: {
     async changeDataPackage(dataPackage) {
       const analysis = await this.analysis;
@@ -14,5 +14,5 @@ export default Component.extend({
       this.get('project-orchestrator').set('analysis', analysis);
       this.get('project-orchestrator.saveAnalysis').perform();
     },
-  }
+  },
 });

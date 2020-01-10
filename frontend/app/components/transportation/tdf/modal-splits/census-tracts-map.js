@@ -14,13 +14,14 @@ const onMapStyleLoaded = function(e) {
     map.moveLayer('bbls');
     map.off('data', onMapStyleLoaded);
   }
-}
+};
 
 export default class TransportationCensusTractsMapComponent extends Component {
   /**
    * The project model
    */
   analysis = {};
+
   /**
    * The identifier (geoid) of the currenlty hovered feature in the map
   */
@@ -40,8 +41,8 @@ export default class TransportationCensusTractsMapComponent extends Component {
    * Sets hoveredFeatureId to geoid of the first feature in features array argument
    */
   @action
-  setFirstHoveredFeatureId(features){
-    if(features && features.length && features[0]){
+  setFirstHoveredFeatureId(features) {
+    if (features && features.length && features[0]) {
       this.set('hoveredFeatureId', features[0].properties.geoid);
     } else {
       this.set('hoveredFeatureId', null);
@@ -69,7 +70,7 @@ export default class TransportationCensusTractsMapComponent extends Component {
 
   @computed('analysis.censusTractsCentroid')
   get censusTractsCentroidLngLat() {
-    return this.analysis.censusTractsCentroid.features.firstObject.geometry.coordinates
+    return this.analysis.censusTractsCentroid.features.firstObject.geometry.coordinates;
   }
 
   /**

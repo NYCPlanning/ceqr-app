@@ -8,5 +8,5 @@ export default DS.Model.extend({
   editable_and_viewable_projects: DS.hasMany('projects'),
 
   editable_projects: DS.hasMany('project', { inverse: 'editors' }),
-  viewable_projects: DS.hasMany('project', { inverse: 'viewers' })
+  viewable_projects: DS.hasMany('project', { inverse: 'viewers' }),
 });

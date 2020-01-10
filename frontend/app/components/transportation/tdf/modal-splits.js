@@ -4,17 +4,20 @@ import { action, computed } from '@ember/object';
 import { task, taskGroup } from 'ember-concurrency-decorators';
 
 export default class TransportationTdfModalSplitsComponent extends Component {
-  classNames = ["row"];
+  classNames = ['row'];
 
   editModes = false;
+
   seeCensusTracts = false;
 
   @alias('factor.modeSplits') modeSplits;
+
   @alias('factor.censusTractVariables') censusTractVariables;
 
   @alias('factor.manualModeSplits') manualModeSplits;
 
   @alias('factor.activeModes') activeModes;
+
   @alias('factor.inactiveModes') inactiveModes;
 
   // Compute when any land use is changed
@@ -25,12 +28,12 @@ export default class TransportationTdfModalSplitsComponent extends Component {
   get total() {
     return {
       allPeriods: this.factor.modesForAnalysis.reduce((pv, key) => pv + parseFloat(this.modeSplits[key].allPeriods), 0),
-      am:         this.factor.modesForAnalysis.reduce((pv, key) => pv + parseFloat(this.modeSplits[key].am), 0),
-      md:         this.factor.modesForAnalysis.reduce((pv, key) => pv + parseFloat(this.modeSplits[key].md), 0),
-      pm:         this.factor.modesForAnalysis.reduce((pv, key) => pv + parseFloat(this.modeSplits[key].pm), 0),
-      saturday:   this.factor.modesForAnalysis.reduce((pv, key) => pv + parseFloat(this.modeSplits[key].saturday), 0),
-      count:      this.factor.modesForAnalysis.reduce((pv, key) => pv + parseFloat(this.modeSplits[key].count), 0)
-    }
+      am: this.factor.modesForAnalysis.reduce((pv, key) => pv + parseFloat(this.modeSplits[key].am), 0),
+      md: this.factor.modesForAnalysis.reduce((pv, key) => pv + parseFloat(this.modeSplits[key].md), 0),
+      pm: this.factor.modesForAnalysis.reduce((pv, key) => pv + parseFloat(this.modeSplits[key].pm), 0),
+      saturday: this.factor.modesForAnalysis.reduce((pv, key) => pv + parseFloat(this.modeSplits[key].saturday), 0),
+      count: this.factor.modesForAnalysis.reduce((pv, key) => pv + parseFloat(this.modeSplits[key].count), 0),
+    };
   }
 
   @action
@@ -62,7 +65,7 @@ export default class TransportationTdfModalSplitsComponent extends Component {
 
   @action
   toggleEditModes() {
-    this.toggleProperty("editModes");
+    this.toggleProperty('editModes');
   }
 
   @action
@@ -86,13 +89,13 @@ export default class TransportationTdfModalSplitsComponent extends Component {
   }
 
   @action
-  addCensusTract(tract) {    
+  addCensusTract(tract) {
     this.analysis.censusTractsSelection.push(tract);
     this.saveAnalysisAndRefreshFactor.perform();
   }
 
   @action
-  removeCensusTract(tract) {    
+  removeCensusTract(tract) {
     this.analysis.set('censusTractsSelection', this.analysis.censusTractsSelection.without(tract));
     this.saveAnalysisAndRefreshFactor.perform();
   }
@@ -106,14 +109,12 @@ export default class TransportationTdfModalSplitsComponent extends Component {
   // Ember Concurrency Tasks and Groups
   @taskGroup censusTracksChanging;
 
-  @task({ group: 'censusTracksChanging' })
-  *saveAnalysisAndRefreshFactor() {
+  @task({ group: 'censusTracksChanging' })* saveAnalysisAndRefreshFactor() {
     yield this.analysis.save();
     yield this.analysis.transportationPlanningFactors.forEach((factor) => factor.reload());
   }
 
-  @task({ group: 'censusTracksChanging' })
-  *saveFactorAndRefresh() {
+  @task({ group: 'censusTracksChanging' })* saveFactorAndRefresh() {
     yield this.factor.save();
   }
 }

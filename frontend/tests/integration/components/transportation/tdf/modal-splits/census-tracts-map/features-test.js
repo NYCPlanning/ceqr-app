@@ -40,5 +40,4 @@ module('Integration | Component | transportation/tdf/modal-splits/census-tracts-
     assert.equal(findAll('[data-test-tz-legend-item]').length, Object.keys(transitZoneColors).length);
     assert.equal(findAll('[data-test-lu-legend-item]').length, Object.keys(landUseColors).length);
   });
-
 });

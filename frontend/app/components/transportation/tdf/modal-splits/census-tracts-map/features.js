@@ -24,9 +24,8 @@ export default class TransportationCensusTractsMapFeaturesComponent extends Comp
     '07': 'Transportation & Utility',
     '08': 'Public Facilities & Institutions',
     '09': 'Open Space & Outdoor Recreation',
-    '10': 'Parking Facilities',
-    '11': 'Vacant Land',
-    '00': 'Other'
+    10: 'Parking Facilities',
+    11: 'Vacant Land',
+    '00': 'Other',
   };
 }
-

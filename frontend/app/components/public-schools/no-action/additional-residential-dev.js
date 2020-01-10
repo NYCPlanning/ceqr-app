@@ -6,15 +6,17 @@ export default Component.extend({
     this._super(...arguments);
     this.resdev = {};
   },
-  
+
   actions: {
-    addResDev({ name, total_units, year, subdistrict }) {      
+    addResDev({
+      name, total_units, year, subdistrict,
+    }) {
       const residentialDevelopment = FutureResidentialDevelopment.create({
         ...subdistrict,
         name,
         total_units,
-        year
-      })
+        year,
+      });
 
       this.get('analysis.residentialDevelopments').pushObject(residentialDevelopment);
       this.get('analysis').save();
@@ -24,5 +26,5 @@ export default Component.extend({
       this.get('analysis.residentialDevelopments').removeObject(resdev);
       this.get('analysis').save();
     },
-  }
+  },
 });

@@ -10,11 +10,10 @@ export default function normalizeCartoVectors(pseudoMapboxGlSources = []) {
 
   // normalize into mapbox-gl source spec
   return Promise.all(iterable.map((source) => {
-    const { id, minzoom = 0, 'source-layers': sourceLayers } =
-      getProperties(source, 'id', 'minzoom', 'source-layers');
+    const { id, minzoom = 0, 'source-layers': sourceLayers } = getProperties(source, 'id', 'minzoom', 'source-layers');
 
     return getVectorTileTemplate(sourceLayers)
-      .then(template => ({
+      .then((template) => ({
         id,
         type: 'vector',
         tiles: [template],

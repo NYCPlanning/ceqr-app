@@ -6,13 +6,13 @@ const COUNTY_LOOKUP = {
   '061': 'New York County',
   '047': 'Queen\'s County',
   '005': 'Bronx County',
-}
+};
 
-/** 
+/**
  * Helper for CensusTractsTable that composes a human-readable version of a census
  * tract from the geoid, for use as column headers
  */
-export function humanReadableCensusTract(params/*, hash*/) {
+export function humanReadableCensusTract(params/* , hash */) {
   const [geoid] = params;
 
   const countyCode = geoid.substring(2, 5);

@@ -1,6 +1,6 @@
-import Service from '@ember/service';
+import { inject as service } from Service from '@ember/service';
 
-import { inject as service } from '@ember/service';
+
 import { isEmpty } from '@ember/utils';
 import RSVP from 'rsvp';
 
@@ -15,8 +15,8 @@ export default Service.extend({
       return this.get('store').findRecord('user', userId).then((user) => {
         this.set('user', user);
       });
-    } else {
+    } 
       return RSVP.resolve();
-    }
+    
   }
 });

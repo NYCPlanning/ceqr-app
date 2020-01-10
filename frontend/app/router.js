@@ -1,7 +1,7 @@
 import EmberRouter from '@ember/routing/router';
-import config from './config/environment';
 import { inject as service } from '@ember/service';
 import { scheduleOnce } from '@ember/runloop';
+import config from './config/environment';
 
 const Router = EmberRouter.extend({
   location: config.locationType,
@@ -20,7 +20,7 @@ const Router = EmberRouter.extend({
 
       this.metrics.trackPage({ page, title });
     });
-  }
+  },
 });
 
 Router.map(function() {
@@ -41,28 +41,28 @@ Router.map(function() {
     // not trigger default model lookup for the project/show route.
     // See routes/project/show.js for custom .findRecord() call to include
     // related resources.
-    this.route('show', {path: '/:id'}, function() {
+    this.route('show', { path: '/:id' }, function() {
       this.route('edit');
 
       // CEQR chapter routes
       this.route('public-schools', function() {
-        this.route('analysis-threshold', {path: '/'});
+        this.route('analysis-threshold', { path: '/' });
 
         this.route('existing-conditions', function() {
-          this.route('schools', {path: '/'});
+          this.route('schools', { path: '/' });
           this.route('study-area');
           this.route('new-schools');
         });
 
         this.route('no-action', function() {
-          this.route('scenario', {path: '/'});
+          this.route('scenario', { path: '/' });
           this.route('under-construction');
           this.route('utilization-changes');
           this.route('residential-development');
         });
 
         this.route('with-action', function() {
-          this.route('scenario', {path: '/'});
+          this.route('scenario', { path: '/' });
           this.route('new-schools');
         });
 
@@ -70,7 +70,7 @@ Router.map(function() {
       });
 
       this.route('transportation', function() {
-        this.route('analysis-threshold', {path: '/'});
+        this.route('analysis-threshold', { path: '/' });
         this.route('tdf', function() {
           this.route('planning-factors', function() {
             this.route('show', { path: '/:transportation_planning_factor_id' });
@@ -83,11 +83,11 @@ Router.map(function() {
       });
 
       this.route('community-facilities', function() {
-        this.route('analysis-threshold', {path: '/'});
+        this.route('analysis-threshold', { path: '/' });
       });
 
       this.route('air-quality', function() {
-        this.route('analysis-threshold', {path: '/'});
+        this.route('analysis-threshold', { path: '/' });
       });
     });
   });
@@ -96,7 +96,7 @@ Router.map(function() {
     this.route('projects');
   });
 
-  this.route('four-oh-four', { path: "*path" });
+  this.route('four-oh-four', { path: '*path' });
   this.route('ceqr-intro-page');
 });
 

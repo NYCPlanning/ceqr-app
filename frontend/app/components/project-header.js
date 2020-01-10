@@ -11,5 +11,5 @@ export default Component.extend({
 
   onSummary: computed('router.currentRouteName', function() {
     return (this.get('router.currentRouteName').includes('summary'));
-  })
+  }),
 });

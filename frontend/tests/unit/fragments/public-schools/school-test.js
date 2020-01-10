@@ -7,22 +7,22 @@ module('Unit | Fragment | School', function(hooks) {
   setupTest(hooks);
 
   test('seats are calculated correctly', function(assert) {
-    let lcgms_school = School.create({
-      "enroll": 115,
-      "capacity": "",
-      "excluded": false,
+    const lcgms_school = School.create({
+      enroll: 115,
+      capacity: '',
+      excluded: false,
     });
 
-    let bluebook_school = School.create({
-      "enroll": 115,
-      "capacity": 234,
-      "excluded": false,
+    const bluebook_school = School.create({
+      enroll: 115,
+      capacity: 234,
+      excluded: false,
     });
 
-    let excluded_school = School.create({
-      "enroll": 115,
-      "capacity": 234,
-      "excluded": true,
+    const excluded_school = School.create({
+      enroll: 115,
+      capacity: 234,
+      excluded: true,
     });
 
     assert.equal(lcgms_school.seats, 0);
@@ -31,22 +31,22 @@ module('Unit | Fragment | School', function(hooks) {
   });
 
   test('utilization is calculated correctly', function(assert) {
-    let school = School.create({
-      "enroll": 116,
-      "capacity": 234,
-      "excluded": false,
+    const school = School.create({
+      enroll: 116,
+      capacity: 234,
+      excluded: false,
     });
 
-    assert.equal(school.utilization, 0.496)
+    assert.equal(school.utilization, 0.496);
   });
 
   test('capacity delta is calculated correctly', function(assert) {
-    let school = School.create({
-      "enroll":116,
-      "capacity": 234,
-      "capacityFuture": 255,
+    const school = School.create({
+      enroll: 116,
+      capacity: 234,
+      capacityFuture: 255,
     });
 
-    assert.equal(school.capacityDelta, 21)
+    assert.equal(school.capacityDelta, 21);
   });
 });

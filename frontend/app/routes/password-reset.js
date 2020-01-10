@@ -6,11 +6,11 @@ export default Route.extend({
 
   beforeModel(transition) {
     if (this.session.isAuthenticated || !transition.queryParams.token) {
-      this.transitionTo('index')
+      this.transitionTo('index');
     }
   },
 
   model(params) {
-    return { id: params.id }
-  }
+    return { id: params.id };
+  },
 });
