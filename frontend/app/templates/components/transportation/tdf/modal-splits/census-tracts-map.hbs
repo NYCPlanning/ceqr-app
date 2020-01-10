@@ -13,7 +13,7 @@
   />
 
   <MapboxGlSource
-    @sourceId='bbls_geojson'
+    @sourceId="bbls_geojson"
     @map={{map.instance}}
     @options={{hash type="geojson" data=project.bblsGeojson}} as |source|
   >
@@ -21,29 +21,29 @@
       @layer={{hash
         id="bbls"
         type="line"
-        paint=(get-layer-style 'bbls' 'paint')
+        paint=(get-layer-style "bbls" "paint")
       }}
     />
   </MapboxGlSource>
 
   <Mapbox::CartoVectorSource @sourceId="carto" @map={{map}} as |carto-source|>
     <carto-source.layer
-      @id='transit-zones-fill'
-      @sql='SELECT * from ceqr_data_traffic_zones_2019'
+      @id="transit-zones-fill"
+      @sql="SELECT * from ceqr_data_traffic_zones_2019"
       @layer={{hash
-        type='fill'
-        layout=(hash visibility=(if this.showTransitZones 'visible' 'none'))
-        paint=(get-layer-style 'transit-zones-fill' 'paint')
+        type="fill"
+        layout=(hash visibility=(if this.showTransitZones "visible" "none"))
+        paint=(get-layer-style "transit-zones-fill" "paint")
       }}
     />
 
     <carto-source.layer
-      @id='land-use'
-      @sql='SELECT the_geom, the_geom_webmercator, landuse FROM mappluto'
+      @id="land-use"
+      @sql="SELECT the_geom, the_geom_webmercator, landuse FROM mappluto"
       @layer={{hash
-        type='fill'
-        layout=(hash visibility=(if this.showLandUse 'visible' 'none'))
-        paint=(get-layer-style 'land-use' 'paint')
+        type="fill"
+        layout=(hash visibility=(if this.showLandUse "visible" "none"))
+        paint=(get-layer-style "land-use" "paint")
       }}
     />
 
@@ -53,7 +53,7 @@
       @sql="select * from mta_subway_routes_v0"
       @layer={{hash
         type="line"
-        paint=(get-layer-style 'subway-routes' 'paint')
+        paint=(get-layer-style "subway-routes" "paint")
       }}
      />
 
@@ -62,7 +62,7 @@
       @sql="select * from mta_subway_stops_v0"
       @layer={{hash
         type="circle"
-        paint=(get-layer-style 'subway-stops' 'paint')
+        paint=(get-layer-style "subway-stops" "paint")
       }}
      />
     <carto-source.layer
@@ -70,24 +70,14 @@
       @sql="select * from nyc_census_tracts_2010"
       @layer={{hash
         type="fill"
-        paint=(get-layer-style 'selectable-feature-content' 'paint')
+        paint=(get-layer-style "selectable-feature-content" "paint")
       }} as |layer|
     >
       <Mapbox::FeatureHoverer
         @map={{map}}
         @layerId={{layer.layerId}}
         @onFeatures={{setFirstHoveredFeatureId}}
-        as |hoverer|
-      >
-        {{!-- {{#if (and hoverer.point hoverer.features)}}
-          <HoverCard @point={{hoverer.point}}>
-            <Transportation::Tdf::ModalSplits::CensusTractsMap::CensusTractPopup
-              @feature={{hoverer.features.firstObject}}
-              data-test-popup='census-tract'
-            />
-          </HoverCard>
-        {{/if}} --}}
-      </Mapbox::FeatureHoverer>
+      />
 
       <Mapbox::FeatureSelector
         @map={{map}}
@@ -106,8 +96,8 @@
       @sql="select * from nyc_census_tracts_2010"
       @layer={{hash
         type="line"
-        paint=(get-layer-style 'selectable-feature-line' 'paint')
-        layout=(get-layer-style 'selectable-feature-line' 'layout')
+        paint=(get-layer-style "selectable-feature-line" "paint")
+        layout=(get-layer-style "selectable-feature-line" "layout")
       }}
     />
 
@@ -117,8 +107,8 @@
       @layer={{hash
         type="symbol"
         minzoom=11
-        paint=(get-layer-style 'selectable-feature-label' 'paint')
-        layout=(get-layer-style 'selectable-feature-label' 'layout')
+        paint=(get-layer-style "selectable-feature-label" "paint")
+        layout=(get-layer-style "selectable-feature-label" "layout")
       }}
     />
 
@@ -127,7 +117,7 @@
       @sql="select * from nyc_census_tracts_2010"
       @layer={{hash
         type="line"
-        paint=(get-layer-style 'selectable-feature-hover' 'paint')
+        paint=(get-layer-style "selectable-feature-hover" "paint")
       }} as |layer|
     >
       <Mapbox::FeatureFilterer
@@ -143,7 +133,7 @@
       @sql="select * from nyc_census_tracts_2010"
       @layer={{hash
         type="fill"
-        paint=(get-layer-style 'selectable-feature-selected-fill-bold' 'paint')
+        paint=(get-layer-style "selectable-feature-selected-fill-bold" "paint")
       }} as |layer|
     >
       <Mapbox::FeatureFilterer
@@ -159,7 +149,7 @@
       @sql="select * from nyc_census_tracts_2010"
       @layer={{hash
         type="fill"
-        paint=(get-layer-style 'selectable-feature-selected-fill-light' 'paint')
+        paint=(get-layer-style "selectable-feature-selected-fill-light" "paint")
       }} as |layer|
     >
       <Mapbox::FeatureFilterer
@@ -175,8 +165,8 @@
       @sql="select * from nyc_census_tracts_2010"
       @layer={{hash
         type="line"
-        paint=(get-layer-style 'selectable-feature-selected-line' 'paint')
-        layout=(get-layer-style 'selectable-feature-selected-line' 'layout')
+        paint=(get-layer-style "selectable-feature-selected-line" "paint")
+        layout=(get-layer-style "selectable-feature-selected-line" "layout")
       }} as |layer|
     >
       <Mapbox::FeatureFilterer

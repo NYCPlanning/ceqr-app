@@ -20,7 +20,7 @@
         <th class="one wide" colspan="1">
           Percent
         </th>
-        {{#each this.selectedCensusTractIds as |censusTract|}}
+        {{#each this.selectedCensusTractIds}}
           <th class="one wide" colspan="1">
             Count
           </th>
@@ -58,7 +58,7 @@
         <tr style="background-color: rgb(249, 250, 251)">
           <td></td>
           <td colspan="2">Average</td>
-          <td colspan="{{mult censusTracts.length 2}}"></td>
+          <td colspan={{mult censusTracts.length 2}}></td>
         </tr>
         <tr>
           <td>&nbsp;&nbsp;&nbsp;Vehicle Occupancy</td>

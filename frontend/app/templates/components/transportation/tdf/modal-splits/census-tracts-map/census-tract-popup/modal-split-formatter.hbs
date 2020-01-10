@@ -1,4 +1,4 @@
-<table class='ui celled structured unstackable table'>
+<table class="ui celled structured unstackable table">
   <thead>
     <tr>
       <th></th>
@@ -24,7 +24,7 @@
   <tbody>
     {{#each this.displayVariables as |variable|}}
       <tr>
-       <td data-test-mode={{variable}}>{{get (get acsData variable) 'mode'}}</td>
+       <td data-test-mode={{variable}}>{{get (get acsData variable) "mode"}}</td>
        <td class="single line" data-test-acs-value={{variable}}>
          {{get-split-value acsData variable}}<span class="moe"> {{get-split-moe acsData variable}}</span>
        </td>

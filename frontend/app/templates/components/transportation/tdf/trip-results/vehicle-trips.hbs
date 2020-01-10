@@ -19,7 +19,7 @@
     </thead>
     <tbody>
       {{#each rows as |row|}}
-        {{#if (and (eq row.mode 'taxi') balancedTaxi)}}
+        {{#if (and (eq row.mode "taxi") balancedTaxi)}}
           <tr>
             <td>
               {{mode-label row.mode}} 
@@ -29,7 +29,7 @@
             <td>{{row.out}}</td>
             <td>{{row.total}}</td>
           </tr>
-        {{else if (and (eq row.mode 'taxi') (not balancedTaxi))}}
+        {{else if (and (eq row.mode "taxi") (not balancedTaxi))}}
           <tr>
             <td>
               {{mode-label row.mode}} 
