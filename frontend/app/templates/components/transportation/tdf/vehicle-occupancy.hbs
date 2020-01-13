@@ -9,9 +9,9 @@
         <td class="six wide"></td>
         <td class="three wide" colspan={{if factor.temporalVehicleOccupancy "4" "1"}}>
           <div class="ui small buttons">
-            <button class="ui button {{if factor.temporalVehicleOccupancy 'positive'}}" onClick={{action toggleTemporalVehicleOccupancy true}}>Temporal Splits</button>
+            <button class="ui button {{if factor.temporalVehicleOccupancy "positive"}}" onClick={{action toggleTemporalVehicleOccupancy true}}>Temporal Splits</button>
             <div class="or"></div>
-            <button class="ui button {{if (not factor.temporalVehicleOccupancy) 'positive'}}" onClick={{action toggleTemporalVehicleOccupancy false}}>All Periods</button>
+            <button class="ui button {{if (not factor.temporalVehicleOccupancy) "positive"}}" onClick={{action toggleTemporalVehicleOccupancy false}}>All Periods</button>
           </div>
         </td>
       </tr>
@@ -38,7 +38,7 @@
     <tbody class="ui form">
       <tr>
         <td>
-          {{mode-label 'auto'}}
+          {{mode-label "auto"}}
           {{#if (not factor.manualModeSplits)}}
             <UiPopup style="float: right;" @content="Average calculated using selected Census Tracts">
               <div class="ui basic blue horizontal label">
@@ -60,7 +60,7 @@
         {{/if}}
       </tr>
       <tr>
-        <td>{{mode-label 'taxi'}}</td>
+        <td>{{mode-label "taxi"}}</td>
 
         {{#if factor.temporalVehicleOccupancy}}
           <td>{{input type="number" step=".01" min="0" value=vehicleOccupancy.taxi.am}}</td>

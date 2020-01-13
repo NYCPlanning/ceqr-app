@@ -7,21 +7,21 @@
 >
   <Mapbox::CartoVectorSource @sourceId="carto" @map={{map}} as |carto-source|>
     <carto-source.layer
-      @id='pluto-line'
+      @id="pluto-line"
       @sql={{mapplutoSql}}
       @layer={{hash
-        type='line'
-        paint=(get-layer-style 'pluto-line' 'paint')
+        type="line"
+        paint=(get-layer-style "pluto-line" "paint")
       }}
     />
 
     <carto-source.layer
-      @id='pluto-labels'
+      @id="pluto-labels"
       @sql={{mapplutoSql}}
       @layer={{hash
-        type='symbol'
-        layout=(get-layer-style 'pluto-labels' 'layout')
-        paint=(get-layer-style 'pluto-labels' 'paint')
+        type="symbol"
+        layout=(get-layer-style "pluto-labels" "layout")
+        paint=(get-layer-style "pluto-labels" "paint")
       }}
     />
 
@@ -30,7 +30,7 @@
       @sql={{mapplutoSql}}
       @layer={{hash
         type="fill"
-        paint=(get-layer-style 'selectable-feature-content' 'paint')
+        paint=(get-layer-style "selectable-feature-content" "paint")
       }} as |layer|
     >
       <Mapbox::FeatureHoverer
@@ -55,8 +55,8 @@
       @sql={{mapplutoSql}}
       @layer={{hash
         type="line"
-        paint=(get-layer-style 'selectable-feature-line' 'paint')
-        layout=(get-layer-style 'selectable-feature-line' 'layout')
+        paint=(get-layer-style "selectable-feature-line" "paint")
+        layout=(get-layer-style "selectable-feature-line" "layout")
       }} as |layer|
     >
       <Mapbox::FeatureFilterer
@@ -72,7 +72,7 @@
       @sql={{mapplutoSql}}
       @layer={{hash
         type="line"
-        paint=(get-layer-style 'bbls' 'paint')
+        paint=(get-layer-style "bbls" "paint")
       }} as |layer|
     >
       <Mapbox::FeatureFilterer

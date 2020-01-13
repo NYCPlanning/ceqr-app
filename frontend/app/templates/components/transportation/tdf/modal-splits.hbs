@@ -13,16 +13,16 @@
         <tr>
           <td class="four wide">
             <div class="ui small buttons">
-              <button class="ui button {{if factor.manualModeSplits 'positive'}}" onClick={{action toggleManualModeSplits}}>Manual</button>
+              <button class="ui button {{if factor.manualModeSplits "positive"}}" onClick={{action toggleManualModeSplits}}>Manual</button>
               <div class="or"></div>
-              <button class="ui button {{if (not factor.manualModeSplits) 'positive'}}" onClick={{action toggleCensusTractModeSplits}}>Census Tracts</button>
+              <button class="ui button {{if (not factor.manualModeSplits) "positive"}}" onClick={{action toggleCensusTractModeSplits}}>Census Tracts</button>
             </div>
           </td>
           <td colspan={{if factor.temporalModeSplits "4" "1"}}>
             <div class="ui small buttons">
-              <button class="ui button {{if factor.temporalModeSplits 'positive'}}" onClick={{action toggleTemporalModeSplits true}}>Temporal Splits</button>
+              <button class="ui button {{if factor.temporalModeSplits "positive"}}" onClick={{action toggleTemporalModeSplits true}}>Temporal Splits</button>
               <div class="or"></div>
-              <button class="ui button {{if (not factor.temporalModeSplits) 'positive'}}" onClick={{action toggleTemporalModeSplits false}}>All Periods</button>
+              <button class="ui button {{if (not factor.temporalModeSplits) "positive"}}" onClick={{action toggleTemporalModeSplits false}}>All Periods</button>
             </div>
           </td>
         </tr>
@@ -62,7 +62,7 @@
         {{#each activeModes as |mode|}}
           <Transportation::Tdf::ModalSplits::TableRow
             @mode={{mode}}
-            @modeActive=true
+            @modeActive={{true}}
             @addActiveMode={{addActiveMode}}
             @removeActiveMode={{removeActiveMode}}
             
@@ -124,19 +124,19 @@
         <tr>
           <td>
             <div class="ui small buttons">
-              <button class="ui button {{if factor.manualModeSplits 'positive'}}" onClick={{action toggleManualModeSplits}}>Manual</button>
+              <button class="ui button {{if factor.manualModeSplits "positive"}}" onClick={{action toggleManualModeSplits}}>Manual</button>
               <div class="or"></div>
-              <button class="ui button {{if (not factor.manualModeSplits) 'positive'}}" onClick={{action toggleCensusTractModeSplits}}>Census Tracts</button>
+              <button class="ui button {{if (not factor.manualModeSplits) "positive"}}" onClick={{action toggleCensusTractModeSplits}}>Census Tracts</button>
             </div>
           </td>
           <td>
             {{!-- Census Tract calculations only product on period --}}
           </td>
-          <td colspan="{{if seeCensusTracts (add analysis.censusTractsSelection.length analysis.requiredCensusTractsSelection.length) 1}}">
+          <td colspan={{if seeCensusTracts (add analysis.censusTractsSelection.length analysis.requiredCensusTractsSelection.length) 1}}>
             <div class="ui small buttons">
-              <button class="ui button {{if (not seeCensusTracts) 'positive'}}" onClick={{action toggleSeeCensusTracts false}}>Map</button>
+              <button class="ui button {{if (not seeCensusTracts) "positive"}}" onClick={{action toggleSeeCensusTracts false}}>Map</button>
               <div class="or"></div>
-              <button class="ui button {{if seeCensusTracts 'positive'}}" onClick={{action toggleSeeCensusTracts true}}>Table</button>
+              <button class="ui button {{if seeCensusTracts "positive"}}" onClick={{action toggleSeeCensusTracts true}}>Table</button>
             </div>
             
             <Analysis::DataPackageSelector
@@ -199,7 +199,7 @@
         {{#each activeModes as |mode idx|}}
           <Transportation::Tdf::ModalSplits::TableRow
             @mode={{mode}}
-            @modeActive=true
+            @modeActive={{true}}
             @addActiveMode={{addActiveMode}}
             @removeActiveMode={{removeActiveMode}}
             
@@ -210,7 +210,7 @@
             @editModes={{editModes}}
           >
             {{#if (eq idx 0)}}
-              <td rowspan={{add activeModes.length 1}} style="{{if seeCensusTracts "display:none;"}}">
+              <td rowspan={{add activeModes.length 1}} style={{if seeCensusTracts "display:none;" ""}}>
                 <Transportation::Tdf::ModalSplits::CensusTractsMap 
                   @analysis={{analysis}}
                   @project={{project}}
@@ -274,7 +274,7 @@
               @factor={{factor}}
             />
           </td>
-          <td colspan="{{if seeCensusTracts (add analysis.censusTractsSelection.length analysis.requiredCensusTractsSelection.length) 1}}"></td>
+          <td colspan={{if seeCensusTracts (add analysis.censusTractsSelection.length analysis.requiredCensusTractsSelection.length) 1}}></td>
         </tr>
       </tbody>
     </table>

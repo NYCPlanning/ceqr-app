@@ -17,37 +17,37 @@
 
 <div class="map-legend">
   <div class="ui list">
-    {{#let (get-layer-colors 'project-bbls') as |projectBblsColors|}}
+    {{#let (get-layer-colors "project-bbls") as |projectBblsColors|}}
     <div data-test-default-legend-item class="item">
-      <i class="square outline icon" style={{get-color-style (get projectBblsColors 'line')}}></i>
+      <i class="square outline icon" style={{get-color-style (get projectBblsColors "line")}}></i>
       <div class="content">Project BBLs</div>
     </div>
     {{/let}}
-    {{#let (get-layer-colors 'selectable-features') as |selectableFeatureColors|}}
+    {{#let (get-layer-colors "selectable-features") as |selectableFeatureColors|}}
     <div data-test-default-legend-item class="item">
-      <i class="square icon" style={{get-color-style (get selectableFeatureColors 'selected-fill-light')}}></i>
+      <i class="square icon" style={{get-color-style (get selectableFeatureColors "selected-fill-light")}}></i>
       <div class="content">Selected Census Tracts</div>
     </div>
     <div data-test-default-legend-item class="item">
-      <i class="square icon" style={{get-color-style (get selectableFeatureColors 'selected-fill-bold')}}></i>
+      <i class="square icon" style={{get-color-style (get selectableFeatureColors "selected-fill-bold")}}></i>
       <div class="content">Required Census Tracts</div>
     </div>
     {{/let}}
     {{#if showTransitZones}}
       <div class="ui divider" style="margin: 0.5rem 0rem"></div>
-      {{#each (get-layer-category-colors 'transit-zone') as |categoryColor|}}
+      {{#each (get-layer-category-colors "transit-zone") as |categoryColor|}}
         <div data-test-tz-legend-item class="item">
-          <i class="square icon" style={{get-color-style (get categoryColor 'color')}}></i>
-          <div class="content">Transit Zone {{get categoryColor 'category'}}</div>
+          <i class="square icon" style={{get-color-style (get categoryColor "color")}}></i>
+          <div class="content">Transit Zone {{get categoryColor "category"}}</div>
         </div>
       {{/each}}
     {{/if}}
     {{#if showLandUse}}
       <div class="ui divider" style="margin: 0.5rem 0rem"></div>
-      {{#each (get-layer-category-colors 'land-use') as |categoryColor|}}
+      {{#each (get-layer-category-colors "land-use") as |categoryColor|}}
         <div data-test-lu-legend-item class="item">
-          <i class="square icon" style={{get-color-style (get categoryColor 'color')}}></i>
-          <div class="content">{{get landUseDescriptionsLookup (get categoryColor 'category')}}</div>
+          <i class="square icon" style={{get-color-style (get categoryColor "color")}}></i>
+          <div class="content">{{get landUseDescriptionsLookup (get categoryColor "category")}}</div>
         </div>
       {{/each}}
     {{/if}}
