@@ -1,12 +1,10 @@
 import DS from 'ember-data';
-const { Model } = DS;
-import { attr, belongsTo } from '@ember-decorators/data';
-import { computed } from '@ember-decorators/object';
-import { alias } from '@ember-decorators/object/computed';
+const { Model, attr, belongsTo } = DS;
+import EmberObject, { computed } from '@ember/object';
+import { alias } from '@ember/object/computed';
 import CensusTractsCalculator from '../calculators/transportation/census-tracts';
 import TripResultsCalculator from '../calculators/transportation/trip-results';
 import { MODES } from 'labs-ceqr/utils/censusTractVariableForMode';
-import EmberObject from '@ember/object';
 
 export default class TransportationPlanningFactorModel extends Model {
 

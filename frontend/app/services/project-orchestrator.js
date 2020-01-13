@@ -1,6 +1,5 @@
-import Service from '@ember/service';
+import Service, { inject as service } from '@ember/service';
 import { task, taskGroup } from 'ember-concurrency-decorators';
-import { inject as service } from '@ember-decorators/service';
 import { debug } from '@ember/debug';
 
 export default class ProjectOrchestratorService extends Service {

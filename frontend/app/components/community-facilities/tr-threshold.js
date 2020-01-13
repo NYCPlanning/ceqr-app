@@ -1,5 +1,5 @@
 import Component from '@ember/component';
-import { computed } from '@ember-decorators/object';
+import { computed } from '@ember/object';
 import boroughToAbbr from 'labs-ceqr/utils/boroughToAbbr'
 
 export default class CommunityFacilitiesTrThresholdComponent extends Component {

@@ -1,5 +1,5 @@
 import Component from '@ember/component';
-import { computed } from '@ember-decorators/object';
+import { computed } from '@ember/object';
 
 export default class TransportationTdfTripResultsPersonTripsComponent extends Component {
   @computed('modes', 'results')

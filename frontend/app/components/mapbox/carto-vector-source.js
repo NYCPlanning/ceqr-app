@@ -1,6 +1,6 @@
 import Component from '@ember/component';
 import fetch from 'fetch';
-import { action, computed } from '@ember-decorators/object';
+import { action, computed } from '@ember/object';
 
 export const CARTO_USERNAME = 'planninglabs';
 export const CARTO_MAPS_ENDPOINT = `https://${CARTO_USERNAME}.carto.com/api/v1/map`;

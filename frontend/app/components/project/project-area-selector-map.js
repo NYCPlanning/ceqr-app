@@ -1,5 +1,5 @@
 import Component from '@ember/component';
-import { computed, action } from '@ember-decorators/object';
+import { computed, action } from '@ember/object';
 import mapboxgl from 'mapbox-gl';
 import bbox from '@turf/bbox';
 import buffer from '@turf/buffer';

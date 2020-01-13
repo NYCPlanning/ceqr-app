@@ -1,7 +1,6 @@
 import Component from '@ember/component';
-import { computed } from '@ember-decorators/object';
-import { inject as service } from '@ember-decorators/service';
-import { action } from '@ember-decorators/object';
+import { computed, action } from '@ember/object';
+import { inject as service } from '@ember/service';
 
 export default class AnalysisDataPackageSelectorComponent extends Component {
   @service store;

@@ -1,5 +1,4 @@
-import EmberObject from '@ember/object';
-import { computed } from '@ember-decorators/object';
+import EmberObject, { computed } from '@ember/object';
 
 /**
  * TransportationTdfCalculator is an EmberObject that calculates Trip Results for given inputs.

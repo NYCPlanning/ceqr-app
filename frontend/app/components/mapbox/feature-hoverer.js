@@ -1,5 +1,5 @@
 import Component from '@ember/component';
-import { action } from '@ember-decorators/object';
+import { action } from '@ember/object';
 
 /*
 * This component provides to the parent an array of features that intersect the

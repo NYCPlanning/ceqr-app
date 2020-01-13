@@ -1,5 +1,5 @@
 import Component from '@ember/component';
-import { computed } from '@ember-decorators/object';
+import { computed } from '@ember/object';
 import { censusTractVariableForMode } from 'labs-ceqr/utils/censusTractVariableForMode';
 
 export default class TransportationTdfModalSplitsCensusTractTableCellTotalComponent extends Component {

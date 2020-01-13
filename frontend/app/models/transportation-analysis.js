@@ -1,8 +1,7 @@
 import DS from 'ember-data';
-const { Model } = DS;
-import { attr, belongsTo, hasMany } from '@ember-decorators/data';
-import { computed } from '@ember-decorators/object';
-import { alias } from '@ember-decorators/object/computed';
+const { Model, attr, belongsTo, hasMany } = DS;
+import { computed } from '@ember/object';
+import { alias } from '@ember/object/computed';
 import TripResultsTotalsCalculator from '../calculators/transportation/trip-results-totals';
 import { MODES } from 'labs-ceqr/utils/censusTractVariableForMode';
 

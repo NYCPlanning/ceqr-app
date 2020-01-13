@@ -1,6 +1,6 @@
 import Component from '@ember/component';
-import { alias } from '@ember-decorators/object/computed';
-import { action } from '@ember-decorators/object';
+import { action } from '@ember/object';
+import { alias } from '@ember/object/computed';
 
 export default class TransportationTdfVehicleOccupancyComponent extends Component {
   classNames = ["row"];
