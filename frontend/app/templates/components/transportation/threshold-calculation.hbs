@@ -25,7 +25,7 @@
           {{analysis.residentialUnits}}
           units
         </td>
-        <td>
+        <td data-test-residential-threshold>
           {{residentialThreshold}}
           units
         </td>
@@ -43,7 +43,7 @@
           {{analysis.officeSqFt}}
           gsf
         </td>
-        <td>
+        <td data-test-office-threshold>
           {{officeThreshold}}
           gsf
         </td>
@@ -61,7 +61,7 @@
           {{analysis.regionalRetailSqFt}}
           gsf
         </td>
-        <td>
+        <td data-test-regional-retail-threshold>
           {{regionalRetailThreshold}}
           gsf
         </td>
@@ -79,7 +79,7 @@
           {{analysis.localRetailSqFt}}
           gsf
         </td>
-        <td>
+        <td data-test-local-retail-threshold>
           {{localRetailThreshold}}
           gsf
         </td>
@@ -107,7 +107,7 @@
           {{analysis.restaurantSqFt}}
           gsf
         </td>
-        <td>
+        <td data-test-restaurant-threshold>
           {{restaurantThreshold}}
           gsf
         </td>
@@ -135,7 +135,7 @@
           {{analysis.communityFacilitySqFt}}
           gsf
         </td>
-        <td>
+        <td data-test-community-facility-threshold>
           {{communityFacilityThreshold}}
           gsf
         </td>
@@ -153,7 +153,7 @@
           {{analysis.offStreetParkingSpaces}}
           spaces
         </td>
-        <td>
+        <td data-test-off-street-parking-threshold>
           {{offStreetParkingThreshold}}
           spaces
         </td>
@@ -172,6 +172,7 @@
         <UiPopup
           @title="Triggers Further Analysis"
           @content={{detailedAnalysisPopupText}}
+          data-test-popup="detailed analysis"
         >
           {{round analysis.sumOfRatios decimals=2}}
           <i class="yellow attention icon"></i>
