@@ -1,4 +1,4 @@
-import { computed } from EmberObject from '@ember/object';
+import EmberObject, { computed } from '@ember/object';
 
 import { alias } from '@ember/object/computed';
 import round from '../../utils/round';
@@ -32,15 +32,14 @@ export default EmberObject.extend({
   buildings: computed('allBuildings', function() {
     if (this.level === 'hs') {
       return this.allBuildings.filter((b) => b.level === 'hs');
-    } 
-      return this.allBuildings.filter(
-        (b) => (
-          b.district === this.district &&
-          b.subdistrict === this.subdistrict &&
-          b.level === this.level
-        )
-      );
-    
+    }
+    return this.allBuildings.filter(
+      (b) => (
+        b.district === this.district
+          && b.subdistrict === this.subdistrict
+          && b.level === this.level
+      ),
+    );
   }),
 
   enrollmentTotal: computed('buildings.@each.enroll', function() {
@@ -52,7 +51,7 @@ export default EmberObject.extend({
 
   capacityTotal: computed('buildings.@each.capacity', function() {
     return this.buildings.map(
-      (b) => (b.excluded ? 0 : b.capacity)
+      (b) => (b.excluded ? 0 : b.capacity),
     ).reduce((acc, value) => {
       if (value === undefined) return acc;
       return acc + parseFloat(value);
@@ -61,7 +60,7 @@ export default EmberObject.extend({
 
   capacityTotalNoAction: computed('buildings.@each.capacityFuture', function() {
     return this.buildings.map(
-      (b) => (b.excluded ? 0 : b.capacityFuture)
+      (b) => (b.excluded ? 0 : b.capacityFuture),
     ).reduce((acc, value) => {
       if (value === undefined) return acc;
       return acc + parseFloat(value);
@@ -89,7 +88,7 @@ export default EmberObject.extend({
 
   capacityMetaTotal: computed('allBuildings', function() {
     return this.allBuildings.filterBy('level', this.level).map(
-      (b) => (b.excluded ? 0 : b.capacity)
+      (b) => (b.excluded ? 0 : b.capacity),
     ).reduce((acc, value) => {
       if (value === undefined) return acc;
       return acc + parseFloat(value);

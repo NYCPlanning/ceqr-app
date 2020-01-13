@@ -1,4 +1,4 @@
-import { inject as service } from Service from '@ember/service';
+import Service, { inject as service } from '@ember/service';
 
 import { fetchAndSaveModalSplit } from 'labs-ceqr/utils/modalSplit';
 
@@ -71,10 +71,9 @@ export default Service.extend({
    * @returns The object or false
    */
   getRecord(type, id) {
-    if(this.get(`storeHash.${type}`)){
+    if (this.get(`storeHash.${type}`)) {
       return this.get(`storeHash.${type}.${id}`);
     }
-    
   },
 
   /**

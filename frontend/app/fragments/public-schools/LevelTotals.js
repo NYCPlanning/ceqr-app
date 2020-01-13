@@ -1,5 +1,4 @@
-import { computed } from EmberObject from '@ember/object';
-
+import EmberObject, { computed } from '@ember/object';
 import { alias } from '@ember/object/computed';
 import round from '../../utils/round';
 import sumOf from '../../utils/sumMapBy';
@@ -154,7 +153,7 @@ export default EmberObject.extend({
   impact: computed('utilizationChangeTotal', 'utilizationWithActionTotal', function() {
     return (
       (this.get('utilizationChangeTotal') >= 0.05)
-      &&      (this.get('utilizationWithActionTotal') >= 1)
+      && (this.get('utilizationWithActionTotal') >= 1)
     );
   }),
 

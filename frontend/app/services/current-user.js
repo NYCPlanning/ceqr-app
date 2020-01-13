@@ -1,4 +1,4 @@
-import { inject as service } from Service from '@ember/service';
+import Service, { inject as service } from '@ember/service';
 
 
 import { isEmpty } from '@ember/utils';
@@ -8,15 +8,14 @@ export default Service.extend({
   session: service(),
   store: service(),
 
-  load() {  
-    let userId = this.get('session.data.authenticated.tokenData.user_id');
+  load() {
+    const userId = this.get('session.data.authenticated.tokenData.user_id');
 
     if (!isEmpty(userId)) {
       return this.get('store').findRecord('user', userId).then((user) => {
         this.set('user', user);
       });
-    } 
-      return RSVP.resolve();
-    
-  }
+    }
+    return RSVP.resolve();
+  },
 });
