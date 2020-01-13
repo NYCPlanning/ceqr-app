@@ -49,12 +49,12 @@ export default Component.extend({
       const permissions = await this.project.projectPermissions;
       const userIds = permissions.mapBy('userId').uniq();
 
-      if (userIds.includes(parseInt(user.id))) {
+      if (userIds.includes(parseFloat(user.id))) {
         this.set('error', { message: 'Cannot add the same user twice' });
       } else {
         const pp = this.store.createRecord('project-permission', {
-          userId: parseInt(user.id),
-          projectId: parseInt(this.project.id),
+          userId: parseFloat(user.id),
+          projectId: parseFloat(this.project.id),
           permission: this.permission,
         });
 
@@ -67,7 +67,7 @@ export default Component.extend({
       this.set('error', null);
 
       const permissions = await this.project.projectPermissions;
-      const pp = await permissions.findBy('userId', parseInt(user.id));
+      const pp = await permissions.findBy('userId', parseFloat(user.id));
 
       await pp.destroyRecord();
       this.reloadPermissions();
@@ -77,7 +77,7 @@ export default Component.extend({
       this.set('error', null);
 
       const permissions = await this.project.projectPermissions;
-      const pp = await permissions.findBy('userId', parseInt(user.id));
+      const pp = await permissions.findBy('userId', parseFloat(user.id));
 
       pp.set('permission', permission);
 

@@ -29,7 +29,7 @@ export default DS.Model.extend({
       case 'march-2014':
         return this.multipliers.boroughs.findBy('name', this.borough) || {};
       case 'november-2018':
-        return this.multipliers.districts.findBy('csd', parseInt(this.district)) || {};
+        return this.multipliers.districts.findBy('csd', parseFloat(this.district)) || {};
       default:
         return {};
     }
@@ -79,7 +79,7 @@ export default DS.Model.extend({
     return this.subdistrictsFromDb.concat(this.subdistrictsFromUser);
   }),
   district: computed('subdistrictsFromDb', function() {
-    return parseInt(this.subdistrictsFromDb[0].district);
+    return parseFloat(this.subdistrictsFromDb[0].district);
   }),
   multiSubdistrict: computed('subdistricts', function() {
     return (this.get('subdistricts').length > 1);
@@ -241,13 +241,13 @@ export default DS.Model.extend({
         scaCapacityIncrease: this.scaProjects
           .filterBy('includeInCapacity', true)
           .reduce(function(acc, value) {
-            const v = parseInt(value.hs_capacity);
+            const v = parseFloat(value.hs_capacity);
             if (v) return acc + v;
             return acc;
           }, 0),
 
         newCapacityWithAction: this.schoolsWithAction.reduce(function(acc, value) {
-          return acc + parseInt(value.hs_seats);
+          return acc + parseFloat(value.hs_seats);
         }, 0),
       }));
 
@@ -283,7 +283,7 @@ export default DS.Model.extend({
           scaCapacityIncrease: this.scaProjects.filter(
             (b) => (b.district === sd.district && b.subdistrict === sd.subdistrict && b.includeInCapacity === true),
           ).reduce(function(acc, value) {
-            const v = parseInt(value.ps_capacity);
+            const v = parseFloat(value.ps_capacity);
             if (v) return acc + v;
             return acc;
           }, 0),
@@ -291,7 +291,7 @@ export default DS.Model.extend({
           newCapacityWithAction: this.schoolsWithAction.filter(
             (b) => (b.district === sd.district && b.subdistrict === sd.subdistrict),
           ).reduce(function(acc, value) {
-            return acc + parseInt(value.ps_seats);
+            return acc + parseFloat(value.ps_seats);
           }, 0),
         }));
 
@@ -326,7 +326,7 @@ export default DS.Model.extend({
           scaCapacityIncrease: this.scaProjects.filter(
             (b) => (b.district === sd.district && b.subdistrict === sd.subdistrict && b.includeInCapacity === true),
           ).reduce(function(acc, value) {
-            const v = parseInt(value.is_capacity);
+            const v = parseFloat(value.is_capacity);
             if (v) return acc + v;
             return acc;
           }, 0),
@@ -334,7 +334,7 @@ export default DS.Model.extend({
           newCapacityWithAction: this.schoolsWithAction.filter(
             (b) => (b.district === sd.district && b.subdistrict === sd.subdistrict),
           ).reduce(function(acc, value) {
-            return acc + parseInt(value.is_seats);
+            return acc + parseFloat(value.is_seats);
           }, 0),
         }));
       });

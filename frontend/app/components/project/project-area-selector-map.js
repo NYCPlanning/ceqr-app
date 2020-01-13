@@ -23,7 +23,7 @@ export default class ProjectProjectAreaSelectorMapComponent extends Component {
 
   @computed('project.bbls.[]')
   get selectedBbls() {
-    return this.project.get('bbls').map((b) => parseInt(b));
+    return this.project.get('bbls').map((b) => parseFloat(b));
   }
 
   @computed('project.dataPackage')

@@ -40,19 +40,19 @@ export default Component.extend({
 
   actions: {
     setDistrict(district) {
-      this.set('district', parseInt(district));
+      this.set('district', parseFloat(district));
       this.set('subdistrict', null);
     },
 
     setSubdistrict(subdistrict) {
-      this.set('subdistrict', parseInt(subdistrict));
+      this.set('subdistrict', parseFloat(subdistrict));
     },
 
     addSubdistrict() {
       const subdistricts = this.analysis.subdistrictsFromUser;
       subdistricts.push({
-        district: parseInt(this.district),
-        subdistrict: parseInt(this.subdistrict),
+        district: parseFloat(this.district),
+        subdistrict: parseFloat(this.subdistrict),
         id: `${this.district}${this.subdistrict}`,
         sdName: `District ${this.district} - Subdistrict ${this.subdistrict}`,
       });

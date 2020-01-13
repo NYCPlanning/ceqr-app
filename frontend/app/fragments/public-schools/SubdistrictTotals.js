@@ -46,7 +46,7 @@ export default EmberObject.extend({
   enrollmentTotal: computed('buildings.@each.enroll', function() {
     return this.buildings.mapBy('enroll').reduce((acc, value) => {
       if (value === undefined) return acc;
-      return acc + parseInt(value);
+      return acc + parseFloat(value);
     }, 0);
   }),
 
@@ -55,7 +55,7 @@ export default EmberObject.extend({
       (b) => (b.excluded ? 0 : b.capacity)
     ).reduce((acc, value) => {
       if (value === undefined) return acc;
-      return acc + parseInt(value);
+      return acc + parseFloat(value);
     }, 0);
   }),
 
@@ -64,14 +64,14 @@ export default EmberObject.extend({
       (b) => (b.excluded ? 0 : b.capacityFuture)
     ).reduce((acc, value) => {
       if (value === undefined) return acc;
-      return acc + parseInt(value);
+      return acc + parseFloat(value);
     }, 0);
   }),
 
   seatsTotal: computed('buildings.@each.seats', function() {
     return this.buildings.mapBy('seats').reduce((acc, value) => {
       if (value === undefined) return acc;
-      return acc + parseInt(value);
+      return acc + parseFloat(value);
     }, 0);
   }),
 
@@ -83,7 +83,7 @@ export default EmberObject.extend({
   enrollmentMetaTotal: computed('allBuildings', function() {
     return this.allBuildings.filterBy('level', this.level).mapBy('enroll').reduce((acc, value) => {
       if (value === undefined) return acc;
-      return acc + parseInt(value);
+      return acc + parseFloat(value);
     }, 0);
   }),
 
@@ -92,14 +92,14 @@ export default EmberObject.extend({
       (b) => (b.excluded ? 0 : b.capacity)
     ).reduce((acc, value) => {
       if (value === undefined) return acc;
-      return acc + parseInt(value);
+      return acc + parseFloat(value);
     }, 0);
   }),
 
   seatsMetaTotal: computed('allBuildings', function() {
     return this.allBuildings.filterBy('level', this.level).mapBy('seats').reduce((acc, value) => {
       if (value === undefined) return acc;
-      return acc + parseInt(value);
+      return acc + parseFloat(value);
     }, 0);
   }),
 

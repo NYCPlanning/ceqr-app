@@ -123,7 +123,7 @@ export default class ProjectAnalysisFrameworkComponent extends Component {
 
     landuses.pushObject({
       ...useType,
-      grossSqFt: parseInt(grossSqFt),
+      grossSqFt: parseFloat(grossSqFt),
     });
 
     this.set(`project.${use}`, landuses);
@@ -137,7 +137,7 @@ export default class ProjectAnalysisFrameworkComponent extends Component {
 
     landuses.pushObject({
       ...useType,
-      spaces: parseInt(spaces),
+      spaces: parseFloat(spaces),
     });
 
     this.set('project.parkingLandUse', landuses);

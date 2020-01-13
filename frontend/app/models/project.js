@@ -38,7 +38,7 @@ export default DS.Model.extend({
   }),
   boroCode: computed('bbls.[]', function() {
     if (this.bbls.length === 0) return null;
-    return parseInt(this.bbls.firstObject.charAt(0));
+    return parseFloat(this.bbls.firstObject.charAt(0));
   }),
   boroAbbr: computed('borough', function() {
     return boroughToAbbr(this.borough);

@@ -44,7 +44,7 @@ export default Component.extend({
       // if additional bbl is not in same boro
       if (
         this.project.get('bbls').length > 0
-        && parseInt(bbl.charAt(0)) !== parseInt(this.project.get('bbls.firstObject').charAt(0))
+        && parseFloat(bbl.charAt(0)) !== parseFloat(this.project.get('bbls.firstObject').charAt(0))
       ) {
         this.set('error', { message: 'All BBLs must be in the same borough. CEQR App currently does not support multi-borough project areas.' });
         this.set('bbl', null);

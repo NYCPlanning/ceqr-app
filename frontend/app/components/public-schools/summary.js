@@ -21,8 +21,8 @@ export default Component.extend({
   EC_newSchoolsOpened: computed('activeSchoolsLevel', 'analysis.lcmgs', function() {
     const schools = this.analysis.lcgms.filterBy('level', this.activeSchoolsLevel);
 
-    const enrollment = schools.mapBy('enroll').reduce((a, v) => a + parseInt(v), 0);
-    const capacity = schools.mapBy('capacity').reduce((a, v) => a + parseInt(v), 0);
+    const enrollment = schools.mapBy('enroll').reduce((a, v) => a + parseFloat(v), 0);
+    const capacity = schools.mapBy('capacity').reduce((a, v) => a + parseFloat(v), 0);
 
     return { enrollment, capacity, schools };
   }),
@@ -35,7 +35,7 @@ export default Component.extend({
 
     const enrollment = developments
       .mapBy(`${this.activeSchoolsLevel}_students`)
-      .reduce((a, v) => a + parseInt(v), 0);
+      .reduce((a, v) => a + parseFloat(v), 0);
 
     return { enrollment, developments };
   }),
@@ -57,11 +57,11 @@ export default Component.extend({
     const schools = this.analysis.buildings
       .map((b) => ({
         ...b,
-        capacityDelta: parseInt(b.capacityFuture) - parseInt(b.capacity),
+        capacityDelta: parseFloat(b.capacityFuture) - parseFloat(b.capacity),
       }))
       .filter(
         (b) => ('capacityFuture' in b)
-          && (parseInt(b.capacity) !== parseInt(b.capacityFuture))
+          && (parseFloat(b.capacity) !== parseFloat(b.capacityFuture))
           && b.level === this.activeSchoolsLevel,
       );
 
@@ -75,12 +75,12 @@ export default Component.extend({
     const schools = this.analysis.schoolsWithAction
       .map((b) => ({
         ...b,
-        capacity: parseInt(b[`${this.activeSchoolsLevel}_seats`]),
+        capacity: parseFloat(b[`${this.activeSchoolsLevel}_seats`]),
       }));
 
     const capacity = schools
       .mapBy('capacity')
-      .reduce((a, v) => a + parseInt(v), 0);
+      .reduce((a, v) => a + parseFloat(v), 0);
 
     return { capacity, schools };
   }),

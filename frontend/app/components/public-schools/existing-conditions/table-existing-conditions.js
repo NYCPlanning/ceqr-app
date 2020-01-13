@@ -25,7 +25,7 @@ export default Component.extend({
       return this.analysis.subdistrictTotals.findBy('level', 'hs');
     }
     return this.analysis.subdistrictTotals.find(
-      (total) => (parseInt(total.id) === parseInt(this.activeSdId) && total.level === this.activeSchoolsLevel),
+      (total) => (parseFloat(total.id) === parseFloat(this.activeSdId) && total.level === this.activeSchoolsLevel),
     );
   }),
 

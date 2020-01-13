@@ -77,13 +77,13 @@ export default EmberObject.extend({
 
   enrollTotal: computed('subdistrictTotals', function() {
     return this.get('subdistrictTotals').mapBy('enroll').reduce(function(acc, value) {
-      return acc + parseInt(value);
+      return acc + parseFloat(value);
     }, 0);
   }),
 
   studentsTotal: computed('subdistrictTotals', function() {
     return this.get('subdistrictTotals').mapBy('students').reduce(function(acc, value) {
-      return acc + parseInt(value);
+      return acc + parseFloat(value);
     }, 0);
   }),
 
@@ -113,13 +113,13 @@ export default EmberObject.extend({
 
   capacityNoActionTotal: computed('subdistrictTotals', function() {
     return this.get('subdistrictTotals').mapBy('capacityNoAction').reduce(function(acc, value) {
-      return acc + parseInt(value);
+      return acc + parseFloat(value);
     }, 0);
   }),
 
   newSchoolSeats: computed('subdistrictTotals', function() {
     return this.get('subdistrictTotals').mapBy('newCapacityWithAction').reduce(function(acc, value) {
-      return acc + parseInt(value);
+      return acc + parseFloat(value);
     }, 0);
   }),
 
