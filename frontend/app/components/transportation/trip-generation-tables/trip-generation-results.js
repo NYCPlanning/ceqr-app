@@ -1,5 +1,5 @@
 import Component from '@ember/component';
-import { computed } from '@ember-decorators/object';
+import { computed } from '@ember/object';
 import { getAggregatePercent } from '../../../helpers/get-aggregate-percent';
 import { getAggregateValue } from '../../../helpers/get-aggregate-value';
 

@@ -1,7 +1,6 @@
 import DS from 'ember-data';
-const { Model } = DS;
-import { belongsTo } from '@ember-decorators/data';
-import { computed } from '@ember-decorators/object';
+const { Model, belongsTo } = DS;
+import { computed } from '@ember/object';
 
 export default class CommunityFacilitiesAnalysisModel extends Model {
   @belongsTo project;

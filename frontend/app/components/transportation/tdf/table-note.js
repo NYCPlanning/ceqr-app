@@ -1,7 +1,6 @@
 import Component from '@ember/component';
-import { computed } from '@ember-decorators/object';
+import { computed, action } from '@ember/object';
 import { isEmpty } from '@ember/utils';
-import { action } from '@ember-decorators/object';
 
 export default class TransportationTdfTableNoteComponent extends Component {
   didUpdateAttrs() {

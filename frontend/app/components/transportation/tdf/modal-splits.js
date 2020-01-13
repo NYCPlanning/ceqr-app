@@ -1,6 +1,6 @@
 import Component from '@ember/component';
-import { alias } from '@ember-decorators/object/computed';
-import { action, computed } from '@ember-decorators/object';
+import { alias } from '@ember/object/computed';
+import { action, computed } from '@ember/object';
 import { task, taskGroup } from 'ember-concurrency-decorators';
 
 export default class TransportationTdfModalSplitsComponent extends Component {

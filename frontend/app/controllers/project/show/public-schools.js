@@ -1,7 +1,7 @@
 import Controller from '@ember/controller';
 import { inject as service } from '@ember/service';
-import { computed } from '@ember-decorators/object';
-import { alias } from '@ember-decorators/object/computed';
+import { computed } from '@ember/object';
+import { alias } from '@ember/object/computed';
 
 export default class ProjectShowPublicSchoolsController extends Controller {
   router = service();

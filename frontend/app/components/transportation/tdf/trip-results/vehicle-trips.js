@@ -1,6 +1,5 @@
 import Component from '@ember/component';
-import { computed } from '@ember-decorators/object';
-import { action } from '@ember-decorators/object';
+import { computed, action } from '@ember/object';
 
 export default class TransportationTdfTripResultsVehicleTripsComponent extends Component {
   balancedTaxi = true;

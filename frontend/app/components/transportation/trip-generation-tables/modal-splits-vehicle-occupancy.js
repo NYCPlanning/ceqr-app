@@ -1,6 +1,5 @@
 import Component from '@ember/component';
-import { computed } from '@ember-decorators/object';
-import { action } from '@ember-decorators/object';
+import { computed, action } from '@ember/object';
 import { getAggregateValue } from '../../../helpers/get-aggregate-value';
 
 export default class TransportationTripGenerationTablesModalSplitsVehicleOccupancyComponent extends Component {

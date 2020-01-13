@@ -1,6 +1,6 @@
 import Component from '@ember/component';
 import { htmlSafe } from '@ember/string';
-import { computed } from '@ember-decorators/object';
+import { computed } from '@ember/object';
 
 export default class HoverCardComponent extends Component {
   // option

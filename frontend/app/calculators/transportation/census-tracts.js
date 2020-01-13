@@ -1,5 +1,4 @@
-import EmberObject from '@ember/object';
-import { computed } from '@ember-decorators/object';
+import EmberObject, { computed } from '@ember/object';
 import round from '../../utils/round';
 import { censusTractVariableForMode, MODE_VARIABLE_LOOKUP } from '../../utils/censusTractVariableForMode';
 
