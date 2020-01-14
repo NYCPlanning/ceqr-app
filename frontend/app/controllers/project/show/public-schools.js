@@ -11,7 +11,7 @@ export default class ProjectShowPublicSchoolsController extends Controller {
   @alias('model.publicSchoolsAnalysis') analysis;
 
   @computed('router.currentRouteName')
-  showMap() {
+  get showMap() {
     const current = this.get('router.currentRouteName');
     return (current.includes('existing-conditions') || current.includes('no-action'));
   }
