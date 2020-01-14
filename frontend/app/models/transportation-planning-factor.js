@@ -1,12 +1,11 @@
 import DS from 'ember-data';
-const { Model, attr, belongsTo } = DS;
 import EmberObject, { computed } from '@ember/object';
 import { alias } from '@ember/object/computed';
+import { MODES } from 'labs-ceqr/utils/censusTractVariableForMode';
 import CensusTractsCalculator from '../calculators/transportation/census-tracts';
 import TripResultsCalculator from '../calculators/transportation/trip-results';
-import { MODES } from 'labs-ceqr/utils/censusTractVariableForMode';
 
-const { Model } = DS;
+const { Model, attr, belongsTo } = DS;
 
 export default class TransportationPlanningFactorModel extends Model {
   // Set defaults on values not received from server

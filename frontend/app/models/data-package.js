@@ -1,7 +1,6 @@
 import DS from 'ember-data';
-const { Model, attr, hasMany } = DS;
 
-const { Model } = DS;
+const { Model, attr, hasMany } = DS;
 
 export default class DataPackageModel extends Model {
   @attr('string') name;

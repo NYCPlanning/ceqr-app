@@ -1,12 +1,12 @@
 import DS from 'ember-data';
-const { Model, attr, belongsTo, hasMany } = DS;
 import { computed } from '@ember/object';
 import { alias } from '@ember/object/computed';
-import TripResultsTotalsCalculator from '../calculators/transportation/trip-results-totals';
 import { MODES } from 'labs-ceqr/utils/censusTractVariableForMode';
 import TripResultsTotalsCalculator from '../calculators/transportation/trip-results-totals';
 
-const { Model } = DS;
+const {
+  Model, attr, belongsTo, hasMany,
+} = DS;
 
 export default class TransportationAnalysisModel extends Model {
   ready() {

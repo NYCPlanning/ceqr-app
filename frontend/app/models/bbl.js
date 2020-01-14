@@ -1,7 +1,6 @@
 import DS from 'ember-data';
-const { Model, attr } = DS;
 
-const { Model } = DS;
+const { Model, attr } = DS;
 
 export default class BblModel extends Model {
   @attr('string') bbl;
