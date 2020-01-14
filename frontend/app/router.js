@@ -4,14 +4,16 @@ import { scheduleOnce } from '@ember/runloop';
 import config from './config/environment';
 
 const Router = EmberRouter.extend({
+  init(...args) {
+    this._super(...args);
+    this.on('routeDidChange', () => {
+      this._trackPage();
+    });
+  },
+
   location: config.locationType,
   rootURL: config.rootURL,
   metrics: service(),
-
-  didTransition() {
-    this._super(...arguments);
-    this._trackPage();
-  },
 
   _trackPage() {
     scheduleOnce('afterRender', this, () => {
