@@ -1,4 +1,4 @@
-[![codecov](https://codecov.io/gh/NYCPlanning/ceqr-app/branch/master/graph/badge.svg)](https://codecov.io/gh/NYCPlanning/ceqr-app)
+[![codecov](https://codecov.io/gh/NYCPlanning/ceqr-app/branch/develop/graph/badge.svg)](https://codecov.io/gh/NYCPlanning/ceqr-app)
 
 # CEQR App
 
