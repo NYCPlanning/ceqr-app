@@ -1,5 +1,5 @@
-import EmberObject from '@ember/object';
-import { computed } from '@ember/object';
+import EmberObject, { computed } from '@ember/object';
+
 
 export default EmberObject.extend({
   ps_students: computed('multipliers', function() {
@@ -12,5 +12,5 @@ export default EmberObject.extend({
 
   hs_students: computed('multipliers', function() {
     return Math.round(this.total_units * this.multipliers.hs);
-  })
+  }),
 });

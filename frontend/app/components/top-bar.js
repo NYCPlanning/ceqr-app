@@ -6,12 +6,12 @@ export default Component.extend({
   currentUser: service(),
 
   actions: {
-    saveProject: function() {
+    saveProject() {
       this.get('project').save();
     },
 
-    logOut: function() {
+    logOut() {
       this.get('session').invalidate();
     },
-  }
+  },
 });

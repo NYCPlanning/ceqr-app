@@ -15,17 +15,17 @@ export default Component.extend({
     this.user = {};
   },
 
-  didInsertElement() {    
+  didInsertElement() {
     $('.ui.form').form({
       fields: {
         email: 'email',
         password: ['minLength[6]', 'empty'],
-      }
+      },
     });
   },
-  
+
   actions: {
-    createUser: function(user) {      
+    createUser(user) {
       fetch(`${ENV.host}/auth/v1/signup`, {
         method: 'POST',
         headers: {
@@ -34,15 +34,13 @@ export default Component.extend({
         body: JSON.stringify({ user }),
       }).then((res) => {
         if (res.status === 201) {
-          this.get('router').transitionTo('signup.email')
+          this.get('router').transitionTo('signup.email');
         } else if (res.status === 202) {
-          this.get('router').transitionTo('signup.in-review')
+          this.get('router').transitionTo('signup.in-review');
         } else {
-          this.set('error', { message: "The account could not be created"})
-        }        
-      }).catch((err) =>
-        this.set('error', { message: err })
-      )
-    }
-  }
+          this.set('error', { message: 'The account could not be created' });
+        }
+      }).catch((err) => this.set('error', { message: err }));
+    },
+  },
 });

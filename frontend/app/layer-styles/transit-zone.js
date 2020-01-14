@@ -1,9 +1,9 @@
 export const transitZoneColors = {
-  '1': '#ffffb2',
-  '2': '#fecc5c',
-  '3': '#fd8d3c',
-  '4': '#f03b20',
-  '5': '#bd0026',
+  1: '#ffffb2',
+  2: '#fecc5c',
+  3: '#fd8d3c',
+  4: '#f03b20',
+  5: '#bd0026',
 };
 
 export const transitZoneStyles = {

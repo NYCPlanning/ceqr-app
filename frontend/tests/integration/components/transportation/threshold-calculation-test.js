@@ -2,74 +2,73 @@ import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
-import { setupMirage } from "ember-cli-mirage/test-support";
+import { setupMirage } from 'ember-cli-mirage/test-support';
 import { association } from 'ember-cli-mirage';
 
 module('Integration | Component | transportation/threshold-calculation', function(hooks) {
   setupRenderingTest(hooks);
   setupMirage(hooks);
 
-  let projectWithAllLandUses =
-    {
-      trafficZone: 2,
-      project: association({
-        totalUnits: 1000,
-        commercialLandUse: [
-          {
-            name: "Fast Food Restaurant",
-            type: "fast-food",
-            grossSqFt: 40
-          },
-          {
-            name: "Restaurant (not fast food)",
-            type: "restaurant",
-            grossSqFt: 50
-          },
-          {
-            name: "Office",
-            type: "office",
-            grossSqFt: 15
-          },
-          {
-            name: "Regional Retail",
-            type: "regional-retail",
-            grossSqFt: 35
-          },
-          {
-            name: "Local Retail",
-            type: "local-retail",
-            grossSqFt: 60
-          },
-        ],
-        communityFacilityLandUse: [
-          {
-            name: "General Community Facility",
-            type: "community-facility",
-            grossSqFt: 100
-          }
-        ],
-        parkingLandUse: [
-          {
-            name: "Garages",
-            type: "garages",
-            spaces: 70
-          },
-          {
-            name: "Lots",
-            type: "lots",
-            spaces: 100
-          }
-        ],
-      })
-    }
+  const projectWithAllLandUses = {
+    trafficZone: 2,
+    project: association({
+      totalUnits: 1000,
+      commercialLandUse: [
+        {
+          name: 'Fast Food Restaurant',
+          type: 'fast-food',
+          grossSqFt: 40,
+        },
+        {
+          name: 'Restaurant (not fast food)',
+          type: 'restaurant',
+          grossSqFt: 50,
+        },
+        {
+          name: 'Office',
+          type: 'office',
+          grossSqFt: 15,
+        },
+        {
+          name: 'Regional Retail',
+          type: 'regional-retail',
+          grossSqFt: 35,
+        },
+        {
+          name: 'Local Retail',
+          type: 'local-retail',
+          grossSqFt: 60,
+        },
+      ],
+      communityFacilityLandUse: [
+        {
+          name: 'General Community Facility',
+          type: 'community-facility',
+          grossSqFt: 100,
+        },
+      ],
+      parkingLandUse: [
+        {
+          name: 'Garages',
+          type: 'garages',
+          spaces: 70,
+        },
+        {
+          name: 'Lots',
+          type: 'lots',
+          spaces: 100,
+        },
+      ],
+    }),
+  };
 
   test('it renders', async function(assert) {
-    let analysisMirage = server.create('transportation-analysis', projectWithAllLandUses);
+    const analysisMirage = server.create('transportation-analysis', projectWithAllLandUses);
 
-    let project = await this.owner.lookup('service:store').findRecord(
-      'project', analysisMirage.projectId, { include: 'transportation-analysis' }
+    const project = await this.owner.lookup('service:store').findRecord(
+      'project', analysisMirage.projectId, { include: 'transportation-analysis' },
     );
-    let analysis = await project.get('transportationAnalysis');
+    const analysis = await project.get('transportationAnalysis');
 
     this.set('transportationModel', analysis);
 

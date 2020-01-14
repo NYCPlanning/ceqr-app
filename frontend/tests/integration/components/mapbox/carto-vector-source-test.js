@@ -2,14 +2,14 @@ import { module, test, skip } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
-import { setupMirage } from "ember-cli-mirage/test-support";
+import { setupMirage } from 'ember-cli-mirage/test-support';
 import { CARTO_MAPS_ENDPOINT } from 'labs-ceqr/components/mapbox/carto-vector-source';
 
 const DEFAULT_CARTO_RESPONSE = {
   metadata: {
     tilejson: {
       vector: {
-        tiles: ['https://cooltiles.com/{z}/{x}/{y}.mvt'], 
+        tiles: ['https://cooltiles.com/{z}/{x}/{y}.mvt'],
       },
     },
   },
@@ -55,7 +55,7 @@ module('Integration | Component | mapbox/carto-vector-source', function(hooks) {
         id: layers[0].id, // this is a randomized guid
         options: {
           sql: 'select * from table',
-        }
+        },
       }]);
 
       return { ...DEFAULT_CARTO_RESPONSE };
@@ -85,11 +85,11 @@ module('Integration | Component | mapbox/carto-vector-source', function(hooks) {
 
     this.map.instance.addLayer = () => {
       assert.ok(true);
-    }
+    };
 
     this.map.instance.addSource = () => {
       assert.ok(true);
-    }
+    };
 
     this.server.post(CARTO_MAPS_ENDPOINT, function(schema, request) {
       const { layers } = JSON.parse(request.requestBody);
@@ -140,7 +140,7 @@ module('Integration | Component | mapbox/carto-vector-source', function(hooks) {
     };
 
     // mock the server
-    this.server.post(CARTO_MAPS_ENDPOINT, function() { 
+    this.server.post(CARTO_MAPS_ENDPOINT, function() {
       return { ...DEFAULT_CARTO_RESPONSE };
     });
 
@@ -183,11 +183,11 @@ module('Integration | Component | mapbox/carto-vector-source', function(hooks) {
     let addedSource = '';
     this.map.instance.addSource = (source) => {
       addedSource = source;
-    }
+    };
 
     this.map.instance.addLayer = (layer) => {
       assert.equal(layer.source, addedSource);
-    }
+    };
 
     this.server.post(CARTO_MAPS_ENDPOINT, function() {
       return { ...DEFAULT_CARTO_RESPONSE };
@@ -219,5 +219,5 @@ module('Integration | Component | mapbox/carto-vector-source', function(hooks) {
         }}
       {{/mapbox/carto-vector-source}}
     `);
-  })
+  });
 });

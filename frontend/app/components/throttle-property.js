@@ -11,7 +11,7 @@ export default class ThrottlePropertyComponent extends Component {
   init(...args) {
     super.init(...args);
 
-    this.didUpdateAttributesTask.perform(); 
+    this.didUpdateAttributesTask.perform();
   }
 
   // bound property to throttle updates
@@ -20,13 +20,12 @@ export default class ThrottlePropertyComponent extends Component {
   timeout = DEFAULT_TIMEOUT_MS;
 
   didUpdateAttrs() {
-   this.didUpdateAttributesTask.perform(); 
+    this.didUpdateAttributesTask.perform();
   }
 
   @restartableTask({
     maxConcurrency: 1,
-  })
-  *didUpdateAttributesTask() {
+  })* didUpdateAttributesTask() {
     yield timeout(this.milliseconds);
 
     return this.property;

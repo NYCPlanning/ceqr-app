@@ -7,21 +7,21 @@ export default class ProjectShowTransportationTdfTripResultsShowRoute extends Ro
     const { project, transportationAnalysis } = this.modelFor('project/show');
     const transportationPlanningFactor = await this.get('store').findRecord(
       'transportation-planning-factor',
-      params.transportation_planning_factor_id
-    )
+      params.transportation_planning_factor_id,
+    );
 
     return RSVP.hash({
       project,
       transportationAnalysis,
-      transportationPlanningFactor
+      transportationPlanningFactor,
     });
   }
 
   @action
   error({ errors }, transition) {
     const fourohfour = errors.findBy('code', '404');
-    const projectId = transition.params["project.show"].id;
-    
+    const projectId = transition.params['project.show'].id;
+
     if (fourohfour) {
       this.replaceWith('project.show.transportation.tdf.trip-results', projectId);
     }

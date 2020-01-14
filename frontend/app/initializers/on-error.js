@@ -16,5 +16,5 @@ export function initialize() {
 }
 
 export default {
-  initialize
+  initialize,
 };

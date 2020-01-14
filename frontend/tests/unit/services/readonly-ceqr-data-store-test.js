@@ -9,7 +9,7 @@ module('Unit | Service | readonly-ceqr-data-store', function(hooks) {
     const service = this.owner.lookup('service:readonly-ceqr-data-store');
     service.init();
     // And it has a record
-    service.add('testType', 'testId', {value: 'testValue'});
+    service.add('testType', 'testId', { value: 'testValue' });
 
     // When the record is retrieved
     const obj = service.getRecord('testType', 'testId');
@@ -28,7 +28,7 @@ module('Unit | Service | readonly-ceqr-data-store', function(hooks) {
       assert.equal(type, testType);
       assert.equal(id, testId);
       return 'value';
-    }
+    };
 
     // And it has a record
     service.add(testType, testId, 'value');
@@ -49,7 +49,7 @@ module('Unit | Service | readonly-ceqr-data-store', function(hooks) {
       assert.equal(type, testType);
       assert.equal(id, testId);
       return 'value';
-    }
+    };
 
     // When a record that does not exist in local store is requested
     service.find(testType, testId);

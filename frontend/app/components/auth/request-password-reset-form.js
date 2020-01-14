@@ -9,22 +9,20 @@ export default Component.extend({
   flashMessages: service(),
 
   actions: {
-    requestResetPassword: function(email) {
+    requestResetPassword(email) {
       fetch(`${ENV.host}/auth/v1/password-reset`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email }),
-      }).catch((err) =>
-        this.set('error', { message: err })
-      ).then(() => {
+      }).catch((err) => this.set('error', { message: err })).then(() => {
         this.flashMessages.add({
           message: 'Password reset email sent. It may take 1 or 2 mintues to arrive.',
           type: 'success',
           sticky: true,
-        })
+        });
 
-        this.router.transitionTo('login')
-      })
-    }
-  }
+        this.router.transitionTo('login');
+      });
+    },
+  },
 });

@@ -15,7 +15,7 @@ export default class TransportationLandUseMenuComponent extends Component {
   }
 
   @action
-   saveFactors() {
-     this.model.transportationPlanningFactors.save();
+  saveFactors() {
+    this.model.transportationPlanningFactors.save();
   }
 }

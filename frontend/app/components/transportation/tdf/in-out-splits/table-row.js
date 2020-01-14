@@ -3,7 +3,7 @@ import { action } from '@ember/object';
 
 export default class TransportationTdfInOutSplitsTableRowComponent extends Component {
   tagName = 'tr';
-  
+
   @action
   syncIn(value) {
     this.set('data.in', 100 - value);

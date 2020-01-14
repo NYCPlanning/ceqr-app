@@ -10,7 +10,7 @@ module('Integration | Component | mapbox/layer-registry', function(hooks) {
     let registry = [];
     this.handleUpdatedRegistry = function(updatedRegistry) {
       registry = updatedRegistry;
-    }
+    };
 
     // Template block usage:
     await render(hbs`
@@ -33,7 +33,7 @@ module('Integration | Component | mapbox/layer-registry', function(hooks) {
     let registry = [];
     this.handleUpdatedRegistry = function(updatedRegistry) {
       registry = updatedRegistry;
-    }
+    };
 
     this.someHash = {};
     // Template block usage:
@@ -56,7 +56,7 @@ module('Integration | Component | mapbox/layer-registry', function(hooks) {
     let registry = [];
     this.handleUpdatedRegistry = function(updatedRegistry) {
       registry = updatedRegistry;
-    }
+    };
 
     this.someHash = {};
     // Template block usage:

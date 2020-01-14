@@ -27,8 +27,8 @@ export default Route.extend({
       const id = this.get('deleteProjectId');
       this.get('store')
         .findRecord('project', id, { backgroundReload: false })
-        .then(p => p.destroyRecord())
+        .then((p) => p.destroyRecord())
         .then(() => this.refresh());
-    }
-  }
+    },
+  },
 });

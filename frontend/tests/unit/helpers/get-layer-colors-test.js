@@ -17,4 +17,4 @@ module('Unit | Helper | get layer colors', function() {
     assert.ok(layerColors instanceof Object);
     assert.equal(Object.keys(layerColors).length, 0);
   });
-})
+});

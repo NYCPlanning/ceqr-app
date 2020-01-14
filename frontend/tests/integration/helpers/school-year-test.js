@@ -8,7 +8,7 @@ module('Integration | Helper | schoolYear', function(hooks) {
 
   // Replace this with your real tests.
   test('it renders', async function(assert) {
-    this.set('inputValue', {minYear: 2010, maxYear: 2011});
+    this.set('inputValue', { minYear: 2010, maxYear: 2011 });
 
     await render(hbs`{{school-year inputValue}}`);
 

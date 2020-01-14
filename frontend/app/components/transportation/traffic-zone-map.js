@@ -10,11 +10,11 @@ export default Component.extend({
 
     this.set('zonePopup', new mapboxgl.Popup({
       closeButton: false,
-      closeOnClick: false
+      closeOnClick: false,
     }));
   },
 
-  moveTransportationZones: function(data) {
+  moveTransportationZones(data) {
     if (data.dataType === 'source' && data.isSourceLoaded && data.source.id === 'transportation-zones') {
       this.get('map').moveLayer('transportation-zones', 'bbls');
       this.get('map').off('data', this.get('moveTransportationZones'));
@@ -32,7 +32,7 @@ export default Component.extend({
         </div>`)
         .addTo(this.get('map'));
     },
-  
+
     zoneUnhover() {
       this.get('map').getCanvas().style.cursor = '';
       this.get('zonePopup').remove();
@@ -43,10 +43,10 @@ export default Component.extend({
       map.on('data', this.get('moveTransportationZones').bind(this));
       map.flyTo({
         center: centroid(this.project.get('bblsGeojson.features.firstObject')).geometry.coordinates,
-        zoom: 14
+        zoom: 14,
       });
 
-      this.set('map', map);      
-    }
-  }
+      this.set('map', map);
+    },
+  },
 });

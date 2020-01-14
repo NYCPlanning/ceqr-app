@@ -16,14 +16,14 @@ const onMapStyleLoaded = function(e) {
     map.moveLayer('bbls');
     map.off('data', onMapStyleLoaded);
   }
-}
+};
 
 export default class ProjectProjectAreaSelectorMapComponent extends Component {
   hoveredFeatureId = null;
 
   @computed('project.bbls.[]')
   get selectedBbls() {
-    return this.project.get('bbls').map((b) => parseInt(b));
+    return this.project.get('bbls').map((b) => parseFloat(b));
   }
 
   @computed('project.dataPackage')
@@ -33,8 +33,8 @@ export default class ProjectProjectAreaSelectorMapComponent extends Component {
   }
 
   @action
-  setFirstHoveredFeatureId(features){    
-    if(features && features.length && features[0]){
+  setFirstHoveredFeatureId(features) {
+    if (features && features.length && features[0]) {
       this.set('hoveredFeatureId', features[0].properties.bbl);
     } else {
       this.set('hoveredFeatureId', null);
@@ -49,7 +49,7 @@ export default class ProjectProjectAreaSelectorMapComponent extends Component {
 
     const projectGeojson = this.project.get('bblsGeojson');
     if (projectGeojson) {
-      map.fitBounds(bbox(buffer(projectGeojson, 0.1, {units: 'kilometers'})));
+      map.fitBounds(bbox(buffer(projectGeojson, 0.1, { units: 'kilometers' })));
     }
   }
 }

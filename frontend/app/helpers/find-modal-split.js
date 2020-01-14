@@ -15,19 +15,19 @@ export default Helper.extend({
   /**
    * Task that wraps async call to get modal-split record from store
    */
-  findModalSplitTask: task(function * (geoid) {
-      return yield Promise.all([
-        this.readonlyStore.find('ACS-modal-split', geoid),
-        this.readonlyStore.find('CTPP-modal-split', geoid),
-      ]);
+  findModalSplitTask: task(function* (geoid) {
+    return yield Promise.all([
+      this.readonlyStore.find('ACS-modal-split', geoid),
+      this.readonlyStore.find('CTPP-modal-split', geoid),
+    ]);
   }),
 
   /**
    * Main helper 'compute' function
-   */ 
+   */
   compute(params) {
     const [geoid] = params;
     if (!geoid) return null;
     return this.findModalSplitTask.perform(geoid);
-  }
+  },
 });

@@ -7,13 +7,15 @@ export default Component.extend({
   },
 
   actions: {
-    addSchool({ name, subdistrict, ps_seats, is_seats, hs_seats }) {
+    addSchool({
+      name, subdistrict, ps_seats, is_seats, hs_seats,
+    }) {
       this.get('analysis.schoolsWithAction').pushObject({
         ...subdistrict,
         name,
         ps_seats: ps_seats || 0,
         is_seats: is_seats || 0,
-        hs_seats: hs_seats || 0
+        hs_seats: hs_seats || 0,
       });
 
       this.get('analysis').save();
@@ -22,6 +24,6 @@ export default Component.extend({
     removeSchool(school) {
       this.get('analysis.schoolsWithAction').removeObject(school);
       this.get('analysis').save();
-    }
-  }
+    },
+  },
 });

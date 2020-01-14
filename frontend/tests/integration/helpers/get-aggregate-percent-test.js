@@ -10,7 +10,7 @@ module('Integration | Helper | get-aggregate-percent', function(hooks) {
 
   test('it calculates and formats a numeric percent', async function(assert) {
     // If modalSplits contains two modal split records
-    const modalSplits = this.owner.lookup('service:readonly-ceqr-data-store').findByIds('ACS-modal-split', ['1','2']);
+    const modalSplits = this.owner.lookup('service:readonly-ceqr-data-store').findByIds('ACS-modal-split', ['1', '2']);
     this.set('modalSplits', modalSplits);
 
     // and variables contains two valid modal-split variables

@@ -1,10 +1,10 @@
 import DS from 'ember-data';
 import { computed } from '@ember/object';
 
+import turf from '@turf/helpers';
 import SubdistrictTotals from '../fragments/public-schools/SubdistrictTotals';
 import LevelTotals from '../fragments/public-schools/LevelTotals';
 
-import turf from '@turf/helpers';
 
 export default DS.Model.extend({
   project: DS.belongsTo('project'),
@@ -29,7 +29,7 @@ export default DS.Model.extend({
       case 'march-2014':
         return this.multipliers.boroughs.findBy('name', this.borough) || {};
       case 'november-2018':
-        return this.multipliers.districts.findBy('csd', parseInt(this.district)) || {};
+        return this.multipliers.districts.findBy('csd', parseFloat(this.district)) || {};
       default:
         return {};
     }
@@ -79,10 +79,10 @@ export default DS.Model.extend({
     return this.subdistrictsFromDb.concat(this.subdistrictsFromUser);
   }),
   district: computed('subdistrictsFromDb', function() {
-    return parseInt(this.subdistrictsFromDb[0].district);
+    return parseFloat(this.subdistrictsFromDb[0].district);
   }),
   multiSubdistrict: computed('subdistricts', function() {
-    return (this.get('subdistricts').length > 1)
+    return (this.get('subdistricts').length > 1);
   }),
 
   // By Subdistrict
@@ -91,9 +91,9 @@ export default DS.Model.extend({
 
   buildingsGeojson: computed('bluebook', 'lcgms', function() {
     const buildings = this.bluebook.concat(this.get('lcgms'));
-    
+
     const features = buildings.map((b) => {
-      const geojson = b.geojson;
+      const { geojson } = b;
 
       geojson.properties = {
         level: b.level,
@@ -102,18 +102,18 @@ export default DS.Model.extend({
         bldg_id: b.bldg_id,
         source: b.source,
         id: b.id,
-      }
+      };
 
       return geojson;
     });
-    
+
     return turf.featureCollection(features);
   }),
 
   scaProjects: DS.attr('public-schools/sca-projects', { defaultValue() { return []; } }),
   scaProjectsGeojson: computed('scaProjects', function() {
     const features = this.scaProjects.map((b) => {
-      const geojson = b.geojson;
+      const { geojson } = b;
 
       geojson.properties = {
         name: b.name,
@@ -122,11 +122,11 @@ export default DS.Model.extend({
         org_level: b.org_level,
         level: b.org_level,
         id: b.id,
-      }
+      };
 
       return geojson;
     });
-    
+
     return turf.featureCollection(features);
   }),
 
@@ -134,9 +134,9 @@ export default DS.Model.extend({
     return (
       this.get('bluebook')
     ).concat(
-      this.get('lcgms')
+      this.get('lcgms'),
     ).concat(
-      this.get('scaProjects')
+      this.get('scaProjects'),
     ).compact();
   }),
   buildingsBldgIds: computed('buildings', function() {
@@ -145,7 +145,7 @@ export default DS.Model.extend({
 
   // Future
   projectionOverMax: computed('buildYear', function() {
-    return this.get('buildYear') > this.get('maxProjection')
+    return this.get('buildYear') > this.get('maxProjection');
   }),
   buildYearMaxed: computed('projectionOverMax', function() {
     return this.get('projectionOverMax') ? this.get('maxProjection') : this.get('buildYear');
@@ -154,28 +154,30 @@ export default DS.Model.extend({
   doeUtilChanges: DS.attr('', { defaultValue() { return []; } }),
   doeUtilChangesBldgIds: computed('doeUtilChanges.[]', function() {
     return this.get('doeUtilChanges').mapBy('bldg_id').concat(
-      this.get('doeUtilChanges').mapBy('bldg_id_additional')
-    ).without('').uniq();
+      this.get('doeUtilChanges').mapBy('bldg_id_additional'),
+    ).without('')
+      .uniq();
   }),
   doeUtilChangesPerBldg: computed('doeUtilChanges', 'buildings', function() {
-    const buildingsNoHs = this.get('buildings').filter(b => (b.level !== 'hs'));
+    const buildingsNoHs = this.get('buildings').filter((b) => (b.level !== 'hs'));
 
-    return this.get('doeUtilChangesBldgIds').map(bldg_id => {
+    return this.get('doeUtilChangesBldgIds').map((bldg_id) => {
       const buildings = buildingsNoHs.filterBy('bldg_id', bldg_id);
 
       if (buildings.length === 0) return;
 
-      const doe_notices = this.get('doeUtilChanges').filter(b => (
+      const doe_notices = this.get('doeUtilChanges').filter((b) => (
         b.bldg_id === bldg_id || b.bldg_id_additional === bldg_id
-      )).mapBy('title').uniq().map((title) => (
-        this.doeUtilChanges.filterBy('title', title)
-      ));
+      )).mapBy('title').uniq()
+        .map((title) => (
+          this.doeUtilChanges.filterBy('title', title)
+        ));
 
       return ({
         bldg_id,
         buildings,
-        doe_notices
-      })
+        doe_notices,
+      });
     }).compact();
   }),
   doeUtilChangesCount: computed('doeUtilChanges', function() {
@@ -183,8 +185,7 @@ export default DS.Model.extend({
   }),
 
   residentialDevelopments: DS.attr('public-schools/residential-developments',
-    { defaultValue() { return []; } }
-  ),
+    { defaultValue() { return []; } }),
   futureResidentialDev: computed('currentMultiplier', 'residentialDevelopments.[]', function() {
     return this.residentialDevelopments.map((d) => {
       d.set('multipliers', this.currentMultiplier);
@@ -205,7 +206,7 @@ export default DS.Model.extend({
     return (
       this.bluebook
     ).concat(
-      this.lcgms
+      this.lcgms,
     ).compact();
   }),
 
@@ -219,7 +220,7 @@ export default DS.Model.extend({
     'futureEnrollmentNewHousing',
     'scaProjects.@each.{includeInCapacity,ps_capacity,is_capacity,hs_capacity}',
     function() {
-      let tables = [];
+      const tables = [];
 
       tables.push(SubdistrictTotals.create({
         borough: this.borough,
@@ -232,8 +233,7 @@ export default DS.Model.extend({
 
         students: (
           this.hsStudentsFromHousing
-          +
-          this.futureResidentialDev.reduce(function(acc, value) {
+          + this.futureResidentialDev.reduce(function(acc, value) {
             return acc + value.hs_students;
           }, 0)
         ),
@@ -241,17 +241,17 @@ export default DS.Model.extend({
         scaCapacityIncrease: this.scaProjects
           .filterBy('includeInCapacity', true)
           .reduce(function(acc, value) {
-            let v = parseInt(value.hs_capacity);
+            const v = parseFloat(value.hs_capacity);
             if (v) return acc + v;
             return acc;
           }, 0),
 
         newCapacityWithAction: this.schoolsWithAction.reduce(function(acc, value) {
-          return acc + parseInt(value.hs_seats);
+          return acc + parseFloat(value.hs_seats);
         }, 0),
       }));
 
-      this.subdistricts.map((sd) => {        
+      this.subdistricts.map((sd) => {
         tables.push(SubdistrictTotals.create({
           ...sd,
           level: 'ps',
@@ -261,38 +261,37 @@ export default DS.Model.extend({
 
           enroll: Math.round(
             this.futureEnrollmentProjections.findBy('district', sd.district).ps
-            *
-            this.futureEnrollmentMultipliers.find(
-              (i) => (i.district === sd.district && i.subdistrict === sd.subdistrict && i.level === 'PS')
-            ).multiplier
+            * this.futureEnrollmentMultipliers.find(
+              (i) => (i.district === sd.district && i.subdistrict === sd.subdistrict && i.level === 'PS'),
+            ).multiplier,
           ),
 
           students: (
             // Students from future housing projected by SCA
             this.futureEnrollmentNewHousing.find(
-              (i) => (i.district === sd.district && i.subdistrict === sd.subdistrict && i.level === 'PS')
+              (i) => (i.district === sd.district && i.subdistrict === sd.subdistrict && i.level === 'PS'),
             ).students
             +
             // Students from user-inputed additional developments
             this.futureResidentialDev.filter(
-              (i) => (i.district === sd.district && i.subdistrict === sd.subdistrict)
+              (i) => (i.district === sd.district && i.subdistrict === sd.subdistrict),
             ).reduce(function(acc, value) {
               return acc + value.ps_students;
             }, 0)
           ),
 
           scaCapacityIncrease: this.scaProjects.filter(
-            (b) => (b.district === sd.district && b.subdistrict === sd.subdistrict && b.includeInCapacity === true)
+            (b) => (b.district === sd.district && b.subdistrict === sd.subdistrict && b.includeInCapacity === true),
           ).reduce(function(acc, value) {
-            let v = parseInt(value.ps_capacity);
+            const v = parseFloat(value.ps_capacity);
             if (v) return acc + v;
             return acc;
           }, 0),
 
           newCapacityWithAction: this.schoolsWithAction.filter(
-            (b) => (b.district === sd.district && b.subdistrict === sd.subdistrict)
+            (b) => (b.district === sd.district && b.subdistrict === sd.subdistrict),
           ).reduce(function(acc, value) {
-            return acc + parseInt(value.ps_seats);
+            return acc + parseFloat(value.ps_seats);
           }, 0),
         }));
 
@@ -305,38 +304,37 @@ export default DS.Model.extend({
 
           enroll: Math.round(
             this.futureEnrollmentProjections.findBy('district', sd.district).ms
-            *
-            this.futureEnrollmentMultipliers.find(
-              (i) => (i.district === sd.district && i.subdistrict === sd.subdistrict && i.level === 'MS')
-            ).multiplier
+            * this.futureEnrollmentMultipliers.find(
+              (i) => (i.district === sd.district && i.subdistrict === sd.subdistrict && i.level === 'MS'),
+            ).multiplier,
           ),
 
           students: (
             // Students from future housing projected by SCA
             this.futureEnrollmentNewHousing.find(
-              (i) => (i.district === sd.district && i.subdistrict === sd.subdistrict && i.level === 'MS')
+              (i) => (i.district === sd.district && i.subdistrict === sd.subdistrict && i.level === 'MS'),
             ).students
             +
             // Students from user-inputed additional developments
             this.futureResidentialDev.filter(
-              (i) => (i.district === sd.district && i.subdistrict === sd.subdistrict)
+              (i) => (i.district === sd.district && i.subdistrict === sd.subdistrict),
             ).reduce(function(acc, value) {
               return acc + value.is_students;
             }, 0)
           ),
 
           scaCapacityIncrease: this.scaProjects.filter(
-            (b) => (b.district === sd.district && b.subdistrict === sd.subdistrict && b.includeInCapacity === true)
+            (b) => (b.district === sd.district && b.subdistrict === sd.subdistrict && b.includeInCapacity === true),
           ).reduce(function(acc, value) {
-            let v = parseInt(value.is_capacity);
+            const v = parseFloat(value.is_capacity);
             if (v) return acc + v;
             return acc;
           }, 0),
 
           newCapacityWithAction: this.schoolsWithAction.filter(
-            (b) => (b.district === sd.district && b.subdistrict === sd.subdistrict)
+            (b) => (b.district === sd.district && b.subdistrict === sd.subdistrict),
           ).reduce(function(acc, value) {
-            return acc + parseInt(value.is_seats);
+            return acc + parseFloat(value.is_seats);
           }, 0),
         }));
       });

@@ -35,6 +35,6 @@ module('Integration | Component | throttle-property', function(hooks) {
       {{/throttle-property}}
     `);
 
-    assert.equal(this.element.textContent.trim(), '1')
+    assert.equal(this.element.textContent.trim(), '1');
   });
 });

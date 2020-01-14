@@ -6,12 +6,13 @@ export default class AnalysisDataPackageSelectorComponent extends Component {
   @service store;
 
   currentPackage = {};
+
   availablePackages = {};
 
   @computed('availablePackages', 'currentPackage')
   get newDataAvailable() {
     if (!this.currentPackage) return false;
-    return this.availablePackages.any((p) => { return p.releaseDate > this.currentPackage.get('releaseDate') });
+    return this.availablePackages.any((p) => p.releaseDate > this.currentPackage.get('releaseDate'));
   }
 
   @action

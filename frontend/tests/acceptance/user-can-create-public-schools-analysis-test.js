@@ -1,7 +1,9 @@
 import { module, test } from 'qunit';
-import { visit, fillIn, click, find, currentURL } from '@ember/test-helpers';
+import {
+  visit, fillIn, click, find, currentURL,
+} from '@ember/test-helpers';
 import { setupApplicationTest } from 'ember-qunit';
-import { setupMirage } from "ember-cli-mirage/test-support";
+import { setupMirage } from 'ember-cli-mirage/test-support';
 
 module('Acceptance | user can create public schools analysis', function(hooks) {
   setupApplicationTest(hooks);
@@ -15,7 +17,7 @@ module('Acceptance | user can create public schools analysis', function(hooks) {
     await fillIn('[data-test-login-form="password"]', 'password');
     await click('[data-test-login-form="login"]');
     await click('[data-test-new-project="intro page"]');
-    await fillIn("[data-test-new-project='project-name']", 'Prospect Acres')
+    await fillIn("[data-test-new-project='project-name']", 'Prospect Acres');
     await click("[data-test-new-project='build-year']");
     await click("[data-test-new-project='2021']", '');
     await fillIn("[data-test-new-project='ceqr-number']", 'esnesenon');
@@ -26,9 +28,9 @@ module('Acceptance | user can create public schools analysis', function(hooks) {
     await click('[data-test-bbl-list="bbl-add"]');
 
     // residential
-    await fillIn("[data-test-housing-units-total]", 1000);
-    await fillIn("[data-test-housing-units-senior]", 50);
-    await fillIn("[data-test-housing-units-affordable]", 250);
+    await fillIn('[data-test-housing-units-total]', 1000);
+    await fillIn('[data-test-housing-units-senior]', 50);
+    await fillIn('[data-test-housing-units-affordable]', 250);
 
     // commercial
     await click("[data-test-commercial-use='dropdown']");

@@ -6,7 +6,7 @@ module('Unit | Transform | ember object', function(hooks) {
 
   // Replace this with your real tests.
   test('it exists', function(assert) {
-    let transform = this.owner.lookup('transform:ember-object');
+    const transform = this.owner.lookup('transform:ember-object');
     assert.ok(transform);
   });
 });

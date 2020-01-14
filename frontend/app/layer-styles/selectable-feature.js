@@ -21,49 +21,49 @@ export const selectableFeatureStyles = {
         ],
       },
     },
-    'layout': {
+    layout: {
       'line-cap': 'round',
       'line-join': 'round',
     },
   },
   'selectable-feature-label': {
     paint: {
-      "text-color": "#626262",
-      "text-halo-color": "#FFFFFF",
-      "text-halo-width": 2,
-      "text-halo-blur": 2,
-      "text-opacity": {
-        "stops": [
+      'text-color': '#626262',
+      'text-halo-color': '#FFFFFF',
+      'text-halo-width': 2,
+      'text-halo-blur': 2,
+      'text-opacity': {
+        stops: [
           [
             12,
-            0
+            0,
           ],
           [
             13,
-            1
-          ]
-        ]
-      }
+            1,
+          ],
+        ],
+      },
     },
-    'layout': {
-      "text-field": "{ctlabel}",
-      "text-font": [
-        "Open Sans Semibold",
-        "Arial Unicode MS Bold"
+    layout: {
+      'text-field': '{ctlabel}',
+      'text-font': [
+        'Open Sans Semibold',
+        'Arial Unicode MS Bold',
       ],
-      "text-size": {
-        "stops": [
+      'text-size': {
+        stops: [
           [
             11,
-            8
+            8,
           ],
           [
             14,
-            16
-          ]
-        ]
-      }
-    }
+            16,
+          ],
+        ],
+      },
+    },
   },
   'selectable-feature-hover': {
     paint: {
@@ -100,7 +100,7 @@ export const selectableFeatureStyles = {
     },
     layout: {
       'line-cap': 'round',
-      'line-join': 'round'
+      'line-join': 'round',
     },
   },
 };

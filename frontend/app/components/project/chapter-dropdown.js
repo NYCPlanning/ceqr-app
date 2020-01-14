@@ -16,7 +16,7 @@ export default class ProjectChapterDropdownComponent extends Component {
   }
 
   @action
-  gotoChapter(chapter) {      
+  gotoChapter(chapter) {
     this.router.transitionTo(`project.show.${chapter}`, this.project.id);
   }
 }

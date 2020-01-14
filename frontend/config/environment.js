@@ -1,8 +1,6 @@
-'use strict';
 
 module.exports = function(environment) {
-
-  let ENV = {
+  const ENV = {
     host: getHost(environment),
     'mapbox-gl': {
       accessToken: 'pk.eyJ1IjoicGljaG90IiwiYSI6ImNqbWIzYzFyeTVrbHAzcW9nbmRmeXNmbHcifQ.VEiOF5YV_9kxwXekZ3fWLA',
@@ -34,19 +32,19 @@ module.exports = function(environment) {
           sendHitTask: environment !== 'development',
           // Specify Google Analytics plugins
           // require: ['ecommerce']
-        }
-      }
+        },
+      },
     ],
     fontawesome: {
       icons: {
         'free-solid-svg-icons': [
-          'equals'
-         ]
-      }
+          'equals',
+        ],
+      },
     },
     SENTRY_DSN: process.env.SENTRY_DSN,
     newRelic: {
-      licenseKey: process.env.NEW_RELIC_LICENSE_KEY
+      licenseKey: process.env.NEW_RELIC_LICENSE_KEY,
     },
 
     modulePrefix: 'labs-ceqr',
@@ -60,8 +58,8 @@ module.exports = function(environment) {
       },
       EXTEND_PROTOTYPES: {
         // Prevent Ember Data from overriding Date.parse.
-        Date: false
-      }
+        Date: false,
+      },
     },
 
     APP: {
@@ -73,8 +71,8 @@ module.exports = function(environment) {
   if (environment === 'development') {
     ENV['ember-simple-auth-token'].tokenExpirationInvalidateSession = false;
     ENV['ember-cli-mirage'] = {
-      enabled: process.env.DISABLE_MIRAGE ? false : true,
-    }
+      enabled: !process.env.DISABLE_MIRAGE,
+    };
     ENV.shouldThrowOnError = true;
   }
 

@@ -1,8 +1,8 @@
 import fetch from 'fetch';
 import ENV from 'labs-ceqr/config/environment';
 
-const cartoUsername = ENV.carto['username'];
-const cartoDomain = ENV.carto['domain'];
+const cartoUsername = ENV.carto.username;
+const cartoDomain = ENV.carto.domain;
 
 const buildTemplate = function(cartoResponse, type) { // eslint-disable-line
   const { layergroupid, cdn_url } = cartoResponse; // eslint-disable-line
@@ -20,7 +20,7 @@ const buildSqlUrl = function(cleanedQuery, type = 'json') { // eslint-disable-li
 
 const carto = {
   SQL(query, type = 'json') {
-    const cleanedQuery = query.replace('\n', '').replace(/ +/g, " ");
+    const cleanedQuery = query.replace('\n', '').replace(/ +/g, ' ');
     const url = buildSqlUrl(cleanedQuery, type);
 
     return fetch(url)
@@ -56,17 +56,15 @@ const carto = {
     };
 
     return fetch(`https://${cartoDomain}/api/v1/map`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(params),
-      })
-        .catch(err => new Error(err))
-        .then(response => response.json())
-        .then((json) => {
-          return buildTemplate(json, 'mvt');
-        });
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(params),
+    })
+      .catch((err) => new Error(err))
+      .then((response) => response.json())
+      .then((json) => buildTemplate(json, 'mvt'));
   },
 };
 

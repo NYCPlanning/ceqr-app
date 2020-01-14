@@ -10,7 +10,7 @@ module('Integration | Helper | get-aggregate-value', function(hooks) {
 
   test('it calculates a numeric sum', async function(assert) {
     // If modal splits contains two modal split records
-    const modalSplits = this.owner.lookup('service:readonly-ceqr-data-store').findByIds('ACS-modal-split', ['1','2']);
+    const modalSplits = this.owner.lookup('service:readonly-ceqr-data-store').findByIds('ACS-modal-split', ['1', '2']);
     this.set('modalSplits', modalSplits);
 
     // and variable is a valid modal-split variable

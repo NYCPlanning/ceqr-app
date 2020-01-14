@@ -4,7 +4,7 @@ import { computed } from '@ember/object';
 export default Component.extend({
   didReceiveAttrs() {
     this._super(...arguments);
-    if (this.analysis.doeUtilChangesPerBldg) this.set('bldg_id', this.analysis.doeUtilChangesPerBldg[0].bldg_id)
+    if (this.analysis.doeUtilChangesPerBldg) this.set('bldg_id', this.analysis.doeUtilChangesPerBldg[0].bldg_id);
   },
 
   hasSigUtils: computed('analysis.doeUtilChangesPerBldg', function() {
@@ -15,13 +15,13 @@ export default Component.extend({
     showBldg(bldg_id) {
       this.set('bldg_id', bldg_id);
     },
-    save: function() {
+    save() {
       this.set('saving', true);
       this.get('analysis').save().then(() => this.set('saving', false));
-    }
-  }
+    },
+  },
 
-  /* 
+  /*
   [
     {
       bldg_id: 'K298',

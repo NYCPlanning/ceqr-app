@@ -75,11 +75,11 @@ export const AUTO_BREAKDOWN_VARIABLES = [
   'trans_auto_3',
   'trans_auto_4',
   'trans_auto_5_or_6',
-  'trans_auto_7_or_more'
-]
+  'trans_auto_7_or_more',
+];
 
-/** 
-* Maps auto breakdown variable code to its occupancy rate 
+/**
+* Maps auto breakdown variable code to its occupancy rate
 * (Number of people in that type of vehicle)
 */
 export const AUTO_OCCUPANCY_RATES = {
@@ -88,16 +88,16 @@ export const AUTO_OCCUPANCY_RATES = {
   trans_auto_3: 3,
   trans_auto_4: 4,
   trans_auto_5_or_6: 5.5,
-  trans_auto_7_or_more: 7
-} 
+  trans_auto_7_or_more: 7,
+};
 
 export const MODAL_SPLIT_VARIABLES_SUBSET = [
   'trans_auto_total',
   'trans_taxi',
   'trans_public_bus',
   'trans_public_subway',
-  'trans_walk'
-]
+  'trans_walk',
+];
 
 /**
  * Helper function to create headers for making authenticated call
@@ -109,7 +109,7 @@ export function getHeaders(session) {
   const tokenPrefix = conf.authorizationPrefix === '' ? '' : conf.authorizationPrefix || 'Bearer';
   const token = session.data.authenticated[tokenPropertyName];
 
-  if(!session.isAuthenticated || !token) return {};
+  if (!session.isAuthenticated || !token) return {};
   return { Authorization: `${tokenPrefix} ${token}` };
 }
 
@@ -137,8 +137,8 @@ export function makeModalSplitObject(rawData) {
   rawData.map(({ attributes }) => {
     formatted[attributes.variable] = {
       mode: VARIABLE_MODE_LOOKUP[attributes.variable] || 'Unknown',
-      ...attributes
-    }
+      ...attributes,
+    };
   });
   return formatted;
 }
@@ -153,7 +153,7 @@ export function addCommuterTotal(modalSplit) {
   modalSplit.trans_commuter_total.variable = 'trans_commuter_total';
   modalSplit.trans_commuter_total.value = calculateCommuterTotalValue(modalSplit);
   modalSplit.trans_commuter_total.moe = calculateCommuterTotalMOE(modalSplit);
-  modalSplit.trans_commuter_total.mode = VARIABLE_MODE_LOOKUP['trans_commuter_total'] || 'Unknown';
+  modalSplit.trans_commuter_total.mode = VARIABLE_MODE_LOOKUP.trans_commuter_total || 'Unknown';
 }
 
 /**
@@ -166,16 +166,16 @@ function calculateCommuterTotalValue(modalSplit) {
 }
 
 /**
- * Helper function to calculate the commuter_total moe, by computing an aggregate MOE for all 
+ * Helper function to calculate the commuter_total moe, by computing an aggregate MOE for all
  * variables representing a meaningful count of commuters
  * @param modalSplit The modal-split object used to calculate commuter_total
  */
 function calculateCommuterTotalMOE(modalSplit) {
-  return aggregateMarginOfError(COMMUTER_VARIABLES.map(variable => modalSplit[variable].moe));
+  return aggregateMarginOfError(COMMUTER_VARIABLES.map((variable) => modalSplit[variable].moe));
 }
 
 /**
- * Helper function to calculate and add the trans_walk_other property to 
+ * Helper function to calculate and add the trans_walk_other property to
  * composed modal-split object
  * @param modalSplit The modal-split object to modify
  */
@@ -184,7 +184,7 @@ export function addCombinedWalkOther(modalSplit) {
   modalSplit.trans_walk_other.variable = 'trans_walk_other';
   modalSplit.trans_walk_other.value = modalSplit.trans_walk.value + modalSplit.trans_other.value;
   modalSplit.trans_walk_other.moe = aggregateMarginOfError([modalSplit.trans_walk.moe, modalSplit.trans_other.moe]);
-  modalSplit.trans_walk_other.mode = VARIABLE_MODE_LOOKUP['trans_walk_other'] || 'Unknown';
+  modalSplit.trans_walk_other.mode = VARIABLE_MODE_LOOKUP.trans_walk_other || 'Unknown';
 }
 
 export function addVehicleOccupancy(modalSplit) {
@@ -192,12 +192,10 @@ export function addVehicleOccupancy(modalSplit) {
   modalSplit.vehicle_occupancy.variable = 'vehicle_occupancy';
   modalSplit.vehicle_occupancy.value = calculateVehicleOccupancy(modalSplit);
   modalSplit.vehicle_occupancy.moe = null;
-  modalSplit.vehicle_occupancy.mode = VARIABLE_MODE_LOOKUP['vehicle_occupancy'] || 'Unknown';
+  modalSplit.vehicle_occupancy.mode = VARIABLE_MODE_LOOKUP.vehicle_occupancy || 'Unknown';
 }
 
 export function calculateVehicleOccupancy(modalSplit) {
-  let numVehicles = AUTO_BREAKDOWN_VARIABLES.reduce((acc, cur) => {
-    return acc + (modalSplit[cur].value / AUTO_OCCUPANCY_RATES[modalSplit[cur].variable]);
-  }, 0);
+  const numVehicles = AUTO_BREAKDOWN_VARIABLES.reduce((acc, cur) => acc + (modalSplit[cur].value / AUTO_OCCUPANCY_RATES[modalSplit[cur].variable]), 0);
   return (modalSplit.trans_auto_total.value / numVehicles).toFixed(2);
 }

@@ -62,14 +62,14 @@ export default class MapboxCartoLayersComponent extends Component {
     return {
       version: '1.3.1',
       layers: [
-        ...this._registeredLayers.map(layer => ({
+        ...this._registeredLayers.map((layer) => ({
           type: 'mapnik',
           // layer-source id
           id: layer.layerId,
           options: {
             sql: layer.sql,
           },
-        }))
+        })),
       ],
     };
   }

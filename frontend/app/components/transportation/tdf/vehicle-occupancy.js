@@ -3,7 +3,7 @@ import { action } from '@ember/object';
 import { alias } from '@ember/object/computed';
 
 export default class TransportationTdfVehicleOccupancyComponent extends Component {
-  classNames = ["row"];
+  classNames = ['row'];
 
   @alias('factor.vehicleOccupancy') vehicleOccupancy;
 

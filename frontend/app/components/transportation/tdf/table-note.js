@@ -14,6 +14,7 @@ export default class TransportationTdfTableNoteComponent extends Component {
   get tableNote() {
     return this.factor.tableNotes[this.tableName];
   }
+
   set tableNote(note) {
     this.factor.tableNotes[this.tableName] = note;
   }

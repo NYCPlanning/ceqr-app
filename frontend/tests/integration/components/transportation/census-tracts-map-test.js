@@ -2,9 +2,9 @@ import { module, skip } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render, settled, find } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
-import { setupMirage } from "ember-cli-mirage/test-support";
+import { setupMirage } from 'ember-cli-mirage/test-support';
 import Component from '@ember/component';
-import { registerEventHandler, simulateEvent }  from '../../../helpers/mapbox/mapbox-stub-helpers';
+import { registerEventHandler, simulateEvent } from '../../../helpers/mapbox/mapbox-stub-helpers';
 
 const renderedGeoId = '1';
 const DEFAULT_MAPBOX_GL_INSTANCE = {
@@ -25,20 +25,18 @@ module('Integration | Component | transportation/census-tracts-map', function(ho
   hooks.beforeEach(async function() {
     this.events = {};
     this.layers = [];
-    this.filters = {}
+    this.filters = {};
     this.map = {
       ...DEFAULT_MAPBOX_GL_INSTANCE,
       addLayer: ({ id }) => {
         this.layers.push(id);
       },
-      queryRenderedFeatures: () => {
-        return [{
-          type: 'Feature',
-          properties: {
-            geoid: renderedGeoId,
-          },
-        }]
-      },
+      queryRenderedFeatures: () => [{
+        type: 'Feature',
+        properties: {
+          geoid: renderedGeoId,
+        },
+      }],
       setFilter: (layerId, filter) => {
         this.filters[layerId] = filter;
       },
@@ -50,7 +48,7 @@ module('Integration | Component | transportation/census-tracts-map', function(ho
       // in `it hovers, displays information`.
       on: (event, action) => {
         registerEventHandler(this.events, event, action);
-      }
+      },
     };
 
     const that = this;
@@ -65,7 +63,6 @@ module('Integration | Component | transportation/census-tracts-map', function(ho
   });
 
   skip('it has tracts and subways in map', async function(assert) {
-
     await render(hbs`{{transportation/census-tracts-map}}`);
 
     assert.ok(this.layers.includes('subway-routes'));
@@ -84,7 +81,7 @@ module('Integration | Component | transportation/census-tracts-map', function(ho
     // To simulate an event, we go straight to simply calling
     // the event handler with whatever arguments (like clicked point)
     // we want.
-    simulateEvent(this.events, 'mousemove', { point: { x: 0, y: 0 }});
+    simulateEvent(this.events, 'mousemove', { point: { x: 0, y: 0 } });
 
     await settled();
 
@@ -95,13 +92,13 @@ module('Integration | Component | transportation/census-tracts-map', function(ho
     // If a project exists with a transportation analysis
     const project = server.create('project');
     this.model = await this.owner.lookup('service:store')
-      .findRecord('project', project.id, { include: 'transportation-analysis'});
+      .findRecord('project', project.id, { include: 'transportation-analysis' });
 
     const geoid = renderedGeoId;
 
     await render(hbs`{{transportation/census-tracts-map project=model}}`);
 
-    simulateEvent(this.events, 'click', {point: 'point'});
+    simulateEvent(this.events, 'click', { point: 'point' });
 
     await settled();
 

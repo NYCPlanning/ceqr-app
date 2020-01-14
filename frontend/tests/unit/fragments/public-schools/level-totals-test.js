@@ -8,199 +8,164 @@ module('Unit | Fragment | LevelTotals', function(hooks) {
   setupTest(hooks);
 
   test('#enrollTotal is calculated correctly', function(assert) {
-    let subdistrict_totals =
-    SubdistrictTotals.create({
-      enrollTotal: 400
+    const subdistrict_totals = SubdistrictTotals.create({
+      enrollTotal: 400,
     });
 
-    let level_totals =
-    LevelTotals.create({
+    const level_totals = LevelTotals.create({
       subdistrictTotals: subdistrict_totals,
     });
 
     assert.equal(level_totals.subdistrictTotals.enrollTotal, 400);
-
   });
 
   test('#studentsTotal is calculated correctly', function(assert) {
-    let subdistrict_totals =
-    SubdistrictTotals.create({
-      studentsTotal: 400
+    const subdistrict_totals = SubdistrictTotals.create({
+      studentsTotal: 400,
     });
 
-    let level_totals =
-    LevelTotals.create({
+    const level_totals = LevelTotals.create({
       subdistrictTotals: subdistrict_totals,
     });
 
     assert.equal(level_totals.subdistrictTotals.studentsTotal, 400);
-
   });
 
   test('#enrollNoActionTotal is calculated correctly', function(assert) {
-    let level_totals =
-    LevelTotals.create({
+    const level_totals = LevelTotals.create({
       enrollTotal: 100,
       studentsTotal: 300,
     });
 
     assert.equal(level_totals.enrollNoActionTotal, 400);
-
   });
 
   test('#enrollWithActionTotal is calculated correctly', function(assert) {
-    let level_totals =
-    LevelTotals.create({
+    const level_totals = LevelTotals.create({
       studentsWithAction: 100,
       enrollNoActionTotal: 300,
     });
 
     assert.equal(level_totals.enrollWithActionTotal, 400);
-
   });
 
   test('#enrollWithActionDeltaTotal is calculated correctly', function(assert) {
-    let level_totals =
-    LevelTotals.create({
+    const level_totals = LevelTotals.create({
       enrollTotal: 100,
       enrollWithActionTotal: 300,
     });
 
     assert.equal(level_totals.enrollWithActionDeltaTotal, 200);
-
   });
 
   test('#enrollDifferenceTotal is calculated correctly', function(assert) {
-    let level_totals =
-    LevelTotals.create({
+    const level_totals = LevelTotals.create({
       enrollWithActionTotal: 400,
       enrollNoActionTotal: 300,
     });
 
     assert.equal(level_totals.enrollDifferenceTotal, 100);
-
   });
 
   test('#enrollDeltaDifferenceTotal is calculated correctly', function(assert) {
-    let level_totals =
-    LevelTotals.create({
+    const level_totals = LevelTotals.create({
       enrollNoActionDeltaTotal: 300,
       enrollWithActionDeltaTotal: 500,
     });
 
     assert.equal(level_totals.enrollDeltaDifferenceTotal, 200);
-
   });
 
 
   test('#capacityNoActionTotal is calculated correctly', function(assert) {
-    let subdistrict_totals =
-    SubdistrictTotals.create({
-      capacityNoActionTotal: 400
+    const subdistrict_totals = SubdistrictTotals.create({
+      capacityNoActionTotal: 400,
     });
 
-    let level_totals =
-    LevelTotals.create({
+    const level_totals = LevelTotals.create({
       subdistrictTotals: subdistrict_totals,
     });
 
     assert.equal(level_totals.subdistrictTotals.capacityNoActionTotal, 400);
-
   });
 
   test('#capacityWithActionTotal is calculated correctly', function(assert) {
-    let level_totals =
-    LevelTotals.create({
+    const level_totals = LevelTotals.create({
       capacityNoActionTotal: 100,
-      newSchoolSeats: 300
+      newSchoolSeats: 300,
     });
 
     assert.equal(level_totals.capacityWithActionTotal, 400);
-
   });
 
   test('#seatsNoActionTotal is calculated correctly', function(assert) {
-    let level_totals =
-    LevelTotals.create({
+    const level_totals = LevelTotals.create({
       capacityNoActionTotal: 400,
-      enrollNoActionTotal: 300
+      enrollNoActionTotal: 300,
     });
 
     assert.equal(level_totals.seatsNoActionTotal, 100);
-
   });
 
   test('#seatsWithActionTotal is calculated correctly', function(assert) {
-    let level_totals =
-    LevelTotals.create({
+    const level_totals = LevelTotals.create({
       capacityWithActionTotal: 400,
-      enrollWithActionTotal: 300
+      enrollWithActionTotal: 300,
     });
 
     assert.equal(level_totals.seatsWithActionTotal, 100);
-
   });
 
   test('#seatsDifferenceTotal is calculated correctly', function(assert) {
-    let level_totals = LevelTotals.create({
+    const level_totals = LevelTotals.create({
       seatsWithActionTotal: 400,
-      seatsNoActionTotal: 200
+      seatsNoActionTotal: 200,
     });
 
     assert.equal(level_totals.seatsDifferenceTotal, 200);
-
   });
 
   test('#utilizationNoActionTotal is calculated correctly', function(assert) {
-    let level_totals =
-    LevelTotals.create({
+    const level_totals = LevelTotals.create({
       enrollNoActionTotal: 177,
-      capacityNoActionTotal: 145
+      capacityNoActionTotal: 145,
     });
 
     assert.equal(level_totals.utilizationNoActionTotal, 1.2207);
-
   });
 
   test('#utilizationWithActionTotal is calculated correctly', function(assert) {
-    let level_totals =
-    LevelTotals.create({
+    const level_totals = LevelTotals.create({
       enrollWithActionTotal: 177,
-      capacityWithActionTotal: 145
+      capacityWithActionTotal: 145,
     });
 
     assert.equal(level_totals.utilizationWithActionTotal, 1.2207);
-
   });
 
   test('#utilizationChangeTotal is calculated correctly', function(assert) {
-    let level_totals =
-    LevelTotals.create({
+    const level_totals = LevelTotals.create({
       utilizationWithActionTotal: 100.66666,
-      utilizationNoActionTotal: 50.55555
+      utilizationNoActionTotal: 50.55555,
     });
 
     assert.equal(level_totals.utilizationChangeTotal, 50.1111);
-
   });
 
   test('#impact is calculated correctly', function(assert) {
-    let level_totals =
-    LevelTotals.create({
+    const level_totals = LevelTotals.create({
       utilizationChangeTotal: 1,
-      utilizationWithActionTotal: 0.8
+      utilizationWithActionTotal: 0.8,
     });
 
     assert.equal(level_totals.impact, false);
-
   });
 
   test('#mitigateSeatCount is calculated correctly', function(assert) {
-    let level_totals =
-    LevelTotals.create({
+    const level_totals = LevelTotals.create({
       enrollWithActionTotal: 7,
       capacityWithActionTotal: 2,
-      utilizationNoActionTotal: 3
+      utilizationNoActionTotal: 3,
     });
 
     // seatsToMitigateUtilization = enrollWithActionTotal - capacityWithActionTotal - 1
@@ -211,24 +176,20 @@ module('Unit | Fragment | LevelTotals', function(hooks) {
     // seatsToMitigateUtilization > seatsToMitigateChange, SO RETURN seatsToMitigateChange,
 
     assert.equal(level_totals.mitigateSeatCount, 1);
-
   });
 
   test('#mitigateUnitCount is calculated correctly', function(assert) {
-    let subdistrict_totals = [
-    SubdistrictTotals.create({
-      studentMultiplier: 2
-    })
-  ];
+    const subdistrict_totals = [
+      SubdistrictTotals.create({
+        studentMultiplier: 2,
+      }),
+    ];
 
-    let level_totals =
-    LevelTotals.create({
+    const level_totals = LevelTotals.create({
       subdistrictTotals: subdistrict_totals,
       mitigateSeatCount: 5,
     });
 
     assert.equal(level_totals.mitigateUnitCount, 3);
-
   });
-
 });

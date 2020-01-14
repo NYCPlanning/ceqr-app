@@ -7,29 +7,29 @@ export default class ProjectShowTransportationTdfPlanningFactorsShowRoute extend
     const { project, transportationAnalysis } = this.modelFor('project/show');
     const transportationPlanningFactor = await this.get('store').findRecord(
       'transportation-planning-factor',
-      params.transportation_planning_factor_id, 
-      { include: 'data-package' }
-    )
+      params.transportation_planning_factor_id,
+      { include: 'data-package' },
+    );
     const dataPackage = transportationPlanningFactor.get('dataPackage');
     const availablePackages = await this.get('store').query('data-package', {
       filter: {
         package: dataPackage.get('package'),
-      }
+      },
     });
 
     return RSVP.hash({
       project,
       transportationAnalysis,
       transportationPlanningFactor,
-      availablePackages
+      availablePackages,
     });
   }
 
   @action
   error({ errors }, transition) {
     const fourohfour = errors.findBy('code', '404');
-    const projectId = transition.params["project.show"].id;
-    
+    const projectId = transition.params['project.show'].id;
+
     if (fourohfour) {
       this.replaceWith('project.show.transportation.tdf.planning-factors', projectId);
     }

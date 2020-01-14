@@ -7,10 +7,9 @@ import { getAggregateValue } from '../../helpers/get-aggregate-value';
  * in a table. The table updates as census tracts are added to/removed from the study selection.
  */
 export default class TransportationCensusTractsTableComponent extends Component {
-
   /**
   * array of census tract IDs, each displayed as a column
- * @param {string[]} 
+ * @param {string[]}
  */
   selectedCensusTractIds = []
 
@@ -18,8 +17,8 @@ export default class TransportationCensusTractsTableComponent extends Component 
   // Then, move this into existing-conditions controller.
   @computed('selectedCensusTractData.[]')
   get vehicleOccupancyAvg() {
-    if(this.selectedCensusTractData){
-      return getAggregateValue([this.selectedCensusTractData, ["vehicle_occupancy"]]) / this.selectedCensusTractData.length;
+    if (this.selectedCensusTractData) {
+      return getAggregateValue([this.selectedCensusTractData, ['vehicle_occupancy']]) / this.selectedCensusTractData.length;
     }
     return null;
   }
@@ -32,8 +31,7 @@ export default class TransportationCensusTractsTableComponent extends Component 
   get selectedCensusTractData() {
     if (this.isRJTW) {
       return this.ctppModalSplits;
-    } else {
-      return this.acsModalSplits;
     }
+    return this.acsModalSplits;
   }
 }

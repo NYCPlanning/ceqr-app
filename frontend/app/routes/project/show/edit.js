@@ -7,12 +7,12 @@ export default Route.extend({
 
   afterModel(model) {
     if (model.project.viewOnly) {
-      this.transitionTo('project.show.public-schools.summary', model.project.id)
+      this.transitionTo('project.show.public-schools.summary', model.project.id);
     }
   },
 
   actions: {
-    save: async function(changeset) {
+    async save(changeset) {
       await changeset.validate();
 
       if (!changeset.isValid) return;
@@ -21,8 +21,8 @@ export default Route.extend({
       this.get('project-orchestrator.saveProject').perform();
     },
 
-    rollback: function(changeset) {
+    rollback(changeset) {
       return changeset.rollback();
-    }
-  }
+    },
+  },
 });

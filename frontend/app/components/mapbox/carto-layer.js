@@ -47,7 +47,7 @@ export default class MapboxMapboxAnonymousMapLayerComponent extends Component {
 
   @computed('layer')
   get mapboxLayerOptions() {
-    return  {
+    return {
       id: this.elementId,
       source: this._parentElementId,
       'source-layer': this.layerId,

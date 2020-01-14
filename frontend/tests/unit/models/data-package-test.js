@@ -6,8 +6,8 @@ module('Unit | Model | data package', function(hooks) {
 
   // Replace this with your real tests.
   test('it exists', function(assert) {
-    let store = this.owner.lookup('service:store');
-    let model = store.createRecord('data-package', {});
+    const store = this.owner.lookup('service:store');
+    const model = store.createRecord('data-package', {});
     assert.ok(model);
   });
 });

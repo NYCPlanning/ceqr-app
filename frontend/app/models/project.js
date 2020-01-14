@@ -1,11 +1,11 @@
 import DS from 'ember-data';
 import { computed } from '@ember/object';
 import { inject as service } from '@ember/service';
-import boroughToAbbr from 'labs-ceqr/utils/boroughToAbbr'
+import boroughToAbbr from 'labs-ceqr/utils/boroughToAbbr';
 
-export default DS.Model.extend({    
+export default DS.Model.extend({
   currentUser: service(),
-  
+
   editors: DS.hasMany('user', { inverse: 'editable_projects' }),
   viewers: DS.hasMany('user', { inverse: 'viewable_projects' }),
   projectPermissions: DS.hasMany('project-permissions'),
@@ -25,7 +25,7 @@ export default DS.Model.extend({
   bbls: DS.attr('', { defaultValue() { return []; } }),
   bblsVersion: DS.attr('string'),
   bblsGeojson: DS.attr(''),
-  
+
   borough: computed('boroCode', function() {
     switch (this.boroCode) {
       case 1: return 'Manhattan';
@@ -38,7 +38,7 @@ export default DS.Model.extend({
   }),
   boroCode: computed('bbls.[]', function() {
     if (this.bbls.length === 0) return null;
-    return parseInt(this.bbls.firstObject.charAt(0));
+    return parseFloat(this.bbls.firstObject.charAt(0));
   }),
   boroAbbr: computed('borough', function() {
     return boroughToAbbr(this.borough);
@@ -64,5 +64,5 @@ export default DS.Model.extend({
   publicSchoolsAnalysis: DS.belongsTo('public-schools-analysis'),
   transportationAnalysis: DS.belongsTo('transportation-analysis'),
   communityFacilitiesAnalysis: DS.belongsTo('community-facilities-analysis'),
-  airQualityAnalysis: DS.belongsTo('air-quality-analysis')
+  airQualityAnalysis: DS.belongsTo('air-quality-analysis'),
 });

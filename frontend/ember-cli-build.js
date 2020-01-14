@@ -1,36 +1,35 @@
-'use strict';
 
 const EmberApp = require('ember-cli/lib/broccoli/ember-app');
 
 module.exports = function(defaults) {
-  let app = new EmberApp(defaults, {
+  const app = new EmberApp(defaults, {
     babel: {
       plugins: [
-        "@babel/plugin-proposal-object-rest-spread"
-      ]
+        '@babel/plugin-proposal-object-rest-spread',
+      ],
     },
 
     // Disable jQuery bundled with Ember.js
     vendorFiles: { 'jquery.js': null },
     // Example to include jQuery slim instead of default build
     jquery: {
-      slim: true
+      slim: true,
     },
 
     autoImport: {
       alias: {
         // if in development mode, use development version of mapbox-gl for easier debugging
-        // mapbox-gl-dev is unminified and therefore easier to read 
-        ...(process.env.EMBER_ENV === 'development' ? {'mapbox-gl': 'mapbox-gl/dist/mapbox-gl-dev'} : {})
+        // mapbox-gl-dev is unminified and therefore easier to read
+        ...(process.env.EMBER_ENV === 'development' ? { 'mapbox-gl': 'mapbox-gl/dist/mapbox-gl-dev' } : {}),
       },
       webpack: {
         // required for the jwa (jsonwebtoken) dependency
-        node: { crypto: true, stream: true, buffer: true }
+        node: { crypto: true, stream: true, buffer: true },
       },
       // something to do with babel transpliation for mbgl. see https://github.com/mapbox/mapbox-gl-js/issues/3422
       skipBabel: [{
         package: 'mapbox-gl',
-        semverRange: '*'
+        semverRange: '*',
       }],
     },
 
@@ -47,16 +46,16 @@ module.exports = function(defaults) {
         'percentage',
         'school-year',
         'mode-label',
-        'humanize-geoid'
+        'humanize-geoid',
       ],
-      enabled: true
-    }
+      enabled: true,
+    },
   });
 
   app.import('node_modules/@sentry/browser/dist/index.js', {
     using: [
-      { transformation: 'cjs', as: '@sentry/browser' }
-    ]
+      { transformation: 'cjs', as: '@sentry/browser' },
+    ],
   });
 
   // app.import('vendor/carto-vl/carto-vl.min.js');

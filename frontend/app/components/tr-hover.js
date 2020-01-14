@@ -20,8 +20,8 @@ export default Component.extend({
 
   setHover({ source, id }) {
     if (
-      id === this.get('id') &&
-      source === this.get('source')
+      id === this.get('id')
+      && source === this.get('source')
     ) this.set('hover', true);
   },
 
@@ -33,7 +33,7 @@ export default Component.extend({
     this.get('tablehover').trigger('hover', {
       source: this.get('source'),
       id: this.get('id'),
-    })
+    });
   },
 
   mouseLeave() {

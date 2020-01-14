@@ -13,21 +13,20 @@ export default Component.extend({
 
   didReceiveAttrs() {
     this._super(...arguments);
-    const analysis = this.analysis;
+    const { analysis } = this;
 
     if (analysis) {
       this.set('activeSdId', analysis.subdistricts[0].id);
     }
   },
 
-  table: computed('activeSdId', 'activeSchoolsLevel', function() {    
+  table: computed('activeSdId', 'activeSchoolsLevel', function() {
     if (this.activeSchoolsLevel === 'hs') {
       return this.analysis.subdistrictTotals.findBy('level', 'hs');
-    } else {
-      return this.analysis.subdistrictTotals.find(
-        (total) => (parseInt(total.id) === parseInt(this.activeSdId) && total.level === this.activeSchoolsLevel)
-      );
     }
+    return this.analysis.subdistrictTotals.find(
+      (total) => (parseFloat(total.id) === parseFloat(this.activeSdId) && total.level === this.activeSchoolsLevel),
+    );
   }),
 
   buildings: computed('table', function() {
@@ -39,8 +38,8 @@ export default Component.extend({
   }),
 
   actions: {
-    setSdId: function(sdId) {
+    setSdId(sdId) {
       this.set('activeSdId', sdId);
-    }
-  }
+    },
+  },
 });

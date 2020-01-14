@@ -5,7 +5,7 @@ import ApplicationRouteMixin from 'ember-simple-auth/mixins/application-route-mi
 export default Route.extend(ApplicationRouteMixin, {
   currentUser: service(),
 
-  beforeModel() {    
+  beforeModel() {
     return this._loadCurrentUser();
   },
 
@@ -16,7 +16,7 @@ export default Route.extend(ApplicationRouteMixin, {
     // Not sure this is working
     // test environment doesn't have crisp injected
     if (window.$crisp) {
-      window.$crisp.push(["set", "user:email", [this.currentUser.user.email]]);
+      window.$crisp.push(['set', 'user:email', [this.currentUser.user.email]]);
     }
   },
 
@@ -30,6 +30,6 @@ export default Route.extend(ApplicationRouteMixin, {
         this.session.invalidate();
         this.replaceWith('login');
       }
-    }
-  }
+    },
+  },
 });
