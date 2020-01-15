@@ -93,7 +93,9 @@
     "eslint-plugin-ember": "^6.2.0",
     "eslint-plugin-import": "^2.19.1",
     "faker": "^4.1.0",
+    "husky": ">=1",
     "jsonwebtoken": "8.5.1",
+    "lint-staged": "^9.5.0",
     "loader.js": "^4.7.0",
     "mapbox-gl": "0.54.0",
     "pretender": "3.0.1",
@@ -111,6 +113,17 @@
   "ember-addon": {
     "paths": [
       "lib/carto-promises-utility"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.js": [
+      "eslint --fix",
+      "git add"
     ]
   }
 }
