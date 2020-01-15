@@ -12,6 +12,8 @@ export const MODES = [
   'other',
 ];
 
+// these values, e.g. "trans-auto-total" are sourced from the transportation_planning_factors table
+// under the column census_tract_variables, where they are nested in objects
 export const MODE_VARIABLE_LOOKUP = {
   auto: 'trans_auto_total',
   taxi: 'trans_taxi',

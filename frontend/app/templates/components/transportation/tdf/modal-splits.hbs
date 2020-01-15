@@ -22,7 +22,13 @@
             <div class="ui small buttons">
               <button class="ui button {{if factor.temporalModeSplits "positive"}}" onClick={{action toggleTemporalModeSplits true}}>Temporal Splits</button>
               <div class="or"></div>
-              <button class="ui button {{if (not factor.temporalModeSplits) "positive"}}" onClick={{action toggleTemporalModeSplits false}}>All Periods</button>
+              <button
+                class="ui button {{if (not factor.temporalModeSplits) "positive"}}"
+                onClick={{action toggleTemporalModeSplits false}}
+                data-test-button="all periods toggle"
+                >
+                All Periods
+              </button>
             </div>
           </td>
         </tr>
@@ -65,9 +71,9 @@
             @modeActive={{true}}
             @addActiveMode={{addActiveMode}}
             @removeActiveMode={{removeActiveMode}}
-            
+
             @modeSplits={{modeSplits}}
-            
+
             @showInput={{manualModeSplits}}
             @showTemporalModeSplits={{factor.temporalModeSplits}}
             @editModes={{editModes}}
@@ -75,31 +81,31 @@
         {{/each}}
 
         <tr class="warning">
-          <td><strong>TOTAL</strong></td>          
+          <td><strong>TOTAL</strong></td>
           {{#if factor.temporalModeSplits}}
-            <td>{{total.am}}</td>
-            <td>{{total.md}}</td>
-            <td>{{total.pm}}</td>
-            <td>{{total.saturday}}</td>
+            <td data-test-total-am>{{total.am}}</td>
+            <td data-test-total-md>{{total.md}}</td>
+            <td data-test-total-pm>{{total.pm}}</td>
+            <td data-test-total-saturday>{{total.saturday}}</td>
           {{else}}
-            <td>
-              {{total.allPeriods}} % 
+            <td data-test-total-all-periods>
+              {{total.allPeriods}} %
               {{#if (not manualModeSplits)}}
                 ({{total.count}})
               {{/if}}
             </td>
           {{/if}}
         </tr>
-    
+
         {{#if editModes}}
           {{#each inactiveModes as |mode|}}
             <Transportation::Tdf::ModalSplits::TableRow
               @mode={{mode}}
               @addActiveMode={{addActiveMode}}
               @removeActiveMode={{removeActiveMode}}
-              
+
               @modeSplits={{modeSplits}}
-              
+
               @showInput={{manualModeSplits}}
               @showTemporalModeSplits={{factor.temporalModeSplits}}
               @editModes={{editModes}}
@@ -108,7 +114,7 @@
         {{/if}}
         <tr>
           <td colspan={{if factor.temporalModeSplits "5" "2"}}>
-            <Transportation::Tdf::TableNote 
+            <Transportation::Tdf::TableNote
               @tableName="modalSplits"
               @factor={{factor}}
             />
@@ -138,7 +144,7 @@
               <div class="or"></div>
               <button class="ui button {{if seeCensusTracts "positive"}}" onClick={{action toggleSeeCensusTracts true}}>Table</button>
             </div>
-            
+
             <Analysis::DataPackageSelector
               style="display: inline-block;"
               @currentPackage={{factor.dataPackage}}
@@ -202,16 +208,16 @@
             @modeActive={{true}}
             @addActiveMode={{addActiveMode}}
             @removeActiveMode={{removeActiveMode}}
-            
+
             @modeSplits={{modeSplits}}
-            
+
             @showInput={{manualModeSplits}}
             @showTemporalModeSplits={{factor.temporalModeSplits}}
             @editModes={{editModes}}
           >
             {{#if (eq idx 0)}}
               <td rowspan={{add activeModes.length 1}} style={{if seeCensusTracts "display:none;" ""}}>
-                <Transportation::Tdf::ModalSplits::CensusTractsMap 
+                <Transportation::Tdf::ModalSplits::CensusTractsMap
                   @analysis={{analysis}}
                   @project={{project}}
                   @factor={{factor}}
@@ -236,10 +242,10 @@
         <tr class="warning">
           <td><strong>TOTAL</strong></td>
           <td>
-            {{total.allPeriods}} % 
+            {{total.allPeriods}} %
             {{#if (not manualModeSplits)}}
               ({{total.count}})
-            {{/if}}  
+            {{/if}}
           </td>
 
           {{#if seeCensusTracts}}
@@ -251,16 +257,16 @@
             {{/each}}
           {{/if}}
         </tr>
-    
+
         {{#if editModes}}
           {{#each inactiveModes as |mode|}}
             <Transportation::Tdf::ModalSplits::TableRow
               @mode={{mode}}
               @addActiveMode={{addActiveMode}}
               @removeActiveMode={{removeActiveMode}}
-              
+
               @modeSplits={{modeSplits}}
-              
+
               @showInput={{manualModeSplits}}
               @showTemporalModeSplits={{factor.temporalModeSplits}}
               @editModes={{editModes}}
@@ -269,7 +275,7 @@
         {{/if}}
         <tr>
           <td colspan="2">
-            <Transportation::Tdf::TableNote 
+            <Transportation::Tdf::TableNote
               @tableName="modalSplits"
               @factor={{factor}}
             />

@@ -70,7 +70,7 @@ export default class TransportationCensusTractsMapComponent extends Component {
 
   @computed('analysis.censusTractsCentroid')
   get censusTractsCentroidLngLat() {
-    return this.analysis.censusTractsCentroid.features.firstObject.geometry.coordinates;
+    return this.analysis.get('censusTractsCentroid').features.firstObject.geometry.coordinates;
   }
 
   /**

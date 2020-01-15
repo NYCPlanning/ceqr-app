@@ -62,7 +62,7 @@ module('Integration | Component | transportation/threshold-calculation', functio
     }),
   };
 
-  test('it renders', async function(assert) {
+  test('threshold-calculation computed properties calculate correctly', async function(assert) {
     const analysisMirage = server.create('transportation-analysis', projectWithAllLandUses);
 
     const project = await this.owner.lookup('service:store').findRecord(
