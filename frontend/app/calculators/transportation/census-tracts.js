@@ -6,8 +6,9 @@ import { censusTractVariableForMode, MODE_VARIABLE_LOOKUP } from '../../utils/ce
  * TransportationTdfCalculator is an EmberObject that calculates Trip Results for given inputs.
  *
  * @constructor
- * @param {array} censusTracts - an array of census tracts with their variables
- * @param {array} modesForAnalysis - an array of all mode ids
+ * @param {array} censusTracts - an array of census tracts with their variables.
+ *                               See tests/unit/calculators/census-tracts-test for an example.
+ * @param {array} modesForAnalysis - an array of all mode ids.
  */
 
 export default class TransportationCensusTractsCalculator extends EmberObject {
@@ -24,6 +25,8 @@ export default class TransportationCensusTractsCalculator extends EmberObject {
     return splits;
   }
 
+  // totalCount is sum of values for each mode in `modesForAnalysis`,
+  // across all census tracts in CensusTractVariables.
   @computed('modesForAnalysis')
   get totalCount() {
     return this.modesForAnalysis.reduce((pv, m) => pv + this.sumFor(censusTractVariableForMode(m)), 0);
