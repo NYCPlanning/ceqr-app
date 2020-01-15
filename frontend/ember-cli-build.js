@@ -32,24 +32,6 @@ module.exports = function(defaults) {
         semverRange: '*',
       }],
     },
-
-    'ember-ast-hot-load': {
-      helpers: [
-        'page-title',
-        'find-modal-split',
-        'get-aggregate-value',
-        'get-aggregate-percent',
-        'get-split-value',
-        'get-split-percent',
-        'human-readable-census-tract',
-        'map-color-for',
-        'percentage',
-        'school-year',
-        'mode-label',
-        'humanize-geoid',
-      ],
-      enabled: true,
-    },
   });
 
   app.import('node_modules/@sentry/browser/dist/index.js', {
