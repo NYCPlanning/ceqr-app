@@ -109,4 +109,74 @@ module('Integration | Component | transportation/tdf/modal-splits', function(hoo
     // tests for total.allPeriods in computed property `total`
     assert.ok(this.element.querySelector('[data-test-total-all-periods]').textContent.includes('21'), 'total all periods calculated');
   });
+
+  test('non-manual modal split values show up correctly', async function(assert) {
+    const store = this.owner.lookup('service:store');
+
+    this.server.create('user');
+    this.server.create('data-package');
+    this.server.create('project', {
+      publicSchoolsAnalysis: this.server.create('publicSchoolsAnalysis'),
+      transportationAnalysis: this.server.create('transportationAnalysis', {
+        transportationPlanningFactors: [
+          this.server.create('transportationPlanningFactor', {
+            dataPackage: this.server.create('dataPackage', 'nycAcs'),
+            landUse: 'residential',
+            // necessary for displaying certain elements
+            // am/md/pm/saturday values (true) vs. allPeriods values (false)
+            temporalModeSplits: true,
+            // necessary for displaying certain elements
+            // user input mode splits (true) vs. mode split values from census tract calculator (false)
+            manualModeSplits: true,
+          }),
+        ],
+      }),
+    });
+
+    // define project model
+    const project = await store.findRecord('project', 1, {
+      include: ['transportation-analysis,transportation-analysis.transportation-planning-factors'].join(','),
+    });
+
+    // replicating how availablePackages is defined on routes/project/show/transportation/tdf/planning-factors/show.js
+    const dataPackage = project.transportationAnalysis.get('transportationPlanningFactors').firstObject.get('dataPackage');
+    const availablePackages = await store.query('data-package', {
+      filter: {
+        package: dataPackage.get('package'),
+      },
+    });
+
+    this.set('transportationPlanningFactorResidentialModel', project.transportationAnalysis.get('transportationPlanningFactors').firstObject);
+    this.set('projectModel', project);
+    this.set('transportationAnalysisModel', project.transportationAnalysis);
+    this.set('availablePackages', availablePackages);
+
+    await render(hbs`
+      {{#transportation/tdf/modal-splits
+        project=project
+        analysis=transportationAnalysisModel
+        factor=transportationPlanningFactorResidentialModel
+        availablePackages=availablePackages}}
+      {{/transportation/tdf/modal-splits}}
+  `);
+
+    // sets manualModeSplits to false
+    // runs action toggleCensusTractModeSplits
+    await click('[data-test-button="toggle census tract mode splits"]');
+    // TODO: check that server has saved
+
+    await click('[data-test-button]');
+
+    // sets manualModeSplits to true
+    // sets seeCensusTracts to false
+    // runs action toggleManualModeSplits
+    await click('[data-test-button="toggle manual mode splits"]');
+
+    // // runs toggleSeeCensusTracts
+    // await click('[data-test-button="see census tracts"]');
+
+    assert.ok(true, true);
+
+    await this.pauseTest();
+  });
 });

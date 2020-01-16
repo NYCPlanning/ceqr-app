@@ -15,7 +15,12 @@
             <div class="ui small buttons">
               <button class="ui button {{if factor.manualModeSplits "positive"}}" onClick={{action toggleManualModeSplits}}>Manual</button>
               <div class="or"></div>
-              <button class="ui button {{if (not factor.manualModeSplits) "positive"}}" onClick={{action toggleCensusTractModeSplits}}>Census Tracts</button>
+              <button
+                class="ui button {{if (not factor.manualModeSplits) "positive"}}"
+                onClick={{action toggleCensusTractModeSplits}}
+                data-test-button="toggle census tract mode splits">
+                Census Tracts
+              </button>
             </div>
           </td>
           <td colspan={{if factor.temporalModeSplits "4" "1"}}>
@@ -130,7 +135,12 @@
         <tr>
           <td>
             <div class="ui small buttons">
-              <button class="ui button {{if factor.manualModeSplits "positive"}}" onClick={{action toggleManualModeSplits}}>Manual</button>
+              <button
+                class="ui button {{if factor.manualModeSplits "positive"}}"
+                onClick={{action toggleManualModeSplits}}
+                data-test-button="toggle manual mode splits">
+                Manual
+              </button>
               <div class="or"></div>
               <button class="ui button {{if (not factor.manualModeSplits) "positive"}}" onClick={{action toggleCensusTractModeSplits}}>Census Tracts</button>
             </div>
@@ -142,7 +152,7 @@
             <div class="ui small buttons">
               <button class="ui button {{if (not seeCensusTracts) "positive"}}" onClick={{action toggleSeeCensusTracts false}}>Map</button>
               <div class="or"></div>
-              <button class="ui button {{if seeCensusTracts "positive"}}" onClick={{action toggleSeeCensusTracts true}}>Table</button>
+              <button data-test-button="see census tracts" class="ui button {{if seeCensusTracts "positive"}}" onClick={{action toggleSeeCensusTracts true}}>Table</button>
             </div>
 
             <Analysis::DataPackageSelector
