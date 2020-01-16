@@ -1193,6 +1193,14 @@
   resolved "https://registry.yarnpkg.com/@mapbox/jsonlint-lines-primitives/-/jsonlint-lines-primitives-2.0.2.tgz#ce56e539f83552b58d10d672ea4d6fc9adc7b234"
   integrity sha1-zlblOfg1UrWNENZy6k1vya3HsjQ=
 
+"@mapbox/mapbox-gl-accessibility@github:allthesignals/mapbox-gl-accessibility#897ea76333c53de07e4edc0b77b84661ef8b7a2b":
+  version "0.0.0"
+  resolved "https://codeload.github.com/allthesignals/mapbox-gl-accessibility/tar.gz/897ea76333c53de07e4edc0b77b84661ef8b7a2b"
+  dependencies:
+    "@turf/bbox" "^6.0.1"
+    lodash "^4.17.15"
+    xtend "^4.0.2"
+
 "@mapbox/mapbox-gl-supported@^1.4.0":
   version "1.4.1"
   resolved "https://registry.yarnpkg.com/@mapbox/mapbox-gl-supported/-/mapbox-gl-supported-1.4.1.tgz#c0a03cf75f8b0ad7b57849d6c7e91b0aec4b640f"
@@ -6568,6 +6576,14 @@ ember-test-selectors@2.1.0:
     ember-cli-babel "^6.8.2"
     ember-cli-version-checker "^3.1.2"
 
+ember-test-waiters@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/ember-test-waiters/-/ember-test-waiters-1.2.0.tgz#c12ead4313934c24cff41857020cacdbf8e6effe"
+  integrity sha512-aEw7YuutLuJT4NUuPTNiGFwgTYl23ThqmBxSkfFimQAn+keWjAftykk3dlFELuhsJhYW/S8YoVjN0bSAQRLNtw==
+  dependencies:
+    ember-cli-babel "^7.11.0"
+    semver "^6.3.0"
+
 ember-truth-helpers@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/ember-truth-helpers/-/ember-truth-helpers-2.1.0.tgz#d4dab4eee7945aa2388126485977baeb33ca0798"
@@ -10149,14 +10165,6 @@ map-visit@^1.0.0:
   integrity sha1-7Nyo8TFE5mDxtb1B8S80edmN+48=
   dependencies:
     object-visit "^1.0.0"
-
-"mapbox-gl-accessibility@github:allthesignals/mapbox-gl-accessibility":
-  version "0.0.0"
-  resolved "https://codeload.github.com/allthesignals/mapbox-gl-accessibility/tar.gz/897ea76333c53de07e4edc0b77b84661ef8b7a2b"
-  dependencies:
-    "@turf/bbox" "^6.0.1"
-    lodash "^4.17.15"
-    xtend "^4.0.2"
 
 mapbox-gl@^1.6.1:
   version "1.6.1"
