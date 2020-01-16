@@ -97,7 +97,7 @@
     "jsonwebtoken": "8.5.1",
     "lint-staged": "^9.5.0",
     "loader.js": "^4.7.0",
-    "mapbox-gl": "0.54.0",
+    "mapbox-gl": "^1.6.1",
     "pretender": "3.0.1",
     "rsvp": "^4.8.4",
     "sass": "^1.16.1",
