@@ -15,7 +15,12 @@
             <div class="ui small buttons">
               <button class="ui button {{if factor.manualModeSplits "positive"}}" onClick={{action toggleManualModeSplits}}>Manual</button>
               <div class="or"></div>
-              <button class="ui button {{if (not factor.manualModeSplits) "positive"}}" onClick={{action toggleCensusTractModeSplits}}>Census Tracts</button>
+              <button 
+                class="ui button {{if (not factor.manualModeSplits) "positive"}}" 
+                onClick={{action toggleCensusTractModeSplits}}
+                data-test-button="census tracts tab">
+                Census Tracts
+              </button>
             </div>
           </td>
           <td colspan={{if factor.temporalModeSplits "4" "1"}}>
@@ -134,7 +139,12 @@
         <tr>
           <td>
             <div class="ui small buttons">
-              <button class="ui button {{if factor.manualModeSplits "positive"}}" onClick={{action toggleManualModeSplits}}>Manual</button>
+              <button 
+                class="ui button {{if factor.manualModeSplits "positive"}}" 
+                onClick={{action toggleManualModeSplits}}
+                data-test-button="manual tab">
+                Manual
+              </button>
               <div class="or"></div>
               <button class="ui button {{if (not factor.manualModeSplits) "positive"}}" onClick={{action toggleCensusTractModeSplits}}>Census Tracts</button>
             </div>

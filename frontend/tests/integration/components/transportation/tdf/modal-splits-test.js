@@ -32,7 +32,7 @@ module('Integration | Component | transportation/tdf/modal-splits', function(hoo
 
     // define project model
     const project = await store.findRecord('project', 1, {
-      include: ['transportation-analysis,transportation-analysis.transportation-planning-factors'].join(','),
+      include: 'transportation-analysis,transportation-analysis.transportation-planning-factors',
     });
 
     // replicating how availablePackages is defined on routes/project/show/transportation/tdf/planning-factors/show.js
@@ -110,7 +110,7 @@ module('Integration | Component | transportation/tdf/modal-splits', function(hoo
 
     // define project model
     const project = await store.findRecord('project', 1, {
-      include: ['transportation-analysis,transportation-analysis.transportation-planning-factors'].join(','),
+      include: 'transportation-analysis,transportation-analysis.transportation-planning-factors',
     });
 
     // replicating how availablePackages is defined on routes/project/show/transportation/tdf/planning-factors/show.js
@@ -175,7 +175,7 @@ module('Integration | Component | transportation/tdf/modal-splits', function(hoo
 
     // define project model
     const project = await store.findRecord('project', 1, {
-      include: ['transportation-analysis,transportation-analysis.transportation-planning-factors'].join(','),
+      include: 'transportation-analysis,transportation-analysis.transportation-planning-factors',
     });
 
     // replicating how availablePackages is defined on routes/project/show/transportation/tdf/planning-factors/show.js
@@ -201,9 +201,8 @@ module('Integration | Component | transportation/tdf/modal-splits', function(hoo
 
     // #### CHECK DEFAULT VALUES #############################################
     // check that correct elements are displayed when temporalModeSplits = true
-    assert.ok('[data-test-column-title="am"]');
-    // This action saves the transportationPlanningFactors object model, so check that server has correct value
-    assert.equal(server.db.transportationPlanningFactors.firstObject.temporalModeSplits, true);
+    assert.ok(this.element.querySelector('[data-test-column-title="am"]'));
+    assert.notOk(this.element.querySelector('[data-test-column-title="all periods"]'));
 
     // runs the action toggleTemporalModeSplits
     // sets temporalModeSplits to false
@@ -211,9 +210,8 @@ module('Integration | Component | transportation/tdf/modal-splits', function(hoo
 
     // #### CHECK AFTER CLICKING All Periods TAB #############################################
     // check that correct elements are displayed when temporalModeSplits = false
-    assert.ok('[data-test-column-title="all periods"]');
-    // This action saves the transportationPlanningFactors object model, so check that server has correct value
-    assert.equal(server.db.transportationPlanningFactors.firstObject.temporalModeSplits, false);
+    assert.ok(this.element.querySelector('[data-test-column-title="all periods"]'));
+    assert.notOk(this.element.querySelector('[data-test-column-title="am"]'));
 
     // runs the action toggleTemporalModeSplits
     // sets temporalModeSplits to true
@@ -221,8 +219,80 @@ module('Integration | Component | transportation/tdf/modal-splits', function(hoo
 
     // #### CHECK AFTER CLICKING Temporal Splits TAB #############################################
     // check that correct elements are displayed again when temporalModeSplits = true
-    assert.ok('[data-test-column-title="am"');
-    // This action saves the transportationPlanningFactors object model, so check that server has correct value
-    assert.equal(server.db.transportationPlanningFactors.firstObject.temporalModeSplits, true);
+    assert.ok(this.element.querySelector('[data-test-column-title="am"]'));
+    assert.notOk(this.element.querySelector('[data-test-column-title="all periods"]'));
+  });
+
+  test('user can toggle between Manual and Census Tracts tabs', async function(assert) {
+    const store = this.owner.lookup('service:store');
+
+    this.server.create('user');
+    this.server.create('data-package');
+    this.server.create('project', {
+      publicSchoolsAnalysis: this.server.create('publicSchoolsAnalysis'),
+      transportationAnalysis: this.server.create('transportationAnalysis', {
+        transportationPlanningFactors: [
+          this.server.create('transportationPlanningFactor', {
+            dataPackage: this.server.create('dataPackage', 'nycAcs'),
+            landUse: 'residential',
+            // necessary for displaying certain elements
+            // Temporal Splits tab (true) vs. All Periods tab (false)
+            temporalModeSplits: true,
+            // necessary for displaying certain elements
+            // user input mode splits (true) vs. mode split values from census tract calculator (false)
+            manualModeSplits: true,
+          }),
+        ],
+      }),
+    });
+
+    // define project model
+    const project = await store.findRecord('project', 1, {
+      include: 'transportation-analysis,transportation-analysis.transportation-planning-factors',
+    });
+
+    // replicating how availablePackages is defined on routes/project/show/transportation/tdf/planning-factors/show.js
+    const dataPackage = project.transportationAnalysis.get('transportationPlanningFactors').firstObject.get('dataPackage');
+    const availablePackages = await store.query('data-package', {
+      filter: {
+        package: dataPackage.get('package'),
+      },
+    });
+
+    this.project = project;
+    this.transportationPlanningFactorsResidentialModel = project.transportationAnalysis.get('transportationPlanningFactors').firstObject;
+    this.availablePackages = availablePackages;
+
+    await render(hbs`
+      {{#transportation/tdf/modal-splits
+        project=project
+        analysis=project.transportationAnalysis
+        factor=transportationPlanningFactorsResidentialModel
+        availablePackages=availablePackages}}
+      {{/transportation/tdf/modal-splits}}
+    `);
+
+    // #### CHECK DEFAULT VALUES #############################################
+    // check that correct elements are displayed when manualModeSplits = true
+    assert.ok(this.element.querySelector('[data-test-modal-split-input-am="auto"]'));
+    assert.notOk(this.element.querySelector('[data-test-all-period-percent-value="auto"]'));
+
+    // runs the action toggleCensusTractModeSplits
+    // sets manualModeSplits to false
+    await click('[data-test-button="census tracts tab"]');
+
+    // #### CHECK AFTER CLICKING Census Tracts TAB #############################################
+    // check that correct elements are displayed when manualModeSplits = false
+    assert.ok(this.element.querySelector('[data-test-all-period-percent-value="auto"]'));
+    assert.notOk(this.element.querySelector('[data-test-modal-split-input-am="auto"]'));
+
+    // runs the action toggleManualModeSplits
+    // sets manualModeSplits to true
+    await click('[data-test-button="manual tab"]');
+
+    // #### CHECK AFTER CLICKING Manual TAB #############################################
+    // check that correct elements are displayed again when manualModeSplits = true
+    assert.ok(this.element.querySelector('[data-test-modal-split-input-am="auto"]'));
+    assert.notOk(this.element.querySelector('[data-test-all-period-percent-value="auto"]'));
   });
 });
