@@ -1,6 +1,7 @@
 import Component from '@ember/component';
 import { computed, action } from '@ember/object';
 import mapboxgl from 'mapbox-gl';
+import MapboxAccessibility from '@mapbox/mapbox-gl-accessibility';
 
 /**
  * Helper function to ensure 'bbls' layer is the top-most layer. MapboxGL styleIsLoaded() check,
@@ -18,9 +19,14 @@ const onMapStyleLoaded = function(e) {
 
 export default class TransportationCensusTractsMapComponent extends Component {
   /**
-   * The project model
+   * Required
    */
   analysis = {};
+
+  /**
+   * The Project model
+   */
+  project = {};
 
   /**
    * The identifier (geoid) of the currenlty hovered feature in the map
@@ -79,6 +85,20 @@ export default class TransportationCensusTractsMapComponent extends Component {
   @action
   mapLoaded(map) {
     map.on('data', onMapStyleLoaded);
+
+    map.addControl(new MapboxAccessibility({
+      // A string value representing a property key in the data. This
+      // will be used as the text in voiceover.
+      accessibleLabelProperty: 'name',
+
+      // The layers within the style that
+      // 1. Contain the `accessibleLabelProperty` value as a key
+      // 2. Should be used for voiceover.
+      // 3. Will be represented in the DOM with nodes
+      layers: [
+        'bbls',
+      ],
+    }));
 
     map.addControl(new mapboxgl.NavigationControl(), 'top-right');
   }
