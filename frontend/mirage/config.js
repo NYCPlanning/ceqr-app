@@ -192,4 +192,6 @@ export default function() {
 
   this.get('transportation-planning-factors');
   this.get('transportation-planning-factors/:id');
+  this.post('transportation-planning-factors');
+  this.patch('transportation-planning-factors/:id');
 }
