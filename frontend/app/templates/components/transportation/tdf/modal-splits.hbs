@@ -82,7 +82,7 @@
             <td data-test-total-pm>{{total.pm}}</td>
             <td data-test-total-saturday>{{total.saturday}}</td>
           {{else}}
-            <td>
+            <td data-test-total-all-periods>
               {{total.allPeriods}} % 
               {{#if (not manualModeSplits)}}
                 ({{total.count}})

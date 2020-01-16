@@ -26,6 +26,10 @@ export default class TransportationTdfModalSplitsComponent extends Component {
     'modeSplits.{auto,taxi,bus,subway,railroad,walk,ferry,streetcar,bicycle,motorcycle,other}.{allPeriods,am,pm,md,saturday}',
   )
   get total() {
+    // modesForAnalysis = e.g. ['auto', 'taxi', 'bus', 'subway', 'walk', 'railroad']
+    // modeSplits = e.g. { auto: { allPeriods: 10.1, count: 2712 }, taxi: { allPeriods: 3.6, count: 981 } }
+    // reduce function to add up the am/md/pm/saturday/allPeriods values for each mode in the modesForAnalysis array
+    // example: auto saturday value + taxi saturday value + bus saturday value + subway saturday value
     return {
       allPeriods: this.factor.modesForAnalysis.reduce((pv, key) => pv + parseFloat(this.modeSplits[key].allPeriods), 0),
       am: this.factor.modesForAnalysis.reduce((pv, key) => pv + parseFloat(this.modeSplits[key].am), 0),
