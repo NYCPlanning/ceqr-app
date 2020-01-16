@@ -20,9 +20,19 @@
           </td>
           <td colspan={{if factor.temporalModeSplits "4" "1"}}>
             <div class="ui small buttons">
-              <button class="ui button {{if factor.temporalModeSplits "positive"}}" onClick={{action toggleTemporalModeSplits true}}>Temporal Splits</button>
+              <button 
+                class="ui button {{if factor.temporalModeSplits "positive"}}" 
+                onClick={{action toggleTemporalModeSplits true}}
+                data-test-button="temporal splits tab">
+                Temporal Splits
+              </button>
               <div class="or"></div>
-              <button class="ui button {{if (not factor.temporalModeSplits) "positive"}}" onClick={{action toggleTemporalModeSplits false}}>All Periods</button>
+              <button 
+                class="ui button {{if (not factor.temporalModeSplits) "positive"}}" 
+                onClick={{action toggleTemporalModeSplits false}}
+                data-test-button="all periods tab">
+                All Periods
+              </button>
             </div>
           </td>
         </tr>
@@ -38,7 +48,7 @@
               {{/if}}
           </th>
           {{#if factor.temporalModeSplits}}
-            <th class="two wide">
+            <th class="two wide" data-test-column-title="am">
               AM
             </th>
             <th class="two wide">
@@ -51,7 +61,7 @@
               Sat
             </th>
           {{else}}
-            <th class="four wide">
+            <th class="four wide" data-test-column-title="all periods">
               All Periods
             </th>
           {{/if}}
