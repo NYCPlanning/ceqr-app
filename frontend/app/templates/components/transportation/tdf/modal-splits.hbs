@@ -77,10 +77,10 @@
         <tr class="warning">
           <td><strong>TOTAL</strong></td>          
           {{#if factor.temporalModeSplits}}
-            <td>{{total.am}}</td>
-            <td>{{total.md}}</td>
-            <td>{{total.pm}}</td>
-            <td>{{total.saturday}}</td>
+            <td data-test-total-am>{{total.am}}</td>
+            <td data-test-total-md>{{total.md}}</td>
+            <td data-test-total-pm>{{total.pm}}</td>
+            <td data-test-total-saturday>{{total.saturday}}</td>
           {{else}}
             <td>
               {{total.allPeriods}} % 
