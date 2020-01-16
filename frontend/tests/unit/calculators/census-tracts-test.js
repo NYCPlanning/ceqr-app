@@ -15,19 +15,6 @@ module('Unit | Calculator | census-tracts', function(hooks) {
       'railroad',
     ];
 
-    const autoCensusTract1 = 165;
-    const autoCensusTract2 = 108;
-    const taxiCensusTract1 = 237;
-    const taxiCensusTract2 = 113;
-    const busCensusTract1 = 0;
-    const busCensusTract2 = 0;
-    const subwayCensusTract1 = 1642;
-    const subwayCensusTract2 = 800;
-    const walkCensusTract1 = 605;
-    const walkCensusTract2 = 458;
-    const railCensusTract1 = 77;
-    const railCensusTract2 = 9;
-
     const censusTractVariables = [
       {
         population: {
@@ -45,13 +32,13 @@ module('Unit | Calculator | census-tracts', function(hooks) {
         trans_taxi: {
           moe: 154,
           geoid: '2332',
-          value: taxiCensusTract1,
+          value: 237,
           variable: 'trans_taxi',
         },
         trans_walk: {
           moe: 177,
           geoid: '2332',
-          value: walkCensusTract1,
+          value: 605,
           variable: 'trans_walk',
         },
         trans_other: {
@@ -99,7 +86,7 @@ module('Unit | Calculator | census-tracts', function(hooks) {
         trans_auto_total: {
           moe: 99,
           geoid: '2332',
-          value: autoCensusTract1,
+          value: 165,
           variable: 'trans_auto_total',
         },
         trans_motorcycle: {
@@ -111,7 +98,7 @@ module('Unit | Calculator | census-tracts', function(hooks) {
         trans_public_bus: {
           moe: 16,
           geoid: '2332',
-          value: busCensusTract1,
+          value: 0,
           variable: 'trans_public_bus',
         },
         trans_auto_5_or_6: {
@@ -123,7 +110,7 @@ module('Unit | Calculator | census-tracts', function(hooks) {
         trans_public_rail: {
           moe: 74,
           geoid: '2332',
-          value: railCensusTract1,
+          value: 77,
           variable: 'trans_public_rail',
         },
         trans_public_ferry: {
@@ -141,7 +128,7 @@ module('Unit | Calculator | census-tracts', function(hooks) {
         trans_public_subway: {
           moe: 291,
           geoid: '2332',
-          value: subwayCensusTract1,
+          value: 1642,
           variable: 'trans_public_subway',
         },
         trans_auto_7_or_more: {
@@ -179,13 +166,13 @@ module('Unit | Calculator | census-tracts', function(hooks) {
         trans_taxi: {
           moe: 67,
           geoid: '2372',
-          value: taxiCensusTract2,
+          value: 113,
           variable: 'trans_taxi',
         },
         trans_walk: {
           moe: 127,
           geoid: '2372',
-          value: walkCensusTract2,
+          value: 458,
           variable: 'trans_walk',
         },
         trans_other: {
@@ -233,7 +220,7 @@ module('Unit | Calculator | census-tracts', function(hooks) {
         trans_auto_total: {
           moe: 70,
           geoid: '2372',
-          value: autoCensusTract2,
+          value: 108,
           variable: 'trans_auto_total',
         },
         trans_motorcycle: {
@@ -245,7 +232,7 @@ module('Unit | Calculator | census-tracts', function(hooks) {
         trans_public_bus: {
           moe: 11,
           geoid: '2372',
-          value: busCensusTract2,
+          value: 0,
           variable: 'trans_public_bus',
         },
         trans_auto_5_or_6: {
@@ -257,7 +244,7 @@ module('Unit | Calculator | census-tracts', function(hooks) {
         trans_public_rail: {
           moe: 14,
           geoid: '2372',
-          value: railCensusTract2,
+          value: 9,
           variable: 'trans_public_rail',
         },
         trans_public_ferry: {
@@ -275,7 +262,7 @@ module('Unit | Calculator | census-tracts', function(hooks) {
         trans_public_subway: {
           moe: 195,
           geoid: '2372',
-          value: subwayCensusTract2,
+          value: 800,
           variable: 'trans_public_subway',
         },
         trans_auto_7_or_more: {
@@ -306,19 +293,10 @@ module('Unit | Calculator | census-tracts', function(hooks) {
 
     // for what totalCount is, see
     // /frontend/app/calculators/transportation/census-tracts.js
-    assert.equal(newTctCalc.totalCount,
-      autoCensusTract1
-      + autoCensusTract2
-      + taxiCensusTract1
-      + taxiCensusTract2
-      + busCensusTract1
-      + busCensusTract2
-      + subwayCensusTract1
-      + subwayCensusTract2
-      + walkCensusTract1
-      + walkCensusTract2
-      + railCensusTract1
-      + railCensusTract2);
+    // Here, 4214 comes from the sum of values of modes specified in `modesForAnalysis`
+    // across census tracts.
+    // i.e. 165 + 108 + 237 + 113 + 0 + 0 + 1642 + 800 + 605 + 458 + 77 + 9 = 4214
+    assert.equal(newTctCalc.totalCount, 4214);
   });
 
   test('it calculates modeSplits', function(assert) {
