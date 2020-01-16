@@ -15,7 +15,7 @@
   {{#if showTemporalModeSplits}}
     <td>
       <div class="ui right labeled input">
-        {{input type="number" max="100" min="0" step="0.1" value=amPercent}}
+        {{input type="number" max="100" min="0" step="0.1" value=amPercent data-test-modal-split-input-am=mode}}
         <div class="ui basic label">
           %
         </div>
@@ -23,7 +23,7 @@
     </td>
     <td>
       <div class="ui right labeled input">
-        {{input type="number" max="100" min="0" step="0.1" value=mdPercent}}
+        {{input type="number" max="100" min="0" step="0.1" value=mdPercent data-test-modal-split-input-md=mode}}
         <div class="ui basic label">
           %
         </div>
@@ -31,7 +31,7 @@
     </td>
     <td>
       <div class="ui right labeled input">
-        {{input type="number" max="100" min="0" step="0.1" value=pmPercent}}
+        {{input type="number" max="100" min="0" step="0.1" value=pmPercent data-test-modal-split-input-pm=mode}}
         <div class="ui basic label">
           %
         </div>
@@ -39,7 +39,7 @@
     </td>
     <td>
       <div class="ui right labeled input">
-        {{input type="number" max="100" min="0" step="0.1" value=satPercent}}
+        {{input type="number" max="100" min="0" step="0.1" value=satPercent data-test-modal-split-input-saturday=mode}}
         <div class="ui basic label">
           %
         </div>
