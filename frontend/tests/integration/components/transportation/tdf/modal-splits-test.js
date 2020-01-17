@@ -1,6 +1,6 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render, fillIn } from '@ember/test-helpers';
+import { render, fillIn, click } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 import { setupMirage } from 'ember-cli-mirage/test-support';
 
@@ -148,5 +148,81 @@ module('Integration | Component | transportation/tdf/modal-splits', function(hoo
 
     // tests for total.allPeriods in computed property `total`
     assert.ok(this.element.querySelector('[data-test-total-all-periods]').textContent.includes('21'), 'total all periods calculated');
+  });
+
+  test('user can toggle between All Periods and Temporal Mode Splits', async function(assert) {
+    const store = this.owner.lookup('service:store');
+
+    this.server.create('user');
+    this.server.create('data-package');
+    this.server.create('project', {
+      publicSchoolsAnalysis: this.server.create('publicSchoolsAnalysis'),
+      transportationAnalysis: this.server.create('transportationAnalysis', {
+        transportationPlanningFactors: [
+          this.server.create('transportationPlanningFactor', {
+            dataPackage: this.server.create('dataPackage', 'nycAcs'),
+            landUse: 'residential',
+            // necessary for displaying certain elements
+            // Temporal Splits tab (true) vs. All Periods tab (false)
+            temporalModeSplits: true,
+            // necessary for displaying certain elements
+            // user input mode splits (true) vs. mode split values from census tract calculator (false)
+            manualModeSplits: true,
+          }),
+        ],
+      }),
+    });
+
+    // define project model
+    const project = await store.findRecord('project', 1, {
+      include: ['transportation-analysis,transportation-analysis.transportation-planning-factors'].join(','),
+    });
+
+    // replicating how availablePackages is defined on routes/project/show/transportation/tdf/planning-factors/show.js
+    const dataPackage = project.transportationAnalysis.get('transportationPlanningFactors').firstObject.get('dataPackage');
+    const availablePackages = await store.query('data-package', {
+      filter: {
+        package: dataPackage.get('package'),
+      },
+    });
+
+    this.project = project;
+    this.transportationPlanningFactorsResidentialModel = project.transportationAnalysis.get('transportationPlanningFactors').firstObject;
+    this.availablePackages = availablePackages;
+
+    await render(hbs`
+      {{#transportation/tdf/modal-splits
+        project=project
+        analysis=project.transportationAnalysis
+        factor=transportationPlanningFactorsResidentialModel
+        availablePackages=availablePackages}}
+      {{/transportation/tdf/modal-splits}}
+    `);
+
+    // #### CHECK DEFAULT VALUES #############################################
+    // check that correct elements are displayed when temporalModeSplits = true
+    assert.ok('[data-test-column-title="am"]');
+    // This action saves the transportationPlanningFactors object model, so check that server has correct value
+    assert.equal(server.db.transportationPlanningFactors.firstObject.temporalModeSplits, true);
+
+    // runs the action toggleTemporalModeSplits
+    // sets temporalModeSplits to false
+    await click('[data-test-button="all periods tab"]');
+
+    // #### CHECK AFTER CLICKING All Periods TAB #############################################
+    // check that correct elements are displayed when temporalModeSplits = false
+    assert.ok('[data-test-column-title="all periods"]');
+    // This action saves the transportationPlanningFactors object model, so check that server has correct value
+    assert.equal(server.db.transportationPlanningFactors.firstObject.temporalModeSplits, false);
+
+    // runs the action toggleTemporalModeSplits
+    // sets temporalModeSplits to true
+    await click('[data-test-button="temporal splits tab"]');
+
+    // #### CHECK AFTER CLICKING Temporal Splits TAB #############################################
+    // check that correct elements are displayed again when temporalModeSplits = true
+    assert.ok('[data-test-column-title="am"');
+    // This action saves the transportationPlanningFactors object model, so check that server has correct value
+    assert.equal(server.db.transportationPlanningFactors.firstObject.temporalModeSplits, true);
   });
 });
