@@ -12,7 +12,6 @@ module('Integration | Component | transportation/tdf/modal-splits', function(hoo
     const store = this.owner.lookup('service:store');
 
     this.server.create('user');
-    this.server.create('data-package');
     this.server.create('project', {
       publicSchoolsAnalysis: this.server.create('publicSchoolsAnalysis'),
       transportationAnalysis: this.server.create('transportationAnalysis', {
@@ -21,7 +20,7 @@ module('Integration | Component | transportation/tdf/modal-splits', function(hoo
             dataPackage: this.server.create('dataPackage', 'nycAcs'),
             landUse: 'residential',
             // necessary for displaying certain elements
-            // am/md/pm/saturday values (true) vs. allPeriods values (false)
+            // Temporal Splits tab (true) vs. All Periods tab (false)
             temporalModeSplits: true,
             // necessary for displaying certain elements
             // user input mode splits (true) vs. mode split values from census tract calculator (false)
@@ -85,5 +84,69 @@ module('Integration | Component | transportation/tdf/modal-splits', function(hoo
     assert.equal(this.element.querySelector('[data-test-total-md]').textContent, '7', 'total md calculated');
     assert.equal(this.element.querySelector('[data-test-total-pm]').textContent, '11', 'total pm calculated');
     assert.equal(this.element.querySelector('[data-test-total-saturday]').textContent, '15', 'total saturday calculated');
+  });
+
+  test('allPeriod total calculates correctly when user manually inputs mode split values', async function(assert) {
+    const store = this.owner.lookup('service:store');
+
+    this.server.create('user');
+    this.server.create('project', {
+      publicSchoolsAnalysis: this.server.create('publicSchoolsAnalysis'),
+      transportationAnalysis: this.server.create('transportationAnalysis', {
+        transportationPlanningFactors: [
+          this.server.create('transportationPlanningFactor', {
+            dataPackage: this.server.create('dataPackage', 'nycAcs'),
+            landUse: 'residential',
+            // necessary for displaying certain elements
+            // Temporal Splits tab (true) vs. All Periods tab (false)
+            temporalModeSplits: false,
+            // necessary for displaying certain elements
+            // user input mode splits (true) vs. mode split values from census tract calculator (false)
+            manualModeSplits: true,
+          }),
+        ],
+      }),
+    });
+
+    // define project model
+    const project = await store.findRecord('project', 1, {
+      include: ['transportation-analysis,transportation-analysis.transportation-planning-factors'].join(','),
+    });
+
+    // replicating how availablePackages is defined on routes/project/show/transportation/tdf/planning-factors/show.js
+    const dataPackage = project.transportationAnalysis.get('transportationPlanningFactors').firstObject.get('dataPackage');
+    const availablePackages = await store.query('data-package', {
+      filter: {
+        package: dataPackage.get('package'),
+      },
+    });
+
+    this.project = project;
+    this.transportationPlanningFactorsResidentialModel = project.transportationAnalysis.get('transportationPlanningFactors').firstObject;
+    this.availablePackages = availablePackages;
+
+    await render(hbs`
+      {{#transportation/tdf/modal-splits
+        project=project
+        analysis=project.transportationAnalysis
+        factor=transportationPlanningFactorsResidentialModel
+        availablePackages=availablePackages}}
+      {{/transportation/tdf/modal-splits}}
+    `);
+
+    // if manualModeSplits is true, then modeSplits = modeSplitsFromUser, which are all default 0
+    assert.ok(this.element.querySelector('[data-test-total-all-periods]').textContent.includes('0'), 'total all periods default');
+
+    // USER FILLS IN MANUAL MODE SPLITS
+    // total for all periods should be 21
+    await fillIn('[data-test-modal-split-input-allperiods="auto"]', 1);
+    await fillIn('[data-test-modal-split-input-allperiods="taxi"]', 2);
+    await fillIn('[data-test-modal-split-input-allperiods="bus"]', 3);
+    await fillIn('[data-test-modal-split-input-allperiods="subway"]', 4);
+    await fillIn('[data-test-modal-split-input-allperiods="railroad"]', 5);
+    await fillIn('[data-test-modal-split-input-allperiods="walk"]', 6);
+
+    // tests for total.allPeriods in computed property `total`
+    assert.ok(this.element.querySelector('[data-test-total-all-periods]').textContent.includes('21'), 'total all periods calculated');
   });
 });
