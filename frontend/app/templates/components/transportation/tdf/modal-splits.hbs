@@ -45,11 +45,11 @@
           <th class="four wide">
             <span style="color: #2185D0;">Mode</span>
               {{#if editModes}}
-                <div class="ui tiny blue button" onClick={{action "toggleEditModes"}}>
+                <div class="ui tiny blue button" onClick={{action "toggleEditModes"}} data-test-button="exit edit mode">
                   Ok
                 </div>
               {{else}}
-                <i class="icon blue pencil alternate" onClick={{action "toggleEditModes"}} style="cursor: pointer;"></i>
+                <i class="icon blue pencil alternate" onClick={{action "toggleEditModes"}} style="cursor: pointer;" data-test-button="enter edit mode"></i>
               {{/if}}
           </th>
           {{#if factor.temporalModeSplits}}
@@ -86,6 +86,7 @@
             @showInput={{manualModeSplits}}
             @showTemporalModeSplits={{factor.temporalModeSplits}}
             @editModes={{editModes}}
+            data-test-active-mode={{mode}}
           />
         {{/each}}
 
@@ -118,6 +119,7 @@
               @showInput={{manualModeSplits}}
               @showTemporalModeSplits={{factor.temporalModeSplits}}
               @editModes={{editModes}}
+              data-test-inactive-mode={{mode}}
             />
           {{/each}}
         {{/if}}

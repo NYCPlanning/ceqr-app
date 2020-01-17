@@ -44,13 +44,14 @@ module('Integration | Component | transportation/tdf/modal-splits', function(hoo
     });
 
     this.project = project;
+    this.analysis = await project.get('transportationAnalysis');
     this.transportationPlanningFactorsResidentialModel = project.transportationAnalysis.get('transportationPlanningFactors').firstObject;
     this.availablePackages = availablePackages;
 
     await render(hbs`
       {{#transportation/tdf/modal-splits
         project=project
-        analysis=project.transportationAnalysis
+        analysis=analysis
         factor=transportationPlanningFactorsResidentialModel
         availablePackages=availablePackages}}
       {{/transportation/tdf/modal-splits}}
@@ -122,13 +123,14 @@ module('Integration | Component | transportation/tdf/modal-splits', function(hoo
     });
 
     this.project = project;
+    this.analysis = await project.get('transportationAnalysis');
     this.transportationPlanningFactorsResidentialModel = project.transportationAnalysis.get('transportationPlanningFactors').firstObject;
     this.availablePackages = availablePackages;
 
     await render(hbs`
       {{#transportation/tdf/modal-splits
         project=project
-        analysis=project.transportationAnalysis
+        analysis=analysis
         factor=transportationPlanningFactorsResidentialModel
         availablePackages=availablePackages}}
       {{/transportation/tdf/modal-splits}}
@@ -154,7 +156,6 @@ module('Integration | Component | transportation/tdf/modal-splits', function(hoo
     const store = this.owner.lookup('service:store');
 
     this.server.create('user');
-    this.server.create('data-package');
     this.server.create('project', {
       publicSchoolsAnalysis: this.server.create('publicSchoolsAnalysis'),
       transportationAnalysis: this.server.create('transportationAnalysis', {
@@ -187,13 +188,14 @@ module('Integration | Component | transportation/tdf/modal-splits', function(hoo
     });
 
     this.project = project;
+    this.analysis = await project.get('transportationAnalysis');
     this.transportationPlanningFactorsResidentialModel = project.transportationAnalysis.get('transportationPlanningFactors').firstObject;
     this.availablePackages = availablePackages;
 
     await render(hbs`
       {{#transportation/tdf/modal-splits
         project=project
-        analysis=project.transportationAnalysis
+        analysis=analysis
         factor=transportationPlanningFactorsResidentialModel
         availablePackages=availablePackages}}
       {{/transportation/tdf/modal-splits}}
@@ -227,7 +229,6 @@ module('Integration | Component | transportation/tdf/modal-splits', function(hoo
     const store = this.owner.lookup('service:store');
 
     this.server.create('user');
-    this.server.create('data-package');
     this.server.create('project', {
       publicSchoolsAnalysis: this.server.create('publicSchoolsAnalysis'),
       transportationAnalysis: this.server.create('transportationAnalysis', {
@@ -294,5 +295,90 @@ module('Integration | Component | transportation/tdf/modal-splits', function(hoo
     // check that correct elements are displayed again when manualModeSplits = true
     assert.ok(this.element.querySelector('[data-test-modal-split-input-am="auto"]'));
     assert.notOk(this.element.querySelector('[data-test-all-period-percent-value="auto"]'));
+  });
+
+  test('user can toggle Edit Mode and add/remove modes from the displayed rows', async function(assert) {
+    const store = this.owner.lookup('service:store');
+
+    this.server.create('user');
+    this.server.create('project', {
+      publicSchoolsAnalysis: this.server.create('publicSchoolsAnalysis'),
+      communityFacilitiesAnalysis: this.server.create('communityFacilitiesAnalysis'),
+      transportationAnalysis: this.server.create('transportationAnalysis', {
+        transportationPlanningFactors: [
+          this.server.create('transportationPlanningFactor', {
+            dataPackage: this.server.create('dataPackage', 'nycAcs'),
+            landUse: 'residential',
+            // necessary for displaying certain elements
+            // Temporal Splits tab (true) vs. All Periods tab (false)
+            temporalModeSplits: true,
+            // necessary for displaying certain elements
+            // user input mode splits (true) vs. mode split values from census tract calculator (false)
+            manualModeSplits: true,
+          }),
+        ],
+      }),
+    });
+
+    // define project model
+    const project = await store.findRecord('project', 1, {
+      include: ['transportation-analysis,transportation-analysis.transportation-planning-factors'].join(','),
+    });
+
+    // replicating how availablePackages is defined on routes/project/show/transportation/tdf/planning-factors/show.js
+    const dataPackage = project.transportationAnalysis.get('transportationPlanningFactors').firstObject.get('dataPackage');
+    const availablePackages = await store.query('data-package', {
+      filter: {
+        package: dataPackage.get('package'),
+      },
+    });
+
+    this.project = project;
+    this.analysis = await project.get('transportationAnalysis');
+    this.transportationPlanningFactorsResidentialModel = project.get('transportationAnalysis').get('transportationPlanningFactors').firstObject;
+    this.availablePackages = availablePackages;
+
+    await render(hbs`
+      {{#transportation/tdf/modal-splits
+        project=project
+        analysis=analysis
+        factor=transportationPlanningFactorsResidentialModel
+        availablePackages=availablePackages}}
+      {{/transportation/tdf/modal-splits}}
+    `);
+
+    // check that taxi is included in modes list and ferry is not
+    assert.ok(this.element.querySelector('[data-test-row-mode-title="taxi"]'), 'row title includes taxi before edit');
+    assert.notOk(this.element.querySelector('[data-test-row-mode-title="ferry"]'), 'row title does not include ferry before edit');
+
+    // enter edit mode where a user can add or remove transportation modes
+    await click('[data-test-button="enter edit mode"]');
+
+    // ##### REMOVE AN ITEM FROM THE ACTIVE LIST ##################################
+    // check that the taxi mode item is now displayed in the active modes section
+    assert.ok(this.element.querySelector('[data-test-active-mode="taxi"]'), 'taxi in active mode');
+
+    // click on the taxi checkbox to remove it from the active modes
+    await click('[data-test-checkbox="taxi"]');
+
+    // check that the taxi mode item is now displayed in the inactive modes section
+    assert.ok(this.element.querySelector('[data-test-inactive-mode="taxi"]'), 'taxi in inactive mode');
+
+    // ##### ADD AN ITEM TO THE ACTIVE LIST ##################################
+    // check that the ferry mode item is now displayed in the inactive modes section
+    assert.ok(this.element.querySelector('[data-test-inactive-mode="ferry"]'), 'ferry in inactive mode');
+
+    // click on the ferry checkbox to add it to the active modes
+    await click('[data-test-checkbox="ferry"]');
+
+    // check that the ferry mode item is now displayed in the active modes section
+    assert.ok(this.element.querySelector('[data-test-active-mode="ferry"]'), 'ferry in active mode');
+
+    // exit the edit mode
+    await click('[data-test-button="exit edit mode"]');
+
+    // check that ferry is now included in main list and taxi is not
+    assert.ok(this.element.querySelector('[data-test-row-mode-title="ferry"]'), 'row title includes ferry after edit');
+    assert.notOk(this.element.querySelector('[data-test-row-mode-title="taxi"]'), 'row title does not include taxi after edit');
   });
 });
