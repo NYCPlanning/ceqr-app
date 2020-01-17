@@ -381,4 +381,63 @@ module('Integration | Component | transportation/tdf/modal-splits', function(hoo
     assert.ok(this.element.querySelector('[data-test-row-mode-title="ferry"]'), 'row title includes ferry after edit');
     assert.notOk(this.element.querySelector('[data-test-row-mode-title="taxi"]'), 'row title does not include taxi after edit');
   });
+
+  test('user can remove census tracts', async function(assert) {
+    const store = this.owner.lookup('service:store');
+
+    this.server.create('user');
+    this.server.create('project', {
+      publicSchoolsAnalysis: this.server.create('publicSchoolsAnalysis'),
+      communityFacilitiesAnalysis: this.server.create('communityFacilitiesAnalysis'),
+      transportationAnalysis: this.server.create('transportationAnalysis', {
+        transportationPlanningFactors: [
+          this.server.create('transportationPlanningFactor', {
+            dataPackage: this.server.create('dataPackage', 'nycAcs'),
+            landUse: 'residential',
+            // necessary for displaying certain elements
+            // Temporal Splits tab (true) vs. All Periods tab (false)
+            temporalModeSplits: true,
+            // necessary for displaying certain elements
+            // user input mode splits (true) vs. mode split values from census tract calculator (false)
+            manualModeSplits: false,
+          }),
+        ],
+      }),
+    });
+
+    // define project model
+    const project = await store.findRecord('project', 1, {
+      include: ['transportation-analysis,transportation-analysis.transportation-planning-factors'].join(','),
+    });
+
+    // replicating how availablePackages is defined on routes/project/show/transportation/tdf/planning-factors/show.js
+    const dataPackage = project.transportationAnalysis.get('transportationPlanningFactors').firstObject.get('dataPackage');
+    const availablePackages = await store.query('data-package', {
+      filter: {
+        package: dataPackage.get('package'),
+      },
+    });
+
+    this.project = project;
+    this.analysis = await project.get('transportationAnalysis');
+    this.transportationPlanningFactorsResidentialModel = project.transportationAnalysis.get('transportationPlanningFactors').firstObject;
+    this.availablePackages = availablePackages;
+
+    await render(hbs`
+      {{#transportation/tdf/modal-splits
+        project=project
+        analysis=analysis
+        factor=transportationPlanningFactorsResidentialModel
+        availablePackages=availablePackages}}
+      {{/transportation/tdf/modal-splits}}
+    `);
+
+    await click('[data-test-census-tracts-table-tab]');
+
+    assert.ok(this.element.querySelector('[data-test-census-tract="205"]'));
+
+    await click('[data-test-census-tract-delete]');
+
+    assert.notOk(this.element.querySelector('[data-test-census-tract="205"]'));
+  });
 });
