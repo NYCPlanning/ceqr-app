@@ -158,7 +158,12 @@
             <div class="ui small buttons">
               <button class="ui button {{if (not seeCensusTracts) "positive"}}" onClick={{action toggleSeeCensusTracts false}}>Map</button>
               <div class="or"></div>
-              <button class="ui button {{if seeCensusTracts "positive"}}" onClick={{action toggleSeeCensusTracts true}}>Table</button>
+              <button 
+                class="ui button {{if seeCensusTracts "positive"}}" 
+                onClick={{action toggleSeeCensusTracts true}}
+                data-test-census-tracts-table-tab>
+                Table
+              </button>
             </div>
             
             <Analysis::DataPackageSelector
@@ -193,9 +198,9 @@
             {{/each}}
             {{#each analysis.censusTractsSelection as |geoid|}}
               <th>
-                <div class="ui label" style="display: flex;">
+                <div class="ui label" style="display: flex;" data-test-census-tract={{humanize-geoid geoid}}>
                   {{humanize-geoid geoid}}
-                  <i class="delete icon" onclick={{action removeCensusTract geoid}}></i>
+                  <i class="delete icon" onclick={{action removeCensusTract geoid}} data-test-census-tract-delete></i>
                 </div>
               </th>
             {{/each}}
