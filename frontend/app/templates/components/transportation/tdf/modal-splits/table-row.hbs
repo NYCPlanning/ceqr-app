@@ -1,10 +1,11 @@
-<td>
+<td data-test-row-mode-title={{mode}}>
   {{#if editModes}}
     <UiCheckbox
       @checked={{modeActive}}
       @value={{mode}}
       @onChecked={{action addActiveMode}}
       @onUnchecked={{action removeActiveMode}}
+      data-test-checkbox={{mode}}
     />  
   {{/if}}
 
