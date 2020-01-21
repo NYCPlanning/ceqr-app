@@ -23,9 +23,6 @@ export default class TransportationTripResultsTotalsCalculator extends EmberObje
         let inTotal = 0;
         let outTotal = 0;
 
-        // TODO: Below is likely a bug where `= +personTrips`
-        // should actually be `+= personTrips`.
-        // Get a second opinion on this before fixing.
         this.tripResults.forEach(({ personTrips }) => {
           inTotal += personTrips[temporalId][mode].in;
           outTotal += personTrips[temporalId][mode].out;
@@ -57,8 +54,8 @@ export default class TransportationTripResultsTotalsCalculator extends EmberObje
         let outTotal = 0;
 
         this.tripResults.forEach(({ vehicleTrips }) => {
-          inTotal = +vehicleTrips[temporalId][mode].in;
-          outTotal = +vehicleTrips[temporalId][mode].out;
+          inTotal += vehicleTrips[temporalId][mode].in;
+          outTotal += vehicleTrips[temporalId][mode].out;
         });
 
         results[temporalId][mode] = {
