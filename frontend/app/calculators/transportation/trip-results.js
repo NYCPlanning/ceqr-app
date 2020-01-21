@@ -6,7 +6,7 @@ import EmberObject, { computed } from '@ember/object';
  * @constructor
  * @param {string} landUse
  * @param {integer} units
- * @param {object} project - an array of all mode ids
+ * @param {object} project - TODO: This looks unused. Remove it from this signature and instantiations of this calculator
  * @param {array} modes - array of modes to be analyzed
  * @param {object} modeSplits
  * @param {object} inOutSplits
