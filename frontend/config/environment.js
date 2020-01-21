@@ -88,6 +88,10 @@ module.exports = function(environment) {
     ENV.APP.autoboot = false;
 
     ENV['ember-simple-auth-token'].tokenExpirationInvalidateSession = false;
+
+    ENV['ember-cli-mirage'] = {
+      trackRequests: true
+    };
   }
 
   if (environment === 'review') {

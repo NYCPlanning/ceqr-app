@@ -15,7 +15,7 @@ export const landUseColors = {
 export const landUseStyles = {
   'land-use': {
     paint: {
-      'fill-opacity': 1,
+      // 'fill-opacity': 1,
       'fill-color': {
         property: 'landuse',
         type: 'categorical',

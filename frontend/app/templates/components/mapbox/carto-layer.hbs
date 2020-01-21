@@ -1,4 +1,4 @@
-{{#if this.tiles}}
+{{#if this.tiles}} {{!-- This is tiles-only by design --}}
   <MapboxGlLayer @map={{map.instance}} @layer={{mapboxLayerOptions}} />
   {{#if hasBlock}}
     {{yield (hash layerId=mapboxLayerOptions.id)}}

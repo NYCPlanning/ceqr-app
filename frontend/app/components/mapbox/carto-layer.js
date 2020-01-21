@@ -39,18 +39,14 @@ export default class MapboxMapboxAnonymousMapLayerComponent extends Component {
 
   tiles = [];
 
-  // public
-  @computed
-  get layerId() {
-    return guidFor(this);
-  }
+  layerId = guidFor(this);
 
   @computed('layer')
   get mapboxLayerOptions() {
     return {
       id: this.elementId,
       source: this._parentElementId,
-      'source-layer': this.layerId,
+      ...(this.tiles.length ? { 'source-layer': this.layerId } : {}),
       ...this.layer,
     };
   }

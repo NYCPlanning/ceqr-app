@@ -1,4 +1,3 @@
-
 const EmberApp = require('ember-cli/lib/broccoli/ember-app');
 
 module.exports = function(defaults) {
@@ -25,12 +24,22 @@ module.exports = function(defaults) {
       webpack: {
         // required for the jwa (jsonwebtoken) dependency
         node: { crypto: true, stream: true, buffer: true },
+        module: {
+          rules: [
+            {
+              test(path) {
+                return path.includes('mapbox-gl/src') && /\.js$/.test(path);
+              },
+              use: {
+                loader: 'babel-loader-8',
+                options: {
+                  presets: ['@babel/preset-flow']
+                },
+              },
+            },
+          ],
+        },
       },
-      // something to do with babel transpliation for mbgl. see https://github.com/mapbox/mapbox-gl-js/issues/3422
-      skipBabel: [{
-        package: 'mapbox-gl',
-        semverRange: '*',
-      }],
     },
   });
 

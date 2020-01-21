@@ -26,7 +26,10 @@
     />
   </MapboxGlSource>
 
-  <Mapbox::CartoVectorSource @sourceId="carto" @map={{map}} as |carto-source|>
+  <Mapbox::CartoVectorSource
+    @sourceId="carto"
+    @map={{map}} as |carto-source|
+  >
     <carto-source.layer
       @id="transit-zones-fill"
       @sql="SELECT * from ceqr_data_traffic_zones_2019"
@@ -39,6 +42,7 @@
 
     <carto-source.layer
       @id="land-use"
+      @layerId="pluto"
       @sql="SELECT the_geom, the_geom_webmercator, landuse FROM mappluto"
       @layer={{hash
         type="fill"

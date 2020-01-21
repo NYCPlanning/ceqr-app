@@ -101,5 +101,7 @@ export default class TransportationCensusTractsMapComponent extends Component {
     }));
 
     map.addControl(new mapboxgl.NavigationControl(), 'top-right');
+
+    window.censustractmap = map;
   }
 }

@@ -49,7 +49,7 @@ export default class MapboxCartoLayersComponent extends Component {
   get mapboxSourceOptions() {
     return {
       type: 'vector',
-      tiles: this._tiles,
+      ...(this._tiles ? { tiles: this._tiles } : {}),
       ...this.options,
     };
   }

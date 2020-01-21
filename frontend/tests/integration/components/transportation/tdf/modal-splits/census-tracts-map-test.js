@@ -61,7 +61,11 @@ module('Integration | Component | transportation/tdf/modal-splits/census-tracts-
       />
     `);
 
-    await waitFor('.mapboxgl-accessibility-marker');
+    await this.pauseTest();
+
+    await waitFor('.mapboxgl-accessibility-marker', {
+      timeout: 5000,
+    });
 
     assert.ok(this.element.querySelector('[title="bbl-1"]'));
   });
