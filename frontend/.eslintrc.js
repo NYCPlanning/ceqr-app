@@ -6,18 +6,18 @@ module.exports = {
   parser: 'babel-eslint',
   parserOptions: {
     ecmaVersion: 2018,
-    sourceType: 'module'
+    sourceType: 'module',
   },
   plugins: [
-    'ember'
+    'ember',
   ],
   extends: [
     'eslint:recommended',
     'airbnb-base',
-    'plugin:ember/recommended'
+    'plugin:ember/recommended',
   ],
   env: {
-    browser: true
+    browser: true,
   },
   rules: {
     'import/no-extraneous-dependencies': 0,
@@ -29,7 +29,7 @@ module.exports = {
     'array-callback-return': 1,
     'consistent-return': 1,
     'default-case': 1,
-    'eqeqeq': 1,
+    eqeqeq: 1,
     'lines-around-directive': 0,
     'func-names': 0,
     'space-before-function-paren': 0,
@@ -43,7 +43,7 @@ module.exports = {
     'no-underscore-dangle': 0,
     'no-use-before-define': 1,
     'no-return-assign': 1,
-    'camelcase': 0,
+    camelcase: 0,
     'class-methods-use-this': 0,
     'max-len': 0,
     'no-param-reassign': 0,
@@ -54,7 +54,7 @@ module.exports = {
     'no-plusplus': 1,
     'no-return-await': 1,
     'operator-linebreak': 1,
-    'ember/avoid-leaking-state-in-ember-objects': 0
+    'ember/avoid-leaking-state-in-ember-objects': 0,
   },
   overrides: [
     // node files
@@ -63,12 +63,22 @@ module.exports = {
         'ember-cli-build.js',
         'testem.js',
         'config/**/*.js',
-        'lib/*/index.js'
+        'lib/*/index.js',
+        'server/**/*.js',
       ],
       env: {
         browser: false,
-        node: true
-      }
-    }
-  ]
+        node: true,
+      },
+      plugins: ['node'],
+      rules: {
+        // add your custom rules and overrides for node files here
+        ...require('eslint-plugin-node').configs.recommended.rules, // eslint-disable-line
+
+        // this can be removed once the following is fixed
+        // https://github.com/mysticatea/eslint-plugin-node/issues/77
+        'node/no-unpublished-require': 'off',
+      },
+    },
+  ],
 };
