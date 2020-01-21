@@ -18,12 +18,12 @@ module('Integration | Component | throttle-property', function(hooks) {
     this.set('propertyToThrottle', 'update');
 
     // given assert runs before the throttle timeout, value of property is unchanged
-    assert.equal(this.element.textContent.trim(), 'original');
+    assert.dom(this.element).hasText('original');
 
     await settled();
 
     // after throttle resolves, property should be updated
-    assert.equal(this.element.textContent.trim(), 'update');
+    assert.dom(this.element).hasText('update');
   });
 
   test('it passes through the prop even without subsequent updates', async function(assert) {
@@ -35,6 +35,6 @@ module('Integration | Component | throttle-property', function(hooks) {
       {{/throttle-property}}
     `);
 
-    assert.equal(this.element.textContent.trim(), '1');
+    assert.dom(this.element).hasText('1');
   });
 });

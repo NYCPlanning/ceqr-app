@@ -18,12 +18,12 @@ export default Component.extend({
         hs_seats: hs_seats || 0,
       });
 
-      this.get('analysis').save();
+      this.analysis.save();
       this.set('school', {});
     },
     removeSchool(school) {
       this.get('analysis.schoolsWithAction').removeObject(school);
-      this.get('analysis').save();
+      this.analysis.save();
     },
   },
 });

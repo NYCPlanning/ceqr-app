@@ -37,7 +37,7 @@ module('Integration | Component | mapbox/carto-vector-source', function(hooks) {
       {{mapbox/carto-vector-source map=map}}
     `);
 
-    assert.equal(this.element.textContent.trim(), '');
+    assert.dom(this.element).hasText('');
   });
 
   test('it requests url templates in correct format', async function(assert) {

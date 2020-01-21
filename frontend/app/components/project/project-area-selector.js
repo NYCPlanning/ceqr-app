@@ -11,7 +11,7 @@ export default Component.extend({
 
     if (bblsVersion) {
       return bblsVersion;
-    }
+    } return '';
   }),
 
   actions: {
@@ -52,7 +52,7 @@ export default Component.extend({
       }
 
       const bblVersion = this.project.get('dataPackage.schemas.mappluto.table');
-      const valid_bbl = await this.get('ceqr-data').valid_bbl(bbl, bblVersion);
+      const valid_bbl = await this['ceqr-data'].valid_bbl(bbl, bblVersion);
 
       // if no bbl exists
       if (!valid_bbl) {

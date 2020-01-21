@@ -5,9 +5,9 @@
   <div class="ui container">
     <div class="header item">
       <i class="table icon"></i>
-      {{#link-to "user.projects"}}
+      <LinkTo @route="user.projects">
         CEQR App
-      {{/link-to}}
+      </LinkTo>
     </div>
     <div class="right menu">
       <div class="ui simple dropdown item">
@@ -125,9 +125,9 @@
         </div>
       {{else}}
         <div class="item">
-          {{#link-to "login"}}
+          <LinkTo @route="login">
             Log In
-          {{/link-to}}
+          </LinkTo>
         </div>
       {{/if}}
     </div>

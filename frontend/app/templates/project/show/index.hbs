@@ -1,7 +1,7 @@
 <div class="row">
   <div class="column">
     <div class="ui link cards">
-      {{#link-to "project.show.community-facilities" class="ui card"}}
+      <LinkTo @route="project.show.community-facilities" class="ui card">
         <div class="content">
           <div class="header">
             <i class="university icon"></i>
@@ -37,8 +37,8 @@
             Loading
           </div>
         </div>
-      {{/link-to}}
-      {{#link-to "project.show.public-schools" class="ui card"}}
+      </LinkTo>
+      <LinkTo @route="project.show.public-schools" class="ui card">
         <div class="content">
           <div class="header">
             <i class="graduation cap icon"></i>
@@ -75,9 +75,9 @@
             Loading
           </div>
         </div>
-      {{/link-to}}
+      </LinkTo>
 
-      {{#link-to "project.show.transportation" class="ui card"}}
+      <LinkTo @route="project.show.transportation" class="ui card">
         <div class="content">
           <div class="header">
             <i class="car icon"></i>
@@ -113,7 +113,7 @@
             Loading
           </div>
         </div>
-      {{/link-to}}
+      </LinkTo>
     </div>
   </div>
 </div>

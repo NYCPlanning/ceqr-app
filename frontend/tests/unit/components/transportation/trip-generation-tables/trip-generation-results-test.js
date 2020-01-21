@@ -2,7 +2,10 @@ import { module, test } from 'qunit';
 import { setupTest } from 'ember-qunit';
 import { setupMirage } from 'ember-cli-mirage/test-support';
 import { getAggregatePercent } from 'labs-ceqr/helpers/get-aggregate-percent';
-import { MODAL_SPLIT_VARIABLES_SUBSET, VARIABLE_MODE_LOOKUP } from 'labs-ceqr/utils/modalSplit';
+import {
+  MODAL_SPLIT_VARIABLES_SUBSET,
+  VARIABLE_MODE_LOOKUP,
+} from 'labs-ceqr/utils/modalSplit';
 
 module('Unit | Component | transportation/trip-generation-tables/trip-generation-results', function(hooks) {
   setupTest(hooks);

@@ -5,7 +5,7 @@ export default Route.extend({
   controllerName: 'project',
 
   async model(params) {
-    const project = await this.get('store').findRecord(
+    const project = await this.store.findRecord(
       'project',
       params.id,
       {

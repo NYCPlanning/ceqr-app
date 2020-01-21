@@ -17,11 +17,7 @@
 {{#if addingNote}}
   <div class="ui form">
     <div class="field">
-      {{textarea
-        name="note"
-        value=tableNote
-        rows="4"
-      }}
+      <Textarea @name="note" @value={{tableNote}} @rows="4" />
     </div>
   </div>
 {{else if (not emptyNote)}}

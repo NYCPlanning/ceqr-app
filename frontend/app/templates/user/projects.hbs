@@ -18,9 +18,9 @@
             {{#each model as |project|}}
               <tr class="project-row">
                 <td>
-                  {{#link-to "project.show" project.id class="project-name"}}
+                  <LinkTo @route="project.show" @model={{project.id}} class="project-name">
                     {{project.name}}
-                  {{/link-to}}
+                  </LinkTo>
                   {{#if project.ceqrNumber}}
                     ({{project.ceqrNumber}})
                   {{/if}}
@@ -38,13 +38,9 @@
                   {{#if project.viewOnly}}
                     (summary only)
                   {{else}}
-                    {{#link-to
-                      "project.show.edit"
-                      project.id
-                      class="ui compact small labeled primary icon button"
-                    }}
+                    <LinkTo @route="project.show.edit" @model={{project.id}} class="ui compact small labeled primary icon button">
                       <i class="edit icon"></i>Edit
-                    {{/link-to}}
+                    </LinkTo>
                     <button
                       class="ui compact small negative icon button"
                       {{action "deleteModal" project.id}}
@@ -59,9 +55,9 @@
             <tr>
               <td colspan="4">
                 You have no projects assigned to you. Create a
-                {{#link-to "project.new"}}
+                <LinkTo @route="project.new">
                   new project
-                {{/link-to}}
+                </LinkTo>
                 .
               </td>
             </tr>
@@ -70,13 +66,9 @@
       </table>
     </div>
     <div class="row">
-      {{#link-to
-        "project.new"
-        class="ui green button"
-        data-test-new-project=true
-      }}
+      <LinkTo @route="project.new" class="ui green button" data-test-new-project={{true}}>
         New Project
-      {{/link-to}}
+      </LinkTo>
     </div>
   </div>
 </div>

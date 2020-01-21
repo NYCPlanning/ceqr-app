@@ -1,10 +1,13 @@
 import { module, skip } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render, settled, find } from '@ember/test-helpers';
+import { render, settled } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 import { setupMirage } from 'ember-cli-mirage/test-support';
 import Component from '@ember/component';
-import { registerEventHandler, simulateEvent } from '../../../helpers/mapbox/mapbox-stub-helpers';
+import {
+  registerEventHandler,
+  simulateEvent,
+} from '../../../helpers/mapbox/mapbox-stub-helpers';
 
 const renderedGeoId = '1';
 const DEFAULT_MAPBOX_GL_INSTANCE = {
@@ -85,7 +88,7 @@ module('Integration | Component | transportation/census-tracts-map', function(ho
 
     await settled();
 
-    assert.ok(find("[data-test-popup='census-tract']"));
+    assert.dom("[data-test-popup='census-tract']").exists();
   });
 
   skip('it selects features on click', async function(assert) {

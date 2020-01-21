@@ -1,7 +1,7 @@
-import DS from 'ember-data';
+import Transform from '@ember-data/serializer/transform';
 import ScaProject from '../../fragments/public-schools/ScaProject';
 
-export default DS.Transform.extend({
+export default Transform.extend({
   deserialize(serialized) {
     return serialized.map((b) => ScaProject.create(b));
   },

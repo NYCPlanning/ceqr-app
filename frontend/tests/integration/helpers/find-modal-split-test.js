@@ -12,7 +12,7 @@ module('Integration | Helper | find-modal-split', function(hooks) {
   test('it returns an instance of findModalSplitTask.perform()', async function(assert) {
     await render(hbs`{{find-modal-split 'test'}}`);
 
-    assert.equal(this.element.textContent.trim(), '<Task:findModalSplitTask.perform()>');
+    assert.dom(this.element).hasText('<Task:findModalSplitTask.perform()>');
   });
 
   test('it finds a record from the readonly store for the given id', async function(assert) {

@@ -12,7 +12,7 @@ export default Service.extend({
     const userId = this.get('session.data.authenticated.tokenData.user_id');
 
     if (!isEmpty(userId)) {
-      return this.get('store').findRecord('user', userId).then((user) => {
+      return this.store.findRecord('user', userId).then((user) => {
         this.set('user', user);
       });
     }

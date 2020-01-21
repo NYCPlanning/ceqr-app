@@ -1,12 +1,12 @@
 <div class="row">
   <div class="sixteen wide column sticky-transportation-bar">
-    {{#sticky-element top=79}}
+    <StickyElement @top={{79}}>
       <Transportation::LandUseMenu
         @showTotalLink={{true}}
         @tdfSection="trip-results"
         @model={{model}}
       />
-    {{/sticky-element}}
+    </StickyElement>
   </div>
 </div>
 

@@ -51,7 +51,7 @@ export default Component.extend({
   actions: {
     logIn(user) {
       const authenticator = 'authenticator:jwt'; // or 'authenticator:jwt'
-      this.get('session').authenticate(authenticator, user).catch((error) => {
+      this.session.authenticate(authenticator, user).catch((error) => {
         const { message } = JSON.parse(error.text);
         this.set('error', { message });
       });

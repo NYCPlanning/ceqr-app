@@ -6,13 +6,7 @@
           <label>
             Project Name
           </label>
-          {{input
-            type="text"
-            name="name"
-            value=project.name
-            placeholder="Project Name"
-            data-test-new-project="project-name"
-          }}
+          <Input @type="text" @name="name" @value={{project.name}} placeholder="Project Name" data-test-new-project="project-name" />
         </div>
         <div class="four wide required field">
           <label>
@@ -45,13 +39,7 @@
           <label>
             CEQR Number
           </label>
-          {{input
-            type="text"
-            name="ceqrNumber"
-            value=project.ceqrNumber
-            placeholder="CEQR Number"
-            data-test-new-project="ceqr-number"
-          }}
+          <Input @type="text" @name="ceqrNumber" @value={{project.ceqrNumber}} placeholder="CEQR Number" data-test-new-project="ceqr-number" />
         </div>
       </div>
     </div>

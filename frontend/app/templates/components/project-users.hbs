@@ -81,7 +81,7 @@
 <div class="ui bottom attached segment">
   <form class="ui form" {{action "addUser" on="submit"}}>
     <div class="field">
-      {{input type="text" name="email" value=email placeholder="Email"}}
+      <Input @type="text" @name="email" @value={{email}} placeholder="Email" />
     </div>
     <div class="two fields">
       <div class="field">

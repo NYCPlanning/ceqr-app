@@ -1,9 +1,5 @@
 <div class="ui tiny steps fluid">
-  {{#link-to
-    "project.show.public-schools.analysis-threshold"
-    project.id
-    class="step"
-  }}
+  <LinkTo @route="project.show.public-schools.analysis-threshold" @model={{project.id}} class="step">
     <div class="content">
       <div class="title">
         Analysis Threshold
@@ -12,12 +8,8 @@
         Need for detailed analysis
       </div>
     </div>
-  {{/link-to}}
-  {{#link-to
-    "project.show.public-schools.existing-conditions"
-    project.id
-    class="step"
-  }}
+  </LinkTo>
+  <LinkTo @route="project.show.public-schools.existing-conditions" @model={{project.id}} class="step">
     <div class="content">
       <div class="title">
         Existing Conditions
@@ -26,8 +18,8 @@
         Current school conditions
       </div>
     </div>
-  {{/link-to}}
-  {{#link-to "project.show.public-schools.no-action" project.id class="step"}}
+  </LinkTo>
+  <LinkTo @route="project.show.public-schools.no-action" @model={{project.id}} class="step">
     <div class="content">
       <div class="title">
         No Action Scenario
@@ -38,8 +30,8 @@
         without proposed project
       </div>
     </div>
-  {{/link-to}}
-  {{#link-to "project.show.public-schools.with-action" project.id class="step"}}
+  </LinkTo>
+  <LinkTo @route="project.show.public-schools.with-action" @model={{project.id}} class="step">
     <div class="content">
       <div class="title">
         With Action Scenario
@@ -50,5 +42,5 @@
         with proposed project
       </div>
     </div>
-  {{/link-to}}
+  </LinkTo>
 </div>

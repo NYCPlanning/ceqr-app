@@ -27,6 +27,6 @@ module('Integration | Component | mapbox/current-mouse-position', function(hooks
 
     await settled();
 
-    assert.equal(this.element.textContent.trim(), '0');
+    assert.dom(this.element).hasText('0');
   });
 });

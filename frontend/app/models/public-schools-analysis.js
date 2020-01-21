@@ -1,4 +1,5 @@
-import DS from 'ember-data';
+import Model, { belongsTo, attr } from '@ember-data/model';
+import { alias } from '@ember/object/computed';
 import { computed } from '@ember/object';
 
 import turf from '@turf/helpers';
@@ -6,24 +7,24 @@ import SubdistrictTotals from '../fragments/public-schools/SubdistrictTotals';
 import LevelTotals from '../fragments/public-schools/LevelTotals';
 
 
-export default DS.Model.extend({
-  project: DS.belongsTo('project'),
-  dataPackage: DS.belongsTo('data-package'),
+export default Model.extend({
+  project: belongsTo('project'),
+  dataPackage: belongsTo('data-package'),
 
-  newDataAvailable: DS.attr('boolean'),
+  newDataAvailable: attr('boolean'),
 
   // Analysis Model triggers across
-  detailedAnalysis: computed.alias('indirectEffect'),
+  detailedAnalysis: alias('indirectEffect'),
 
   // Aliases from project
-  borough: computed.alias('project.borough'),
-  netUnits: computed.alias('project.netUnits'),
-  bbls: computed.alias('project.bbls'),
-  buildYear: computed.alias('project.buildYear'),
+  borough: alias('project.borough'),
+  netUnits: alias('project.netUnits'),
+  bbls: alias('project.bbls'),
+  buildYear: alias('project.buildYear'),
 
   // Public Schools Multipliers
-  multipliers: DS.attr(''),
-  multiplierVersion: computed.alias('multipliers.version'),
+  multipliers: attr(''),
+  multiplierVersion: alias('multipliers.version'),
   currentMultiplier: computed('multipliers', 'borough', function() {
     switch (this.multipliers.version) {
       case 'march-2014':
@@ -36,13 +37,13 @@ export default DS.Model.extend({
   }),
 
   // Schools Data version
-  dataVersion: computed.alias('dataPackage.version'),
-  maxProjection: computed.alias('dataPackage.schemas.sca_enrollment_projections_by_sd.maxYear'),
-  minProjection: computed.alias('dataPackage.schemas.sca_enrollment_projections_by_sd.minYear'),
+  dataVersion: alias('dataPackage.version'),
+  maxProjection: alias('dataPackage.schemas.sca_enrollment_projections_by_sd.maxYear'),
+  minProjection: alias('dataPackage.schemas.sca_enrollment_projections_by_sd.minYear'),
 
   // Derived from map
-  esSchoolChoice: DS.attr('boolean'),
-  isSchoolChoice: DS.attr('boolean'),
+  esSchoolChoice: attr('boolean'),
+  isSchoolChoice: attr('boolean'),
 
   // Effects
   esEffect: computed('multipliers', 'estEsMsStudents', function() {
@@ -54,7 +55,7 @@ export default DS.Model.extend({
   indirectEffect: computed('esEffect', 'hsEffect', function() {
     return (this.esEffect || this.hsEffect);
   }),
-  hsAnalysis: computed.alias('hsEffect'),
+  hsAnalysis: alias('hsEffect'),
 
   // Estimated Students
   estEsStudents: computed('netUnits', 'borough', 'currentMultiplier', function() {
@@ -71,9 +72,9 @@ export default DS.Model.extend({
   }),
 
   // School District & Subdistricts
-  subdistrictsFromDb: DS.attr('', { defaultValue() { return []; } }),
-  subdistrictsFromUser: DS.attr('', { defaultValue() { return []; } }),
-  subdistrictsGeojson: DS.attr(''),
+  subdistrictsFromDb: attr('', { defaultValue() { return []; } }),
+  subdistrictsFromUser: attr('', { defaultValue() { return []; } }),
+  subdistrictsGeojson: attr(''),
 
   subdistricts: computed('subdistrictsFromDb.@each', 'subdistrictsFromUser.@each', function() {
     return this.subdistrictsFromDb.concat(this.subdistrictsFromUser);
@@ -82,15 +83,15 @@ export default DS.Model.extend({
     return parseFloat(this.subdistrictsFromDb[0].district);
   }),
   multiSubdistrict: computed('subdistricts', function() {
-    return (this.get('subdistricts').length > 1);
+    return this.subdistricts.length > 1;
   }),
 
   // By Subdistrict
-  bluebook: DS.attr('public-schools/schools', { defaultValue() { return []; } }),
-  lcgms: DS.attr('public-schools/schools', { defaultValue() { return []; } }),
+  bluebook: attr('public-schools/schools', { defaultValue() { return []; } }),
+  lcgms: attr('public-schools/schools', { defaultValue() { return []; } }),
 
   buildingsGeojson: computed('bluebook', 'lcgms', function() {
-    const buildings = this.bluebook.concat(this.get('lcgms'));
+    const buildings = this.bluebook.concat(this.lcgms);
 
     const features = buildings.map((b) => {
       const { geojson } = b;
@@ -110,7 +111,7 @@ export default DS.Model.extend({
     return turf.featureCollection(features);
   }),
 
-  scaProjects: DS.attr('public-schools/sca-projects', { defaultValue() { return []; } }),
+  scaProjects: attr('public-schools/sca-projects', { defaultValue() { return []; } }),
   scaProjectsGeojson: computed('scaProjects', function() {
     const features = this.scaProjects.map((b) => {
       const { geojson } = b;
@@ -132,41 +133,41 @@ export default DS.Model.extend({
 
   buildings: computed('bluebook', 'lcgms', 'scaProjects', function() {
     return (
-      this.get('bluebook')
+      this.bluebook
     ).concat(
-      this.get('lcgms'),
+      this.lcgms,
     ).concat(
-      this.get('scaProjects'),
+      this.scaProjects,
     ).compact();
   }),
   buildingsBldgIds: computed('buildings', function() {
-    return this.get('buildings').mapBy('bldg_id').uniq();
+    return this.buildings.mapBy('bldg_id').uniq();
   }),
 
   // Future
   projectionOverMax: computed('buildYear', function() {
-    return this.get('buildYear') > this.get('maxProjection');
+    return this.buildYear > this.maxProjection;
   }),
   buildYearMaxed: computed('projectionOverMax', function() {
-    return this.get('projectionOverMax') ? this.get('maxProjection') : this.get('buildYear');
+    return this.projectionOverMax ? this.maxProjection : this.buildYear;
   }),
 
-  doeUtilChanges: DS.attr('', { defaultValue() { return []; } }),
+  doeUtilChanges: attr('', { defaultValue() { return []; } }),
   doeUtilChangesBldgIds: computed('doeUtilChanges.[]', function() {
-    return this.get('doeUtilChanges').mapBy('bldg_id').concat(
-      this.get('doeUtilChanges').mapBy('bldg_id_additional'),
+    return this.doeUtilChanges.mapBy('bldg_id').concat(
+      this.doeUtilChanges.mapBy('bldg_id_additional'),
     ).without('')
       .uniq();
   }),
   doeUtilChangesPerBldg: computed('doeUtilChanges', 'buildings', function() {
-    const buildingsNoHs = this.get('buildings').filter((b) => (b.level !== 'hs'));
+    const buildingsNoHs = this.buildings.filter((b) => (b.level !== 'hs'));
 
-    return this.get('doeUtilChangesBldgIds').map((bldg_id) => {
+    return this.doeUtilChangesBldgIds.map((bldg_id) => {
       const buildings = buildingsNoHs.filterBy('bldg_id', bldg_id);
 
       if (buildings.length === 0) return;
 
-      const doe_notices = this.get('doeUtilChanges').filter((b) => (
+      const doe_notices = this.doeUtilChanges.filter((b) => (
         b.bldg_id === bldg_id || b.bldg_id_additional === bldg_id
       )).mapBy('title').uniq()
         .map((title) => (
@@ -184,7 +185,7 @@ export default DS.Model.extend({
     return this.doeUtilChangesPerBldg.length;
   }),
 
-  residentialDevelopments: DS.attr('public-schools/residential-developments',
+  residentialDevelopments: attr('public-schools/residential-developments',
     { defaultValue() { return []; } }),
   futureResidentialDev: computed('currentMultiplier', 'residentialDevelopments.[]', function() {
     return this.residentialDevelopments.map((d) => {
@@ -193,13 +194,13 @@ export default DS.Model.extend({
     });
   }),
 
-  schoolsWithAction: DS.attr('', { defaultValue() { return []; } }),
+  schoolsWithAction: attr('', { defaultValue() { return []; } }),
 
-  hsProjections: DS.attr('', { defaultValue() { return []; } }),
-  hsStudentsFromHousing: DS.attr('number', { defaultValue: 0 }),
-  futureEnrollmentProjections: DS.attr('', { defaultValue() { return []; } }),
-  futureEnrollmentMultipliers: DS.attr('', { defaultValue() { return []; } }),
-  futureEnrollmentNewHousing: DS.attr('', { defaultValue() { return []; } }),
+  hsProjections: attr('', { defaultValue() { return []; } }),
+  hsStudentsFromHousing: attr('number', { defaultValue: 0 }),
+  futureEnrollmentProjections: attr('', { defaultValue() { return []; } }),
+  futureEnrollmentMultipliers: attr('', { defaultValue() { return []; } }),
+  futureEnrollmentNewHousing: attr('', { defaultValue() { return []; } }),
 
   // Tables
   allSchools: computed('bluebook', 'lcgms', function() {

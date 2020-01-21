@@ -16,10 +16,10 @@
   <form class="ui form" {{action "addResDev" resdev on="submit"}}>
     <div class="inline fields">
       <div class="field">
-        {{input type="string" value=resdev.name placeholder="Project Name"}}
+        <Input @type="string" @value={{resdev.name}} placeholder="Project Name" />
       </div>
       <div class="field">
-        {{input type="number" value=resdev.year placeholder="Est. Built Year"}}
+        <Input @type="number" @value={{resdev.year}} placeholder="Est. Built Year" />
       </div>
       <div class="field">
         <UiDropdown
@@ -44,8 +44,7 @@
         </UiDropdown>
       </div>
       <div class="field">
-        {{input type="number" value=resdev.total_units placeholder="Total Units"
-        }}
+        <Input @type="number" @value={{resdev.total_units}} placeholder="Total Units" />
       </div>
       <button type="submit" class="ui button primary">
         Add

@@ -34,9 +34,9 @@ export default Component.extend({
         body: JSON.stringify({ user }),
       }).then((res) => {
         if (res.status === 201) {
-          this.get('router').transitionTo('signup.email');
+          this.router.transitionTo('signup.email');
         } else if (res.status === 202) {
-          this.get('router').transitionTo('signup.in-review');
+          this.router.transitionTo('signup.in-review');
         } else {
           this.set('error', { message: 'The account could not be created' });
         }

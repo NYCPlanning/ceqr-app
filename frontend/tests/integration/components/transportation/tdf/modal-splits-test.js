@@ -58,10 +58,10 @@ module('Integration | Component | transportation/tdf/modal-splits', function(hoo
     `);
 
     // if manualModeSplits is true, then modeSplits = modeSplitsFromUser, which are all default 0
-    assert.equal(this.element.querySelector('[data-test-total-am]').textContent, '0', 'total am default');
-    assert.equal(this.element.querySelector('[data-test-total-md]').textContent, '0', 'total md default');
-    assert.equal(this.element.querySelector('[data-test-total-pm]').textContent, '0', 'total pm default');
-    assert.equal(this.element.querySelector('[data-test-total-saturday]').textContent, '0', 'total saturday default');
+    assert.dom(this.element.querySelector('[data-test-total-am]')).hasText('0', 'total am default');
+    assert.dom(this.element.querySelector('[data-test-total-md]')).hasText('0', 'total md default');
+    assert.dom(this.element.querySelector('[data-test-total-pm]')).hasText('0', 'total pm default');
+    assert.dom(this.element.querySelector('[data-test-total-saturday]')).hasText('0', 'total saturday default');
 
     // USER FILLS IN MANUAL MODE SPLITS
     // total for am should be 3
@@ -81,10 +81,10 @@ module('Integration | Component | transportation/tdf/modal-splits', function(hoo
     await fillIn('[data-test-modal-split-input-saturday="bus"]', 8);
 
     // tests for total.am, total.md, total.pm, total.saturday in computed property `total`
-    assert.equal(this.element.querySelector('[data-test-total-am]').textContent, '3', 'total am calculated');
-    assert.equal(this.element.querySelector('[data-test-total-md]').textContent, '7', 'total md calculated');
-    assert.equal(this.element.querySelector('[data-test-total-pm]').textContent, '11', 'total pm calculated');
-    assert.equal(this.element.querySelector('[data-test-total-saturday]').textContent, '15', 'total saturday calculated');
+    assert.dom(this.element.querySelector('[data-test-total-am]')).hasText('3', 'total am calculated');
+    assert.dom(this.element.querySelector('[data-test-total-md]')).hasText('7', 'total md calculated');
+    assert.dom(this.element.querySelector('[data-test-total-pm]')).hasText('11', 'total pm calculated');
+    assert.dom(this.element.querySelector('[data-test-total-saturday]')).hasText('15', 'total saturday calculated');
   });
 
   test('allPeriod total calculates correctly when user manually inputs mode split values', async function(assert) {

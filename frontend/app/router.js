@@ -17,7 +17,7 @@ const Router = EmberRouter.extend({
 
   _trackPage() {
     function trackPage() {
-      const page = this.get('url');
+      const page = this.url;
       const title = this.getWithDefault('currentRouteName', 'unknown');
 
       this.metrics.trackPage({ page, title });

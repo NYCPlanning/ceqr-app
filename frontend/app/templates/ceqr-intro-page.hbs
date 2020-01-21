@@ -12,13 +12,9 @@
     <p>Let's get started by creating a new project.</p>
 
     <div>
-      {{#link-to
-        "project.new"
-        class="ui green button"
-        data-test-new-project="intro page"
-      }}
+      <LinkTo @route="project.new" class="ui green button" data-test-new-project="intro page">
         New Project
-      {{/link-to}}
+      </LinkTo>
     </div>
 
     <br>

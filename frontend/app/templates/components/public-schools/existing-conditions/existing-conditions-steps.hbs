@@ -1,36 +1,24 @@
 <div class="ui pointing menu">
-  {{#link-to
-    "project.show.public-schools.existing-conditions.schools"
-    project.id
-    class="item"
-  }}
+  <LinkTo @route="project.show.public-schools.existing-conditions.schools" @model={{project.id}} class="item">
     Public Schools Serving Study Area
-  {{/link-to}}
+  </LinkTo>
   <div class="right menu">
-    {{#link-to
-      "project.show.public-schools.existing-conditions.study-area"
-      project.id
-      class="item"
-    }}
+    <LinkTo @route="project.show.public-schools.existing-conditions.study-area" @model={{project.id}} class="item">
       Study Area
       {{#if displayWarning}}
         <div class="ui basic label orange">
           <i class="attention orange icon" style="margin: 0"></i>  
         </div>
       {{/if}}
-    {{/link-to}}
+    </LinkTo>
 
-    {{#link-to
-      "project.show.public-schools.existing-conditions.new-schools"
-      project.id
-      class="item"
-    }}
+    <LinkTo @route="project.show.public-schools.existing-conditions.new-schools" @model={{project.id}} class="item">
       Newly Opened Schools
       <div
         class="ui label {{if (gt analysis.lcgms.length 0) "orange" "green"}}"
       >
         {{analysis.lcgms.length}}
       </div>
-    {{/link-to}}
+    </LinkTo>
   </div>
 </div>

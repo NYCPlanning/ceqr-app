@@ -1,3 +1,3 @@
 <td>{{label}}</td>
-<td>{{input type="number" max="100" min="0" value=data.in input=(action "syncOut" data.in) data-test-in-out-split="in"}}</td>
-<td>{{input type="number" max="100" min="0" value=data.out input=(action "syncIn" data.out)}}</td>
+<td><Input @type="number" @max="100" @min="0" @value={{data.in}} @input={{action "syncOut" data.in}} data-test-in-out-split="in" /></td>
+<td><Input @type="number" @max="100" @min="0" @value={{data.out}} @input={{action "syncIn" data.out}} /></td>

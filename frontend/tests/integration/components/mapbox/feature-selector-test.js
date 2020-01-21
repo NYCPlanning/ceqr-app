@@ -31,6 +31,6 @@ module('Integration | Component | mapbox/feature-selector', function(hooks) {
     await settled();
 
     // Then the component should yield the result of queryRenderedFeatures
-    assert.equal(this.element.textContent.trim(), point);
+    assert.dom(this.element).hasText(point);
   });
 });

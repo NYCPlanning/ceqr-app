@@ -14,13 +14,9 @@
     {{#if model.transportationAnalysis.detailedAnalysis}}
       <p>Verify the numbers below before you set your Planning Factors.</p>
 
-      {{#link-to
-        "project.show.transportation.tdf.planning-factors"
-        model.project.id
-        class="ui primary button"
-      }}
+      <LinkTo @route="project.show.transportation.tdf.planning-factors" @model={{model.project.id}} class="ui primary button">
         Planning Factors <i class="ui icon caret right"></i>
-      {{/link-to}}
+      </LinkTo>
     {{/if}}
   </div>
 </div>
@@ -64,12 +60,8 @@
 </div>
 <div class="row">
   <div class="sixteen wide column">
-    {{#link-to
-      "project.show.transportation.tdf.planning-factors"
-      model.project.id
-      class="ui primary massive button"
-    }}
+    <LinkTo @route="project.show.transportation.tdf.planning-factors" @model={{model.project.id}} class="ui primary massive button">
       Next <i class="ui icon caret right"></i>
-    {{/link-to}}
+    </LinkTo>
   </div>
 </div>

@@ -15,6 +15,6 @@ module('Integration | Helper | get-layer-style', function(hooks) {
 
     await render(hbs`{{get-layer-style layer type}}`);
 
-    assert.equal(this.element.textContent.trim(), styles[layer][type]);
+    assert.dom(this.element).hasText(styles[layer][type]);
   });
 });

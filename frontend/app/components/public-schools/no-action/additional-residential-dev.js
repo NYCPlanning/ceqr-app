@@ -19,12 +19,12 @@ export default Component.extend({
       });
 
       this.get('analysis.residentialDevelopments').pushObject(residentialDevelopment);
-      this.get('analysis').save();
+      this.analysis.save();
       this.set('resdev', {});
     },
     removeResDev(resdev) {
       this.get('analysis.residentialDevelopments').removeObject(resdev);
-      this.get('analysis').save();
+      this.analysis.save();
     },
   },
 });

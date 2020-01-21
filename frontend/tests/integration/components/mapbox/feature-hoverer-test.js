@@ -2,7 +2,10 @@ import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
-import { registerEventHandler, simulateEvent } from '../../../helpers/mapbox/mapbox-stub-helpers';
+import {
+  registerEventHandler,
+  simulateEvent,
+} from '../../../helpers/mapbox/mapbox-stub-helpers';
 
 const DEFAULT_MAPBOX_GL_INSTANCE = {
   addSource: () => {},

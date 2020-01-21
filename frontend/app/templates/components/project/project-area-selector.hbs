@@ -18,15 +18,7 @@
           <div class="inline fields">
             <div class="field">
               <div class="ui action input">
-                {{input
-                  type="text"
-                  name="bbl"
-                  value=bbl
-                  placeholder="BBL (ex 1001440001)"
-                  maxlength=10
-                  enter=(action "addBbl")
-                  data-test-bbl-list="bbl-input"
-                }}
+                <Input @type="text" @name="bbl" @value={{bbl}} placeholder="BBL (ex 1001440001)" @maxlength={{10}} @enter={{action "addBbl"}} data-test-bbl-list="bbl-input" />
                 <button
                   type="submit"
                   class="ui primary button"

@@ -18,7 +18,7 @@ export default Component.extend({
 
   fetchSubdistricts: task(function* () {
     const dataPackage = yield this.get('analysis.dataPackage');
-    const response = yield this.get('ceqr-data').subdistricts(dataPackage.schemas.doe_school_subdistricts.table);
+    const response = yield this['ceqr-data'].subdistricts(dataPackage.schemas.doe_school_subdistricts.table);
 
     const allSubdistricts = response.reject((sd) => {
       const fromUser = this.analysis.subdistrictsFromUser.find((a) => (sd.district === a.district && sd.subdistrict === a.subdistrict));
@@ -60,7 +60,7 @@ export default Component.extend({
       this.set('analysis.subdistrictsFromUser', subdistricts);
       this.set('subdistrict', null);
 
-      this.get('project-orchestrator').set('analysis', this.analysis);
+      this['project-orchestrator'].set('analysis', this.analysis);
       this.get('project-orchestrator.saveAnalysis').perform().then(
         () => this.mapservice.fitToSubdistricts(),
       );
@@ -70,7 +70,7 @@ export default Component.extend({
       const subdistricts = this.analysis.subdistrictsFromUser;
       this.set('analysis.subdistrictsFromUser', subdistricts.removeObject(sd));
 
-      this.get('project-orchestrator').set('analysis', this.analysis);
+      this['project-orchestrator'].set('analysis', this.analysis);
       this.get('project-orchestrator.saveAnalysis').perform().then(
         () => this.mapservice.fitToSubdistricts(),
       );

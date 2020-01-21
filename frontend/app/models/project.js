@@ -1,30 +1,30 @@
-import DS from 'ember-data';
+import Model, { hasMany, belongsTo, attr } from '@ember-data/model';
 import { computed } from '@ember/object';
 import { inject as service } from '@ember/service';
 import boroughToAbbr from 'labs-ceqr/utils/boroughToAbbr';
 
-export default DS.Model.extend({
+export default Model.extend({
   currentUser: service(),
 
-  editors: DS.hasMany('user', { inverse: 'editable_projects' }),
-  viewers: DS.hasMany('user', { inverse: 'viewable_projects' }),
-  projectPermissions: DS.hasMany('project-permissions'),
+  editors: hasMany('user', { inverse: 'editable_projects' }),
+  viewers: hasMany('user', { inverse: 'viewable_projects' }),
+  projectPermissions: hasMany('project-permissions'),
 
-  dataPackage: DS.belongsTo('dataPackage'),
+  dataPackage: belongsTo('dataPackage'),
 
-  viewOnly: DS.attr('boolean'),
+  viewOnly: attr('boolean'),
 
-  created_at: DS.attr('string'),
-  updated_at: DS.attr('string'),
-  updated_by: DS.attr('string'),
+  created_at: attr('string'),
+  updated_at: attr('string'),
+  updated_by: attr('string'),
 
-  name: DS.attr('string'),
-  buildYear: DS.attr('number'),
-  ceqrNumber: DS.attr('string'),
+  name: attr('string'),
+  buildYear: attr('number'),
+  ceqrNumber: attr('string'),
 
-  bbls: DS.attr('', { defaultValue() { return []; } }),
-  bblsVersion: DS.attr('string'),
-  bblsGeojson: DS.attr(''),
+  bbls: attr('', { defaultValue() { return []; } }),
+  bblsVersion: attr('string'),
+  bblsGeojson: attr(''),
 
   borough: computed('boroCode', function() {
     switch (this.boroCode) {
@@ -45,24 +45,24 @@ export default DS.Model.extend({
   }),
 
   // Analysis Framework
-  totalUnits: DS.attr('number', { defaultValue: 0 }),
-  seniorUnits: DS.attr('number', { defaultValue: 0 }),
-  affordableUnits: DS.attr('number', { defaultValue: 0 }),
+  totalUnits: attr('number', { defaultValue: 0 }),
+  seniorUnits: attr('number', { defaultValue: 0 }),
+  affordableUnits: attr('number', { defaultValue: 0 }),
 
-  commercialLandUse: DS.attr('', { defaultValue() { return []; } }),
-  industrialLandUse: DS.attr('', { defaultValue() { return []; } }),
-  communityFacilityLandUse: DS.attr('', { defaultValue() { return []; } }),
-  parkingLandUse: DS.attr('', { defaultValue() { return []; } }),
+  commercialLandUse: attr('', { defaultValue() { return []; } }),
+  industrialLandUse: attr('', { defaultValue() { return []; } }),
+  communityFacilityLandUse: attr('', { defaultValue() { return []; } }),
+  parkingLandUse: attr('', { defaultValue() { return []; } }),
 
   // Should probably move to PublicSchoolsAnalysis.
   // Any computed property that is specifically relevant to a given analyses should be its responsibility
   netUnits: computed('totalUnits', 'seniorUnits', function() {
-    return this.get('totalUnits') - this.get('seniorUnits');
+    return this.totalUnits - this.seniorUnits;
   }),
 
   // Analyses Relationships
-  publicSchoolsAnalysis: DS.belongsTo('public-schools-analysis'),
-  transportationAnalysis: DS.belongsTo('transportation-analysis'),
-  communityFacilitiesAnalysis: DS.belongsTo('community-facilities-analysis'),
-  airQualityAnalysis: DS.belongsTo('air-quality-analysis'),
+  publicSchoolsAnalysis: belongsTo('public-schools-analysis'),
+  transportationAnalysis: belongsTo('transportation-analysis'),
+  communityFacilitiesAnalysis: belongsTo('community-facilities-analysis'),
+  airQualityAnalysis: belongsTo('air-quality-analysis'),
 });

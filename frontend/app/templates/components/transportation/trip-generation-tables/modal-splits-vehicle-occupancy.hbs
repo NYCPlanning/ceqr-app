@@ -55,7 +55,7 @@
             </td>
             <td>
               <div class="ui input edit-cell">
-                {{input type="number" min=0 value=this.analysis.taxiVehicleOccupancy change=(action "saveAnalysis")}}
+                <Input @type="number" @min={{0}} @value={{this.analysis.taxiVehicleOccupancy}} @change={{action "saveAnalysis"}} />
               </div>
             </td>
           </tr>

@@ -11,28 +11,28 @@ export default Component.extend({
 
   init() {
     this._super(...arguments);
-    this.get('tablehover').on('hover', this, 'setHover');
-    this.get('tablehover').on('unhover', this, 'removeHover');
+    this.tablehover.on('hover', this, 'setHover');
+    this.tablehover.on('unhover', this, 'removeHover');
   },
 
   willDestroyElement() {
-    this.get('tablehover').off('hover', this, 'setHover');
-    this.get('tablehover').off('unhover', this, 'removeHover');
+    this.tablehover.off('hover', this, 'setHover');
+    this.tablehover.off('unhover', this, 'removeHover');
   },
 
   setHover(payload) {
-    if (isEqual(payload, this.get('payload'))) this.set('hover', true);
+    if (isEqual(payload, this.payload)) this.set('hover', true);
   },
 
   removeHover(payload) {
-    if (isEqual(payload, this.get('payload'))) this.set('hover', false);
+    if (isEqual(payload, this.payload)) this.set('hover', false);
   },
 
   mouseEnter() {
-    this.get('tablehover').trigger('hover', this.get('payload'));
+    this.tablehover.trigger('hover', this.payload);
   },
 
   mouseLeave() {
-    this.get('tablehover').trigger('unhover', this.get('payload'));
+    this.tablehover.trigger('unhover', this.payload);
   },
 });

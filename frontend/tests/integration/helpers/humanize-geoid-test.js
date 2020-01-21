@@ -12,6 +12,6 @@ module('Integration | Helper | humanize-geoid', function(hooks) {
 
     await render(hbs`{{humanize-geoid inputValue}}`);
 
-    assert.equal(this.element.textContent.trim(), '2231.55');
+    assert.dom(this.element).hasText('2231.55');
   });
 });

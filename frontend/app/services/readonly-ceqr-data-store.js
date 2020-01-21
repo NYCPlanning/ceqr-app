@@ -29,7 +29,7 @@ export default Service.extend({
    * @param value The object
    */
   add(type, id, value) {
-    const store = this.get('storeHash');
+    const store = this.storeHash;
     if (!store[type]) {
       store[type] = {};
     }
@@ -84,7 +84,7 @@ export default Service.extend({
    * @returns Promise that resolves to the formatted object, or rejects with error message if not implemented
    */
   _fetch(type, id) {
-    const session = this.get('session');
+    const { session } = this;
     if (type === 'ACS-modal-split') {
       return fetchAndSaveModalSplit('ACS', id, session, this);
     }

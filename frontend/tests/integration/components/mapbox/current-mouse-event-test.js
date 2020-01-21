@@ -29,6 +29,6 @@ module('Integration | Component | mapbox/current-mouse-event', function(hooks) {
     await settled();
 
     // then the point will be yielded by the component
-    assert.equal(this.element.textContent.trim(), 'eventArgs');
+    assert.dom(this.element).hasText('eventArgs');
   });
 });

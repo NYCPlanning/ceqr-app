@@ -8,6 +8,6 @@ export default Service.extend({
   },
 
   fitToSubdistricts(geojson) {
-    this.get('map').fitBounds(bbox(geojson));
+    this.map.fitBounds(bbox(geojson));
   },
 });

@@ -7,11 +7,11 @@ export default Component.extend({
 
   actions: {
     saveProject() {
-      this.get('project').save();
+      this.project.save();
     },
 
     logOut() {
-      this.get('session').invalidate();
+      this.session.invalidate();
     },
   },
 });

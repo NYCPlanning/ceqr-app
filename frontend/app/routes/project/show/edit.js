@@ -17,7 +17,7 @@ export default Route.extend({
 
       if (!changeset.isValid) return;
 
-      this.get('project-orchestrator').set('changeset', changeset);
+      this['project-orchestrator'].set('changeset', changeset);
       this.get('project-orchestrator.saveProject').perform();
     },
 

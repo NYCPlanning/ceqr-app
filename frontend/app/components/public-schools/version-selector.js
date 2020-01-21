@@ -11,7 +11,7 @@ export default Component.extend({
 
       analysis.set('dataPackage', dataPackage);
 
-      this.get('project-orchestrator').set('analysis', analysis);
+      this['project-orchestrator'].set('analysis', analysis);
       this.get('project-orchestrator.saveAnalysis').perform();
     },
   },

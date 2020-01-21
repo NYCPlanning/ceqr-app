@@ -25,13 +25,13 @@ module('Integration | Component | mapbox/intersecting-features', function(hooks)
       {{/mapbox/intersecting-features}}
     `);
 
-    assert.equal(this.element.textContent.trim(), '0');
+    assert.dom(this.element).hasText('0');
 
     this.map.instance.queryRenderedFeatures = () => [{ type: 'Feature' }];
     this.set('point', { x: 1, y: 1 });
 
     await settled();
 
-    assert.equal(this.element.textContent.trim(), '1');
+    assert.dom(this.element).hasText('1');
   });
 });

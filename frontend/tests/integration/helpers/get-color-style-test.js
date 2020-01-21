@@ -11,6 +11,6 @@ module('Integration | Helper | get-color-style', function(hooks) {
 
     await render(hbs`{{get-color-style color}}`);
 
-    assert.equal(this.element.textContent.trim(), `color:${this.color}`);
+    assert.dom(this.element).hasText(`color:${this.color}`);
   });
 });

@@ -24,8 +24,8 @@ export default Route.extend({
       $('.mini.modal').modal('show');
     },
     deleteProject() {
-      const id = this.get('deleteProjectId');
-      this.get('store')
+      const id = this.deleteProjectId;
+      this.store
         .findRecord('project', id, { backgroundReload: false })
         .then((p) => p.destroyRecord())
         .then(() => this.refresh());

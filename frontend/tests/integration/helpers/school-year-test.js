@@ -12,6 +12,6 @@ module('Integration | Helper | schoolYear', function(hooks) {
 
     await render(hbs`{{school-year inputValue}}`);
 
-    assert.equal(this.element.textContent.trim(), '2010-2011');
+    assert.dom(this.element).hasText('2010-2011');
   });
 });

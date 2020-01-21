@@ -1,6 +1,6 @@
 import { module, test } from 'qunit';
 import {
-  visit, fillIn, click, find, currentURL,
+  visit, fillIn, click, currentURL,
 } from '@ember/test-helpers';
 import { setupApplicationTest } from 'ember-qunit';
 import { setupMirage } from 'ember-cli-mirage/test-support';
@@ -18,7 +18,7 @@ module('Acceptance | user rerouted to intro page if there are no projects', func
     await click('[data-test-login-form="login"]');
     // there are no projects, so user is rerouted to intro page
     assert.equal(currentURL(), '/ceqr-intro-page');
-    assert.ok(find('[data-test-new-project="intro page"]'));
+    assert.dom('[data-test-new-project="intro page"]').exists();
     await click('[data-test-new-project="intro page"]');
     assert.equal(currentURL(), '/project/new');
   });
@@ -33,7 +33,7 @@ module('Acceptance | user rerouted to intro page if there are no projects', func
     await click('[data-test-login-form="login"]');
     // there is one project, so user is rerouted to projects list page
     assert.equal(currentURL(), '/user/projects');
-    assert.ok(find('[data-test-new-project]'));
+    assert.dom('[data-test-new-project]').exists();
     await click('[data-test-new-project]');
     assert.equal(currentURL(), '/project/new');
   });

@@ -1,6 +1,6 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render, clearRender, find } from '@ember/test-helpers';
+import { render, clearRender } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
 module('Integration | Component | mapbox/carto-layer', function(hooks) {
@@ -17,7 +17,7 @@ module('Integration | Component | mapbox/carto-layer', function(hooks) {
 
     await render(hbs`{{mapbox/carto-layer map=map tiles=tiles id='test'}}`);
 
-    assert.ok(find('#test'));
+    assert.dom('#test').exists();
   });
 
   test('it call registration and tears down', async function(assert) {
@@ -52,6 +52,6 @@ module('Integration | Component | mapbox/carto-layer', function(hooks) {
       {{/mapbox/carto-layer}}
     `);
 
-    assert.equal(this.element.textContent.trim(), 'test');
+    assert.dom(this.element).hasText('test');
   });
 });

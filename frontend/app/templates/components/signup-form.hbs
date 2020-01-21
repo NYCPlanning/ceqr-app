@@ -13,23 +13,13 @@
         <div class="field">
           <div class="ui left icon input">
             <i class="user icon"></i>
-            {{input
-              type="text"
-              name="email"
-              value=user.email
-              placeholder="Email"
-            }}
+            <Input @type="text" @name="email" @value={{user.email}} placeholder="Email" />
           </div>
         </div>
         <div class="field">
           <div class="ui left icon input">
             <i class="lock icon"></i>
-            {{input
-              type="password"
-              name="password"
-              value=user.password
-              placeholder="Password"
-            }}
+            <Input @type="password" @name="password" @value={{user.password}} placeholder="Password" />
           </div>
         </div>
         <div class="ui left error message">
@@ -47,9 +37,9 @@
     </div>
     <div class="ui message">
       Already have an account?
-      {{#link-to "login"}}
+      <LinkTo @route="login">
         Log In
-      {{/link-to}}
+      </LinkTo>
     </div>
   </div>
 </div>

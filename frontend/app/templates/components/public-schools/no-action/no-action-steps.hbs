@@ -1,17 +1,9 @@
 <div class="ui pointing menu">
-  {{#link-to
-    "project.show.public-schools.no-action.scenario"
-    project.id
-    class="item"
-  }}
+  <LinkTo @route="project.show.public-schools.no-action.scenario" @model={{project.id}} class="item">
     No Action Scenario
-  {{/link-to}}
+  </LinkTo>
   <div class="right menu">
-    {{#link-to
-      "project.show.public-schools.no-action.under-construction"
-      project.id
-      class="item"
-    }}
+    <LinkTo @route="project.show.public-schools.no-action.under-construction" @model={{project.id}} class="item">
       SCA Schools
       <br>
       Under Construction
@@ -21,12 +13,8 @@
       >
         {{analysis.scaProjects.length}}
       </div>
-    {{/link-to}}
-    {{#link-to
-      "project.show.public-schools.no-action.utilization-changes"
-      project.id
-      class="item"
-    }}
+    </LinkTo>
+    <LinkTo @route="project.show.public-schools.no-action.utilization-changes" @model={{project.id}} class="item">
       DOE Significant
       <br>
       Utilization Changes
@@ -36,12 +24,8 @@
       >
         {{analysis.doeUtilChangesCount}}
       </div>
-    {{/link-to}}
-    {{#link-to
-      "project.show.public-schools.no-action.residential-development"
-      project.id
-      class="item"
-    }}
+    </LinkTo>
+    <LinkTo @route="project.show.public-schools.no-action.residential-development" @model={{project.id}} class="item">
       Additional
       <br>
       Residential Development
@@ -50,6 +34,6 @@
           {{analysis.futureResidentialDev.length}}
         </div>
       {{/if}}
-    {{/link-to}}
+    </LinkTo>
   </div>
 </div>

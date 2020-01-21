@@ -12,7 +12,7 @@ export default Component.extend({
   actions: {
     // "save" is a passed in action
     save() {
-      this.get('save')(this.get('project'));
+      this.save(this.project);
     },
     back() {
       history.back();

@@ -1,6 +1,9 @@
 import EmberObject, { computed } from '@ember/object';
 import round from '../../utils/round';
-import { censusTractVariableForMode, MODE_VARIABLE_LOOKUP } from '../../utils/censusTractVariableForMode';
+import {
+  censusTractVariableForMode,
+  MODE_VARIABLE_LOOKUP,
+} from '../../utils/censusTractVariableForMode';
 
 /**
  * TransportationTdfCalculator is an EmberObject that calculates Trip Results for given inputs.

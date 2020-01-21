@@ -9,19 +9,19 @@ export default Component.extend({
 
   init() {
     this._super(...arguments);
-    this.get('tablehover').on('hover', this, 'setHover');
-    this.get('tablehover').on('unhover', this, 'removeHover');
+    this.tablehover.on('hover', this, 'setHover');
+    this.tablehover.on('unhover', this, 'removeHover');
   },
 
   willDestroyElement() {
-    this.get('tablehover').off('hover', this, 'setHover');
-    this.get('tablehover').off('unhover', this, 'removeHover');
+    this.tablehover.off('hover', this, 'setHover');
+    this.tablehover.off('unhover', this, 'removeHover');
   },
 
   setHover({ source, id }) {
     if (
-      id === this.get('id')
-      && source === this.get('source')
+      id === this.id
+      && source === this.source
     ) this.set('hover', true);
   },
 
@@ -30,16 +30,16 @@ export default Component.extend({
   },
 
   mouseEnter() {
-    this.get('tablehover').trigger('hover', {
-      source: this.get('source'),
-      id: this.get('id'),
+    this.tablehover.trigger('hover', {
+      source: this.source,
+      id: this.id,
     });
   },
 
   mouseLeave() {
-    this.get('tablehover').trigger('unhover', {
-      source: this.get('source'),
-      id: this.get('id'),
+    this.tablehover.trigger('unhover', {
+      source: this.source,
+      id: this.id,
     });
   },
 });

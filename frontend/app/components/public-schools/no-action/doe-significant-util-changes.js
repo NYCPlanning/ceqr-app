@@ -17,7 +17,7 @@ export default Component.extend({
     },
     save() {
       this.set('saving', true);
-      this.get('analysis').save().then(() => this.set('saving', false));
+      this.analysis.save().then(() => this.set('saving', false));
     },
   },
 

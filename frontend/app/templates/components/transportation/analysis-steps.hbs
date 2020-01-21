@@ -1,9 +1,5 @@
 <div class="ui tiny steps">
-  {{#link-to
-    "project.show.transportation.analysis-threshold"
-    project.id
-    class="step"
-  }}
+  <LinkTo @route="project.show.transportation.analysis-threshold" @model={{project.id}} class="step">
     <div class="content">
       <div class="title">
         Analysis Threshold
@@ -12,30 +8,20 @@
         Need for detailed analysis
       </div>
     </div>
-  {{/link-to}}
-  {{#link-to
-    "project.show.transportation.tdf.planning-factors"
-    project.id
-    class="step"
-    data-test-transportation-step="planning-factors"
-  }}
+  </LinkTo>
+  <LinkTo @route="project.show.transportation.tdf.planning-factors" @model={{project.id}} class="step" data-test-transportation-step="planning-factors">
     <div class="content">
       <div class="title">
         Planning Factors
       </div>
     </div>
-  {{/link-to}}
+  </LinkTo>
 
-  {{#link-to
-    "project.show.transportation.tdf.trip-results"
-    project.id
-    class="step"
-    data-test-transportation-step="trip-results"
-  }}
+  <LinkTo @route="project.show.transportation.tdf.trip-results" @model={{project.id}} class="step" data-test-transportation-step="trip-results">
     <div class="content">
       <div class="title">
         Trip Results
       </div>
     </div>
-  {{/link-to}}
+  </LinkTo>
 </div>

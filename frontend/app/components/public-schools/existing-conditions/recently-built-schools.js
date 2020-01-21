@@ -4,7 +4,7 @@ export default Component.extend({
   actions: {
     save() {
       this.set('saving', true);
-      this.get('project').save().then(() => this.set('saving', false));
+      this.project.save().then(() => this.set('saving', false));
     },
   },
 });

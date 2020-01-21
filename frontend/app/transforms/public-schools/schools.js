@@ -1,7 +1,7 @@
-import DS from 'ember-data';
+import Transform from '@ember-data/serializer/transform';
 import School from '../../fragments/public-schools/School';
 
-export default DS.Transform.extend({
+export default Transform.extend({
   deserialize(serialized) {
     return serialized.map((b) => School.create(b));
   },

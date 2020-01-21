@@ -32,8 +32,8 @@ export default Component.extend({
   },
 
   willDestroyElement() {
-    this.get('tablehover').off('hover', this, 'dotHover');
-    this.get('tablehover').off('unhover', this, 'dotUnhover');
+    this.tablehover.off('hover', this, 'dotHover');
+    this.tablehover.off('unhover', this, 'dotUnhover');
   },
 
   // UI attributes
@@ -44,11 +44,11 @@ export default Component.extend({
   mapColors,
 
   dotHover({ source, id }) {
-    if (this.get('map')) this.get('map').setFilter(`${source}-hover`, ['==', ['get', 'id'], id]);
+    if (this.map) this.map.setFilter(`${source}-hover`, ['==', ['get', 'id'], id]);
   },
 
   dotUnhover({ source }) {
-    if (this.get('map')) this.get('map').setFilter(`${source}-hover`, ['==', ['get', 'id'], 0]);
+    if (this.map) this.map.setFilter(`${source}-hover`, ['==', ['get', 'id'], 0]);
   },
 
   toggleZones: observer('showZones', 'schoolZone', function() { // eslint-disable-line
@@ -76,7 +76,7 @@ export default Component.extend({
 
   actions: {
     zoneHover(e) {
-      if (this.get('showZones') && e.features[0].layer.id === 'zones-hover') {
+      if (this.showZones && e.features[0].layer.id === 'zones-hover') {
         if (e.features[0].properties.remarks === 'null') {
           this.set('zoneName', e.features[0].properties.dbn);
         } else {
@@ -90,7 +90,7 @@ export default Component.extend({
     },
 
     displayPopup(e) {
-      this.get('map').getCanvas().style.cursor = 'default';
+      this.map.getCanvas().style.cursor = 'default';
       const features = this.map.queryRenderedFeatures(e.point, { layers: ['buildings', 'scaprojects'] });
 
       if (features.length) {
@@ -106,7 +106,7 @@ export default Component.extend({
         `;
         schools.forEach((s) => {
           this.dotHover({ source: s.layer_id, id: s.id });
-          this.get('tablehover').trigger('hover', { source: s.layer_id, id: s.id });
+          this.tablehover.trigger('hover', { source: s.layer_id, id: s.id });
 
           let org_name;
           if (s.source === 'lcgms') {
@@ -127,17 +127,17 @@ export default Component.extend({
         });
         html += '</table>';
 
-        this.get('schoolPopup')
+        this.schoolPopup
           .setLngLat(features[0].geometry.coordinates.slice())
           .setHTML(html)
-          .addTo(this.get('map'));
+          .addTo(this.map);
       } else {
-        this.get('schoolPopup').remove();
+        this.schoolPopup.remove();
 
-        this.get('tablehover').trigger('unhover', { source: 'buildings' });
-        this.get('tablehover').trigger('unhover', { source: 'scaprojects' });
+        this.tablehover.trigger('unhover', { source: 'buildings' });
+        this.tablehover.trigger('unhover', { source: 'scaprojects' });
 
-        this.get('map').getCanvas().style.cursor = '';
+        this.map.getCanvas().style.cursor = '';
       }
     },
 
@@ -148,7 +148,7 @@ export default Component.extend({
       map.addControl(nav, 'top-right');
 
       this.set('mapservice.map', map);
-      this.get('mapservice').fitToSubdistricts(this.analysis.subdistrictsGeojson);
+      this.mapservice.fitToSubdistricts(this.analysis.subdistrictsGeojson);
 
       this.set('map', map);
     },

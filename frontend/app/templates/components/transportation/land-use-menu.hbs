@@ -3,16 +3,12 @@
     <div class="eight wide column">
       <div class="ui two item menu">
         {{#each model.transportationPlanningFactors as |factor|}}
-          {{#link-to
-            factorLink
-            factor.id
-            class="item"
-          }}
+          <LinkTo @route={{factorLink}} @model={{factor.id}} class="item">
             <span data-test-land-use-tab={{factor.landUse}}>{{humanize factor.landUse}}</span>
             <div class="ui horizontal label">
               {{pluralize (format-number factor.units) factor.unitName}}
             </div>
-          {{/link-to}}
+          </LinkTo>
         {{/each}}
       </div>
     </div>
@@ -24,23 +20,15 @@
         </div>
       </div>
       <div class="four wide column middle aligned">
-        {{#link-to
-          "project.show.transportation.tdf.trip-results"
-          model.project.id
-          class="fluid ui primary button"
-        }}
+        <LinkTo @route="project.show.transportation.tdf.trip-results" @model={{model.project.id}} class="fluid ui primary button">
           Next
-        {{/link-to}}
+        </LinkTo>
       </div>
     {{else}}
       <div class="four wide column middle aligned">
-        {{#link-to
-          "project.show"
-          model.project.id
-          class="fluid ui positive button"
-        }}
+        <LinkTo @route="project.show" @model={{model.project.id}} class="fluid ui positive button">
         Save & Return to Dashboard
-        {{/link-to}}
+        </LinkTo>
       </div>
     {{/if}}
   </div>

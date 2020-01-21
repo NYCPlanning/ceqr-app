@@ -4,7 +4,10 @@ import { find, render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 import { setupMirage } from 'ember-cli-mirage/test-support';
 import stubReadonlyStore from '../../../helpers/stub-readonly-store';
-import { VARIABLE_MODE_LOOKUP, COMMUTER_VARIABLES } from '../../../../utils/modalSplit';
+import {
+  VARIABLE_MODE_LOOKUP,
+  COMMUTER_VARIABLES,
+} from '../../../../utils/modalSplit';
 
 module('Integration | Component | transportation/census-tracts-table', function(hooks) {
   setupRenderingTest(hooks);

@@ -1,6 +1,6 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { findAll, find, render } from '@ember/test-helpers';
+import { findAll, render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 import { landUseColors } from 'labs-ceqr/layer-styles/land-use';
 import { transitZoneColors } from 'labs-ceqr/layer-styles/transit-zone';
@@ -14,15 +14,15 @@ module('Integration | Component | transportation/tdf/modal-splits/census-tracts-
     await render(hbs`{{transportation/tdf/modal-splits/census-tracts-map/features }}`);
 
     // Then the checkboxes are not checked
-    assert.notOk(find('[data-test-tz-checkbox] .checked'));
-    assert.notOk(find('[data-text-lu-checkbox] .checked'));
+    assert.dom('[data-test-tz-checkbox] .checked').doesNotExist();
+    assert.dom('[data-text-lu-checkbox] .checked').doesNotExist();
 
     // And the default items are displayed
-    assert.equal(findAll('[data-test-default-legend-item]').length, 3);
+    assert.dom('[data-test-default-legend-item]').exists({ count: 3 });
 
     // And the transit zone and lande use items are not displayed
-    assert.equal(findAll('[data-test-tz-legend-item]').length, 0);
-    assert.equal(findAll('[data-test-lu-legend-item]').length, 0);
+    assert.dom('[data-test-tz-legend-item]').doesNotExist();
+    assert.dom('[data-test-lu-legend-item]').doesNotExist();
   });
 
   test('it has populated legend and checked boxed when flags are true', async function(assert) {
@@ -34,8 +34,8 @@ module('Integration | Component | transportation/tdf/modal-splits/census-tracts-
     await render(hbs`{{transportation/tdf/modal-splits/census-tracts-map/features showLandUse=showLU showTransitZones=showTZ}}`);
 
     // Then the checkboxes are checked
-    assert.ok(find('[data-test-tz-checkbox] .checked'));
-    assert.ok(find('[data-test-lu-checkbox] .checked'));
+    assert.dom('[data-test-tz-checkbox] .checked').exists();
+    assert.dom('[data-test-lu-checkbox] .checked').exists();
     // And the legend items are displayed
     assert.equal(findAll('[data-test-tz-legend-item]').length, Object.keys(transitZoneColors).length);
     assert.equal(findAll('[data-test-lu-legend-item]').length, Object.keys(landUseColors).length);

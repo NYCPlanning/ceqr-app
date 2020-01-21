@@ -11,6 +11,6 @@ module('Integration | Helper | mapColorFor', function(hooks) {
 
     await render(hbs`{{map-color-for inputValue}}`);
 
-    assert.equal(this.element.textContent.trim(), 'color: #414F70');
+    assert.dom(this.element).hasText('color: #414F70');
   });
 });
