@@ -2,6 +2,16 @@ import Service from '@ember/service';
 import { composeModalSplit } from 'labs-ceqr/utils/modalSplit';
 import getTransportationCensusEstimateResponse from '../../mirage/helpers/get-transportation-census-estimate-response';
 
+function getModalSplits(type, geoids) {
+  return new Array(geoids.length).fill({}).map((_, idx) => getModalSplit(type, geoids[idx]));
+}
+
+export function getModalSplit(type, geoid) {
+  const { data: estimates } = getTransportationCensusEstimateResponse(type, geoid);
+  const modalSplit = composeModalSplit(estimates);
+  return modalSplit;
+}
+
 export default function stubReadonlyStore(hooks, mockModalSplit) {
   hooks.beforeEach(function() {
     const realStore = this.owner.lookup('service:readonly-ceqr-data-store');
@@ -33,14 +43,4 @@ export default function stubReadonlyStore(hooks, mockModalSplit) {
     this.owner.unregister('service:readonly-ceqr-data-store');
     this.owner.register('service:readonly-ceqr-data-store', readonlyDataStoreStub);
   });
-}
-
-function getModalSplits(type, geoids) {
-  return new Array(geoids.length).fill({}).map((_, idx) => getModalSplit(type, geoids[idx]));
-}
-
-export function getModalSplit(type, geoid) {
-  const { data: estimates } = getTransportationCensusEstimateResponse(type, geoid);
-  const modalSplit = composeModalSplit(estimates);
-  return modalSplit;
 }

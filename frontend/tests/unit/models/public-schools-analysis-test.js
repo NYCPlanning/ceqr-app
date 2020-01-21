@@ -473,7 +473,7 @@ module('Unit | Model | public schools analysis', function(hooks) {
 
     // create buildings array WITHOUT any high schools, match these IDs to doeUtilChangesBldgIds to create doeUtilChangesPerBldg
     // the only one with `level: hs` is "Raspberry Railway", so this one is removed
-    const buildingsNoHs = analysis.buildings.filter((b) => (b.level != 'hs'));
+    const buildingsNoHs = analysis.buildings.filter((b) => (b.level !== 'hs'));
     assert.equal(buildingsNoHs[0].name, 'Plum Palace');
 
     // building IDs in buildingsNoHs are matched to building IDs in doeUtilChangesBldgIds
