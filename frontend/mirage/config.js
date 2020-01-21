@@ -2,6 +2,7 @@ import JWT from 'jsonwebtoken';
 import ENV from 'labs-ceqr/config/environment';
 import cartoresponses from './fixtures/cartoresponses';
 import cartoMap from './fixtures/carto-map';
+import dummyMapboxStyle from './fixtures/dummy-mapbox-style';
 import patchXMLHTTPRequest from './helpers/mirage-mapbox-gl-monkeypatch';
 
 const secret = 'nevershareyoursecret';
@@ -32,6 +33,10 @@ export default function() {
   // CartoVL map
   this.post('https://planninglabs.carto.com/api/v1/map', function() {
     return cartoMap;
+  });
+
+  this.get('https://layers-api.planninglabs.nyc/v1/base/style.json', function() {
+    return dummyMapboxStyle;
   });
 
   /**
