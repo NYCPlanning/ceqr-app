@@ -24,6 +24,8 @@ export default class TransportationTripResultsCalculator extends EmberObject {
   }
 
   // Returns an object whose keys are temporal types
+  // TODO: It looks like many of the EmberObject parameters (documented above on lines 7-17)
+  // are used in this CP but not added to the computed signature. Add them to this signature.
   @computed('defaults')
   get personTrips() {
     const results = {
