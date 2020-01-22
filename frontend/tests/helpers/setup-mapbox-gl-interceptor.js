@@ -1,62 +1,40 @@
 import geojsonvt from 'geojson-vt';
 import vtpbf from 'vt-pbf';
 
-export function generateTileArtifactAndUrl() {
-  // build an initial index of tiles
-  const tileIndex = geojsonvt({
-    type: 'FeatureCollection',
-    features: [
-      {
-        type: 'Feature',
-        properties: {
-          geoid: 1,
-          name: 'census-tract-1',
-        },
-        geometry: {
-          type: 'Polygon',
-          coordinates: [
-            [
-              [
-                -180,
-                -90
-              ],
-              [
-                180,
-                -90
-              ],
-              [
-                180,
-                90
-              ],
-              [
-                -180,
-                90
-              ],
-              [
-                -180,
-                -90
-              ]
-            ]
-          ],
-        },
-      },
-    ],
-  });
+class MockTileServer {
+  currentTile = null;
 
-  const dummyTiles = tileIndex.getTile(7, 37, 48);
-  const pbf = vtpbf.fromGeojsonVt({
-    tracts: dummyTiles,
-    'tracts-line': dummyTiles,
-  });
-  const blob = new Blob([pbf.buffer], { type: 'binary/octet-stream' });
+  /**
+   * Creates source layers.
+   * @param { sourceLayerId: {geojson dummy} }  sourceLayerDummies  The source layer dummies
+   */
+  createSourceLayers(sourceLayerDummies) {
+    // convert geojsons to tiles
+    Object.keys(sourceLayerDummies).forEach(sourceLayerId => {
+      const geojson = sourceLayerDummies[sourceLayerId];
 
-  return URL.createObjectURL(blob);
+      // build an initial index of tiles
+      const tileIndex = geojsonvt(geojson);
+      sourceLayerDummies[sourceLayerId] = tileIndex.getTile(7, 37, 48); // todo: make dynamic
+    });
+
+    // convert tiles to protobufs
+    const pbf = vtpbf.fromGeojsonVt(sourceLayerDummies, { version: 2 });
+
+    // create blob:urls
+    const blob = new Blob([pbf.buffer], { type: 'binary/octet-stream' });
+
+    this.currentTile = URL.createObjectURL(blob);
+  }
 }
 
 export function setupMapboxGlInterceptor(hooks) {
   const RealWorker = window.Worker;
 
   hooks.beforeEach(function() {
+    this.tileServer = new MockTileServer();
+    const hookCtx = this;
+
     window.Worker = class FakeWorker {
       constructor(path) {
         this.realWorker = new RealWorker(path);
@@ -64,8 +42,8 @@ export function setupMapboxGlInterceptor(hooks) {
 
       postMessage(message, ...args) {
         if (message.type === 'loadTile') {
-          if (message.data.request) {
-            message.data.request.url = generateTileArtifactAndUrl();
+          if (message.data.request && hookCtx.tileServer.currentTile) {
+            message.data.request.url = hookCtx.tileServer.currentTile;
           }
         }
 

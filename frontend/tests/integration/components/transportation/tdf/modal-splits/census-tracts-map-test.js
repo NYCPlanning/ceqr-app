@@ -72,6 +72,8 @@ module('Integration | Component | transportation/tdf/modal-splits/census-tracts-
 
   // TODO: async isseus with the map loading... 
   // need to register when map has rendered.
+  // This is failing when running the whole suite...
+  // FLAKEY
   test('user can click the census tract', async function(assert) {
     assert.expect(1);
 
@@ -85,6 +87,20 @@ module('Integration | Component | transportation/tdf/modal-splits/census-tracts-
     this.addCensusTract = function() {
       assert.ok(true, 'did click');
     }
+    this.tileServer.createSourceLayers({
+      tracts: {
+        type: 'FeatureCollection',
+        features: [
+          {
+            type: 'Feature', properties: { geoid: 1, name: 'census-tract-1', },
+            geometry: {
+              type: 'Polygon',
+              coordinates: [[[-180, -90],[180, -90],[180, 90],[-180, 90],[-180, -90]]],
+            },
+          },
+        ],
+      }
+    });
 
     await render(hbs`
       <Transportation::Tdf::ModalSplits::CensusTractsMap
@@ -93,10 +109,6 @@ module('Integration | Component | transportation/tdf/modal-splits/census-tracts-
         @addCensusTract={{action this.addCensusTract}}
       />
     `);
-
-    await waitFor('.mapboxgl-accessibility-marker', {
-      timeout: 5000,
-    });
 
     await click('.mapboxgl-canvas');
   });
