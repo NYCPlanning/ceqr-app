@@ -56,6 +56,11 @@ export default class TransportationCensusTractsMapComponent extends Component {
   }
 
   /**
+   * Optional callback when a census tract is clicked
+   */
+  addCensusTract = () => {}
+
+  /**
    * Computed property that enables feature filterer to receive array mutations in didReceiveAttrs()
    */
   // @computed('analysis.censusTractsSelection.[]')
@@ -97,6 +102,7 @@ export default class TransportationCensusTractsMapComponent extends Component {
       // 3. Will be represented in the DOM with nodes
       layers: [
         'bbls',
+        'tracts',
       ],
     }));
 

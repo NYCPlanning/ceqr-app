@@ -1,12 +1,14 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render, waitFor } from '@ember/test-helpers';
+import { render, waitFor, click } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 import { setupMirage } from 'ember-cli-mirage/test-support';
+import { setupMapboxGlInterceptor } from 'labs-ceqr/tests/helpers/setup-mapbox-gl-interceptor';
 
 module('Integration | Component | transportation/tdf/modal-splits/census-tracts-map', function(hooks) {
   setupRenderingTest(hooks);
   setupMirage(hooks);
+  setupMapboxGlInterceptor(hooks);
 
   test('it renders', async function(assert) {
     const store = this.owner.lookup('service:store');
@@ -61,12 +63,41 @@ module('Integration | Component | transportation/tdf/modal-splits/census-tracts-
       />
     `);
 
-    await this.pauseTest();
-
     await waitFor('.mapboxgl-accessibility-marker', {
       timeout: 5000,
     });
 
     assert.ok(this.element.querySelector('[title="bbl-1"]'));
+  });
+
+  // TODO: async isseus with the map loading... 
+  // need to register when map has rendered.
+  test('user can click the census tract', async function(assert) {
+    assert.expect(1);
+
+    const store = this.owner.lookup('service:store');
+
+    this.server.create('project');
+    this.server.create('transportation-analysis');
+
+    this.project = await store.findRecord('project', 1);
+    this.analysis = await store.findRecord('transportation-analysis', 1);
+    this.addCensusTract = function() {
+      assert.ok(true, 'did click');
+    }
+
+    await render(hbs`
+      <Transportation::Tdf::ModalSplits::CensusTractsMap
+        @analysis={{this.analysis}}
+        @project={{this.project}}
+        @addCensusTract={{action this.addCensusTract}}
+      />
+    `);
+
+    await waitFor('.mapboxgl-accessibility-marker', {
+      timeout: 5000,
+    });
+
+    await click('.mapboxgl-canvas');
   });
 });

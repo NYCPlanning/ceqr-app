@@ -42,7 +42,6 @@
 
     <carto-source.layer
       @id="land-use"
-      @layerId="pluto"
       @sql="SELECT the_geom, the_geom_webmercator, landuse FROM mappluto"
       @layer={{hash
         type="fill"
@@ -71,6 +70,7 @@
      />
     <carto-source.layer
       @id="tracts"
+      @layerId="tracts"
       @sql="select * from nyc_census_tracts_2010"
       @layer={{hash
         type="fill"
@@ -85,7 +85,8 @@
 
       <Mapbox::FeatureSelector
         @map={{map}}
-        @layerId={{layer.layerId}} as |selectedFeatures| >
+        @layerId={{layer.layerId}} as |selectedFeatures|
+      >
         <Transportation::Tdf::ModalSplits::CensusTractsMap::StudySelectionToggler
           @selectedFeatureArray={{selectedFeatures}}
           @analysis={{analysis}}
@@ -97,6 +98,7 @@
 
     <carto-source.layer
       @id="tracts-line"
+      @layerId="tracts-line"
       @sql="select * from nyc_census_tracts_2010"
       @layer={{hash
         type="line"
