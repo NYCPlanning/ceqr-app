@@ -88,6 +88,7 @@
     "ember-sticky-element": "^0.2.3",
     "ember-template-lint": "^1.13.0",
     "ember-test-selectors": "2.1.0",
+    "ember-test-waiters": "^1.2.0",
     "ember-truth-helpers": "^2.1.0",
     "ember-unused-components": "^1.1.0",
     "ember-window-mock": "^0.5.4",

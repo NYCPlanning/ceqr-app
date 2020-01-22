@@ -12,6 +12,12 @@ module('Integration | Component | mapbox/carto-layer', function(hooks) {
       instance: {
         addLayer() {},
         removeLayer() {},
+        getLayer: () => ({}),
+        on(event, callback = () => {}) {
+          // resolve immediately
+          callback({ target: this });
+        },
+        off() {},
       },
     };
 
@@ -23,12 +29,25 @@ module('Integration | Component | mapbox/carto-layer', function(hooks) {
   test('it call registration and tears down', async function(assert) {
     assert.expect(2);
 
+    this.map = {
+      instance: {
+        addLayer() {},
+        removeLayer() {},
+        getLayer: () => ({}),
+        on(event, callback = () => {}) {
+          // resolve immediately
+          callback({ target: this });
+        },
+        off() {},
+      },
+    };
     this.handler = function() {
       assert.ok(true);
     };
 
     await render(hbs`
       {{mapbox/carto-layer
+        map=map
         registerWithParent=(action this.handler)
         unregisterWithParent=(action this.handler)
       }}
@@ -43,6 +62,12 @@ module('Integration | Component | mapbox/carto-layer', function(hooks) {
       instance: {
         addLayer() {},
         removeLayer() {},
+        getLayer: () => ({}),
+        on(event, callback = () => {}) {
+          // resolve immediately
+          callback({ target: this });
+        },
+        off() {},
       },
     };
 

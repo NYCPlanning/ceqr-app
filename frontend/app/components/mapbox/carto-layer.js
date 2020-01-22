@@ -1,6 +1,7 @@
 import Component from '@ember/component';
 import { computed } from '@ember/object';
 import { guidFor } from '@ember/object/internals';
+import { buildWaiter } from 'ember-test-waiters';
 
 /**
  *
@@ -14,6 +15,30 @@ export default class MapboxMapboxAnonymousMapLayerComponent extends Component {
     super.init(...args);
 
     this.registerWithParent(this);
+
+    this.waiter = buildWaiter('layer-waiter');
+  }
+
+  /**
+   * map with an instance of the map: {map: instance}
+   */
+  map = {};
+
+  didInsertElement() {
+    this.token = this.waiter.beginAsync();
+
+    this.map.instance.on('render', this._layerHasLoaded);
+  }
+
+  _layerHasLoaded = (event) => {
+    // check if the layer is available in the map
+    if (event.target.getLayer(this.elementId)) {
+      // remove the listener
+      try { this.waiter.endAsync(this.token); } catch (e) {}
+
+      // remove the event
+      event.target.off(this._layerHasLoaded);
+    }
   }
 
   willDestroyElement() {

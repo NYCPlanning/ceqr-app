@@ -21,6 +21,12 @@ const DEFAULT_MAPBOX_GL_INSTANCE = {
   removeLayer: () => {},
   removeSource: () => {},
   getStyle: () => ({}),
+  getLayer: () => ({}),
+  on(event, callback = () => {}) {
+    // resolve immediately
+    callback({ target: this });
+  },
+  off() {},
 };
 
 module('Integration | Component | mapbox/carto-vector-source', function(hooks) {
