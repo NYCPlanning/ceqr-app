@@ -35,6 +35,7 @@ export default function stubReadonlyStore(hooks, mockModalSplit) {
         return mockModalSplit || getModalSplit(type, geoid);
       },
       init: function() { // eslint-disable-line
+        this._super(...arguments);
         this.set('storeHash', {});
       },
       add: realStore.add,
