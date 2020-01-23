@@ -131,6 +131,8 @@ export default class TransportationTripResultsCalculator extends EmberObject {
         total: truckTotal,
       };
 
+      // Add 'auto' and 'taxi' splits to each temporal split,
+      // if those two modes are listed in `this.modes`
       ['auto', 'taxi'].forEach((mode) => {
         if (!this.modes.includes(mode)) return;
 
