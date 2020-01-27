@@ -15,6 +15,7 @@ export default Component.extend({
       case 'ps': return this.analysis.psLevelTotals;
       case 'is': return this.analysis.isLevelTotals;
       case 'hs': return this.analysis.hsLevelTotals;
+      default: return null;
     }
   }),
 
