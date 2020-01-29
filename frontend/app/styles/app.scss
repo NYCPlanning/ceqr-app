@@ -330,8 +330,47 @@ table.school-summary-sections {
 
 .transpo-factors-bar {
   background-color: rgba(255, 255, 255, 1);
-  box-shadow: 0 7px 2px -2px rgba(0,0,0,0.1);
   position: relative;
+}
+
+.sticky-element--sticky {
+  .transpo-factors-bar {
+    background-color: rgba(255, 255, 255, 1);
+    box-shadow: 0 7px 2px -2px rgba(0,0,0,0.1);
+    position: relative;
+  }
+}
+
+.project-details-saved-message {
+  background-color: rgba(255, 255, 255, 1);
+  font-size: 17px;
+  color: black;
+  width: 14rem;
+  height: 2.6rem;
+
+  .fa {
+    display: none;
+  }
+}
+
+.saved-message {
+  background-color: rgba(248, 248, 249, 1);
+  color: black;
+  width: 13rem;
+
+  .fa {
+    display: none;
+  }
+}
+
+.warning-message {
+  background-color: rgba(248, 248, 249, 1);
+  color: black;
+  width: 25rem;
+
+  .fa-warning {
+    display: none;
+  }
 }
 
 .mapboxgl-accessibility-marker {

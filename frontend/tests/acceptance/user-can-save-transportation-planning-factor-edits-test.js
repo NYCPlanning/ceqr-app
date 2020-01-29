@@ -1,4 +1,4 @@
-import { module, test } from 'qunit';
+import { module, test, skip } from 'qunit';
 import { visit, fillIn, click } from '@ember/test-helpers';
 import { setupApplicationTest } from 'ember-qunit';
 import setupMirage from 'ember-cli-mirage/test-support/setup-mirage';
@@ -43,6 +43,8 @@ module('Acceptance | user can save transportation planning factor edits', functi
     await click('[data-test-chapter="transportation"]');
 
     await click('[data-test-transportation-step="planning-factors"]');
+
+    await this.pauseTest();
 
     // ###### RESIDENTIAL TAB ############################
     // this checks that the correct elements are showing up, and that the user is currently on the RESIDENTIAL TAB
@@ -91,7 +93,7 @@ module('Acceptance | user can save transportation planning factor edits', functi
     assert.equal(this.server.db.transportationPlanningFactors.firstObject.inOutSplits.am.out, 87);
   });
 
-  test('User can save changes made to transportation Trip Results notes', async function(assert) {
+  skip('User can save changes made to transportation Trip Results notes', async function(assert) {
     this.server.create('user');
     this.server.create('project', {
       commercialLandUse: [
