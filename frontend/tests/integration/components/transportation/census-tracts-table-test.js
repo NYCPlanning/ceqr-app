@@ -148,7 +148,7 @@ module('Integration | Component | transportation/census-tracts-table', function(
     // Then the table will have rows for each transportation mode.
     // Following mode-specific rows, there the last five rows are Total, Total without work from home, Population/Worker,
     // a "header" row for Vehicle Occupancy, and Vehicle Occupancy.
-    assert.ok(table.rows.length == COMMUTER_VARIABLES.length + 1 + 4);
+    assert.ok(table.rows.length === COMMUTER_VARIABLES.length + 1 + 4);
 
     for (let i = 0; i < table.rows.length; i++) {
       const modeLabelCell = table.rows[i].cells[0];
@@ -158,7 +158,7 @@ module('Integration | Component | transportation/census-tracts-table', function(
       }
 
       // There should be a header row for Average Vehicle Occupancy
-      if (i == table.rows.length - 2) {
+      if (i === table.rows.length - 2) {
         assert.ok(table.rows[i].cells[1].textContent.includes('Average'));
       } else {
         // Except for the Average Vehicle Occupancy header row...
@@ -169,7 +169,7 @@ module('Integration | Component | transportation/census-tracts-table', function(
 
         const modePercentCell = table.rows[i].cells[2];
         // Vehicle Occupancy row, the last row, has "-" for percent
-        const percentCellFormat = (i == table.rows.length - 1) ? /-/ : /\d+\.\d\s%/;
+        const percentCellFormat = (i === table.rows.length - 1) ? /-/ : /\d+\.\d\s%/;
         assert.ok(modePercentCell.textContent.match(percentCellFormat));
       }
     }

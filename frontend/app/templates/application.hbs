@@ -1,56 +1,57 @@
-{{head-layout}}
-{{title "CEQR App" prepend=true separator=" | "}}
-{{top-bar}}
-<div class="ui grid container">
-  {{outlet}}
-</div>
-<footer class="footer">
-  <div class="ui container">
-    <div class="ui grid">
-      <div class="eight wide column">
-        {{general-disclaimer-message}}
-      </div>
-      <div class="center aligned eight wide column">
-        <p>
-          <strong>
-            CEQR App
-          </strong>
-          <span class="soft">
-            is a project of NYC Planning in collaboration with
-            <br>
-            the Mayor's Office of Environmental Coordination
-          </span>
-        </p>
-        <div class="ui horizontal list">
-          <div class="item">
-            <a
-              href="https://www1.nyc.gov/site/planning/index.page"
-              target="_blank"
-              rel="noopener"
-            >
-              <img
-                class="planning-logo"
-                alt="NYC Planning logo"
-                src="/imgs/dcp_logo_772.png"
+<div class="ember-view">
+  {{head-layout}}
+  {{title "CEQR App" prepend=true separator=" | "}}
+  {{top-bar}}
+  <div class="ui grid container">
+    {{outlet}}
+  </div>
+  <footer class="footer">
+    <div class="ui container">
+      <div class="ui grid">
+        <div class="eight wide column">
+          {{general-disclaimer-message}}
+        </div>
+        <div class="center aligned eight wide column">
+          <p>
+            <strong>
+              CEQR App
+            </strong>
+            <span class="soft">
+              is a project of NYC Planning in collaboration with
+              <br>
+              the Mayor's Office of Environmental Coordination
+            </span>
+          </p>
+          <div class="ui horizontal list">
+            <div class="item">
+              <a
+                href="https://www1.nyc.gov/site/planning/index.page"
+                target="_blank"
+                rel="noopener"
               >
-            </a>
-          </div>
-          <div class="item">
-            <a
-              href="https://www1.nyc.gov/site/oec/index.page"
-              target="_blank"
-              rel="noopener"
-            >
-              <img
-                class="moec-logo"
-                alt="Mayor's Office of Environmental Coordination logo"
-                src="/imgs/moec_logo.png"
+                <img
+                  class="planning-logo"
+                  alt="NYC Planning logo"
+                  src="/imgs/dcp_logo_772.png"
+                >
+              </a>
+            </div>
+            <div class="item">
+              <a
+                href="https://www1.nyc.gov/site/oec/index.page"
+                target="_blank"
+                rel="noopener"
               >
-
-            </a>
+                <img
+                  class="moec-logo"
+                  alt="Mayor's Office of Environmental Coordination logo"
+                  src="/imgs/moec_logo.png"
+                >
+              </a>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-</footer>
+  </footer>
+</div>

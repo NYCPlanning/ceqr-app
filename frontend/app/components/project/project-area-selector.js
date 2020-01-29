@@ -11,7 +11,7 @@ export default Component.extend({
 
     if (bblsVersion) {
       return bblsVersion;
-    }
+    } return '';
   }),
 
   actions: {

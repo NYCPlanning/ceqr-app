@@ -4,7 +4,6 @@ import { isEmpty } from '@ember/utils';
 
 export default class TransportationTdfTableNoteComponent extends Component {
   didUpdateAttrs() {
-    this._super(...arguments);
     this.set('addingNote', false);
   }
 
