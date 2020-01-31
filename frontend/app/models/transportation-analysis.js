@@ -60,9 +60,7 @@ export default class TransportationAnalysisModel extends Model {
   )
   get detailedAnalysis() {
     return (
-      this.hasFastFoodGte2500
-      || this.hasCommunityFacility
-      || this.sumOfRatiosOver1
+      this.hasFastFoodGte2500 || this.sumOfRatiosOver1
     );
   }
 
@@ -98,12 +96,6 @@ export default class TransportationAnalysisModel extends Model {
   @computed('fastFoodSqFt')
   get hasFastFoodGte2500() {
     return this.fastFoodSqFt >= 2500;
-  }
-
-  // Community Facilities boolean
-  @computed('project.communityFacilityLandUse.[]')
-  get hasCommunityFacility() {
-    return !!this.get('project.communityFacilityLandUse').length;
   }
 
   // Residential units
