@@ -103,7 +103,7 @@ module('Unit | Model | transportation analysis', function(hooks) {
           {
             name: 'Fast Food Restaurant',
             type: 'fast-food',
-            grossSqFt: 40,
+            grossSqFt: 2500,
           },
         ],
       }),
@@ -186,21 +186,21 @@ module('Unit | Model | transportation analysis', function(hooks) {
     const analysisNoConditions = await projectNoConditions.get('transportationAnalysis');
 
     // Fast Food
-    assert.equal(analysisFastFood.hasFastFood, true);
-    assert.equal(analysisFastFood.detailedAnalysis, true); // true if hasFastFood OR hasCommunityFacility OR sumOfRatiosOver1 is true
+    assert.equal(analysisFastFood.hasFastFoodGte2500, true);
+    assert.equal(analysisFastFood.detailedAnalysis, true);
 
     // Community Facility
     assert.equal(analysisCommunityFacility.hasCommunityFacility, true);
-    assert.equal(analysisCommunityFacility.detailedAnalysis, true); // true if hasFastFood OR hasCommunityFacility OR sumOfRatiosOver1 is tru
+    assert.equal(analysisCommunityFacility.detailedAnalysis, true);
 
     // sumOfRatiosOver1
     assert.equal(analysisSumOfRatiosOver1.sumOfRatiosOver1, true);
-    assert.equal(analysisSumOfRatiosOver1.detailedAnalysis, true); // true if hasFastFood OR hasCommunityFacility OR sumOfRatiosOver1 is true
+    assert.equal(analysisSumOfRatiosOver1.detailedAnalysis, true);
 
     // None of the above conditions
-    assert.equal(analysisNoConditions.hasFastFood, false);
+    assert.equal(analysisNoConditions.hasFastFoodGte2500, false);
     assert.equal(analysisNoConditions.hasCommunityFacility, false);
     assert.equal(analysisNoConditions.sumOfRatiosOver1, false);
-    assert.equal(analysisNoConditions.detailedAnalysis, false); // false if does NOT have FastFood, Community Facility OR sumOfRatiosOver1
+    assert.equal(analysisNoConditions.detailedAnalysis, false);
   });
 });
