@@ -74,7 +74,8 @@ ActiveRecord::Schema.define(version: 2019_12_12_200643) do
     t.float "hs_students_from_housing"
     t.jsonb "subdistricts_from_db", default: [], null: false, array: true
     t.jsonb "subdistricts_from_user", default: [], null: false, array: true
-    t.jsonb "ceqr_school_buildings", default: [], null: false, array: true
+    t.jsonb "bluebook", default: [], null: false, array: true
+    t.jsonb "lcgms", default: [], null: false, array: true
     t.jsonb "sca_projects", default: [], null: false, array: true
     t.jsonb "doe_util_changes", default: [], null: false, array: true
     t.jsonb "residential_developments", default: [], null: false, array: true
