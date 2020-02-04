@@ -19,8 +19,9 @@ export default Component.extend({
     }
   }),
 
-  EC_newSchoolsOpened: computed('activeSchoolsLevel', 'analysis.lcmgs', function() {
-    const schools = this.analysis.lcgms.filterBy('level', this.activeSchoolsLevel);
+  EC_newSchoolsOpened: computed('activeSchoolsLevel', 'analysis.ceqr_school_buildings', function() {
+    const lcgmsSchools = this.analysis.ceqr_school_buildings.find((school) => school.source === 'lcgms');
+    const schools = lcgmsSchools.filterBy('level', this.activeSchoolsLevel);
 
     const enrollment = schools.mapBy('enroll').reduce((a, v) => a + parseFloat(v), 0);
     const capacity = schools.mapBy('capacity').reduce((a, v) => a + parseFloat(v), 0);
