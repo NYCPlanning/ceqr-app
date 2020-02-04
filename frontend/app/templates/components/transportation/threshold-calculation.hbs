@@ -168,6 +168,14 @@
       Sum of Ratios
     </th>
     <th class={{if analysis.sumOfRatiosOver1 "warning"}}>
+      {{!-- 
+        TODO: Address issue #619:
+        https://github.com/NYCPlanning/ceqr-app/issues/619
+        When the SumOfRatios is barely over 1, the user interface should clarify
+        the difference instead of displaying the value rounded to 1 without
+        explanation. Perhaps there should also be a test here that checks for some
+        clarification in the UI.>
+      --}}
       {{#if analysis.sumOfRatiosOver1}}
         <UiPopup
           @title="Triggers Further Analysis"
