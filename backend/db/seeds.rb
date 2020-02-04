@@ -1,3 +1,6 @@
+# We use seeds to update ceqr_rails with data packages.
+# When making changes to data packages, you must manually run `rails db:seed` to finish update
+
 if DataPackage.where(package: "public_schools", version: "november_2017").first.nil?
   DataPackage.create({
     name: "November 2017",
@@ -158,6 +161,57 @@ if DataPackage.where(package: "public_schools", version: "november_2018_q2").fir
       "sca_capital_projects": {
         table: "022019",
         version: "2019-02-01"
+      }
+    }
+  })
+end
+
+if DataPackage.where(package: "public_schools", version: "november_2019").first.nil?
+  DataPackage.create({
+    name: "November 2019",
+    version: "november_2019",
+    package: "public_schools",
+    release_date: Date.parse('2019-11-01'),
+    schemas: {
+      "doe_school_subdistricts": { table: "2017" },
+      "ceqr_school_buildings": {
+        table: 2019,
+        sources: [
+          {name: "lcgms", version: '2019-12-19', minYear: 2018, maxYear: 2019},
+          {name: "bluebook", minYear: 2017, maxYear: 2018}
+        ]
+      },
+      "doe_school_zones_ps": { table: "2019" },
+      "doe_school_zones_is": { table: "2019" },
+      "doe_school_zones_hs": { table: "2019" },
+      "sca_enrollment_pct_by_sd": { table: "2019" },
+      "sca_housing_pipeline_by_boro": {
+        minYear: 2018, # TODO: Update
+        maxYear: 2027, # TODO: Update
+        table: "2019"
+      },
+      "sca_housing_pipeline_by_sd": {
+        minYear: 2018, # TODO: Update
+        maxYear: 2027, # TODO: Update
+        table: "2019"
+      },
+      "sca_enrollment_projections_by_boro": {
+        minYear: 2017, # TODO: Update
+        maxYear: 2027, # TODO: Update
+        table: "2019"
+      },
+      "sca_enrollment_projections_by_sd": {
+        minYear: 2017, # TODO: Update 
+        maxYear: 2027, # TODO: Update
+        table: "2019"
+      },
+      "doe_significant_utilization_changes": {
+        table: "042019",
+        version: "2019-04-01" # TODO: Update, determine what "version" this is
+      },
+      "sca_capital_projects": {
+        table: "2019",
+        version: "2018-12-04" # TODO: Update, determine what "version" this is
       }
     }
   })
