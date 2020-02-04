@@ -118,18 +118,8 @@
     {{/if}}
     {{#if analysis.communityFacilitySqFtRatio}}
       <tr>
-        <td class={{if analysis.hasCommunityFacility "warning"}}>
-          {{#if analysis.hasCommunityFacility}}
-            <UiPopup
-              @title="Triggers Further Analysis"
-              @content="Community Facility land use always triggers a preliminary trip generation analysis"
-            >
-              Community Facilities
-              <i class="yellow attention icon"></i>
-            </UiPopup>
-          {{else}}
-            Community Facilities
-          {{/if}}
+        <td>
+          Community Facilities
         </td>
         <td>
           {{analysis.communityFacilitySqFt}}

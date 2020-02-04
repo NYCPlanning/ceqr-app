@@ -243,4 +243,40 @@ module('Acceptance | detailed analysis trigger', function(hooks) {
 
     assert.equal(detailedAnalysisAnswer, 'No');
   });
+
+  test('Community facility land use DOES NOT in itself trigger a detailed analysis', async function(assert) {
+    this.server.create('user');
+    this.server.create('project', {
+      // Override factory default of 1000 totalUnits
+      totalUnits: 0,
+      seniorUnits: 0,
+      affordableUnits: 0,
+      commercialLandUse: [],
+      industrialLandUse: [],
+      communityFacilityLandUse: [
+        {
+          name: 'General Community Facility',
+          type: 'community-facility',
+          grossSqFt: 2000,
+        },
+      ],
+      parkingLandUse: [],
+      transportationAnalysis: this.server.create('transportationAnalysis', {
+        trafficZone: 1,
+      }),
+    });
+
+    await visit('/');
+    await fillIn('[data-test-login-form="email"]', 'user@email.com');
+    await fillIn('[data-test-login-form="password"]', 'password');
+    await click('[data-test-login-form="login"]');
+
+    await click('[data-test-project="1"]');
+
+    await click('[data-test-chapter="transportation"]');
+
+    const detailedAnalysisAnswer = this.element.querySelector('[data-test-transportation-detailed-analysis-answer]').textContent.trim();
+
+    assert.equal(detailedAnalysisAnswer, 'No');
+  });
 });
