@@ -1,6 +1,6 @@
 module CeqrData
-  class ScaBluebook < Base  
-    self.schema = "sca_bluebook"
+  class CeqrSchoolBuildings < Base  
+    self.schema = "ceqr_school_buildings"
 
 		# all high schools (HS, ISHS) within project borough
 		def high_schools_in_boro(borocode)
