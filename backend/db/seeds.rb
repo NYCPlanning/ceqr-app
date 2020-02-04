@@ -9,16 +9,12 @@ if DataPackage.where(package: "public_schools", version: "november_2017").first.
     release_date: Date.parse('2017-11-01'),
     schemas: {
       "doe_school_subdistricts": { table: "2017" },
-      "doe_lcgms": {
-        table: "2017",
-        version: "2018-09-10",
-        minYear: 2017,
-        maxYear: 2018,
-      },
-      "sca_bluebook": {
-        table: "2017",
-        minYear: 2016,
-        maxYear: 2017,
+      "ceqr_school_buildings": {
+        table: 2018,
+        sources: [
+          {name: "lcgms", version: '2018-09-10', minYear: 2017, maxYear: 2018},
+          {name: "bluebook", minYear: 2016, maxYear: 2017}
+        ]
       },
       "doe_school_zones_ps": { table: "2018" },
       "doe_school_zones_is": { table: "2018" },
@@ -64,16 +60,12 @@ if DataPackage.where(package: "public_schools", version: "november_2018").first.
     release_date: Date.parse('2018-11-01'),
     schemas: {
       "doe_school_subdistricts": { table: "2017" },
-      "doe_lcgms": {
-        table: "2018",
-        version: "2018-12-19",
-        minYear: 2018,
-        maxYear: 2019,
-      },
-      "sca_bluebook": {
-        table: "2018",
-        minYear: 2017,
-        maxYear: 2018
+      "ceqr_school_buildings": {
+        table: 2018,
+        sources: [
+          {name: "lcgms", version: '2018-12-19', minYear: 2018, maxYear: 2019},
+          {name: "bluebook", minYear: 2017, maxYear: 2018}
+        ]
       },
       "doe_school_zones_ps": { table: "2018" },
       "doe_school_zones_is": { table: "2018" },
@@ -119,16 +111,12 @@ if DataPackage.where(package: "public_schools", version: "november_2018_q2").fir
     release_date: Date.parse('2019-04-01'),
     schemas: {
       "doe_school_subdistricts": { table: "2017" },
-      "doe_lcgms": {
-        table: "2018",
-        version: "2018-12-19",
-        minYear: 2018,
-        maxYear: 2019
-      },
-      "sca_bluebook": {
-        table: "2018",
-        minYear: 2017,
-        maxYear: 2018
+      "ceqr_school_buildings": {
+        table: 2018,
+        sources: [
+          {name: "lcgms", version: '2018-12-19', minYear: 2018, maxYear: 2019},
+          {name: "bluebook", minYear: 2017, maxYear: 2018}
+        ]
       },
       "doe_school_zones_ps": { table: "2018" },
       "doe_school_zones_is": { table: "2018" },
