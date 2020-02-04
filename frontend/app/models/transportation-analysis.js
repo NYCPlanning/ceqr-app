@@ -56,11 +56,11 @@ export default class TransportationAnalysisModel extends Model {
   // Detailed Analysis trigger
   @computed(
     'sumOfRatios',
-    'hasFastFood',
+    'hasFastFoodGte2500',
   )
   get detailedAnalysis() {
     return (
-      this.hasFastFood
+      this.hasFastFoodGte2500
       || this.hasCommunityFacility
       || this.sumOfRatiosOver1
     );
@@ -95,9 +95,9 @@ export default class TransportationAnalysisModel extends Model {
   }
 
   // Fast Food boolean
-  @computed('project.commercialLandUse.[]')
-  get hasFastFood() {
-    return !!this.get('project.commercialLandUse').findBy('type', 'fast-food');
+  @computed('fastFoodSqFt')
+  get hasFastFoodGte2500() {
+    return this.fastFoodSqFt >= 2500;
   }
 
   // Community Facilities boolean
@@ -160,6 +160,18 @@ export default class TransportationAnalysisModel extends Model {
   @computed('restaurantSqFt')
   get restaurantSqFtRatio() {
     return this.ratioFor('restaurantSqFt');
+  }
+
+  // Fast food sq ft
+  // Here reduce() is used to be defensive, in case the commercialLandUse
+  // array can have multiple objects of type `fast-food`. However the "New Project" UI
+  // currently suggests only one fast-food land use can be created per project.
+  @computed('project.commercialLandUse.[]')
+  get fastFoodSqFt() {
+    return this
+      .get('project.commercialLandUse')
+      .filter((landUse) => landUse.type === 'fast-food')
+      .reduce((landUseTotalSqFt, curLandUse) => landUseTotalSqFt + curLandUse.grossSqFt, 0);
   }
 
   // Community Facility sq ft
