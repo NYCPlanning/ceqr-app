@@ -301,9 +301,9 @@ export default Factory.extend({
     thresholdPsIsStudents: 50,
   }),
 
-  // TRAIT for list of schools, including bluebook, lcgms, and scaProjects
+  // TRAIT for list of schools, including ceqr_school_buildings and scaProjects
   schoolsForTests: trait({
-    bluebook: [
+    ceqr_school_buildings: [
       {
         name: 'I.S. 2 - K',
         org_id: 'K002',
@@ -360,9 +360,6 @@ export default Factory.extend({
         is_capacity: 200,
         level: 'hs',
       },
-    ],
-    // LCGMS SCHOOLS
-    lcgms: [
       {
         name: 'Banana Bonanza',
         bldg_id: 'LCGMS_BB1',
@@ -680,7 +677,7 @@ export default Factory.extend({
     },
   ],
   subdistrictsFromUser: () => [],
-  bluebook: () => [
+  ceqr_school_buildings: () => [
     {
       x: 997684,
       y: 178345,
@@ -5379,8 +5376,6 @@ export default Factory.extend({
       capacityFuture: 423,
       the_geom_webmercator: '0101000020110F000002FD5E0159635FC17991CEBC15F35241',
     },
-  ],
-  lcgms: () => [
     {
       name: 'P.S. 583',
       level: 'ps',
