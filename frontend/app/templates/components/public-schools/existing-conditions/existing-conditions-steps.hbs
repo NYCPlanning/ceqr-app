@@ -27,9 +27,9 @@
     }}
       Newly Opened Schools
       <div
-        class="ui label {{if (gt analysis.lcgms.length 0) "orange" "green"}}"
+        class="ui label {{if (gt this.newlyOpenedSchools.length 0) "orange" "green"}}"
       >
-        {{analysis.lcgms.length}}
+        {{this.newlyOpenedSchools.length}}
       </div>
     {{/link-to}}
   </div>
