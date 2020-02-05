@@ -16,12 +16,11 @@ import round from '../../utils/round';
  * @param {integer} subdistrict - Building's school subdistrict
  * @param {string} org_id - DOE Organization ID of school
  * @param {string} bldg_id - DOE Building ID of school
- * @param {string} grades - Grade levels serviced. Found only in LCGMS data
  * @param {string} level - The level of the individual school. In other words, what level do the capacity and
  *   enroll numbers on this building contribute to. One of: ['ps', 'is', 'hs']
  * @param {string} org_level - The level of the organization
  * @param {string} source - The source of the data. One of: ['bluebook', 'lcgms']
- * @param {string} dataVersion - Version of LCGMS or Bluebook
+ * @param {string} dataVersion - Version of LCGMS or Bluebook, ceqr_school_buildings dataset is a combination lcgms dataset and bluebook dataset
  * @param {integer} capacity - School's current capacity
  * @param {integer} capacityFuture - School's future capacity, defaults to the same as capacity but a user can change this
  * @param {integer} enroll - School's current enrollment
