@@ -19,7 +19,6 @@ if DataPackage.where(package: "public_schools", version: "november_2017").first.
       "doe_school_zones_ps": { table: "2018" },
       "doe_school_zones_is": { table: "2018" },
       "doe_school_zones_hs": { table: "2018" },
-      "sca_enrollment_pct_by_sd": { table: "2017" },
       "sca_housing_pipeline_by_boro": {
         minYear: 2016,
         maxYear: 2025,
@@ -70,7 +69,6 @@ if DataPackage.where(package: "public_schools", version: "november_2018").first.
       "doe_school_zones_ps": { table: "2018" },
       "doe_school_zones_is": { table: "2018" },
       "doe_school_zones_hs": { table: "2018" },
-      "sca_enrollment_pct_by_sd": { table: "2018" },
       "sca_housing_pipeline_by_boro": {
         minYear: 2018,
         maxYear: 2027,
@@ -121,7 +119,6 @@ if DataPackage.where(package: "public_schools", version: "november_2018_q2").fir
       "doe_school_zones_ps": { table: "2018" },
       "doe_school_zones_is": { table: "2018" },
       "doe_school_zones_hs": { table: "2018" },
-      "sca_enrollment_pct_by_sd": { table: "2018" },
       "sca_housing_pipeline_by_boro": {
         minYear: 2018,
         maxYear: 2027,
@@ -172,7 +169,6 @@ if DataPackage.where(package: "public_schools", version: "november_2019").first.
       "doe_school_zones_ps": { table: "2019" },
       "doe_school_zones_is": { table: "2019" },
       "doe_school_zones_hs": { table: "2019" },
-      "sca_enrollment_pct_by_sd": { table: "2019" },
       "sca_housing_pipeline_by_boro": {
         minYear: 2018, # TODO: Update
         maxYear: 2027, # TODO: Update
