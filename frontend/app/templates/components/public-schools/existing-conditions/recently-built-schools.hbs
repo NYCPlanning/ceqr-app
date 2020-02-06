@@ -1,4 +1,4 @@
-{{#if this.newlyOpenedSchools}}
+{{#if analysis.newlyOpenedSchools}}
   <div class="ui message">
     <div class="header">
       Instructions
@@ -63,7 +63,7 @@
       </tr>
     </thead>
     <tbody>
-      {{#each this.newlyOpenedSchools as |school|}}
+      {{#each analysis.newlyOpenedSchools as |school|}}
         <TrHover
           class={{school.org_level}}
           @source="buildings"
