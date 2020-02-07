@@ -584,20 +584,6 @@ export default Factory.extend({
         school_year: '2020-21',
       },
     ],
-    futureEnrollmentMultipliers: [
-      {
-        level: 'PS',
-        district: 1,
-        multiplier: 0.383266818664257,
-        subdistrict: 2,
-      },
-      {
-        level: 'MS',
-        district: 1,
-        multiplier: 0.582024949124332,
-        subdistrict: 2,
-      },
-    ],
     futureEnrollmentNewHousing: [
       {
         level: 'PS',
@@ -6961,44 +6947,6 @@ export default Factory.extend({
       ps: 9198,
       district: 17,
       school_year: '2020-21',
-    },
-  ],
-  futureEnrollmentMultipliers: () => [
-    {
-      level: 'PS',
-      district: 17,
-      the_geom: null,
-      cartodb_id: 94,
-      multiplier: 0.383266818664257,
-      subdistrict: 2,
-      the_geom_webmercator: null,
-    },
-    {
-      level: 'MS',
-      district: 17,
-      the_geom: null,
-      cartodb_id: 97,
-      multiplier: 0.582024949124332,
-      subdistrict: 2,
-      the_geom_webmercator: null,
-    },
-    {
-      level: 'PS',
-      district: 17,
-      the_geom: null,
-      cartodb_id: 94,
-      multiplier: 0.483266818664257,
-      subdistrict: 1,
-      the_geom_webmercator: null,
-    },
-    {
-      level: 'MS',
-      district: 17,
-      the_geom: null,
-      cartodb_id: 97,
-      multiplier: 0.682024949124332,
-      subdistrict: 1,
-      the_geom_webmercator: null,
     },
   ],
   futureEnrollmentNewHousing: () => [

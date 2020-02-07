@@ -198,7 +198,6 @@ export default DS.Model.extend({
   hsProjections: DS.attr('', { defaultValue() { return []; } }),
   hsStudentsFromHousing: DS.attr('number', { defaultValue: 0 }),
   futureEnrollmentProjections: DS.attr('', { defaultValue() { return []; } }),
-  futureEnrollmentMultipliers: DS.attr('', { defaultValue() { return []; } }),
   futureEnrollmentNewHousing: DS.attr('', { defaultValue() { return []; } }),
 
   // Tables
@@ -216,7 +215,6 @@ export default DS.Model.extend({
     'currentMultiplier',
     'hsProjections',
     'futureEnrollmentProjections',
-    'futureEnrollmentMultipliers',
     'futureEnrollmentNewHousing',
     'scaProjects.@each.{includeInCapacity,ps_capacity,is_capacity,hs_capacity}',
     function() {
@@ -260,10 +258,7 @@ export default DS.Model.extend({
           studentMultiplier: this.currentMultiplier.ps,
 
           enroll: Math.round(
-            this.futureEnrollmentProjections.findBy('district', sd.district).ps
-            * this.futureEnrollmentMultipliers.find(
-              (i) => (i.district === sd.district && i.subdistrict === sd.subdistrict && i.level === 'PS'),
-            ).multiplier,
+            this.futureEnrollmentProjections.findBy('district', sd.district).ps,
           ),
 
           students: (
@@ -303,10 +298,7 @@ export default DS.Model.extend({
           studentMultiplier: this.currentMultiplier.is,
 
           enroll: Math.round(
-            this.futureEnrollmentProjections.findBy('district', sd.district).ms
-            * this.futureEnrollmentMultipliers.find(
-              (i) => (i.district === sd.district && i.subdistrict === sd.subdistrict && i.level === 'MS'),
-            ).multiplier,
+            this.futureEnrollmentProjections.findBy('district', sd.district).ms,
           ),
 
           students: (
