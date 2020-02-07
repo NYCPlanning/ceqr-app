@@ -58,11 +58,6 @@ RSpec.describe PublicSchoolsAnalysis, type: :model do
     expect(project.public_schools_analysis.sca_projects[0]['subdistrict']).to eq(1)
   end
 
-  it "sets future_enrollment_multipliers correctly" do
-    expect(project.public_schools_analysis.future_enrollment_multipliers[0]['district']).to eq(15)
-    expect(project.public_schools_analysis.future_enrollment_multipliers[0]['subdistrict']).to eq(1)
-  end
-
   it "sets hs_projections correctly" do
     borough = project.public_schools_analysis.hs_projections.map {|n| n['borough']}
     expect(borough).to eq(['brooklyn'])
