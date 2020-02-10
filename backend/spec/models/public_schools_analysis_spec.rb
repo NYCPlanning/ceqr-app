@@ -41,16 +41,11 @@ RSpec.describe PublicSchoolsAnalysis, type: :model do
     expect(project.public_schools_analysis.is_school_choice).to eq(true)
   end
 
-  it "sets bluebook correctly" do
-    expect(project.public_schools_analysis.bluebook[0]['district']).to eq(15)
-    expect(project.public_schools_analysis.bluebook[0]['subdistrict']).to eq(1)
+  it "sets ceqr_school_buildings correctly" do
+    expect(project.public_schools_analysis.ceqr_school_buildings[0]['district']).to eq(15)
+    expect(project.public_schools_analysis.ceqr_school_buildings[0]['subdistrict']).to eq(1)
 
-    expect(project.public_schools_analysis.bluebook.first).to match_json_schema("bluebook")
-  end
-
-  it "sets lcgms correctly" do
-    expect(project.public_schools_analysis.lcgms[0]['district']).to eq(15)
-    expect(project.public_schools_analysis.lcgms[0]['subdistrict']).to eq(1)
+    expect(project.public_schools_analysis.ceqr_school_buildings.first).to match_json_schema("ceqr_school_buildings")
   end
 
   it "sets sca projects correctly" do
@@ -78,10 +73,9 @@ RSpec.describe PublicSchoolsAnalysis, type: :model do
   end
 
   it "sets set doe_util_changes correctly" do
-    blubookBuildingIds = project.public_schools_analysis.bluebook.map {|b| b['bldg_id']}
-    lcmgsBuildingsIds = project.public_schools_analysis.lcgms.map {|b| b['bldg_id']}
+    schoolBuildingIds = project.public_schools_analysis.ceqr_school_buildings.map {|b| b['bldg_id']}
 
-    allBuildingIds = (blubookBuildingIds + lcmgsBuildingsIds).uniq
+    allBuildingIds = (schoolBuildingIds).uniq
 
     doeBuildingIds = project.public_schools_analysis.doe_util_changes.map {|b| b['bldg_id']}.uniq # two items for district 15 subdistrict 1
 
