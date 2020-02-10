@@ -21,8 +21,7 @@ module Api
         :future_enrollment_multipliers,
         :future_enrollment_new_housing,
     
-        :bluebook,
-        :lcgms,
+        :ceqr_school_buildings,
         :sca_projects,
     
         :doe_util_changes,
