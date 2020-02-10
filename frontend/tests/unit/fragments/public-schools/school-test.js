@@ -7,13 +7,13 @@ module('Unit | Fragment | School', function(hooks) {
   setupTest(hooks);
 
   test('seats are calculated correctly', function(assert) {
-    const lcgms_school = School.create({
+    const school_a = School.create({
       enroll: 115,
       capacity: '',
       excluded: false,
     });
 
-    const bluebook_school = School.create({
+    const school_b = School.create({
       enroll: 115,
       capacity: 234,
       excluded: false,
@@ -25,8 +25,8 @@ module('Unit | Fragment | School', function(hooks) {
       excluded: true,
     });
 
-    assert.equal(lcgms_school.seats, 0);
-    assert.equal(bluebook_school.seats, 119);
+    assert.equal(school_a.seats, 0);
+    assert.equal(school_b.seats, 119);
     assert.equal(excluded_school.seats, -115);
   });
 
