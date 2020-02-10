@@ -18,7 +18,6 @@ module Api
         :hs_students_from_housing,
     
         :future_enrollment_projections,
-        :future_enrollment_multipliers,
         :future_enrollment_new_housing,
     
         :bluebook,
