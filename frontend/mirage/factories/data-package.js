@@ -49,7 +49,6 @@ export default Factory.extend({
       doe_school_zones_ps: { table: '2018' },
       doe_school_zones_is: { table: '2018' },
       doe_school_zones_hs: { table: '2018' },
-      sca_enrollment_pct_by_sd: { table: '2017' },
       sca_housing_pipeline_by_boro: {
         minYear: 2016,
         maxYear: 2025,
