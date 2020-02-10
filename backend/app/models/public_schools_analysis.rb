@@ -35,7 +35,6 @@ class PublicSchoolsAnalysis < ApplicationRecord
     set_bluebook
     set_lcgms
     set_sca_projects
-    set_future_enrollment_multipliers
     set_hs_projections
     set_future_enrollment_projections
     set_hs_students_from_housing
@@ -179,26 +178,6 @@ class PublicSchoolsAnalysis < ApplicationRecord
       end
 
     self.sca_projects = new_sca_projects_array
-  end
-
-### FUTURE ENROLLMENT MULTIPLIERS
-# array of objects with "multiplier" values based on subdistrict, district, & level
-  def set_future_enrollment_multipliers
-    # subdistrict_pairs are e.g. "(<district>, <subdistrict>)" and defined in private methods
-    enrollment_pct_by_sd = CeqrData::ScaEnrollmentPctBySd.version(
-      data_package.table_for("sca_enrollment_pct_by_sd")
-    ).enrollment_percent_by_subdistrict(
-      subdistrict_pairs
-    )
-
-    self.future_enrollment_multipliers = enrollment_pct_by_sd.map do |em|
-      {
-        level: em[:level],
-        district: em[:district],
-        subdistrict: em[:subdistrict],
-        multiplier: em[:multiplier]
-      }
-    end
   end
 
 ### HS PROJECTIONS
