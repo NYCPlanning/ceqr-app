@@ -140,6 +140,12 @@ export default DS.Model.extend({
     return this.get('buildings').mapBy('bldg_id').uniq();
   }),
 
+  // ceqr_school_buildings dataset is a combination of two datasets lcgms and bluebook
+  // lcgms dataset represents schools that opened recently
+  newlyOpenedSchools: computed('analysis.ceqr_school_buildings', function() {
+    return this.ceqr_school_buildings.find((school) => school.source === 'lcgms');
+  }),
+
   // Future
   projectionOverMax: computed('buildYear', function() {
     return this.get('buildYear') > this.get('maxProjection');

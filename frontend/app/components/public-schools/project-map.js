@@ -104,24 +104,24 @@ export default Component.extend({
             <tr><th>Org Name</th><th>Org ID</th><th>Bldg ID</th><th>Level</th></tr>
           </thead>
         `;
-        schools.forEach((s) => {
-          this.dotHover({ source: s.layer_id, id: s.id });
-          this.get('tablehover').trigger('hover', { source: s.layer_id, id: s.id });
+        schools.forEach((school) => {
+          this.dotHover({ source: school.layer_id, id: school.id });
+          this.get('tablehover').trigger('hover', { source: school.layer_id, id: school.id });
 
           let org_name;
-          if (s.source === 'lcgms') {
-            org_name = `${s.name}<br>(newly built)`;
-          } else if (s.source === 'scaprojects') {
-            org_name = `${s.name}<br>(under construction)`;
+          if (school.source === 'lcgms') {
+            org_name = `${school.name}<br>(newly built)`;
+          } else if (school.source === 'scaprojects') {
+            org_name = `${school.name}<br>(under construction)`;
           } else {
-            org_name = s.name;
+            org_name = school.name;
           }
 
           const row = `<tr>
             <td>${org_name}</td>
-            <td>${s.org_id || ''}</td>
-            <td>${s.bldg_id || ''}</td>
-            <td>${s.level}</td>
+            <td>${school.org_id || ''}</td>
+            <td>${school.bldg_id || ''}</td>
+            <td>${school.level}</td>
           </tr>`;
           html += row;
         });
