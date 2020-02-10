@@ -1,4 +1,4 @@
-{{#if analysis.lcgms}}
+{{#if analysis.newlyOpenedSchools}}
   <div class="ui message">
     <div class="header">
       Instructions
@@ -22,7 +22,7 @@
   <div class="ui top attached segment">
     <h4>
       Schools opened in
-      {{school-year analysis.dataPackage.schemas.doe_lcgms}}
+      {{school-year this.lcgmsMetadata}}
       school year not captured in Blue Book
     </h4>
   </div>
@@ -63,52 +63,52 @@
       </tr>
     </thead>
     <tbody>
-      {{#each analysis.lcgms as |b|}}
+      {{#each analysis.newlyOpenedSchools as |school|}}
         <TrHover
-          class={{b.org_level}}
+          class={{school.org_level}}
           @source="buildings"
-          @id={{b.id}}
+          @id={{school.id}}
         >
           <td>
-            {{b.org_id}}
+            {{school.org_id}}
           </td>
           <td>
             <i class="icons">
               <i class="circle new-school-outline icon"></i>
               <i class="small circle school icon"></i>
             </i>
-            {{b.name}}
-            {{#if (not-eq b.name b.bldg_name)}}
+            {{school.name}}
+            {{#if (not-eq school.name school.bldg_name)}}
               <br>
               <em>
-                {{b.bldg_name}}
+                {{school.bldg_name}}
               </em>
             {{/if}}
           </td>
           <td>
-            {{b.grades}}
+            {{school.grades}}
           </td>
           <td>
-            {{b.address}}
+            {{school.address}}
           </td>
           <td>
-            {{b.level}}
+            {{school.level}}
           </td>
           <td class="warning">
             <div class="ui input transparent warning edit-cell">
-              {{input type="number" value=b.enroll placeholder="0"}}
+              {{input type="number" value=school.enroll placeholder="0"}}
             </div>
           </td>
           <td class="warning">
             <div class="ui input transparent warning edit-cell">
-              {{input type="number" value=b.capacity placeholder="0"}}
+              {{input type="number" value=school.capacity placeholder="0"}}
             </div>
           </td>
           <td>
-            {{b.seats}}
+            {{school.seats}}
           </td>
           <td>
-            {{if b.excluded "N/A" (percentage b.utilization)}}
+            {{if school.excluded "N/A" (percentage school.utilization)}}
           </td>
         </TrHover>
       {{/each}}
@@ -132,7 +132,7 @@
           href="https://data.cityofnewyork.us/Education/LCGMS-DOE-School-Information-Report/3bkj-34v2"
         >
           DOE School Information Report (LCGMS) [
-          {{analysis.dataPackage.schemas.doe_lcgms.version}}
+          {{this.lcgmsMetadata}}
           ]
           <i class="external alternate icon"></i>
         </a>
