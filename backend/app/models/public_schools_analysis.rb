@@ -86,8 +86,8 @@ class PublicSchoolsAnalysis < ApplicationRecord
     # subdistrict_pairs are e.g. "(<district>, <subdistrict>)" and defined in private methods
     db = CeqrData::CeqrSchoolBuildings.version(data_package.table_for("ceqr_school_buildings"))
     
-    ps_schools = db.ps_schools_in_subdistricts(subdistrict_pairs)
-    is_schools = db.is_schools_in_subdistricts(subdistrict_pairs)
+    ps_schools = db.primary_schools_in_subdistricts(subdistrict_pairs)
+    is_schools = db.intermediate_schools_in_subdistricts(subdistrict_pairs)
     hs_schools = db.high_schools_in_boro(project.boro_code)
 
     # new_schools_array resets to an empty array each time ceqr_school_buildings database is queried
