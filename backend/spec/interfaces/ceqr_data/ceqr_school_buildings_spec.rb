@@ -29,6 +29,7 @@ RSpec.describe "CeqrData Ceqr School Buildings", type: :model do
       expect(ps_schools.first[:org_id]).to be_a String
       expect(ps_schools.first[:org_level]).to be_a String
       expect(ps_schools.first[:address]).to be_a String
+      expect(ps_schools.first[:source]).to be_a String
 
       expect(ps_schools.first[:excluded]).to be_in([true, false])
 
@@ -58,6 +59,7 @@ RSpec.describe "CeqrData Ceqr School Buildings", type: :model do
       expect(ps_schools.first[:org_id]).to be_a String
       expect(ps_schools.first[:org_level]).to be_a String
       expect(ps_schools.first[:address]).to be_a String
+      expect(ps_schools.first[:source]).to be_a String
 
       expect(ps_schools.first[:excluded]).to be_in([true, false])
 
@@ -87,6 +89,7 @@ RSpec.describe "CeqrData Ceqr School Buildings", type: :model do
       expect(is_schools.first[:org_id]).to be_a String
       expect(is_schools.first[:org_level]).to be_a String
       expect(is_schools.first[:address]).to be_a String
+      expect(is_schools.first[:source]).to be_a String
 
       expect(is_schools.first[:excluded]).to be_in([true, false])
 
@@ -116,6 +119,7 @@ RSpec.describe "CeqrData Ceqr School Buildings", type: :model do
       expect(is_schools.first[:org_id]).to be_a String
       expect(is_schools.first[:org_level]).to be_a String
       expect(is_schools.first[:address]).to be_a String
+      expect(is_schools.first[:source]).to be_a String
 
       expect(is_schools.first[:excluded]).to be_in([true, false])
 
@@ -145,6 +149,7 @@ RSpec.describe "CeqrData Ceqr School Buildings", type: :model do
       expect(hs_schools.first[:org_id]).to be_a String
       expect(hs_schools.first[:org_level]).to be_a String
       expect(hs_schools.first[:address]).to be_a String
+      expect(hs_schools.first[:source]).to be_a String
 
       hs_schools_unique_borocodes = hs_schools.map {|x| x[:borocode]}.uniq.sort! # [1, 2]
 
@@ -174,6 +179,7 @@ RSpec.describe "CeqrData Ceqr School Buildings", type: :model do
       expect(hs_schools.first[:org_id]).to be_a String
       expect(hs_schools.first[:org_level]).to be_a String
       expect(hs_schools.first[:address]).to be_a String
+      expect(hs_schools.first[:source]).to be_a String
 
       hs_schools_unique_borocodes = hs_schools.map {|x| x[:borocode]}.uniq.sort! # [1, 2]
 
