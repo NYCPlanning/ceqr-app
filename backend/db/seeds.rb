@@ -204,6 +204,19 @@ if DataPackage.where(package: "nyc_acs", version: "2017").first.nil?
   })
 end
 
+if DataPackage.where(package: "nyc_acs", version: "2018").first.nil?
+  DataPackage.create({
+    name: "ACS 5-year 2018",
+    version: "2018",
+    package: "nyc_acs",
+    release_date: Date.parse('2019-12-19'),
+    schemas: {
+      "nyc_acs": { table: "2018" },
+      "nyc_census_tract_boundaries": { table: "2010" }
+    }
+  })
+end
+
 if DataPackage.where(package: "mappluto", version: "18v2").first.nil?
   DataPackage.create({
     name: "MapPLUTO 18v2",
