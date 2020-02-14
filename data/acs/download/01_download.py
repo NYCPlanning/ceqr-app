@@ -123,6 +123,6 @@ if __name__ == "__main__":
     # Remove '1400000US' prefix from geoid values
     nyc_acs.replace(to_replace='1400000US', value='', regex=True, inplace=True)
 
-    nyc_acs.to_csv(f'./output/nyc_acs.csv', index=False)    
+    nyc_acs.to_csv(f'./output/nyc_acs.csv', index=False)
 
     print("Success downloading and transforming NYC tract-level transportation and population data.")
