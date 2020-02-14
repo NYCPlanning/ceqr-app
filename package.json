@@ -6,6 +6,8 @@
   "scripts": {
     "serve-rails": "cd backend && rails s",
     "serve-ember": "cd frontend && HOST='localhost:3000' ember s",
-    "serve": "concurrently 'npm:serve-*'"
+    "serve": "concurrently 'npm:serve-*'",
+    "download-acs-data": "mkdir -p ./data/acs/download/output && docker build -t acsdata ./data/acs/download && docker run --name acsdatacontain acsdata && yarn export-acs-data && docker rm acsdatacontain",
+    "export-acs-data": "docker cp acsdatacontain:/usr/src/app/output/nyc_acs.csv ./data/acs/download/output/nyc_acs.csv"
   }
 }
