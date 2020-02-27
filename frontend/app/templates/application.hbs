@@ -2,6 +2,17 @@
 {{title "CEQR App" prepend=true separator=" | "}}
 {{top-bar}}
 <div class="ui grid container">
+  {{!--
+    Display a site-wide notification with the site-message component:
+    @message - string: the message to display. Set to 'false' to hide message
+    @warning - boolean: adds an exclamation-triangle icon
+    @dismissible - boolean: allows user to close message
+  --}}
+  {{site-message
+    message="We are currently experiencing platform stability problems. Engineers are working on a resolution. Please try again later."
+    warning=true
+    dismissible=true
+  }}
   {{outlet}}
 </div>
 <footer class="footer">
