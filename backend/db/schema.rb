@@ -10,19 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_12_200643) do
+ActiveRecord::Schema.define(version: 2020_02_28_172244) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
   enable_extension "postgis"
-
-  create_table "air_quality_analyses", force: :cascade do |t|
-    t.bigint "project_id", null: false
-    t.boolean "in_area_of_concern"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
 
   create_table "community_facilities_analyses", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -130,7 +123,6 @@ ActiveRecord::Schema.define(version: 2019_12_12_200643) do
     t.index ["email"], name: "user_email_unique", unique: true
   end
 
-  add_foreign_key "air_quality_analyses", "projects"
   add_foreign_key "community_facilities_analyses", "projects"
   add_foreign_key "projects", "data_packages"
   add_foreign_key "public_schools_analyses", "data_packages"
