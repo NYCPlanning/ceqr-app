@@ -33,17 +33,27 @@
       </div>
     </div>
   </div>
+{{/if}}
 
-  {{#if (and showMap project-orchestrator.projectTask.isIdle)}}
-    <div class="row">
-      <div class="sixteen wide column">
-        <PublicSchools::ProjectMap
-          @project={{model.project}}
-          @analysis={{model.publicSchoolsAnalysis}}
-        />
-      </div>
+{{#if (and showMap project-orchestrator.projectTask.isIdle)}}
+  <div class="row">
+    <div class="sixteen wide column">
+      {{#with model.publicSchoolsAnalysis.subdistrictsGeojson.subdistrictsGeojson as |subdistricts|}}
+          <PublicSchools::ProjectMap
+            @project={{model.project}}
+            @analysis={{model.publicSchoolsAnalysis}}
+            @subdistrictsGeojson={{subdistricts}}
+          />
+      {{/with}}
+      {{#unless model.publicSchoolsAnalysis.subdistrictsGeojson.subdistrictsGeojson}}
+          <div style="height: 100px; background-color: #CCE2FF">
+            <div class="ui active inverted dimmer">
+              <div class="ui text loader">Loading map of subdistricts... Please wait... </div>
+            </div>
+          </div>
+      {{/unless}}
     </div>
-  {{/if}}
+  </div>
 {{/if}}
 
 {{#if project-orchestrator.projectTask.isIdle}}

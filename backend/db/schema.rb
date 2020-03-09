@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_28_172244) do
+ActiveRecord::Schema.define(version: 2020_03_06_194630) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -81,7 +81,15 @@ ActiveRecord::Schema.define(version: 2020_02_28_172244) do
     t.datetime "updated_at", null: false
     t.integer "project_id"
     t.bigint "data_package_id"
+    t.bigint "subdistricts_geojson_id"
     t.index ["data_package_id"], name: "index_public_schools_analyses_on_data_package_id"
+    t.index ["subdistricts_geojson_id"], name: "index_public_schools_analyses_on_subdistricts_geojson_id"
+  end
+
+  create_table "subdistricts_geojsons", force: :cascade do |t|
+    t.integer "public_schools_analysis_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "transportation_analyses", force: :cascade do |t|
@@ -127,6 +135,7 @@ ActiveRecord::Schema.define(version: 2020_02_28_172244) do
   add_foreign_key "projects", "data_packages"
   add_foreign_key "public_schools_analyses", "data_packages"
   add_foreign_key "public_schools_analyses", "projects"
+  add_foreign_key "public_schools_analyses", "subdistricts_geojsons"
   add_foreign_key "transportation_analyses", "projects"
   add_foreign_key "transportation_planning_factors", "data_packages"
   add_foreign_key "transportation_planning_factors", "transportation_analyses"

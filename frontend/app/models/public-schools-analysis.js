@@ -73,7 +73,8 @@ export default DS.Model.extend({
   // School District & Subdistricts
   subdistrictsFromDb: DS.attr('', { defaultValue() { return []; } }),
   subdistrictsFromUser: DS.attr('', { defaultValue() { return []; } }),
-  subdistrictsGeojson: DS.attr(''),
+  subdistrictsGeojson: DS.belongsTo('subdistricts-geojson'),
+  
 
   subdistricts: computed('subdistrictsFromDb.@each', 'subdistrictsFromUser.@each', function() {
     return this.subdistrictsFromDb.concat(this.subdistrictsFromUser);
