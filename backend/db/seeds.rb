@@ -227,3 +227,9 @@ if DataPackage.where(package: "mappluto", version: "19v1").first.nil?
     }
   })
 end
+
+if SubdistrictsGeojson.first.nil?
+  PublicSchoolsAnalysis.all.each do |analysis|
+    SubdistrictsGeojson.create(public_schools_analysis_id: analysis.id)
+  end
+end
