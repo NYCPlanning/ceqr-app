@@ -93,6 +93,15 @@ SSH into the backend docker container `docker exec -it ceqr-app_backend_1 /bin/b
 
 Once inside the container, run the rails migration command `rails generate migration name_of_your_migration`
 
+**For running the migrations in the Heroku UI:**
+
+Navigate to the ceqr-app on the Labs Heroku account. Select the environment (e.g. staging) that you would like to run the migrations on. On the top right of the page, you will see a button that says "More". Click on this button and select "Run Console" from the dropdown menu. Type `bash` into the console and hit "Run". 
+
+In order to run the migrations: `rails db:migrate`
+
+If you created a new table and need to populate this table with data after running the migrations: 
+`rails db:seed`
+
 ### Debugging
 You can enter the running rails application by running:
 ```sh
