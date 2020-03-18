@@ -19,7 +19,6 @@ class Project < ApplicationRecord
   has_one :public_schools_analysis, dependent: :destroy
   has_one :transportation_analysis, dependent: :destroy
   has_one :community_facilities_analysis, dependent: :destroy
-  has_one :air_quality_analysis, dependent: :destroy
 
   def boro_code
     codes = bbls.map {|b| b[0].to_i }
@@ -65,7 +64,6 @@ class Project < ApplicationRecord
 
     create_transportation_analysis
     create_community_facilities_analysis
-    create_air_quality_analysis
   end
 
   def refresh_analyses!

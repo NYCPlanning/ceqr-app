@@ -159,6 +159,8 @@ RSpec.describe 'projects', type: :request do
   
         project_names = json['data'].map { |p| p["attributes"]["name"] }
   
+        # if you're running docker-compose exec backend rspec...
+        # the projects you've created locally will be included in this count
         expect(json['data'].count).to eq(3)
         expect(project_names).to include('Mine', 'Someone Else', 'Yours')
       end

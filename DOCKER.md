@@ -63,6 +63,7 @@
 ### Local Development
 If you don't want to run the ember frontend inside the docker container, that's fine! It's slow! I feel ya! You can run the ember frontend on your local machine, hooked up to the docker backend like:
 ```sh
+docker-compose stop frontend
 cd frontend
 HOST=http://localhost:3000 DISABLE_MIRAGE=true ember s
 ```
@@ -79,6 +80,18 @@ Ember server will live-reload changes to the frontend app for you, so there is n
 
 Rails reloads the entire server on every request by default in development more, so there is no need to restart the docker services when making changes to files in `backend/`, altho configuration changes require restart
 
+### Creating and Running Migrations in Docker Container
+Rails migrations are stored in /backend/app/db/migrate. 
+
+In order to create a rails migration inside of a docker container follow these steps:
+
+Run docker `docker-compose up`
+
+Check which containers are running `docker-compose ps`
+
+SSH into the backend docker container `docker exec -it ceqr-app_backend_1 /bin/bash`
+
+Once inside the container, run the rails migration command `rails generate migration name_of_your_migration`
 
 ### Debugging
 You can enter the running rails application by running:
