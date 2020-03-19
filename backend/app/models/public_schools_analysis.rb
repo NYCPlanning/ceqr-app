@@ -1,11 +1,13 @@
 class PublicSchoolsAnalysis < ApplicationRecord
   before_create :compute_for_project_create_or_update
+  after_create :create_subdistricts_geojson!
   
   before_update :compute_for_project_create_or_update,
     if: Proc.new { data_package_id_changed? || subdistricts_from_user_changed? }
 
   belongs_to :project
   belongs_to :data_package
+  has_one :subdistricts_geojson, dependent: :destroy
 
   def compute_for_updated_bbls!
     compute_for_project_create_or_update
@@ -21,6 +23,10 @@ class PublicSchoolsAnalysis < ApplicationRecord
   end
 
   private
+
+  def create_subdistricts_geojson!
+    create_subdistricts_geojson
+  end
 
   def compute_for_project_create_or_update
     set_subdistricts_from_db

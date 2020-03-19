@@ -9,5 +9,7 @@ When creating a `review` app from a Pull Request, there are a few manual bootstr
     ```sh
     $ heroku run -a ceqr-app-staging-pr-XXX rails db:migrate
     ```
+    You can also run these migrations on the Heroku UI. For instructions visit the DOCKER.md file and look
+    under the "Creating and Running Migrations in Docker Container" section.
 3. Set `HOST_PR_REVIEW` on netlify with the heroku app's hostname.
     - This is necessary to get the frontend talking to the backend
