@@ -10,7 +10,7 @@ jobs:
       - image: circleci/ruby:2.6.4
         environment:
           RAILS_ENV: test
-          DATABASE_URL: postgis://ceqr:testingpassword@127.0.0.1/ceqr_test
+          DATABASE_URL: postgres://ceqr:testingpassword@127.0.0.1/ceqr_test
           JWT_SALT: TEST_RANDOM_KEY
           ADMIN_EMAILS: test@example.com
           SENDGRID_KEY: NOPE
