@@ -9,7 +9,7 @@ jobs:
       # specify the version you desire here
       - image: circleci/ruby:2.6.4
         environment:
-          DATABASE_URL: postgis://ceqr@127.0.0.1/ceqr_test
+          DATABASE_URL: postgis://ceqr:testingpassword@127.0.0.1/ceqr_test
           JWT_SALT: TEST_RANDOM_KEY
           ADMIN_EMAILS: test@example.com
           SENDGRID_KEY: NOPE
@@ -20,6 +20,7 @@ jobs:
         environment:
           POSTGRES_USER: ceqr
           POSTGRES_DB: ceqr_test
+          POSTGRES_PASSWORD: testingpassword
 
     working_directory: ~/repo/backend
 
