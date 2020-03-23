@@ -50,8 +50,8 @@ jobs:
       - run:
           name: setup DB
           command: |
-            bundle exec rake --trace db:create
-            bundle exec rake --trace db:schema:load
+            bundle exec rake db:create
+            bundle exec rake db:schema:load
 
       # run tests!
       - run:
