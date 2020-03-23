@@ -1,7 +1,8 @@
 {
   "license": "MIT",
   "devDependencies": {
-    "concurrently": "^4.1.1"
+    "concurrently": "^4.1.1",
+    "husky": "^4.2.3"
   },
   "scripts": {
     "serve-rails": "cd backend && rails s",
