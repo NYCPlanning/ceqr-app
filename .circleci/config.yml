@@ -20,7 +20,6 @@ jobs:
         environment:
           POSTGRES_USER: ceqr
           POSTGRES_DB: ceqr_test
-          POSTGRES_PASSWORD: testingpassword
 
     working_directory: ~/repo/backend
 
