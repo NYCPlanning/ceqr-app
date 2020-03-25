@@ -163,8 +163,8 @@ class PublicSchoolsAnalysis < ApplicationRecord
     subdistricts.each do |subdistrict|
       subdistrict_geom = subdistrict[:geom]
 
-      sca_schools = CeqrData::ScaCapitalProjects.version(
-        data_package.table_for("sca_capital_projects")
+      sca_schools = CeqrData::ScaCapacityProjects.version(
+        data_package.table_for("sca_capacity_projects")
       ).sca_projects_intersecting_subdistrict_geom(
         subdistrict_geom
       )

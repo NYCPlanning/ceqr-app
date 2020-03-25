@@ -45,7 +45,7 @@ if DataPackage.where(package: "public_schools", version: "november_2017").first.
         table: "062018",
         version: "2018-02-01",
       },
-      "sca_capital_projects": {
+      "sca_capacity_projects": {
         table: "2018",
         version: "2018-12-04",
       }
@@ -100,7 +100,7 @@ if DataPackage.where(package: "public_schools", version: "november_2018").first.
         table: "062018",
         version: "2018-02-01"
       },
-      "sca_capital_projects": {
+      "sca_capacity_projects": {
         table: "2018",
         version: "2018-12-04"
       }
@@ -155,7 +155,7 @@ if DataPackage.where(package: "public_schools", version: "november_2018_q2").fir
         table: "042019",
         version: "2019-04-01"
       },
-      "sca_capital_projects": {
+      "sca_capacity_projects": {
         table: "022019",
         version: "2019-02-01"
       }

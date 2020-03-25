@@ -74,7 +74,7 @@ export default Factory.extend({
         table: '062018',
         version: '2018-02-01',
       },
-      sca_capital_projects: {
+      sca_capacity_projects: {
         table: '2018',
         version: '2018-12-04',
       },

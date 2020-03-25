@@ -1723,7 +1723,7 @@ export default {
         request: {
           bodySize: 0,
           method: 'GET',
-          url: 'https://planninglabs.carto.com/api/v2/sql?q=%20SELECT%20projects.*,%20subdistricts.schooldist%20AS%20district,%20subdistricts.zone%20AS%20subdistrict%20FROM%20(%20SELECT%20the_geom,%20schooldist,%20zone%20FROM%20doe_schoolsubdistricts_v2017%20WHERE%20cartodb_id%20IN%20(33)%20)%20AS%20subdistricts,%20sca_capital_projects_v2018%20AS%20projects%20WHERE%20ST_Intersects(subdistricts.the_geom,%20projects.the_geom)%20&format=json',
+          url: 'https://planninglabs.carto.com/api/v2/sql?q=%20SELECT%20projects.*,%20subdistricts.schooldist%20AS%20district,%20subdistricts.zone%20AS%20subdistrict%20FROM%20(%20SELECT%20the_geom,%20schooldist,%20zone%20FROM%20doe_schoolsubdistricts_v2017%20WHERE%20cartodb_id%20IN%20(33)%20)%20AS%20subdistricts,%20sca_capacity_projects_v2018%20AS%20projects%20WHERE%20ST_Intersects(subdistricts.the_geom,%20projects.the_geom)%20&format=json',
           httpVersion: 'HTTP/1.1',
           headers: [
             {
@@ -1763,7 +1763,7 @@ export default {
           queryString: [
             {
               name: 'q',
-              value: ' SELECT projects.*, subdistricts.schooldist AS district, subdistricts.zone AS subdistrict FROM ( SELECT the_geom, schooldist, zone FROM doe_schoolsubdistricts_v2017 WHERE cartodb_id IN (33) ) AS subdistricts, sca_capital_projects_v2018 AS projects WHERE ST_Intersects(subdistricts.the_geom, projects.the_geom) ',
+              value: ' SELECT projects.*, subdistricts.schooldist AS district, subdistricts.zone AS subdistrict FROM ( SELECT the_geom, schooldist, zone FROM doe_schoolsubdistricts_v2017 WHERE cartodb_id IN (33) ) AS subdistricts, sca_capacity_projects_v2018 AS projects WHERE ST_Intersects(subdistricts.the_geom, projects.the_geom) ',
             },
             {
               name: 'format',
@@ -1827,7 +1827,7 @@ export default {
             },
             {
               name: 'X-SQLAPI-Log',
-              value: '{"request":{"sql":{"type":"query","sql":" SELECT projects    subdistricts schooldist AS district  subdistricts zone AS subdistrict FROM   SELECT the geom  schooldist  zone FROM doe schoolsubdistricts v2017 WHERE cartodb id IN  33    AS subdistricts  sca capital projects v2018 AS projects WHERE ST Intersects subdistricts the geom  projects the geom  "}}}',
+              value: '{"request":{"sql":{"type":"query","sql":" SELECT projects    subdistricts schooldist AS district  subdistricts zone AS subdistrict FROM   SELECT the geom  schooldist  zone FROM doe schoolsubdistricts v2017 WHERE cartodb id IN  33    AS subdistricts  sca capacity projects v2018 AS projects WHERE ST Intersects subdistricts the geom  projects the geom  "}}}',
             },
             {
               name: 'Content-Disposition',
