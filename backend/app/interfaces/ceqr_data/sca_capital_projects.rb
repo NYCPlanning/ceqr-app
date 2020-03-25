@@ -6,7 +6,7 @@ module CeqrData
     def sca_projects_intersecting_subdistrict_geom(subdistrict_geom)
       @dataset.select(
         :geom,
-        :project_dsf,
+        :uid,
         :name,
         :org_level,
         :capacity,

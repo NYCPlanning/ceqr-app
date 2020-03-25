@@ -211,7 +211,7 @@ RSpec.describe 'public_schools_analysis', type: :request do
         #         "guessed_pct": false,
         #         "hs_capacity": 0,
         #         "is_capacity": 0,
-        #         "project_dsf": "DSF0000798215",
+        #         "uid": "DSF0000798215",
         #         "ps_capacity": "969",
         #         "subdistrict": 3,
         #         "total_est_cost": 121.02,
