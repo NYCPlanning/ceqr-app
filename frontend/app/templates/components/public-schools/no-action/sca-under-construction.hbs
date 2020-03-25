@@ -5,7 +5,7 @@
     </div>
     <p>
       Include capacity of new school if estimated completion date is before the project's
-      build year AND % funded is 80% or higher. Consult lead agency to confirm inclusion of school.
+      build year. Consult lead agency to confirm inclusion of school.
     </p>
     <p>
       Refer to
@@ -35,9 +35,6 @@
           <th rowspan="2" class="two wide">
             Estimated Completion Date
           </th>
-          <th rowspan="2" class="two wide">
-            % Funded
-          </th>
           <th rowspan="2" class="one wide">
             Future Capacity
           </th>
@@ -55,7 +52,7 @@
             <UiPopup
               @tagName="i"
               class="tooltip circular inverted question icon"
-              @content="In general, include if school will be complete before the project and % funded is 80% or higher."
+              @content="In general, include if school will be complete before the project."
              />
 
           </th>
@@ -88,41 +85,6 @@
             </td>
             <td>
               {{moment-format b.planned_end_date "MM/DD/YYYY"}}
-            </td>
-            <td>
-              <div
-                class="ui tiny progress"
-                data-percent={{mult b.pct_funded 100}}
-                data-inverted
-                data-variation="very wide"
-                data-html="<table class='ui celled table'>
-                    <tr>
-                      <td>Previous funding</td>
-                      <td>$
-                  {{b.funding_previous}}
-                   mil.</td>
-                    </tr>
-                    <tr>
-                      <td>Funding in SCA Capital Plan</td>
-                      <td>$
-                  {{b.funding_current_budget}}
-                   mil.</td>
-                    </tr>
-                    <tr>
-                      <td>Total Est. Cost</td>
-                      <td>$
-                  {{b.total_est_cost}}
-                   mil.</td>
-                    </tr>
-                  </table>"
-              >
-                <div class="bar"></div>
-                <div class="label">
-                  {{percentage b.pct_funded}}
-                  Funded
-                  <i class="attention icon"></i>
-                </div>
-              </div>
             </td>
             {{#if b.guessed_pct}}
               <td
