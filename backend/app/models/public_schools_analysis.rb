@@ -297,7 +297,7 @@ end
 
 # checks whether the new queried data ("school") matches sca_projects already saved in model
   def find_existing_sca_projects(school)
-    self.sca_projects.find {|sca_projects| sca_projects[:project_dsf] == school[:project_dsf]}
+    self.sca_projects.find {|sca_projects| sca_projects[:uid] == school[:uid]}
   end
 
   def school_object_sca_projects(school, district_source)
@@ -311,7 +311,7 @@ end
 
     {
       name: school[:name],
-      project_dsf: school[:project_dsf],
+      uid: school[:uid],
       org_level: school[:org_level],
       district: district_source[:district],
       subdistrict: district_source[:subdistrict],
