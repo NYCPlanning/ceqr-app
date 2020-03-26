@@ -19,13 +19,16 @@ export default Component.extend({
     }
   }),
 
-  EC_newSchoolsOpened: computed('activeSchoolsLevel', 'analysis.lcmgs', function() {
-    const schools = this.analysis.lcgms.filterBy('level', this.activeSchoolsLevel);
+  EC_newSchoolsOpened: computed('activeSchoolsLevel', 'analysis.ceqr_school_buildings', function() {
+    // ceqr_school_buildings dataset is a combination of lcgms and bluebook datasets
+    // lcgms dataset represents schools that were opened recently
+    const lcgmsSchools = this.analysis.ceqr_school_buildings.filter((school) => school.source === 'lcgms');
+    const activeLevelSchools = lcgmsSchools.filterBy('level', this.activeSchoolsLevel);
 
-    const enrollment = schools.mapBy('enroll').reduce((a, v) => a + parseFloat(v), 0);
-    const capacity = schools.mapBy('capacity').reduce((a, v) => a + parseFloat(v), 0);
+    const enrollment = activeLevelSchools.mapBy('enroll').reduce((a, v) => a + parseFloat(v), 0);
+    const capacity = activeLevelSchools.mapBy('capacity').reduce((a, v) => a + parseFloat(v), 0);
 
-    return { enrollment, capacity, schools };
+    return { enrollment, capacity, activeLevelSchools };
   }),
 
   NA_newResidentialDevelopment: computed('activeSchoolsLevel', function() {

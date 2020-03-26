@@ -249,7 +249,7 @@ module('Unit | Model | public schools analysis', function(hooks) {
   test('concatenates buildings and allSchools correctly', async function(assert) {
     /*
       input variables:
-      * incorporates testsForSchools trait defined in the mirage factory with bluebook, lcgms, and scaProjects as the
+      * incorporates testsForSchools trait defined in the mirage factory with ceqr_school_buildings and scaProjects as the
       three different types of schools
       tested variables:
       * buildings (array of objects)
@@ -279,7 +279,7 @@ module('Unit | Model | public schools analysis', function(hooks) {
     // "Cantelope Castle", "Donuts Delight", "Avocado Adventure", "Clementine Canopy", "Peach Party", "Passionfruit Pavilion",
     // "Tangerine Tent", "Pineapple Paradise", "Olive Oasis", "Grapefruit Garage"]
 
-    // buildings concatenates bluebook, lcgms, and scaProjects
+    // buildings concatenates ceqr_school_buildings and scaProjects
     assert.equal(bluebookBuildings[1].name, 'I.S. 61 - K');
     assert.equal(lcgmsBuildings[1].name, 'Strawberry Sunrise');
     assert.equal(scaProjectsBuildings[1].name, 'Avocado Adventure');
@@ -287,7 +287,7 @@ module('Unit | Model | public schools analysis', function(hooks) {
     // analysis.allSchools.mapBy('name') =
     // ["I.S. 2 - K", "I.S. 61 - K", "Starfruit Sauna", "P.S. 91 - K", "Banana Bonanza", "Strawberry Sunrise", "Cantelope Castle"]
 
-    // allSchools concatenates bluebook and lcgms
+    // allSchools = ceqr_school_buildings
     assert.equal(bluebookSchools[1].name, 'I.S. 61 - K');
     assert.equal(lcgmsSchools[1].name, 'Strawberry Sunrise');
     // ^^ do we need to test that .compact works and that no null values are added to this allSchools concatenation?
@@ -350,16 +350,11 @@ module('Unit | Model | public schools analysis', function(hooks) {
         * doeUtilChanges.title (string)
         * doeUtilChanges.bldg_id (string)
         * doeUtilChanges.bldg_id_additional (string)
-      * bluebook (array of objects)
-        * bluebook.name (string)
-        * bluebook.source (string)
-        * bluebook.bldg_id (string)
-        * bluebook.level (string)
-      * lcgms (array of objects)
-        * lcgms.name (string)
-        * lcgms.source (string)
-        * lcgms.bldg_id (string)
-        * lcgms.level (string)
+      * ceqr_school_buildings (array of objects)
+        * ceqr_school_buildings.name (string)
+        * ceqr_school_buildings.source (string)
+        * ceqr_school_buildings.bldg_id (string)
+        * ceqr_school_buildings.level (string)
       * scaProjects (array of objects)
         * scaProjects.name (string)
         * scaProjects.source (string)
@@ -409,7 +404,7 @@ module('Unit | Model | public schools analysis', function(hooks) {
           bldg_id_additional: '',
         },
       ],
-      bluebook: () => [
+      ceqr_school_buildings: () => [
         {
           name: 'Raspberry Railway',
           source: 'bluebook',
@@ -428,8 +423,6 @@ module('Unit | Model | public schools analysis', function(hooks) {
           bldg_id: 'BBSS1',
           level: 'is',
         },
-      ],
-      lcgms: () => [
         {
           name: 'Banana Bonanza',
           bldg_id: 'LCGMS_BB1',
@@ -456,7 +449,7 @@ module('Unit | Model | public schools analysis', function(hooks) {
     assert.equal(analysis.doeUtilChangesBldgIds[4], 'additional_AA'); // checks that the additional building IDs start after the end of the bldg_id list
     assert.equal(analysis.doeUtilChangesBldgIds[8], 'additional_RR'); // checks that both the "" values under bldg_id and bldg_id_additional for "Organizing the Olive Oasis" are not included
 
-    // buildings is a concatenation of bluebook, lcgms, and scaProjects
+    // buildings is a concatenation of ceqr_school_buildings and scaProjects
     // analysis.buildings.mapBy('name') = [ "Raspberry Railway", "Plum Palace", "Starfruit Sauna", "Banana Bonanza", "Strawberry Sunrise"]
     assert.equal(analysis.buildings[3].name, 'Banana Bonanza');
 
@@ -486,7 +479,7 @@ module('Unit | Model | public schools analysis', function(hooks) {
     /*
       input variables:
       * this test incorporates all variables from the subdistrictTotalsTest trait in the public-schools-analysis mirage factory
-      * it also incorporates testsForSchools trait defined in the mirage factory with bluebook, lcgms, and scaProjects as the
+      * it also incorporates testsForSchools trait defined in the mirage factory with ceqr_school_buildings and scaProjects as the
       three different types of schools
       tested variables:
       * futureResidentialDev[n].ps_students/is_students/hs_students (integer)
@@ -508,8 +501,8 @@ module('Unit | Model | public schools analysis', function(hooks) {
     const analysis = await project.get('publicSchoolsAnalysis');
 
     assert.equal(analysis.borough, 'Brooklyn');
-    assert.equal(analysis.allSchools[4].name, 'Banana Bonanza'); // 3rd school under bluebooks
-    assert.equal(analysis.subdistrictTotals[0].allBuildings[4].name, 'Banana Bonanza'); // allBuildings = this.allSchools = concatenated bluebook & lcgms projects
+    assert.equal(analysis.allSchools[4].name, 'Banana Bonanza'); // 3rd school for bluebooks
+    assert.equal(analysis.subdistrictTotals[0].allBuildings[4].name, 'Banana Bonanza'); // allBuildings = this.allSchools = ceqr_school_buildings
 
     // HS tables
     assert.equal(analysis.subdistrictTotals[0].studentMultiplier, 0.09); // currentMultiplier.hs

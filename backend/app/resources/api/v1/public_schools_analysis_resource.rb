@@ -20,8 +20,7 @@ module Api
         :future_enrollment_projections,
         :future_enrollment_new_housing,
     
-        :bluebook,
-        :lcgms,
+        :ceqr_school_buildings,
         :sca_projects,
     
         :doe_util_changes,
