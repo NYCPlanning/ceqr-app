@@ -11,16 +11,22 @@
    cd frontend  
    yarn
    ```
-2. **Create a local .env file from [backend/.env-example](backend/.env-example)**.  In your `.env` copy that is `.gitignore`'d, update the variables as needed (see in-file comments for instructions)
+1. **Create a local .env file from [backend/.env-example](backend/.env-example)**.  In your `.env` copy that is `.gitignore`'d, update the variables as needed (see in-file comments for instructions)
    ```sh
    cd backend
    cp .env-example .env
    ```
-3. **Start up the ceqr app**, with environment defined and all deps installed, and bring up the postgis with all dbs created and migrations applied:
+1. _Optional_:  Instantiate the app with production or staging ceqr_rails data
+   ```sh
+   # creates a backup sql file in a git-ignored location that the postgis will recognize, bring into the container, and instantiate on container startup.  
+   # When you log-in to ceqr-app, use your production ceqr-app user credentials (or staging, if you choose to dump and load the staging database)
+   pg_dump --no-owner --no-privileges -f backend/db/backup/ceqr_rails_prod.sql $(CEQR_RAILS_PROD_DBCONN) # Get the db connection string from Heroku config vars ("DATABASE_URL")
+   ```
+1. **Start up the ceqr app**, with environment defined and all deps installed, and bring up the postgis with all dbs created and migrations applied:
     ```sh
     docker-compose up # append "-d" if you'd like it to run in background, as a daemon
     ```
-4. **Confirm everything is OK** 
+1. **Confirm everything is OK** 
     ```sh
     docker-compose ps
 
@@ -80,7 +86,7 @@ Ember server will live-reload changes to the frontend app for you, so there is n
 
 Rails reloads the entire server on every request by default in development more, so there is no need to restart the docker services when making changes to files in `backend/`, altho configuration changes require restart
 
-### Creating and Running Migrations in Docker Container
+### Running Migrations
 Rails migrations are stored in /backend/app/db/migrate. 
 
 In order to create a rails migration inside of a docker container follow these steps:

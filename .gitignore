@@ -8,5 +8,5 @@
 .env
 node_modules
 
-
-*.fixturesql
+# optional database backup to load prod data into docker postgis
+backend/db/backup
