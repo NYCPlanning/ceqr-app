@@ -3,15 +3,15 @@ require 'rails_helper'
 RSpec.describe "CeqrData SCA Enrollment Projections", type: :model do
   ##### FUTURE ENROLLMENT PROJECTIONS
   context "by school districts" do
-    let(:sca_enrollment_projections_by_sd_2018) { CeqrData::ScaEnrollmentProjectionsBySd.version('2018') }
-    let(:sca_enrollment_projections_by_sd_2017) { CeqrData::ScaEnrollmentProjectionsBySd.version('2017') }
+    let(:sca_e_projections_by_sd_2018) { CeqrData::ScaEProjectionsBySd.version('2018') }
+    let(:sca_e_projections_by_sd_2017) { CeqrData::ScaEProjectionsBySd.version('2017') }
   
     # future_enrollment_projections VERSION 2018
     it "returns an array of future_enrollment_projections VERSION 2018" do
       district = 2
       buildYearMaxed = 2023
 
-      future_enrollment_projections = sca_enrollment_projections_by_sd_2018.enrollment_projection_by_subdistrict_for_year(buildYearMaxed, district)
+      future_enrollment_projections = sca_e_projections_by_sd_2018.enrollment_projection_by_subdistrict_for_year(buildYearMaxed, district)
 
       expect(future_enrollment_projections.first[:district]).to be_a Integer
       expect(future_enrollment_projections.first[:ps]).to be_an Integer
@@ -27,7 +27,7 @@ RSpec.describe "CeqrData SCA Enrollment Projections", type: :model do
       district = 2
       buildYearMaxed = '2023'
 
-      future_enrollment_projections = sca_enrollment_projections_by_sd_2017.enrollment_projection_by_subdistrict_for_year(buildYearMaxed, district)
+      future_enrollment_projections = sca_e_projections_by_sd_2017.enrollment_projection_by_subdistrict_for_year(buildYearMaxed, district)
 
       expect(future_enrollment_projections.first[:district]).to be_a Integer
       expect(future_enrollment_projections.first[:ps]).to be_an Integer
@@ -41,15 +41,15 @@ RSpec.describe "CeqrData SCA Enrollment Projections", type: :model do
 
   ### HS PROJECTIONS
   context "by boroughs" do
-    let(:sca_enrollment_projections_by_boro_2018) { CeqrData::ScaEnrollmentProjectionsByBoro.version('2018') }
-    let(:sca_enrollment_projections_by_boro_2017) { CeqrData::ScaEnrollmentProjectionsByBoro.version('2017') }
+    let(:sca_e_projections_by_boro_2018) { CeqrData::ScaEProjectionsByBoro.version('2018') }
+    let(:sca_e_projections_by_boro_2017) { CeqrData::ScaEProjectionsByBoro.version('2017') }
 
     # hs_projections VERSION 2018
     it "returns an array of hs_projections VERSION 2018" do
       project_borough = 'manhattan'
       buildYearMaxed = '2023'
 
-      hs_projections = sca_enrollment_projections_by_boro_2018.enrollment_projection_by_boro_for_year(buildYearMaxed, project_borough)
+      hs_projections = sca_e_projections_by_boro_2018.enrollment_projection_by_boro_for_year(buildYearMaxed, project_borough)
 
       expect(hs_projections.first[:year]).to be_a String
       expect(hs_projections.first[:hs]).to be_an Integer
@@ -65,7 +65,7 @@ RSpec.describe "CeqrData SCA Enrollment Projections", type: :model do
       project_borough = 'manhattan'
       buildYearMaxed = '2023'
 
-      hs_projections = sca_enrollment_projections_by_boro_2017.enrollment_projection_by_boro_for_year(buildYearMaxed, project_borough)
+      hs_projections = sca_e_projections_by_boro_2017.enrollment_projection_by_boro_for_year(buildYearMaxed, project_borough)
 
       expect(hs_projections.first[:year]).to be_a String
       expect(hs_projections.first[:hs]).to be_an Integer

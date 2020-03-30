@@ -143,8 +143,8 @@ class PublicSchoolsAnalysis < ApplicationRecord
 # array of objects --> number of high school students projected in a borough by a certain year
   def set_hs_projections
   # buildYearMaxed is defined in private methods
-  enrollment_projection_by_boro = CeqrData::ScaEnrollmentProjectionsByBoro.version(
-    data_package.table_for("sca_enrollment_projections_by_boro")
+  enrollment_projection_by_boro = CeqrData::ScaEProjectionsByBoro.version(
+    data_package.table_for("sca_e_projections_by_boro")
   ).enrollment_projection_by_boro_for_year(
     buildYearMaxed.to_s, project.borough
   )
@@ -166,8 +166,8 @@ def set_future_enrollment_projections
 
   districts = subdistricts.map { |d| d['district'] }
 
-  enrollment_projection_by_district = CeqrData::ScaEnrollmentProjectionsBySd.version(
-    data_package.table_for("sca_enrollment_projections_by_sd")
+  enrollment_projection_by_district = CeqrData::ScaEProjectionsBySd.version(
+    data_package.table_for("sca_e_projections_by_sd")
   ).enrollment_projection_by_subdistrict_for_year(buildYearMaxed, districts)
 
   self.future_enrollment_projections = enrollment_projection_by_district.map do |pr|
@@ -340,7 +340,7 @@ end
 ### PRIVATE METHODS FOR HS_PROJECTIONS & FUTURE_ENROLLMENT_PROJECTIONS
 
   def buildYearMaxed    
-    maxYear = data_package.schemas["sca_enrollment_projections_by_sd"]["maxYear"]
+    maxYear = data_package.schemas["sca_e_projections_by_sd"]["maxYear"]
 
     project.build_year > maxYear ? maxYear : project.build_year
   end

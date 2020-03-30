@@ -10,7 +10,7 @@ if DataPackage.where(package: "public_schools", version: "november_2017").first.
     schemas: {
       "doe_school_subdistricts": { table: "2017" },
       "ceqr_school_buildings": {
-        table: 2018,
+        table: "2018",
         sources: [
           {name: "lcgms", version: '2018-09-10', minYear: 2017, maxYear: 2018},
           {name: "bluebook", minYear: 2016, maxYear: 2017}
@@ -29,12 +29,12 @@ if DataPackage.where(package: "public_schools", version: "november_2017").first.
         maxYear: 2025,
         table: "2017",
       },
-      "sca_enrollment_projections_by_boro": {
+      "sca_e_projections_by_boro": {
         minYear: 2015,
         maxYear: 2025,
         table: "2017",
       },
-      "sca_enrollment_projections_by_sd": {
+      "sca_e_projections_by_sd": {
         minYear: 2015,
         maxYear: 2025,
         table: "2017",
@@ -60,7 +60,7 @@ if DataPackage.where(package: "public_schools", version: "november_2018").first.
     schemas: {
       "doe_school_subdistricts": { table: "2017" },
       "ceqr_school_buildings": {
-        table: 2018,
+        table: "2018",
         sources: [
           {name: "lcgms", version: '2018-12-19', minYear: 2018, maxYear: 2019},
           {name: "bluebook", minYear: 2017, maxYear: 2018}
@@ -79,12 +79,12 @@ if DataPackage.where(package: "public_schools", version: "november_2018").first.
         maxYear: 2027,
         table: "2018"
       },
-      "sca_enrollment_projections_by_boro": {
+      "sca_e_projections_by_boro": {
         minYear: 2017,
         maxYear: 2027,
         table: "2018"
       },
-      "sca_enrollment_projections_by_sd": {
+      "sca_e_projections_by_sd": {
         minYear: 2017,
         maxYear: 2027,
         table: "2018"
@@ -109,8 +109,8 @@ if DataPackage.where(package: "public_schools", version: "november_2018_q2").fir
     release_date: Date.parse('2019-04-01'),
     schemas: {
       "doe_school_subdistricts": { table: "2017" },
-      "ceqr_school_buildings": {
-        table: 2018,
+      "ceqr_school_buildings": {  
+        table: "2018",
         sources: [
           {name: "lcgms", version: '2018-12-19', minYear: 2018, maxYear: 2019},
           {name: "bluebook", minYear: 2017, maxYear: 2018}
@@ -129,12 +129,12 @@ if DataPackage.where(package: "public_schools", version: "november_2018_q2").fir
         maxYear: 2027,
         table: "2018"
       },
-      "sca_enrollment_projections_by_boro": {
+      "sca_e_projections_by_boro": {
         minYear: 2017,
         maxYear: 2027,
         table: "2018"
       },
-      "sca_enrollment_projections_by_sd": {
+      "sca_e_projections_by_sd": {
         minYear: 2017,
         maxYear: 2027,
         table: "2018"

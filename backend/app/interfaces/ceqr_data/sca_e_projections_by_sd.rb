@@ -1,6 +1,6 @@
 module CeqrData
-  class ScaEnrollmentProjectionsBySd < Base
-    self.schema = "sca_enrollment_projections_by_sd"
+  class ScaEProjectionsBySd < Base
+    self.schema = "sca_e_projections_by_sd"
 
   # primary and intermediate school student enrollment projections by year and borough
     def enrollment_projection_by_subdistrict_for_year(buildYearMaxed, district)

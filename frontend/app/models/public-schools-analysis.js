@@ -37,8 +37,8 @@ export default DS.Model.extend({
 
   // Schools Data version
   dataVersion: computed.alias('dataPackage.version'),
-  maxProjection: computed.alias('dataPackage.schemas.sca_enrollment_projections_by_sd.maxYear'),
-  minProjection: computed.alias('dataPackage.schemas.sca_enrollment_projections_by_sd.minYear'),
+  maxProjection: computed.alias('dataPackage.schemas.sca_e_projections_by_sd.maxYear'),
+  minProjection: computed.alias('dataPackage.schemas.sca_e_projections_by_sd.minYear'),
 
   // Derived from map
   esSchoolChoice: DS.attr('boolean'),

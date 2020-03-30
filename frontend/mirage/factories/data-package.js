@@ -59,12 +59,12 @@ export default Factory.extend({
         maxYear: 2025,
         table: '2017',
       },
-      sca_enrollment_projections_by_boro: {
+      sca_e_projections_by_boro: {
         minYear: 2015,
         maxYear: 2025,
         table: '2017',
       },
-      sca_enrollment_projections_by_sd: {
+      sca_e_projections_by_sd: {
         minYear: 2015,
         maxYear: 2025,
         table: '2017',
