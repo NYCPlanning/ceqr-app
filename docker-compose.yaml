@@ -46,7 +46,6 @@ services:
       # configures container to initialize with database backup if present
       - ./backend/db/backup:/docker-entrypoint-initdb.d
     environment:
-      - POSTGRES_DB=ceqr_rails
       - POSTGRES_HOST_AUTH_METHOD=trust # <== not secure, only for local development
   # short-lived container to create db if not already running
   migrate:
