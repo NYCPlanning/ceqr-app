@@ -301,9 +301,9 @@ export default Factory.extend({
     thresholdPsIsStudents: 50,
   }),
 
-  // TRAIT for list of schools, including ceqr_school_buildings and scaProjects
+  // TRAIT for list of schools, including school_buildings and scaProjects
   schoolsForTests: trait({
-    ceqr_school_buildings: [
+    school_buildings: [
       {
         name: 'I.S. 2 - K',
         org_id: 'K002',
@@ -663,7 +663,7 @@ export default Factory.extend({
     },
   ],
   subdistrictsFromUser: () => [],
-  ceqr_school_buildings: () => [
+  school_buildings: () => [
     {
       x: 997684,
       y: 178345,

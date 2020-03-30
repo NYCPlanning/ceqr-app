@@ -41,11 +41,11 @@ RSpec.describe PublicSchoolsAnalysis, type: :model do
     expect(project.public_schools_analysis.is_school_choice).to eq(true)
   end
 
-  it "sets ceqr_school_buildings correctly" do
-    expect(project.public_schools_analysis.ceqr_school_buildings[0]['district']).to eq(15)
-    expect(project.public_schools_analysis.ceqr_school_buildings[0]['subdistrict']).to eq(1)
+  it "sets school_buildings correctly" do
+    expect(project.public_schools_analysis.school_buildings[0]['district']).to eq(15)
+    expect(project.public_schools_analysis.school_buildings[0]['subdistrict']).to eq(1)
 
-    expect(project.public_schools_analysis.ceqr_school_buildings.first).to match_json_schema("ceqr_school_buildings")
+    expect(project.public_schools_analysis.school_buildings.first).to match_json_schema("ceqr_school_buildings")
   end
 
   it "sets sca projects correctly" do
@@ -73,7 +73,7 @@ RSpec.describe PublicSchoolsAnalysis, type: :model do
   end
 
   it "sets set doe_util_changes correctly" do
-    schoolBuildingIds = project.public_schools_analysis.ceqr_school_buildings.map {|b| b['bldg_id']}
+    schoolBuildingIds = project.public_schools_analysis.school_buildings.map {|b| b['bldg_id']}
 
     allBuildingIds = (schoolBuildingIds).uniq
 
