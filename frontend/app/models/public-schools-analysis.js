@@ -86,9 +86,9 @@ export default DS.Model.extend({
   }),
 
   // By Subdistrict
-  ceqr_school_buildings: DS.attr('public-schools/schools', { defaultValue() { return []; } }),
+  school_buildings: DS.attr('public-schools/schools', { defaultValue() { return []; } }),
 
-  buildingsGeojson: computed('ceqr_school_buildings', function() {
+  buildingsGeojson: computed('school_buildings', function() {
     const buildings = this.ceqr_schools_buildings;
 
     const features = buildings.map((b) => {
@@ -129,9 +129,9 @@ export default DS.Model.extend({
     return turf.featureCollection(features);
   }),
 
-  buildings: computed('ceqr_school_buildings', 'scaProjects', function() {
+  buildings: computed('school_buildings', 'scaProjects', function() {
     return (
-      this.get('ceqr_school_buildings')
+      this.get('school_buildings')
     ).concat(
       this.get('scaProjects'),
     ).compact();
@@ -142,8 +142,8 @@ export default DS.Model.extend({
 
   // ceqr_school_buildings dataset is a combination of two datasets lcgms and bluebook
   // lcgms dataset represents schools that opened recently
-  newlyOpenedSchools: computed('analysis.ceqr_school_buildings', function() {
-    return this.ceqr_school_buildings.find((school) => school.source === 'lcgms');
+  newlyOpenedSchools: computed('analysis.school_buildings', function() {
+    return this.school_buildings.find((school) => school.source === 'lcgms');
   }),
 
   // Future
@@ -204,9 +204,9 @@ export default DS.Model.extend({
   futureEnrollmentNewHousing: DS.attr('', { defaultValue() { return []; } }),
 
   // Tables
-  allSchools: computed('ceqr_school_buildings', function() {
+  allSchools: computed('school_buildings', function() {
     return (
-      this.ceqr_school_buildings
+      this.school_buildings
     ).compact();
   }),
 

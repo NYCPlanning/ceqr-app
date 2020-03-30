@@ -32,7 +32,7 @@ class PublicSchoolsAnalysis < ApplicationRecord
     set_subdistricts_from_db
     set_es_school_choice
     set_is_school_choice
-    set_ceqr_school_buildings
+    set_school_buildings
     set_sca_projects
     set_hs_projections
     set_future_enrollment_projections
@@ -82,7 +82,7 @@ class PublicSchoolsAnalysis < ApplicationRecord
 ### CEQR_SCHOOL_BUILDINGS SCHOOLS
 # array of objects --> each object as a school
 # combined bluebook and lcgms datasets to make ceqr_school_buildings dataset
-  def set_ceqr_school_buildings
+  def set_school_buildings
     # subdistrict_pairs are e.g. "(<district>, <subdistrict>)" and defined in private methods
     db = CeqrData::CeqrSchoolBuildings.version(data_package.table_for("ceqr_school_buildings"))
     
@@ -105,8 +105,8 @@ class PublicSchoolsAnalysis < ApplicationRecord
     create_new_schools(is_schools, 'is', new_schools_array)
     create_new_schools(hs_schools, 'hs', new_schools_array)
 
-    # set our analysis.ceqr_school_buildings to the populated new_schools_array
-    self.ceqr_school_buildings = new_schools_array
+    # set our analysis.school_buildings to the populated new_schools_array
+    self.school_buildings = new_schools_array
   end
 
 ### SCA PROJECTS SCHOOLS
@@ -217,7 +217,7 @@ end
 def set_doe_util_changes
 
   # there is no bldg_id column for sca projects
-  buildings = self.ceqr_school_buildings
+  buildings = self.school_buildings
 
   buildings_ids_array = buildings.map {|b| b['bldg_id']}.uniq
 
@@ -239,12 +239,12 @@ def set_doe_util_changes
   end
 end
 
-### PRIVATE METHODS FOR CEQR_SCHOOL_BUILDINGS
+### PRIVATE METHODS FOR SCHOOL_BUILDINGS
 
   # finds the first object in the schools array that matches org_id, bldg_id, level, and dataVersion of
   # the new data grabbed from the database (e.g. ps_schools)
   def find_existing_school_building(existing_schools, level)
-    self.ceqr_school_buildings.find {|school_building| school_building[:org_id] == existing_schools[:org_id] && school_building[:bldg_id] == existing_schools[:bldg_id] && school_building[:level] == level}
+    self.school_buildings.find {|school_building| school_building[:org_id] == existing_schools[:org_id] && school_building[:bldg_id] == existing_schools[:bldg_id] && school_building[:level] == level}
   end
 
   # formats the data into a object with reformatted properties

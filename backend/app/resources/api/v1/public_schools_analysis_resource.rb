@@ -20,7 +20,7 @@ module Api
         :future_enrollment_projections,
         :future_enrollment_new_housing,
     
-        :ceqr_school_buildings,
+        :school_buildings,
         :sca_projects,
     
         :doe_util_changes,
