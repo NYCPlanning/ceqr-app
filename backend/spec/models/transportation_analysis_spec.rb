@@ -96,7 +96,7 @@ RSpec.describe TransportationAnalysis, type: :model do
       end
   
       it "sets the default study selection based on required study selection" do
-        expect(analysis.census_tracts_selection).to eq(["36047000100", "36061001300", "36061001502", "36061000900", "36047000301"])
+        expect(analysis.census_tracts_selection).to eq(["36047000301", "36047000100", "36061001300", "36061001502", "36061000900"])
       end
     end
   end

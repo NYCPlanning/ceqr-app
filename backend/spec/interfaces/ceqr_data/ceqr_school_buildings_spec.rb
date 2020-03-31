@@ -17,12 +17,12 @@ RSpec.describe "CeqrData Ceqr School Buildings", type: :model do
       expect(ps_schools.first[:subdistrict]).to be_an Integer
       expect(ps_schools.first[:borocode]).to be_an Integer
 
-      expect(ps_schools.first[:ps_capacity]).to be_an Integer
-      expect(ps_schools.first[:ps_enroll]).to be_an Integer
-      expect(ps_schools.first[:ms_capacity]).to be_an Integer
-      expect(ps_schools.first[:ms_enroll]).to be_an Integer
-      expect(ps_schools.first[:hs_capacity]).to be_an Integer
-      expect(ps_schools.first[:hs_enroll]).to be_an Integer
+      expect(ps_schools.first[:pc]).to be_an Integer
+      expect(ps_schools.first[:pe]).to be_an Integer
+      expect(ps_schools.first[:ic]).to be_an Integer
+      expect(ps_schools.first[:ie]).to be_an Integer
+      expect(ps_schools.first[:hc]).to be_an Integer
+      expect(ps_schools.first[:he]).to be_an Integer
 
       expect(ps_schools.first[:bldg_name]).to be_a String
       expect(ps_schools.first[:bldg_id]).to be_a String
@@ -47,12 +47,12 @@ RSpec.describe "CeqrData Ceqr School Buildings", type: :model do
       expect(ps_schools.first[:subdistrict]).to be_an Integer
       expect(ps_schools.first[:borocode]).to be_an Integer
 
-      expect(ps_schools.first[:ps_capacity]).to be_an Integer
-      expect(ps_schools.first[:ps_enroll]).to be_an Integer
-      expect(ps_schools.first[:ms_capacity]).to be_an Integer
-      expect(ps_schools.first[:ms_enroll]).to be_an Integer
-      expect(ps_schools.first[:hs_capacity]).to be_an Integer
-      expect(ps_schools.first[:hs_enroll]).to be_an Integer
+      expect(ps_schools.first[:pc]).to be_an Integer
+      expect(ps_schools.first[:pe]).to be_an Integer
+      expect(ps_schools.first[:ic]).to be_an Integer
+      expect(ps_schools.first[:ie]).to be_an Integer
+      expect(ps_schools.first[:hc]).to be_an Integer
+      expect(ps_schools.first[:he]).to be_an Integer
 
       expect(ps_schools.first[:bldg_name]).to be_a String
       expect(ps_schools.first[:bldg_id]).to be_a String
@@ -77,12 +77,12 @@ RSpec.describe "CeqrData Ceqr School Buildings", type: :model do
       expect(is_schools.first[:subdistrict]).to be_an Integer
       expect(is_schools.first[:borocode]).to be_an Integer
 
-      expect(is_schools.first[:ps_capacity]).to be_an Integer
-      expect(is_schools.first[:ps_enroll]).to be_an Integer
-      expect(is_schools.first[:ms_capacity]).to be_an Integer
-      expect(is_schools.first[:ms_enroll]).to be_an Integer
-      expect(is_schools.first[:hs_capacity]).to be_an Integer
-      expect(is_schools.first[:hs_enroll]).to be_an Integer
+      expect(is_schools.first[:pc]).to be_an Integer
+      expect(is_schools.first[:pe]).to be_an Integer
+      expect(is_schools.first[:ic]).to be_an Integer
+      expect(is_schools.first[:ie]).to be_an Integer
+      expect(is_schools.first[:hc]).to be_an Integer
+      expect(is_schools.first[:he]).to be_an Integer
 
       expect(is_schools.first[:bldg_name]).to be_a String
       expect(is_schools.first[:bldg_id]).to be_a String
@@ -107,12 +107,12 @@ RSpec.describe "CeqrData Ceqr School Buildings", type: :model do
       expect(is_schools.first[:subdistrict]).to be_an Integer
       expect(is_schools.first[:borocode]).to be_an Integer
 
-      expect(is_schools.first[:ps_capacity]).to be_an Integer
-      expect(is_schools.first[:ps_enroll]).to be_an Integer
-      expect(is_schools.first[:ms_capacity]).to be_an Integer
-      expect(is_schools.first[:ms_enroll]).to be_an Integer
-      expect(is_schools.first[:hs_capacity]).to be_an Integer
-      expect(is_schools.first[:hs_enroll]).to be_an Integer
+      expect(is_schools.first[:pc]).to be_an Integer
+      expect(is_schools.first[:pe]).to be_an Integer
+      expect(is_schools.first[:ic]).to be_an Integer
+      expect(is_schools.first[:ie]).to be_an Integer
+      expect(is_schools.first[:hc]).to be_an Integer
+      expect(is_schools.first[:he]).to be_an Integer
 
       expect(is_schools.first[:bldg_name]).to be_a String
       expect(is_schools.first[:bldg_id]).to be_a String
@@ -137,12 +137,12 @@ RSpec.describe "CeqrData Ceqr School Buildings", type: :model do
       expect(hs_schools.first[:subdistrict]).to be_an Integer
       expect(hs_schools.first[:borocode]).to be_an Integer
 
-      expect(hs_schools.first[:ps_capacity]).to be_an Integer
-      expect(hs_schools.first[:ps_enroll]).to be_an Integer
-      expect(hs_schools.first[:ms_capacity]).to be_an Integer
-      expect(hs_schools.first[:ms_enroll]).to be_an Integer
-      expect(hs_schools.first[:hs_capacity]).to be_an Integer
-      expect(hs_schools.first[:hs_enroll]).to be_an Integer
+      expect(hs_schools.first[:pc]).to be_an Integer
+      expect(hs_schools.first[:pe]).to be_an Integer
+      expect(hs_schools.first[:ic]).to be_an Integer
+      expect(hs_schools.first[:ie]).to be_an Integer
+      expect(hs_schools.first[:hc]).to be_an Integer
+      expect(hs_schools.first[:he]).to be_an Integer
 
       expect(hs_schools.first[:bldg_name]).to be_a String
       expect(hs_schools.first[:bldg_id]).to be_a String
@@ -167,12 +167,12 @@ RSpec.describe "CeqrData Ceqr School Buildings", type: :model do
       expect(hs_schools.first[:subdistrict]).to be_an Integer
       expect(hs_schools.first[:borocode]).to be_an Integer
 
-      expect(hs_schools.first[:ps_capacity]).to be_an Integer
-      expect(hs_schools.first[:ps_enroll]).to be_an Integer
-      expect(hs_schools.first[:ms_capacity]).to be_an Integer
-      expect(hs_schools.first[:ms_enroll]).to be_an Integer
-      expect(hs_schools.first[:hs_capacity]).to be_an Integer
-      expect(hs_schools.first[:hs_enroll]).to be_an Integer
+      expect(hs_schools.first[:pc]).to be_an Integer
+      expect(hs_schools.first[:pe]).to be_an Integer
+      expect(hs_schools.first[:ic]).to be_an Integer
+      expect(hs_schools.first[:ie]).to be_an Integer
+      expect(hs_schools.first[:hc]).to be_an Integer
+      expect(hs_schools.first[:he]).to be_an Integer
 
       expect(hs_schools.first[:bldg_name]).to be_a String
       expect(hs_schools.first[:bldg_id]).to be_a String

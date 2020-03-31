@@ -19,7 +19,7 @@ RSpec.describe "CeqrData SCA Enrollment Projections", type: :model do
       expect(future_enrollment_projections.first[:school_year]).to be_a String
 
       expect(future_enrollment_projections.first[:district]).to eq(district)
-      expect(future_enrollment_projections.first[:school_year]).to eq('2023-24')
+      expect(future_enrollment_projections.first[:school_year]).to eq('2023')
     end
 
     # future_enrollment_projections VERSION 2017
@@ -35,7 +35,7 @@ RSpec.describe "CeqrData SCA Enrollment Projections", type: :model do
       expect(future_enrollment_projections.first[:school_year]).to be_a String
 
       expect(future_enrollment_projections.first[:district]).to eq(district)
-      expect(future_enrollment_projections.first[:school_year]).to eq('2023-24')
+      expect(future_enrollment_projections.first[:school_year]).to eq('2023')
     end
   end
 
