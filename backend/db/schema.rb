@@ -85,6 +85,12 @@ ActiveRecord::Schema.define(version: 2020_03_30_155341) do
     t.index ["subdistricts_geojson_id"], name: "index_public_schools_analyses_on_subdistricts_geojson_id"
   end
 
+  create_table "solid_waste_analyses", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "project_id"
+  end
+
   create_table "subdistricts_geojsons", force: :cascade do |t|
     t.integer "public_schools_analysis_id"
     t.datetime "created_at", null: false
