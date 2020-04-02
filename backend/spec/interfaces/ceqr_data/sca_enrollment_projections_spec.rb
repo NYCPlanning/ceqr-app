@@ -46,14 +46,13 @@ RSpec.describe "CeqrData SCA Enrollment Projections", type: :model do
 
     # hs_projections VERSION 2018
     it "returns an array of hs_projections VERSION 2018" do
-      project_borough = 'manhattan'
+      project_borough = 'Manhattan'
       buildYearMaxed = '2023'
 
       hs_projections = sca_e_projections_by_boro_2018.enrollment_projection_by_boro_for_year(buildYearMaxed, project_borough)
 
       expect(hs_projections.first[:year]).to be_a String
       expect(hs_projections.first[:hs]).to be_an Integer
-      expect(hs_projections.first[:year]).to be_a String
 
       expect(hs_projections.first[:borough]).to eq(project_borough)
       # although we change this year to an integer for the public schools model, it come froms the database as a string
@@ -62,14 +61,13 @@ RSpec.describe "CeqrData SCA Enrollment Projections", type: :model do
 
     # hs_projections VERSION 2017
     it "returns an array of hs_projections VERSION 2017" do
-      project_borough = 'manhattan'
+      project_borough = 'Manhattan'
       buildYearMaxed = '2023'
 
       hs_projections = sca_e_projections_by_boro_2017.enrollment_projection_by_boro_for_year(buildYearMaxed, project_borough)
 
       expect(hs_projections.first[:year]).to be_a String
       expect(hs_projections.first[:hs]).to be_an Integer
-      expect(hs_projections.first[:year]).to be_a String
 
       expect(hs_projections.first[:borough]).to eq(project_borough)
       # although we change this year to an integer for the public schools model, it come froms the database as a string

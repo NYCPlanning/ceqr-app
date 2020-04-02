@@ -6,7 +6,7 @@ module CeqrData
     def enrollment_projection_by_boro_for_year(buildYearMaxed, project_borough)
       @dataset.select(
         :borough, :year, :hs
-      ).where(year: buildYearMaxed).where(borough: project_borough.downcase)
+      ).where(year: buildYearMaxed).where(borough: project_borough)
     end
   end
 end
