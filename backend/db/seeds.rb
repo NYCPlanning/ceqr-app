@@ -169,7 +169,6 @@ if DataPackage.where(package: "public_schools", version: "november_2019").first.
       "doe_school_zones_ps": { table: "2019" },
       "doe_school_zones_is": { table: "2019" },
       "doe_school_zones_hs": { table: "2019" },
-      "sca_enrollment_pct_by_sd": { table: "2019" },
       "sca_housing_pipeline_by_boro": {
         minYear: 2018, # TODO: Update
         maxYear: 2027, # TODO: Update
@@ -180,23 +179,23 @@ if DataPackage.where(package: "public_schools", version: "november_2019").first.
         maxYear: 2027, # TODO: Update
         table: "2019"
       },
-      "sca_enrollment_projections_by_boro": {
-        minYear: 2017, # TODO: Update
-        maxYear: 2027, # TODO: Update
+      "sca_e_projections_by_boro": {
+        minYear: 2018, # TODO: Update
+        maxYear: 2028, # TODO: Update
         table: "2019"
       },
-      "sca_enrollment_projections_by_sd": {
-        minYear: 2017, # TODO: Update 
-        maxYear: 2027, # TODO: Update
+      "sca_e_projections_by_sd": {
+        minYear: 2018, # TODO: Update 
+        maxYear: 2028, # TODO: Update
         table: "2019"
       },
       "doe_significant_utilization_changes": {
-        table: "042019",
-        version: "2019-04-01" # TODO: Update, determine what "version" this is
+        table: "072019",
+        version: "2019-07-01" # TODO: Update, determine what "version" this is
       },
-      "sca_capital_projects": {
-        table: "2019",
-        version: "2018-12-04" # TODO: Update, determine what "version" this is
+      "sca_capacity_projects": {
+        table: "022019",
+        version: "2019-02-01" # TODO: Update, determine what "version" this is
       }
     }
   })

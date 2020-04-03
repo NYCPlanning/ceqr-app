@@ -68,7 +68,7 @@ RSpec.describe PublicSchoolsAnalysis, type: :model do
 
   it "sets hs_students_from_housing correctly" do
     # new_students in table sca_housing_pipeline_by_boro for Brooklyn is 4802
-    expect(project.public_schools_analysis.hs_students_from_housing).to eq(4802)
+    expect(project.public_schools_analysis.hs_students_from_housing).to eq(3129.0)
   end
 
   it "sets set future_enrollment_new_housing correctly" do
