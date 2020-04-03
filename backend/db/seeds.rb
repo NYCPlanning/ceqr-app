@@ -151,6 +151,56 @@ if DataPackage.where(package: "public_schools", version: "november_2018_q2").fir
   })
 end
 
+if DataPackage.where(package: "public_schools", version: "november_2019").first.nil?
+  DataPackage.create({
+    name: "November 2019",
+    version: "november_2019",
+    package: "public_schools",
+    release_date: Date.parse('2019-11-01'),
+    schemas: {
+      "doe_school_subdistricts": { table: "2017" },
+      "ceqr_school_buildings": {
+        table: 2019,
+        sources: [
+          {name: "lcgms", version: '2019-12-19', minYear: 2018, maxYear: 2019},
+          {name: "bluebook", minYear: 2017, maxYear: 2018}
+        ]
+      },
+      "doe_school_zones_ps": { table: "2019" },
+      "doe_school_zones_is": { table: "2019" },
+      "doe_school_zones_hs": { table: "2019" },
+      "sca_housing_pipeline_by_boro": {
+        minYear: 2018,
+        maxYear: 2027,
+        table: "2019"
+      },
+      "sca_housing_pipeline_by_sd": {
+        minYear: 2018,
+        maxYear: 2027,
+        table: "2019"
+      },
+      "sca_e_projections_by_boro": {
+        minYear: 2018,
+        maxYear: 2028,
+        table: "2019"
+      },
+      "sca_e_projections_by_sd": {
+        minYear: 2018,
+        maxYear: 2028,
+        table: "2019"
+      },
+      "doe_significant_utilization_changes": {
+        table: "072019",
+        version: "2019-07-01"
+      },
+      "sca_capacity_projects": {
+        table: "022019",
+        version: "2019-02-01"
+      }
+    }
+  })
+end
+
 if DataPackage.where(package: "ctpp", version: "2006_2010").first.nil?
   DataPackage.create({
     name: "CTPP 2006-2010",
