@@ -231,7 +231,6 @@ GEM
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
-    test-prof (0.11.3)
     thor (0.20.3)
     thread_safe (0.3.6)
     tzinfo (1.2.5)
@@ -261,7 +260,7 @@ DEPENDENCIES
   faker (~> 1.9.1)
   json_schemer
   jsonapi-authorization
-  jsonapi-resources
+  jsonapi-resources (= 0.9.7)
   jwt
   listen (>= 3.0.5, < 3.2)
   lograge
@@ -283,7 +282,6 @@ DEPENDENCIES
   simplecov
   spring
   spring-watcher-listen (~> 2.0.0)
-  test-prof
   tzinfo-data
 
 RUBY VERSION

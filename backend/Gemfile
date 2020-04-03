@@ -28,7 +28,7 @@ gem 'rack-cors'
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
-gem 'jsonapi-resources'
+gem 'jsonapi-resources', '0.9.7'
 gem 'jsonapi-authorization'
 gem 'pundit'
 
