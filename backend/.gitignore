@@ -34,3 +34,6 @@
 # Ignore test coverage
 /coverage
 test.lock
+
+/dump
+*.fixturesql

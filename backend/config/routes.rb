@@ -28,6 +28,7 @@ Rails.application.routes.draw do
       jsonapi_resources :data_packages
 
       # Analyses
+      jsonapi_resources :subdistricts_geojsons
       jsonapi_resources :public_schools_analyses
       jsonapi_resources :transportation_analyses
       jsonapi_resources :transportation_planning_factors

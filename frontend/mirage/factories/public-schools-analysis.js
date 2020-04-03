@@ -301,9 +301,9 @@ export default Factory.extend({
     thresholdPsIsStudents: 50,
   }),
 
-  // TRAIT for list of schools, including bluebook, lcgms, and scaProjects
+  // TRAIT for list of schools, including school_buildings and scaProjects
   schoolsForTests: trait({
-    bluebook: [
+    school_buildings: [
       {
         name: 'I.S. 2 - K',
         org_id: 'K002',
@@ -360,9 +360,6 @@ export default Factory.extend({
         is_capacity: 200,
         level: 'hs',
       },
-    ],
-    // LCGMS SCHOOLS
-    lcgms: [
       {
         name: 'Banana Bonanza',
         bldg_id: 'LCGMS_BB1',
@@ -584,20 +581,6 @@ export default Factory.extend({
         school_year: '2020-21',
       },
     ],
-    futureEnrollmentMultipliers: [
-      {
-        level: 'PS',
-        district: 1,
-        multiplier: 0.383266818664257,
-        subdistrict: 2,
-      },
-      {
-        level: 'MS',
-        district: 1,
-        multiplier: 0.582024949124332,
-        subdistrict: 2,
-      },
-    ],
     futureEnrollmentNewHousing: [
       {
         level: 'PS',
@@ -680,7 +663,7 @@ export default Factory.extend({
     },
   ],
   subdistrictsFromUser: () => [],
-  bluebook: () => [
+  school_buildings: () => [
     {
       x: 997684,
       y: 178345,
@@ -5379,8 +5362,6 @@ export default Factory.extend({
       capacityFuture: 423,
       the_geom_webmercator: '0101000020110F000002FD5E0159635FC17991CEBC15F35241',
     },
-  ],
-  lcgms: () => [
     {
       name: 'P.S. 583',
       level: 'ps',
@@ -6961,44 +6942,6 @@ export default Factory.extend({
       ps: 9198,
       district: 17,
       school_year: '2020-21',
-    },
-  ],
-  futureEnrollmentMultipliers: () => [
-    {
-      level: 'PS',
-      district: 17,
-      the_geom: null,
-      cartodb_id: 94,
-      multiplier: 0.383266818664257,
-      subdistrict: 2,
-      the_geom_webmercator: null,
-    },
-    {
-      level: 'MS',
-      district: 17,
-      the_geom: null,
-      cartodb_id: 97,
-      multiplier: 0.582024949124332,
-      subdistrict: 2,
-      the_geom_webmercator: null,
-    },
-    {
-      level: 'PS',
-      district: 17,
-      the_geom: null,
-      cartodb_id: 94,
-      multiplier: 0.483266818664257,
-      subdistrict: 1,
-      the_geom_webmercator: null,
-    },
-    {
-      level: 'MS',
-      district: 17,
-      the_geom: null,
-      cartodb_id: 97,
-      multiplier: 0.682024949124332,
-      subdistrict: 1,
-      the_geom_webmercator: null,
     },
   ],
   futureEnrollmentNewHousing: () => [

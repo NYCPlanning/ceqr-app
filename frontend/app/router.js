@@ -88,10 +88,6 @@ Router.map(function() {
       this.route('community-facilities', function() {
         this.route('analysis-threshold', { path: '/' });
       });
-
-      this.route('air-quality', function() {
-        this.route('analysis-threshold', { path: '/' });
-      });
     });
   });
 

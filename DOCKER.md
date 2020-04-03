@@ -11,16 +11,22 @@
    cd frontend  
    yarn
    ```
-2. **Create a local .env file from [backend/.env-example](backend/.env-example)**.  In your `.env` copy that is `.gitignore`'d, update the variables as needed (see in-file comments for instructions)
+1. **Create a local .env file from [backend/.env-example](backend/.env-example)**.  In your `.env` copy that is `.gitignore`'d, update the variables as needed (see in-file comments for instructions)
    ```sh
    cd backend
    cp .env-example .env
    ```
-3. **Start up the ceqr app**, with environment defined and all deps installed, and bring up the postgis with all dbs created and migrations applied:
+1. _Optional_:  Instantiate the app with production or staging ceqr_rails data
+   ```sh
+   # creates a backup sql file in a git-ignored location that the postgis will recognize, bring into the container, and instantiate on container startup.  
+   # When you log-in to ceqr-app, use your production ceqr-app user credentials (or staging, if you choose to dump and load the staging database)
+   pg_dump --no-owner --no-privileges -f backend/db/backup/ceqr_rails_prod.sql $(CEQR_RAILS_PROD_DBCONN) # Get the db connection string from Heroku config vars ("DATABASE_URL")
+   ```
+1. **Start up the ceqr app**, with environment defined and all deps installed, and bring up the postgis with all dbs created and migrations applied:
     ```sh
     docker-compose up # append "-d" if you'd like it to run in background, as a daemon
     ```
-4. **Confirm everything is OK** 
+1. **Confirm everything is OK** 
     ```sh
     docker-compose ps
 
@@ -63,6 +69,7 @@
 ### Local Development
 If you don't want to run the ember frontend inside the docker container, that's fine! It's slow! I feel ya! You can run the ember frontend on your local machine, hooked up to the docker backend like:
 ```sh
+docker-compose stop frontend
 cd frontend
 HOST=http://localhost:3000 DISABLE_MIRAGE=true ember s
 ```
@@ -79,6 +86,27 @@ Ember server will live-reload changes to the frontend app for you, so there is n
 
 Rails reloads the entire server on every request by default in development more, so there is no need to restart the docker services when making changes to files in `backend/`, altho configuration changes require restart
 
+### Running Migrations
+Rails migrations are stored in /backend/app/db/migrate. 
+
+In order to create a rails migration inside of a docker container follow these steps:
+
+Run docker `docker-compose up`
+
+Check which containers are running `docker-compose ps`
+
+SSH into the backend docker container `docker exec -it ceqr-app_backend_1 /bin/bash`
+
+Once inside the container, run the rails migration command `rails generate migration name_of_your_migration`
+
+**For running the migrations in the Heroku UI:**
+
+Navigate to the ceqr-app on the Labs Heroku account. Select the environment (e.g. staging) that you would like to run the migrations on. On the top right of the page, you will see a button that says "More". Click on this button and select "Run Console" from the dropdown menu. Type `bash` into the console and hit "Run". 
+
+In order to run the migrations: `rails db:migrate`
+
+If you created a new table and need to populate this table with data after running the migrations: 
+`rails db:seed`
 
 ### Debugging
 You can enter the running rails application by running:

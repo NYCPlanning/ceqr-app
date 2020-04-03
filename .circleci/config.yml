@@ -16,10 +16,11 @@ jobs:
 
       # Specify service dependencies here if necessary # CircleCI maintains a library of pre-built images
       # documented at https://circleci.com/docs/2.0/circleci-images/
-      - image: circleci/postgres:latest-postgis
+      - image: circleci/postgres:12.1-postgis
         environment:
           POSTGRES_USER: ceqr
           POSTGRES_DB: ceqr_test
+          POSTGRES_HOST_AUTH_METHOD: trust
 
     working_directory: ~/repo/backend
 

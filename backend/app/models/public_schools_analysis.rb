@@ -1,11 +1,13 @@
 class PublicSchoolsAnalysis < ApplicationRecord
   before_create :compute_for_project_create_or_update
+  after_create :create_subdistricts_geojson!
   
   before_update :compute_for_project_create_or_update,
     if: Proc.new { data_package_id_changed? || subdistricts_from_user_changed? }
 
   belongs_to :project
   belongs_to :data_package
+  has_one :subdistricts_geojson, dependent: :destroy
 
   def compute_for_updated_bbls!
     compute_for_project_create_or_update
@@ -22,14 +24,16 @@ class PublicSchoolsAnalysis < ApplicationRecord
 
   private
 
+  def create_subdistricts_geojson!
+    create_subdistricts_geojson
+  end
+
   def compute_for_project_create_or_update
     set_subdistricts_from_db
     set_es_school_choice
     set_is_school_choice
-    set_bluebook
-    set_lcgms
+    set_school_buildings
     set_sca_projects
-    set_future_enrollment_multipliers
     set_hs_projections
     set_future_enrollment_projections
     set_hs_students_from_housing
@@ -75,74 +79,34 @@ class PublicSchoolsAnalysis < ApplicationRecord
     self.is_school_choice = is_school_choice_array.include? true
   end
 
-### BLUEBOOK SCHOOLS
-# array of objects --> bluebook is one type of schools database
-  def set_bluebook
+### CEQR_SCHOOL_BUILDINGS SCHOOLS
+# array of objects --> each object as a school
+# combined bluebook and lcgms datasets to make ceqr_school_buildings dataset
+  def set_school_buildings
     # subdistrict_pairs are e.g. "(<district>, <subdistrict>)" and defined in private methods
-    db = CeqrData::ScaBluebook.version(data_package.table_for("sca_bluebook"))
+    db = CeqrData::CeqrSchoolBuildings.version(data_package.table_for("ceqr_school_buildings"))
     
-    ps_schools = db.ps_schools_in_subdistricts(subdistrict_pairs)
-    is_schools = db.is_schools_in_subdistricts(subdistrict_pairs)
+    ps_schools = db.primary_schools_in_subdistricts(subdistrict_pairs)
+    is_schools = db.intermediate_schools_in_subdistricts(subdistrict_pairs)
     hs_schools = db.high_schools_in_boro(project.boro_code)
 
-    # new_bluebook resets to an empty array each time bluebook database is queried
+    # new_schools_array resets to an empty array each time ceqr_school_buildings database is queried
     # e.g. a user adds a BBL to their project within a different school subdistrict
-    # we then PUSH data for schools that already exist in the app's memory (reformatted) to new_bluebook_array
-    # we also reformat and PUSH data for schools that did not previously exist in the app's memory to new_bluebook_array
+    # we then PUSH data for schools that already exist in the app's memory (reformatted) to new_schools_array
+    # we also reformat and PUSH data for schools that did not previously exist in the app's memory to new_schools_array
     # so the array is wiped out and repopulated every time
-    new_bluebook_array = []
+    new_schools_array = []
 
     # for schools that are ISHS or PSIS, we will list the building ID TWICE
     # BUT one object will have the ps/is/hs values and the other building ID
     # will have the values of the other school type
     # ex. two objects with the same building ID, one object with 'ps' values and one object with 'is' values
-    create_new_schools(ps_schools, 'ps', new_bluebook_array)
-    create_new_schools(is_schools, 'is', new_bluebook_array)
-    create_new_schools(hs_schools, 'hs', new_bluebook_array)
+    create_new_schools(ps_schools, 'ps', new_schools_array)
+    create_new_schools(is_schools, 'is', new_schools_array)
+    create_new_schools(hs_schools, 'hs', new_schools_array)
 
-    # set our analysis.bluebook to the populated new_bluebook_array
-    self.bluebook = new_bluebook_array
-  end
-
-### LCGMS SCHOOLS
-# array of objects --> lcgms is another type of schools database
-  def set_lcgms
-    # set new this array to empty each time database is queried
-    new_lcgms_array = []
-
-    # LCGMS data does not have districts and subdistricts, so we have to loop through each subdistrict,
-    # and check whether a school intersects the subdistrict's geom
-    # in the final object, district and subdistrict values come from the subdistricts table
-    subdistricts.each do |subdistrict|
-      subdistrict_geom = subdistrict[:geom]
-
-      lcgms_schools = CeqrData::DoeLcgms.version(
-        data_package.table_for("doe_lcgms")
-      ).lcgms_intersecting_subdistrict_geom(
-        subdistrict_geom
-      )
-
-      lcgms_schools.each do |school|
-        # LCGMS data also does not have borocode
-        # lcgms_borocode_lookup is defined in private methods
-        borocode = lcgms_borocode_lookup(school[:bldg_id])
-
-        # here we push the reformatted objects into new_lcgms_array
-        # for school_object_lcgms (defined in private methods) we have four arguments:
-        # 1-the school object that we query the database for,
-        # 2-the subdistrict object that we query the database for (this is used to populate the district & subdistrict properties)
-        # 3-the level of the school (e.g. 'ps'), 4-the borocde which is found through lcgms_borocode_lookup
-        if school[:org_level] === 'PS' || school[:org_level] === 'PSIS' || school[:org_level] === 'PK'
-          new_lcgms_array << school_object_lcgms(school, subdistrict, 'ps', borocode)
-        elsif school[:org_level] === 'IS' || school[:org_level] === 'PSIS' || school[:org_level] === 'ISHS'
-          new_lcgms_array << school_object_lcgms(school, subdistrict, 'is', borocode)
-        elsif school[:org_level] === 'HS' || school[:org_level] === 'ISHS'
-          new_lcgms_array << school_object_lcgms(school, subdistrict, 'hs', borocode)
-        end
-      end
-    end
-
-    self.lcgms = new_lcgms_array
+    # set our analysis.school_buildings to the populated new_schools_array
+    self.school_buildings = new_schools_array
   end
 
 ### SCA PROJECTS SCHOOLS
@@ -151,20 +115,20 @@ class PublicSchoolsAnalysis < ApplicationRecord
     # set new this array to empty each time database is queried
     new_sca_projects_array = []
 
-    # LCGMS data does not have districts and subdistricts, so we have to loop through each subdistrict,
+    # SCA data does not have districts and subdistricts, so we have to loop through each subdistrict,
     # and check whether a school intersects the subdistrict's geom
     # in the final object, district and subdistrict values come from the subdistricts table
     subdistricts.each do |subdistrict|
       subdistrict_geom = subdistrict[:geom]
 
-      sca_schools = CeqrData::ScaCapitalProjects.version(
-        data_package.table_for("sca_capital_projects")
+      sca_schools = CeqrData::ScaCapacityProjects.version(
+        data_package.table_for("sca_capacity_projects")
       ).sca_projects_intersecting_subdistrict_geom(
         subdistrict_geom
       )
 
       # here we push the reformatted objects into new_sca_projects_array
-      # for school_object_lcgms (defined in private methods) we have two arguments:
+      # for school_object_sca_projects (defined in private methods) we have two arguments:
       # 1-the school object that we query the database for,
       # 2-the subdistrict object that we query the database for (this is used to populate the district & subdistrict properties)
       sca_schools.each do |school|
@@ -175,32 +139,12 @@ class PublicSchoolsAnalysis < ApplicationRecord
     self.sca_projects = new_sca_projects_array
   end
 
-### FUTURE ENROLLMENT MULTIPLIERS
-# array of objects with "multiplier" values based on subdistrict, district, & level
-  def set_future_enrollment_multipliers
-    # subdistrict_pairs are e.g. "(<district>, <subdistrict>)" and defined in private methods
-    enrollment_pct_by_sd = CeqrData::ScaEnrollmentPctBySd.version(
-      data_package.table_for("sca_enrollment_pct_by_sd")
-    ).enrollment_percent_by_subdistrict(
-      subdistrict_pairs
-    )
-
-    self.future_enrollment_multipliers = enrollment_pct_by_sd.map do |em|
-      {
-        level: em[:level],
-        district: em[:district],
-        subdistrict: em[:subdistrict],
-        multiplier: em[:multiplier]
-      }
-    end
-  end
-
 ### HS PROJECTIONS
 # array of objects --> number of high school students projected in a borough by a certain year
   def set_hs_projections
   # buildYearMaxed is defined in private methods
-  enrollment_projection_by_boro = CeqrData::ScaEnrollmentProjectionsByBoro.version(
-    data_package.table_for("sca_enrollment_projections_by_boro")
+  enrollment_projection_by_boro = CeqrData::ScaEProjectionsByBoro.version(
+    data_package.table_for("sca_e_projections_by_boro")
   ).enrollment_projection_by_boro_for_year(
     buildYearMaxed.to_s, project.borough
   )
@@ -222,8 +166,8 @@ def set_future_enrollment_projections
 
   districts = subdistricts.map { |d| d['district'] }
 
-  enrollment_projection_by_district = CeqrData::ScaEnrollmentProjectionsBySd.version(
-    data_package.table_for("sca_enrollment_projections_by_sd")
+  enrollment_projection_by_district = CeqrData::ScaEProjectionsBySd.version(
+    data_package.table_for("sca_e_projections_by_sd")
   ).enrollment_projection_by_subdistrict_for_year(buildYearMaxed, districts)
 
   self.future_enrollment_projections = enrollment_projection_by_district.map do |pr|
@@ -273,7 +217,7 @@ end
 def set_doe_util_changes
 
   # there is no bldg_id column for sca projects
-  buildings = self.bluebook + self.lcgms
+  buildings = self.school_buildings
 
   buildings_ids_array = buildings.map {|b| b['bldg_id']}.uniq
 
@@ -295,18 +239,18 @@ def set_doe_util_changes
   end
 end
 
-### PRIVATE METHODS FOR BLUEBOOK SCHOOLS
+### PRIVATE METHODS FOR SCHOOL_BUILDINGS
 
-  # finds the first object in the bluebook array that matches org_id, bldg_id, level, and dataVersion of
+  # finds the first object in the schools array that matches org_id, bldg_id, level, and dataVersion of
   # the new data grabbed from the database (e.g. ps_schools)
-  def find_existing_bluebook_school(schools, level)
-    self.bluebook.find {|bluebook| bluebook[:org_id] == schools[:org_id] && bluebook[:bldg_id] == schools[:bldg_id] && bluebook[:level] == level}
+  def find_existing_school_building(existing_schools, level)
+    self.school_buildings.find {|school_building| school_building[:org_id] == existing_schools[:org_id] && school_building[:bldg_id] == existing_schools[:bldg_id] && school_building[:level] == level}
   end
 
   # formats the data into a object with reformatted properties
   # because some of intermediate level schools are named with "ms" rather than "is",
   # we check that if "is" is passed in as the level, it searches for "ms" when populating values
-  def school_object_bluebook(school, level)
+  def school_object(school, level)
     level == "is" ? db_level = "ms" : db_level = level
 
     {
@@ -316,7 +260,7 @@ end
       level: level,
       district: school[:district],
       subdistrict: school[:subdistrict],
-      source: 'bluebook',
+      source: school[:source],
       capacity: school["#{db_level}_capacity".to_sym],
       capacityFuture: school["#{db_level}_capacity".to_sym],
       enroll: school["#{db_level}_enroll".to_sym],
@@ -333,70 +277,19 @@ end
   end
 
   # create_new_schools iterates through a school type from the database (e.g. ps_schools)
-  # if an object already exists (matches bldg_id, org_id, dataVersion and level),
-  # this already-reformatted object is pushed into new_bluebook_array
-  # if the object does not already exist, it is formatted by school_objects() and then pushed into the array
-  def create_new_schools(new_level_school, level, new_bluebook_array)
+  # if an object already exists on the frontend (matches bldg_id, org_id, dataVersion and level),
+  # this already-reformatted object is pushed into new_schools_array
+  # if the object does not already exist on the frontend, it is formatted by school_objects() and then pushed into the array
+  def create_new_schools(new_level_school, level, new_schools_array)
     new_level_school.each do |school|
-      existing = find_existing_bluebook_school(school, level)
+      existing = find_existing_school_building(school, level)
 
       if existing
-        new_bluebook_array << existing
+        new_schools_array << existing
       else
-        new_bluebook_array << school_object_bluebook(school, level)
+        new_schools_array << school_object(school, level)
       end
     end
-  end
-
-################################################################################
-### PRIVATE METHODS FOR LCGMS SCHOOLS
-
-# the lcgms database does not have columns for district, subdsitrict, or borocode
-# the string in column "bldg_id" is prefaced with a letter that denotes which borough the building is in
-# (this is more reliable than "org_id" because "bldg_id" is more specific)
-  def lcgms_borocode_lookup(bldg_id)
-    # grab first letter of bldg_id
-    borocode = bldg_id.gsub(/^[a-zA-Z]/)
-
-    case borocode.first
-    when 'M' then '1' #Manhattan
-    when 'X' then '2' #Bronx
-    when 'K' then '3' #Brooklyn
-    when 'Q' then '4' #Queens
-    when 'S' then '5' #Staten Island
-    end
-  end
-
-# "school" is the new queried data,
-# "district_source" is the subdistricts object queried from the database that matches subdistricts_pair
-# "level" is ps, is, or hs
-# borocode is determined from lcgms_borocode_lookup
-  def school_object_lcgms(school, district_source, level, borocode)
-    # lcgms capacity is input by the user
-    # if the database is queried again, and a user has already input a value,
-    # we check for this as previousSaved, and populate the capacity property with this value
-    # otherwise the capacity property is an empty string
-    existingLcgms = self.lcgms.find{|lcgms| lcgms[:org_id] == school[:org_id]}
-    
-    {
-      name: school[:name],
-      org_id: school[:org_id],
-      bldg_id: school[:bldg_id],
-      level: level,
-      grades: school[:grades],
-      district: district_source[:district],
-      subdistrict: district_source[:subdistrict],
-      source: 'lcgms',
-      enroll: school["#{level}_enroll"],
-      capacity: existingLcgms ? existingLcgms['capacity'] : 0,
-      address: school[:address],
-      borocode: borocode,
-      geojson: RGeo::GeoJSON.encode(
-        RGeo::GeoJSON::Feature.new(
-          RGeo::WKRep::WKBParser.new(nil, support_ewkb: true).parse(school[:geom])
-        )
-      )
-    }
   end
 
 ################################################################################
@@ -404,7 +297,7 @@ end
 
 # checks whether the new queried data ("school") matches sca_projects already saved in model
   def find_existing_sca_projects(school)
-    self.sca_projects.find {|sca_projects| sca_projects[:project_dsf] == school[:project_dsf]}
+    self.sca_projects.find {|sca_projects| sca_projects[:uid] == school[:uid]}
   end
 
   def school_object_sca_projects(school, district_source)
@@ -418,7 +311,7 @@ end
 
     {
       name: school[:name],
-      project_dsf: school[:project_dsf],
+      uid: school[:uid],
       org_level: school[:org_level],
       district: district_source[:district],
       subdistrict: district_source[:subdistrict],
@@ -447,7 +340,7 @@ end
 ### PRIVATE METHODS FOR HS_PROJECTIONS & FUTURE_ENROLLMENT_PROJECTIONS
 
   def buildYearMaxed    
-    maxYear = data_package.schemas["sca_enrollment_projections_by_sd"]["maxYear"]
+    maxYear = data_package.schemas["sca_e_projections_by_sd"]["maxYear"]
 
     project.build_year > maxYear ? maxYear : project.build_year
   end

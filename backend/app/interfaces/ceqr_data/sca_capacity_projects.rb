@@ -1,12 +1,12 @@
 module CeqrData
-  class ScaCapitalProjects < Base  
-    self.schema = "sca_capital_projects"
+  class ScaCapacityProjects < Base  
+    self.schema = "sca_capacity_projects"
 
-    # all SCA Capital Project schools that intersect a district & subdistrict
+    # all SCA Capacity Project schools that intersect a district & subdistrict
     def sca_projects_intersecting_subdistrict_geom(subdistrict_geom)
       @dataset.select(
         :geom,
-        :project_dsf,
+        :uid,
         :name,
         :org_level,
         :capacity,

@@ -14,7 +14,6 @@ export default Route.extend({
           'transportation-analysis',
           'transportation-analysis.transportation-planning-factors',
           'community-facilities-analysis',
-          'air-quality-analysis',
           'data-package',
         ].join(','),
       },
@@ -28,7 +27,6 @@ export default Route.extend({
       publicSchoolsAnalysis: project.publicSchoolsAnalysis,
       transportationAnalysis: project.transportationAnalysis,
       communityFacilitiesAnalysis: project.communityFacilitiesAnalysis,
-      airQualityAnalysis: project.airQualityAnalysis,
     });
   },
 });

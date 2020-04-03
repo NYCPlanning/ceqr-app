@@ -7,3 +7,6 @@
 # Ignore .env
 .env
 node_modules
+
+# optional database backup to load prod data into docker postgis
+backend/db/backup

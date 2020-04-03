@@ -37,8 +37,8 @@ export default DS.Model.extend({
 
   // Schools Data version
   dataVersion: computed.alias('dataPackage.version'),
-  maxProjection: computed.alias('dataPackage.schemas.sca_enrollment_projections_by_sd.maxYear'),
-  minProjection: computed.alias('dataPackage.schemas.sca_enrollment_projections_by_sd.minYear'),
+  maxProjection: computed.alias('dataPackage.schemas.sca_e_projections_by_sd.maxYear'),
+  minProjection: computed.alias('dataPackage.schemas.sca_e_projections_by_sd.minYear'),
 
   // Derived from map
   esSchoolChoice: DS.attr('boolean'),
@@ -73,7 +73,7 @@ export default DS.Model.extend({
   // School District & Subdistricts
   subdistrictsFromDb: DS.attr('', { defaultValue() { return []; } }),
   subdistrictsFromUser: DS.attr('', { defaultValue() { return []; } }),
-  subdistrictsGeojson: DS.attr(''),
+  subdistrictsGeojson: DS.belongsTo('subdistricts-geojson'),
 
   subdistricts: computed('subdistrictsFromDb.@each', 'subdistrictsFromUser.@each', function() {
     return this.subdistrictsFromDb.concat(this.subdistrictsFromUser);
@@ -86,11 +86,10 @@ export default DS.Model.extend({
   }),
 
   // By Subdistrict
-  bluebook: DS.attr('public-schools/schools', { defaultValue() { return []; } }),
-  lcgms: DS.attr('public-schools/schools', { defaultValue() { return []; } }),
+  school_buildings: DS.attr('public-schools/schools', { defaultValue() { return []; } }),
 
-  buildingsGeojson: computed('bluebook', 'lcgms', function() {
-    const buildings = this.bluebook.concat(this.get('lcgms'));
+  buildingsGeojson: computed('school_buildings', function() {
+    const buildings = this.ceqr_schools_buildings;
 
     const features = buildings.map((b) => {
       const { geojson } = b;
@@ -130,17 +129,21 @@ export default DS.Model.extend({
     return turf.featureCollection(features);
   }),
 
-  buildings: computed('bluebook', 'lcgms', 'scaProjects', function() {
+  buildings: computed('school_buildings', 'scaProjects', function() {
     return (
-      this.get('bluebook')
-    ).concat(
-      this.get('lcgms'),
+      this.get('school_buildings')
     ).concat(
       this.get('scaProjects'),
     ).compact();
   }),
   buildingsBldgIds: computed('buildings', function() {
     return this.get('buildings').mapBy('bldg_id').uniq();
+  }),
+
+  // ceqr_school_buildings dataset is a combination of two datasets lcgms and bluebook
+  // lcgms dataset represents schools that opened recently
+  newlyOpenedSchools: computed('analysis.school_buildings', function() {
+    return this.school_buildings.find((school) => school.source === 'lcgms');
   }),
 
   // Future
@@ -198,15 +201,12 @@ export default DS.Model.extend({
   hsProjections: DS.attr('', { defaultValue() { return []; } }),
   hsStudentsFromHousing: DS.attr('number', { defaultValue: 0 }),
   futureEnrollmentProjections: DS.attr('', { defaultValue() { return []; } }),
-  futureEnrollmentMultipliers: DS.attr('', { defaultValue() { return []; } }),
   futureEnrollmentNewHousing: DS.attr('', { defaultValue() { return []; } }),
 
   // Tables
-  allSchools: computed('bluebook', 'lcgms', function() {
+  allSchools: computed('school_buildings', function() {
     return (
-      this.bluebook
-    ).concat(
-      this.lcgms,
+      this.school_buildings
     ).compact();
   }),
 
@@ -216,7 +216,6 @@ export default DS.Model.extend({
     'currentMultiplier',
     'hsProjections',
     'futureEnrollmentProjections',
-    'futureEnrollmentMultipliers',
     'futureEnrollmentNewHousing',
     'scaProjects.@each.{includeInCapacity,ps_capacity,is_capacity,hs_capacity}',
     function() {
@@ -260,10 +259,7 @@ export default DS.Model.extend({
           studentMultiplier: this.currentMultiplier.ps,
 
           enroll: Math.round(
-            this.futureEnrollmentProjections.findBy('district', sd.district).ps
-            * this.futureEnrollmentMultipliers.find(
-              (i) => (i.district === sd.district && i.subdistrict === sd.subdistrict && i.level === 'PS'),
-            ).multiplier,
+            this.futureEnrollmentProjections.findBy('district', sd.district).ps,
           ),
 
           students: (
@@ -303,10 +299,7 @@ export default DS.Model.extend({
           studentMultiplier: this.currentMultiplier.is,
 
           enroll: Math.round(
-            this.futureEnrollmentProjections.findBy('district', sd.district).ms
-            * this.futureEnrollmentMultipliers.find(
-              (i) => (i.district === sd.district && i.subdistrict === sd.subdistrict && i.level === 'MS'),
-            ).multiplier,
+            this.futureEnrollmentProjections.findBy('district', sd.district).ms,
           ),
 
           students: (

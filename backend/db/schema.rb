@@ -10,19 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_12_200643) do
+ActiveRecord::Schema.define(version: 2020_03_30_155341) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
   enable_extension "postgis"
-
-  create_table "air_quality_analyses", force: :cascade do |t|
-    t.bigint "project_id", null: false
-    t.boolean "in_area_of_concern"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
 
   create_table "community_facilities_analyses", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -74,8 +67,7 @@ ActiveRecord::Schema.define(version: 2019_12_12_200643) do
     t.float "hs_students_from_housing"
     t.jsonb "subdistricts_from_db", default: [], null: false, array: true
     t.jsonb "subdistricts_from_user", default: [], null: false, array: true
-    t.jsonb "bluebook", default: [], null: false, array: true
-    t.jsonb "lcgms", default: [], null: false, array: true
+    t.jsonb "school_buildings", default: [], null: false, array: true
     t.jsonb "sca_projects", default: [], null: false, array: true
     t.jsonb "doe_util_changes", default: [], null: false, array: true
     t.jsonb "residential_developments", default: [], null: false, array: true
@@ -88,7 +80,21 @@ ActiveRecord::Schema.define(version: 2019_12_12_200643) do
     t.datetime "updated_at", null: false
     t.integer "project_id"
     t.bigint "data_package_id"
+    t.bigint "subdistricts_geojson_id"
     t.index ["data_package_id"], name: "index_public_schools_analyses_on_data_package_id"
+    t.index ["subdistricts_geojson_id"], name: "index_public_schools_analyses_on_subdistricts_geojson_id"
+  end
+
+  create_table "solid_waste_analyses", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "project_id"
+  end
+
+  create_table "subdistricts_geojsons", force: :cascade do |t|
+    t.integer "public_schools_analysis_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "transportation_analyses", force: :cascade do |t|
@@ -130,11 +136,11 @@ ActiveRecord::Schema.define(version: 2019_12_12_200643) do
     t.index ["email"], name: "user_email_unique", unique: true
   end
 
-  add_foreign_key "air_quality_analyses", "projects"
   add_foreign_key "community_facilities_analyses", "projects"
   add_foreign_key "projects", "data_packages"
   add_foreign_key "public_schools_analyses", "data_packages"
   add_foreign_key "public_schools_analyses", "projects"
+  add_foreign_key "public_schools_analyses", "subdistricts_geojsons"
   add_foreign_key "transportation_analyses", "projects"
   add_foreign_key "transportation_planning_factors", "data_packages"
   add_foreign_key "transportation_planning_factors", "transportation_analyses"

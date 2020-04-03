@@ -1,9 +1,9 @@
 require 'rails_helper'
 
-RSpec.describe "CeqrData SCA Capital Projects", type: :model do
-  context "All SCA Capital Project Schools " do
-    let(:sca_capital_project_2018) { CeqrData::ScaCapitalProjects.version('2018') }
-    let(:sca_capital_project_022019) { CeqrData::ScaCapitalProjects.version('022019') }
+RSpec.describe "CeqrData SCA Capacity Projects", type: :model do
+  context "All SCA Capacity Project Schools " do
+    let(:sca_capacity_project_2018) { CeqrData::ScaCapacityProjects.version('2018') }
+    let(:sca_capacity_project_022019) { CeqrData::ScaCapacityProjects.version('022019') }
     let(:school_subdistrict) { CeqrData::DoeSchoolSubdistricts.version('2017') }
 
     it "returns an array of SCA schools that match subdistrict VERSION 2018" do
@@ -13,9 +13,9 @@ RSpec.describe "CeqrData SCA Capital Projects", type: :model do
 
       geometry = subdistricts.map {|x| x[:geom]}
 
-      sca_schools = sca_capital_project_2018.sca_projects_intersecting_subdistrict_geom(geometry.first)
+      sca_schools = sca_capacity_project_2018.sca_projects_intersecting_subdistrict_geom(geometry.first)
 
-      expect(sca_schools.first[:project_dsf]).to be_a String
+      expect(sca_schools.first[:uid]).to be_a String
       expect(sca_schools.first[:name]).to be_a String
       expect(sca_schools.first[:org_level]).to be_a String
 
@@ -42,7 +42,7 @@ RSpec.describe "CeqrData SCA Capital Projects", type: :model do
       expect(geometry_parsed.geometry_type).to be RGeo::Feature::Point
       expect(geometry_parsed.srid).to eq(4326)
 
-      expect(sca_schools.first[:project_dsf]).to eq('DSF0000424314')
+      expect(sca_schools.first[:uid]).to eq('DSF0000424314')
     end
 
     it "returns an array of SCA schools that match subdistrict VERSION 2017" do
@@ -52,9 +52,9 @@ RSpec.describe "CeqrData SCA Capital Projects", type: :model do
 
       geometry = subdistricts.map {|x| x[:geom]}
 
-      sca_schools = sca_capital_project_022019.sca_projects_intersecting_subdistrict_geom(geometry.first)
+      sca_schools = sca_capacity_project_022019.sca_projects_intersecting_subdistrict_geom(geometry.first)
 
-      expect(sca_schools.first[:project_dsf]).to be_a String
+      expect(sca_schools.first[:uid]).to be_a String
       expect(sca_schools.first[:name]).to be_a String
       expect(sca_schools.first[:org_level]).to be_a String
 
@@ -81,7 +81,7 @@ RSpec.describe "CeqrData SCA Capital Projects", type: :model do
       expect(geometry_parsed.geometry_type).to be RGeo::Feature::Point
       expect(geometry_parsed.srid).to eq(4326)
 
-      expect(sca_schools.first[:project_dsf]).to eq('DSF0000865846')
+      expect(sca_schools.first[:uid]).to eq('DSF0000865846')
     end
   end
 end
