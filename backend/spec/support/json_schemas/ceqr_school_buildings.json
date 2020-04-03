@@ -57,8 +57,7 @@
       "default": "",
       "examples": [
         "bluebook"
-      ],
-      "pattern": "^(.*)$"
+      ]
     },
     "address": {
       "$id": "#/properties/address",

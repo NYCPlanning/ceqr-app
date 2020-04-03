@@ -39,9 +39,14 @@ services:
 
   # ceqr_rails db container
   postgis:
-    image: mdillon/postgis # uses the default settings from this image.  Only change is that our migrate container will execute rails commands to setup ceqr_rails with our schema and migrations.
+    image: postgis/postgis # uses the default settings from this image.  Only change is that our migrate container will execute rails commands to setup ceqr_rails with our schema and migrations.
     ports:
       - "5432:5432"
+    volumes:
+      # configures container to initialize with database backup if present
+      - ./backend/db/backup:/docker-entrypoint-initdb.d
+    environment:
+      - POSTGRES_HOST_AUTH_METHOD=trust # <== not secure, only for local development
   # short-lived container to create db if not already running
   migrate:
     build: backend

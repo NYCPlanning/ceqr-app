@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_17_165721) do
+ActiveRecord::Schema.define(version: 2020_03_30_155341) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -67,8 +67,7 @@ ActiveRecord::Schema.define(version: 2020_03_17_165721) do
     t.float "hs_students_from_housing"
     t.jsonb "subdistricts_from_db", default: [], null: false, array: true
     t.jsonb "subdistricts_from_user", default: [], null: false, array: true
-    t.jsonb "bluebook", default: [], null: false, array: true
-    t.jsonb "lcgms", default: [], null: false, array: true
+    t.jsonb "school_buildings", default: [], null: false, array: true
     t.jsonb "sca_projects", default: [], null: false, array: true
     t.jsonb "doe_util_changes", default: [], null: false, array: true
     t.jsonb "residential_developments", default: [], null: false, array: true
@@ -84,6 +83,12 @@ ActiveRecord::Schema.define(version: 2020_03_17_165721) do
     t.bigint "subdistricts_geojson_id"
     t.index ["data_package_id"], name: "index_public_schools_analyses_on_data_package_id"
     t.index ["subdistricts_geojson_id"], name: "index_public_schools_analyses_on_subdistricts_geojson_id"
+  end
+
+  create_table "solid_waste_analyses", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "project_id"
   end
 
   create_table "subdistricts_geojsons", force: :cascade do |t|

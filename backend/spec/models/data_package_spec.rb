@@ -14,11 +14,11 @@ RSpec.describe DataPackage, type: :model do
 
   describe "#table_for()" do
     it "returns the table name" do
-      create(:data_package, package: "test", schemas: { "bluebook": { "table": "2018" } })
+      create(:data_package, package: "test", schemas: { "ceqr_school_buildings": { "table": "2018" } })
       
       dp = DataPackage.latest_for(:test)
 
-      expect(dp.table_for("bluebook")).to eq("2018")
+      expect(dp.table_for("ceqr_school_buildings")).to eq("2018")
     end
   end
 end

@@ -20,12 +20,10 @@ module('Unit | Model | public schools analysis', function(hooks) {
       * multipliers
         * multipliers.version (string)
         * multipliers.districts (array of objects)
-
       tested variables:
       * currentMultiplier (object)
       * futureResidentialDev (array of objects)
         *futureResidentialDev.multipliers (object)
-
     */
 
     const analysisMirage = server.create('public-schools-analysis', {
@@ -94,7 +92,6 @@ module('Unit | Model | public schools analysis', function(hooks) {
       * multipliers.district[n].csd (integer, represents district that should match subdistrictsFromDb)
       * subdistrictsFromDb (array of objects)
         * subdistrictsFromDb[n].district (integer)
-
       tested variables:
       * netUnits (integer)
       * estEsStudents (integer)
@@ -104,7 +101,6 @@ module('Unit | Model | public schools analysis', function(hooks) {
       * esEffect (boolean)
       * hsEffect (boolean)
       * indirectEffect (boolean)
-
       Here we test THREE conditions:
         * hsEffect is true but esEffect is false (making indirectEffect true)
         * esEffect is true but hsEffect is false (making indirectEffect true)
@@ -215,11 +211,9 @@ module('Unit | Model | public schools analysis', function(hooks) {
       input variables:
       * subdistrictsFromDb (array of objects)
       * subdistrictsFromUser (array of objects)
-
       tested variables:
       * subdistricts (array)
       * multiSubdistrict (boolean)
-
     */
 
     const analysisMirage = server.create('public-schools-analysis', {
@@ -255,14 +249,12 @@ module('Unit | Model | public schools analysis', function(hooks) {
   test('concatenates buildings and allSchools correctly', async function(assert) {
     /*
       input variables:
-      * incorporates testsForSchools trait defined in the mirage factory with bluebook, lcgms, and scaProjects as the
+      * incorporates testsForSchools trait defined in the mirage factory with school_buildings and scaProjects as the
       three different types of schools
-
       tested variables:
       * buildings (array of objects)
       * allSchools (array of objects)
       * buildingsBldgIds (array)
-
     */
 
     const analysisMirage = server.create('public-schools-analysis', 'schoolsForTests', {
@@ -287,7 +279,7 @@ module('Unit | Model | public schools analysis', function(hooks) {
     // "Cantelope Castle", "Donuts Delight", "Avocado Adventure", "Clementine Canopy", "Peach Party", "Passionfruit Pavilion",
     // "Tangerine Tent", "Pineapple Paradise", "Olive Oasis", "Grapefruit Garage"]
 
-    // buildings concatenates bluebook, lcgms, and scaProjects
+    // buildings concatenates school_buildings and scaProjects
     assert.equal(bluebookBuildings[1].name, 'I.S. 61 - K');
     assert.equal(lcgmsBuildings[1].name, 'Strawberry Sunrise');
     assert.equal(scaProjectsBuildings[1].name, 'Avocado Adventure');
@@ -295,7 +287,7 @@ module('Unit | Model | public schools analysis', function(hooks) {
     // analysis.allSchools.mapBy('name') =
     // ["I.S. 2 - K", "I.S. 61 - K", "Starfruit Sauna", "P.S. 91 - K", "Banana Bonanza", "Strawberry Sunrise", "Cantelope Castle"]
 
-    // allSchools concatenates bluebook and lcgms
+    // allSchools = school_buildings
     assert.equal(bluebookSchools[1].name, 'I.S. 61 - K');
     assert.equal(lcgmsSchools[1].name, 'Strawberry Sunrise');
     // ^^ do we need to test that .compact works and that no null values are added to this allSchools concatenation?
@@ -310,12 +302,10 @@ module('Unit | Model | public schools analysis', function(hooks) {
       input variables:
       * project model's buildYear (integer)
       * dataTables.enrollmentProjectionsMaxYear (integer)
-
       tested variables:
       * maxProjection (integer)
       * projectionOverMax (boolean)
       * buildYearMaxed (integer)
-
       Here we test TWO conditions:
       * projectionOverMax is true, so buildYearMaxed equals maxProjection
       * projectionOverMax is false, so buildYearMaxed equals buildYear
@@ -360,22 +350,16 @@ module('Unit | Model | public schools analysis', function(hooks) {
         * doeUtilChanges.title (string)
         * doeUtilChanges.bldg_id (string)
         * doeUtilChanges.bldg_id_additional (string)
-      * bluebook (array of objects)
-        * bluebook.name (string)
-        * bluebook.source (string)
-        * bluebook.bldg_id (string)
-        * bluebook.level (string)
-      * lcgms (array of objects)
-        * lcgms.name (string)
-        * lcgms.source (string)
-        * lcgms.bldg_id (string)
-        * lcgms.level (string)
+      * school_buildings (array of objects)
+        * school_buildings.name (string)
+        * school_buildings.source (string)
+        * school_buildings.bldg_id (string)
+        * school_buildings.level (string)
       * scaProjects (array of objects)
         * scaProjects.name (string)
         * scaProjects.source (string)
         * scaProjects.bldg_id (string)
         * scaProjects.level (string)
-
       tested variables:
       * doeUtilChangesBldgIds (array)
       * buildings (array of objects)
@@ -420,7 +404,7 @@ module('Unit | Model | public schools analysis', function(hooks) {
           bldg_id_additional: '',
         },
       ],
-      bluebook: () => [
+      school_buildings: () => [
         {
           name: 'Raspberry Railway',
           source: 'bluebook',
@@ -439,8 +423,6 @@ module('Unit | Model | public schools analysis', function(hooks) {
           bldg_id: 'BBSS1',
           level: 'is',
         },
-      ],
-      lcgms: () => [
         {
           name: 'Banana Bonanza',
           bldg_id: 'LCGMS_BB1',
@@ -467,7 +449,7 @@ module('Unit | Model | public schools analysis', function(hooks) {
     assert.equal(analysis.doeUtilChangesBldgIds[4], 'additional_AA'); // checks that the additional building IDs start after the end of the bldg_id list
     assert.equal(analysis.doeUtilChangesBldgIds[8], 'additional_RR'); // checks that both the "" values under bldg_id and bldg_id_additional for "Organizing the Olive Oasis" are not included
 
-    // buildings is a concatenation of bluebook, lcgms, and scaProjects
+    // buildings is a concatenation of school_buildings and scaProjects
     // analysis.buildings.mapBy('name') = [ "Raspberry Railway", "Plum Palace", "Starfruit Sauna", "Banana Bonanza", "Strawberry Sunrise"]
     assert.equal(analysis.buildings[3].name, 'Banana Bonanza');
 
@@ -497,9 +479,8 @@ module('Unit | Model | public schools analysis', function(hooks) {
     /*
       input variables:
       * this test incorporates all variables from the subdistrictTotalsTest trait in the public-schools-analysis mirage factory
-      * it also incorporates testsForSchools trait defined in the mirage factory with bluebook, lcgms, and scaProjects as the
+      * it also incorporates testsForSchools trait defined in the mirage factory with school_buildings and scaProjects as the
       three different types of schools
-
       tested variables:
       * futureResidentialDev[n].ps_students/is_students/hs_students (integer)
       * subdistrictTotals (array with three objects, corresponding to school levels: 'hs' as [0], 'ps' as [1], and 'is' as [2])
@@ -520,12 +501,12 @@ module('Unit | Model | public schools analysis', function(hooks) {
     const analysis = await project.get('publicSchoolsAnalysis');
 
     assert.equal(analysis.borough, 'Brooklyn');
-    assert.equal(analysis.allSchools[4].name, 'Banana Bonanza'); // 3rd school under bluebooks
-    assert.equal(analysis.subdistrictTotals[0].allBuildings[4].name, 'Banana Bonanza'); // allBuildings = this.allSchools = concatenated bluebook & lcgms projects
+    assert.equal(analysis.allSchools[4].name, 'Banana Bonanza'); // 3rd school for bluebooks
+    assert.equal(analysis.subdistrictTotals[0].allBuildings[4].name, 'Banana Bonanza'); // allBuildings = this.allSchools = school_buildings
 
     // HS tables
     assert.equal(analysis.subdistrictTotals[0].studentMultiplier, 0.09); // currentMultiplier.hs
-    assert.equal(analysis.subdistrictTotals[0].enroll, 15000); // hsProjections.hs
+    assert.equal(analysis.subdistrictTotals[0].enroll, 15000); // hsProjections[n].hs
     assert.equal(analysis.futureResidentialDev[0].hs_students, 5); // hs_students = this.total_units * this.multipliers.hs = 60 * 0.09
     assert.equal(analysis.futureResidentialDev[1].hs_students, 5); // hs_students = this.total_units * this.multipliers.hs = 50 * 0.09
     assert.equal(analysis.subdistrictTotals[0].students, 4010); // this.hsStudentsFromHousing + (aggregate of hs_students in futureResidentialDev) = 4000 + 10
@@ -535,7 +516,7 @@ module('Unit | Model | public schools analysis', function(hooks) {
 
     // PS tables
     assert.equal(analysis.subdistrictTotals[1].studentMultiplier, 0.24); // this.currentMultiplier.ps
-    assert.equal(analysis.subdistrictTotals[1].enroll, 3525); // enroll = futureEnrollmentProjections[n].ps (9198) * futureEnrollmentMultipliers[n].multiplier (0.383266818664257)
+    assert.equal(analysis.subdistrictTotals[1].enroll, 9198); // enroll = futureEnrollmentProjections[n].ps (9198)
     assert.equal(analysis.futureResidentialDev[0].ps_students, 14); // residentialDevelopments[0].total_units (60) * multipliers.is (0.24)
     assert.equal(analysis.futureResidentialDev[1].ps_students, 12); // residentialDevelopments[1].total_units (50) * multipliers.is (0.24)
     assert.equal(analysis.subdistrictTotals[1].students, 864); // this.futureEnrollmentNewHousing[n].students + (aggregate of this.futureResidentialDev ps_students) = 838 + (100 + 200)
@@ -544,7 +525,7 @@ module('Unit | Model | public schools analysis', function(hooks) {
     //
     // IS tables
     assert.equal(analysis.subdistrictTotals[2].studentMultiplier, 0.09); // this.currentMultiplier.is
-    assert.equal(analysis.subdistrictTotals[2].enroll, 2542); // enroll = futureEnrollmentProjections[n].ms (4368) * futureEnrollmentMultipliers[n].multiplier (0.582024949124332)
+    assert.equal(analysis.subdistrictTotals[2].enroll, 4368); // enroll = futureEnrollmentProjections[n].ms (4368)
     assert.equal(analysis.futureResidentialDev[0].is_students, 5); // residentialDevelopments[0].total_units (60) * multipliers.is (0.09) = 5
     assert.equal(analysis.futureResidentialDev[1].is_students, 5); // residentialDevelopments[1].total_units (50) * multipliers.is (0.09) = 5
     assert.equal(analysis.subdistrictTotals[2].students, 333); // this.futureEnrollmentNewHousing[n].students + (aggregate of this.futureResidentialDev ps_students) = 323 + (5 + 5)
@@ -552,17 +533,20 @@ module('Unit | Model | public schools analysis', function(hooks) {
     assert.equal(analysis.subdistrictTotals[2].newCapacityWithAction, 850); // aggregate of is_seats in this.schoolsWithAction matched to current district and subdistrict
 
     // hsLevelTotals
-    assert.equal(analysis.hsLevelTotals.subdistrictTotals[0].enroll, 15000); // subdistrictTotals: this.subdistrictTotals.filterBy('level', 'hs'),
+    // subdistrictTotals: this.subdistrictTotals.filterBy('level', 'hs'),
+    assert.equal(analysis.hsLevelTotals.subdistrictTotals[0].enroll, 15000); // hsProjections.[n]hs
     assert.equal(analysis.estHsStudents, 41); // math.ceil(currentMultiplier.hs * project.netUnits) = 0.09 * 450
     assert.equal(analysis.hsLevelTotals.studentsWithAction, 41); // studentsWithAction: this.estHsStudents || 0,
 
     // psLevelTotals
-    assert.equal(analysis.psLevelTotals.subdistrictTotals[0].enroll, 3525); // subdistrictTotals: this.subdistrictTotals.filterBy('level', 'ps'),
+    // subdistrictTotals: this.subdistrictTotals.filterBy('level', 'ps'),
+    assert.equal(analysis.psLevelTotals.subdistrictTotals[0].enroll, 9198); // futureEnrollmentProjections[n].is (9198)
     assert.equal(analysis.estEsStudents, 108); // math.ceil(currentMultiplier.ps * project.netUnits) = 0.24 * 450
     assert.equal(analysis.psLevelTotals.studentsWithAction, 108); // studentsWithAction: this.estEsStudents || 0,
 
     // isLevelTotals
-    assert.equal(analysis.isLevelTotals.subdistrictTotals[0].enroll, 2542); // subdistrictTotals: this.subdistrictTotals.filterBy('level', 'is'),
+    // subdistrictTotals: this.subdistrictTotals.filterBy('level', 'is'),
+    assert.equal(analysis.isLevelTotals.subdistrictTotals[0].enroll, 4368); // futureEnrollmentProjections[n].is (4368)
     assert.equal(analysis.estIsStudents, 41); // math.ceil(currentMultiplier.is * project.netUnits) = 0.09 * 450
     assert.equal(analysis.isLevelTotals.studentsWithAction, 41); // studentsWithAction: this.estIsStudents || 0,
   });
