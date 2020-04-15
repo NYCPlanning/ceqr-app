@@ -1,0 +1,297 @@
+{
+  "id": "november-2019",
+  "version": "november-2019",
+  "thresholdPsIsStudents": 50,
+  "thresholdHsStudents": 150,
+
+  "districts": [
+    {
+      "csd": 1,
+      "ps": 0.0367359049844991,
+      "is": 0.00925435896054374,
+      "hs": 0.02,
+      "psisThreshold": 1088,
+      "hsThreshold": 7500,
+      "borocode": "mn"
+    },
+    {
+      "csd": 2,
+      "ps": 0.0373861276463525,
+      "is": 0.0103176611452464,
+      "hs": 0.02,
+      "psisThreshold": 1049,
+      "hsThreshold": 7500,
+      "borocode": "mn"
+    },
+    {
+      "csd": 3,
+      "ps": 0.0425509985732078,
+      "is": 0.0119501563180469,
+      "hs": 0.02,
+      "psisThreshold": 918,
+      "hsThreshold": 7500,
+      "borocode": "mn"
+    },
+    {
+      "csd": 4,
+      "ps": 0.0723707970036933,
+      "is": 0.0329304291689432,
+      "hs": 0.02,
+      "psisThreshold": 475,
+      "hsThreshold": 7500,
+      "borocode": "mn"
+    },
+    {
+      "csd": 5,
+      "ps": 0.0882123986394245,
+      "is": 0.0325733671353501,
+      "hs": 0.02,
+      "psisThreshold": 414,
+      "hsThreshold": 7500,
+      "borocode": "mn"
+    },
+    {
+      "csd": 6,
+      "ps": 0.0718639885762457,
+      "is": 0.022895198865615,
+      "hs": 0.02,
+      "psisThreshold": 528,
+      "hsThreshold": 7500,
+      "borocode": "mn"
+    },
+    {
+      "csd": 7,
+      "ps": 0.227237398912787,
+      "is": 0.0838539475362903,
+      "hs": 0.13,
+      "psisThreshold": 161,
+      "hsThreshold": 1154,
+      "borocode": "bx"
+    },
+    {
+      "csd": 8,
+      "ps": 0.20245897585796,
+      "is": 0.0862796475336252,
+      "hs": 0.13,
+      "psisThreshold": 174,
+      "hsThreshold": 1154,
+      "borocode": "bx"
+    },
+    {
+      "csd": 9,
+      "ps": 0.220573399157569,
+      "is": 0.090507258803699,
+      "hs": 0.13,
+      "psisThreshold": 161,
+      "hsThreshold": 1154,
+      "borocode": "bx"
+    },
+    {
+      "csd": 10,
+      "ps": 0.2070336756022,
+      "is": 0.0753568370062232,
+      "hs": 0.13,
+      "psisThreshold": 178,
+      "hsThreshold": 1154,
+      "borocode": "bx"
+    },
+    {
+      "csd": 11,
+      "ps": 0.237461212537927,
+      "is": 0.10635109139689,
+      "hs": 0.13,
+      "psisThreshold": 146,
+      "hsThreshold": 1154,
+      "borocode": "bx"
+    },
+    {
+      "csd": 12,
+      "ps": 0.268659097894244,
+      "is": 0.117411686014818,
+      "hs": 0.13,
+      "psisThreshold": 130,
+      "hsThreshold": 1154,
+      "borocode": "bx"
+    },
+    {
+      "csd": 13,
+      "ps": 0.0514754980994585,
+      "is": 0.0121301383167811,
+      "hs": 0.05,
+      "psisThreshold": 787,
+      "hsThreshold": 3000,
+      "borocode": "bk"
+    },
+    {
+      "csd": 14,
+      "ps": 0.0429191622753117,
+      "is": 0.0105901320783485,
+      "hs": 0.05,
+      "psisThreshold": 935,
+      "hsThreshold": 3000,
+      "borocode": "bk"
+    },
+    {
+      "csd": 15,
+      "ps": 0.174390341627368,
+      "is": 0.0376638505221831,
+      "hs": 0.05,
+      "psisThreshold": 236,
+      "hsThreshold": 3000,
+      "borocode": "bk"
+    },
+    {
+      "csd": 16,
+      "ps": 0.092519180757158,
+      "is": 0.0352056503652478,
+      "hs": 0.05,
+      "psisThreshold": 392,
+      "hsThreshold": 3000,
+      "borocode": "bk"
+    },
+    {
+      "csd": 17,
+      "ps": 0.0843493455856042,
+      "is": 0.0246079440786952,
+      "hs": 0.05,
+      "psisThreshold": 459,
+      "hsThreshold": 3000,
+      "borocode": "bk"
+    },
+    {
+      "csd": 18,
+      "ps": 0.12725565425057,
+      "is": 0.0805807320568449,
+      "hs": 0.05,
+      "psisThreshold": 241,
+      "hsThreshold": 3000,
+      "borocode": "bk"
+    },
+    {
+      "csd": 19,
+      "ps": 0.180662703297736,
+      "is": 0.0797508174699927,
+      "hs": 0.05,
+      "psisThreshold": 193,
+      "hsThreshold": 3000,
+      "borocode": "bk"
+    },
+    {
+      "csd": 20,
+      "ps": 0.186760994442018,
+      "is": 0.0653527262759423,
+      "hs": 0.05,
+      "psisThreshold": 199,
+      "hsThreshold": 3000,
+      "borocode": "bk"
+    },
+    {
+      "csd": 21,
+      "ps": 0.135523772680194,
+      "is": 0.0491931077585017,
+      "hs": 0.05,
+      "psisThreshold": 271,
+      "hsThreshold": 3000,
+      "borocode": "bk"
+    },
+    {
+      "csd": 22,
+      "ps": 0.151902313923799,
+      "is": 0.046837102519276,
+      "hs": 0.05,
+      "psisThreshold": 252,
+      "hsThreshold": 3000,
+      "borocode": "bk"
+    },
+    {
+      "csd": 23,
+      "ps": 0.143563314323341,
+      "is": 0.0584393564371004,
+      "hs": 0.05,
+      "psisThreshold": 248,
+      "hsThreshold": 3000,
+      "borocode": "bk"
+    },
+    {
+      "csd": 32,
+      "ps": 0.0878253608972492,
+      "is": 0.0369846524192312,
+      "hs": 0.05,
+      "psisThreshold": 401,
+      "hsThreshold": 3000,
+      "borocode": "bk"
+    },
+    {
+      "csd": 24,
+      "ps": 0.381698220634612,
+      "is": 0.125559727259363,
+      "hs": 0.1,
+      "psisThreshold": 99,
+      "hsThreshold": 1500,
+      "borocode": "qn"
+    },
+    {
+      "csd": 25,
+      "ps": 0.220558000070302,
+      "is": 0.0702902259494766,
+      "hs": 0.1,
+      "psisThreshold": 172,
+      "hsThreshold": 1500,
+      "borocode": "qn"
+    },
+    {
+      "csd": 26,
+      "ps": 0.293552560103156,
+      "is": 0.127814248165147,
+      "hs": 0.1,
+      "psisThreshold": 119,
+      "hsThreshold": 1500,
+      "borocode": "qn"
+    },
+    {
+      "csd": 27,
+      "ps": 0.169739251034741,
+      "is": 0.0679999656210338,
+      "hs": 0.1,
+      "psisThreshold": 211,
+      "hsThreshold": 1500,
+      "borocode": "qn"
+    },
+    {
+      "csd": 28,
+      "ps": 0.224588645528176,
+      "is": 0.0789866007435728,
+      "hs": 0.1,
+      "psisThreshold": 165,
+      "hsThreshold": 1500,
+      "borocode": "qn"
+    },
+    {
+      "csd": 29,
+      "ps": 0.327782256924363,
+      "is": 0.142774022170139,
+      "hs": 0.1,
+      "psisThreshold": 107,
+      "hsThreshold": 1500,
+      "borocode": "qn"
+    },
+    {
+      "csd": 30,
+      "ps": 0.108871155075073,
+      "is": 0.0393700295366941,
+      "hs": 0.1,
+      "psisThreshold": 338,
+      "hsThreshold": 1500,
+      "borocode": "qn"
+    },
+    {
+      "csd": 31,
+      "ps": 0.247191792512716,
+      "is": 0.0803401840531397,
+      "hs": 0.09,
+      "psisThreshold": 153,
+      "hsThreshold": 1667,
+      "borocode": "si"
+    }
+  ]
+}

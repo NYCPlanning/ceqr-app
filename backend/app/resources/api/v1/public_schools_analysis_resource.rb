@@ -31,7 +31,16 @@ module Api
       has_one :subdistricts_geojson
       
       def multipliers
-        multiplier_version = data_package.version == "november_2017" ? "march-2014" : "november-2018"
+        # TODO:  Consider making multiplier_version an attribute of the data package itself.
+        multiplier_version = case data_package.version
+          when "november_2017"
+            "march-2014"
+          when "november_2018", "november_2018_q2"
+            "november-2018"
+          else
+            # any newer data packages use most recent multipliers
+            "november-2019"
+          end
         
         file_path = Rails.root.join('public', 'ceqr-manual', 'public-schools', "#{multiplier_version}.json").to_s
         file = File.read(file_path)

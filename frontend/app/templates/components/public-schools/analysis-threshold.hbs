@@ -24,23 +24,24 @@
 
     </div>
   </div>
-  {{#if (eq analysis.multiplierVersion "march-2014")}}
-    <div class="row">
-      <div class="sixteen wide column">
+
+  <div class="row">
+    <div class="sixteen wide column">
+      {{#if (eq analysis.multiplierVersion "march-2014")}}
         <PublicSchools::AnalysisThreshold::MarTwentyFourteenMultipliers
           @analysis={{analysis}}
-          />
-
-      </div>
-    </div>
-  {{else if (eq analysis.multiplierVersion "november-2018")}}
-    <div class="row">
-      <div class="sixteen wide column">
-        <PublicSchools::AnalysisThreshold::NovTwentyEighteenMultipliers
+        />
+      {{else if (eq analysis.multiplierVersion "november-2018")}}
+        <PublicSchools::AnalysisThreshold::MultipliersByCsd
           @analysis={{analysis}}
-          />
-
-      </div>
+          @year="2018"
+        />
+      {{else if (eq analysis.multiplierVersion "november-2019") }}
+        <PublicSchools::AnalysisThreshold::MultipliersByCsd
+          @analysis={{analysis}}
+          @year="2019"
+        />
+      {{/if}}
     </div>
-  {{/if}}
+  </div>
 </div>
