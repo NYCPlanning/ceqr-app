@@ -49,6 +49,7 @@
       </th>
     </tr>
   </thead>
+
   <tbody>
     {{#each multipliers.mn.districts as |m idx|}}
       <tr class="{{m.csd}} {{if (eq m.csd analysis.district) "active"}}">
@@ -187,6 +188,7 @@
     {{/each}}
   </tbody>
 </table>
+
 <div class="ui attached bottom icon message">
   <i class="database icon"></i>
   <div class="content">
@@ -196,7 +198,7 @@
         rel="noopener"
         href="http://www.nycsca.org/Community/Capital-Plan-Reports-Data#Housing-Projections-70"
       >
-        SCA Projected Public School Ratio [2018]
+        SCA Projected Public School Ratio [{{this.year}}]
         <i class="external alternate icon"></i>
       </a>
     </div>
