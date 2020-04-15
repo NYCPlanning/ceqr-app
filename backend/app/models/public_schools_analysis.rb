@@ -248,10 +248,17 @@ end
   end
 
   # formats the data into a object with reformatted properties
-  # because some of intermediate level schools are named with "ms" rather than "is",
-  # we check that if "is" is passed in as the level, it searches for "ms" when populating values
   def school_object(school, level)
-    level == "is" ? db_level = "ms" : db_level = level
+    case level
+    when "ps"
+      db_level = "p"
+    when "is"
+      db_level = "i"
+    when "hs"
+      db_level = "h"
+    else
+      puts "Error: invalid level argument"
+    end
 
     {
       name: school[:name],
@@ -261,9 +268,9 @@ end
       district: school[:district],
       subdistrict: school[:subdistrict],
       source: school[:source],
-      capacity: school["#{db_level}_capacity".to_sym],
-      capacityFuture: school["#{db_level}_capacity".to_sym],
-      enroll: school["#{db_level}_enroll".to_sym],
+      capacity: school["#{db_level}c".to_sym],
+      capacityFuture: school["#{db_level}c".to_sym],
+      enroll: school["#{db_level}e".to_sym],
       address: school[:address],
       bldg_name: school[:bldg_name],
       borocode: school[:borocode],
