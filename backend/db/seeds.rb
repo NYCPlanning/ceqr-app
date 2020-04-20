@@ -163,7 +163,7 @@ if DataPackage.where(package: "public_schools", version: "november_2019").first.
         table: 2019,
         sources: [
           {name: "lcgms", version: '2019-12-19', minYear: 2018, maxYear: 2019},
-          {name: "bluebook", minYear: 2017, maxYear: 2018}
+          {name: "bluebook", minYear: 2018, maxYear: 2019}
         ]
       },
       "doe_school_zones_ps": { table: "2019" },

@@ -1,3 +1,5 @@
-<PublicSchools::ExistingConditions::TableExistingConditions
-  @analysis={{model.publicSchoolsAnalysis}}
- />
+{{#if model.publicSchoolsAnalysis.dataPackage.schemas}}
+  <PublicSchools::ExistingConditions::TableExistingConditions
+    @analysis={{model.publicSchoolsAnalysis}}
+  />
+{{/if}}
