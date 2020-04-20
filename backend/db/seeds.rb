@@ -175,8 +175,8 @@ if DataPackage.where(package: "public_schools", version: "november_2019").first.
         table: "2019"
       },
       "sca_housing_pipeline_by_sd": {
-        minYear: 2018,
-        maxYear: 2027,
+        minYear: 2019,
+        maxYear: 2028,
         table: "2019"
       },
       "sca_e_projections_by_boro": {
@@ -185,7 +185,7 @@ if DataPackage.where(package: "public_schools", version: "november_2019").first.
         table: "2019"
       },
       "sca_e_projections_by_sd": {
-        minYear: 2018,
+        minYear: 2019,
         maxYear: 2028,
         table: "2019"
       },
