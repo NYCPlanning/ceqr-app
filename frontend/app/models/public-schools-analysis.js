@@ -90,18 +90,18 @@ export default DS.Model.extend({
   school_buildings: DS.attr('public-schools/schools', { defaultValue() { return []; } }),
 
   buildingsGeojson: computed('school_buildings', function() {
-    const buildings = this.ceqr_schools_buildings;
+    const buildings = this.school_buildings;
 
-    const features = buildings.map((b) => {
-      const { geojson } = b;
+    const features = buildings.map((building) => {
+      const { geojson } = building;
 
       geojson.properties = {
-        level: b.level,
-        name: b.name,
-        org_id: b.org_id,
-        bldg_id: b.bldg_id,
-        source: b.source,
-        id: b.id,
+        level: building.level,
+        name: building.name,
+        org_id: building.org_id,
+        bldg_id: building.bldg_id,
+        source: building.source,
+        id: building.id,
       };
 
       return geojson;
