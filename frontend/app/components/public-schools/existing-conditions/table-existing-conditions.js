@@ -22,7 +22,7 @@ export default Component.extend({
 
   // ceqr_school_buildings dataset is a combination of two datasets with different metadata: bluebook dataset and lcgms dataset
   bluebookMetadata: computed('analysis.dataPackage.schemas.ceqr_school_buildings.sources', function() {
-    return this.analysis.dataPackage.schemas.ceqr_school_buildings.sources.find((source) => source.name === 'bluebook');
+    return this.analysis.get('dataPackage.schemas').ceqr_school_buildings.sources.find((source) => source.name === 'bluebook');
   }),
 
   table: computed('activeSdId', 'activeSchoolsLevel', function() {
