@@ -5,7 +5,7 @@ export default Route.extend({
   session: service(),
 
   beforeModel(transition) {
-    if (this.session.isAuthenticated || !transition.queryParams.token) {
+    if (this.session.isAuthenticated || !transition.to.queryParams.token) {
       this.transitionTo('index');
     }
   },
