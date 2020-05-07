@@ -328,10 +328,6 @@ end
       ps_capacity: ps_capacity,
       is_capacity: is_capacity,
       hs_capacity: hs_capacity,
-      pct_funded: school[:pct_funded],
-      funding_previous: school[:funding_previous],
-      funding_current_budget: school[:funding_current_budget],
-      total_est_cost: school[:total_est_cost],
 
       includeInCapacity: includeInCapacity,
       geojson: RGeo::GeoJSON.encode(

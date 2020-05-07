@@ -206,7 +206,6 @@ RSpec.describe 'public_schools_analysis', type: :request do
         #         "the_geom": "0101000020E61000001E335019FF7B52C0A2D3F36E2C604440",
         #         "org_level": "",
         #         "cartodb_id": 5,
-        #         "pct_funded": 0.914559576929433,
         #         "start_date": "2018-03-01T00:00:00Z",
         #         "guessed_pct": false,
         #         "hs_capacity": 0,
@@ -214,8 +213,6 @@ RSpec.describe 'public_schools_analysis', type: :request do
         #         "uid": "DSF0000798215",
         #         "ps_capacity": "969",
         #         "subdistrict": 3,
-        #         "total_est_cost": 121.02,
-        #         "funding_previous": 0.02,
         #         "includeInCapacity": true,
         #         "funding_budget_15_19": 110.66,
         #         "the_geom_webmercator": "0101000020110F000061D396AEC5655FC1F5579CE71DFB5241"

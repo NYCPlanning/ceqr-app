@@ -23,10 +23,6 @@ RSpec.describe "CeqrData SCA Capacity Projects", type: :model do
       expect(sca_schools.first[:pct_ps]).to be_a Float
       expect(sca_schools.first[:pct_is]).to be_a Float
       expect(sca_schools.first[:pct_hs]).to be_a Float
-      expect(sca_schools.first[:total_est_cost]).to be_a Float
-      expect(sca_schools.first[:funding_current_budget]).to be_a Float
-      expect(sca_schools.first[:funding_previous]).to be_a Float
-      expect(sca_schools.first[:pct_funded]).to be_a Float
 
       expect(sca_schools.first[:start_date]).is_a? (ActiveSupport::TimeWithZone)
 
@@ -61,10 +57,6 @@ RSpec.describe "CeqrData SCA Capacity Projects", type: :model do
       expect(sca_schools.first[:pct_ps]).to be_a Float
       expect(sca_schools.first[:pct_is]).to be_a Float
       # expect(sca_schools.first[:pct_hs]).to be_a Float
-      expect(sca_schools.first[:total_est_cost]).to be_a Float
-      expect(sca_schools.first[:funding_current_budget]).to be_a Float # this attribute should not
-      expect(sca_schools.first[:funding_previous]).to be_a Float
-      expect(sca_schools.first[:pct_funded]).to be_a Float
 
       expect(sca_schools.first[:start_date]).is_a? (ActiveSupport::TimeWithZone)
 

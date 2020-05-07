@@ -15,10 +15,6 @@ module CeqrData
         :pct_hs,
         :guessed_pct,
         :start_date,
-        :total_est_cost,
-        :funding_current_budget,
-        :funding_previous,
-        :pct_funded
       ).where{st_intersects(st_geomfromtext("#{subdistrict_geom}", "#{subdistrict_geom.srid}"), :geom)}
     end
   end
