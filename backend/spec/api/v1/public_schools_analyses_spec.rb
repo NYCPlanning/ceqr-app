@@ -216,7 +216,6 @@ RSpec.describe 'public_schools_analysis', type: :request do
         #         "subdistrict": 3,
         #         "total_est_cost": 121.02,
         #         "funding_previous": 0.02,
-        #         "planned_end_date": "2021-06-01T00:00:00Z",
         #         "includeInCapacity": true,
         #         "funding_budget_15_19": 110.66,
         #         "the_geom_webmercator": "0101000020110F000061D396AEC5655FC1F5579CE71DFB5241"

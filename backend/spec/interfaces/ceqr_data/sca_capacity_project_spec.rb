@@ -29,7 +29,6 @@ RSpec.describe "CeqrData SCA Capacity Projects", type: :model do
       expect(sca_schools.first[:pct_funded]).to be_a Float
 
       expect(sca_schools.first[:start_date]).is_a? (ActiveSupport::TimeWithZone)
-      expect(sca_schools.first[:planned_end_date]).is_a? (ActiveSupport::TimeWithZone)
 
       expect(sca_schools.first[:guessed_pct].class).to be_in([TrueClass, FalseClass, NilClass])
 
@@ -68,7 +67,6 @@ RSpec.describe "CeqrData SCA Capacity Projects", type: :model do
       expect(sca_schools.first[:pct_funded]).to be_a Float
 
       expect(sca_schools.first[:start_date]).is_a? (ActiveSupport::TimeWithZone)
-      expect(sca_schools.first[:planned_end_date]).is_a? (ActiveSupport::TimeWithZone)
 
       expect(sca_schools.first[:guessed_pct].class).to be_in([TrueClass, FalseClass, NilClass])
 

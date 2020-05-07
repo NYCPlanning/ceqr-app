@@ -15,7 +15,6 @@ module CeqrData
         :pct_hs,
         :guessed_pct,
         :start_date,
-        :planned_end_date,
         :total_est_cost,
         :funding_current_budget,
         :funding_previous,

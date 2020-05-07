@@ -328,7 +328,6 @@ end
       ps_capacity: ps_capacity,
       is_capacity: is_capacity,
       hs_capacity: hs_capacity,
-      planned_end_date: school[:planned_end_date],
       pct_funded: school[:pct_funded],
       funding_previous: school[:funding_previous],
       funding_current_budget: school[:funding_current_budget],
