@@ -50,7 +50,7 @@ export default Component.extend({
 
     addSubdistrict() {
       const subdistricts = this.analysis.subdistrictsFromUser;
-      subdistricts.push({
+      subdistricts.pushObject({
         district: parseFloat(this.district),
         subdistrict: parseFloat(this.subdistrict),
         id: `${this.district}${this.subdistrict}`,
@@ -62,7 +62,7 @@ export default Component.extend({
 
       this.get('project-orchestrator').set('analysis', this.analysis);
       this.get('project-orchestrator.saveAnalysis').perform().then(
-        () => this.mapservice.fitToSubdistricts(),
+        () => this.mapservice.fitToSubdistricts(this.analysis.get('subdistrictsGeojson.subdistrictsGeojson')),
       );
     },
 
@@ -72,7 +72,7 @@ export default Component.extend({
 
       this.get('project-orchestrator').set('analysis', this.analysis);
       this.get('project-orchestrator.saveAnalysis').perform().then(
-        () => this.mapservice.fitToSubdistricts(),
+        () => this.mapservice.fitToSubdistricts(this.analysis.get('subdistrictsGeojson.subdistrictsGeojson')),
       );
     },
   },
