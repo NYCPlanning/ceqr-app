@@ -4,6 +4,6 @@ const { JSONAPISerializer } = DS;
 
 export default class SubdistrictsGeojsonSerializer extends JSONAPISerializer {
   attrs = {
-    subdistrictsGeojson: { serialize: false },
+    subdistrictsGeojson: { serialize: true },
   }
 }

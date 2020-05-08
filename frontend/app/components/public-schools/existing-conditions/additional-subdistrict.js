@@ -7,6 +7,7 @@ export default Component.extend({
   mapservice: service(),
   'ceqr-data': service(),
   'project-orchestrator': service(),
+  store: service(),
 
   init() {
     this._super(...arguments);
@@ -62,7 +63,11 @@ export default Component.extend({
 
       this.get('project-orchestrator').set('analysis', this.analysis);
       this.get('project-orchestrator.saveAnalysis').perform().then(
-        () => this.mapservice.fitToSubdistricts(this.analysis.get('subdistrictsGeojson.subdistrictsGeojson')),
+        () => {
+          this.store.findRecord('subdistricts-geojson', this.analysis.get('subdistrictsGeojson.id')).then(() => {
+            return this.mapservice.fitToSubdistricts(this.analysis.get('subdistrictsGeojson.subdistrictsGeojson'));
+          });
+        }
       );
     },
 
@@ -72,7 +77,11 @@ export default Component.extend({
 
       this.get('project-orchestrator').set('analysis', this.analysis);
       this.get('project-orchestrator.saveAnalysis').perform().then(
-        () => this.mapservice.fitToSubdistricts(this.analysis.get('subdistrictsGeojson.subdistrictsGeojson')),
+        () => {
+          this.store.findRecord('subdistricts-geojson', this.analysis.get('subdistrictsGeojson.id')).then(() => {
+            return this.mapservice.fitToSubdistricts(this.analysis.get('subdistrictsGeojson.subdistrictsGeojson'));
+          });
+        }
       );
     },
   },
