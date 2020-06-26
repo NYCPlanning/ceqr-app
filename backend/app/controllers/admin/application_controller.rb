@@ -8,8 +8,10 @@ module Admin
   class ApplicationController < Administrate::ApplicationController
     before_action :authenticate_admin
 
+    http_basic_authenticate_with name: ENV.fetch("ADMIN_NAME"), password: ENV.fetch("ADMIN_PASSWORD")
+
     def authenticate_admin
-      # TODO Add authentication logic here.
+
     end
 
     # Override this value to specify the number of elements to display at a time
