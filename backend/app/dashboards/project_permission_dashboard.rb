@@ -59,7 +59,7 @@ class ProjectPermissionDashboard < Administrate::BaseDashboard
   # Overwrite this method to customize how project permissions are displayed
   # across all pages of the admin dashboard.
   #
-  # def display_resource(project_permission)
-  #   "ProjectPermission ##{project_permission.id}"
-  # end
+  def display_resource(project_permission)
+    "ProjectPermission ##{project_permission.id}"
+  end
 end
