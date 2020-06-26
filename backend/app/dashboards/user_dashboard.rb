@@ -31,6 +31,7 @@ class UserDashboard < Administrate::BaseDashboard
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = %i[
     email
+    updated_at
     created_at
     account_approved
     admin
@@ -46,6 +47,7 @@ class UserDashboard < Administrate::BaseDashboard
     account_approved
     id
     admin
+    editable_and_viewable_projects
     viewable_projects
     editable_projects
     project_permissions

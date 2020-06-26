@@ -1,5 +1,12 @@
 module Admin
   class DataPackagesController < Admin::ApplicationController
+    def default_sorting_attribute
+      :release_date
+    end
+
+    def default_sorting_direction
+      :desc
+    end
     # Overwrite any of the RESTful controller actions to implement custom behavior
     # For example, you may want to send an email after a foo is updated.
     #
