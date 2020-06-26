@@ -12,7 +12,7 @@ class DataPackageDashboard < Administrate::BaseDashboard
     name: Field::Text,
     package: Field::Text,
     release_date: Field::Date,
-    schemas: Field::String.with_options(searchable: false),
+    schemas: Field::JSONB,
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
     version: Field::Text,
