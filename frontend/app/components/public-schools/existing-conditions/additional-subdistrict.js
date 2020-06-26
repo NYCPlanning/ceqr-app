@@ -9,8 +9,8 @@ export default Component.extend({
   'project-orchestrator': service(),
   store: service(),
 
-  init() {
-    this._super(...arguments);
+  init(...args) {
+    this._super(...args);
     this.fetchSubdistricts.perform();
 
     this.districts = [];
@@ -65,9 +65,9 @@ export default Component.extend({
       this.get('project-orchestrator.saveAnalysis').perform().then(
         () => {
           this.store.findRecord('subdistricts-geojson', this.analysis.get('subdistrictsGeojson.id')).then(() => {
-            return this.mapservice.fitToSubdistricts(this.analysis.get('subdistrictsGeojson.subdistrictsGeojson'));
+            this.mapservice.fitToSubdistricts(this.analysis.get('subdistrictsGeojson.subdistrictsGeojson'));
           });
-        }
+        },
       );
     },
 
@@ -79,9 +79,9 @@ export default Component.extend({
       this.get('project-orchestrator.saveAnalysis').perform().then(
         () => {
           this.store.findRecord('subdistricts-geojson', this.analysis.get('subdistrictsGeojson.id')).then(() => {
-            return this.mapservice.fitToSubdistricts(this.analysis.get('subdistrictsGeojson.subdistrictsGeojson'));
+            this.mapservice.fitToSubdistricts(this.analysis.get('subdistrictsGeojson.subdistrictsGeojson'));
           });
-        }
+        },
       );
     },
   },
