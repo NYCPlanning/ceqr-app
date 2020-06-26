@@ -1,14 +1,14 @@
 Rails.application.routes.draw do
   namespace :admin do
-      resources :users
-      resources :data_packages
+      resources :users, except: [:delete]
+      resources :data_packages, except: [:delete]
+      resources :project_permissions, except: [:delete]
 
-      resources :projects, except: [:index]
-      resources :project_permissions, except: [:index, :show]
-      resources :public_schools_analyses, except: [:index, :show]
+      resources :projects, except: [:index, :delete]
+      resources :public_schools_analyses, except: [:index, :show, :delete]
       # resources :transportation_analyses
       # resources :community_facilities_analyses
-      resources :subdistricts_geojsons, except: [:index]
+      resources :subdistricts_geojsons, except: [:index, :delete]
       # resources :transportation_planning_factors
 
       root to: "users#index"

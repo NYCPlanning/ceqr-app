@@ -8,9 +8,9 @@ class ProjectPermissionDashboard < Administrate::BaseDashboard
   # which determines how the attribute is displayed
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
-    user: Field::BelongsTo,
+    user: Field::BelongsTo.with_options(searchable: true, searchable_field: :email),
     project: Field::BelongsTo,
-    permission: Field::String,
+    permission: Field::Select.with_options(collection: ['editor', 'viewer']),
     id: Field::Number,
   }.freeze
 

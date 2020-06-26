@@ -11,7 +11,7 @@ class ProjectDashboard < Administrate::BaseDashboard
     id: Field::Number,
     name: Field::String.with_options(searchable: true),
     data_package: Field::BelongsTo,
-    public_schools_analysis: Field::BelongsTo
+    project_permissions: Field::HasMany
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -28,7 +28,7 @@ class ProjectDashboard < Administrate::BaseDashboard
   SHOW_PAGE_ATTRIBUTES = %i[
     name
     data_package
-    public_schools_analysis
+    project_permissions
   ].freeze
 
   # FORM_ATTRIBUTES
@@ -36,6 +36,7 @@ class ProjectDashboard < Administrate::BaseDashboard
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = %i[
     name
+    project_permissions
   ].freeze
 
   # COLLECTION_FILTERS
@@ -53,7 +54,7 @@ class ProjectDashboard < Administrate::BaseDashboard
   # Overwrite this method to customize how users are displayed
   # across all pages of the admin dashboard.
   #
-  # def display_resource(user)
-  #   "User ##{user.id}"
-  # end
+  def display_resource(project)
+    "#{project.name} - #{project.id}"
+  end
 end
