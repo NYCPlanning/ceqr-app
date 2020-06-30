@@ -1,4 +1,18 @@
 Rails.application.routes.draw do
+  namespace :admin do
+      resources :users, except: [:delete]
+      resources :data_packages, except: [:delete]
+      resources :project_permissions, except: [:delete]
+
+      resources :projects, except: [:delete]
+      resources :public_schools_analyses, except: [:index, :show, :delete]
+      # resources :transportation_analyses
+      # resources :community_facilities_analyses
+      resources :subdistricts_geojsons, except: [:index, :delete]
+      # resources :transportation_planning_factors
+
+      root to: "users#index"
+    end
   namespace :auth do
     namespace :v1 do
       post 'login', to: 'authentication#authenticate'
