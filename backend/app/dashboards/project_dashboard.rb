@@ -10,8 +10,15 @@ class ProjectDashboard < Administrate::BaseDashboard
   ATTRIBUTE_TYPES = {
     id: Field::Number,
     name: Field::String.with_options(searchable: true),
+    updated_by: Field::String,
+    created_at: Field::DateTime,
+    updated_at: Field::DateTime,
     data_package: Field::BelongsTo,
-    project_permissions: Field::HasMany
+    project_permissions: Field::HasMany,
+    parking_land_use: Field::JSONB,
+    commercial_land_use: Field::JSONB,
+    industrial_land_use: Field::JSONB,
+    community_facility_land_use: Field::JSONB
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -21,6 +28,9 @@ class ProjectDashboard < Administrate::BaseDashboard
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = %i[
     name
+    created_at
+    updated_at
+    updated_by
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
@@ -29,6 +39,10 @@ class ProjectDashboard < Administrate::BaseDashboard
     name
     data_package
     project_permissions
+    parking_land_use
+    commercial_land_use
+    industrial_land_use
+    community_facility_land_use
   ].freeze
 
   # FORM_ATTRIBUTES
@@ -37,6 +51,10 @@ class ProjectDashboard < Administrate::BaseDashboard
   FORM_ATTRIBUTES = %i[
     name
     project_permissions
+    parking_land_use
+    commercial_land_use
+    industrial_land_use
+    community_facility_land_use
   ].freeze
 
   # COLLECTION_FILTERS
@@ -55,6 +73,6 @@ class ProjectDashboard < Administrate::BaseDashboard
   # across all pages of the admin dashboard.
   #
   def display_resource(project)
-    "#{project.name} - #{project.id}"
+    "#{project.name} (#{project.updated_by})"
   end
 end

@@ -4,7 +4,7 @@ Rails.application.routes.draw do
       resources :data_packages, except: [:delete]
       resources :project_permissions, except: [:delete]
 
-      resources :projects, except: [:index, :delete]
+      resources :projects, except: [:delete]
       resources :public_schools_analyses, except: [:index, :show, :delete]
       # resources :transportation_analyses
       # resources :community_facilities_analyses
