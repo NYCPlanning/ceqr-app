@@ -97,6 +97,10 @@ Router.map(function() {
 
   this.route('four-oh-four', { path: '*path' });
   this.route('ceqr-intro-page');
+
+  this.route('data', function() {
+    this.route('air-quality');
+  });
 });
 
 export default Router;
