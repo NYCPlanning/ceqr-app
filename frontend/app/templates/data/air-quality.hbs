@@ -6,11 +6,9 @@
   </div>
   <div class="ui sixteen wide tablet ten wide computer column">
 
-    <h2>How to complete this workbook?</h2>
+    <h2>How to complete this workbook</h2>
 
     <p>Under CEQR, an air quality assessment determines both a proposed project's effects on ambient air quality as well as the effects of ambient air quality on the project. This workbook provides download of DEP CATS Permit records, DEC Air State Permit records, and Title V Air Permit records in order to allocate Light Industrial, Large and Major sources within the study area to determine whether detailed analyses for air toxic emissions are required in the Air Quality CEQR chapter.</p>
-
-    <div class="ui section divider"></div>
 
     <h2>How can I find related permit records using this data?</h2>
 
@@ -27,54 +25,135 @@
   </div>
   <div class="ui sixteen wide tablet six wide computer column">
 
-    <h3>
-      <a href="#" >
-        DEP CATS Permit records
-        <i class="download icon"></i>
-      </a>
-      <br><small class="ui grey"> (Light Industrial Source)</small>
+    <h3 class="ui header">
+      DEP CATS Permit Records
+      <span class="sub header">
+        <strong>Light Industrial Source</strong>
+        {{if this.model.dep_updated_on (concat '| Updated: ' this.model.dep_updated_on)}}
+      </span>
     </h3>
-    <ul class="ui list">
-      <li>DEP CATS Light Industrial Permit Records (Excel) </li>
-      <li>DEP CATS Light Industrial Permit Records (Shapefile) </li>
-      <li>Read Me (Word) </li>
-      <li>Data Dictionary (Excel)</li>
-    </ul>
-    <small>Last Updated: 02/03/20</small>
+    <div class="ui list">
+      <div class="item">
+        <a target="_blank" href="https://edm-publishing.nyc3.digitaloceanspaces.com/ceqr-app-data/dep_cats_permits/latest/dep_cats_permits.csv">
+          <i class="download icon grey"></i>
+          <span class="content">
+            DEP CATS Light Industrial Permit Records <small>(Excel)</small> 
+          </span>
+        </a>
+      </div>
+      <div class="item">
+        <a target="_blank" href="https://edm-publishing.nyc3.digitaloceanspaces.com/ceqr-app-data/dep_cats_permits/latest/dep_cats_permits.zip">
+          <i class="download icon grey"></i>
+          <span class="content">
+            DEP CATS Light Industrial Permit Records <small>(Shapefile)</small> 
+          </span>
+        </a>
+      </div>
+      <div class="item">
+        <a target="_blank" href="https://edm-publishing.nyc3.digitaloceanspaces.com/ceqr-app-data/dep_cats_permits/latest/ReadMe_sample.pdf">
+          <i class="download icon grey"></i>
+          <span class="content">
+            Read Me <small>(PDF)</small> 
+          </span>
+        </a>
+      </div>
+      <div class="item">
+        <a target="_blank" href="https://edm-publishing.nyc3.digitaloceanspaces.com/ceqr-app-data/dep_cats_permits/latest/Open-Data-Dictionary-Template.xlsx">
+          <i class="download icon grey"></i>
+          <span class="content">
+            Data Dictionary <small>(Excel)</small> 
+          </span>
+        </a>
+      </div>
+    </div>
 
     <div class="ui section divider"></div>
 
-    <h3>
-      <a href="#" >
-        DEC Air State Permit Records
-        <i class="download icon"></i>
-      </a>
-      <br><small> (Large Source)</small>
+    <h3 class="ui header">
+      DEC Air State Permit Records
+      <span class="sub header">
+        <strong> Large Source</strong>
+        {{if this.model.nysdec_updated_on (concat '| Updated: ' this.model.nysdec_updated_on)}}
+      </span>
     </h3>
-    <ul class="ui list">
-      <li>List of DEC Air State Permits (Excel) </li>
-      <li>List of DEC Air State permits (Shapefile) </li>
-      <li>Read Me (Word) </li>
-      <li>Data Dictionary (Excel)</li>
-    </ul>
-    <small>Last Updated: 02/03/20</small>
+    <div class="ui list">
+      <div class="item">
+        <a target="_blank" href="https://edm-publishing.nyc3.digitaloceanspaces.com/ceqr-app-data/nysdec_state_facility_permits/latest/nysdec_state_facility_permits.csv">
+          <i class="download icon grey"></i>
+          <span class="content">
+            List of DEC Air State Permits <small>(Excel)</small> 
+          </span>
+        </a>
+      </div>
+      <div class="item">
+        <a target="_blank" href="https://edm-publishing.nyc3.digitaloceanspaces.com/ceqr-app-data/nysdec_state_facility_permits/latest/nysdec_state_facility_permits.zip">
+          <i class="download icon grey"></i>
+          <span class="content">
+            List of DEC Air State permits <small>(Shapefile)</small> 
+          </span>
+        </a>
+      </div>
+      <div class="item">
+        <a target="_blank" href="https://edm-publishing.nyc3.digitaloceanspaces.com/ceqr-app-data/nysdec_state_facility_permits/latest/ReadMe_sample.pdf">
+          <i class="download icon grey"></i>
+          <span class="content">
+            Read Me <small>(PDF)</small> 
+          </span>
+        </a>
+      </div>
+      <div class="item">
+        <a target="_blank" href="https://edm-publishing.nyc3.digitaloceanspaces.com/ceqr-app-data/nysdec_state_facility_permits/latest/Open-Data-Dictionary-Template.xlsx">
+          <i class="download icon grey"></i>
+          <span class="content">
+            Data Dictionary <small>(Excel)</small> 
+          </span>
+        </a>
+      </div>
+    </div>
 
     <div class="ui section divider"></div>
 
-    <h3>
-      <a href="#" >
-        Title V Air Permit Records
-        <i class="download icon"></i>
-      </a>
-      <br><small> (Major Source)</small>
+    <h3 class="ui header">
+      Title V Air Permit Records
+      <span class="sub header">
+        <strong> Major Source</strong>
+        {{if this.model.title_v_updated_on (concat '| Updated: ' this.model.title_v_updated_on)}}
+      </span>
     </h3>
-    <ul class="ui list">
-      <li>List of Title V Air Permits (Excel) </li>
-      <li>List of Title V Air permits (Shapefile) </li>
-      <li>Read Me (Word) </li>
-      <li>Data Dictionary (Excel)</li>
-    </ul>
-    <small>Last Updated: 02/03/20</small>
+    <div class="ui list">
+      <div class="item">
+        <a target="_blank" href="https://edm-publishing.nyc3.digitaloceanspaces.com/ceqr-app-data/nysdec_title_v_facility_permits/latest/nysdec_title_v_facility_permits.csv">
+          <i class="download icon grey"></i>
+          <span class="content">
+            List of Title V Air Permits <small>(Excel)</small> 
+          </span>
+        </a>
+      </div>
+      <div class="item">
+        <a target="_blank" href="https://edm-publishing.nyc3.digitaloceanspaces.com/ceqr-app-data/nysdec_title_v_facility_permits/latest/nysdec_title_v_facility_permits.zip">
+          <i class="download icon grey"></i>
+          <span class="content">
+            List of Title V Air permits <small>(Shapefile)</small> 
+          </span>
+        </a>
+      </div>
+      <div class="item">
+        <a target="_blank" href="https://edm-publishing.nyc3.digitaloceanspaces.com/ceqr-app-data/nysdec_title_v_facility_permits/latest/ReadMe_sample.pdf">
+          <i class="download icon grey"></i>
+          <span class="content">
+            Read Me <small>(PDF)</small> 
+          </span>
+        </a>
+      </div>
+      <div class="item">
+        <a target="_blank" href="https://edm-publishing.nyc3.digitaloceanspaces.com/ceqr-app-data/nysdec_title_v_facility_permits/latest/Open-Data-Dictionary-Template.xlsx">
+          <i class="download icon grey"></i>
+          <span class="content">
+            Data Dictionary <small>(Excel)</small> 
+          </span>
+        </a>
+      </div>
+    </div>
 
   </div>
 </div>
