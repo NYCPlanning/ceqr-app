@@ -29,7 +29,6 @@
       DEP CATS Permit Records
       <span class="sub header">
         <strong>Light Industrial Source</strong>
-        {{if this.model.dep_updated_on (concat "| Updated: " this.model.dep_updated_on)}}
       </span>
     </h3>
 
@@ -38,7 +37,7 @@
         <a href="https://edm-publishing.nyc3.digitaloceanspaces.com/ceqr-app-data/dep_cats_permits/latest/dep_cats_permits.csv" target="_blank" rel="noopener">
           <i class="download icon grey"></i>
           <span class="content">
-            DEP CATS Light Industrial Permit Records <small>(Excel)</small> 
+            DEP CATS Light Industrial Permit Records <small>(Excel)</small>
           </span>
         </a>
       </div>
@@ -46,7 +45,7 @@
         <a href="https://edm-publishing.nyc3.digitaloceanspaces.com/ceqr-app-data/dep_cats_permits/latest/dep_cats_permits.zip" target="_blank" rel="noopener">
           <i class="download icon grey"></i>
           <span class="content">
-            DEP CATS Light Industrial Permit Records <small>(Shapefile)</small> 
+            DEP CATS Light Industrial Permit Records <small>(Shapefile)</small>
           </span>
         </a>
       </div>
@@ -54,7 +53,7 @@
         <a href="https://edm-publishing.nyc3.digitaloceanspaces.com/ceqr-app-data/dep_cats_permits/latest/ReadMe_sample.pdf" target="_blank" rel="noopener">
           <i class="download icon grey"></i>
           <span class="content">
-            Read Me <small>(PDF)</small> 
+            Read Me <small>(PDF)</small>
           </span>
         </a>
       </div>
@@ -62,19 +61,21 @@
         <a href="https://edm-publishing.nyc3.digitaloceanspaces.com/ceqr-app-data/dep_cats_permits/latest/Open-Data-Dictionary-Template.xlsx" target="_blank" rel="noopener">
           <i class="download icon grey"></i>
           <span class="content">
-            Data Dictionary <small>(Excel)</small> 
+            Data Dictionary <small>(Excel)</small>
           </span>
         </a>
       </div>
     </div>
+
+    {{if this.model.dep_updated_on (concat "Updated: " this.model.dep_updated_on)}}
+
 
     <div class="ui section divider"></div>
 
     <h3 class="ui header">
       DEC Air State Permit Records
       <span class="sub header">
-        <strong> Large Source</strong>
-        {{if this.model.nysdec_updated_on (concat "| Updated: " this.model.nysdec_updated_on)}}
+        <strong>Large Source</strong>
       </span>
     </h3>
 
@@ -83,7 +84,7 @@
         <a href="https://edm-publishing.nyc3.digitaloceanspaces.com/ceqr-app-data/nysdec_state_facility_permits/latest/nysdec_state_facility_permits.csv" target="_blank" rel="noopener">
           <i class="download icon grey"></i>
           <span class="content">
-            List of DEC Air State Permits <small>(Excel)</small> 
+            List of DEC Air State Permits <small>(Excel)</small>
           </span>
         </a>
       </div>
@@ -91,7 +92,7 @@
         <a href="https://edm-publishing.nyc3.digitaloceanspaces.com/ceqr-app-data/nysdec_state_facility_permits/latest/nysdec_state_facility_permits.zip" target="_blank" rel="noopener">
           <i class="download icon grey"></i>
           <span class="content">
-            List of DEC Air State permits <small>(Shapefile)</small> 
+            List of DEC Air State permits <small>(Shapefile)</small>
           </span>
         </a>
       </div>
@@ -99,7 +100,7 @@
         <a href="https://edm-publishing.nyc3.digitaloceanspaces.com/ceqr-app-data/nysdec_state_facility_permits/latest/ReadMe_sample.pdf" target="_blank" rel="noopener">
           <i class="download icon grey"></i>
           <span class="content">
-            Read Me <small>(PDF)</small> 
+            Read Me <small>(PDF)</small>
           </span>
         </a>
       </div>
@@ -107,19 +108,20 @@
         <a href="https://edm-publishing.nyc3.digitaloceanspaces.com/ceqr-app-data/nysdec_state_facility_permits/latest/Open-Data-Dictionary-Template.xlsx" target="_blank" rel="noopener">
           <i class="download icon grey"></i>
           <span class="content">
-            Data Dictionary <small>(Excel)</small> 
+            Data Dictionary <small>(Excel)</small>
           </span>
         </a>
       </div>
     </div>
+
+    {{if this.model.nysdec_updated_on (concat "Updated: " this.model.nysdec_updated_on)}}
 
     <div class="ui section divider"></div>
 
     <h3 class="ui header">
       Title V Air Permit Records
       <span class="sub header">
-        <strong> Major Source</strong>
-        {{if this.model.title_v_updated_on (concat "| Updated: " this.model.title_v_updated_on)}}
+        <strong>Major Source</strong>
       </span>
     </h3>
 
@@ -128,7 +130,7 @@
         <a href="https://edm-publishing.nyc3.digitaloceanspaces.com/ceqr-app-data/nysdec_title_v_facility_permits/latest/nysdec_title_v_facility_permits.csv" target="_blank" rel="noopener">
           <i class="download icon grey"></i>
           <span class="content">
-            List of Title V Air Permits <small>(Excel)</small> 
+            List of Title V Air Permits <small>(Excel)</small>
           </span>
         </a>
       </div>
@@ -136,7 +138,7 @@
         <a href="https://edm-publishing.nyc3.digitaloceanspaces.com/ceqr-app-data/nysdec_title_v_facility_permits/latest/nysdec_title_v_facility_permits.zip" target="_blank" rel="noopener">
           <i class="download icon grey"></i>
           <span class="content">
-            List of Title V Air permits <small>(Shapefile)</small> 
+            List of Title V Air permits <small>(Shapefile)</small>
           </span>
         </a>
       </div>
@@ -144,7 +146,7 @@
         <a href="https://edm-publishing.nyc3.digitaloceanspaces.com/ceqr-app-data/nysdec_title_v_facility_permits/latest/ReadMe_sample.pdf" target="_blank" rel="noopener">
           <i class="download icon grey"></i>
           <span class="content">
-            Read Me <small>(PDF)</small> 
+            Read Me <small>(PDF)</small>
           </span>
         </a>
       </div>
@@ -152,11 +154,13 @@
         <a href="https://edm-publishing.nyc3.digitaloceanspaces.com/ceqr-app-data/nysdec_title_v_facility_permits/latest/Open-Data-Dictionary-Template.xlsx" target="_blank" rel="noopener">
           <i class="download icon grey"></i>
           <span class="content">
-            Data Dictionary <small>(Excel)</small> 
+            Data Dictionary <small>(Excel)</small>
           </span>
         </a>
       </div>
     </div>
+
+    {{if this.model.title_v_updated_on (concat "Updated: " this.model.title_v_updated_on)}}
 
   </div>
 </div>
