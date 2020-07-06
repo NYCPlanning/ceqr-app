@@ -4,7 +4,8 @@ import fetch from 'fetch';
 
 export default class DataAirQualityRoute extends Route {
   async model() {
-    const data_dir = 'https://edm-publishing.nyc3.digitaloceanspaces.com/ceqr-app-data/';
+    const dataDir = 'https://edm-publishing.nyc3.digitaloceanspaces.com/ceqr-app-data/';
+    const versionTxt = 'latest/version.txt';
 
     const fetchOptions = {
       method: 'GET',
@@ -14,18 +15,14 @@ export default class DataAirQualityRoute extends Route {
       },
     };
 
-    const dep = await fetch(`${data_dir}dep_cats_permits/latest/version.txt`, fetchOptions);
-    const nysdec = await fetch(`${data_dir}nysdec_state_facility_permits/latest/version.txt`, fetchOptions);
-    const title_v = await fetch(`${data_dir}nysdec_title_v_facility_permits/latest/version.txt`, fetchOptions);
-
-    const dep_date = dep.text();
-    const nysdec_date = nysdec.text();
-    const title_v_date = title_v.text();
+    const depTxt = await fetch(`${dataDir}dep_cats_permits/${versionTxt}`, fetchOptions);
+    const nysdecTxt = await fetch(`${dataDir}nysdec_state_facility_permits/${versionTxt}`, fetchOptions);
+    const titleVTxt = await fetch(`${dataDir}nysdec_title_v_facility_permits/${versionTxt}`, fetchOptions);
 
     return RSVP.hash({
-      dep_updated_on: dep.ok ? dep_date : null,
-      nysdec_updated_on: nysdec.ok ? nysdec_date : null,
-      title_v_updated_on: title_v.ok ? title_v_date : null,
+      depUpdatedOn: depTxt.ok ? depTxt.text() : null,
+      nysdecUpdatedOn: nysdecTxt.ok ? nysdecTxt.text() : null,
+      titleVUpdatedOn: titleVTxt.ok ? titleVTxt.text() : null,
     });
   }
 }
