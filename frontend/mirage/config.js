@@ -20,6 +20,7 @@ export default function() {
   this.passthrough('https://layers-api.planninglabs.nyc/**');
   this.passthrough('https://tiles.planninglabs.nyc/**');
   this.passthrough('https://events.mapbox.com/events/**');
+  this.passthrough('https://edm-publishing.nyc3.digitaloceanspaces.com/ceqr-app-data/**');
 
   this.passthrough('https://cartocdn-gusc-a.global.ssl.fastly.net/planninglabs/**');
   this.passthrough('https://cartocdn-gusc-b.global.ssl.fastly.net/planninglabs/**');
