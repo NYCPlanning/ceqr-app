@@ -15,14 +15,14 @@ export default class DataAirQualityRoute extends Route {
       },
     };
 
-    const depTxt = await fetch(`${dataDir}dep_cats_permits/${versionTxt}`, fetchOptions);
-    const nysdecTxt = await fetch(`${dataDir}nysdec_state_facility_permits/${versionTxt}`, fetchOptions);
-    const titleVTxt = await fetch(`${dataDir}nysdec_title_v_facility_permits/${versionTxt}`, fetchOptions);
+    const depFile = await fetch(`${dataDir}dep_cats_permits/${versionTxt}`, fetchOptions);
+    const nysdecFile = await fetch(`${dataDir}nysdec_state_facility_permits/${versionTxt}`, fetchOptions);
+    const titleVFile = await fetch(`${dataDir}nysdec_title_v_facility_permits/${versionTxt}`, fetchOptions);
 
     return RSVP.hash({
-      depUpdatedOn: depTxt.ok ? depTxt.text() : null,
-      nysdecUpdatedOn: nysdecTxt.ok ? nysdecTxt.text() : null,
-      titleVUpdatedOn: titleVTxt.ok ? titleVTxt.text() : null,
+      depUpdatedOn: depFile.ok ? depFile.text() : null,
+      nysdecUpdatedOn: nysdecFile.ok ? nysdecFile.text() : null,
+      titleVUpdatedOn: titleVFile.ok ? titleVFile.text() : null,
     });
   }
 }
