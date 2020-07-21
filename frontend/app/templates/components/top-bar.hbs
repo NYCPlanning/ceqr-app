@@ -11,6 +11,19 @@
     </div>
     <div class="right menu">
       <div class="ui simple dropdown item">
+        Data Downloads
+        <i class="dropdown icon"></i>
+        <div class="menu">
+          {{#link-to
+            "data.air-quality"
+            class="item"
+            data-test-topbar-link="air-quality"
+          }}
+            Air Quality
+          {{/link-to}}
+        </div>
+      </div>
+      <div class="ui simple dropdown item">
         Technical Manual
         <i class="dropdown icon"></i>
         <div class="menu">
