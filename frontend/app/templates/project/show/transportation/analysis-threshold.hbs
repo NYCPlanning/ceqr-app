@@ -2,7 +2,8 @@
   <div class="one wide column">
     <i class="ui huge {{if model.transportationAnalysis.detailedAnalysis "yellow exclamation circle" "green check"}} icon"></i>
   </div>
-  <div class="fifteen wide column" style="margin-top: 1em;">    
+  <div class="fifteen wide column" style="margin-top: 1em;">  
+
     <h2>
       {{#if model.transportationAnalysis.detailedAnalysis}}
         TDF Memo Required
@@ -10,6 +11,16 @@
         TDF Memo Not Required
       {{/if}}
     </h2>
+
+    {{#link-to
+      "data.transportation-trip-generation"
+      class="ui right floated button primary"
+    }}
+      <i class="download icon"></i>
+      Trip Generation Data
+      <br>
+      for additional land uses
+    {{/link-to}}
 
     {{#if model.transportationAnalysis.detailedAnalysis}}
       <p>Verify the numbers below before you set your Planning Factors.</p>
