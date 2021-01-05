@@ -11,6 +11,16 @@
       {{/if}}
     </h2>
 
+    {{#link-to
+      "data.transportation-trip-generation"
+      class="ui right floated button primary"
+    }}
+      <i class="download icon"></i>
+      Trip Generation Data
+      <br>
+      for additional land uses
+    {{/link-to}}
+
     {{#if model.transportationAnalysis.detailedAnalysis}}
       <p>Verify the numbers below before you set your Planning Factors.</p>
 
