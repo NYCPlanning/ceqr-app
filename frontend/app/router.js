@@ -100,6 +100,7 @@ Router.map(function() {
 
   this.route('data', function() {
     this.route('air-quality');
+    this.route('transportation-trip-generation');
   });
 });
 
