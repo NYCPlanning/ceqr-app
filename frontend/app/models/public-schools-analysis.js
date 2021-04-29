@@ -216,7 +216,7 @@ export default DS.Model.extend({
     'subdistricts',
     'currentMultiplier',
     'hsProjections',
-    'futureEnrollmentProjections',
+    'futureEnrollmentProjections.@each.{ms,ps}',
     'futureEnrollmentNewHousing',
     'scaProjects.@each.{includeInCapacity,ps_capacity,is_capacity,hs_capacity}',
     function() {
