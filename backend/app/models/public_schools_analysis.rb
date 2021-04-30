@@ -175,6 +175,7 @@ def set_future_enrollment_projections
       ps: pr[:ps],
       ms: pr[:is], # this is legacy and should change to 'is'
       district: pr[:district],
+      subdistrict: pr[:subdistrict],
       school_year: pr[:school_year]
     }
   end

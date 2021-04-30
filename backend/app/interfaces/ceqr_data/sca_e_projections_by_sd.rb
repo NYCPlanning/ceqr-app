@@ -5,7 +5,7 @@ module CeqrData
   # primary and intermediate school student enrollment projections by year and borough
     def enrollment_projection_by_subdistrict_for_year(buildYearMaxed, district)
       @dataset.select(
-      	:ps, :is, :district, :school_year
+      	:ps, :is, :district, :school_year, :subdistrict
       ).where(district: district).where(Sequel.ilike(:school_year, "%#{buildYearMaxed}%"))
     end
   end
