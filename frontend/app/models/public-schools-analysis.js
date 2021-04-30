@@ -260,7 +260,9 @@ export default DS.Model.extend({
           studentMultiplier: this.currentMultiplier.ps,
 
           enroll: Math.round(
-            this.futureEnrollmentProjections.findBy('district', sd.district).ps,
+            this.futureEnrollmentProjections.find(
+              i => (i.district === sd.district && i.subdistrict === sd.subdistrict),
+            ).ps
           ),
 
           students: (
@@ -300,7 +302,9 @@ export default DS.Model.extend({
           studentMultiplier: this.currentMultiplier.is,
 
           enroll: Math.round(
-            this.futureEnrollmentProjections.findBy('district', sd.district).ms,
+            this.futureEnrollmentProjections.find(
+              i => (i.district === sd.district && i.subdistrict === sd.subdistrict),
+            ).ms
           ),
 
           students: (
