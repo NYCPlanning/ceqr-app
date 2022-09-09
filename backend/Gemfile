@@ -62,6 +62,7 @@ group :development, :test do
   gem 'faker', '~> 1.9.1'
   gem 'rspec-activemodel-mocks'
   gem 'lograge'
+  gem 'mimemagic', '~> 0.3.3'
 
   # This is a jsonapi test helper tied to another JSONAPI (previous JSONAPI Suite, now called Graphiti) ruby gem.
   # It was the most elegant, in my opinion.
