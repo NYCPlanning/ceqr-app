@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_07_222225) do
+ActiveRecord::Schema.define(version: 2023_01_11_155439) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -42,24 +42,8 @@ ActiveRecord::Schema.define(version: 2020_05_07_222225) do
     t.index ["user_id"], name: "index_project_permissions_on_user_id"
   end
 
-  create_table "projects", force: :cascade do |t|
-    t.text "name"
-    t.text "bbls", default: [], null: false, array: true
-    t.integer "build_year"
-    t.text "updated_by"
-    t.datetime "updated_at", null: false
-    t.datetime "created_at", null: false
-    t.integer "senior_units", default: 0, null: false
-    t.integer "total_units", default: 0, null: false
-    t.text "ceqr_number"
-    t.jsonb "commercial_land_use", default: [], null: false, array: true
-    t.jsonb "industrial_land_use", default: [], null: false, array: true
-    t.jsonb "community_facility_land_use", default: [], null: false, array: true
-    t.jsonb "parking_land_use", default: [], null: false, array: true
-    t.geometry "bbls_geom", limit: {:srid=>4326, :type=>"multi_polygon"}, null: false
-    t.integer "affordable_units", default: 0, null: false
-    t.bigint "data_package_id"
-  end
+# Could not dump table "projects" because of following StandardError
+#   Unknown type 'geometry(MultiPolygon,4326)' for column 'bbls_geom'
 
   create_table "public_schools_analyses", force: :cascade do |t|
     t.boolean "es_school_choice"
@@ -97,16 +81,8 @@ ActiveRecord::Schema.define(version: 2020_05_07_222225) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "transportation_analyses", force: :cascade do |t|
-    t.integer "traffic_zone"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "project_id"
-    t.geometry "census_tracts_centroid", limit: {:srid=>4326, :type=>"st_point"}, null: false
-    t.text "required_census_tracts_selection", default: [], null: false, array: true
-    t.text "census_tracts_selection", default: [], array: true
-    t.text "modes_for_analysis", default: [], null: false, array: true
-  end
+# Could not dump table "transportation_analyses" because of following StandardError
+#   Unknown type 'geometry(Point,4326)' for column 'census_tracts_centroid'
 
   create_table "transportation_planning_factors", force: :cascade do |t|
     t.jsonb "mode_splits_from_user", default: {}, null: false
@@ -140,7 +116,7 @@ ActiveRecord::Schema.define(version: 2020_05_07_222225) do
   add_foreign_key "projects", "data_packages"
   add_foreign_key "public_schools_analyses", "data_packages"
   add_foreign_key "public_schools_analyses", "projects"
-  add_foreign_key "public_schools_analyses", "subdistricts_geojsons"
+  add_foreign_key "public_schools_analyses", "subdistricts_geojsons", on_delete: :cascade
   add_foreign_key "transportation_analyses", "projects"
   add_foreign_key "transportation_planning_factors", "data_packages"
   add_foreign_key "transportation_planning_factors", "transportation_analyses"

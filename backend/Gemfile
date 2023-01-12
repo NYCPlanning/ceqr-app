@@ -5,7 +5,7 @@ ruby '2.6.4'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.2.1'
-gem 'pg'
+gem 'pg', '1.1.4'
 gem 'sequel_pg', :require=>'sequel'
 
 # Use Puma as the app server
@@ -41,6 +41,8 @@ gem 'newrelic_rpm'
 
 gem 'administrate', git: 'https://github.com/thoughtbot/administrate'
 gem 'administrate-field-jsonb'
+
+gem 'mimemagic', github: 'mimemagicrb/mimemagic', ref: '01f92d86d15d85cfd0f20dabd025dcbd36a8a60f'
 
 group :development do
   gem 'listen', '>= 3.0.5', '< 3.2'

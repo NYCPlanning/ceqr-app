@@ -8,5 +8,9 @@
 .env
 node_modules
 
+**/.DS_Store
+
+backend/logfile
+
 # optional database backup to load prod data into docker postgis
 backend/db/backup
