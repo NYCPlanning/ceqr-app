@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_07_222225) do
+ActiveRecord::Schema.define(version: 2023_01_13_200811) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -140,7 +140,7 @@ ActiveRecord::Schema.define(version: 2020_05_07_222225) do
   add_foreign_key "projects", "data_packages"
   add_foreign_key "public_schools_analyses", "data_packages"
   add_foreign_key "public_schools_analyses", "projects"
-  add_foreign_key "public_schools_analyses", "subdistricts_geojsons"
+  add_foreign_key "public_schools_analyses", "subdistricts_geojsons", on_delete: :cascade
   add_foreign_key "transportation_analyses", "projects"
   add_foreign_key "transportation_planning_factors", "data_packages"
   add_foreign_key "transportation_planning_factors", "transportation_analyses"
