@@ -48,7 +48,7 @@
 
 5.  🥳 **That's IT!!!!!!** 🥳
 
-##### Docker Tips  
+##### Docker Tips
 - When you `docker-compose up` for the first time (or if you cleanup the `postgis` volume that contains `ceqr_rails`), you'll have to Create an Account in CEQR App, then create a test project(s):  
   - Create Account  
   ![](docs/images/2019-12-12-12-27-32.png)
@@ -95,9 +95,16 @@ Run docker `docker-compose up`
 
 Check which containers are running `docker-compose ps`
 
-SSH into the backend docker container `docker exec -it ceqr-app_backend_1 /bin/bash`
+SSH into the backend docker container `docker exec -it ceqr-app-backend-1 /bin/bash`
 
 Once inside the container, run the rails migration command `rails generate migration name_of_your_migration`
+
+If you are running the app for the first time in a docker container and the above migration fails to execute with this message: `bash: rails: command not found`, it will be be necessary to for you run `gem install rails -v 5.2.2.1`, if that works, then retry the migration. You may also get the following error:
+```
+ Error installing rails:
+  The last version of nokogiri (>= 1.6) to support your Ruby & RubyGems was 1.13.10. Try installing it with `gem install nokogiri -v 1.13.10` and then running the current command again
+  ```
+If so, run `gem install nokogiri -v 1.13.10` and retry installing rails.
 
 **For running the migrations in the Heroku UI:**
 
@@ -111,7 +118,7 @@ If you created a new table and need to populate this table with data after runni
 ### Debugging
 You can enter the running rails application by running:
 ```sh
-docker exec -it ceqr-app_backend_1 bash
+docker exec -it ceqr-app-backend-1 bash
 ```
 This is helpful if you want to run interactive rails commands, like `rails dbconsole` to get a psql session on your development `ceqr_rails` or `rails console` to inspect the state of the running application and troubleshoot.
 
