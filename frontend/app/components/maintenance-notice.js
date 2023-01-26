@@ -19,15 +19,11 @@ const userReadableTime = function(time) {
 
 export default class MaintenanceNoticeComponent extends Component {
   get maintenanceStart() {
-    const maintenanceStart = userReadableTime(start);
-
-    return maintenanceStart;
+    return userReadableTime(start);
   }
 
   get maintenanceEnd() {
-    const maintenanceEnd = userReadableTime(end);
-
-    return maintenanceEnd;
+    return userReadableTime(end);
   }
 
   get hasUpcomingMaintenance() {

@@ -129,7 +129,7 @@ function getHost(environment) {
 function getMaintenanceTimes() {
   const {
     MAINTENANCE_START = '01/01/23 00:00',
-    MAINTENANCE_END = '0/01/23 00:00',
+    MAINTENANCE_END = '01/01/23 00:00',
   } = process.env;
 
   return [MAINTENANCE_START, MAINTENANCE_END];
