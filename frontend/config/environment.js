@@ -51,6 +51,7 @@ module.exports = function(environment) {
     environment,
     rootURL: '/',
     locationType: 'auto',
+    maintenanceTimes: getMaintenanceTimes(),
     EmberENV: {
       FEATURES: {
         // Here you can enable experimental features on an ember canary build
@@ -123,4 +124,13 @@ function getHost(environment) {
   }
 
   return '';
+}
+
+function getMaintenanceTimes() {
+  const {
+    MAINTENANCE_START = '01/01/23 00:00',
+    MAINTENANCE_END = '01/01/23 00:00',
+  } = process.env;
+
+  return [MAINTENANCE_START, MAINTENANCE_END];
 }

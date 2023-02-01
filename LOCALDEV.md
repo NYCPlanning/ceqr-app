@@ -9,6 +9,8 @@ Requirements:
 
 To get it running you will need both `node` and `ruby` installed. Use the language version manager of your choice, or follow the instructions below.
 
+** Updated Jan 19, 2023. Ruby 2.6.4 has reached EOL and is no longer available via `RVM`. It can be installed locally with `RBENV` however, running the back end of the app outside of a Docker container, would be highly problematic as installing some of the dependancies may cause many compatibility issues **
+
 ### Getting the code
 
 To get started, first clone this repo and navigate to it.

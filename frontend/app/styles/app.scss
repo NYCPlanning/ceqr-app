@@ -1,4 +1,5 @@
 $gray: #828892;
+$menu-bar-top: 21px;
 
 // Body & containter
 
@@ -13,11 +14,44 @@ body > .ember-view {
 }
 
 body .ui.fixed.menu.top-bar {
-  top: 21px;
+  top: $menu-bar-top;
 }
 
 body .ui.grid.container {
   margin: 70px 0 40px;
+}
+
+body {
+  .maintenance-banner {
+    position: relative;
+    top: calc(#{$menu-bar-top} * 3);
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    margin-right: auto;
+    margin-left: auto;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.1);
+    text-align: left;
+
+    .maintenance-notice {
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(9, 1fr);
+      grid-column-end: span 8;
+      margin: 1em auto 1em auto;
+
+      p {
+        display: inherit;
+        grid-column-start: 3;
+        grid-column-end: span 5;
+
+        @media only screen and (min-width: 700px) and (max-width: 858px){
+          grid-column-start: 2;
+          grid-column-end: span 7;
+        }
+      }
+    }
+  }
 }
 
 footer {
