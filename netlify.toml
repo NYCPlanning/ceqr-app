@@ -3,7 +3,7 @@
 
 [context.master]
     command = "yarn build --environment=production"
-    environment = { HOST="https://ceqr-app-prod.herokuapp.com", MAINTENANCE_START='01/01/23 00:00', MAINTENANCE_END='01/01/23 00:00' }
+    environment = { HOST="https://ceqr-app-prod.herokuapp.com", MAINTENANCE_START='02/06/23 11:00', MAINTENANCE_END='02/06/23 14:00' }
 
 [context.deploy-preview]
     command = "yarn build --environment=review"
