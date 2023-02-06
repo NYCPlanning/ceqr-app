@@ -110,7 +110,7 @@ For the frontend:
 
 ```
 cd frontend/
-yarn serve-with-backend
+yarn start-with-backend
 ```
 
 ### Troubleshooting Rails server
