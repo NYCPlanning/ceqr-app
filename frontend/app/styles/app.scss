@@ -22,6 +22,12 @@ body .ui.grid.container {
 }
 
 body {
+
+  .ui.blue.header {
+    .content {
+      margin-top: 3em;
+    }
+  }
   .maintenance-container{
     position: absolute;
     top: calc(#{$menu-bar-top} * 3);
