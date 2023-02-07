@@ -19,13 +19,13 @@
     "start-with-backend": "HOST='http://localhost:3000' DISABLE_MIRAGE=true ember s"
   },
   "engines": {
-    "node": "10.18.0"
+    "node": "12.*"
   },
   "ember": {
     "edition": "octane"
   },
   "devDependencies": {
-    "@babel/core": "^7.3.3",
+    "@babel/core": "^7.20.12",
     "@babel/plugin-proposal-object-rest-spread": "^7.3.2",
     "@ember/optional-features": "^1.3.0",
     "@fortawesome/ember-fontawesome": "^0.1.9",
@@ -75,7 +75,7 @@
     "ember-mapbox-gl": "^0.16.0",
     "ember-math-helpers": "^2.9.0",
     "ember-maybe-import-regenerator": "^0.1.6",
-    "ember-metrics": "^0.13.0",
+    "ember-metrics": "^2.0.0-beta.2",
     "ember-moment": "^8.0.0",
     "ember-needs-async": "0.3.0",
     "ember-new-relic": "^0.6.1",
@@ -135,6 +135,7 @@
     ]
   },
   "resolutions": {
+    "@babel/helper-compilation-targets": "^7.20.7",
     "ember-concurrency": "^1.1.5"
   }
 }
