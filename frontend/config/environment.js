@@ -34,6 +34,16 @@ module.exports = function(environment) {
           // require: ['ecommerce']
         },
       },
+      {
+        name: 'GoogleAnalyticsFour',
+        environments: ['development', 'production'],
+        config: {
+          id: 'G-JVP9PT092L',
+          options: {
+            debug_mode: environment === 'development',
+          },
+        },
+      },
     ],
     fontawesome: {
       icons: {
