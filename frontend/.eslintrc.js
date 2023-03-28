@@ -1,3 +1,4 @@
+
 module.exports = {
   globals: {
     server: true,
@@ -29,7 +30,7 @@ module.exports = {
     'array-callback-return': 1,
     'consistent-return': 1,
     'default-case': 1,
-    'eqeqeq': 1,
+    eqeqeq: 1,
     'lines-around-directive': 0,
     'func-names': 0,
     'space-before-function-paren': 0,
@@ -43,7 +44,7 @@ module.exports = {
     'no-underscore-dangle': 0,
     'no-use-before-define': 1,
     'no-return-assign': 1,
-    'camelcase': 0,
+    camelcase: 0,
     'class-methods-use-this': 0,
     'max-len': 0,
     'no-param-reassign': 0,
@@ -71,10 +72,8 @@ module.exports = {
         node: true,
       },
       plugins: ['node'],
+      extends: ['plugin:node/recommended'],
       rules: {
-        // add your custom rules and overrides for node files here
-        ...require('eslint-plugin-node').configs.recommended.rules, // eslint-disable-line
-
         // this can be removed once the following is fixed
         // https://github.com/mysticatea/eslint-plugin-node/issues/77
         'node/no-unpublished-require': 'off',
