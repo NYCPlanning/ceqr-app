@@ -1,5 +1,7 @@
 FROM ruby:2.7.7
 
+RUN rvm --default use $RUBY_VERSION
+
 RUN apt-get update -qq && apt-get install -qq \
     postgresql
 

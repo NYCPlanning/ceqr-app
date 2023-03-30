@@ -3,13 +3,13 @@
 ## Environment
 
 Requirements:
-- Ruby 2.6.4
-- Node 8+
+- Ruby 2.7.7
+- Node 14+
 - Postgres 10+ with PostGIS extension installed
 
 To get it running you will need both `node` and `ruby` installed. Use the language version manager of your choice, or follow the instructions below.
 
-** Updated Jan 19, 2023. Ruby 2.6.4 has reached EOL and is no longer available via `RVM`. It can be installed locally with `RBENV` however, running the back end of the app outside of a Docker container, would be highly problematic as installing some of the dependancies may cause many compatibility issues **
+** Updated Jan 19, 2023. Ruby 2.7.7 has reached EOL and is no longer available via `RVM`. It can be installed locally with `RBENV` however, running the back end of the app outside of a Docker container, would be highly problematic as installing some of the dependancies may cause many compatibility issues **
 
 ### Getting the code
 
@@ -27,7 +27,7 @@ I suggest using [`rbenv`](https://github.com/rbenv/rbenv) installed with Homebre
 ```
 brew install rbenv
 rbenv init
-rbenv install 2.6.4
+rbenv install 2.7.7
 ```
 
 ### Installing Node
