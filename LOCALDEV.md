@@ -5,6 +5,7 @@
 Requirements:
 - Ruby 2.7.7
 - Node 14+
+- Node 14+
 - Postgres 10+ with PostGIS extension installed
 
 To get it running you will need both `node` and `ruby` installed. Use the language version manager of your choice, or follow the instructions below.
