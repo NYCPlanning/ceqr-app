@@ -56,17 +56,36 @@ module.exports = {
     'no-return-await': 1,
     'operator-linebreak': 1,
     'ember/avoid-leaking-state-in-ember-objects': 0,
+    ecmaFeatures: {
+      legacyDecorators: 1,
+    },
+  },
+  plugins: ['ember'],
+  extends: [
+    'eslint:recommended',
+    'plugin:ember/recommended',
+    'plugin:prettier/recommended',
+  ],
+  env: {
+    browser: true,
   },
   overrides: [
     // node files
     {
       files: [
-        'ember-cli-build.js',
-        'testem.js',
-        'config/**/*.js',
-        'lib/*/index.js',
-        'server/**/*.js',
+        './.eslintrc.js',
+        './.prettierrc.js',
+        './.template-lintrc.js',
+        './ember-cli-build.js',
+        './testem.js',
+        './blueprints/*/index.js',
+        './config/**/*.js',
+        './lib/*/index.js',
+        './server/**/*.js',
       ],
+      parserOptions: {
+        sourceType: 'script',
+      },
       env: {
         browser: false,
         node: true,
@@ -78,6 +97,11 @@ module.exports = {
         // https://github.com/mysticatea/eslint-plugin-node/issues/77
         'node/no-unpublished-require': 'off',
       },
+    },
+    {
+      // Test files:
+      files: ['tests/**/*-test.{js,ts}'],
+      extends: ['plugin:qunit/recommended'],
     },
   ],
 };

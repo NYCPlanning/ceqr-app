@@ -1,6 +1,5 @@
-
 module.exports = function(environment) {
-  const ENV = {
+  let ENV = {
     host: getHost(environment),
     'mapbox-gl': {
       accessToken: 'pk.eyJ1IjoicGljaG90IiwiYSI6ImNqbWIzYzFyeTVrbHAzcW9nbmRmeXNmbHcifQ.VEiOF5YV_9kxwXekZ3fWLA',
@@ -46,17 +45,12 @@ module.exports = function(environment) {
       },
     ],
     fontawesome: {
-      icons: {
-        'free-solid-svg-icons': [
-          'equals',
-        ],
-      },
+      warnIfNoIconsIncluded: false,
     },
     SENTRY_DSN: process.env.SENTRY_DSN,
     newRelic: {
       licenseKey: process.env.NEW_RELIC_LICENSE_KEY,
     },
-
     modulePrefix: 'labs-ceqr',
     environment,
     rootURL: '/',
@@ -80,7 +74,9 @@ module.exports = function(environment) {
   };
 
   if (environment === 'development') {
-    ENV['ember-simple-auth-token'].tokenExpirationInvalidateSession = false;
+    ENV['ember-simple-auth-token'] = {
+      tokenExpirationInvalidateSession: false
+    };
     ENV['ember-cli-mirage'] = {
       enabled: !process.env.DISABLE_MIRAGE,
     };
