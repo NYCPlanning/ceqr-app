@@ -21,7 +21,7 @@ services:
     stdin_open: true
   # ember container
   frontend:
-    image: danlynn/ember-cli # build the image from this image on docker hub (see here to see how this image is built and how to use it:  https://github.com/danlynn/ember-cli)
+    image: danlynn/ember-cli:3.15.1-node_12.14 # build the image from this image on docker hub (see here to see how this image is built and how to use it:  https://github.com/danlynn/ember-cli)
     entrypoint: ./entrypoint.sh # executes frontend/entrypoint.sh on container startup
     volumes:
       - ./frontend:/myapp # map our frontend code into the container's /myapp directory (where danlynn/ember-cli expects to find our ember app)
