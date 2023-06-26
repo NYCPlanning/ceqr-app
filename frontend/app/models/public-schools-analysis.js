@@ -261,8 +261,8 @@ export default DS.Model.extend({
 
           enroll: Math.round(
             this.futureEnrollmentProjections.find(
-              i => (i.district === sd.district && i.subdistrict === sd.subdistrict),
-            ).ps
+              (i) => (i.district === sd.district && i.subdistrict === sd.subdistrict),
+            ).ps,
           ),
 
           students: (
@@ -303,8 +303,8 @@ export default DS.Model.extend({
 
           enroll: Math.round(
             this.futureEnrollmentProjections.find(
-              i => (i.district === sd.district && i.subdistrict === sd.subdistrict),
-            ).ms
+              (i) => (i.district === sd.district && i.subdistrict === sd.subdistrict),
+            ).ms,
           ),
 
           students: (
