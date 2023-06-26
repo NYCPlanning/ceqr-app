@@ -1,16 +1,11 @@
-version: '3.7'
-# each service runs a container needed to run ceqr-app
 services:
-  # rails container
   backend:
-    build: backend # build the image for the container from backend/Dockerfile
-    entrypoint: ./entrypoint.sh # executes backend/entrypoint.sh on container startup
+    build: backend
+    entrypoint: ./entrypoint.sh
     volumes:
-      # HOST:CONTAINER file mapping
-      - ./backend:/app # map our rails code into the container's /app directory
+      - ./backend:/app
     ports:
-      # HOST:CONTAINER port mapping
-      - "3000:3000" # map port 3000 on our machine to the container's port 3000 so we (our our frontend container) can go to localhost:3000 to access our container's rails server
+      - 3000:3000
     env_file: 
       - backend/.env # sets our container's environment to from this file.  You need to make sure to configure this before docker-compose up!
     healthcheck:
@@ -19,14 +14,12 @@ services:
       timeout: 30s
       retries: 3
     stdin_open: true
-  # ember container
   frontend:
-    image: danlynn/ember-cli:3.15.1-node_12.14 # build the image from this image on docker hub (see here to see how this image is built and how to use it:  https://github.com/danlynn/ember-cli)
-    entrypoint: ./entrypoint.sh # executes frontend/entrypoint.sh on container startup
+    build: frontend
     volumes:
-      - ./frontend:/myapp # map our frontend code into the container's /myapp directory (where danlynn/ember-cli expects to find our ember app)
+      - ./frontend:/usr/app
     ports:
-      - "4200:4200" # map port 4200 on our machine to the container's port 4200 (image exposes 4200 for us) so we can go to localhost:4200 to access our container's ember app server
+      - 4200:4200
     environment:
       HOST: http://localhost:3000
       DISABLE_MIRAGE: 'true'
@@ -36,12 +29,10 @@ services:
       timeout: 30s
       start_period: 5m
       retries: 5
-
-  # ceqr_rails db container
   postgis:
     image: postgis/postgis # uses the default settings from this image.  Only change is that our migrate container will execute rails commands to setup ceqr_rails with our schema and migrations.
     ports:
-      - "5432:5432"
+      - 5432:5432
     volumes:
       # configures container to initialize with database backup if present
       - ./backend/db/backup:/docker-entrypoint-initdb.d

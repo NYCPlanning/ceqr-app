@@ -19,7 +19,7 @@
     "start-with-backend": "HOST='http://localhost:3000' DISABLE_MIRAGE=true ember s"
   },
   "engines": {
-    "node": "12.*"
+    "node": "14.*"
   },
   "ember": {
     "edition": "octane"
