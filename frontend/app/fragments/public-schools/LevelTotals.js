@@ -12,7 +12,6 @@ import sumOf from '../../utils/sumMapBy';
  * @param {integer} studentsWithAction - Number of students to be added by project under analysis
  */
 
-
 export default EmberObject.extend({
   // Existing Conditions
 

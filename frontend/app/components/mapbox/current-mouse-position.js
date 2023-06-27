@@ -23,7 +23,6 @@ export default class MapboxCurrentMousePositionComponent extends Component {
     this._passPositionToParent();
   }
 
-
   // for yielding mousePosition in template
   @computed('currentMapMouseEvent')
   get mousePosition() {

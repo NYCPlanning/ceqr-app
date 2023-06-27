@@ -5,7 +5,6 @@ import turf from '@turf/helpers';
 import SubdistrictTotals from '../fragments/public-schools/SubdistrictTotals';
 import LevelTotals from '../fragments/public-schools/LevelTotals';
 
-
 export default DS.Model.extend({
   project: DS.belongsTo('project'),
   dataPackage: DS.belongsTo('data-package'),

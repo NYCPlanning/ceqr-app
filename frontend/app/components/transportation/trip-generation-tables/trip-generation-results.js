@@ -3,7 +3,6 @@ import { computed } from '@ember/object';
 import { getAggregatePercent } from '../../../helpers/get-aggregate-percent';
 import { getAggregateValue } from '../../../helpers/get-aggregate-value';
 
-
 export default class TransportationTripGenerationTablesTripGenerationResultsComponent extends Component {
   // the Transportation Analysis model belonging to the Project model
   analysis = {}

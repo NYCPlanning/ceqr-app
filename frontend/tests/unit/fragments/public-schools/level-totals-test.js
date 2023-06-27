@@ -76,7 +76,6 @@ module('Unit | Fragment | LevelTotals', function(hooks) {
     assert.equal(level_totals.enrollDeltaDifferenceTotal, 200);
   });
 
-
   test('#capacityNoActionTotal is calculated correctly', function(assert) {
     const subdistrict_totals = SubdistrictTotals.create({
       capacityNoActionTotal: 400,

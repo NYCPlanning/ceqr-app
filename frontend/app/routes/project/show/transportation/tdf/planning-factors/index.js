@@ -2,7 +2,6 @@ import Route from '@ember/routing/route';
 
 export default class ProjectShowTransportationTdfPlanningFactorsIndexRoute extends Route {
 
-
   // redirect(model) {
   //   console.log(model);
 

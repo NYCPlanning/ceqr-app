@@ -153,7 +153,6 @@ export default class TransportationPlanningFactorModel extends Model {
 
   @alias('transportationAnalysis.inactiveModes') inactiveModes;
 
-
   @computed(
     'landUse',
     'activeModes',

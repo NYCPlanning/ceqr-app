@@ -42,7 +42,6 @@ export default class TransportationAnalysisModel extends Model {
   // array of transport modes being analyzed
   @attr({ defaultValue: () => [] }) modesForAnalysis;
 
-
   @computed('modesForAnalysis.@each')
   get activeModes() {
     return MODES.filter((m) => this.modesForAnalysis.includes(m));

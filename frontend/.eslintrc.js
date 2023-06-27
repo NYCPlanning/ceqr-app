@@ -55,6 +55,8 @@ module.exports = {
     'no-return-await': 1,
     'operator-linebreak': 1,
     'ember/avoid-leaking-state-in-ember-objects': 0,
+    'ember/no-observers': 'warn',
+    'ember/use-brace-expansion': 'warn'
   },
   overrides: [
     // node files

@@ -1,6 +1,5 @@
 import Service, { inject as service } from '@ember/service';
 
-
 import { isEmpty } from '@ember/utils';
 import RSVP from 'rsvp';
 

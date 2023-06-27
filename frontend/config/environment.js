@@ -1,4 +1,3 @@
-
 module.exports = function(environment) {
   const ENV = {
     host: getHost(environment),

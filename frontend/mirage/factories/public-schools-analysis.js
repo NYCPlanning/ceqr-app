@@ -525,7 +525,6 @@ export default Factory.extend({
     ],
   }),
 
-
   // TRAIT for testing subdistrictTotals
   subdistrictTotalsTest: trait({
     project: association({
@@ -649,7 +648,6 @@ export default Factory.extend({
       },
     ],
   }),
-
 
   esSchoolChoice: false,
   isSchoolChoice: true,

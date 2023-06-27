@@ -106,7 +106,6 @@ export default EmberObject.extend({
     return round((this.enrollmentMetaTotal / this.capacityMetaTotal), 3);
   }),
 
-
   // Aggregate Totals
   enrollExistingConditions: alias('enrollmentTotal'),
 
@@ -139,11 +138,9 @@ export default EmberObject.extend({
     return this.capacityWithActionDelta - this.capacityNoActionDelta;
   }),
 
-
   seatsNoAction: computed('capacityNoAction', 'enrollNoAction', function() {
     return this.capacityNoAction - this.enrollNoAction;
   }),
-
 
   utilizationNoAction: computed('enrollNoAction', function() {
     return round(this.enrollNoAction / this.capacityNoAction, 3);

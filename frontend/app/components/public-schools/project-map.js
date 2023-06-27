@@ -52,7 +52,7 @@ export default Component.extend({
   },
 
   toggleZones: observer('showZones', 'schoolZone', function() { // eslint-disable-line
-    if (this.showZones != false) {
+    if (this.showZones !== false) {
       this.fetchSchoolZones.perform();
     } else {
       this.set('schoolZonesGeojson', {

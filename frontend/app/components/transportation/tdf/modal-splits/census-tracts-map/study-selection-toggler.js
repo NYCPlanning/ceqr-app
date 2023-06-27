@@ -18,7 +18,6 @@ export default class TransportationCensusTractsMapStudySelectionTogglerComponent
    */
   selectedFeatureArray = [];
 
-
   /**
    * Census tract selection handling is triggered whenever bound property 'selectedFeatures' is updated
    */

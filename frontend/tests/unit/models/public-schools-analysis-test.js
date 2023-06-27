@@ -139,7 +139,6 @@ module('Unit | Model | public schools analysis', function(hooks) {
       }),
     };
 
-
     const analysisMirageHsEffectTrue = server.create('public-schools-analysis', {
       subdistrictsFromDb: [
         {

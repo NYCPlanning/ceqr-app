@@ -1,6 +1,5 @@
 import EmberObject, { computed } from '@ember/object';
 
-
 /**
  *
  * @constructor

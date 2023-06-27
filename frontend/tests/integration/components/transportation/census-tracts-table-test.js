@@ -130,7 +130,6 @@ module('Integration | Component | transportation/census-tracts-table', function(
     }}`);
   });
 
-
   skip('it displays a table with columns and subcolumns for all selected census tracts', async function(assert) {
     // Table will have # of top level headers = # of required geoids + # of selected geoids + 2
     // (one for titles column, and one for 'Total' aggregate values column)
