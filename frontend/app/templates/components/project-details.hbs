@@ -18,7 +18,12 @@
           <label>
             Est. Build Year
           </label>
-          <UiDropdown
+          <select>
+            {{#each buildYearRange as |year|}}
+              <option value={{year}}>{{year}}</option>
+            {{/each}}
+          </select>
+          {{!-- <UiDropdown
             class="selection"
             @selected={{project.buildYear}}
             @onChange={{action (mut project.buildYear)}}
@@ -39,7 +44,7 @@
                 </div>
               {{/each}}
             </div>
-          </UiDropdown>
+          </UiDropdown> --}}
         </div>
         <div class="six wide field">
           <label>
