@@ -118,6 +118,7 @@
     "@turf/centroid": "^6.0.2",
     "@turf/helpers": "^6.1.4",
     "babel-plugin-htmlbars-inline-precompile": "^3.0.1",
+    "ember-power-select": "^5.0.4",
     "jquery": "^3.4.0"
   },
   "ember-addon": {
