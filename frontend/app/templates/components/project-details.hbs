@@ -18,7 +18,9 @@
           <label>
             Est. Build Year
           </label>
-          <select>
+          <select
+            {{action "changeBuildYear" on='change'}}
+          >
             {{#each buildYearRange as |year|}}
               <option value={{year}}>{{year}}</option>
             {{/each}}
