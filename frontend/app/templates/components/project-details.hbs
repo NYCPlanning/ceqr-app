@@ -18,6 +18,10 @@
           <label>
             Est. Build Year
           </label>
+          <PowerSelect
+            @options={{this.buildYearRange}}
+            @onChange={{fn (mut this.project.buildYear)}}
+          />
           {{!-- <select>
             {{#each buildYearRange as |year|}}
               <option value={{year}}>{{year}}</option>
