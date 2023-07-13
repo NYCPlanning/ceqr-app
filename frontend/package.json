@@ -33,6 +33,7 @@
   "devDependencies": {
     "@babel/core": "^7.20.12",
     "@babel/plugin-proposal-object-rest-spread": "^7.3.2",
+    "@ember/jquery": "^0.6.0",
     "@ember/optional-features": "^2.0.0",
     "@ember/test-helpers": "^2.6.0",
     "@fortawesome/ember-fontawesome": "0.3.0",
@@ -126,8 +127,7 @@
     "@turf/buffer": "^5.1.5",
     "@turf/centroid": "^6.0.2",
     "@turf/helpers": "^6.1.4",
-    "babel-plugin-htmlbars-inline-precompile": "^3.0.1",
-    "jquery": "^3.4.0"
+    "babel-plugin-htmlbars-inline-precompile": "^3.0.1"
   },
   "ember-addon": {
     "paths": [
