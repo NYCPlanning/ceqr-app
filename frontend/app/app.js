@@ -2,7 +2,7 @@ import Application from '@ember/application';
 import loadInitializers from 'ember-load-initializers';
 import * as Sentry from '@sentry/browser';
 import Resolver from 'ember-resolver';
-import config from './config/environment';
+import config from 'labs-ceqr/config/environment';
 
 Sentry.init({
   dsn: config.SENTRY_DSN,

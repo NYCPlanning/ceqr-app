@@ -1,7 +1,7 @@
 import EmberRouter from '@ember/routing/router';
 import { inject as service } from '@ember/service';
 import { scheduleOnce } from '@ember/runloop';
-import config from './config/environment';
+import config from 'labs-ceqr/config/environment';
 
 const Router = EmberRouter.extend({
   init(...args) {

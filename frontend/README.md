@@ -38,10 +38,11 @@ Make use of the many generators for code, try `ember help generate` for more det
 
 #### Javascript
 * `yarn lint:js`
-* `yarn lint:js --fix`
+* `yarn lint:js:fix`
 
 #### Handlebars
 * `yarn lint:hbs`
+* `yarn lint:hbs:fix`
 
 ### Building
 
