@@ -1,4 +1,4 @@
-FROM node:lts-fermium 
+FROM node:lts-gallium 
 
 WORKDIR /usr/app
 COPY package.json .
