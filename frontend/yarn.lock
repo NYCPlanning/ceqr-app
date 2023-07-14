@@ -13815,6 +13815,16 @@ quickselect@^2.0.0:
   resolved "https://registry.yarnpkg.com/quickselect/-/quickselect-2.0.0.tgz#f19680a486a5eefb581303e023e98faaf25dd018"
   integrity sha512-RKJ22hX8mHe3Y6wH/N3wCM6BWtjaxIyyUIkpHOvfFnxdI4yD4tBXEBKSbriGujF6jnSVkJrffuo6vxACiSSxIw==
 
+qunit-dom@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/qunit-dom/-/qunit-dom-2.0.0.tgz#c4d7f7676dbb57f54151b72f8366d862134cd1c0"
+  integrity sha512-mElzLN99wYPOGekahqRA+mq7NcThXY9c+/tDkgJmT7W5LeZAFNyITr2rFKNnCbWLIhuLdFw88kCBMrJSfyBYpA==
+  dependencies:
+    broccoli-funnel "^3.0.3"
+    broccoli-merge-trees "^4.2.0"
+    ember-cli-babel "^7.23.0"
+    ember-cli-version-checker "^5.1.1"
+
 qunit@^2.17.2:
   version "2.19.4"
   resolved "https://registry.yarnpkg.com/qunit/-/qunit-2.19.4.tgz#2d689bb1165edd4b812e3ed2ee06ff907e9f2ece"
