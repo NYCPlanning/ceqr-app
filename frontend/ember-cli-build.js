@@ -1,4 +1,5 @@
 const EmberApp = require('ember-cli/lib/broccoli/ember-app');
+const sass = require('sass-embedded');
 
 module.exports = function(defaults) {
   const app = new EmberApp(defaults, {
@@ -31,6 +32,10 @@ module.exports = function(defaults) {
         semverRange: '*',
       }],
     },
+
+    sassOptions: {
+      implementation: sass,
+    }
   });
 
   app.import('node_modules/@sentry/browser/dist/index.js', {
