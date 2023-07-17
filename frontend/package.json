@@ -22,7 +22,7 @@
     "start:prod": "ember serve --environment=production",
     "test": "npm-run-all lint test:*",
     "test:ember": "ember test",
-    "start-with-backend": "HOST='http://localhost:3000' DISABLE_MIRAGE=true ember s"
+    "start:local-api": "HOST='http://localhost:3000' DISABLE_MIRAGE=true ember s"
   },
   "engines": {
     "node": "16"
