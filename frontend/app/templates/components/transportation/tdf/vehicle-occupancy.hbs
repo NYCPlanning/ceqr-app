@@ -9,9 +9,9 @@
         <td class="six wide"></td>
         <td class="three wide" colspan={{if factor.temporalVehicleOccupancy "4" "1"}}>
           <div class="ui small buttons">
-            <button class="ui button {{if factor.temporalVehicleOccupancy "positive"}}" onClick={{action toggleTemporalVehicleOccupancy true}}>Temporal Splits</button>
+            <button class="ui button {{if factor.temporalVehicleOccupancy "positive"}}" onClick={{action toggleTemporalVehicleOccupancy true}} type="button">Temporal Splits</button>
             <div class="or"></div>
-            <button class="ui button {{if (not factor.temporalVehicleOccupancy) "positive"}}" onClick={{action toggleTemporalVehicleOccupancy false}}>All Periods</button>
+            <button class="ui button {{unless factor.temporalVehicleOccupancy "positive"}}" onClick={{action toggleTemporalVehicleOccupancy false}} type="button">All Periods</button>
           </div>
         </td>
       </tr>
@@ -39,7 +39,7 @@
       <tr>
         <td>
           {{mode-label "auto"}}
-          {{#if (not factor.manualModeSplits)}}
+          {{#unless factor.manualModeSplits}}
             <UiPopup style="float: right;" @content="Average calculated using selected Census Tracts">
               <div class="ui basic blue horizontal label">
                 {{factor.censusTractsCalculator.autoVehicleOccupancy}}
@@ -47,7 +47,7 @@
                 <div class="detail"><i class="icon question circle"></i></div>
               </div>
             </UiPopup>
-          {{/if}}
+          {{/unless}}
         </td>
 
         {{#if factor.temporalVehicleOccupancy}}

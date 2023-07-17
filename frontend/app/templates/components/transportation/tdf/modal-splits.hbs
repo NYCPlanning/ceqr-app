@@ -13,12 +13,12 @@
         <tr>
           <td class="four wide">
             <div class="ui small buttons">
-              <button class="ui button {{if factor.manualModeSplits "positive"}}" onClick={{action toggleManualModeSplits}}>Manual</button>
+              <button class="ui button {{if factor.manualModeSplits "positive"}}" onClick={{action toggleManualModeSplits}} type="button">Manual</button>
               <div class="or"></div>
               <button 
-                class="ui button {{if (not factor.manualModeSplits) "positive"}}" 
+                class="ui button {{unless factor.manualModeSplits "positive"}}" 
                 onClick={{action toggleCensusTractModeSplits}}
-                data-test-button="census tracts tab">
+                data-test-button="census tracts tab" type="button">
                 Census Tracts
               </button>
             </div>
@@ -28,14 +28,14 @@
               <button 
                 class="ui button {{if factor.temporalModeSplits "positive"}}" 
                 onClick={{action toggleTemporalModeSplits true}}
-                data-test-button="temporal splits tab">
+                data-test-button="temporal splits tab" type="button">
                 Temporal Splits
               </button>
               <div class="or"></div>
               <button 
-                class="ui button {{if (not factor.temporalModeSplits) "positive"}}" 
+                class="ui button {{unless factor.temporalModeSplits "positive"}}" 
                 onClick={{action toggleTemporalModeSplits false}}
-                data-test-button="all periods tab">
+                data-test-button="all periods tab" type="button">
                 All Periods
               </button>
             </div>
@@ -100,9 +100,9 @@
           {{else}}
             <td data-test-total-all-periods>
               {{total.allPeriods}} % 
-              {{#if (not manualModeSplits)}}
+              {{#unless manualModeSplits}}
                 ({{total.count}})
-              {{/if}}
+              {{/unless}}
             </td>
           {{/if}}
         </tr>
@@ -144,11 +144,11 @@
               <button 
                 class="ui button {{if factor.manualModeSplits "positive"}}" 
                 onClick={{action toggleManualModeSplits}}
-                data-test-button="manual tab">
+                data-test-button="manual tab" type="button">
                 Manual
               </button>
               <div class="or"></div>
-              <button class="ui button {{if (not factor.manualModeSplits) "positive"}}" onClick={{action toggleCensusTractModeSplits}}>Census Tracts</button>
+              <button class="ui button {{unless factor.manualModeSplits "positive"}}" onClick={{action toggleCensusTractModeSplits}} type="button">Census Tracts</button>
             </div>
           </td>
           <td>
@@ -156,12 +156,12 @@
           </td>
           <td colspan={{if seeCensusTracts (add analysis.censusTractsSelection.length analysis.requiredCensusTractsSelection.length) 1}}>
             <div class="ui small buttons">
-              <button class="ui button {{if (not seeCensusTracts) "positive"}}" onClick={{action toggleSeeCensusTracts false}}>Map</button>
+              <button class="ui button {{unless seeCensusTracts "positive"}}" onClick={{action toggleSeeCensusTracts false}} type="button">Map</button>
               <div class="or"></div>
               <button 
                 class="ui button {{if seeCensusTracts "positive"}}" 
                 onClick={{action toggleSeeCensusTracts true}}
-                data-test-census-tracts-table-tab>
+                data-test-census-tracts-table-tab type="button">
                 Table
               </button>
             </div>
@@ -264,9 +264,9 @@
           <td><strong>TOTAL</strong></td>
           <td>
             {{total.allPeriods}} % 
-            {{#if (not manualModeSplits)}}
+            {{#unless manualModeSplits}}
               ({{total.count}})
-            {{/if}}  
+            {{/unless}}  
           </td>
 
           {{#if seeCensusTracts}}

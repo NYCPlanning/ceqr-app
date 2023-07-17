@@ -122,8 +122,7 @@
           <div class="ui clearing attached segment">
             <button
               class="ui right floated button compact primary
-                {{if saving "loading"}}"
-              {{action "save"}}
+                {{if saving "loading"}}" type="button" {{action "save"}}
             >
               Save
             </button>
@@ -157,7 +156,7 @@
                   {{#if (eq index 0)}}
                     <tr>
                       <td rowspan={{notices.length}}>
-                        <a href={{n.url}} target="_blank" rel="noopener">
+                        <a href={{n.url}} target="_blank" rel="noopener noreferrer">
                           {{n.title}}
                         </a>
                       </td>
@@ -197,9 +196,7 @@
     <div class="content">
       <div class="header">
         <a
-          target="_blank"
-          rel="noopener"
-          href="https://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy"
+          target="_blank" rel="noopener noreferrer" href="https://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy"
         >
           Panel for Educational Policy meeting minutes [as of
           {{analysis.dataPackage.schemas.doe_significant_utilization_changes.version}}]

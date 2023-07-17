@@ -173,7 +173,7 @@
             class="ui button blue centered"
             onClick={{action "addLandUse" commercialLandUse "commercialLandUse"
             }}
-            data-test-commercial-use="add"
+            data-test-commercial-use="add" type="button"
           >
             Add
           </button>
@@ -192,8 +192,7 @@
         <td>
           <button
             class="ui compact small negative icon button"
-            data-test-commercial-use="delete"
-            {{action "removeLandUse" lu.type "commercialLandUse"}}
+            data-test-commercial-use="delete" type="button" {{action "removeLandUse" lu.type "commercialLandUse"}}
           >
             <i class="trash icon"></i>
           </button>
@@ -270,7 +269,7 @@
               communityFacilityLandUse
               "communityFacilityLandUse"
             }}
-            data-test-community-facility="add"
+            data-test-community-facility="add" type="button"
           >
             Add
           </button>
@@ -289,8 +288,7 @@
         <td>
           <button
             class="ui compact small negative icon button"
-            data-test-community-facility="remove"
-            {{action "removeLandUse" lu.type "communityFacilityLandUse"}}
+            data-test-community-facility="remove" type="button" {{action "removeLandUse" lu.type "communityFacilityLandUse"}}
           >
             <i class="trash icon"></i>
           </button>
@@ -364,7 +362,7 @@
             class="ui button blue centered"
             onClick={{action "addLandUse" industrialLandUse "industrialLandUse"
             }}
-            data-test-industrial-use="add"
+            data-test-industrial-use="add" type="button"
           >
             Add
           </button>
@@ -383,8 +381,7 @@
         <td>
           <button
             class="ui compact small negative icon button"
-            data-test-industrial-use="remove"
-            {{action "removeLandUse" lu.type "industrialLandUse"}}
+            data-test-industrial-use="remove" type="button" {{action "removeLandUse" lu.type "industrialLandUse"}}
           >
             <i class="trash icon"></i>
           </button>
@@ -458,7 +455,7 @@
             class="ui button blue centered"
             onClick={{action "addParkingLandUse" parkingLandUse "parkingLandUse"
             }}
-            data-test-parking="add"
+            data-test-parking="add" type="button"
           >
             Add
           </button>
@@ -477,8 +474,7 @@
         <td>
           <button
             class="ui compact small negative icon button"
-            data-test-parking="remove"
-            {{action "removeLandUse" lu.type "parkingLandUse"}}
+            data-test-parking="remove" type="button" {{action "removeLandUse" lu.type "parkingLandUse"}}
           >
             <i class="trash icon"></i>
           </button>

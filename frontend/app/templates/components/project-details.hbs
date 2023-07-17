@@ -77,8 +77,7 @@
       <button
         data-test-create-project
         class="ui primary button
-          {{if project-orchestrator.projectTask.isRunning "loading"}}"
-        {{action "save"}}
+          {{if project-orchestrator.projectTask.isRunning "loading"}}" type="button" {{action "save"}}
       >
         Create Project
         <i class="arrow right icon"></i>
@@ -86,13 +85,12 @@
     </div>
   {{else}}
     <div class="sixteen wide column">
-      <button class="ui button" {{action "back"}}>
+      <button class="ui button" type="button" {{action "back"}}>
         Back
       </button>
       <button 
         class="ui primary button
-          {{if project-orchestrator.projectTask.isRunning "loading"}}"
-        {{action "save"}}>
+          {{if project-orchestrator.projectTask.isRunning "loading"}}" type="button" {{action "save"}}>
         Save Project
         <i class="arrow right icon"></i>
       </button>
