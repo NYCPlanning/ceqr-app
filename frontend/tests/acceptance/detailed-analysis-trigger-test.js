@@ -1,18 +1,13 @@
 import { module, test } from 'qunit';
-import {
-  visit,
-  fillIn,
-  click,
-  currentURL,
-} from '@ember/test-helpers';
+import { visit, fillIn, click, currentURL } from '@ember/test-helpers';
 import { setupApplicationTest } from 'ember-qunit';
 import setupMirage from 'ember-cli-mirage/test-support/setup-mirage';
 
-module('Acceptance | detailed analysis trigger', function(hooks) {
+module('Acceptance | detailed analysis trigger', function (hooks) {
   setupApplicationTest(hooks);
   setupMirage(hooks);
 
-  test('One land use and Sum of Ratio > 1 TRIGGERS a detailed analysis', async function(assert) {
+  test('One land use and Sum of Ratio > 1 TRIGGERS a detailed analysis', async function (assert) {
     this.server.create('user');
 
     // Create a project with only the Residential land use by only assigning
@@ -48,12 +43,14 @@ module('Acceptance | detailed analysis trigger', function(hooks) {
 
     assert.equal(currentURL(), '/project/1/transportation');
 
-    const detailedAnalysisAnswer = this.element.querySelector('[data-test-transportation-detailed-analysis-answer]').textContent.trim();
+    const detailedAnalysisAnswer = this.element
+      .querySelector('[data-test-transportation-detailed-analysis-answer]')
+      .textContent.trim();
 
     assert.equal(detailedAnalysisAnswer, 'Yes');
   });
 
-  test('One land use and Sum of Ratio <= 1 DOES NOT in itself trigger a detailed analysis', async function(assert) {
+  test('One land use and Sum of Ratio <= 1 DOES NOT in itself trigger a detailed analysis', async function (assert) {
     this.server.create('user');
     // Create a project with only the Residential land use and Sum of Ratios
     // equal to 1. See test above for an explanation of this project setup.
@@ -81,12 +78,14 @@ module('Acceptance | detailed analysis trigger', function(hooks) {
 
     assert.equal(currentURL(), '/project/1/transportation');
 
-    const detailedAnalysisAnswer = this.element.querySelector('[data-test-transportation-detailed-analysis-answer]').textContent.trim();
+    const detailedAnalysisAnswer = this.element
+      .querySelector('[data-test-transportation-detailed-analysis-answer]')
+      .textContent.trim();
 
     assert.equal(detailedAnalysisAnswer, 'No');
   });
 
-  test('Multiple land uses and Sum of Ratio > 1 TRIGGERS a detailed analysis', async function(assert) {
+  test('Multiple land uses and Sum of Ratio > 1 TRIGGERS a detailed analysis', async function (assert) {
     this.server.create('user');
 
     // Create project w/ 3 land uses: Residential, Office & Retail.
@@ -124,12 +123,14 @@ module('Acceptance | detailed analysis trigger', function(hooks) {
 
     assert.equal(currentURL(), '/project/1/transportation');
 
-    const detailedAnalysisAnswer = this.element.querySelector('[data-test-transportation-detailed-analysis-answer]').textContent.trim();
+    const detailedAnalysisAnswer = this.element
+      .querySelector('[data-test-transportation-detailed-analysis-answer]')
+      .textContent.trim();
 
     assert.equal(detailedAnalysisAnswer, 'Yes');
   });
 
-  test('Multiple land uses and Sum of Ratio <= 1 DOES NOT in itself trigger a detailed analysis', async function(assert) {
+  test('Multiple land uses and Sum of Ratio <= 1 DOES NOT in itself trigger a detailed analysis', async function (assert) {
     this.server.create('user');
     // Create a project with three land uses and Sum of Ratios barely under 1.
     this.server.create('project', {
@@ -165,12 +166,14 @@ module('Acceptance | detailed analysis trigger', function(hooks) {
 
     assert.equal(currentURL(), '/project/1/transportation');
 
-    const detailedAnalysisAnswer = this.element.querySelector('[data-test-transportation-detailed-analysis-answer]').textContent.trim();
+    const detailedAnalysisAnswer = this.element
+      .querySelector('[data-test-transportation-detailed-analysis-answer]')
+      .textContent.trim();
 
     assert.equal(detailedAnalysisAnswer, 'No');
   });
 
-  test('Fast food restaurant of 2500 sqft or more TRIGGERS a detailed analysis', async function(assert) {
+  test('Fast food restaurant of 2500 sqft or more TRIGGERS a detailed analysis', async function (assert) {
     this.server.create('user');
     this.server.create('project', {
       // Override factory default of 1000 totalUnits
@@ -202,12 +205,14 @@ module('Acceptance | detailed analysis trigger', function(hooks) {
 
     assert.equal(currentURL(), '/project/1/transportation');
 
-    const detailedAnalysisAnswer = this.element.querySelector('[data-test-transportation-detailed-analysis-answer]').textContent.trim();
+    const detailedAnalysisAnswer = this.element
+      .querySelector('[data-test-transportation-detailed-analysis-answer]')
+      .textContent.trim();
 
     assert.equal(detailedAnalysisAnswer, 'Yes');
   });
 
-  test('Fast food restaurant UNDER 2500 sqft DOES NOT in itself trigger a detailed analysis', async function(assert) {
+  test('Fast food restaurant UNDER 2500 sqft DOES NOT in itself trigger a detailed analysis', async function (assert) {
     this.server.create('user');
     this.server.create('project', {
       // Override factory default of 1000 totalUnits
@@ -239,12 +244,14 @@ module('Acceptance | detailed analysis trigger', function(hooks) {
 
     assert.equal(currentURL(), '/project/1/transportation');
 
-    const detailedAnalysisAnswer = this.element.querySelector('[data-test-transportation-detailed-analysis-answer]').textContent.trim();
+    const detailedAnalysisAnswer = this.element
+      .querySelector('[data-test-transportation-detailed-analysis-answer]')
+      .textContent.trim();
 
     assert.equal(detailedAnalysisAnswer, 'No');
   });
 
-  test('Community facility land use DOES NOT in itself trigger a detailed analysis', async function(assert) {
+  test('Community facility land use DOES NOT in itself trigger a detailed analysis', async function (assert) {
     this.server.create('user');
     this.server.create('project', {
       // Override factory default of 1000 totalUnits
@@ -275,7 +282,9 @@ module('Acceptance | detailed analysis trigger', function(hooks) {
 
     await click('[data-test-chapter="transportation"]');
 
-    const detailedAnalysisAnswer = this.element.querySelector('[data-test-transportation-detailed-analysis-answer]').textContent.trim();
+    const detailedAnalysisAnswer = this.element
+      .querySelector('[data-test-transportation-detailed-analysis-answer]')
+      .textContent.trim();
 
     assert.equal(detailedAnalysisAnswer, 'No');
   });

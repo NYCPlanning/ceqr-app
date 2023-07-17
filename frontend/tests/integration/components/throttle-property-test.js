@@ -3,10 +3,10 @@ import { setupRenderingTest } from 'ember-qunit';
 import { render, settled } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
-module('Integration | Component | throttle-property', function(hooks) {
+module('Integration | Component | throttle-property', function (hooks) {
   setupRenderingTest(hooks);
 
-  test('it throttles property update by given timeout', async function(assert) {
+  test('it throttles property update by given timeout', async function (assert) {
     this.propertyToThrottle = 'original';
 
     await render(hbs`
@@ -26,7 +26,7 @@ module('Integration | Component | throttle-property', function(hooks) {
     assert.equal(this.element.textContent.trim(), 'update');
   });
 
-  test('it passes through the prop even without subsequent updates', async function(assert) {
+  test('it passes through the prop even without subsequent updates', async function (assert) {
     this.propertyToThrottle = 1;
 
     await render(hbs`

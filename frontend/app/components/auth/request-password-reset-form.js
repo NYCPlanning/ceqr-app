@@ -14,15 +14,18 @@ export default Component.extend({
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email }),
-      }).catch((err) => this.set('error', { message: err })).then(() => {
-        this.flashMessages.add({
-          message: 'Password reset email sent. It may take 1 or 2 mintues to arrive.',
-          type: 'success',
-          sticky: true,
-        });
+      })
+        .catch((err) => this.set('error', { message: err }))
+        .then(() => {
+          this.flashMessages.add({
+            message:
+              'Password reset email sent. It may take 1 or 2 mintues to arrive.',
+            type: 'success',
+            sticky: true,
+          });
 
-        this.router.transitionTo('login');
-      });
+          this.router.transitionTo('login');
+        });
     },
   },
 });

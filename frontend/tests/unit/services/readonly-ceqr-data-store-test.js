@@ -1,10 +1,10 @@
 import { module, test } from 'qunit';
 import { setupTest } from 'ember-qunit';
 
-module('Unit | Service | readonly-ceqr-data-store', function(hooks) {
+module('Unit | Service | readonly-ceqr-data-store', function (hooks) {
   setupTest(hooks);
 
-  test('it adds and gets', function(assert) {
+  test('it adds and gets', function (assert) {
     // If an initialized service exists
     const service = this.owner.lookup('service:readonly-ceqr-data-store');
     service.init();
@@ -18,7 +18,7 @@ module('Unit | Service | readonly-ceqr-data-store', function(hooks) {
     assert.equal(obj.value, 'testValue');
   });
 
-  test('it finds a record that already exists with getRecord()', function(assert) {
+  test('it finds a record that already exists with getRecord()', function (assert) {
     // If an initialized service exists
     const service = this.owner.lookup('service:readonly-ceqr-data-store');
     service.init();
@@ -39,7 +39,7 @@ module('Unit | Service | readonly-ceqr-data-store', function(hooks) {
     // Then getRecord() is called with the given type and id (assertions defined above)
   });
 
-  test('it finds a record that does not exist with fetch()', function(assert) {
+  test('it finds a record that does not exist with fetch()', function (assert) {
     // If an initialized service exists
     const service = this.owner.lookup('service:readonly-ceqr-data-store');
     service.init();
@@ -57,7 +57,7 @@ module('Unit | Service | readonly-ceqr-data-store', function(hooks) {
     // Then fetch() is called with the given type and id (assertions defined above)
   });
 
-  test('it calls find() for each id passed to findById', function(assert) {
+  test('it calls find() for each id passed to findById', function (assert) {
     // If an initialized service exists
     const service = this.owner.lookup('service:readonly-ceqr-data-store');
     service.init();

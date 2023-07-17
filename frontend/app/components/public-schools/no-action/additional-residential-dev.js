@@ -8,9 +8,7 @@ export default Component.extend({
   },
 
   actions: {
-    addResDev({
-      name, total_units, year, subdistrict,
-    }) {
+    addResDev({ name, total_units, year, subdistrict }) {
       const residentialDevelopment = FutureResidentialDevelopment.create({
         ...subdistrict,
         name,
@@ -18,13 +16,15 @@ export default Component.extend({
         year,
       });
 
-      this.get('analysis.residentialDevelopments').pushObject(residentialDevelopment);
-      this.get('analysis').save();
+      this.get('analysis.residentialDevelopments').pushObject(
+        residentialDevelopment
+      );
+      this.analysis.save();
       this.set('resdev', {});
     },
     removeResDev(resdev) {
       this.get('analysis.residentialDevelopments').removeObject(resdev);
-      this.get('analysis').save();
+      this.analysis.save();
     },
   },
 });

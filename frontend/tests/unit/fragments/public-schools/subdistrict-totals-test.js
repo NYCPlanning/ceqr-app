@@ -4,10 +4,10 @@ import { setupTest } from 'ember-qunit';
 import SubdistrictTotals from 'labs-ceqr/fragments/public-schools/SubdistrictTotals';
 import School from 'labs-ceqr/fragments/public-schools/School';
 
-module('Unit | Fragment | SubdistrictTotals', function(hooks) {
+module('Unit | Fragment | SubdistrictTotals', function (hooks) {
   setupTest(hooks);
 
-  test('#buildings returns correct filters list', function(assert) {
+  test('#buildings returns correct filters list', function (assert) {
     const schools = [
       School.create({
         level: 'hs',
@@ -60,7 +60,7 @@ module('Unit | Fragment | SubdistrictTotals', function(hooks) {
     ]);
   });
 
-  test('#enrollmentTotal returns correct calculation', function(assert) {
+  test('#enrollmentTotal returns correct calculation', function (assert) {
     const schools = [
       School.create({
         level: 'hs',
@@ -80,7 +80,7 @@ module('Unit | Fragment | SubdistrictTotals', function(hooks) {
     assert.equal(school_totals.enrollmentTotal, 225);
   });
 
-  test('#capacityTotal returns correct calculation', function(assert) {
+  test('#capacityTotal returns correct calculation', function (assert) {
     const schools = [
       School.create({
         level: 'hs',
@@ -105,7 +105,7 @@ module('Unit | Fragment | SubdistrictTotals', function(hooks) {
     assert.equal(school_totals.capacityTotal, 270);
   });
 
-  test('#capacityTotalNoAction returns correct calculation', function(assert) {
+  test('#capacityTotalNoAction returns correct calculation', function (assert) {
     const schools = [
       School.create({
         level: 'hs',
@@ -130,7 +130,7 @@ module('Unit | Fragment | SubdistrictTotals', function(hooks) {
     assert.equal(school_totals.capacityTotalNoAction, 305);
   });
 
-  test('#seatsTotal returns correct calculation', function(assert) {
+  test('#seatsTotal returns correct calculation', function (assert) {
     const schools = [
       School.create({
         level: 'hs',
@@ -150,7 +150,7 @@ module('Unit | Fragment | SubdistrictTotals', function(hooks) {
     assert.equal(school_totals.seatsTotal, 305);
   });
 
-  test('#utilizationTotal returns correct calculation', function(assert) {
+  test('#utilizationTotal returns correct calculation', function (assert) {
     const school_totals = SubdistrictTotals.create({
       level: 'hs',
       enrollmentTotal: 102,
@@ -160,7 +160,7 @@ module('Unit | Fragment | SubdistrictTotals', function(hooks) {
     assert.equal(school_totals.utilizationTotal, 0.576);
   });
 
-  test('#enrollmentMetaTotal returns correct calculation', function(assert) {
+  test('#enrollmentMetaTotal returns correct calculation', function (assert) {
     const schools = [
       School.create({
         level: 'hs',
@@ -188,7 +188,7 @@ module('Unit | Fragment | SubdistrictTotals', function(hooks) {
     assert.equal(school_totals.enrollmentMetaTotal, 285);
   });
 
-  test('#capacityMetaTotal returns correct calculation', function(assert) {
+  test('#capacityMetaTotal returns correct calculation', function (assert) {
     const schools = [
       School.create({
         level: 'hs',
@@ -221,7 +221,7 @@ module('Unit | Fragment | SubdistrictTotals', function(hooks) {
     assert.equal(school_totals.capacityMetaTotal, 285);
   });
 
-  test('#seatsMetaTotal returns correct calculation', function(assert) {
+  test('#seatsMetaTotal returns correct calculation', function (assert) {
     const schools = [
       School.create({
         level: 'hs',
@@ -249,7 +249,7 @@ module('Unit | Fragment | SubdistrictTotals', function(hooks) {
     assert.equal(school_totals.seatsMetaTotal, 285);
   });
 
-  test('#utilizationMetaTotal returns correct calculation', function(assert) {
+  test('#utilizationMetaTotal returns correct calculation', function (assert) {
     const school_totals = SubdistrictTotals.create({
       level: 'hs',
       enrollmentMetaTotal: 131,
@@ -259,7 +259,7 @@ module('Unit | Fragment | SubdistrictTotals', function(hooks) {
     assert.equal(school_totals.utilizationMetaTotal, 0.903);
   });
 
-  test('#enrollNoAction is calculated correctly', function(assert) {
+  test('#enrollNoAction is calculated correctly', function (assert) {
     const aggregate_totals = SubdistrictTotals.create({
       enroll: 300,
       students: 400,
@@ -268,7 +268,7 @@ module('Unit | Fragment | SubdistrictTotals', function(hooks) {
     assert.equal(aggregate_totals.enrollNoAction, 700);
   });
 
-  test('#enrollNoActionDelta is calculated correctly', function(assert) {
+  test('#enrollNoActionDelta is calculated correctly', function (assert) {
     const aggregate_totals = SubdistrictTotals.create({
       enrollNoAction: 400,
       enrollExistingConditions: 200,
@@ -277,7 +277,7 @@ module('Unit | Fragment | SubdistrictTotals', function(hooks) {
     assert.equal(aggregate_totals.enrollNoActionDelta, 200);
   });
 
-  test('#capacityNoAction is calculated correctly', function(assert) {
+  test('#capacityNoAction is calculated correctly', function (assert) {
     const aggregate_totals = SubdistrictTotals.create({
       capacityFuture: 400,
       scaCapacityIncrease: 200,
@@ -286,7 +286,7 @@ module('Unit | Fragment | SubdistrictTotals', function(hooks) {
     assert.equal(aggregate_totals.capacityNoAction, 600);
   });
 
-  test('#capacityNoActionDelta is calculated correctly', function(assert) {
+  test('#capacityNoActionDelta is calculated correctly', function (assert) {
     const aggregate_totals = SubdistrictTotals.create({
       capacityNoAction: 400,
       capacityExisting: 200,
@@ -295,7 +295,7 @@ module('Unit | Fragment | SubdistrictTotals', function(hooks) {
     assert.equal(aggregate_totals.capacityNoActionDelta, 200);
   });
 
-  test('#capacityWithAction is calculated correctly', function(assert) {
+  test('#capacityWithAction is calculated correctly', function (assert) {
     const aggregate_totals = SubdistrictTotals.create({
       capacityNoAction: 400,
       newCapacityWithAction: 200,
@@ -304,7 +304,7 @@ module('Unit | Fragment | SubdistrictTotals', function(hooks) {
     assert.equal(aggregate_totals.capacityWithAction, 600);
   });
 
-  test('#capacityWithActionDelta is calculated correctly', function(assert) {
+  test('#capacityWithActionDelta is calculated correctly', function (assert) {
     const aggregate_totals = SubdistrictTotals.create({
       capacityWithAction: 400,
       capacityExisting: 200,
@@ -313,7 +313,7 @@ module('Unit | Fragment | SubdistrictTotals', function(hooks) {
     assert.equal(aggregate_totals.capacityWithActionDelta, 200);
   });
 
-  test('#capacityDifference is calculated correctly', function(assert) {
+  test('#capacityDifference is calculated correctly', function (assert) {
     const aggregate_totals = SubdistrictTotals.create({
       capacityWithAction: 400,
       capacityNoAction: 200,
@@ -322,7 +322,7 @@ module('Unit | Fragment | SubdistrictTotals', function(hooks) {
     assert.equal(aggregate_totals.capacityDifference, 200);
   });
 
-  test('#capacityDeltaDifference is calculated correctly', function(assert) {
+  test('#capacityDeltaDifference is calculated correctly', function (assert) {
     const aggregate_totals = SubdistrictTotals.create({
       capacityWithActionDelta: 400,
       capacityNoActionDelta: 200,
@@ -331,7 +331,7 @@ module('Unit | Fragment | SubdistrictTotals', function(hooks) {
     assert.equal(aggregate_totals.capacityDeltaDifference, 200);
   });
 
-  test('#seatsNoAction is calculated correctly', function(assert) {
+  test('#seatsNoAction is calculated correctly', function (assert) {
     const aggregate_totals = SubdistrictTotals.create({
       capacityNoAction: 400,
       enrollNoAction: 200,
@@ -340,7 +340,7 @@ module('Unit | Fragment | SubdistrictTotals', function(hooks) {
     assert.equal(aggregate_totals.seatsNoAction, 200);
   });
 
-  test('#utilizationNoAction is calculated correctly', function(assert) {
+  test('#utilizationNoAction is calculated correctly', function (assert) {
     const aggregate_totals = SubdistrictTotals.create({
       enrollNoAction: 177,
       capacityNoAction: 181,

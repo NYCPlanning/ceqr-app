@@ -3,16 +3,20 @@ import { computed } from '@ember/object';
 import boroughToAbbr from 'labs-ceqr/utils/boroughToAbbr';
 
 export default class CommunityFacilitiesTrThresholdComponent extends Component {
-  tagName = 'tr'
+  tagName = 'tr';
 
-  @computed('analysis.childCareThresholds')
+  @computed('analysis.childCareThresholds', 'borough')
   get childCareThreshold() {
-    return this.analysis.get(`childCareThresholds.${boroughToAbbr(this.borough)}`);
+    return this.analysis.get(
+      `childCareThresholds.${boroughToAbbr(this.borough)}`
+    );
   }
 
-  @computed('analysis.libraryThresholds')
+  @computed('analysis.libraryThresholds', 'borough')
   get libraryThreshold() {
-    return this.analysis.get(`libraryThresholds.${boroughToAbbr(this.borough)}`);
+    return this.analysis.get(
+      `libraryThresholds.${boroughToAbbr(this.borough)}`
+    );
   }
 
   @computed('borough', 'analysis.project.borough')
@@ -22,7 +26,9 @@ export default class CommunityFacilitiesTrThresholdComponent extends Component {
 
   @computed('analysis.potentialChildCareImpact', 'isProjectBorough')
   get childCareImpact() {
-    return this.analysis.get('potentialChildCareImpact') && this.isProjectBorough;
+    return (
+      this.analysis.get('potentialChildCareImpact') && this.isProjectBorough
+    );
   }
 
   @computed('analysis.potentialLibraryImpact', 'isProjectBorough')

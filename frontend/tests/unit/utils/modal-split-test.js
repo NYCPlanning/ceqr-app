@@ -1,5 +1,4 @@
-import
-{
+import {
   getHeaders,
   composeModalSplit,
   makeModalSplitObject,
@@ -16,13 +15,16 @@ import { setupMirage } from 'ember-cli-mirage/test-support';
 import stubReadonlyStore from '../../helpers/stub-readonly-store';
 import getTransportationCensusEstimateResponse from '../../../mirage/helpers/get-transportation-census-estimate-response';
 
-module('Unit | Utility | modal-split', function(hooks) {
+module('Unit | Utility | modal-split', function (hooks) {
   setupTest(hooks);
-  setupMirage(hooks); stubReadonlyStore(hooks);
+  setupMirage(hooks);
+  stubReadonlyStore(hooks);
 
-  test('it properly creates HTTP headers from session', function(assert) {
+  test('it properly creates HTTP headers from session', function (assert) {
     // If a session exists that is not authenticated
-    const notAuthenticatedSession = { data: { authenticated: { token: 'testToken' } } };
+    const notAuthenticatedSession = {
+      data: { authenticated: { token: 'testToken' } },
+    };
 
     // When headers are generated
     const notAuthenticatedHeaders = getHeaders(notAuthenticatedSession);
@@ -31,7 +33,10 @@ module('Unit | Utility | modal-split', function(hooks) {
     assert.equal(Object.keys(notAuthenticatedHeaders).length, 0);
 
     // If a session exists without a token
-    const noTokenSession = { data: { authenticated: {} }, isAuthenticated: true };
+    const noTokenSession = {
+      data: { authenticated: {} },
+      isAuthenticated: true,
+    };
 
     // When headers are generated
     const noTokenHeaders = getHeaders(noTokenSession);
@@ -40,19 +45,28 @@ module('Unit | Utility | modal-split', function(hooks) {
     assert.equal(Object.keys(noTokenHeaders).length, 0);
 
     // If an authenticated session exists with a token
-    const session = { data: { authenticated: { token: 'testToken' } }, isAuthenticated: true };
+    const session = {
+      data: { authenticated: { token: 'testToken' } },
+      isAuthenticated: true,
+    };
 
     // When headers are generated
     const headers = getHeaders(session);
 
     // Then Authorization header exists
-    assert.ok(Object.keys(headers).includes('Authorization'), 'Authorization header missing');
+    assert.ok(
+      Object.keys(headers).includes('Authorization'),
+      'Authorization header missing'
+    );
     assert.ok(headers.Authorization.includes('testToken'));
   });
 
-  test('it composes a modal split from transportation census estimates', function(assert) {
+  test('it composes a modal split from transportation census estimates', function (assert) {
     // If raw estimates exist
-    const { data: estimates } = getTransportationCensusEstimateResponse('ACS', 'geoid');
+    const { data: estimates } = getTransportationCensusEstimateResponse(
+      'ACS',
+      'geoid'
+    );
 
     // When modalSplit is composed from raw estimates
     const modalSplit = composeModalSplit(estimates);
@@ -75,9 +89,12 @@ module('Unit | Utility | modal-split', function(hooks) {
     assert.ok(modalSplit.trans_walk_other);
   });
 
-  test('it adds commuter total', function(assert) {
+  test('it adds commuter total', function (assert) {
     // If modalSplit object exists with trans_total and trans_home
-    const { data: estimates } = getTransportationCensusEstimateResponse('ACS', 'geoid');
+    const { data: estimates } = getTransportationCensusEstimateResponse(
+      'ACS',
+      'geoid'
+    );
     const modalSplit = makeModalSplitObject(estimates);
 
     // When commuter total is added
@@ -90,9 +107,12 @@ module('Unit | Utility | modal-split', function(hooks) {
     assert.notOk(isNaN(modalSplit.trans_commuter_total.value));
   });
 
-  test('it adds walk/other', function(assert) {
+  test('it adds walk/other', function (assert) {
     // If modalSplit object exists with trans_total and trans_home
-    const { data: estimates } = getTransportationCensusEstimateResponse('ACS', 'geoid');
+    const { data: estimates } = getTransportationCensusEstimateResponse(
+      'ACS',
+      'geoid'
+    );
     const modalSplit = makeModalSplitObject(estimates);
 
     // When walk/other is added
@@ -105,9 +125,12 @@ module('Unit | Utility | modal-split', function(hooks) {
     assert.notOk(isNaN(modalSplit.trans_walk_other.value));
   });
 
-  test('it adds vehicle occupancy', function(assert) {
+  test('it adds vehicle occupancy', function (assert) {
     // If modalSplit object exists with trans_total and trans_home
-    const { data: estimates } = getTransportationCensusEstimateResponse('ACS', 'geoid');
+    const { data: estimates } = getTransportationCensusEstimateResponse(
+      'ACS',
+      'geoid'
+    );
     const modalSplit = makeModalSplitObject(estimates);
 
     // When Vehicle Occupancy is added
@@ -120,9 +143,12 @@ module('Unit | Utility | modal-split', function(hooks) {
     assert.notOk(isNaN(modalSplit.vehicle_occupancy.value));
   });
 
-  test('computeVehicleOccupancy gives expected numbers', function(assert) {
+  test('computeVehicleOccupancy gives expected numbers', function (assert) {
     const modalSplitMock = {
-      trans_auto_total: { value: 12 + 8 + 6 + 8 + 12 + 14, variable: 'trans_auto_total' },
+      trans_auto_total: {
+        value: 12 + 8 + 6 + 8 + 12 + 14,
+        variable: 'trans_auto_total',
+      },
       trans_auto_solo: { value: 12, variable: 'trans_auto_solo' },
       trans_auto_2: { value: 8, variable: 'trans_auto_2' },
       trans_auto_3: { value: 6, variable: 'trans_auto_3' },
@@ -132,14 +158,17 @@ module('Unit | Utility | modal-split', function(hooks) {
       vehicle_occupancy: {},
     };
     const vehicleOccupancy = calculateVehicleOccupancy(modalSplitMock);
-    const expectedVehicleOccupancy = modalSplitMock.trans_auto_total.value / (
-      (modalSplitMock.trans_auto_solo.value / AUTO_OCCUPANCY_RATES.trans_auto_solo)
-      + (modalSplitMock.trans_auto_2.value / AUTO_OCCUPANCY_RATES.trans_auto_2)
-      + (modalSplitMock.trans_auto_3.value / AUTO_OCCUPANCY_RATES.trans_auto_3)
-      + (modalSplitMock.trans_auto_4.value / AUTO_OCCUPANCY_RATES.trans_auto_4)
-      + (modalSplitMock.trans_auto_5_or_6.value / AUTO_OCCUPANCY_RATES.trans_auto_5_or_6)
-      + (modalSplitMock.trans_auto_7_or_more.value / AUTO_OCCUPANCY_RATES.trans_auto_7_or_more)
-    );
+    const expectedVehicleOccupancy =
+      modalSplitMock.trans_auto_total.value /
+      (modalSplitMock.trans_auto_solo.value /
+        AUTO_OCCUPANCY_RATES.trans_auto_solo +
+        modalSplitMock.trans_auto_2.value / AUTO_OCCUPANCY_RATES.trans_auto_2 +
+        modalSplitMock.trans_auto_3.value / AUTO_OCCUPANCY_RATES.trans_auto_3 +
+        modalSplitMock.trans_auto_4.value / AUTO_OCCUPANCY_RATES.trans_auto_4 +
+        modalSplitMock.trans_auto_5_or_6.value /
+          AUTO_OCCUPANCY_RATES.trans_auto_5_or_6 +
+        modalSplitMock.trans_auto_7_or_more.value /
+          AUTO_OCCUPANCY_RATES.trans_auto_7_or_more);
     assert.equal(vehicleOccupancy, expectedVehicleOccupancy.toFixed(2));
   });
 });

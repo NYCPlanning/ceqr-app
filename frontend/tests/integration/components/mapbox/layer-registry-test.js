@@ -3,12 +3,12 @@ import { setupRenderingTest } from 'ember-qunit';
 import { render, click } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
-module('Integration | Component | mapbox/layer-registry', function(hooks) {
+module('Integration | Component | mapbox/layer-registry', function (hooks) {
   setupRenderingTest(hooks);
 
-  test('it registers', async function(assert) {
+  test('it registers', async function (assert) {
     let registry = [];
-    this.handleUpdatedRegistry = function(updatedRegistry) {
+    this.handleUpdatedRegistry = function (updatedRegistry) {
       registry = updatedRegistry;
     };
 
@@ -29,9 +29,9 @@ module('Integration | Component | mapbox/layer-registry', function(hooks) {
     assert.equal(registry.length, 3);
   });
 
-  test('it unregisters', async function(assert) {
+  test('it unregisters', async function (assert) {
     let registry = [];
-    this.handleUpdatedRegistry = function(updatedRegistry) {
+    this.handleUpdatedRegistry = function (updatedRegistry) {
       registry = updatedRegistry;
     };
 
@@ -52,9 +52,9 @@ module('Integration | Component | mapbox/layer-registry', function(hooks) {
     assert.equal(registry.length, 0);
   });
 
-  test('it ignores duplicates', async function(assert) {
+  test('it ignores duplicates', async function (assert) {
     let registry = [];
-    this.handleUpdatedRegistry = function(updatedRegistry) {
+    this.handleUpdatedRegistry = function (updatedRegistry) {
       registry = updatedRegistry;
     };
 

@@ -10,7 +10,7 @@ export default class TransportationTdfTripResultsPersonTripsComponent extends Co
     }));
   }
 
-  @computed('modes', 'results')
+  @computed('modes', 'results.total')
   get total() {
     return this.results.total;
   }

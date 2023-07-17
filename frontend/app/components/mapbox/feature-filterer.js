@@ -2,10 +2,10 @@ import Component from '@ember/component';
 
 /**
  * Component to filter a given layer to a set of features specified by a list of their Ids.
-*/
+ */
 export default class MapboxFeatureFiltererComponent extends Component {
   /** @param {Mapbox Map} Mapbox map */
-  map = {}
+  map = {};
 
   /** @param {string} id of the carto layer instantiated using `Mapbox::CartoLayer` */
   layerId = null;
@@ -18,15 +18,19 @@ export default class MapboxFeatureFiltererComponent extends Component {
 
   // Compose  a MapboxGL filter like: ['in', 'id', '1', '2', '3'] using filterById and featureIds
   getFilter() {
-    return this.featureIds.reduce((filterExp, featureId) => {
-      if (featureId) {
-        filterExp.push(featureId);
-      }
-      return filterExp;
-    }, ['in', this.filterById]);
+    return this.featureIds.reduce(
+      (filterExp, featureId) => {
+        if (featureId) {
+          filterExp.push(featureId);
+        }
+        return filterExp;
+      },
+      ['in', this.filterById]
+    );
   }
 
   didReceiveAttrs() {
+    super.didReceiveAttrs();
     const { instance } = this.map;
     if (this.featureIds && this.featureIds.length) {
       // filter to just features w id in featureIds

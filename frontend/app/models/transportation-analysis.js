@@ -4,9 +4,7 @@ import { alias } from '@ember/object/computed';
 import { MODES } from 'labs-ceqr/utils/censusTractVariableForMode';
 import TripResultsTotalsCalculator from '../calculators/transportation/trip-results-totals';
 
-const {
-  Model, attr, belongsTo, hasMany,
-} = DS;
+const { Model, attr, belongsTo, hasMany } = DS;
 
 export default class TransportationAnalysisModel extends Model {
   ready() {
@@ -42,25 +40,20 @@ export default class TransportationAnalysisModel extends Model {
   // array of transport modes being analyzed
   @attr({ defaultValue: () => [] }) modesForAnalysis;
 
-  @computed('modesForAnalysis.@each')
+  @computed('modesForAnalysis.[]')
   get activeModes() {
     return MODES.filter((m) => this.modesForAnalysis.includes(m));
   }
 
-  @computed('modesForAnalysis.@each')
+  @computed('modesForAnalysis.[]')
   get inactiveModes() {
     return MODES.reject((m) => this.modesForAnalysis.includes(m));
   }
 
   // Detailed Analysis trigger
-  @computed(
-    'sumOfRatios',
-    'hasFastFoodGte2500',
-  )
+  @computed('hasFastFoodGte2500', 'sumOfRatios', 'sumOfRatiosOver1')
   get detailedAnalysis() {
-    return (
-      this.hasFastFoodGte2500 || this.sumOfRatiosOver1
-    );
+    return this.hasFastFoodGte2500 || this.sumOfRatiosOver1;
   }
 
   // Sum of Ratios
@@ -71,17 +64,17 @@ export default class TransportationAnalysisModel extends Model {
     'localRetailSqFtRatio',
     'restaurantSqFtRatio',
     'communityFacilitySqFtRatio',
-    'offStreetParkingSpacesRatio',
+    'offStreetParkingSpacesRatio'
   )
   get sumOfRatios() {
     return (
-      this.residentialUnitsRatio
-      + this.officeSqFtRatio
-      + this.regionalRetailSqFtRatio
-      + this.localRetailSqFtRatio
-      + this.restaurantSqFtRatio
-      + this.communityFacilitySqFtRatio
-      + this.offStreetParkingSpacesRatio
+      this.residentialUnitsRatio +
+      this.officeSqFtRatio +
+      this.regionalRetailSqFtRatio +
+      this.localRetailSqFtRatio +
+      this.restaurantSqFtRatio +
+      this.communityFacilitySqFtRatio +
+      this.offStreetParkingSpacesRatio
     );
   }
 
@@ -120,7 +113,10 @@ export default class TransportationAnalysisModel extends Model {
   // Regional Retail sq ft
   @computed('project.commercialLandUse.[]')
   get regionalRetailSqFt() {
-    const type = this.get('project.commercialLandUse').findBy('type', 'regional-retail');
+    const type = this.get('project.commercialLandUse').findBy(
+      'type',
+      'regional-retail'
+    );
     return type ? type.grossSqFt : 0;
   }
 
@@ -132,7 +128,10 @@ export default class TransportationAnalysisModel extends Model {
   // Local Retail sq ft
   @computed('project.commercialLandUse.[]')
   get localRetailSqFt() {
-    const type = this.get('project.commercialLandUse').findBy('type', 'local-retail');
+    const type = this.get('project.commercialLandUse').findBy(
+      'type',
+      'local-retail'
+    );
     return type ? type.grossSqFt : 0;
   }
 
@@ -144,7 +143,9 @@ export default class TransportationAnalysisModel extends Model {
   // Restaurant sq ft
   @computed('project.commercialLandUse.[]')
   get restaurantSqFt() {
-    const resturants = this.get('project.commercialLandUse').filter((r) => r.type === 'restaurant' || r.type === 'fast-food');
+    const resturants = this.get('project.commercialLandUse').filter(
+      (r) => r.type === 'restaurant' || r.type === 'fast-food'
+    );
     return resturants.reduce((a, r) => a + r.grossSqFt, 0);
   }
 
@@ -159,16 +160,22 @@ export default class TransportationAnalysisModel extends Model {
   // currently suggests only one fast-food land use can be created per project.
   @computed('project.commercialLandUse.[]')
   get fastFoodSqFt() {
-    return this
-      .get('project.commercialLandUse')
+    return this.get('project.commercialLandUse')
       .filter((landUse) => landUse.type === 'fast-food')
-      .reduce((landUseTotalSqFt, curLandUse) => landUseTotalSqFt + curLandUse.grossSqFt, 0);
+      .reduce(
+        (landUseTotalSqFt, curLandUse) =>
+          landUseTotalSqFt + curLandUse.grossSqFt,
+        0
+      );
   }
 
   // Community Facility sq ft
   @computed('project.communityFacilityLandUse.[]')
   get communityFacilitySqFt() {
-    const type = this.get('project.communityFacilityLandUse').findBy('type', 'community-facility');
+    const type = this.get('project.communityFacilityLandUse').findBy(
+      'type',
+      'community-facility'
+    );
     return type ? type.grossSqFt : 0;
   }
 
@@ -188,10 +195,15 @@ export default class TransportationAnalysisModel extends Model {
     return this.ratioFor('offStreetParkingSpaces');
   }
 
-  @computed('transportationPlanningFactors.@each.tripResults')
+  @computed(
+    'modesForAnalysis',
+    'transportationPlanningFactors.@each.tripResults'
+  )
   get tripTotals() {
     return TripResultsTotalsCalculator.create({
-      tripResults: this.transportationPlanningFactors.map((factor) => factor.tripResults),
+      tripResults: this.transportationPlanningFactors.map(
+        (factor) => factor.tripResults
+      ),
       modes: this.modesForAnalysis,
     });
   }

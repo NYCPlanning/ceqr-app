@@ -4,15 +4,15 @@ import { inject as service } from '@ember/service';
 export default Component.extend({
   'project-orchestrator': service(),
 
-  buildYearRange: Array.from({ length: (2040 - 2018) }, (v, k) => k + 2018),
+  buildYearRange: Array.from({ length: 2040 - 2018 }, (v, k) => k + 2018),
 
   // noop
-  save() { },
+  save() {},
 
   actions: {
     // "save" is a passed in action
     save() {
-      this.get('save')(this.get('project'));
+      this.save(this.project);
     },
     back() {
       history.back();

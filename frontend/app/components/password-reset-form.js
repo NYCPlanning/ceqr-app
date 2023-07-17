@@ -9,6 +9,7 @@ export default Component.extend({
   router: service(),
 
   didInsertElement() {
+    this._super(...arguments);
     $('.ui.form').form({
       fields: {
         password: ['minLength[6]', 'empty'],

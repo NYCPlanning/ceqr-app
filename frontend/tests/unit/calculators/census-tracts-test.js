@@ -2,10 +2,10 @@ import { module, test } from 'qunit';
 import { setupTest } from 'ember-qunit';
 import tctCalc from 'labs-ceqr/calculators/transportation/census-tracts';
 
-module('Unit | Calculator | census-tracts', function(hooks) {
+module('Unit | Calculator | census-tracts', function (hooks) {
   setupTest(hooks);
 
-  test('it calculates totalCounts', function(assert) {
+  test('it calculates totalCounts', function (assert) {
     const modesForAnalysis = [
       'auto',
       'taxi',
@@ -299,7 +299,7 @@ module('Unit | Calculator | census-tracts', function(hooks) {
     assert.equal(newTctCalc.totalCount, 4214);
   });
 
-  test('it calculates modeSplits', function(assert) {
+  test('it calculates modeSplits', function (assert) {
     const modesForAnalysis = [
       'auto',
       'taxi',
@@ -600,7 +600,7 @@ module('Unit | Calculator | census-tracts', function(hooks) {
     });
   });
 
-  test('it calculates autoVehicleOccupancy', function(assert) {
+  test('it calculates autoVehicleOccupancy', function (assert) {
     const modesForAnalysis = [
       'auto',
       'taxi',

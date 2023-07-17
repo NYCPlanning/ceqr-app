@@ -2,31 +2,25 @@ import { Factory } from 'ember-cli-mirage';
 
 export default Factory.extend({
   trafficZone: 2,
-  requiredCensusTractsSelection: () => [
-    '36061020300',
-  ],
+  requiredCensusTractsSelection: () => ['36061020300'],
   censusTractsSelection: () => [
-    '36061020500', '36061021100', '36061019701', '36061020701', '36061020101', '36061019900',
+    '36061020500',
+    '36061021100',
+    '36061019701',
+    '36061020701',
+    '36061020101',
+    '36061019900',
   ],
   censusTractsCentroid: () => ({
     features: [
       {
         geometry: {
-          coordinates: [
-            -73.964251, 40.8080809,
-          ],
+          coordinates: [-73.964251, 40.8080809],
         },
       },
     ],
   }),
-  modesForAnalysis: () => [
-    'auto',
-    'taxi',
-    'bus',
-    'subway',
-    'walk',
-    'railroad',
-  ],
+  modesForAnalysis: () => ['auto', 'taxi', 'bus', 'subway', 'walk', 'railroad'],
   inOutDists: () => ({
     am: {
       in: 50,

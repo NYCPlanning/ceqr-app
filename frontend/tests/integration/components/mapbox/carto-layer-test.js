@@ -3,10 +3,10 @@ import { setupRenderingTest } from 'ember-qunit';
 import { render, clearRender, find } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
-module('Integration | Component | mapbox/carto-layer', function(hooks) {
+module('Integration | Component | mapbox/carto-layer', function (hooks) {
   setupRenderingTest(hooks);
 
-  test('it renders', async function(assert) {
+  test('it renders', async function (assert) {
     this.tiles = ['https://cooltiles.com'];
     this.map = {
       instance: {
@@ -20,10 +20,10 @@ module('Integration | Component | mapbox/carto-layer', function(hooks) {
     assert.ok(find('#test'));
   });
 
-  test('it call registration and tears down', async function(assert) {
+  test('it call registration and tears down', async function (assert) {
     assert.expect(2);
 
-    this.handler = function() {
+    this.handler = function () {
       assert.ok(true);
     };
 
@@ -37,7 +37,7 @@ module('Integration | Component | mapbox/carto-layer', function(hooks) {
     await clearRender();
   });
 
-  test('it provides the layerId in block params', async function(assert) {
+  test('it provides the layerId in block params', async function (assert) {
     this.tiles = ['https://cooltiles.com'];
     this.map = {
       instance: {

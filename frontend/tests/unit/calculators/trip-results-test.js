@@ -25,16 +25,12 @@ module('Unit | Calculator | transportation-trip-results', function (hooks) {
       units: 5,
       landUse: 'residential',
       inOutSplits: {
-        am: { in: 50, out: 50 }, md: { in: 50, out: 50 }, pm: { in: 50, out: 50 }, saturday: { in: 50, out: 50 },
+        am: { in: 50, out: 50 },
+        md: { in: 50, out: 50 },
+        pm: { in: 50, out: 50 },
+        saturday: { in: 50, out: 50 },
       },
-      modes: [
-        'auto',
-        'taxi',
-        'bus',
-        'subway',
-        'railroad',
-        'walk',
-      ],
+      modes: ['auto', 'taxi', 'bus', 'subway', 'railroad', 'walk'],
       manualModeSplits: false,
       temporalModeSplits: false,
       modeSplits: {
@@ -54,16 +50,44 @@ module('Unit | Calculator | transportation-trip-results', function (hooks) {
 
     assert.deepEqual(newTrCalc.personTrips, {
       am: {
-        total: { in: 2, out: 2, total: 4 }, auto: { in: 0, out: 0, total: 0 }, taxi: { in: 0, out: 0, total: 0 }, bus: { in: 0, out: 0, total: 0 }, subway: { in: 1, out: 1, total: 2 }, railroad: { in: 0, out: 0, total: 0 }, walk: { in: 1, out: 1, total: 2 }, allModesTotal: { in: 2.01875, out: 2.01875, total: 4.0375 },
+        total: { in: 2, out: 2, total: 4 },
+        auto: { in: 0, out: 0, total: 0 },
+        taxi: { in: 0, out: 0, total: 0 },
+        bus: { in: 0, out: 0, total: 0 },
+        subway: { in: 1, out: 1, total: 2 },
+        railroad: { in: 0, out: 0, total: 0 },
+        walk: { in: 1, out: 1, total: 2 },
+        allModesTotal: { in: 2.01875, out: 2.01875, total: 4.0375 },
       },
       md: {
-        total: { in: 1, out: 1, total: 2 }, auto: { in: 0, out: 0, total: 0 }, taxi: { in: 0, out: 0, total: 0 }, bus: { in: 0, out: 0, total: 0 }, subway: { in: 1, out: 1, total: 2 }, railroad: { in: 0, out: 0, total: 0 }, walk: { in: 0, out: 0, total: 0 }, allModesTotal: { in: 1.009375, out: 1.009375, total: 2.01875 },
+        total: { in: 1, out: 1, total: 2 },
+        auto: { in: 0, out: 0, total: 0 },
+        taxi: { in: 0, out: 0, total: 0 },
+        bus: { in: 0, out: 0, total: 0 },
+        subway: { in: 1, out: 1, total: 2 },
+        railroad: { in: 0, out: 0, total: 0 },
+        walk: { in: 0, out: 0, total: 0 },
+        allModesTotal: { in: 1.009375, out: 1.009375, total: 2.01875 },
       },
       pm: {
-        total: { in: 2, out: 2, total: 4 }, auto: { in: 0, out: 0, total: 0 }, taxi: { in: 0, out: 0, total: 0 }, bus: { in: 0, out: 0, total: 0 }, subway: { in: 1, out: 1, total: 2 }, railroad: { in: 0, out: 0, total: 0 }, walk: { in: 1, out: 1, total: 2 }, allModesTotal: { in: 2.220625, out: 2.220625, total: 4.44125 },
+        total: { in: 2, out: 2, total: 4 },
+        auto: { in: 0, out: 0, total: 0 },
+        taxi: { in: 0, out: 0, total: 0 },
+        bus: { in: 0, out: 0, total: 0 },
+        subway: { in: 1, out: 1, total: 2 },
+        railroad: { in: 0, out: 0, total: 0 },
+        walk: { in: 1, out: 1, total: 2 },
+        allModesTotal: { in: 2.220625, out: 2.220625, total: 4.44125 },
       },
       saturday: {
-        total: { in: 2, out: 2, total: 4 }, auto: { in: 0, out: 0, total: 0 }, taxi: { in: 0, out: 0, total: 0 }, bus: { in: 0, out: 0, total: 0 }, subway: { in: 1, out: 1, total: 2 }, railroad: { in: 0, out: 0, total: 0 }, walk: { in: 1, out: 1, total: 2 }, allModesTotal: { in: 1.92, out: 1.92, total: 3.84 },
+        total: { in: 2, out: 2, total: 4 },
+        auto: { in: 0, out: 0, total: 0 },
+        taxi: { in: 0, out: 0, total: 0 },
+        bus: { in: 0, out: 0, total: 0 },
+        subway: { in: 1, out: 1, total: 2 },
+        railroad: { in: 0, out: 0, total: 0 },
+        walk: { in: 1, out: 1, total: 2 },
+        allModesTotal: { in: 1.92, out: 1.92, total: 3.84 },
       },
     });
   });
@@ -77,27 +101,31 @@ module('Unit | Calculator | transportation-trip-results', function (hooks) {
       // The four properties below are directly referenced
       // by the newTrCalc.vehicleTrips CP
       truckInOutSplits: { allDay: { in: 50, out: 50 } },
-      modes: [
-        'auto',
-        'taxi',
-        'bus',
-        'subway',
-        'railroad',
-        'walk',
-      ],
+      modes: ['auto', 'taxi', 'bus', 'subway', 'railroad', 'walk'],
       temporalVehicleOccupancy: false,
       vehicleOccupancy: {
         auto: {
-          am: 1, md: 1, pm: 1, saturday: 1, allPeriods: 1,
+          am: 1,
+          md: 1,
+          pm: 1,
+          saturday: 1,
+          allPeriods: 1,
         },
         taxi: {
-          am: 1, md: 1, pm: 1, saturday: 1, allPeriods: 1,
+          am: 1,
+          md: 1,
+          pm: 1,
+          saturday: 1,
+          allPeriods: 1,
         },
       },
       // newTrCalc.vehicleTrips also depends on newTrCalc.personTrips.
       // personTrips depends on the following four properties
       inOutSplits: {
-        am: { in: 50, out: 50 }, md: { in: 50, out: 50 }, pm: { in: 50, out: 50 }, saturday: { in: 50, out: 50 },
+        am: { in: 50, out: 50 },
+        md: { in: 50, out: 50 },
+        pm: { in: 50, out: 50 },
+        saturday: { in: 50, out: 50 },
       },
       manualModeSplits: false,
       temporalModeSplits: false,

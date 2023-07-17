@@ -6,10 +6,10 @@ const { shouldThrowOnError } = ENV;
 
 export function initialize() {
   if (shouldThrowOnError) {
-    Ember.onerror = function(err) {
+    Ember.onerror = function (err) {
       throw err;
     };
-    on('error', function(err) {
+    on('error', function (err) {
       throw err;
     });
   }

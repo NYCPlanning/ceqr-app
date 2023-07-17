@@ -4,13 +4,15 @@ import { render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 import stubReadonlyStore from '../../helpers/stub-readonly-store';
 
-module('Integration | Helper | get-aggregate-percent', function(hooks) {
+module('Integration | Helper | get-aggregate-percent', function (hooks) {
   setupRenderingTest(hooks);
   stubReadonlyStore(hooks);
 
-  test('it calculates and formats a numeric percent', async function(assert) {
+  test('it calculates and formats a numeric percent', async function (assert) {
     // If modalSplits contains two modal split records
-    const modalSplits = this.owner.lookup('service:readonly-ceqr-data-store').findByIds('ACS-modal-split', ['1', '2']);
+    const modalSplits = this.owner
+      .lookup('service:readonly-ceqr-data-store')
+      .findByIds('ACS-modal-split', ['1', '2']);
     this.set('modalSplits', modalSplits);
 
     // and variables contains two valid modal-split variables

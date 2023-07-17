@@ -8,7 +8,7 @@ import MapboxAccessibility from '@mapbox/mapbox-gl-accessibility';
  * and 'style.load' events do not reliably indicate a fully loaded style object.
  * To display 'bbls' as the top-most layer, must move it with moveLayer()
  */
-const onMapStyleLoaded = function(e) {
+const onMapStyleLoaded = function (e) {
   const { target: map } = e;
   const style = map.getStyle();
   if (style.sources.bbls_geojson && style.sources.carto) {
@@ -30,7 +30,7 @@ export default class TransportationCensusTractsMapComponent extends Component {
 
   /**
    * The identifier (geoid) of the currenlty hovered feature in the map
-  */
+   */
   hoveredFeatureId = null;
 
   /**
@@ -67,16 +67,20 @@ export default class TransportationCensusTractsMapComponent extends Component {
   /**
    * Computed property that enables feature filterer to filter on required and normal study selection
    */
-  @computed('analysis.{censusTractsSelection.[],requiredCensusTractsSelection.[]}')
+  @computed(
+    'analysis.{censusTractsSelection.[],requiredCensusTractsSelection.[]}'
+  )
   get completeCensusTractsSelection() {
     const selectedFeatures = this.get('analysis.censusTractsSelection') || [];
-    const requiredFeatures = this.get('analysis.requiredCensusTractsSelection') || [];
+    const requiredFeatures =
+      this.get('analysis.requiredCensusTractsSelection') || [];
     return [...selectedFeatures, ...requiredFeatures];
   }
 
   @computed('analysis.censusTractsCentroid')
   get censusTractsCentroidLngLat() {
-    return this.analysis.get('censusTractsCentroid').features.firstObject.geometry.coordinates;
+    return this.analysis.get('censusTractsCentroid').features.firstObject
+      .geometry.coordinates;
   }
 
   /**
@@ -86,19 +90,19 @@ export default class TransportationCensusTractsMapComponent extends Component {
   mapLoaded(map) {
     map.on('data', onMapStyleLoaded);
 
-    map.addControl(new MapboxAccessibility({
-      // A string value representing a property key in the data. This
-      // will be used as the text in voiceover.
-      accessibleLabelProperty: 'name',
+    map.addControl(
+      new MapboxAccessibility({
+        // A string value representing a property key in the data. This
+        // will be used as the text in voiceover.
+        accessibleLabelProperty: 'name',
 
-      // The layers within the style that
-      // 1. Contain the `accessibleLabelProperty` value as a key
-      // 2. Should be used for voiceover.
-      // 3. Will be represented in the DOM with nodes
-      layers: [
-        'bbls',
-      ],
-    }));
+        // The layers within the style that
+        // 1. Contain the `accessibleLabelProperty` value as a key
+        // 2. Should be used for voiceover.
+        // 3. Will be represented in the DOM with nodes
+        layers: ['bbls'],
+      })
+    );
 
     map.addControl(new mapboxgl.NavigationControl(), 'top-right');
   }

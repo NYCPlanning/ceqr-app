@@ -3,17 +3,22 @@ import { composeModalSplit } from 'labs-ceqr/utils/modalSplit';
 import getTransportationCensusEstimateResponse from '../../mirage/helpers/get-transportation-census-estimate-response';
 
 function getModalSplits(type, geoids) {
-  return new Array(geoids.length).fill({}).map((_, idx) => getModalSplit(type, geoids[idx]));
+  return new Array(geoids.length)
+    .fill({})
+    .map((_, idx) => getModalSplit(type, geoids[idx]));
 }
 
 export function getModalSplit(type, geoid) {
-  const { data: estimates } = getTransportationCensusEstimateResponse(type, geoid);
+  const { data: estimates } = getTransportationCensusEstimateResponse(
+    type,
+    geoid
+  );
   const modalSplit = composeModalSplit(estimates);
   return modalSplit;
 }
 
 export default function stubReadonlyStore(hooks, mockModalSplit) {
-  hooks.beforeEach(function() {
+  hooks.beforeEach(function () {
     const realStore = this.owner.lookup('service:readonly-ceqr-data-store');
     const readonlyDataStoreStub = Service.extend({
       findByIds(type, ar) {
@@ -26,7 +31,7 @@ export default function stubReadonlyStore(hooks, mockModalSplit) {
         if (type === 'CTPP-modal-split') {
           return getModalSplits('CTPP', ar);
         }
-        return new Promise(function(resolve, reject) {
+        return new Promise(function (resolve, reject) {
           reject(`Fetch for ${type} not implemented`);
         });
       },
@@ -42,6 +47,9 @@ export default function stubReadonlyStore(hooks, mockModalSplit) {
       getRecord: realStore.getRecord,
     });
     this.owner.unregister('service:readonly-ceqr-data-store');
-    this.owner.register('service:readonly-ceqr-data-store', readonlyDataStoreStub);
+    this.owner.register(
+      'service:readonly-ceqr-data-store',
+      readonlyDataStoreStub
+    );
   });
 }

@@ -6,7 +6,5 @@ import EmberObject, { computed } from '@ember/object';
  * @param {string} id - Aggregate unique identifier combining source, org_id, bldg_id, and level
  */
 export default EmberObject.extend({
-  id: computed('uid', function () {
-    return this.uid;
-  }),
+  id: computed.reads('uid'),
 });

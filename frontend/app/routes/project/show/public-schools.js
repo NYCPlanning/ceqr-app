@@ -8,7 +8,9 @@ export default Route.extend({
     const { project } = this.modelFor('project/show');
     const publicSchoolsAnalysis = await project.publicSchoolsAnalysis;
 
-    const availablePackages = this.store.query('data-package', { filter: { package: 'public_schools' } });
+    const availablePackages = this.store.query('data-package', {
+      filter: { package: 'public_schools' },
+    });
 
     return RSVP.hash({
       project,
@@ -19,7 +21,10 @@ export default Route.extend({
 
   afterModel(model) {
     if (model.project.viewOnly) {
-      this.transitionTo('project.show.public-schools.summary', model.project.id);
+      this.transitionTo(
+        'project.show.public-schools.summary',
+        model.project.id
+      );
     }
   },
 });

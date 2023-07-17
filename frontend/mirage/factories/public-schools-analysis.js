@@ -541,7 +541,7 @@ export default Factory.extend({
         subdistrict: 2,
       },
     ],
-    multipliers: ({
+    multipliers: {
       version: 'november-2018',
       districts: [
         {
@@ -556,7 +556,7 @@ export default Factory.extend({
       ],
       thresholdHsStudents: 150,
       thresholdPsIsStudents: 50,
-    }),
+    },
     hsProjections: [
       {
         hs: 15000,
@@ -689,7 +689,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 1,
       capacityFuture: 669,
-      the_geom_webmercator: '0101000020110F0000E42C33224F675FC19D6ADE0878ED5241',
+      the_geom_webmercator:
+        '0101000020110F0000E42C33224F675FC19D6ADE0878ED5241',
     },
     {
       x: 998338,
@@ -718,7 +719,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 1,
       capacityFuture: 1320,
-      the_geom_webmercator: '0101000020110F000094EDF05E0D675FC18ADCF21497EE5241',
+      the_geom_webmercator:
+        '0101000020110F000094EDF05E0D675FC18ADCF21497EE5241',
     },
     {
       x: 1000913,
@@ -747,7 +749,8 @@ export default Factory.extend({
       ps_capacity: 675,
       subdistrict: 1,
       capacityFuture: 675,
-      the_geom_webmercator: '0101000020110F00007A773D1E0B665FC1DC5E1F4749EE5241',
+      the_geom_webmercator:
+        '0101000020110F00007A773D1E0B665FC1DC5E1F4749EE5241',
     },
     {
       x: 997085,
@@ -776,7 +779,8 @@ export default Factory.extend({
       ps_capacity: 724,
       subdistrict: 1,
       capacityFuture: 724,
-      the_geom_webmercator: '0101000020110F0000259E75378B675FC11423610873ED5241',
+      the_geom_webmercator:
+        '0101000020110F0000259E75378B675FC11423610873ED5241',
     },
     {
       x: 998395,
@@ -805,7 +809,8 @@ export default Factory.extend({
       ps_capacity: 383,
       subdistrict: 1,
       capacityFuture: 383,
-      the_geom_webmercator: '0101000020110F00002E23569B07675FC155F9F0D5E6EE5241',
+      the_geom_webmercator:
+        '0101000020110F00002E23569B07675FC155F9F0D5E6EE5241',
     },
     {
       x: 1004711,
@@ -834,7 +839,8 @@ export default Factory.extend({
       ps_capacity: 610,
       subdistrict: 2,
       capacityFuture: 610,
-      the_geom_webmercator: '0101000020110F0000A59344078E645FC19CC3503AD0EE5241',
+      the_geom_webmercator:
+        '0101000020110F0000A59344078E645FC19CC3503AD0EE5241',
     },
     {
       x: 1004711,
@@ -863,7 +869,8 @@ export default Factory.extend({
       ps_capacity: 610,
       subdistrict: 2,
       capacityFuture: 361,
-      the_geom_webmercator: '0101000020110F0000A59344078E645FC19CC3503AD0EE5241',
+      the_geom_webmercator:
+        '0101000020110F0000A59344078E645FC19CC3503AD0EE5241',
     },
     {
       x: 1004711,
@@ -892,7 +899,8 @@ export default Factory.extend({
       ps_capacity: 67,
       subdistrict: 2,
       capacityFuture: 67,
-      the_geom_webmercator: '0101000020110F0000A59344078E645FC19CC3503AD0EE5241',
+      the_geom_webmercator:
+        '0101000020110F0000A59344078E645FC19CC3503AD0EE5241',
     },
     {
       x: 1004711,
@@ -921,7 +929,8 @@ export default Factory.extend({
       ps_capacity: 67,
       subdistrict: 2,
       capacityFuture: 40,
-      the_geom_webmercator: '0101000020110F0000A59344078E645FC19CC3503AD0EE5241',
+      the_geom_webmercator:
+        '0101000020110F0000A59344078E645FC19CC3503AD0EE5241',
     },
     {
       x: 1001992,
@@ -950,7 +959,8 @@ export default Factory.extend({
       ps_capacity: 319,
       subdistrict: 2,
       capacityFuture: '323',
-      the_geom_webmercator: '0101000020110F00003D1EE0D59E655FC1C5AB47DD8BEE5241',
+      the_geom_webmercator:
+        '0101000020110F00003D1EE0D59E655FC1C5AB47DD8BEE5241',
     },
     {
       x: 1001992,
@@ -979,7 +989,8 @@ export default Factory.extend({
       ps_capacity: 197,
       subdistrict: 2,
       capacityFuture: 197,
-      the_geom_webmercator: '0101000020110F00003D1EE0D59E655FC1C5AB47DD8BEE5241',
+      the_geom_webmercator:
+        '0101000020110F00003D1EE0D59E655FC1C5AB47DD8BEE5241',
     },
     {
       x: 995159,
@@ -1008,7 +1019,8 @@ export default Factory.extend({
       ps_capacity: 616,
       subdistrict: 2,
       capacityFuture: 616,
-      the_geom_webmercator: '0101000020110F0000F9EAA22D4C685FC1A91378B75AEF5241',
+      the_geom_webmercator:
+        '0101000020110F0000F9EAA22D4C685FC1A91378B75AEF5241',
     },
     {
       x: 995159,
@@ -1037,7 +1049,8 @@ export default Factory.extend({
       ps_capacity: 84,
       subdistrict: 2,
       capacityFuture: 84,
-      the_geom_webmercator: '0101000020110F0000F9EAA22D4C685FC1A91378B75AEF5241',
+      the_geom_webmercator:
+        '0101000020110F0000F9EAA22D4C685FC1A91378B75AEF5241',
     },
     {
       x: 995616,
@@ -1066,7 +1079,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 2,
       capacityFuture: 241,
-      the_geom_webmercator: '0101000020110F0000CAD0B8671E685FC1D4E998C9BCEE5241',
+      the_geom_webmercator:
+        '0101000020110F0000CAD0B8671E685FC1D4E998C9BCEE5241',
     },
     {
       x: 995616,
@@ -1095,7 +1109,8 @@ export default Factory.extend({
       ps_capacity: 900,
       subdistrict: 2,
       capacityFuture: 900,
-      the_geom_webmercator: '0101000020110F0000CAD0B8671E685FC1D4E998C9BCEE5241',
+      the_geom_webmercator:
+        '0101000020110F0000CAD0B8671E685FC1D4E998C9BCEE5241',
     },
     {
       x: 999152,
@@ -1124,7 +1139,8 @@ export default Factory.extend({
       ps_capacity: 243,
       subdistrict: 2,
       capacityFuture: 243,
-      the_geom_webmercator: '0101000020110F0000DE4866D4BB665FC10188EA24DDED5241',
+      the_geom_webmercator:
+        '0101000020110F0000DE4866D4BB665FC10188EA24DDED5241',
     },
     {
       x: 1004514,
@@ -1153,7 +1169,8 @@ export default Factory.extend({
       ps_capacity: 445,
       subdistrict: 2,
       capacityFuture: 445,
-      the_geom_webmercator: '0101000020110F0000C40C05DAA1645FC1F4C476A186EE5241',
+      the_geom_webmercator:
+        '0101000020110F0000C40C05DAA1645FC1F4C476A186EE5241',
     },
     {
       x: 1000215,
@@ -1182,7 +1199,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 2,
       capacityFuture: 141,
-      the_geom_webmercator: '0101000020110F00007BF3C93451665FC1525A1277DBED5241',
+      the_geom_webmercator:
+        '0101000020110F00007BF3C93451665FC1525A1277DBED5241',
     },
     {
       x: 997797,
@@ -1211,7 +1229,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 2,
       capacityFuture: 205,
-      the_geom_webmercator: '0101000020110F00006973429343675FC148A4CF070CEF5241',
+      the_geom_webmercator:
+        '0101000020110F00006973429343675FC148A4CF070CEF5241',
     },
     {
       x: 1001900,
@@ -1240,7 +1259,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 2,
       capacityFuture: 725,
-      the_geom_webmercator: '0101000020110F00001A25F518A8655FC1A52FDAD95DEE5241',
+      the_geom_webmercator:
+        '0101000020110F00001A25F518A8655FC1A52FDAD95DEE5241',
     },
     {
       x: 1004514,
@@ -1269,7 +1289,8 @@ export default Factory.extend({
       ps_capacity: 206,
       subdistrict: 2,
       capacityFuture: 206,
-      the_geom_webmercator: '0101000020110F0000C40C05DAA1645FC1F4C476A186EE5241',
+      the_geom_webmercator:
+        '0101000020110F0000C40C05DAA1645FC1F4C476A186EE5241',
     },
     {
       x: 982808,
@@ -1298,7 +1319,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 2,
       capacityFuture: 1246,
-      the_geom_webmercator: '0101000020110F00006FBB8336236D5FC1798CC8AE66ED5241',
+      the_geom_webmercator:
+        '0101000020110F00006FBB8336236D5FC1798CC8AE66ED5241',
     },
     {
       x: 990966,
@@ -1327,7 +1349,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 2,
       capacityFuture: 514,
-      the_geom_webmercator: '0101000020110F0000D69A278DF0695FC117FE120C39F35241',
+      the_geom_webmercator:
+        '0101000020110F0000D69A278DF0695FC117FE120C39F35241',
     },
     {
       x: 988405,
@@ -1356,7 +1379,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 2,
       capacityFuture: 457,
-      the_geom_webmercator: '0101000020110F000002562E92F16A5FC122D735485EF35241',
+      the_geom_webmercator:
+        '0101000020110F000002562E92F16A5FC122D735485EF35241',
     },
     {
       x: 995677,
@@ -1385,7 +1409,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 3,
       capacityFuture: 619,
-      the_geom_webmercator: '0101000020110F0000FE18B5CF17685FC12F6F3DDEB1F25241',
+      the_geom_webmercator:
+        '0101000020110F0000FE18B5CF17685FC12F6F3DDEB1F25241',
     },
     {
       x: 988405,
@@ -1414,7 +1439,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 2,
       capacityFuture: 680,
-      the_geom_webmercator: '0101000020110F000002562E92F16A5FC122D735485EF35241',
+      the_geom_webmercator:
+        '0101000020110F000002562E92F16A5FC122D735485EF35241',
     },
     {
       x: 988405,
@@ -1443,7 +1469,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 2,
       capacityFuture: 464,
-      the_geom_webmercator: '0101000020110F000002562E92F16A5FC122D735485EF35241',
+      the_geom_webmercator:
+        '0101000020110F000002562E92F16A5FC122D735485EF35241',
     },
     {
       x: 987341,
@@ -1472,7 +1499,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 2,
       capacityFuture: 437,
-      the_geom_webmercator: '0101000020110F0000697EA55E5C6B5FC186EAABC5FCF25241',
+      the_geom_webmercator:
+        '0101000020110F0000697EA55E5C6B5FC186EAABC5FCF25241',
     },
     {
       x: 987341,
@@ -1501,7 +1529,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 2,
       capacityFuture: 381,
-      the_geom_webmercator: '0101000020110F0000697EA55E5C6B5FC186EAABC5FCF25241',
+      the_geom_webmercator:
+        '0101000020110F0000697EA55E5C6B5FC186EAABC5FCF25241',
     },
     {
       x: 998907,
@@ -1530,7 +1559,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 3,
       capacityFuture: 399,
-      the_geom_webmercator: '0101000020110F00008F3270D4D3665FC1841DB88999F15241',
+      the_geom_webmercator:
+        '0101000020110F00008F3270D4D3665FC1841DB88999F15241',
     },
     {
       x: 998907,
@@ -1559,7 +1589,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 3,
       capacityFuture: 256,
-      the_geom_webmercator: '0101000020110F00008F3270D4D3665FC1841DB88999F15241',
+      the_geom_webmercator:
+        '0101000020110F00008F3270D4D3665FC1841DB88999F15241',
     },
     {
       x: 996924,
@@ -1588,7 +1619,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 3,
       capacityFuture: 299,
-      the_geom_webmercator: '0101000020110F0000EBD04ECE9A675FC1D886A059A7F15241',
+      the_geom_webmercator:
+        '0101000020110F0000EBD04ECE9A675FC1D886A059A7F15241',
     },
     {
       x: 988128,
@@ -1617,7 +1649,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 2,
       capacityFuture: 910,
-      the_geom_webmercator: '0101000020110F00004CEFBB620D6B5FC1AB5434BA05F35241',
+      the_geom_webmercator:
+        '0101000020110F00004CEFBB620D6B5FC1AB5434BA05F35241',
     },
     {
       x: 995677,
@@ -1646,7 +1679,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 3,
       capacityFuture: 318,
-      the_geom_webmercator: '0101000020110F0000FE18B5CF17685FC12F6F3DDEB1F25241',
+      the_geom_webmercator:
+        '0101000020110F0000FE18B5CF17685FC12F6F3DDEB1F25241',
     },
     {
       x: 992779,
@@ -1675,7 +1709,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 2,
       capacityFuture: 930,
-      the_geom_webmercator: '0101000020110F0000670ECD9B3A695FC127E6859E14F35241',
+      the_geom_webmercator:
+        '0101000020110F0000670ECD9B3A695FC127E6859E14F35241',
     },
     {
       x: 988128,
@@ -1704,7 +1739,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 2,
       capacityFuture: 506,
-      the_geom_webmercator: '0101000020110F00004CEFBB620D6B5FC1AB5434BA05F35241',
+      the_geom_webmercator:
+        '0101000020110F00004CEFBB620D6B5FC1AB5434BA05F35241',
     },
     {
       x: 997241,
@@ -1733,7 +1769,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 1,
       capacityFuture: 565,
-      the_geom_webmercator: '0101000020110F0000FEE4C5A37A675FC15552B20045F45241',
+      the_geom_webmercator:
+        '0101000020110F0000FEE4C5A37A675FC15552B20045F45241',
     },
     {
       x: 999875,
@@ -1762,7 +1799,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 2,
       capacityFuture: 423,
-      the_geom_webmercator: '0101000020110F000069EB181C72665FC1D6A119E92CF55241',
+      the_geom_webmercator:
+        '0101000020110F000069EB181C72665FC1D6A119E92CF55241',
     },
     {
       x: 1000961,
@@ -1791,7 +1829,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 2,
       capacityFuture: 1124,
-      the_geom_webmercator: '0101000020110F0000435ED10905665FC1B1AB01457FF55241',
+      the_geom_webmercator:
+        '0101000020110F0000435ED10905665FC1B1AB01457FF55241',
     },
     {
       x: 1000961,
@@ -1820,7 +1859,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 2,
       capacityFuture: 1043,
-      the_geom_webmercator: '0101000020110F0000435ED10905665FC1B1AB01457FF55241',
+      the_geom_webmercator:
+        '0101000020110F0000435ED10905665FC1B1AB01457FF55241',
     },
     {
       x: 1000961,
@@ -1849,7 +1889,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 2,
       capacityFuture: 820,
-      the_geom_webmercator: '0101000020110F0000435ED10905665FC1B1AB01457FF55241',
+      the_geom_webmercator:
+        '0101000020110F0000435ED10905665FC1B1AB01457FF55241',
     },
     {
       x: 996793,
@@ -1878,7 +1919,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 3,
       capacityFuture: 637,
-      the_geom_webmercator: '0101000020110F000057CFF063A7675FC11A527256E9F55241',
+      the_geom_webmercator:
+        '0101000020110F000057CFF063A7675FC11A527256E9F55241',
     },
     {
       x: 996793,
@@ -1907,7 +1949,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 3,
       capacityFuture: 586,
-      the_geom_webmercator: '0101000020110F000057CFF063A7675FC11A527256E9F55241',
+      the_geom_webmercator:
+        '0101000020110F000057CFF063A7675FC11A527256E9F55241',
     },
     {
       x: 996793,
@@ -1936,7 +1979,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 3,
       capacityFuture: 626,
-      the_geom_webmercator: '0101000020110F000057CFF063A7675FC11A527256E9F55241',
+      the_geom_webmercator:
+        '0101000020110F000057CFF063A7675FC11A527256E9F55241',
     },
     {
       x: 999875,
@@ -1965,7 +2009,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 2,
       capacityFuture: 411,
-      the_geom_webmercator: '0101000020110F000069EB181C72665FC1D6A119E92CF55241',
+      the_geom_webmercator:
+        '0101000020110F000069EB181C72665FC1D6A119E92CF55241',
     },
     {
       x: 997200,
@@ -1994,7 +2039,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 3,
       capacityFuture: 1142,
-      the_geom_webmercator: '0101000020110F000073F1A0657E675FC1B20617FDE6F65241',
+      the_geom_webmercator:
+        '0101000020110F000073F1A0657E675FC1B20617FDE6F65241',
     },
     {
       x: 1001050,
@@ -2023,7 +2069,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 2,
       capacityFuture: 375,
-      the_geom_webmercator: '0101000020110F0000567DD747FC655FC1129F0F027FF45241',
+      the_geom_webmercator:
+        '0101000020110F0000567DD747FC655FC1129F0F027FF45241',
     },
     {
       x: 996557,
@@ -2052,7 +2099,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 1,
       capacityFuture: 240,
-      the_geom_webmercator: '0101000020110F0000BF2AA040BF675FC16A836B7898F45241',
+      the_geom_webmercator:
+        '0101000020110F0000BF2AA040BF675FC16A836B7898F45241',
     },
     {
       x: 987264,
@@ -2081,7 +2129,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 3,
       capacityFuture: 242,
-      the_geom_webmercator: '0101000020110F0000F0AC311E646B5FC1C673113E56F25241',
+      the_geom_webmercator:
+        '0101000020110F0000F0AC311E646B5FC1C673113E56F25241',
     },
     {
       x: 986094,
@@ -2110,7 +2159,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 3,
       capacityFuture: 302,
-      the_geom_webmercator: '0101000020110F0000AAFC0F8BD96B5FC10FF2BDC8A8F15241',
+      the_geom_webmercator:
+        '0101000020110F0000AAFC0F8BD96B5FC10FF2BDC8A8F15241',
     },
     {
       x: 983868,
@@ -2139,7 +2189,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 3,
       capacityFuture: 465,
-      the_geom_webmercator: '0101000020110F0000922290E8B86C5FC10806D577E4F05241',
+      the_geom_webmercator:
+        '0101000020110F0000922290E8B86C5FC10806D577E4F05241',
     },
     {
       x: 989996,
@@ -2168,7 +2219,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 2,
       capacityFuture: 609,
-      the_geom_webmercator: '0101000020110F000062B70622526A5FC12765645E65EF5241',
+      the_geom_webmercator:
+        '0101000020110F000062B70622526A5FC12765645E65EF5241',
     },
     {
       x: 989996,
@@ -2197,7 +2249,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 2,
       capacityFuture: 257,
-      the_geom_webmercator: '0101000020110F000062B70622526A5FC12765645E65EF5241',
+      the_geom_webmercator:
+        '0101000020110F000062B70622526A5FC12765645E65EF5241',
     },
     {
       x: 989996,
@@ -2226,7 +2279,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 2,
       capacityFuture: 427,
-      the_geom_webmercator: '0101000020110F000062B70622526A5FC12765645E65EF5241',
+      the_geom_webmercator:
+        '0101000020110F000062B70622526A5FC12765645E65EF5241',
     },
     {
       x: 986094,
@@ -2255,7 +2309,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 3,
       capacityFuture: 299,
-      the_geom_webmercator: '0101000020110F0000AAFC0F8BD96B5FC10FF2BDC8A8F15241',
+      the_geom_webmercator:
+        '0101000020110F0000AAFC0F8BD96B5FC10FF2BDC8A8F15241',
     },
     {
       x: 986748,
@@ -2284,7 +2339,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 3,
       capacityFuture: 844,
-      the_geom_webmercator: '0101000020110F00004E95BCEB976B5FC1049E6EF087F15241',
+      the_geom_webmercator:
+        '0101000020110F00004E95BCEB976B5FC1049E6EF087F15241',
     },
     {
       x: 986207,
@@ -2313,7 +2369,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 1,
       capacityFuture: 279,
-      the_geom_webmercator: '0101000020110F0000E0C95C54CE6B5FC1A14BCD638EEB5241',
+      the_geom_webmercator:
+        '0101000020110F0000E0C95C54CE6B5FC1A14BCD638EEB5241',
     },
     {
       x: 992093,
@@ -2342,7 +2399,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 1,
       capacityFuture: 492,
-      the_geom_webmercator: '0101000020110F0000BDFF58FF7F695FC137612B637FEC5241',
+      the_geom_webmercator:
+        '0101000020110F0000BDFF58FF7F695FC137612B637FEC5241',
     },
     {
       x: 989894,
@@ -2371,7 +2429,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 3,
       capacityFuture: 389,
-      the_geom_webmercator: '0101000020110F0000E2BBF2385C6A5FC1C475286AD0F15241',
+      the_geom_webmercator:
+        '0101000020110F0000E2BBF2385C6A5FC1C475286AD0F15241',
     },
     {
       x: 989722,
@@ -2400,7 +2459,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 3,
       capacityFuture: 1173,
-      the_geom_webmercator: '0101000020110F000057379D816D6A5FC1CE527B8864F15241',
+      the_geom_webmercator:
+        '0101000020110F000057379D816D6A5FC1CE527B8864F15241',
     },
     {
       x: 989609,
@@ -2429,7 +2489,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 3,
       capacityFuture: 0,
-      the_geom_webmercator: '0101000020110F000019565ED6786A5FC18033FD2F87F15241',
+      the_geom_webmercator:
+        '0101000020110F000019565ED6786A5FC18033FD2F87F15241',
     },
     {
       x: 989996,
@@ -2458,7 +2519,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 2,
       capacityFuture: 779,
-      the_geom_webmercator: '0101000020110F000062B70622526A5FC12765645E65EF5241',
+      the_geom_webmercator:
+        '0101000020110F000062B70622526A5FC12765645E65EF5241',
     },
     {
       x: 980266,
@@ -2487,7 +2549,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 3,
       capacityFuture: 235,
-      the_geom_webmercator: '0101000020110F0000CA48634F226E5FC1DD459D6197F05241',
+      the_geom_webmercator:
+        '0101000020110F0000CA48634F226E5FC1DD459D6197F05241',
     },
     {
       x: 1002998,
@@ -2516,7 +2579,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 1,
       capacityFuture: 2501,
-      the_geom_webmercator: '0101000020110F0000F2602A7A39655FC1C0D1F560CDF05241',
+      the_geom_webmercator:
+        '0101000020110F0000F2602A7A39655FC1C0D1F560CDF05241',
     },
     {
       x: 1006185,
@@ -2545,7 +2609,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 2,
       capacityFuture: 607,
-      the_geom_webmercator: '0101000020110F0000B0455365F9635FC1D2B93C0426F25241',
+      the_geom_webmercator:
+        '0101000020110F0000B0455365F9635FC1D2B93C0426F25241',
     },
     {
       x: 1005811,
@@ -2574,7 +2639,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 1,
       capacityFuture: 298,
-      the_geom_webmercator: '0101000020110F0000F6FFC4321F645FC1296477EAF2F05241',
+      the_geom_webmercator:
+        '0101000020110F0000F6FFC4321F645FC1296477EAF2F05241',
     },
     {
       x: 1002998,
@@ -2603,7 +2669,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 1,
       capacityFuture: 286,
-      the_geom_webmercator: '0101000020110F0000F2602A7A39655FC1C0D1F560CDF05241',
+      the_geom_webmercator:
+        '0101000020110F0000F2602A7A39655FC1C0D1F560CDF05241',
     },
     {
       x: 1002637,
@@ -2632,7 +2699,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 2,
       capacityFuture: 296,
-      the_geom_webmercator: '0101000020110F0000C4C2035F5D655FC1B1549FAB7FF25241',
+      the_geom_webmercator:
+        '0101000020110F0000C4C2035F5D655FC1B1549FAB7FF25241',
     },
     {
       x: 1002998,
@@ -2661,7 +2729,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 1,
       capacityFuture: 435,
-      the_geom_webmercator: '0101000020110F0000F2602A7A39655FC1C0D1F560CDF05241',
+      the_geom_webmercator:
+        '0101000020110F0000F2602A7A39655FC1C0D1F560CDF05241',
     },
     {
       x: 1002637,
@@ -2690,7 +2759,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 2,
       capacityFuture: 210,
-      the_geom_webmercator: '0101000020110F0000C4C2035F5D655FC1B1549FAB7FF25241',
+      the_geom_webmercator:
+        '0101000020110F0000C4C2035F5D655FC1B1549FAB7FF25241',
     },
     {
       x: 1001214,
@@ -2719,7 +2789,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 1,
       capacityFuture: 750,
-      the_geom_webmercator: '0101000020110F00003C111D93EC655FC14B8514E740F05241',
+      the_geom_webmercator:
+        '0101000020110F00003C111D93EC655FC14B8514E740F05241',
     },
     {
       x: 995752,
@@ -2748,7 +2819,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 3,
       capacityFuture: 480,
-      the_geom_webmercator: '0101000020110F0000C61DAD0611685FC1D2C9CC6F8DEC5241',
+      the_geom_webmercator:
+        '0101000020110F0000C61DAD0611685FC1D2C9CC6F8DEC5241',
     },
     {
       x: 995752,
@@ -2777,7 +2849,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 3,
       capacityFuture: 381,
-      the_geom_webmercator: '0101000020110F0000C61DAD0611685FC1D2C9CC6F8DEC5241',
+      the_geom_webmercator:
+        '0101000020110F0000C61DAD0611685FC1D2C9CC6F8DEC5241',
     },
     {
       x: 996741,
@@ -2806,7 +2879,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 2,
       capacityFuture: 253,
-      the_geom_webmercator: '0101000020110F00002FE7C874AD675FC11ADD31A376EF5241',
+      the_geom_webmercator:
+        '0101000020110F00002FE7C874AD675FC11ADD31A376EF5241',
     },
     {
       x: 994761,
@@ -2835,7 +2909,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 1,
       capacityFuture: 707,
-      the_geom_webmercator: '0101000020110F00003E641BF673685FC1E74C606CAAF05241',
+      the_geom_webmercator:
+        '0101000020110F00003E641BF673685FC1E74C606CAAF05241',
     },
     {
       x: 994876,
@@ -2864,7 +2939,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 2,
       capacityFuture: 523,
-      the_geom_webmercator: '0101000020110F00000F518E8D68685FC1A40A74CA7FEF5241',
+      the_geom_webmercator:
+        '0101000020110F00000F518E8D68685FC1A40A74CA7FEF5241',
     },
     {
       x: 994876,
@@ -2893,7 +2969,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 2,
       capacityFuture: 463,
-      the_geom_webmercator: '0101000020110F00000F518E8D68685FC1A40A74CA7FEF5241',
+      the_geom_webmercator:
+        '0101000020110F00000F518E8D68685FC1A40A74CA7FEF5241',
     },
     {
       x: 1000215,
@@ -2922,7 +2999,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 2,
       capacityFuture: 1077,
-      the_geom_webmercator: '0101000020110F00007BF3C93451665FC1525A1277DBED5241',
+      the_geom_webmercator:
+        '0101000020110F00007BF3C93451665FC1525A1277DBED5241',
     },
     {
       x: 995752,
@@ -2951,7 +3029,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 3,
       capacityFuture: 501,
-      the_geom_webmercator: '0101000020110F0000C61DAD0611685FC1D2C9CC6F8DEC5241',
+      the_geom_webmercator:
+        '0101000020110F0000C61DAD0611685FC1D2C9CC6F8DEC5241',
     },
     {
       x: 995752,
@@ -2980,7 +3059,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 3,
       capacityFuture: 479,
-      the_geom_webmercator: '0101000020110F0000C61DAD0611685FC1D2C9CC6F8DEC5241',
+      the_geom_webmercator:
+        '0101000020110F0000C61DAD0611685FC1D2C9CC6F8DEC5241',
     },
     {
       x: 995752,
@@ -3009,7 +3089,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 3,
       capacityFuture: 438,
-      the_geom_webmercator: '0101000020110F0000C61DAD0611685FC1D2C9CC6F8DEC5241',
+      the_geom_webmercator:
+        '0101000020110F0000C61DAD0611685FC1D2C9CC6F8DEC5241',
     },
     {
       x: 1000215,
@@ -3038,7 +3119,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 2,
       capacityFuture: 599,
-      the_geom_webmercator: '0101000020110F00007BF3C93451665FC1525A1277DBED5241',
+      the_geom_webmercator:
+        '0101000020110F00007BF3C93451665FC1525A1277DBED5241',
     },
     {
       x: 994876,
@@ -3067,7 +3149,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 2,
       capacityFuture: 455,
-      the_geom_webmercator: '0101000020110F00000F518E8D68685FC1A40A74CA7FEF5241',
+      the_geom_webmercator:
+        '0101000020110F00000F518E8D68685FC1A40A74CA7FEF5241',
     },
     {
       x: 994876,
@@ -3096,7 +3179,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 2,
       capacityFuture: 551,
-      the_geom_webmercator: '0101000020110F00000F518E8D68685FC1A40A74CA7FEF5241',
+      the_geom_webmercator:
+        '0101000020110F00000F518E8D68685FC1A40A74CA7FEF5241',
     },
     {
       x: 1005318,
@@ -3125,7 +3209,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 2,
       capacityFuture: 424,
-      the_geom_webmercator: '0101000020110F0000C148551B51645FC1F4008C38F3EE5241',
+      the_geom_webmercator:
+        '0101000020110F0000C148551B51645FC1F4008C38F3EE5241',
     },
     {
       x: 997797,
@@ -3154,7 +3239,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 2,
       capacityFuture: 518,
-      the_geom_webmercator: '0101000020110F00006973429343675FC148A4CF070CEF5241',
+      the_geom_webmercator:
+        '0101000020110F00006973429343675FC148A4CF070CEF5241',
     },
     {
       x: 994802,
@@ -3183,7 +3269,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 2,
       capacityFuture: 1579,
-      the_geom_webmercator: '0101000020110F00001A453EFD6F685FC1B0DE6B1763EF5241',
+      the_geom_webmercator:
+        '0101000020110F00001A453EFD6F685FC1B0DE6B1763EF5241',
     },
     {
       x: 1000215,
@@ -3212,7 +3299,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 2,
       capacityFuture: 554,
-      the_geom_webmercator: '0101000020110F00007BF3C93451665FC1525A1277DBED5241',
+      the_geom_webmercator:
+        '0101000020110F00007BF3C93451665FC1525A1277DBED5241',
     },
     {
       x: 1001214,
@@ -3241,7 +3329,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 1,
       capacityFuture: 497,
-      the_geom_webmercator: '0101000020110F00003C111D93EC655FC14B8514E740F05241',
+      the_geom_webmercator:
+        '0101000020110F00003C111D93EC655FC14B8514E740F05241',
     },
     {
       x: 1005847,
@@ -3270,7 +3359,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 1,
       capacityFuture: 937,
-      the_geom_webmercator: '0101000020110F000035C1849E1C645FC168C32CF863EC5241',
+      the_geom_webmercator:
+        '0101000020110F000035C1849E1C645FC168C32CF863EC5241',
     },
     {
       x: 1007361,
@@ -3299,7 +3389,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 2,
       capacityFuture: 382,
-      the_geom_webmercator: '0101000020110F00009E506E5085635FC142A9483130EA5241',
+      the_geom_webmercator:
+        '0101000020110F00009E506E5085635FC142A9483130EA5241',
     },
     {
       x: 1007361,
@@ -3328,7 +3419,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 2,
       capacityFuture: 563,
-      the_geom_webmercator: '0101000020110F00009E506E5085635FC142A9483130EA5241',
+      the_geom_webmercator:
+        '0101000020110F00009E506E5085635FC142A9483130EA5241',
     },
     {
       x: 1005847,
@@ -3357,7 +3449,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 1,
       capacityFuture: 703,
-      the_geom_webmercator: '0101000020110F000035C1849E1C645FC168C32CF863EC5241',
+      the_geom_webmercator:
+        '0101000020110F000035C1849E1C645FC168C32CF863EC5241',
     },
     {
       x: 1007361,
@@ -3386,7 +3479,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 2,
       capacityFuture: 660,
-      the_geom_webmercator: '0101000020110F00009E506E5085635FC142A9483130EA5241',
+      the_geom_webmercator:
+        '0101000020110F00009E506E5085635FC142A9483130EA5241',
     },
     {
       x: 1007361,
@@ -3415,7 +3509,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 2,
       capacityFuture: 340,
-      the_geom_webmercator: '0101000020110F00009E506E5085635FC142A9483130EA5241',
+      the_geom_webmercator:
+        '0101000020110F00009E506E5085635FC142A9483130EA5241',
     },
     {
       x: 1012487,
@@ -3444,7 +3539,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 2,
       capacityFuture: 565,
-      the_geom_webmercator: '0101000020110F0000D550BEFF82615FC1BD73BF865CEB5241',
+      the_geom_webmercator:
+        '0101000020110F0000D550BEFF82615FC1BD73BF865CEB5241',
     },
     {
       x: 1005847,
@@ -3473,7 +3569,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 1,
       capacityFuture: 637,
-      the_geom_webmercator: '0101000020110F000035C1849E1C645FC168C32CF863EC5241',
+      the_geom_webmercator:
+        '0101000020110F000035C1849E1C645FC168C32CF863EC5241',
     },
     {
       x: 1012487,
@@ -3502,7 +3599,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 2,
       capacityFuture: 577,
-      the_geom_webmercator: '0101000020110F0000D550BEFF82615FC1BD73BF865CEB5241',
+      the_geom_webmercator:
+        '0101000020110F0000D550BEFF82615FC1BD73BF865CEB5241',
     },
     {
       x: 1012489,
@@ -3531,7 +3629,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 2,
       capacityFuture: 293,
-      the_geom_webmercator: '0101000020110F0000439174A382615FC11B8751BFE6EB5241',
+      the_geom_webmercator:
+        '0101000020110F0000439174A382615FC11B8751BFE6EB5241',
     },
     {
       x: 1007361,
@@ -3560,7 +3659,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 2,
       capacityFuture: 432,
-      the_geom_webmercator: '0101000020110F00009E506E5085635FC142A9483130EA5241',
+      the_geom_webmercator:
+        '0101000020110F00009E506E5085635FC142A9483130EA5241',
     },
     {
       x: 1012487,
@@ -3589,7 +3689,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 2,
       capacityFuture: 539,
-      the_geom_webmercator: '0101000020110F0000D550BEFF82615FC1BD73BF865CEB5241',
+      the_geom_webmercator:
+        '0101000020110F0000D550BEFF82615FC1BD73BF865CEB5241',
     },
     {
       x: 1006344,
@@ -3618,7 +3719,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 1,
       capacityFuture: 255,
-      the_geom_webmercator: '0101000020110F0000670A8B6DEA635FC17D29B370E3ED5241',
+      the_geom_webmercator:
+        '0101000020110F0000670A8B6DEA635FC17D29B370E3ED5241',
     },
     {
       x: 1012487,
@@ -3647,7 +3749,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 2,
       capacityFuture: 144,
-      the_geom_webmercator: '0101000020110F0000D550BEFF82615FC1BD73BF865CEB5241',
+      the_geom_webmercator:
+        '0101000020110F0000D550BEFF82615FC1BD73BF865CEB5241',
     },
     {
       x: 1019000,
@@ -3676,7 +3779,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 3,
       capacityFuture: 342,
-      the_geom_webmercator: '0101000020110F0000E12FC10BF55E5FC1B8AACDD7A6ED5241',
+      the_geom_webmercator:
+        '0101000020110F0000E12FC10BF55E5FC1B8AACDD7A6ED5241',
     },
     {
       x: 1015617,
@@ -3705,7 +3809,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 2,
       capacityFuture: 167,
-      the_geom_webmercator: '0101000020110F00000D427F3348605FC1A8C8F76A2BEE5241',
+      the_geom_webmercator:
+        '0101000020110F00000D427F3348605FC1A8C8F76A2BEE5241',
     },
     {
       x: 1015617,
@@ -3734,7 +3839,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 2,
       capacityFuture: 0,
-      the_geom_webmercator: '0101000020110F00000D427F3348605FC1A8C8F76A2BEE5241',
+      the_geom_webmercator:
+        '0101000020110F00000D427F3348605FC1A8C8F76A2BEE5241',
     },
     {
       x: 1019000,
@@ -3763,7 +3869,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 3,
       capacityFuture: 236,
-      the_geom_webmercator: '0101000020110F0000E12FC10BF55E5FC1B8AACDD7A6ED5241',
+      the_geom_webmercator:
+        '0101000020110F0000E12FC10BF55E5FC1B8AACDD7A6ED5241',
     },
     {
       x: 1013449,
@@ -3792,7 +3899,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 2,
       capacityFuture: 459,
-      the_geom_webmercator: '0101000020110F00005F42D16321615FC1C1EC079F15EF5241',
+      the_geom_webmercator:
+        '0101000020110F00005F42D16321615FC1C1EC079F15EF5241',
     },
     {
       x: 1013449,
@@ -3821,7 +3929,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 2,
       capacityFuture: 390,
-      the_geom_webmercator: '0101000020110F00005F42D16321615FC1C1EC079F15EF5241',
+      the_geom_webmercator:
+        '0101000020110F00005F42D16321615FC1C1EC079F15EF5241',
     },
     {
       x: 1013449,
@@ -3850,7 +3959,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 2,
       capacityFuture: 548,
-      the_geom_webmercator: '0101000020110F00005F42D16321615FC1C1EC079F15EF5241',
+      the_geom_webmercator:
+        '0101000020110F00005F42D16321615FC1C1EC079F15EF5241',
     },
     {
       x: 1013449,
@@ -3879,7 +3989,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 2,
       capacityFuture: 450,
-      the_geom_webmercator: '0101000020110F00005F42D16321615FC1C1EC079F15EF5241',
+      the_geom_webmercator:
+        '0101000020110F00005F42D16321615FC1C1EC079F15EF5241',
     },
     {
       x: 1020765,
@@ -3908,7 +4019,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 1,
       capacityFuture: 443,
-      the_geom_webmercator: '0101000020110F000036A50829425E5FC16F4EC3FC7AF25241',
+      the_geom_webmercator:
+        '0101000020110F000036A50829425E5FC16F4EC3FC7AF25241',
     },
     {
       x: 1018655,
@@ -3937,7 +4049,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 2,
       capacityFuture: 1231,
-      the_geom_webmercator: '0101000020110F0000DBBFC292165F5FC1877BB5A8A2F05241',
+      the_geom_webmercator:
+        '0101000020110F0000DBBFC292165F5FC1877BB5A8A2F05241',
     },
     {
       x: 1020765,
@@ -3966,7 +4079,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 1,
       capacityFuture: 766,
-      the_geom_webmercator: '0101000020110F000036A50829425E5FC16F4EC3FC7AF25241',
+      the_geom_webmercator:
+        '0101000020110F000036A50829425E5FC16F4EC3FC7AF25241',
     },
     {
       x: 1020765,
@@ -3995,7 +4109,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 1,
       capacityFuture: 373,
-      the_geom_webmercator: '0101000020110F000036A50829425E5FC16F4EC3FC7AF25241',
+      the_geom_webmercator:
+        '0101000020110F000036A50829425E5FC16F4EC3FC7AF25241',
     },
     {
       x: 1020765,
@@ -4024,7 +4139,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 1,
       capacityFuture: 478,
-      the_geom_webmercator: '0101000020110F000036A50829425E5FC16F4EC3FC7AF25241',
+      the_geom_webmercator:
+        '0101000020110F000036A50829425E5FC16F4EC3FC7AF25241',
     },
     {
       x: 1012979,
@@ -4053,7 +4169,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 2,
       capacityFuture: 1068,
-      the_geom_webmercator: '0101000020110F000018D7354050615FC1BE25C4B50AF05241',
+      the_geom_webmercator:
+        '0101000020110F000018D7354050615FC1BE25C4B50AF05241',
     },
     {
       x: 1019145,
@@ -4082,7 +4199,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 2,
       capacityFuture: 423,
-      the_geom_webmercator: '0101000020110F000071094CCEE55E5FC16883BF838DEF5241',
+      the_geom_webmercator:
+        '0101000020110F000071094CCEE55E5FC16883BF838DEF5241',
     },
     {
       x: 1020765,
@@ -4111,7 +4229,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 1,
       capacityFuture: 360,
-      the_geom_webmercator: '0101000020110F000036A50829425E5FC16F4EC3FC7AF25241',
+      the_geom_webmercator:
+        '0101000020110F000036A50829425E5FC16F4EC3FC7AF25241',
     },
     {
       x: 1015697,
@@ -4140,7 +4259,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 2,
       capacityFuture: 164,
-      the_geom_webmercator: '0101000020110F00006CB569A93F605FC1447586B4BAEF5241',
+      the_geom_webmercator:
+        '0101000020110F00006CB569A93F605FC1447586B4BAEF5241',
     },
     {
       x: 983305,
@@ -4169,7 +4289,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 2,
       capacityFuture: 2253,
-      the_geom_webmercator: '0101000020110F0000B001A84DF16C5FC11B5F660352E75241',
+      the_geom_webmercator:
+        '0101000020110F0000B001A84DF16C5FC11B5F660352E75241',
     },
     {
       x: 977631,
@@ -4198,7 +4319,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 1,
       capacityFuture: 1220,
-      the_geom_webmercator: '0101000020110F00002061FE482A6F5FC11A50A1C2C2EA5241',
+      the_geom_webmercator:
+        '0101000020110F00002061FE482A6F5FC11A50A1C2C2EA5241',
     },
     {
       x: 973134,
@@ -4227,7 +4349,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 1,
       capacityFuture: 2391,
-      the_geom_webmercator: '0101000020110F0000C5EAD40DED705FC144D2AF5768E95241',
+      the_geom_webmercator:
+        '0101000020110F0000C5EAD40DED705FC144D2AF5768E95241',
     },
     {
       x: 973056,
@@ -4256,7 +4379,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 1,
       capacityFuture: 0,
-      the_geom_webmercator: '0101000020110F0000119A7DDDF4705FC1DEB372B654E95241',
+      the_geom_webmercator:
+        '0101000020110F0000119A7DDDF4705FC1DEB372B654E95241',
     },
     {
       x: 989304,
@@ -4285,7 +4409,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 3,
       capacityFuture: 2552,
-      the_geom_webmercator: '0101000020110F0000A434CEED976A5FC104E9476A59E85241',
+      the_geom_webmercator:
+        '0101000020110F0000A434CEED976A5FC104E9476A59E85241',
     },
     {
       x: 989377,
@@ -4314,7 +4439,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 3,
       capacityFuture: 324,
-      the_geom_webmercator: '0101000020110F0000164AEE7F906A5FC1717F83846AEA5241',
+      the_geom_webmercator:
+        '0101000020110F0000164AEE7F906A5FC1717F83846AEA5241',
     },
     {
       x: 988202,
@@ -4343,7 +4469,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 2,
       capacityFuture: 508,
-      the_geom_webmercator: '0101000020110F00005C2A8C8E066B5FC14D8D9BA79AE45241',
+      the_geom_webmercator:
+        '0101000020110F00005C2A8C8E066B5FC14D8D9BA79AE45241',
     },
     {
       x: 991716,
@@ -4372,7 +4499,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 1,
       capacityFuture: 498,
-      the_geom_webmercator: '0101000020110F0000E91CA88EA6695FC13FBCFA8AEAE25241',
+      the_geom_webmercator:
+        '0101000020110F0000E91CA88EA6695FC13FBCFA8AEAE25241',
     },
     {
       x: 988202,
@@ -4401,7 +4529,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 2,
       capacityFuture: 543,
-      the_geom_webmercator: '0101000020110F00005C2A8C8E066B5FC14D8D9BA79AE45241',
+      the_geom_webmercator:
+        '0101000020110F00005C2A8C8E066B5FC14D8D9BA79AE45241',
     },
     {
       x: 993331,
@@ -4430,7 +4559,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 1,
       capacityFuture: 1957,
-      the_geom_webmercator: '0101000020110F00005E80BEC204695FC10C43D783CCE25241',
+      the_geom_webmercator:
+        '0101000020110F00005E80BEC204695FC10C43D783CCE25241',
     },
     {
       x: 988202,
@@ -4459,7 +4589,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 2,
       capacityFuture: 411,
-      the_geom_webmercator: '0101000020110F00005C2A8C8E066B5FC14D8D9BA79AE45241',
+      the_geom_webmercator:
+        '0101000020110F00005C2A8C8E066B5FC14D8D9BA79AE45241',
     },
     {
       x: 995553,
@@ -4488,7 +4619,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 3,
       capacityFuture: 3165,
-      the_geom_webmercator: '0101000020110F00000222277B25685FC17440CA525CE85241',
+      the_geom_webmercator:
+        '0101000020110F00000222277B25685FC17440CA525CE85241',
     },
     {
       x: 989322,
@@ -4517,7 +4649,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 2,
       capacityFuture: 2219,
-      the_geom_webmercator: '0101000020110F0000220BA35C966A5FC17A6A0C8CE2E35241',
+      the_geom_webmercator:
+        '0101000020110F0000220BA35C966A5FC17A6A0C8CE2E35241',
     },
     {
       x: 988202,
@@ -4546,7 +4679,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 2,
       capacityFuture: 384,
-      the_geom_webmercator: '0101000020110F00005C2A8C8E066B5FC14D8D9BA79AE45241',
+      the_geom_webmercator:
+        '0101000020110F00005C2A8C8E066B5FC14D8D9BA79AE45241',
     },
     {
       x: 988202,
@@ -4575,7 +4709,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 2,
       capacityFuture: 517,
-      the_geom_webmercator: '0101000020110F00005C2A8C8E066B5FC14D8D9BA79AE45241',
+      the_geom_webmercator:
+        '0101000020110F00005C2A8C8E066B5FC14D8D9BA79AE45241',
     },
     {
       x: 994395,
@@ -4604,7 +4739,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 1,
       capacityFuture: 1413,
-      the_geom_webmercator: '0101000020110F00005D1642259A685FC1BABFF7A9EDE25241',
+      the_geom_webmercator:
+        '0101000020110F00005D1642259A685FC1BABFF7A9EDE25241',
     },
     {
       x: 985804,
@@ -4633,7 +4769,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 2,
       capacityFuture: 537,
-      the_geom_webmercator: '0101000020110F0000530DD8D4F66B5FC1A77DB0B71EE65241',
+      the_geom_webmercator:
+        '0101000020110F0000530DD8D4F66B5FC1A77DB0B71EE65241',
     },
     {
       x: 988152,
@@ -4662,7 +4799,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 1,
       capacityFuture: 240,
-      the_geom_webmercator: '0101000020110F000095CAD0AA0B6B5FC182678E9D28E25241',
+      the_geom_webmercator:
+        '0101000020110F000095CAD0AA0B6B5FC182678E9D28E25241',
     },
     {
       x: 997315,
@@ -4691,7 +4829,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 1,
       capacityFuture: 2462,
-      the_geom_webmercator: '0101000020110F00000C12669874675FC1AE5AAB6D2EEA5241',
+      the_geom_webmercator:
+        '0101000020110F00000C12669874675FC1AE5AAB6D2EEA5241',
     },
     {
       x: 997351,
@@ -4720,7 +4859,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 1,
       capacityFuture: 0,
-      the_geom_webmercator: '0101000020110F00008B1C5A0071675FC17225863C11EA5241',
+      the_geom_webmercator:
+        '0101000020110F00008B1C5A0071675FC17225863C11EA5241',
     },
     {
       x: 998546,
@@ -4749,7 +4889,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 3,
       capacityFuture: 2253,
-      the_geom_webmercator: '0101000020110F0000A54CF5AAF9665FC15D89F53BD7E65241',
+      the_geom_webmercator:
+        '0101000020110F0000A54CF5AAF9665FC15D89F53BD7E65241',
     },
     {
       x: 1002041,
@@ -4778,7 +4919,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 3,
       capacityFuture: 58,
-      the_geom_webmercator: '0101000020110F0000669E04229C655FC121D410ABAFE25241',
+      the_geom_webmercator:
+        '0101000020110F0000669E04229C655FC121D410ABAFE25241',
     },
     {
       x: 1002041,
@@ -4807,7 +4949,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 3,
       capacityFuture: 885,
-      the_geom_webmercator: '0101000020110F0000669E04229C655FC121D410ABAFE25241',
+      the_geom_webmercator:
+        '0101000020110F0000669E04229C655FC121D410ABAFE25241',
     },
     {
       x: 997391,
@@ -4836,7 +4979,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 1,
       capacityFuture: 177,
-      the_geom_webmercator: '0101000020110F00009DB76B016D675FC1334074C1F5E95241',
+      the_geom_webmercator:
+        '0101000020110F00009DB76B016D675FC1334074C1F5E95241',
     },
     {
       x: 1001553,
@@ -4865,7 +5009,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 3,
       capacityFuture: 758,
-      the_geom_webmercator: '0101000020110F0000C62363AECC655FC1607AFE8894E45241',
+      the_geom_webmercator:
+        '0101000020110F0000C62363AECC655FC1607AFE8894E45241',
     },
     {
       x: 1001553,
@@ -4894,7 +5039,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 3,
       capacityFuture: 413,
-      the_geom_webmercator: '0101000020110F0000C62363AECC655FC1607AFE8894E45241',
+      the_geom_webmercator:
+        '0101000020110F0000C62363AECC655FC1607AFE8894E45241',
     },
     {
       x: 1008307,
@@ -4923,7 +5069,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 2,
       capacityFuture: 636,
-      the_geom_webmercator: '0101000020110F0000574B4BFC24635FC10B534A8209F05241',
+      the_geom_webmercator:
+        '0101000020110F0000574B4BFC24635FC10B534A8209F05241',
     },
     {
       x: 1008745,
@@ -4952,7 +5099,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 1,
       capacityFuture: 374,
-      the_geom_webmercator: '0101000020110F0000D7084558F9625FC145A333BCDBEE5241',
+      the_geom_webmercator:
+        '0101000020110F0000D7084558F9625FC145A333BCDBEE5241',
     },
     {
       x: 1009986,
@@ -4981,7 +5129,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 1,
       capacityFuture: 330,
-      the_geom_webmercator: '0101000020110F00000165883B7D625FC18A0D7ED073ED5241',
+      the_geom_webmercator:
+        '0101000020110F00000165883B7D625FC18A0D7ED073ED5241',
     },
     {
       x: 1007593,
@@ -5010,7 +5159,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 2,
       capacityFuture: 500,
-      the_geom_webmercator: '0101000020110F0000634C667D6C635FC1D741705991F05241',
+      the_geom_webmercator:
+        '0101000020110F0000634C667D6C635FC1D741705991F05241',
     },
     {
       x: 1010891,
@@ -5039,7 +5189,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 2,
       capacityFuture: 338,
-      the_geom_webmercator: '0101000020110F00003F63889D21625FC1325D875679F05241',
+      the_geom_webmercator:
+        '0101000020110F00003F63889D21625FC1325D875679F05241',
     },
     {
       x: 1009986,
@@ -5068,7 +5219,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 1,
       capacityFuture: 317,
-      the_geom_webmercator: '0101000020110F00000165883B7D625FC18A0D7ED073ED5241',
+      the_geom_webmercator:
+        '0101000020110F00000165883B7D625FC18A0D7ED073ED5241',
     },
     {
       x: 1008745,
@@ -5097,7 +5249,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 1,
       capacityFuture: 532,
-      the_geom_webmercator: '0101000020110F0000D7084558F9625FC145A333BCDBEE5241',
+      the_geom_webmercator:
+        '0101000020110F0000D7084558F9625FC145A333BCDBEE5241',
     },
     {
       x: 1008987,
@@ -5126,7 +5279,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 2,
       capacityFuture: 314,
-      the_geom_webmercator: '0101000020110F0000F62B3FE9DF625FC196B9D1C150F35241',
+      the_geom_webmercator:
+        '0101000020110F0000F62B3FE9DF625FC196B9D1C150F35241',
     },
     {
       x: 1008987,
@@ -5155,7 +5309,8 @@ export default Factory.extend({
       ps_capacity: 10,
       subdistrict: 2,
       capacityFuture: 344,
-      the_geom_webmercator: '0101000020110F0000F62B3FE9DF625FC196B9D1C150F35241',
+      the_geom_webmercator:
+        '0101000020110F0000F62B3FE9DF625FC196B9D1C150F35241',
     },
     {
       x: 1003909,
@@ -5184,7 +5339,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 1,
       capacityFuture: 580,
-      the_geom_webmercator: '0101000020110F000034BC0CA0DD645FC106E33F59F6F25241',
+      the_geom_webmercator:
+        '0101000020110F000034BC0CA0DD645FC106E33F59F6F25241',
     },
     {
       x: 1008987,
@@ -5213,7 +5369,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 2,
       capacityFuture: 565,
-      the_geom_webmercator: '0101000020110F0000F62B3FE9DF625FC196B9D1C150F35241',
+      the_geom_webmercator:
+        '0101000020110F0000F62B3FE9DF625FC196B9D1C150F35241',
     },
     {
       x: 1008987,
@@ -5242,7 +5399,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 2,
       capacityFuture: 396,
-      the_geom_webmercator: '0101000020110F0000F62B3FE9DF625FC196B9D1C150F35241',
+      the_geom_webmercator:
+        '0101000020110F0000F62B3FE9DF625FC196B9D1C150F35241',
     },
     {
       x: 1008327,
@@ -5271,7 +5429,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 2,
       capacityFuture: 224,
-      the_geom_webmercator: '0101000020110F0000C7DBCC2222635FC1C2C2D26E5FF35241',
+      the_geom_webmercator:
+        '0101000020110F0000C7DBCC2222635FC1C2C2D26E5FF35241',
     },
     {
       x: 1008123,
@@ -5300,7 +5459,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 2,
       capacityFuture: 33,
-      the_geom_webmercator: '0101000020110F000013F5529836635FC178937CC46EF35241',
+      the_geom_webmercator:
+        '0101000020110F000013F5529836635FC178937CC46EF35241',
     },
     {
       x: 1004177,
@@ -5329,7 +5489,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 1,
       capacityFuture: 557,
-      the_geom_webmercator: '0101000020110F00003C086BB6C2645FC1A796EA790AF35241',
+      the_geom_webmercator:
+        '0101000020110F00003C086BB6C2645FC1A796EA790AF35241',
     },
     {
       x: 1007781,
@@ -5358,7 +5519,8 @@ export default Factory.extend({
       ps_capacity: 0,
       subdistrict: 1,
       capacityFuture: 423,
-      the_geom_webmercator: '0101000020110F000002FD5E0159635FC17991CEBC15F35241',
+      the_geom_webmercator:
+        '0101000020110F000002FD5E0159635FC17991CEBC15F35241',
     },
     {
       name: 'P.S. 583',
@@ -5403,7 +5565,8 @@ export default Factory.extend({
   doeUtilChanges: () => [
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/pep-meetings-archive',
-      title: 'The Proposed Temporary Co-location of the Ninth and Tenth Grades of Unity Preparatory Charter School of Brooklyn (84K757) with Brownsville Academy High School (17K568) in Building K907 Beginning in 2016-2017',
+      title:
+        'The Proposed Temporary Co-location of the Ninth and Tenth Grades of Unity Preparatory Charter School of Brooklyn (84K757) with Brownsville Academy High School (17K568) in Building K907 Beginning in 2016-2017',
       org_id: 'K757',
       bldg_id: 'K907',
       vote_date: '4/4/2016',
@@ -5413,7 +5576,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/2017-2018-pages/april-25-2018-school-utilization-proposals',
-      title: 'The Proposed Re-Siting and Consolidation of Aspirations Diploma Plus High School (23K646) with W.E.B. Dubois Academic High School (17K489) in Building K824 Beginning in the 2018-2019 School Year',
+      title:
+        'The Proposed Re-Siting and Consolidation of Aspirations Diploma Plus High School (23K646) with W.E.B. Dubois Academic High School (17K489) in Building K824 Beginning in the 2018-2019 School Year',
       org_id: 'K646',
       bldg_id: 'K824',
       vote_date: '4/25/2018',
@@ -5423,7 +5587,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/2017-2018-pages/april-25-2018-school-utilization-proposals',
-      title: 'The Proposed Re-Siting and Consolidation of Aspirations Diploma Plus High School (23K646) with W.E.B. Dubois Academic High School (17K489) in Building K824 Beginning in the 2018-2019 School Year',
+      title:
+        'The Proposed Re-Siting and Consolidation of Aspirations Diploma Plus High School (23K646) with W.E.B. Dubois Academic High School (17K489) in Building K824 Beginning in the 2018-2019 School Year',
       org_id: 'K489',
       bldg_id: 'K824',
       vote_date: '4/25/2018',
@@ -5433,7 +5598,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/2017-2018-pages/april-25-2018-school-utilization-proposals',
-      title: 'The Proposed Re-Siting and Consolidation of Aspirations Diploma Plus High School (23K646) with W.E.B. Dubois Academic High School (17K489) in Building K824 Beginning in the 2018-2019 School Year',
+      title:
+        'The Proposed Re-Siting and Consolidation of Aspirations Diploma Plus High School (23K646) with W.E.B. Dubois Academic High School (17K489) in Building K824 Beginning in the 2018-2019 School Year',
       org_id: 'K981',
       bldg_id: 'K824',
       vote_date: '4/25/2018',
@@ -5443,7 +5609,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/2017-2018-pages/april-25-2018-school-utilization-proposals',
-      title: 'The Proposed Re-Siting and Consolidation of Aspirations Diploma Plus High School (23K646) with W.E.B. Dubois Academic High School (17K489) in Building K824 Beginning in the 2018-2019 School Year',
+      title:
+        'The Proposed Re-Siting and Consolidation of Aspirations Diploma Plus High School (23K646) with W.E.B. Dubois Academic High School (17K489) in Building K824 Beginning in the 2018-2019 School Year',
       org_id: 'M973',
       bldg_id: 'K824',
       vote_date: '4/25/2018',
@@ -5453,7 +5620,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/2017-2018-pages/april-25-2018-school-utilization-proposals',
-      title: 'The Proposed Opening and Co-location of the Elementary School Grades of Uncommon Ocean Hill Collegiate Charter School (84K777) with P.S. 221 Toussaint L’Ouverture in Buildings K221 and K892 Beginning in the 2018-2019 School Year',
+      title:
+        'The Proposed Opening and Co-location of the Elementary School Grades of Uncommon Ocean Hill Collegiate Charter School (84K777) with P.S. 221 Toussaint L’Ouverture in Buildings K221 and K892 Beginning in the 2018-2019 School Year',
       org_id: 'K221',
       bldg_id: 'K221',
       vote_date: '4/25/2018',
@@ -5463,7 +5631,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/2017-2018-pages/april-25-2018-school-utilization-proposals',
-      title: 'The Proposed Opening and Co-location of the Elementary School Grades of Uncommon Ocean Hill Collegiate Charter School (84K777) with P.S. 221 Toussaint L’Ouverture in Buildings K221 and K892 Beginning in the 2018-2019 School Year',
+      title:
+        'The Proposed Opening and Co-location of the Elementary School Grades of Uncommon Ocean Hill Collegiate Charter School (84K777) with P.S. 221 Toussaint L’Ouverture in Buildings K221 and K892 Beginning in the 2018-2019 School Year',
       org_id: 'K692',
       bldg_id: 'K221',
       vote_date: '4/25/2018',
@@ -5473,7 +5642,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/2017-2018-pages/april-25-2018-school-utilization-proposals',
-      title: 'The Proposed Opening and Co-location of the Elementary School Grades of Uncommon Ocean Hill Collegiate Charter School (84K777) with P.S. 221 Toussaint L’Ouverture in Buildings K221 and K892 Beginning in the 2018-2019 School Year',
+      title:
+        'The Proposed Opening and Co-location of the Elementary School Grades of Uncommon Ocean Hill Collegiate Charter School (84K777) with P.S. 221 Toussaint L’Ouverture in Buildings K221 and K892 Beginning in the 2018-2019 School Year',
       org_id: 'K777',
       bldg_id: 'K221',
       vote_date: '4/25/2018',
@@ -5483,7 +5653,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/2017-2018-pages/april-25-2018-school-utilization-proposals',
-      title: 'The Proposed Re-Siting and Co-location of Gotham Professional Arts Academy (16K594) with ACORN Community High School (13K499) in Building K909 Beginning in the 2018-2019 School Year',
+      title:
+        'The Proposed Re-Siting and Co-location of Gotham Professional Arts Academy (16K594) with ACORN Community High School (13K499) in Building K909 Beginning in the 2018-2019 School Year',
       org_id: 'K594',
       bldg_id: 'K909',
       vote_date: '4/25/2018',
@@ -5493,7 +5664,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/2017-2018-pages/april-25-2018-school-utilization-proposals',
-      title: 'The Proposed Re-Siting and Co-location of Gotham Professional Arts Academy (16K594) with ACORN Community High School (13K499) in Building K909 Beginning in the 2018-2019 School Year',
+      title:
+        'The Proposed Re-Siting and Co-location of Gotham Professional Arts Academy (16K594) with ACORN Community High School (13K499) in Building K909 Beginning in the 2018-2019 School Year',
       org_id: 'K499',
       bldg_id: 'K909',
       vote_date: '4/25/2018',
@@ -5503,7 +5675,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/2017-2018-pages/april-25-2018-school-utilization-proposals',
-      title: 'The Proposed Grade Expansion of Brooklyn Prospect Charter School – Clinton Hill (84K879) in Building K117 and One-Year Extension of the Temporary Co-location with Brooklyn Community High School of Communication, Arts, and Media (13K412), Brooklyn High School for Leadership and Community Service (13K616), and P.S. K369 Coy L. Cox (75K369) in Building K117 Beginning in the 2018-2019 School Year',
+      title:
+        'The Proposed Grade Expansion of Brooklyn Prospect Charter School – Clinton Hill (84K879) in Building K117 and One-Year Extension of the Temporary Co-location with Brooklyn Community High School of Communication, Arts, and Media (13K412), Brooklyn High School for Leadership and Community Service (13K616), and P.S. K369 Coy L. Cox (75K369) in Building K117 Beginning in the 2018-2019 School Year',
       org_id: 'K369',
       bldg_id: 'K117',
       vote_date: '4/25/2018',
@@ -5513,7 +5686,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/2017-2018-pages/april-25-2018-school-utilization-proposals',
-      title: 'The Proposed Grade Expansion of Brooklyn Prospect Charter School – Clinton Hill (84K879) in Building K117 and One-Year Extension of the Temporary Co-location with Brooklyn Community High School of Communication, Arts, and Media (13K412), Brooklyn High School for Leadership and Community Service (13K616), and P.S. K369 Coy L. Cox (75K369) in Building K117 Beginning in the 2018-2019 School Year',
+      title:
+        'The Proposed Grade Expansion of Brooklyn Prospect Charter School – Clinton Hill (84K879) in Building K117 and One-Year Extension of the Temporary Co-location with Brooklyn Community High School of Communication, Arts, and Media (13K412), Brooklyn High School for Leadership and Community Service (13K616), and P.S. K369 Coy L. Cox (75K369) in Building K117 Beginning in the 2018-2019 School Year',
       org_id: 'K879',
       bldg_id: 'K117',
       vote_date: '4/25/2018',
@@ -5523,7 +5697,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/2017-2018-pages/april-25-2018-school-utilization-proposals',
-      title: 'The Proposed Grade Expansion of Brooklyn Prospect Charter School – Clinton Hill (84K879) in Building K117 and One-Year Extension of the Temporary Co-location with Brooklyn Community High School of Communication, Arts, and Media (13K412), Brooklyn High School for Leadership and Community Service (13K616), and P.S. K369 Coy L. Cox (75K369) in Building K117 Beginning in the 2018-2019 School Year',
+      title:
+        'The Proposed Grade Expansion of Brooklyn Prospect Charter School – Clinton Hill (84K879) in Building K117 and One-Year Extension of the Temporary Co-location with Brooklyn Community High School of Communication, Arts, and Media (13K412), Brooklyn High School for Leadership and Community Service (13K616), and P.S. K369 Coy L. Cox (75K369) in Building K117 Beginning in the 2018-2019 School Year',
       org_id: 'K616',
       bldg_id: 'K117',
       vote_date: '4/25/2018',
@@ -5533,7 +5708,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/2017-2018-pages/april-25-2018-school-utilization-proposals',
-      title: 'The Proposed Grade Expansion of Brooklyn Prospect Charter School – Clinton Hill (84K879) in Building K117 and One-Year Extension of the Temporary Co-location with Brooklyn Community High School of Communication, Arts, and Media (13K412), Brooklyn High School for Leadership and Community Service (13K616), and P.S. K369 Coy L. Cox (75K369) in Building K117 Beginning in the 2018-2019 School Year',
+      title:
+        'The Proposed Grade Expansion of Brooklyn Prospect Charter School – Clinton Hill (84K879) in Building K117 and One-Year Extension of the Temporary Co-location with Brooklyn Community High School of Communication, Arts, and Media (13K412), Brooklyn High School for Leadership and Community Service (13K616), and P.S. K369 Coy L. Cox (75K369) in Building K117 Beginning in the 2018-2019 School Year',
       org_id: 'K412',
       bldg_id: 'K117',
       vote_date: '4/25/2018',
@@ -5543,7 +5719,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/2017-2018-pages/april-25-2018-school-utilization-proposals',
-      title: 'The Proposed Re-siting and Co-location of Brooklyn East Collegiate Charter School (84K780) to Building K458 in the 2018-2019 School Year',
+      title:
+        'The Proposed Re-siting and Co-location of Brooklyn East Collegiate Charter School (84K780) to Building K458 in the 2018-2019 School Year',
       org_id: 'Q950',
       bldg_id: 'K458',
       vote_date: '4/25/2018',
@@ -5553,7 +5730,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/2017-2018-pages/april-25-2018-school-utilization-proposals',
-      title: 'The Proposed Re-siting and Co-location of Brooklyn East Collegiate Charter School (84K780) to Building K458 in the 2018-2019 School Year',
+      title:
+        'The Proposed Re-siting and Co-location of Brooklyn East Collegiate Charter School (84K780) to Building K458 in the 2018-2019 School Year',
       org_id: 'K373',
       bldg_id: 'K458',
       vote_date: '4/25/2018',
@@ -5563,7 +5741,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/2017-2018-pages/april-25-2018-school-utilization-proposals',
-      title: 'The Proposed Re-siting and Co-location of Brooklyn East Collegiate Charter School (84K780) to Building K458 in the 2018-2019 School Year',
+      title:
+        'The Proposed Re-siting and Co-location of Brooklyn East Collegiate Charter School (84K780) to Building K458 in the 2018-2019 School Year',
       org_id: 'K780',
       bldg_id: 'K458',
       vote_date: '4/25/2018',
@@ -5573,7 +5752,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/2017-2018-pages/april-25-2018-school-utilization-proposals',
-      title: 'The Proposed Re-siting and Co-location of Brooklyn East Collegiate Charter School (84K780) to Building K458 in the 2018-2019 School Year',
+      title:
+        'The Proposed Re-siting and Co-location of Brooklyn East Collegiate Charter School (84K780) to Building K458 in the 2018-2019 School Year',
       org_id: 'K517',
       bldg_id: 'K458',
       vote_date: '4/25/2018',
@@ -5583,7 +5763,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/2017-2018-pages/april-25-2018-school-utilization-proposals',
-      title: 'The Proposed Re-siting and Co-location of Brooklyn East Collegiate Charter School (84K780) to Building K458 in the 2018-2019 School Year',
+      title:
+        'The Proposed Re-siting and Co-location of Brooklyn East Collegiate Charter School (84K780) to Building K458 in the 2018-2019 School Year',
       org_id: 'K553',
       bldg_id: 'K458',
       vote_date: '4/25/2018',
@@ -5593,7 +5774,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/2017-2018-pages/april-25-2018-school-utilization-proposals',
-      title: 'The Proposed Re-siting and Co-location of Brooklyn East Collegiate Charter School (84K780) to Building K458 in the 2018-2019 School Year',
+      title:
+        'The Proposed Re-siting and Co-location of Brooklyn East Collegiate Charter School (84K780) to Building K458 in the 2018-2019 School Year',
       org_id: 'K575',
       bldg_id: 'K458',
       vote_date: '4/25/2018',
@@ -5603,7 +5785,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/2017-2018-pages/april-25-2018-school-utilization-proposals',
-      title: 'The Proposed Consolidation of Bedford Stuyvesant Preparatory High School (13K575) with Brooklyn Academy High School (13K553) in Building K458 Beginning in the 2018-2019 School Year',
+      title:
+        'The Proposed Consolidation of Bedford Stuyvesant Preparatory High School (13K575) with Brooklyn Academy High School (13K553) in Building K458 Beginning in the 2018-2019 School Year',
       org_id: 'Q950',
       bldg_id: 'K458',
       vote_date: '4/25/2018',
@@ -5613,7 +5796,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/2017-2018-pages/april-25-2018-school-utilization-proposals',
-      title: 'The Proposed Consolidation of Bedford Stuyvesant Preparatory High School (13K575) with Brooklyn Academy High School (13K553) in Building K458 Beginning in the 2018-2019 School Year',
+      title:
+        'The Proposed Consolidation of Bedford Stuyvesant Preparatory High School (13K575) with Brooklyn Academy High School (13K553) in Building K458 Beginning in the 2018-2019 School Year',
       org_id: 'K373',
       bldg_id: 'K458',
       vote_date: '4/25/2018',
@@ -5623,7 +5807,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/2017-2018-pages/april-25-2018-school-utilization-proposals',
-      title: 'The Proposed Consolidation of Bedford Stuyvesant Preparatory High School (13K575) with Brooklyn Academy High School (13K553) in Building K458 Beginning in the 2018-2019 School Year',
+      title:
+        'The Proposed Consolidation of Bedford Stuyvesant Preparatory High School (13K575) with Brooklyn Academy High School (13K553) in Building K458 Beginning in the 2018-2019 School Year',
       org_id: 'K780',
       bldg_id: 'K458',
       vote_date: '4/25/2018',
@@ -5633,7 +5818,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/2017-2018-pages/april-25-2018-school-utilization-proposals',
-      title: 'The Proposed Consolidation of Bedford Stuyvesant Preparatory High School (13K575) with Brooklyn Academy High School (13K553) in Building K458 Beginning in the 2018-2019 School Year',
+      title:
+        'The Proposed Consolidation of Bedford Stuyvesant Preparatory High School (13K575) with Brooklyn Academy High School (13K553) in Building K458 Beginning in the 2018-2019 School Year',
       org_id: 'K517',
       bldg_id: 'K458',
       vote_date: '4/25/2018',
@@ -5643,7 +5829,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/2017-2018-pages/april-25-2018-school-utilization-proposals',
-      title: 'The Proposed Consolidation of Bedford Stuyvesant Preparatory High School (13K575) with Brooklyn Academy High School (13K553) in Building K458 Beginning in the 2018-2019 School Year',
+      title:
+        'The Proposed Consolidation of Bedford Stuyvesant Preparatory High School (13K575) with Brooklyn Academy High School (13K553) in Building K458 Beginning in the 2018-2019 School Year',
       org_id: 'K553',
       bldg_id: 'K458',
       vote_date: '4/25/2018',
@@ -5653,7 +5840,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/2017-2018-pages/april-25-2018-school-utilization-proposals',
-      title: 'The Proposed Consolidation of Bedford Stuyvesant Preparatory High School (13K575) with Brooklyn Academy High School (13K553) in Building K458 Beginning in the 2018-2019 School Year',
+      title:
+        'The Proposed Consolidation of Bedford Stuyvesant Preparatory High School (13K575) with Brooklyn Academy High School (13K553) in Building K458 Beginning in the 2018-2019 School Year',
       org_id: 'K575',
       bldg_id: 'K458',
       vote_date: '4/25/2018',
@@ -5663,7 +5851,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/2017-2018-pages/february-28-2018-school-utilization-proposals',
-      title: 'The Proposed Grade Expansion of Unity Preparatory Charter School of Brooklyn (84K757) in Building K907 and One-Year Extension of the Temporary Co-location with Brownsville Academy High School (17K568) through the 2018-2019 School Year',
+      title:
+        'The Proposed Grade Expansion of Unity Preparatory Charter School of Brooklyn (84K757) in Building K907 and One-Year Extension of the Temporary Co-location with Brownsville Academy High School (17K568) through the 2018-2019 School Year',
       org_id: 'K568',
       bldg_id: 'K907',
       vote_date: '2/28/2018',
@@ -5673,7 +5862,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/2017-2018-pages/february-28-2018-school-utilization-proposals',
-      title: 'The Proposed Grade Expansion of Unity Preparatory Charter School of Brooklyn (84K757) in Building K907 and One-Year Extension of the Temporary Co-location with Brownsville Academy High School (17K568) through the 2018-2019 School Year',
+      title:
+        'The Proposed Grade Expansion of Unity Preparatory Charter School of Brooklyn (84K757) in Building K907 and One-Year Extension of the Temporary Co-location with Brownsville Academy High School (17K568) through the 2018-2019 School Year',
       org_id: 'K757',
       bldg_id: 'K907',
       vote_date: '2/28/2018',
@@ -5683,7 +5873,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/2017-2018-pages/january-24-2018-school-utilization-proposals',
-      title: 'The Proposed Opening and Co-location of the Elementary School Grades of Achievement First Voyager Charter School (84K876) with P.S. 91 The Albany Avenue School (17K091) in Buildings K091 and K891 Beginning in the 2018-2019 School Year',
+      title:
+        'The Proposed Opening and Co-location of the Elementary School Grades of Achievement First Voyager Charter School (84K876) with P.S. 91 The Albany Avenue School (17K091) in Buildings K091 and K891 Beginning in the 2018-2019 School Year',
       org_id: 'K091',
       bldg_id: 'K091',
       vote_date: '1/24/2018',
@@ -5693,7 +5884,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/2017-2018-pages/january-24-2018-school-utilization-proposals',
-      title: 'The Proposed Opening and Co-location of the Elementary School Grades of Achievement First Voyager Charter School (84K876) with P.S. 91 The Albany Avenue School (17K091) in Buildings K091 and K891 Beginning in the 2018-2019 School Year',
+      title:
+        'The Proposed Opening and Co-location of the Elementary School Grades of Achievement First Voyager Charter School (84K876) with P.S. 91 The Albany Avenue School (17K091) in Buildings K091 and K891 Beginning in the 2018-2019 School Year',
       org_id: 'K876',
       bldg_id: 'K091',
       vote_date: '1/24/2018',
@@ -5703,7 +5895,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/2016-2017-pages/june-21-2017-school-utilization-proposals',
-      title: 'The Proposed Temporary Re-Siting of East New York Family Academy (19K409) and Co-location with W. H. Maxwell Career and Technical Education High School (19K660) in Building K660 Beginning in the 2018-2019 School Year',
+      title:
+        'The Proposed Temporary Re-Siting of East New York Family Academy (19K409) and Co-location with W. H. Maxwell Career and Technical Education High School (19K660) in Building K660 Beginning in the 2018-2019 School Year',
       org_id: 'K409',
       bldg_id: 'K660',
       vote_date: '6/21/2017',
@@ -5713,7 +5906,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/2016-2017-pages/june-21-2017-school-utilization-proposals',
-      title: 'The Proposed Temporary Re-Siting of East New York Family Academy (19K409) and Co-location with W. H. Maxwell Career and Technical Education High School (19K660) in Building K660 Beginning in the 2018-2019 School Year',
+      title:
+        'The Proposed Temporary Re-Siting of East New York Family Academy (19K409) and Co-location with W. H. Maxwell Career and Technical Education High School (19K660) in Building K660 Beginning in the 2018-2019 School Year',
       org_id: 'M973',
       bldg_id: 'K660',
       vote_date: '6/21/2017',
@@ -5723,7 +5917,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/2016-2017-pages/june-21-2017-school-utilization-proposals',
-      title: 'The Proposed Temporary Re-Siting of East New York Family Academy (19K409) and Co-location with W. H. Maxwell Career and Technical Education High School (19K660) in Building K660 Beginning in the 2018-2019 School Year',
+      title:
+        'The Proposed Temporary Re-Siting of East New York Family Academy (19K409) and Co-location with W. H. Maxwell Career and Technical Education High School (19K660) in Building K660 Beginning in the 2018-2019 School Year',
       org_id: 'K660',
       bldg_id: 'K660',
       vote_date: '6/21/2017',
@@ -5733,7 +5928,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/2016-2017-pages/march-22-2017-school-utilization',
-      title: 'The Proposed Consolidation of Francis Perkins Academy (14K632) with Automotive High School (14K610) in Building K610 Beginning in the 2017-2018 School Year',
+      title:
+        'The Proposed Consolidation of Francis Perkins Academy (14K632) with Automotive High School (14K610) in Building K610 Beginning in the 2017-2018 School Year',
       org_id: 'K610',
       bldg_id: 'K610',
       vote_date: '3/22/2017',
@@ -5743,7 +5939,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/2016-2017-pages/march-22-2017-school-utilization',
-      title: 'The Proposed Consolidation of Francis Perkins Academy (14K632) with Automotive High School (14K610) in Building K610 Beginning in the 2017-2018 School Year',
+      title:
+        'The Proposed Consolidation of Francis Perkins Academy (14K632) with Automotive High School (14K610) in Building K610 Beginning in the 2017-2018 School Year',
       org_id: 'K632',
       bldg_id: 'K610',
       vote_date: '3/22/2017',
@@ -5753,7 +5950,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/2016-2017-pages/march-22-2017-school-utilization',
-      title: 'The Proposed Consolidation of Frederick Douglass Academy IV Secondary School (16K393) with The Brooklyn Academy of Global Finance (16K688) in Building K057 Beginning in the 2017-2018 School Year',
+      title:
+        'The Proposed Consolidation of Frederick Douglass Academy IV Secondary School (16K393) with The Brooklyn Academy of Global Finance (16K688) in Building K057 Beginning in the 2017-2018 School Year',
       org_id: 'K688',
       bldg_id: 'K057',
       vote_date: '3/22/2017',
@@ -5763,7 +5961,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/2016-2017-pages/march-22-2017-school-utilization',
-      title: 'The Proposed Consolidation of Frederick Douglass Academy IV Secondary School (16K393) with The Brooklyn Academy of Global Finance (16K688) in Building K057 Beginning in the 2017-2018 School Year',
+      title:
+        'The Proposed Consolidation of Frederick Douglass Academy IV Secondary School (16K393) with The Brooklyn Academy of Global Finance (16K688) in Building K057 Beginning in the 2017-2018 School Year',
       org_id: 'K393',
       bldg_id: 'K057',
       vote_date: '3/22/2017',
@@ -5773,7 +5972,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/2016-2017-pages/march-22-2017-school-utilization',
-      title: 'The Proposed Consolidation of Frederick Douglass Academy IV Secondary School (16K393) with The Brooklyn Academy of Global Finance (16K688) in Building K057 Beginning in the 2017-2018 School Year',
+      title:
+        'The Proposed Consolidation of Frederick Douglass Academy IV Secondary School (16K393) with The Brooklyn Academy of Global Finance (16K688) in Building K057 Beginning in the 2017-2018 School Year',
       org_id: 'K057',
       bldg_id: 'K057',
       vote_date: '3/22/2017',
@@ -5783,7 +5983,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/2016-2017-pages/march-22-2017-school-utilization',
-      title: 'The Proposed Consolidation of Frederick Douglass Academy IV Secondary School (16K393) with The Brooklyn Academy of Global Finance (16K688) in Building K057 Beginning in the 2017-2018 School Year',
+      title:
+        'The Proposed Consolidation of Frederick Douglass Academy IV Secondary School (16K393) with The Brooklyn Academy of Global Finance (16K688) in Building K057 Beginning in the 2017-2018 School Year',
       org_id: 'KTBD',
       bldg_id: 'K057',
       vote_date: '3/22/2017',
@@ -5793,7 +5994,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/2016-2017-pages/march-22-2017-school-utilization',
-      title: 'The Proposed Opening and Co-Location of Brooklyn Emerging Leaders Academy Charter School (84KTBD) with J.H.S. 57 Whitelaw Reid (16K057) and the consolidated Brooklyn Academy of Global Finance (16K688) in Building K057 Beginning in the 2017-2018 School Year',
+      title:
+        'The Proposed Opening and Co-Location of Brooklyn Emerging Leaders Academy Charter School (84KTBD) with J.H.S. 57 Whitelaw Reid (16K057) and the consolidated Brooklyn Academy of Global Finance (16K688) in Building K057 Beginning in the 2017-2018 School Year',
       org_id: 'K688',
       bldg_id: 'K057',
       vote_date: '3/22/2017',
@@ -5803,7 +6005,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/2016-2017-pages/march-22-2017-school-utilization',
-      title: 'The Proposed Opening and Co-Location of Brooklyn Emerging Leaders Academy Charter School (84KTBD) with J.H.S. 57 Whitelaw Reid (16K057) and the consolidated Brooklyn Academy of Global Finance (16K688) in Building K057 Beginning in the 2017-2018 School Year',
+      title:
+        'The Proposed Opening and Co-Location of Brooklyn Emerging Leaders Academy Charter School (84KTBD) with J.H.S. 57 Whitelaw Reid (16K057) and the consolidated Brooklyn Academy of Global Finance (16K688) in Building K057 Beginning in the 2017-2018 School Year',
       org_id: 'K393',
       bldg_id: 'K057',
       vote_date: '3/22/2017',
@@ -5813,7 +6016,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/2016-2017-pages/march-22-2017-school-utilization',
-      title: 'The Proposed Opening and Co-Location of Brooklyn Emerging Leaders Academy Charter School (84KTBD) with J.H.S. 57 Whitelaw Reid (16K057) and the consolidated Brooklyn Academy of Global Finance (16K688) in Building K057 Beginning in the 2017-2018 School Year',
+      title:
+        'The Proposed Opening and Co-Location of Brooklyn Emerging Leaders Academy Charter School (84KTBD) with J.H.S. 57 Whitelaw Reid (16K057) and the consolidated Brooklyn Academy of Global Finance (16K688) in Building K057 Beginning in the 2017-2018 School Year',
       org_id: 'K057',
       bldg_id: 'K057',
       vote_date: '3/22/2017',
@@ -5823,7 +6027,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/2016-2017-pages/march-22-2017-school-utilization',
-      title: 'The Proposed Opening and Co-Location of Brooklyn Emerging Leaders Academy Charter School (84KTBD) with J.H.S. 57 Whitelaw Reid (16K057) and the consolidated Brooklyn Academy of Global Finance (16K688) in Building K057 Beginning in the 2017-2018 School Year',
+      title:
+        'The Proposed Opening and Co-Location of Brooklyn Emerging Leaders Academy Charter School (84KTBD) with J.H.S. 57 Whitelaw Reid (16K057) and the consolidated Brooklyn Academy of Global Finance (16K688) in Building K057 Beginning in the 2017-2018 School Year',
       org_id: 'KTBD',
       bldg_id: 'K057',
       vote_date: '3/22/2017',
@@ -5833,7 +6038,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/2016-2017-pages/february-28-2017-school-utilization-proposals',
-      title: 'The Proposed Opening and Co-location of Uncommon Leadership Charter High School with Multicultural High School (19K583), Academy for Innovative Technology (19K618), Brooklyn Lab School (19K639), Cypress Hills Collegiate Preparatory School (19K659) and The Urban Assembly School for Collaborative Healthcare (19K764)',
+      title:
+        'The Proposed Opening and Co-location of Uncommon Leadership Charter High School with Multicultural High School (19K583), Academy for Innovative Technology (19K618), Brooklyn Lab School (19K639), Cypress Hills Collegiate Preparatory School (19K659) and The Urban Assembly School for Collaborative Healthcare (19K764)',
       org_id: 'K583',
       bldg_id: 'K420',
       vote_date: '2/28/2017',
@@ -5843,7 +6049,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/2016-2017-pages/february-28-2017-school-utilization-proposals',
-      title: 'The Proposed Opening and Co-location of Uncommon Leadership Charter High School with Multicultural High School (19K583), Academy for Innovative Technology (19K618), Brooklyn Lab School (19K639), Cypress Hills Collegiate Preparatory School (19K659) and The Urban Assembly School for Collaborative Healthcare (19K764)',
+      title:
+        'The Proposed Opening and Co-location of Uncommon Leadership Charter High School with Multicultural High School (19K583), Academy for Innovative Technology (19K618), Brooklyn Lab School (19K639), Cypress Hills Collegiate Preparatory School (19K659) and The Urban Assembly School for Collaborative Healthcare (19K764)',
       org_id: 'K618',
       bldg_id: 'K420',
       vote_date: '2/28/2017',
@@ -5853,7 +6060,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/2016-2017-pages/february-28-2017-school-utilization-proposals',
-      title: 'The Proposed Opening and Co-location of Uncommon Leadership Charter High School with Multicultural High School (19K583), Academy for Innovative Technology (19K618), Brooklyn Lab School (19K639), Cypress Hills Collegiate Preparatory School (19K659) and The Urban Assembly School for Collaborative Healthcare (19K764)',
+      title:
+        'The Proposed Opening and Co-location of Uncommon Leadership Charter High School with Multicultural High School (19K583), Academy for Innovative Technology (19K618), Brooklyn Lab School (19K639), Cypress Hills Collegiate Preparatory School (19K659) and The Urban Assembly School for Collaborative Healthcare (19K764)',
       org_id: 'K639',
       bldg_id: 'K420',
       vote_date: '2/28/2017',
@@ -5863,7 +6071,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/2016-2017-pages/february-28-2017-school-utilization-proposals',
-      title: 'The Proposed Opening and Co-location of Uncommon Leadership Charter High School with Multicultural High School (19K583), Academy for Innovative Technology (19K618), Brooklyn Lab School (19K639), Cypress Hills Collegiate Preparatory School (19K659) and The Urban Assembly School for Collaborative Healthcare (19K764)',
+      title:
+        'The Proposed Opening and Co-location of Uncommon Leadership Charter High School with Multicultural High School (19K583), Academy for Innovative Technology (19K618), Brooklyn Lab School (19K639), Cypress Hills Collegiate Preparatory School (19K659) and The Urban Assembly School for Collaborative Healthcare (19K764)',
       org_id: 'K659',
       bldg_id: 'K420',
       vote_date: '2/28/2017',
@@ -5873,7 +6082,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/2016-2017-pages/february-28-2017-school-utilization-proposals',
-      title: 'The Proposed Opening and Co-location of Uncommon Leadership Charter High School with Multicultural High School (19K583), Academy for Innovative Technology (19K618), Brooklyn Lab School (19K639), Cypress Hills Collegiate Preparatory School (19K659) and The Urban Assembly School for Collaborative Healthcare (19K764)',
+      title:
+        'The Proposed Opening and Co-location of Uncommon Leadership Charter High School with Multicultural High School (19K583), Academy for Innovative Technology (19K618), Brooklyn Lab School (19K639), Cypress Hills Collegiate Preparatory School (19K659) and The Urban Assembly School for Collaborative Healthcare (19K764)',
       org_id: 'K764',
       bldg_id: 'K420',
       vote_date: '2/28/2017',
@@ -5883,7 +6093,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/2016-2017-pages/february-28-2017-school-utilization-proposals',
-      title: 'The Proposed Opening and Co-location of Uncommon Leadership Charter High School with Multicultural High School (19K583), Academy for Innovative Technology (19K618), Brooklyn Lab School (19K639), Cypress Hills Collegiate Preparatory School (19K659) and The Urban Assembly School for Collaborative Healthcare (19K764)',
+      title:
+        'The Proposed Opening and Co-location of Uncommon Leadership Charter High School with Multicultural High School (19K583), Academy for Innovative Technology (19K618), Brooklyn Lab School (19K639), Cypress Hills Collegiate Preparatory School (19K659) and The Urban Assembly School for Collaborative Healthcare (19K764)',
       org_id: 'KTBD',
       bldg_id: 'K420',
       vote_date: '2/28/2017',
@@ -5893,7 +6104,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/2016-2017-pages/january-18-2017-school-utilization-proposals',
-      title: 'Revised Building UtilizationPla: Expansion of Success Academy Charter School - Cobble Hill (84K129) in Building K293 with Brooklyn School for Global Studies (15K429), School for International Studies (15K497), and a District 75 Program (75K368) Beginning in the 2016-2017 School Year',
+      title:
+        'Revised Building UtilizationPla: Expansion of Success Academy Charter School - Cobble Hill (84K129) in Building K293 with Brooklyn School for Global Studies (15K429), School for International Studies (15K497), and a District 75 Program (75K368) Beginning in the 2016-2017 School Year',
       org_id: 'K497',
       bldg_id: 'K293',
       vote_date: '1/18/2017',
@@ -5903,7 +6115,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/2016-2017-pages/january-18-2017-school-utilization-proposals',
-      title: 'Revised Building UtilizationPla: Expansion of Success Academy Charter School - Cobble Hill (84K129) in Building K293 with Brooklyn School for Global Studies (15K429), School for International Studies (15K497), and a District 75 Program (75K368) Beginning in the 2016-2017 School Year',
+      title:
+        'Revised Building UtilizationPla: Expansion of Success Academy Charter School - Cobble Hill (84K129) in Building K293 with Brooklyn School for Global Studies (15K429), School for International Studies (15K497), and a District 75 Program (75K368) Beginning in the 2016-2017 School Year',
       org_id: 'K429',
       bldg_id: 'K293',
       vote_date: '1/18/2017',
@@ -5913,7 +6126,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/2016-2017-pages/january-18-2017-school-utilization-proposals',
-      title: 'Revised Building UtilizationPla: Expansion of Success Academy Charter School - Cobble Hill (84K129) in Building K293 with Brooklyn School for Global Studies (15K429), School for International Studies (15K497), and a District 75 Program (75K368) Beginning in the 2016-2017 School Year',
+      title:
+        'Revised Building UtilizationPla: Expansion of Success Academy Charter School - Cobble Hill (84K129) in Building K293 with Brooklyn School for Global Studies (15K429), School for International Studies (15K497), and a District 75 Program (75K368) Beginning in the 2016-2017 School Year',
       org_id: 'K368',
       bldg_id: 'K293',
       vote_date: '1/18/2017',
@@ -5923,7 +6137,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/2016-2017-pages/january-18-2017-school-utilization-proposals',
-      title: 'Revised Building UtilizationPla: Expansion of Success Academy Charter School - Cobble Hill (84K129) in Building K293 with Brooklyn School for Global Studies (15K429), School for International Studies (15K497), and a District 75 Program (75K368) Beginning in the 2016-2017 School Year',
+      title:
+        'Revised Building UtilizationPla: Expansion of Success Academy Charter School - Cobble Hill (84K129) in Building K293 with Brooklyn School for Global Studies (15K429), School for International Studies (15K497), and a District 75 Program (75K368) Beginning in the 2016-2017 School Year',
       org_id: 'K129',
       bldg_id: 'K293',
       vote_date: '1/18/2017',
@@ -5933,7 +6148,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/2016-2017-pages/january-18-2017-school-utilization-proposals',
-      title: 'Revised Building UtilizationPla: New Public Charter School Success Academy Charter School – Brooklyn 5 (84KTBD) with Existing Schools Dr. Susan S. McKinney Secondary School of the Arts (13K265) and a District 75 Inclusion Program P369K@265K (75K369) in Building K265',
+      title:
+        'Revised Building UtilizationPla: New Public Charter School Success Academy Charter School – Brooklyn 5 (84KTBD) with Existing Schools Dr. Susan S. McKinney Secondary School of the Arts (13K265) and a District 75 Inclusion Program P369K@265K (75K369) in Building K265',
       org_id: 'K265',
       bldg_id: 'K265',
       vote_date: '1/18/2017',
@@ -5943,7 +6159,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/2016-2017-pages/january-18-2017-school-utilization-proposals',
-      title: 'Revised Building UtilizationPla: New Public Charter School Success Academy Charter School – Brooklyn 5 (84KTBD) with Existing Schools Dr. Susan S. McKinney Secondary School of the Arts (13K265) and a District 75 Inclusion Program P369K@265K (75K369) in Building K265',
+      title:
+        'Revised Building UtilizationPla: New Public Charter School Success Academy Charter School – Brooklyn 5 (84KTBD) with Existing Schools Dr. Susan S. McKinney Secondary School of the Arts (13K265) and a District 75 Inclusion Program P369K@265K (75K369) in Building K265',
       org_id: 'K369',
       bldg_id: 'K265',
       vote_date: '1/18/2017',
@@ -5953,7 +6170,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/2016-2017-pages/january-18-2017-school-utilization-proposals',
-      title: 'Revised Building UtilizationPla: New Public Charter School Success Academy Charter School – Brooklyn 5 (84KTBD) with Existing Schools Dr. Susan S. McKinney Secondary School of the Arts (13K265) and a District 75 Inclusion Program P369K@265K (75K369) in Building K265',
+      title:
+        'Revised Building UtilizationPla: New Public Charter School Success Academy Charter School – Brooklyn 5 (84KTBD) with Existing Schools Dr. Susan S. McKinney Secondary School of the Arts (13K265) and a District 75 Inclusion Program P369K@265K (75K369) in Building K265',
       org_id: 'K752',
       bldg_id: 'K265',
       vote_date: '1/18/2017',
@@ -5963,7 +6181,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/2016-2017-pages/january-18-2017-school-utilization-proposals',
-      title: 'Revised Building UtilizationPla: Success Academy Charter School – Crown Heights (84K741) with Existing School P.S. 161 The Crown (17K161) in Building K161 Beginning in 2014-2015',
+      title:
+        'Revised Building UtilizationPla: Success Academy Charter School – Crown Heights (84K741) with Existing School P.S. 161 The Crown (17K161) in Building K161 Beginning in 2014-2015',
       org_id: 'K161',
       bldg_id: 'K161',
       vote_date: '1/18/2017',
@@ -5973,7 +6192,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/2016-2017-pages/january-18-2017-school-utilization-proposals',
-      title: 'Revised Building UtilizationPla: Success Academy Charter School – Crown Heights (84K741) with Existing School P.S. 161 The Crown (17K161) in Building K161 Beginning in 2014-2015',
+      title:
+        'Revised Building UtilizationPla: Success Academy Charter School – Crown Heights (84K741) with Existing School P.S. 161 The Crown (17K161) in Building K161 Beginning in 2014-2015',
       org_id: 'K741',
       bldg_id: 'K161',
       vote_date: '1/18/2017',
@@ -5983,7 +6203,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/2016-2017-pages/january-18-2017-school-utilization-proposals',
-      title: 'The Proposed Consolidation of The School for Democracy and Leadership (17K533) with The School for Human Rights (17K531) and Truncation of Grades 6-8 at the Consolidated School for Human Rights in Building K470 Beginning in the 2017-2018 School Year',
+      title:
+        'The Proposed Consolidation of The School for Democracy and Leadership (17K533) with The School for Human Rights (17K531) and Truncation of Grades 6-8 at the Consolidated School for Human Rights in Building K470 Beginning in the 2017-2018 School Year',
       org_id: 'K531',
       bldg_id: 'K470',
       vote_date: '1/18/2017',
@@ -5993,7 +6214,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/2016-2017-pages/january-18-2017-school-utilization-proposals',
-      title: 'The Proposed Consolidation of The School for Democracy and Leadership (17K533) with The School for Human Rights (17K531) and Truncation of Grades 6-8 at the Consolidated School for Human Rights in Building K470 Beginning in the 2017-2018 School Year',
+      title:
+        'The Proposed Consolidation of The School for Democracy and Leadership (17K533) with The School for Human Rights (17K531) and Truncation of Grades 6-8 at the Consolidated School for Human Rights in Building K470 Beginning in the 2017-2018 School Year',
       org_id: 'K533',
       bldg_id: 'K470',
       vote_date: '1/18/2017',
@@ -6003,7 +6225,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/2016-2017-pages/january-18-2017-school-utilization-proposals',
-      title: 'The Proposed Consolidation of The School for Democracy and Leadership (17K533) with The School for Human Rights (17K531) and Truncation of Grades 6-8 at the Consolidated School for Human Rights in Building K470 Beginning in the 2017-2018 School Year',
+      title:
+        'The Proposed Consolidation of The School for Democracy and Leadership (17K533) with The School for Human Rights (17K531) and Truncation of Grades 6-8 at the Consolidated School for Human Rights in Building K470 Beginning in the 2017-2018 School Year',
       org_id: 'K546',
       bldg_id: 'K470',
       vote_date: '1/18/2017',
@@ -6013,7 +6236,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/2016-2017-pages/january-18-2017-school-utilization-proposals',
-      title: 'The Proposed Consolidation of The School for Democracy and Leadership (17K533) with The School for Human Rights (17K531) and Truncation of Grades 6-8 at the Consolidated School for Human Rights in Building K470 Beginning in the 2017-2018 School Year',
+      title:
+        'The Proposed Consolidation of The School for Democracy and Leadership (17K533) with The School for Human Rights (17K531) and Truncation of Grades 6-8 at the Consolidated School for Human Rights in Building K470 Beginning in the 2017-2018 School Year',
       org_id: 'K745',
       bldg_id: 'K470',
       vote_date: '1/18/2017',
@@ -6023,7 +6247,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/2016-2017-pages/january-18-2017-school-utilization-proposals',
-      title: 'The Proposed Consolidation of The School for Democracy and Leadership (17K533) with The School for Human Rights (17K531) and Truncation of Grades 6-8 at the Consolidated School for Human Rights in Building K470 Beginning in the 2017-2018 School Year',
+      title:
+        'The Proposed Consolidation of The School for Democracy and Leadership (17K533) with The School for Human Rights (17K531) and Truncation of Grades 6-8 at the Consolidated School for Human Rights in Building K470 Beginning in the 2017-2018 School Year',
       org_id: 'K036',
       bldg_id: 'K470',
       vote_date: '1/18/2017',
@@ -6033,7 +6258,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/2016-2017-pages/december-21-2016-school-utilization-proposals',
-      title: 'The Proposed Re-siting and Co-location of Achievement First Voyager Middle School (84K876) to Building K092 with P.S. 92 Adrian Hegeman (17K092) Beginning in the 2017-2018 School Year',
+      title:
+        'The Proposed Re-siting and Co-location of Achievement First Voyager Middle School (84K876) to Building K092 with P.S. 92 Adrian Hegeman (17K092) Beginning in the 2017-2018 School Year',
       org_id: 'K876',
       bldg_id: 'K092',
       vote_date: '12/21/2016',
@@ -6043,7 +6269,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/2016-2017-pages/december-21-2016-school-utilization-proposals',
-      title: 'The Proposed Re-siting and Co-location of Achievement First Voyager Middle School (84K876) to Building K092 with P.S. 92 Adrian Hegeman (17K092) Beginning in the 2017-2018 School Year',
+      title:
+        'The Proposed Re-siting and Co-location of Achievement First Voyager Middle School (84K876) to Building K092 with P.S. 92 Adrian Hegeman (17K092) Beginning in the 2017-2018 School Year',
       org_id: 'K092',
       bldg_id: 'K092',
       vote_date: '12/21/2016',
@@ -6053,7 +6280,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/2016-2017-pages/december-21-2016-school-utilization-proposals',
-      title: 'The Proposed Consolidation of Arts and Media Preparatory Academy (18K589) with Victory Collegiate High School (18K576) in Building K515 Beginning in the 2017-2018 School Year',
+      title:
+        'The Proposed Consolidation of Arts and Media Preparatory Academy (18K589) with Victory Collegiate High School (18K576) in Building K515 Beginning in the 2017-2018 School Year',
       org_id: 'K576',
       bldg_id: 'K515',
       vote_date: '12/21/2016',
@@ -6063,7 +6291,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/2016-2017-pages/december-21-2016-school-utilization-proposals',
-      title: 'The Proposed Consolidation of Arts and Media Preparatory Academy (18K589) with Victory Collegiate High School (18K576) in Building K515 Beginning in the 2017-2018 School Year',
+      title:
+        'The Proposed Consolidation of Arts and Media Preparatory Academy (18K589) with Victory Collegiate High School (18K576) in Building K515 Beginning in the 2017-2018 School Year',
       org_id: 'K589',
       bldg_id: 'K515',
       vote_date: '12/21/2016',
@@ -6073,7 +6302,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/2016-2017-pages/december-21-2016-school-utilization-proposals',
-      title: 'The Proposed Consolidation of Arts and Media Preparatory Academy (18K589) with Victory Collegiate High School (18K576) in Building K515 Beginning in the 2017-2018 School Year',
+      title:
+        'The Proposed Consolidation of Arts and Media Preparatory Academy (18K589) with Victory Collegiate High School (18K576) in Building K515 Beginning in the 2017-2018 School Year',
       org_id: 'K566',
       bldg_id: 'K515',
       vote_date: '12/21/2016',
@@ -6083,7 +6313,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/2016-2017-pages/december-21-2016-school-utilization-proposals',
-      title: 'The Proposed Consolidation of Arts and Media Preparatory Academy (18K589) with Victory Collegiate High School (18K576) in Building K515 Beginning in the 2017-2018 School Year',
+      title:
+        'The Proposed Consolidation of Arts and Media Preparatory Academy (18K589) with Victory Collegiate High School (18K576) in Building K515 Beginning in the 2017-2018 School Year',
       org_id: 'K567',
       bldg_id: 'K515',
       vote_date: '12/21/2016',
@@ -6093,7 +6324,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/2016-2017-pages/december-21-2016-school-utilization-proposals',
-      title: 'The Proposed Consolidation of Arts and Media Preparatory Academy (18K589) with Victory Collegiate High School (18K576) in Building K515 Beginning in the 2017-2018 School Year',
+      title:
+        'The Proposed Consolidation of Arts and Media Preparatory Academy (18K589) with Victory Collegiate High School (18K576) in Building K515 Beginning in the 2017-2018 School Year',
       org_id: 'K578',
       bldg_id: 'K515',
       vote_date: '12/21/2016',
@@ -6103,7 +6335,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/2016-2017-pages/december-21-2016-school-utilization-proposals',
-      title: 'The Proposed Consolidation of Arts and Media Preparatory Academy (18K589) with Victory Collegiate High School (18K576) in Building K515 Beginning in the 2017-2018 School Year',
+      title:
+        'The Proposed Consolidation of Arts and Media Preparatory Academy (18K589) with Victory Collegiate High School (18K576) in Building K515 Beginning in the 2017-2018 School Year',
       org_id: 'K775',
       bldg_id: 'K515',
       vote_date: '12/21/2016',
@@ -6113,7 +6346,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/2016-2017-pages/december-21-2016-school-utilization-proposals',
-      title: 'The Proposed Consolidation of Arts and Media Preparatory Academy (18K589) with Victory Collegiate High School (18K576) in Building K515 Beginning in the 2017-2018 School Year',
+      title:
+        'The Proposed Consolidation of Arts and Media Preparatory Academy (18K589) with Victory Collegiate High School (18K576) in Building K515 Beginning in the 2017-2018 School Year',
       org_id: 'K637',
       bldg_id: 'K515',
       vote_date: '12/21/2016',
@@ -6123,7 +6357,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/2016-2017-pages/december-21-2016-school-utilization-proposals',
-      title: 'The Proposed Consolidation of Arts and Media Preparatory Academy (18K589) with Victory Collegiate High School (18K576) in Building K515 Beginning in the 2017-2018 School Year',
+      title:
+        'The Proposed Consolidation of Arts and Media Preparatory Academy (18K589) with Victory Collegiate High School (18K576) in Building K515 Beginning in the 2017-2018 School Year',
       org_id: 'Q950',
       bldg_id: 'K515',
       vote_date: '12/21/2016',
@@ -6133,7 +6368,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/2016-2017-pages/december-21-2016-school-utilization-proposals',
-      title: 'The Proposed Grade Truncation of Teachers Preparatory High School (23K697) from a Secondary School to a High School Beginning in the 2017-2018 School Year',
+      title:
+        'The Proposed Grade Truncation of Teachers Preparatory High School (23K697) from a Secondary School to a High School Beginning in the 2017-2018 School Year',
       org_id: 'K697',
       bldg_id: 'K175',
       vote_date: '12/21/2016',
@@ -6143,7 +6379,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/2016-2017-pages/december-21-2016-school-utilization-proposals',
-      title: 'The Proposed Grade Truncation of Teachers Preparatory High School (23K697) from a Secondary School to a High School Beginning in the 2017-2018 School Year',
+      title:
+        'The Proposed Grade Truncation of Teachers Preparatory High School (23K697) from a Secondary School to a High School Beginning in the 2017-2018 School Year',
       org_id: 'K514',
       bldg_id: 'K175',
       vote_date: '12/21/2016',
@@ -6153,7 +6390,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/pep-meetings-archive',
-      title: 'The Proposed Opening and Temporary Co-location of Brooklyn Prospect Charter School - Clinton Hill (84KTBD) with Brooklyn Community High School of Communication, Arts, and Media (13K412), Brooklyn High School for Leardership and Community Service (13K616), and P.S. K369 Coy L. Cox (75K369) in Building K117 Beginning in 2016-2017',
+      title:
+        'The Proposed Opening and Temporary Co-location of Brooklyn Prospect Charter School - Clinton Hill (84KTBD) with Brooklyn Community High School of Communication, Arts, and Media (13K412), Brooklyn High School for Leardership and Community Service (13K616), and P.S. K369 Coy L. Cox (75K369) in Building K117 Beginning in 2016-2017',
       org_id: 'K412',
       bldg_id: 'K117',
       vote_date: '4/11/2016',
@@ -6163,7 +6401,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/pep-meetings-archive',
-      title: 'The Proposed Opening and Temporary Co-location of Brooklyn Prospect Charter School - Clinton Hill (84KTBD) with Brooklyn Community High School of Communication, Arts, and Media (13K412), Brooklyn High School for Leardership and Community Service (13K616), and P.S. K369 Coy L. Cox (75K369) in Building K117 Beginning in 2016-2017',
+      title:
+        'The Proposed Opening and Temporary Co-location of Brooklyn Prospect Charter School - Clinton Hill (84KTBD) with Brooklyn Community High School of Communication, Arts, and Media (13K412), Brooklyn High School for Leardership and Community Service (13K616), and P.S. K369 Coy L. Cox (75K369) in Building K117 Beginning in 2016-2017',
       org_id: 'K596',
       bldg_id: 'K117',
       vote_date: '4/11/2016',
@@ -6173,7 +6412,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/pep-meetings-archive',
-      title: 'The Proposed Opening and Temporary Co-location of Brooklyn Prospect Charter School - Clinton Hill (84KTBD) with Brooklyn Community High School of Communication, Arts, and Media (13K412), Brooklyn High School for Leardership and Community Service (13K616), and P.S. K369 Coy L. Cox (75K369) in Building K117 Beginning in 2016-2017',
+      title:
+        'The Proposed Opening and Temporary Co-location of Brooklyn Prospect Charter School - Clinton Hill (84KTBD) with Brooklyn Community High School of Communication, Arts, and Media (13K412), Brooklyn High School for Leardership and Community Service (13K616), and P.S. K369 Coy L. Cox (75K369) in Building K117 Beginning in 2016-2017',
       org_id: 'K616',
       bldg_id: 'K117',
       vote_date: '4/11/2016',
@@ -6183,7 +6423,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/pep-meetings-archive',
-      title: 'The Proposed Opening and Temporary Co-location of Brooklyn Prospect Charter School - Clinton Hill (84KTBD) with Brooklyn Community High School of Communication, Arts, and Media (13K412), Brooklyn High School for Leardership and Community Service (13K616), and P.S. K369 Coy L. Cox (75K369) in Building K117 Beginning in 2016-2017',
+      title:
+        'The Proposed Opening and Temporary Co-location of Brooklyn Prospect Charter School - Clinton Hill (84KTBD) with Brooklyn Community High School of Communication, Arts, and Media (13K412), Brooklyn High School for Leardership and Community Service (13K616), and P.S. K369 Coy L. Cox (75K369) in Building K117 Beginning in 2016-2017',
       org_id: 'K369',
       bldg_id: 'K117',
       vote_date: '4/11/2016',
@@ -6193,7 +6434,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/pep-meetings-archive',
-      title: 'The Proposed Opening and Temporary Co-location of Brooklyn Prospect Charter School - Clinton Hill (84KTBD) with Brooklyn Community High School of Communication, Arts, and Media (13K412), Brooklyn High School for Leardership and Community Service (13K616), and P.S. K369 Coy L. Cox (75K369) in Building K117 Beginning in 2016-2017',
+      title:
+        'The Proposed Opening and Temporary Co-location of Brooklyn Prospect Charter School - Clinton Hill (84KTBD) with Brooklyn Community High School of Communication, Arts, and Media (13K412), Brooklyn High School for Leardership and Community Service (13K616), and P.S. K369 Coy L. Cox (75K369) in Building K117 Beginning in 2016-2017',
       org_id: 'K707',
       bldg_id: 'K117',
       vote_date: '4/11/2016',
@@ -6203,7 +6445,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/pep-meetings-archive',
-      title: 'The Proposed Opening and Co-location of a New Site of an Existing District 75 School P.S. K753 (75K753) with High School of Innovation in Advertising and Media (18K617), High School for Medical Professions (18K633), Urban Action Academy (18K642), and School for Cooperative Technical Education (79M645) in Building K500 Beginning in 2016-2017',
+      title:
+        'The Proposed Opening and Co-location of a New Site of an Existing District 75 School P.S. K753 (75K753) with High School of Innovation in Advertising and Media (18K617), High School for Medical Professions (18K633), Urban Action Academy (18K642), and School for Cooperative Technical Education (79M645) in Building K500 Beginning in 2016-2017',
       org_id: 'M645',
       bldg_id: 'K500',
       vote_date: '4/5/2016',
@@ -6213,7 +6456,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/pep-meetings-archive',
-      title: 'The Proposed Opening and Co-location of a New Site of an Existing District 75 School P.S. K753 (75K753) with High School of Innovation in Advertising and Media (18K617), High School for Medical Professions (18K633), Urban Action Academy (18K642), and School for Cooperative Technical Education (79M645) in Building K500 Beginning in 2016-2017',
+      title:
+        'The Proposed Opening and Co-location of a New Site of an Existing District 75 School P.S. K753 (75K753) with High School of Innovation in Advertising and Media (18K617), High School for Medical Professions (18K633), Urban Action Academy (18K642), and School for Cooperative Technical Education (79M645) in Building K500 Beginning in 2016-2017',
       org_id: 'K753',
       bldg_id: 'K500',
       vote_date: '4/5/2016',
@@ -6223,7 +6467,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/pep-meetings-archive',
-      title: 'The Proposed Temporary Co-location of the Ninth and Tenth Grades of Unity Preparatory Charter School of Brooklyn (84K757) with Brownsville Academy High School (17K568) in Building K907 Beginning in 2016-2017',
+      title:
+        'The Proposed Temporary Co-location of the Ninth and Tenth Grades of Unity Preparatory Charter School of Brooklyn (84K757) with Brownsville Academy High School (17K568) in Building K907 Beginning in 2016-2017',
       org_id: 'K568',
       bldg_id: 'K907',
       vote_date: '4/4/2016',
@@ -6233,7 +6478,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/pep-meetings-archive',
-      title: 'The Proposed Grade Truncation of Brooklyn School for Global Studies (15K429) in Building K293 from a 6-12 School to a 9-12 School Beginning in the 2016-2017 School Year',
+      title:
+        'The Proposed Grade Truncation of Brooklyn School for Global Studies (15K429) in Building K293 from a 6-12 School to a 9-12 School Beginning in the 2016-2017 School Year',
       org_id: 'K429',
       bldg_id: 'K293',
       vote_date: '3/9/2016',
@@ -6243,7 +6489,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/pep-meetings-archive',
-      title: 'The Proposed Grade Truncation of Brooklyn School for Global Studies (15K429) in Building K293 from a 6-12 School to a 9-12 School Beginning in the 2016-2017 School Year',
+      title:
+        'The Proposed Grade Truncation of Brooklyn School for Global Studies (15K429) in Building K293 from a 6-12 School to a 9-12 School Beginning in the 2016-2017 School Year',
       org_id: 'K497',
       bldg_id: 'K293',
       vote_date: '3/9/2016',
@@ -6253,7 +6500,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/pep-meetings-archive',
-      title: 'The Proposed Grade Truncation of Brooklyn School for Global Studies (15K429) in Building K293 from a 6-12 School to a 9-12 School Beginning in the 2016-2017 School Year',
+      title:
+        'The Proposed Grade Truncation of Brooklyn School for Global Studies (15K429) in Building K293 from a 6-12 School to a 9-12 School Beginning in the 2016-2017 School Year',
       org_id: 'K368',
       bldg_id: 'K293',
       vote_date: '3/9/2016',
@@ -6263,7 +6511,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/pep-meetings-archive',
-      title: 'The Proposed Grade Truncation of Brooklyn School for Global Studies (15K429) in Building K293 from a 6-12 School to a 9-12 School Beginning in the 2016-2017 School Year',
+      title:
+        'The Proposed Grade Truncation of Brooklyn School for Global Studies (15K429) in Building K293 from a 6-12 School to a 9-12 School Beginning in the 2016-2017 School Year',
       org_id: 'K129',
       bldg_id: 'K293',
       vote_date: '3/9/2016',
@@ -6273,7 +6522,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/pep-meetings-archive',
-      title: 'The Proposed Expansion of Success Academy Charter School – Cobble Hill (84K129) in Building K293 with Brooklyn School for Global Studies (15K429), School for International Studies (15K497), and One Site of an Existing District 75 Program P368K (75K368) Beginning in the 2016-2017 School Year',
+      title:
+        'The Proposed Expansion of Success Academy Charter School – Cobble Hill (84K129) in Building K293 with Brooklyn School for Global Studies (15K429), School for International Studies (15K497), and One Site of an Existing District 75 Program P368K (75K368) Beginning in the 2016-2017 School Year',
       org_id: 'K429',
       bldg_id: 'K293',
       vote_date: '6/10/2015',
@@ -6283,7 +6533,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/pep-meetings-archive',
-      title: 'The Proposed Expansion of Success Academy Charter School – Cobble Hill (84K129) in Building K293 with Brooklyn School for Global Studies (15K429), School for International Studies (15K497), and One Site of an Existing District 75 Program P368K (75K368) Beginning in the 2016-2017 School Year',
+      title:
+        'The Proposed Expansion of Success Academy Charter School – Cobble Hill (84K129) in Building K293 with Brooklyn School for Global Studies (15K429), School for International Studies (15K497), and One Site of an Existing District 75 Program P368K (75K368) Beginning in the 2016-2017 School Year',
       org_id: 'K497',
       bldg_id: 'K293',
       vote_date: '6/10/2015',
@@ -6293,7 +6544,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/pep-meetings-archive',
-      title: 'The Proposed Expansion of Success Academy Charter School – Cobble Hill (84K129) in Building K293 with Brooklyn School for Global Studies (15K429), School for International Studies (15K497), and One Site of an Existing District 75 Program P368K (75K368) Beginning in the 2016-2017 School Year',
+      title:
+        'The Proposed Expansion of Success Academy Charter School – Cobble Hill (84K129) in Building K293 with Brooklyn School for Global Studies (15K429), School for International Studies (15K497), and One Site of an Existing District 75 Program P368K (75K368) Beginning in the 2016-2017 School Year',
       org_id: 'K129',
       bldg_id: 'K293',
       vote_date: '6/10/2015',
@@ -6303,7 +6555,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/pep-meetings-archive',
-      title: 'The Proposed Expansion of Success Academy Charter School – Cobble Hill (84K129) in Building K293 with Brooklyn School for Global Studies (15K429), School for International Studies (15K497), and One Site of an Existing District 75 Program P368K (75K368) Beginning in the 2016-2017 School Year',
+      title:
+        'The Proposed Expansion of Success Academy Charter School – Cobble Hill (84K129) in Building K293 with Brooklyn School for Global Studies (15K429), School for International Studies (15K497), and One Site of an Existing District 75 Program P368K (75K368) Beginning in the 2016-2017 School Year',
       org_id: 'K368',
       bldg_id: 'K293',
       vote_date: '6/10/2015',
@@ -6313,7 +6566,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/pep-meetings-archive',
-      title: 'The Proposed Co-location of a New District High School\n(16K765) with Existing Schools Boys and Girls High School\n(16K455) and Research and Service High School (16K669) in\nBuilding K455 Beginning in 2014-2015',
+      title:
+        'The Proposed Co-location of a New District High School\n(16K765) with Existing Schools Boys and Girls High School\n(16K455) and Research and Service High School (16K669) in\nBuilding K455 Beginning in 2014-2015',
       org_id: 'K455',
       bldg_id: 'K455',
       vote_date: '12/11/2013',
@@ -6323,7 +6577,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/pep-meetings-archive',
-      title: 'The Proposed Co-location of a New District High School\n(16K765) with Existing Schools Boys and Girls High School\n(16K455) and Research and Service High School (16K669) in\nBuilding K455 Beginning in 2014-2015',
+      title:
+        'The Proposed Co-location of a New District High School\n(16K765) with Existing Schools Boys and Girls High School\n(16K455) and Research and Service High School (16K669) in\nBuilding K455 Beginning in 2014-2015',
       org_id: 'K669',
       bldg_id: 'K455',
       vote_date: '12/11/2013',
@@ -6333,7 +6588,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/pep-meetings-archive',
-      title: 'The Proposed Co-location of a New District High School\n(16K765) with Existing Schools Boys and Girls High School\n(16K455) and Research and Service High School (16K669) in\nBuilding K455 Beginning in 2014-2015',
+      title:
+        'The Proposed Co-location of a New District High School\n(16K765) with Existing Schools Boys and Girls High School\n(16K455) and Research and Service High School (16K669) in\nBuilding K455 Beginning in 2014-2015',
       org_id: 'K765',
       bldg_id: 'K455',
       vote_date: '12/11/2013',
@@ -6343,7 +6599,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/pep-meetings-archive',
-      title: 'The Proposed Co-location of Grades Six through Eight of\nExplore Exceed Charter School’s (84K333) with Existing Schools\nP.S. 375 Jackie Robinson School (17K375) and M.S. 352 Ebbets\nField Middle School (17K352) in Building K320 Beginning in\n2015-2016',
+      title:
+        'The Proposed Co-location of Grades Six through Eight of\nExplore Exceed Charter School’s (84K333) with Existing Schools\nP.S. 375 Jackie Robinson School (17K375) and M.S. 352 Ebbets\nField Middle School (17K352) in Building K320 Beginning in\n2015-2016',
       org_id: 'K352',
       bldg_id: 'K320',
       vote_date: '10/30/2013',
@@ -6353,7 +6610,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/pep-meetings-archive',
-      title: 'The Proposed Co-location of Grades Six through Eight of\nExplore Exceed Charter School’s (84K333) with Existing Schools\nP.S. 375 Jackie Robinson School (17K375) and M.S. 352 Ebbets\nField Middle School (17K352) in Building K320 Beginning in\n2015-2016',
+      title:
+        'The Proposed Co-location of Grades Six through Eight of\nExplore Exceed Charter School’s (84K333) with Existing Schools\nP.S. 375 Jackie Robinson School (17K375) and M.S. 352 Ebbets\nField Middle School (17K352) in Building K320 Beginning in\n2015-2016',
       org_id: 'K333',
       bldg_id: 'K320',
       vote_date: '10/30/2013',
@@ -6363,7 +6621,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/pep-meetings-archive',
-      title: 'The Proposed Co-location of Grades Six through Eight of\nExplore Exceed Charter School’s (84K333) with Existing Schools\nP.S. 375 Jackie Robinson School (17K375) and M.S. 352 Ebbets\nField Middle School (17K352) in Building K320 Beginning in\n2015-2016',
+      title:
+        'The Proposed Co-location of Grades Six through Eight of\nExplore Exceed Charter School’s (84K333) with Existing Schools\nP.S. 375 Jackie Robinson School (17K375) and M.S. 352 Ebbets\nField Middle School (17K352) in Building K320 Beginning in\n2015-2016',
       org_id: 'K375',
       bldg_id: 'K320',
       vote_date: '10/30/2013',
@@ -6373,7 +6632,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/pep-meetings-archive',
-      title: 'The Proposed Re-Siting and Co-Location of Success Academy Charter School – Crown Heights (84K741) with Existing School P.S. 161 The Crown (17K161) in Building K161 Beginning in 2014-2015',
+      title:
+        'The Proposed Re-Siting and Co-Location of Success Academy Charter School – Crown Heights (84K741) with Existing School P.S. 161 The Crown (17K161) in Building K161 Beginning in 2014-2015',
       org_id: 'K741',
       bldg_id: 'K161',
       vote_date: '10/15/2013',
@@ -6383,7 +6643,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/pep-meetings-archive',
-      title: 'The Proposed Re-Siting and Co-Location of Success Academy Charter School – Crown Heights (84K741) with Existing School P.S. 161 The Crown (17K161) in Building K161 Beginning in 2014-2015',
+      title:
+        'The Proposed Re-Siting and Co-Location of Success Academy Charter School – Crown Heights (84K741) with Existing School P.S. 161 The Crown (17K161) in Building K161 Beginning in 2014-2015',
       org_id: 'K161',
       bldg_id: 'K161',
       vote_date: '10/15/2013',
@@ -6393,7 +6654,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/pep-meetings-archive',
-      title: 'The Proposed Co-location of Uncommon Charter High School 3 with\nExisting Schools Brooklyn Generation School (18K566), Brooklyn\nTheatre Arts High School (18K567), Victory Collegiate High School\n(18K576), Brooklyn Bridge Academy (18K578), Academy for\nConservation and the Environment (18K637) and GED Plus (79Q950)\nin Building K515 Beginning in 2014-2015',
+      title:
+        'The Proposed Co-location of Uncommon Charter High School 3 with\nExisting Schools Brooklyn Generation School (18K566), Brooklyn\nTheatre Arts High School (18K567), Victory Collegiate High School\n(18K576), Brooklyn Bridge Academy (18K578), Academy for\nConservation and the Environment (18K637) and GED Plus (79Q950)\nin Building K515 Beginning in 2014-2015',
       org_id: 'K576',
       bldg_id: 'K515',
       vote_date: '10/15/2013',
@@ -6403,7 +6665,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/pep-meetings-archive',
-      title: 'The Proposed Co-location of Uncommon Charter High School 3 with\nExisting Schools Brooklyn Generation School (18K566), Brooklyn\nTheatre Arts High School (18K567), Victory Collegiate High School\n(18K576), Brooklyn Bridge Academy (18K578), Academy for\nConservation and the Environment (18K637) and GED Plus (79Q950)\nin Building K515 Beginning in 2014-2015',
+      title:
+        'The Proposed Co-location of Uncommon Charter High School 3 with\nExisting Schools Brooklyn Generation School (18K566), Brooklyn\nTheatre Arts High School (18K567), Victory Collegiate High School\n(18K576), Brooklyn Bridge Academy (18K578), Academy for\nConservation and the Environment (18K637) and GED Plus (79Q950)\nin Building K515 Beginning in 2014-2015',
       org_id: 'K567',
       bldg_id: 'K515',
       vote_date: '10/15/2013',
@@ -6413,7 +6676,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/pep-meetings-archive',
-      title: 'The Proposed Co-location of Uncommon Charter High School 3 with\nExisting Schools Brooklyn Generation School (18K566), Brooklyn\nTheatre Arts High School (18K567), Victory Collegiate High School\n(18K576), Brooklyn Bridge Academy (18K578), Academy for\nConservation and the Environment (18K637) and GED Plus (79Q950)\nin Building K515 Beginning in 2014-2015',
+      title:
+        'The Proposed Co-location of Uncommon Charter High School 3 with\nExisting Schools Brooklyn Generation School (18K566), Brooklyn\nTheatre Arts High School (18K567), Victory Collegiate High School\n(18K576), Brooklyn Bridge Academy (18K578), Academy for\nConservation and the Environment (18K637) and GED Plus (79Q950)\nin Building K515 Beginning in 2014-2015',
       org_id: 'K566',
       bldg_id: 'K515',
       vote_date: '10/15/2013',
@@ -6423,7 +6687,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/pep-meetings-archive',
-      title: 'The Proposed Co-location of Uncommon Charter High School 3 with\nExisting Schools Brooklyn Generation School (18K566), Brooklyn\nTheatre Arts High School (18K567), Victory Collegiate High School\n(18K576), Brooklyn Bridge Academy (18K578), Academy for\nConservation and the Environment (18K637) and GED Plus (79Q950)\nin Building K515 Beginning in 2014-2015',
+      title:
+        'The Proposed Co-location of Uncommon Charter High School 3 with\nExisting Schools Brooklyn Generation School (18K566), Brooklyn\nTheatre Arts High School (18K567), Victory Collegiate High School\n(18K576), Brooklyn Bridge Academy (18K578), Academy for\nConservation and the Environment (18K637) and GED Plus (79Q950)\nin Building K515 Beginning in 2014-2015',
       org_id: 'K578',
       bldg_id: 'K515',
       vote_date: '10/15/2013',
@@ -6433,7 +6698,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/pep-meetings-archive',
-      title: 'The Proposed Co-location of Uncommon Charter High School 3 with\nExisting Schools Brooklyn Generation School (18K566), Brooklyn\nTheatre Arts High School (18K567), Victory Collegiate High School\n(18K576), Brooklyn Bridge Academy (18K578), Academy for\nConservation and the Environment (18K637) and GED Plus (79Q950)\nin Building K515 Beginning in 2014-2015',
+      title:
+        'The Proposed Co-location of Uncommon Charter High School 3 with\nExisting Schools Brooklyn Generation School (18K566), Brooklyn\nTheatre Arts High School (18K567), Victory Collegiate High School\n(18K576), Brooklyn Bridge Academy (18K578), Academy for\nConservation and the Environment (18K637) and GED Plus (79Q950)\nin Building K515 Beginning in 2014-2015',
       org_id: 'K517',
       bldg_id: 'K515',
       vote_date: '10/15/2013',
@@ -6443,7 +6709,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/pep-meetings-archive',
-      title: 'The Proposed Co-location of Uncommon Charter High School 3 with\nExisting Schools Brooklyn Generation School (18K566), Brooklyn\nTheatre Arts High School (18K567), Victory Collegiate High School\n(18K576), Brooklyn Bridge Academy (18K578), Academy for\nConservation and the Environment (18K637) and GED Plus (79Q950)\nin Building K515 Beginning in 2014-2015',
+      title:
+        'The Proposed Co-location of Uncommon Charter High School 3 with\nExisting Schools Brooklyn Generation School (18K566), Brooklyn\nTheatre Arts High School (18K567), Victory Collegiate High School\n(18K576), Brooklyn Bridge Academy (18K578), Academy for\nConservation and the Environment (18K637) and GED Plus (79Q950)\nin Building K515 Beginning in 2014-2015',
       org_id: 'Q950',
       bldg_id: 'K515',
       vote_date: '10/15/2013',
@@ -6453,7 +6720,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/pep-meetings-archive',
-      title: 'The Proposed Co-location of Uncommon Charter High School 3 with\nExisting Schools Brooklyn Generation School (18K566), Brooklyn\nTheatre Arts High School (18K567), Victory Collegiate High School\n(18K576), Brooklyn Bridge Academy (18K578), Academy for\nConservation and the Environment (18K637) and GED Plus (79Q950)\nin Building K515 Beginning in 2014-2015',
+      title:
+        'The Proposed Co-location of Uncommon Charter High School 3 with\nExisting Schools Brooklyn Generation School (18K566), Brooklyn\nTheatre Arts High School (18K567), Victory Collegiate High School\n(18K576), Brooklyn Bridge Academy (18K578), Academy for\nConservation and the Environment (18K637) and GED Plus (79Q950)\nin Building K515 Beginning in 2014-2015',
       org_id: 'K637',
       bldg_id: 'K515',
       vote_date: '10/15/2013',
@@ -6463,7 +6731,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/pep-meetings-archive',
-      title: 'The Proposed Co-location of New District High School (19K764) with Multicultural High School (19K583), Academy of Innovative Technology (19K618), Brooklyn Lab School (19K639), and Cypress Hills Collegiate Preparatory School (19K659) in Building K420 Beginning in 2014-2015',
+      title:
+        'The Proposed Co-location of New District High School (19K764) with Multicultural High School (19K583), Academy of Innovative Technology (19K618), Brooklyn Lab School (19K639), and Cypress Hills Collegiate Preparatory School (19K659) in Building K420 Beginning in 2014-2015',
       org_id: 'K583',
       bldg_id: 'K420',
       vote_date: '10/15/2013',
@@ -6473,7 +6742,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/pep-meetings-archive',
-      title: 'The Proposed Co-location of New District High School (19K764) with Multicultural High School (19K583), Academy of Innovative Technology (19K618), Brooklyn Lab School (19K639), and Cypress Hills Collegiate Preparatory School (19K659) in Building K420 Beginning in 2014-2015',
+      title:
+        'The Proposed Co-location of New District High School (19K764) with Multicultural High School (19K583), Academy of Innovative Technology (19K618), Brooklyn Lab School (19K639), and Cypress Hills Collegiate Preparatory School (19K659) in Building K420 Beginning in 2014-2015',
       org_id: 'K764',
       bldg_id: 'K420',
       vote_date: '10/15/2013',
@@ -6483,7 +6753,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/pep-meetings-archive',
-      title: 'The Proposed Co-location of New District High School (19K764) with Multicultural High School (19K583), Academy of Innovative Technology (19K618), Brooklyn Lab School (19K639), and Cypress Hills Collegiate Preparatory School (19K659) in Building K420 Beginning in 2014-2015',
+      title:
+        'The Proposed Co-location of New District High School (19K764) with Multicultural High School (19K583), Academy of Innovative Technology (19K618), Brooklyn Lab School (19K639), and Cypress Hills Collegiate Preparatory School (19K659) in Building K420 Beginning in 2014-2015',
       org_id: 'K659',
       bldg_id: 'K420',
       vote_date: '10/15/2013',
@@ -6493,7 +6764,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/pep-meetings-archive',
-      title: 'The Proposed Co-location of New District High School (19K764) with Multicultural High School (19K583), Academy of Innovative Technology (19K618), Brooklyn Lab School (19K639), and Cypress Hills Collegiate Preparatory School (19K659) in Building K420 Beginning in 2014-2015',
+      title:
+        'The Proposed Co-location of New District High School (19K764) with Multicultural High School (19K583), Academy of Innovative Technology (19K618), Brooklyn Lab School (19K639), and Cypress Hills Collegiate Preparatory School (19K659) in Building K420 Beginning in 2014-2015',
       org_id: 'K618',
       bldg_id: 'K420',
       vote_date: '10/15/2013',
@@ -6503,7 +6775,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/pep-meetings-archive',
-      title: 'The Proposed Co-location of New District High School (19K764) with Multicultural High School (19K583), Academy of Innovative Technology (19K618), Brooklyn Lab School (19K639), and Cypress Hills Collegiate Preparatory School (19K659) in Building K420 Beginning in 2014-2015',
+      title:
+        'The Proposed Co-location of New District High School (19K764) with Multicultural High School (19K583), Academy of Innovative Technology (19K618), Brooklyn Lab School (19K639), and Cypress Hills Collegiate Preparatory School (19K659) in Building K420 Beginning in 2014-2015',
       org_id: 'K639',
       bldg_id: 'K420',
       vote_date: '10/15/2013',
@@ -6513,7 +6786,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/pep-meetings-archive',
-      title: 'The Proposed Co-location of The New American Academy Charter School (84KTBD) in Building K415 with Existing Schools Kurt Hahn Expeditionary School (18K569), It Takes a Village Academy (18K563), and Cultural Academy for the Arts and Sciences (18K629) Beginning in the 2013-2014 School Year',
+      title:
+        'The Proposed Co-location of The New American Academy Charter School (84KTBD) in Building K415 with Existing Schools Kurt Hahn Expeditionary School (18K569), It Takes a Village Academy (18K563), and Cultural Academy for the Arts and Sciences (18K629) Beginning in the 2013-2014 School Year',
       org_id: 'K736',
       bldg_id: 'K415',
       vote_date: '3/20/2013',
@@ -6523,7 +6797,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/pep-meetings-archive',
-      title: 'The Proposed Co-location of The New American Academy Charter School (84KTBD) in Building K415 with Existing Schools Kurt Hahn Expeditionary School (18K569), It Takes a Village Academy (18K563), and Cultural Academy for the Arts and Sciences (18K629) Beginning in the 2013-2014 School Year',
+      title:
+        'The Proposed Co-location of The New American Academy Charter School (84KTBD) in Building K415 with Existing Schools Kurt Hahn Expeditionary School (18K569), It Takes a Village Academy (18K563), and Cultural Academy for the Arts and Sciences (18K629) Beginning in the 2013-2014 School Year',
       org_id: 'K563',
       bldg_id: 'K415',
       vote_date: '3/20/2013',
@@ -6533,7 +6808,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/pep-meetings-archive',
-      title: 'The Proposed Co-location of The New American Academy Charter School (84KTBD) in Building K415 with Existing Schools Kurt Hahn Expeditionary School (18K569), It Takes a Village Academy (18K563), and Cultural Academy for the Arts and Sciences (18K629) Beginning in the 2013-2014 School Year',
+      title:
+        'The Proposed Co-location of The New American Academy Charter School (84KTBD) in Building K415 with Existing Schools Kurt Hahn Expeditionary School (18K569), It Takes a Village Academy (18K563), and Cultural Academy for the Arts and Sciences (18K629) Beginning in the 2013-2014 School Year',
       org_id: 'K569',
       bldg_id: 'K415',
       vote_date: '3/20/2013',
@@ -6543,7 +6819,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/pep-meetings-archive',
-      title: 'The Proposed Co-location of The New American Academy Charter School (84KTBD) in Building K415 with Existing Schools Kurt Hahn Expeditionary School (18K569), It Takes a Village Academy (18K563), and Cultural Academy for the Arts and Sciences (18K629) Beginning in the 2013-2014 School Year',
+      title:
+        'The Proposed Co-location of The New American Academy Charter School (84KTBD) in Building K415 with Existing Schools Kurt Hahn Expeditionary School (18K569), It Takes a Village Academy (18K563), and Cultural Academy for the Arts and Sciences (18K629) Beginning in the 2013-2014 School Year',
       org_id: 'K629',
       bldg_id: 'K415',
       vote_date: '3/20/2013',
@@ -6553,7 +6830,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/pep-meetings-archive',
-      title: 'The Proposed Phase-out of Sheepshead Bay High School (22K495) Beginning in 2013-2014',
+      title:
+        'The Proposed Phase-out of Sheepshead Bay High School (22K495) Beginning in 2013-2014',
       org_id: 'K495',
       bldg_id: 'K495',
       vote_date: '3/11/2013',
@@ -6563,7 +6841,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/pep-meetings-archive',
-      title: 'The Proposed Phase-out of Sheepshead Bay High School (22K495) Beginning in 2013-2014',
+      title:
+        'The Proposed Phase-out of Sheepshead Bay High School (22K495) Beginning in 2013-2014',
       org_id: 'K611',
       bldg_id: 'K495',
       vote_date: '3/11/2013',
@@ -6573,7 +6852,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/pep-meetings-archive',
-      title: 'The Proposed Phase-out of Sheepshead Bay High School (22K495) Beginning in 2013-2014',
+      title:
+        'The Proposed Phase-out of Sheepshead Bay High School (22K495) Beginning in 2013-2014',
       org_id: 'K738',
       bldg_id: 'K495',
       vote_date: '3/11/2013',
@@ -6583,7 +6863,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/pep-meetings-archive',
-      title: 'The Proposed Phase-out of Sheepshead Bay High School (22K495) Beginning in 2013-2014',
+      title:
+        'The Proposed Phase-out of Sheepshead Bay High School (22K495) Beginning in 2013-2014',
       org_id: 'K739',
       bldg_id: 'K495',
       vote_date: '3/11/2013',
@@ -6593,7 +6874,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/pep-meetings-archive',
-      title: 'The Proposed Phase-out of Sheepshead Bay High School (22K495) Beginning in 2013-2014',
+      title:
+        'The Proposed Phase-out of Sheepshead Bay High School (22K495) Beginning in 2013-2014',
       org_id: 'K811',
       bldg_id: 'K495',
       vote_date: '3/11/2013',
@@ -6603,7 +6885,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/pep-meetings-archive',
-      title: 'The Proposed Phase-out of Sheepshead Bay High School (22K495) Beginning in 2013-2014',
+      title:
+        'The Proposed Phase-out of Sheepshead Bay High School (22K495) Beginning in 2013-2014',
       org_id: 'K630',
       bldg_id: 'K495',
       vote_date: '3/11/2013',
@@ -6613,7 +6896,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/pep-meetings-archive',
-      title: 'The Proposed Opening and Co-location of a New District High School 22K611 (22K611) and a New District Transfer High School (22K630) with Sheepshead Bay High School (22K495), P811K@K495 (75K811), New Visions Charter High School for Applied Math and Science III\n(84KTBD), and New Visions Charter High School for the Humanities III\n(84KTBD) in School Building K495, Beginning in 2013-2014',
+      title:
+        'The Proposed Opening and Co-location of a New District High School 22K611 (22K611) and a New District Transfer High School (22K630) with Sheepshead Bay High School (22K495), P811K@K495 (75K811), New Visions Charter High School for Applied Math and Science III\n(84KTBD), and New Visions Charter High School for the Humanities III\n(84KTBD) in School Building K495, Beginning in 2013-2014',
       org_id: 'K739',
       bldg_id: 'K495',
       vote_date: '3/11/2013',
@@ -6623,7 +6907,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/pep-meetings-archive',
-      title: 'The Proposed Opening and Co-location of a New District High School 22K611 (22K611) and a New District Transfer High School (22K630) with Sheepshead Bay High School (22K495), P811K@K495 (75K811), New Visions Charter High School for Applied Math and Science III\n(84KTBD), and New Visions Charter High School for the Humanities III\n(84KTBD) in School Building K495, Beginning in 2013-2014',
+      title:
+        'The Proposed Opening and Co-location of a New District High School 22K611 (22K611) and a New District Transfer High School (22K630) with Sheepshead Bay High School (22K495), P811K@K495 (75K811), New Visions Charter High School for Applied Math and Science III\n(84KTBD), and New Visions Charter High School for the Humanities III\n(84KTBD) in School Building K495, Beginning in 2013-2014',
       org_id: 'K495',
       bldg_id: 'K495',
       vote_date: '3/11/2013',
@@ -6633,7 +6918,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/pep-meetings-archive',
-      title: 'The Proposed Opening and Co-location of a New District High School 22K611 (22K611) and a New District Transfer High School (22K630) with Sheepshead Bay High School (22K495), P811K@K495 (75K811), New Visions Charter High School for Applied Math and Science III\n(84KTBD), and New Visions Charter High School for the Humanities III\n(84KTBD) in School Building K495, Beginning in 2013-2014',
+      title:
+        'The Proposed Opening and Co-location of a New District High School 22K611 (22K611) and a New District Transfer High School (22K630) with Sheepshead Bay High School (22K495), P811K@K495 (75K811), New Visions Charter High School for Applied Math and Science III\n(84KTBD), and New Visions Charter High School for the Humanities III\n(84KTBD) in School Building K495, Beginning in 2013-2014',
       org_id: 'K630',
       bldg_id: 'K495',
       vote_date: '3/11/2013',
@@ -6643,7 +6929,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/pep-meetings-archive',
-      title: 'The Proposed Opening and Co-location of a New District High School 22K611 (22K611) and a New District Transfer High School (22K630) with Sheepshead Bay High School (22K495), P811K@K495 (75K811), New Visions Charter High School for Applied Math and Science III\n(84KTBD), and New Visions Charter High School for the Humanities III\n(84KTBD) in School Building K495, Beginning in 2013-2014',
+      title:
+        'The Proposed Opening and Co-location of a New District High School 22K611 (22K611) and a New District Transfer High School (22K630) with Sheepshead Bay High School (22K495), P811K@K495 (75K811), New Visions Charter High School for Applied Math and Science III\n(84KTBD), and New Visions Charter High School for the Humanities III\n(84KTBD) in School Building K495, Beginning in 2013-2014',
       org_id: 'K611',
       bldg_id: 'K495',
       vote_date: '3/11/2013',
@@ -6653,7 +6940,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/pep-meetings-archive',
-      title: 'The Proposed Opening and Co-location of a New District High School 22K611 (22K611) and a New District Transfer High School (22K630) with Sheepshead Bay High School (22K495), P811K@K495 (75K811), New Visions Charter High School for Applied Math and Science III\n(84KTBD), and New Visions Charter High School for the Humanities III\n(84KTBD) in School Building K495, Beginning in 2013-2014',
+      title:
+        'The Proposed Opening and Co-location of a New District High School 22K611 (22K611) and a New District Transfer High School (22K630) with Sheepshead Bay High School (22K495), P811K@K495 (75K811), New Visions Charter High School for Applied Math and Science III\n(84KTBD), and New Visions Charter High School for the Humanities III\n(84KTBD) in School Building K495, Beginning in 2013-2014',
       org_id: 'K811',
       bldg_id: 'K495',
       vote_date: '3/11/2013',
@@ -6663,7 +6951,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/pep-meetings-archive',
-      title: 'The Proposed Opening and Co-location of a New District High School 22K611 (22K611) and a New District Transfer High School (22K630) with Sheepshead Bay High School (22K495), P811K@K495 (75K811), New Visions Charter High School for Applied Math and Science III\n(84KTBD), and New Visions Charter High School for the Humanities III\n(84KTBD) in School Building K495, Beginning in 2013-2014',
+      title:
+        'The Proposed Opening and Co-location of a New District High School 22K611 (22K611) and a New District Transfer High School (22K630) with Sheepshead Bay High School (22K495), P811K@K495 (75K811), New Visions Charter High School for Applied Math and Science III\n(84KTBD), and New Visions Charter High School for the Humanities III\n(84KTBD) in School Building K495, Beginning in 2013-2014',
       org_id: 'K738',
       bldg_id: 'K495',
       vote_date: '3/11/2013',
@@ -6673,7 +6962,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/pep-meetings-archive',
-      title: 'The Proposed Opening and Co-location of New Visions Charter High\nSchool for Applied Math and Science III (84KTBD) and New Visions\nCharter High School for the Humanities III (84KTBD) with Sheepshead\nBay High School (22K495), P811K@K495 (75K811), a New District\nHigh School 22K611(22K611) and a New Transfer School (22K630), in\nSchool Building K495 Beginning in 2013-2014',
+      title:
+        'The Proposed Opening and Co-location of New Visions Charter High\nSchool for Applied Math and Science III (84KTBD) and New Visions\nCharter High School for the Humanities III (84KTBD) with Sheepshead\nBay High School (22K495), P811K@K495 (75K811), a New District\nHigh School 22K611(22K611) and a New Transfer School (22K630), in\nSchool Building K495 Beginning in 2013-2014',
       org_id: 'K495',
       bldg_id: 'K495',
       vote_date: '3/11/2013',
@@ -6683,7 +6973,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/pep-meetings-archive',
-      title: 'The Proposed Opening and Co-location of New Visions Charter High\nSchool for Applied Math and Science III (84KTBD) and New Visions\nCharter High School for the Humanities III (84KTBD) with Sheepshead\nBay High School (22K495), P811K@K495 (75K811), a New District\nHigh School 22K611(22K611) and a New Transfer School (22K630), in\nSchool Building K495 Beginning in 2013-2014',
+      title:
+        'The Proposed Opening and Co-location of New Visions Charter High\nSchool for Applied Math and Science III (84KTBD) and New Visions\nCharter High School for the Humanities III (84KTBD) with Sheepshead\nBay High School (22K495), P811K@K495 (75K811), a New District\nHigh School 22K611(22K611) and a New Transfer School (22K630), in\nSchool Building K495 Beginning in 2013-2014',
       org_id: 'K811',
       bldg_id: 'K495',
       vote_date: '3/11/2013',
@@ -6693,7 +6984,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/pep-meetings-archive',
-      title: 'The Proposed Opening and Co-location of New Visions Charter High\nSchool for Applied Math and Science III (84KTBD) and New Visions\nCharter High School for the Humanities III (84KTBD) with Sheepshead\nBay High School (22K495), P811K@K495 (75K811), a New District\nHigh School 22K611(22K611) and a New Transfer School (22K630), in\nSchool Building K495 Beginning in 2013-2014',
+      title:
+        'The Proposed Opening and Co-location of New Visions Charter High\nSchool for Applied Math and Science III (84KTBD) and New Visions\nCharter High School for the Humanities III (84KTBD) with Sheepshead\nBay High School (22K495), P811K@K495 (75K811), a New District\nHigh School 22K611(22K611) and a New Transfer School (22K630), in\nSchool Building K495 Beginning in 2013-2014',
       org_id: 'K739',
       bldg_id: 'K495',
       vote_date: '3/11/2013',
@@ -6703,7 +6995,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/pep-meetings-archive',
-      title: 'The Proposed Opening and Co-location of New Visions Charter High\nSchool for Applied Math and Science III (84KTBD) and New Visions\nCharter High School for the Humanities III (84KTBD) with Sheepshead\nBay High School (22K495), P811K@K495 (75K811), a New District\nHigh School 22K611(22K611) and a New Transfer School (22K630), in\nSchool Building K495 Beginning in 2013-2014',
+      title:
+        'The Proposed Opening and Co-location of New Visions Charter High\nSchool for Applied Math and Science III (84KTBD) and New Visions\nCharter High School for the Humanities III (84KTBD) with Sheepshead\nBay High School (22K495), P811K@K495 (75K811), a New District\nHigh School 22K611(22K611) and a New Transfer School (22K630), in\nSchool Building K495 Beginning in 2013-2014',
       org_id: 'K630',
       bldg_id: 'K495',
       vote_date: '3/11/2013',
@@ -6713,7 +7006,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/pep-meetings-archive',
-      title: 'The Proposed Opening and Co-location of New Visions Charter High\nSchool for Applied Math and Science III (84KTBD) and New Visions\nCharter High School for the Humanities III (84KTBD) with Sheepshead\nBay High School (22K495), P811K@K495 (75K811), a New District\nHigh School 22K611(22K611) and a New Transfer School (22K630), in\nSchool Building K495 Beginning in 2013-2014',
+      title:
+        'The Proposed Opening and Co-location of New Visions Charter High\nSchool for Applied Math and Science III (84KTBD) and New Visions\nCharter High School for the Humanities III (84KTBD) with Sheepshead\nBay High School (22K495), P811K@K495 (75K811), a New District\nHigh School 22K611(22K611) and a New Transfer School (22K630), in\nSchool Building K495 Beginning in 2013-2014',
       org_id: 'K611',
       bldg_id: 'K495',
       vote_date: '3/11/2013',
@@ -6723,7 +7017,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/pep-meetings-archive',
-      title: 'The Proposed Opening and Co-location of New Visions Charter High\nSchool for Applied Math and Science III (84KTBD) and New Visions\nCharter High School for the Humanities III (84KTBD) with Sheepshead\nBay High School (22K495), P811K@K495 (75K811), a New District\nHigh School 22K611(22K611) and a New Transfer School (22K630), in\nSchool Building K495 Beginning in 2013-2014',
+      title:
+        'The Proposed Opening and Co-location of New Visions Charter High\nSchool for Applied Math and Science III (84KTBD) and New Visions\nCharter High School for the Humanities III (84KTBD) with Sheepshead\nBay High School (22K495), P811K@K495 (75K811), a New District\nHigh School 22K611(22K611) and a New Transfer School (22K630), in\nSchool Building K495 Beginning in 2013-2014',
       org_id: 'K738',
       bldg_id: 'K495',
       vote_date: '3/11/2013',
@@ -6733,7 +7028,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/pep-meetings-archive',
-      title: 'The Proposed Co-location of Citizens of the World Charter School New York 2 (84KTBD) in Building K221 and Building K892 with Existing School P.S. 221 Toussaint L’Ouverture (17K221) Beginning in the 2013-2014 School Year',
+      title:
+        'The Proposed Co-location of Citizens of the World Charter School New York 2 (84KTBD) in Building K221 and Building K892 with Existing School P.S. 221 Toussaint L’Ouverture (17K221) Beginning in the 2013-2014 School Year',
       org_id: 'K221',
       bldg_id: 'K221',
       vote_date: '1/16/2013',
@@ -6743,7 +7039,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/pep-meetings-archive',
-      title: 'The Proposed Co-location of Citizens of the World Charter School New York 2 (84KTBD) in Building K221 and Building K892 with Existing School P.S. 221 Toussaint L’Ouverture (17K221) Beginning in the 2013-2014 School Year',
+      title:
+        'The Proposed Co-location of Citizens of the World Charter School New York 2 (84KTBD) in Building K221 and Building K892 with Existing School P.S. 221 Toussaint L’Ouverture (17K221) Beginning in the 2013-2014 School Year',
       org_id: 'K692',
       bldg_id: 'K221',
       vote_date: '1/16/2013',
@@ -6753,7 +7050,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/pep-meetings-archive',
-      title: 'The Proposed Co-location of a New Public Charter School Success Academy Charter School Brooklyn 5 (84KTBD) with Existing Schools Dr. Susan S. McKinney Secondary School of the Arts (13K265) and a District 75 Inclusion Program P369K@265K (75K369) in Building K265 Beginning in 2013-2014',
+      title:
+        'The Proposed Co-location of a New Public Charter School Success Academy Charter School Brooklyn 5 (84KTBD) with Existing Schools Dr. Susan S. McKinney Secondary School of the Arts (13K265) and a District 75 Inclusion Program P369K@265K (75K369) in Building K265 Beginning in 2013-2014',
       org_id: 'K752',
       bldg_id: 'K265',
       vote_date: '12/20/2012',
@@ -6763,7 +7061,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/pep-meetings-archive',
-      title: 'The Proposed Co-location of a New Public Charter School Success Academy Charter School Brooklyn 5 (84KTBD) with Existing Schools Dr. Susan S. McKinney Secondary School of the Arts (13K265) and a District 75 Inclusion Program P369K@265K (75K369) in Building K265 Beginning in 2013-2014',
+      title:
+        'The Proposed Co-location of a New Public Charter School Success Academy Charter School Brooklyn 5 (84KTBD) with Existing Schools Dr. Susan S. McKinney Secondary School of the Arts (13K265) and a District 75 Inclusion Program P369K@265K (75K369) in Building K265 Beginning in 2013-2014',
       org_id: 'K265',
       bldg_id: 'K265',
       vote_date: '12/20/2012',
@@ -6773,7 +7072,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/pep-meetings-archive',
-      title: 'The Proposed Co-location of a New Public Charter School Success Academy Charter School Brooklyn 5 (84KTBD) with Existing Schools Dr. Susan S. McKinney Secondary School of the Arts (13K265) and a District 75 Inclusion Program P369K@265K (75K369) in Building K265 Beginning in 2013-2014',
+      title:
+        'The Proposed Co-location of a New Public Charter School Success Academy Charter School Brooklyn 5 (84KTBD) with Existing Schools Dr. Susan S. McKinney Secondary School of the Arts (13K265) and a District 75 Inclusion Program P369K@265K (75K369) in Building K265 Beginning in 2013-2014',
       org_id: 'K369',
       bldg_id: 'K265',
       vote_date: '12/20/2012',
@@ -6783,7 +7083,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/pep-meetings-archive',
-      title: 'Revise: The Proposed Re-siting of a District 75 School, 75K053, to Building K422 Beginning in the 2012-2013 School Year',
+      title:
+        'Revise: The Proposed Re-siting of a District 75 School, 75K053, to Building K422 Beginning in the 2012-2013 School Year',
       org_id: 'K422',
       bldg_id: 'K422',
       vote_date: '5/23/2012',
@@ -6793,7 +7094,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/pep-meetings-archive',
-      title: 'Revise: The Proposed Re-siting of a District 75 School, 75K053, to Building K422 Beginning in the 2012-2013 School Year',
+      title:
+        'Revise: The Proposed Re-siting of a District 75 School, 75K053, to Building K422 Beginning in the 2012-2013 School Year',
       org_id: 'K053',
       bldg_id: 'K422',
       vote_date: '5/23/2012',
@@ -6803,7 +7105,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/pep-meetings-archive',
-      title: 'Revise: The Proposed Re-siting of a District 75 School, 75K053, to Building K422 Beginning in the 2012-2013 School Year',
+      title:
+        'Revise: The Proposed Re-siting of a District 75 School, 75K053, to Building K422 Beginning in the 2012-2013 School Year',
       org_id: 'K404',
       bldg_id: 'K422',
       vote_date: '5/23/2012',
@@ -6813,7 +7116,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/pep-meetings-archive',
-      title: 'The Proposed Re-siting of a District 75 School, 75K053, to Building K422 Beginning in the 2012-2013 School Year',
+      title:
+        'The Proposed Re-siting of a District 75 School, 75K053, to Building K422 Beginning in the 2012-2013 School Year',
       org_id: 'K422',
       bldg_id: 'K422',
       vote_date: '3/21/2012',
@@ -6823,7 +7127,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/pep-meetings-archive',
-      title: 'The Proposed Re-siting of a District 75 School, 75K053, to Building K422 Beginning in the 2012-2013 School Year',
+      title:
+        'The Proposed Re-siting of a District 75 School, 75K053, to Building K422 Beginning in the 2012-2013 School Year',
       org_id: 'K053',
       bldg_id: 'K422',
       vote_date: '3/21/2012',
@@ -6833,7 +7138,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/pep-meetings-archive',
-      title: 'The Proposed Re-siting of a District 75 School, 75K053, to Building K422 Beginning in the 2012-2013 School Year',
+      title:
+        'The Proposed Re-siting of a District 75 School, 75K053, to Building K422 Beginning in the 2012-2013 School Year',
       org_id: 'K404',
       bldg_id: 'K422',
       vote_date: '3/21/2012',
@@ -6843,7 +7149,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/pep-meetings-archive',
-      title: 'The Proposed Re-siting, Grade Expansion, and Co-Location\nof Academy for Young Writers (14K404) with a New\nSecondary School (19K422) and a District 75 Program\n(75KTBD) at Building K422 Beginning in the 2012-2013\nSchool Year',
+      title:
+        'The Proposed Re-siting, Grade Expansion, and Co-Location\nof Academy for Young Writers (14K404) with a New\nSecondary School (19K422) and a District 75 Program\n(75KTBD) at Building K422 Beginning in the 2012-2013\nSchool Year',
       org_id: 'K053',
       bldg_id: 'K422',
       vote_date: '1/18/2012',
@@ -6853,7 +7160,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/pep-meetings-archive',
-      title: 'The Proposed Re-siting, Grade Expansion, and Co-Location\nof Academy for Young Writers (14K404) with a New\nSecondary School (19K422) and a District 75 Program\n(75KTBD) at Building K422 Beginning in the 2012-2013\nSchool Year',
+      title:
+        'The Proposed Re-siting, Grade Expansion, and Co-Location\nof Academy for Young Writers (14K404) with a New\nSecondary School (19K422) and a District 75 Program\n(75KTBD) at Building K422 Beginning in the 2012-2013\nSchool Year',
       org_id: 'K404',
       bldg_id: 'K422',
       vote_date: '1/18/2012',
@@ -6863,7 +7171,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/pep-meetings-archive',
-      title: 'The Proposed Re-siting, Grade Expansion, and Co-Location\nof Academy for Young Writers (14K404) with a New\nSecondary School (19K422) and a District 75 Program\n(75KTBD) at Building K422 Beginning in the 2012-2013\nSchool Year',
+      title:
+        'The Proposed Re-siting, Grade Expansion, and Co-Location\nof Academy for Young Writers (14K404) with a New\nSecondary School (19K422) and a District 75 Program\n(75KTBD) at Building K422 Beginning in the 2012-2013\nSchool Year',
       org_id: 'K422',
       bldg_id: 'K422',
       vote_date: '1/18/2012',
@@ -6873,7 +7182,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/pep-meetings-archive',
-      title: 'Siting of Ocean Hill Collegiate and Leadership Prep Ocean Hill with Existing Schools in School Building K271',
+      title:
+        'Siting of Ocean Hill Collegiate and Leadership Prep Ocean Hill with Existing Schools in School Building K271',
       org_id: 'K644',
       bldg_id: 'K271',
       vote_date: '2/24/2010',
@@ -6883,7 +7193,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/pep-meetings-archive',
-      title: 'Siting of Ocean Hill Collegiate and Leadership Prep Ocean Hill with Existing Schools in School Building K271',
+      title:
+        'Siting of Ocean Hill Collegiate and Leadership Prep Ocean Hill with Existing Schools in School Building K271',
       org_id: 'K522',
       bldg_id: 'K271',
       vote_date: '2/24/2010',
@@ -6893,7 +7204,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/pep-meetings-archive',
-      title: 'Siting of Ocean Hill Collegiate and Leadership Prep Ocean Hill with Existing Schools in School Building K271',
+      title:
+        'Siting of Ocean Hill Collegiate and Leadership Prep Ocean Hill with Existing Schools in School Building K271',
       org_id: 'K775',
       bldg_id: 'K271',
       vote_date: '2/24/2010',
@@ -6903,7 +7215,8 @@ export default Factory.extend({
     },
     {
       url: 'http://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy/pep-meetings-archive',
-      title: 'Siting of Ocean Hill Collegiate and Leadership Prep Ocean Hill with Existing Schools in School Building K271',
+      title:
+        'Siting of Ocean Hill Collegiate and Leadership Prep Ocean Hill with Existing Schools in School Building K271',
       org_id: 'K777',
       bldg_id: 'K271',
       vote_date: '2/24/2010',

@@ -4,13 +4,15 @@ import { render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 import stubReadonlyStore from '../../helpers/stub-readonly-store';
 
-module('Integration | Helper | get-split-percent', function(hooks) {
+module('Integration | Helper | get-split-percent', function (hooks) {
   setupRenderingTest(hooks);
   stubReadonlyStore(hooks);
 
-  test('it calculates and formats a numeric percent', async function(assert) {
+  test('it calculates and formats a numeric percent', async function (assert) {
     // If modalSplit is a valid modal-split object
-    const modalSplit = this.owner.lookup('service:readonly-ceqr-data-store').find();
+    const modalSplit = this.owner
+      .lookup('service:readonly-ceqr-data-store')
+      .find();
     this.set('modalSplit', modalSplit);
 
     // and variables contains two valid modal-split variables

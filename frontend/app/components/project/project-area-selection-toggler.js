@@ -14,6 +14,7 @@ export default class ProjectProjectAreaSelectionTogglerComponent extends Compone
    * Toggle study area selection handling is triggered whenever bound property 'selectedFeatures' is updated
    */
   didUpdateAttrs() {
+    super.didUpdateAttrs();
     this.toggleBbls(this.selectedBbls);
   }
 

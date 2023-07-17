@@ -4,13 +4,15 @@ import { render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 import stubReadonlyStore from '../../helpers/stub-readonly-store';
 
-module('Integration | Helper | get-split-moe', function(hooks) {
+module('Integration | Helper | get-split-moe', function (hooks) {
   setupRenderingTest(hooks);
   stubReadonlyStore(hooks);
 
-  test('it gets a split Margin of Error (MOE)', async function(assert) {
+  test('it gets a split Margin of Error (MOE)', async function (assert) {
     // If modalSplit is a valid modal-split object
-    const modalSplit = this.owner.lookup('service:readonly-ceqr-data-store').find();
+    const modalSplit = this.owner
+      .lookup('service:readonly-ceqr-data-store')
+      .find();
     this.set('modalSplit', modalSplit);
 
     // and variable is a valid modal-split variable

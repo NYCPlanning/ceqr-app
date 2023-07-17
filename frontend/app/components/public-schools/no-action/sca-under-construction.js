@@ -9,26 +9,30 @@ export default Component.extend({
     this.$('.progress').popup();
   },
 
-  tables: computed('analysis.subdistricts.[]', function() {
-    const tables = this.get('analysis.subdistricts').map((sd) => {
-      const buildings = this.get('analysis.scaProjects').filter(
-        (b) => (b.district === sd.district && b.subdistrict === sd.subdistrict),
-      );
+  tables: computed(
+    'analysis.scaProjects',
+    'analysis.subdistricts.[]',
+    function () {
+      const tables = this.get('analysis.subdistricts').map((sd) => {
+        const buildings = this.get('analysis.scaProjects').filter(
+          (b) => b.district === sd.district && b.subdistrict === sd.subdistrict
+        );
 
-      if (isEmpty(buildings)) return null;
-      return {
-        ...sd,
-        buildings,
-      };
-    });
+        if (isEmpty(buildings)) return null;
+        return {
+          ...sd,
+          buildings,
+        };
+      });
 
-    return tables.compact();
-  }),
+      return tables.compact();
+    }
+  ),
 
   actions: {
     save() {
       this.set('saving', true);
-      this.get('analysis').save().then(() => this.set('saving', false));
+      this.analysis.save().then(() => this.set('saving', false));
     },
   },
 });

@@ -20,10 +20,13 @@ export default Component.extend({
     this.tablehover.on('hover', this, 'dotHover');
     this.tablehover.on('unhover', this, 'dotUnhover');
 
-    this.set('schoolPopup', new mapboxgl.Popup({
-      closeButton: false,
-      closeOnClick: false,
-    }));
+    this.set(
+      'schoolPopup',
+      new mapboxgl.Popup({
+        closeButton: false,
+        closeOnClick: false,
+      })
+    );
 
     this.set('schoolZonesGeojson', {
       type: 'FeatureCollection',
@@ -32,8 +35,9 @@ export default Component.extend({
   },
 
   willDestroyElement() {
-    this.get('tablehover').off('hover', this, 'dotHover');
-    this.get('tablehover').off('unhover', this, 'dotUnhover');
+    this._super(...arguments);
+    this.tablehover.off('hover', this, 'dotHover');
+    this.tablehover.off('unhover', this, 'dotUnhover');
   },
 
   // UI attributes
@@ -44,11 +48,13 @@ export default Component.extend({
   mapColors,
 
   dotHover({ source, id }) {
-    if (this.get('map')) this.get('map').setFilter(`${source}-hover`, ['==', ['get', 'id'], id]);
+    if (this.map)
+      this.map.setFilter(`${source}-hover`, ['==', ['get', 'id'], id]);
   },
 
   dotUnhover({ source }) {
-    if (this.get('map')) this.get('map').setFilter(`${source}-hover`, ['==', ['get', 'id'], 0]);
+    if (this.map)
+      this.map.setFilter(`${source}-hover`, ['==', ['get', 'id'], 0]);
   },
 
   toggleZones: observer('showZones', 'schoolZone', function() { // eslint-disable-line
@@ -63,12 +69,17 @@ export default Component.extend({
   }),
 
   fetchSchoolZones: task(function* () {
-    const version = this.analysis.get(`dataPackage.schemas.doe_school_zones_${this.schoolZone}.table`);
+    const version = this.analysis.get(
+      `dataPackage.schemas.doe_school_zones_${this.schoolZone}.table`
+    );
 
-    const response = yield fetch(`${ENV.host}/ceqr_data/v1/doe_school_zones/${this.schoolZone}/${version}/geojson?borocode=${this.project.boroCode}`, {
-      method: 'GET',
-      headers: { 'Content-Type': 'application/json' },
-    });
+    const response = yield fetch(
+      `${ENV.host}/ceqr_data/v1/doe_school_zones/${this.schoolZone}/${version}/geojson?borocode=${this.project.boroCode}`,
+      {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' },
+      }
+    );
     const geojson = yield response.json();
 
     this.set('schoolZonesGeojson', geojson);
@@ -76,7 +87,7 @@ export default Component.extend({
 
   actions: {
     zoneHover(e) {
-      if (this.get('showZones') && e.features[0].layer.id === 'zones-hover') {
+      if (this.showZones && e.features[0].layer.id === 'zones-hover') {
         if (e.features[0].properties.remarks === 'null') {
           this.set('zoneName', e.features[0].properties.dbn);
         } else {
@@ -90,8 +101,10 @@ export default Component.extend({
     },
 
     displayPopup(e) {
-      this.get('map').getCanvas().style.cursor = 'default';
-      const features = this.map.queryRenderedFeatures(e.point, { layers: ['buildings', 'scaprojects'] });
+      this.map.getCanvas().style.cursor = 'default';
+      const features = this.map.queryRenderedFeatures(e.point, {
+        layers: ['buildings', 'scaprojects'],
+      });
 
       if (features.length) {
         const schools = features.map((b) => ({
@@ -106,7 +119,10 @@ export default Component.extend({
         `;
         schools.forEach((school) => {
           this.dotHover({ source: school.layer_id, id: school.id });
-          this.get('tablehover').trigger('hover', { source: school.layer_id, id: school.id });
+          this.tablehover.trigger('hover', {
+            source: school.layer_id,
+            id: school.id,
+          });
 
           let org_name;
           if (school.source === 'lcgms') {
@@ -127,28 +143,31 @@ export default Component.extend({
         });
         html += '</table>';
 
-        this.get('schoolPopup')
+        this.schoolPopup
           .setLngLat(features[0].geometry.coordinates.slice())
           .setHTML(html)
-          .addTo(this.get('map'));
+          .addTo(this.map);
       } else {
-        this.get('schoolPopup').remove();
+        this.schoolPopup.remove();
 
-        this.get('tablehover').trigger('unhover', { source: 'buildings' });
-        this.get('tablehover').trigger('unhover', { source: 'scaprojects' });
+        this.tablehover.trigger('unhover', { source: 'buildings' });
+        this.tablehover.trigger('unhover', { source: 'scaprojects' });
 
-        this.get('map').getCanvas().style.cursor = '';
+        this.map.getCanvas().style.cursor = '';
       }
     },
 
     handleMapLoad(map) {
-      map.addControl(new mapboxgl.ScaleControl({ unit: 'imperial' }), 'bottom-right');
+      map.addControl(
+        new mapboxgl.ScaleControl({ unit: 'imperial' }),
+        'bottom-right'
+      );
 
       const nav = new mapboxgl.NavigationControl();
       map.addControl(nav, 'top-right');
 
       this.set('mapservice.map', map);
-      this.get('mapservice').fitToSubdistricts(this.subdistrictsGeojson);
+      this.mapservice.fitToSubdistricts(this.subdistrictsGeojson);
 
       this.set('map', map);
     },

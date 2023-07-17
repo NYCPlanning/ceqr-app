@@ -11,7 +11,10 @@ const buildTemplate = function(cartoResponse, type) { // eslint-disable-line
   // choose a subdomain at random
   const subdomain = subdomains[Math.floor(Math.random() * subdomains.length)];
 
-  return `${cdn_url.templates.https.url.replace('{s}', subdomain)}/${cartoUsername}/api/v1/map/${layergroupid}/{z}/{x}/{y}.${type}`;
+  return `${cdn_url.templates.https.url.replace(
+    '{s}',
+    subdomain
+  )}/${cartoUsername}/api/v1/map/${layergroupid}/{z}/{x}/{y}.${type}`;
 };
 
 const buildSqlUrl = function(cleanedQuery, type = 'json') { // eslint-disable-line

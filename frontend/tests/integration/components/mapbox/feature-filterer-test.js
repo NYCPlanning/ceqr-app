@@ -15,10 +15,10 @@ const DEFAULT_MAPBOX_GL_INSTANCE = {
   off: () => {},
 };
 
-module('Integration | Component | mapbox/feature-filterer', function(hooks) {
+module('Integration | Component | mapbox/feature-filterer', function (hooks) {
   setupRenderingTest(hooks);
 
-  hooks.beforeEach(async function() {
+  hooks.beforeEach(async function () {
     this.events = {};
     this.layers = [];
     this.hoveredFeature = null;
@@ -28,12 +28,14 @@ module('Integration | Component | mapbox/feature-filterer', function(hooks) {
       addLayer: ({ id }) => {
         this.layers.push(id);
       },
-      queryRenderedFeatures: () => [{
-        type: 'Feature',
-        properties: {
-          geoid: 'test',
+      queryRenderedFeatures: () => [
+        {
+          type: 'Feature',
+          properties: {
+            geoid: 'test',
+          },
         },
-      }],
+      ],
       setFilter: (layerId, filter) => {
         this.filters[layerId] = filter;
       },
@@ -48,7 +50,7 @@ module('Integration | Component | mapbox/feature-filterer', function(hooks) {
     };
   });
 
-  test('it sets a map filter constructed from featureIds', async function(assert) {
+  test('it sets a map filter constructed from featureIds', async function (assert) {
     this.idList = ['1', '12', '123'];
 
     await render(hbs`

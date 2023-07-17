@@ -9,7 +9,7 @@ import buffer from '@turf/buffer';
  * and 'style.load' events do not reliably indicate a fully loaded style object.
  * To display 'bbls' as the top-most layer, must move it with moveLayer()
  */
-const onMapStyleLoaded = function(e) {
+const onMapStyleLoaded = function (e) {
   const { target: map } = e;
   const style = map.getStyle();
   if (style.sources.bbls_geojson && style.sources.carto) {

@@ -9,14 +9,18 @@ export default DS.JSONAPIAdapter.extend({
   host: ENV.host,
   namespace: 'api/v1',
 
-  headers: computed('session.isAuthenticated', 'session.data.authenticated.token', function() {
-    if (this.session.isAuthenticated) {
-      return {
-        Authorization: `Bearer ${this.session.data.authenticated.token}`,
-      };
+  headers: computed(
+    'session.isAuthenticated',
+    'session.data.authenticated.token',
+    function () {
+      if (this.session.isAuthenticated) {
+        return {
+          Authorization: `Bearer ${this.session.data.authenticated.token}`,
+        };
+      }
+      return {};
     }
-    return {};
-  }),
+  ),
 
   handleResponse(status) {
     if (status === 401 && this.session.isAuthenticated) {

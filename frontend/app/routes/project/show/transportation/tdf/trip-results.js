@@ -4,7 +4,8 @@ import ScrollableRoute from '../../../../scrollable-route';
 export default class ProjectShowTransportationTdfTripResultsRoute extends ScrollableRoute {
   async model() {
     const { project, transportationAnalysis } = this.modelFor('project/show');
-    const transportationPlanningFactors = await transportationAnalysis.transportationPlanningFactors;
+    const transportationPlanningFactors =
+      await transportationAnalysis.transportationPlanningFactors;
 
     return RSVP.hash({
       project,
@@ -18,7 +19,11 @@ export default class ProjectShowTransportationTdfTripResultsRoute extends Scroll
       const { project } = model;
       const factor = model.transportationPlanningFactors.firstObject;
 
-      this.replaceWith('project.show.transportation.tdf.trip-results.show', project.id, factor.id);
+      this.replaceWith(
+        'project.show.transportation.tdf.trip-results.show',
+        project.id,
+        factor.id
+      );
     }
   }
 }

@@ -1,4 +1,7 @@
-import { COMMUTER_VARIABLES, AUTO_BREAKDOWN_VARIABLES } from 'labs-ceqr/utils/modalSplit';
+import {
+  COMMUTER_VARIABLES,
+  AUTO_BREAKDOWN_VARIABLES,
+} from 'labs-ceqr/utils/modalSplit';
 import faker from 'faker';
 
 export default function getTransportationCensusEstimateResponse(type) {
@@ -9,7 +12,8 @@ export default function getTransportationCensusEstimateResponse(type) {
 
 // Ideally a unique geoid is passed in for each call to this function.
 function createTransportationCensusEstimates(type, geoid) {
-  const fakeGeoid = geoid || `${(Math.random().toFixed(2) * 100).toString().padEnd(11, '0')}`;
+  const fakeGeoid =
+    geoid || `${(Math.random().toFixed(2) * 100).toString().padEnd(11, '0')}`;
 
   const totalVariable = type === 'ACS' ? 'population' : 'workers';
   const variables = [

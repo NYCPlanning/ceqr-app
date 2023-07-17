@@ -5,29 +5,35 @@ import { getAggregateValue } from '../../../helpers/get-aggregate-value';
 
 export default class TransportationTripGenerationTablesTripGenerationResultsComponent extends Component {
   // the Transportation Analysis model belonging to the Project model
-  analysis = {}
+  analysis = {};
 
   /**
    * @param {Object[]} -- Array of modal splits
-  */
-  selectedCensusTractData = []
+   */
+  selectedCensusTractData = [];
 
   /**
    * @param {Object} -- Hash where mode variable codes are keys and  and human readable labels are values
-  */
-  modeLookup = {}
+   */
+  modeLookup = {};
 
   /**
    * @param {string[]} -- items must correspond to one of the variable modes defined in
    * app/utils/VARIABLE_MODE_LOOKUP
-  */
+   */
   modalSplitVariablesSubset = [];
 
-  @computed('selectedCensusTractData', 'modalSplitVariablesSubset', 'modeLookup')
+  @computed(
+    'selectedCensusTractData',
+    'modalSplitVariablesSubset',
+    'modeLookup'
+  )
   get modeAggregatePercents() {
     const modeAggPercents = {};
     for (const mode of this.modalSplitVariablesSubset) {
-      modeAggPercents[mode] = getAggregatePercent([this.selectedCensusTractData, [mode], false]) / 100;
+      modeAggPercents[mode] =
+        getAggregatePercent([this.selectedCensusTractData, [mode], false]) /
+        100;
     }
     return modeAggPercents;
   }
@@ -35,7 +41,11 @@ export default class TransportationTripGenerationTablesTripGenerationResultsComp
   /** PERSON TRIPS * */
 
   // trip gen result for given weekday time, direction and mode
-  @computed('modeAggregatePercents', 'modalSplitVariablesSubset', 'analysis.{residentialUnits,dailyTripRate.weekday.rate,temporalDistributions.decimal,inOutDists}')
+  @computed(
+    'modeAggregatePercents',
+    'modalSplitVariablesSubset',
+    'analysis.{residentialUnits,dailyTripRate.weekday.rate,temporalDistributions.decimal,inOutDists}'
+  )
   get weekdayModeCalcs() {
     const ta = this.analysis;
     const weekdayModeCalcs = {
@@ -46,11 +56,12 @@ export default class TransportationTripGenerationTablesTripGenerationResultsComp
     for (const time of ['am', 'md', 'pm']) {
       for (const inOut of ['in', 'out']) {
         for (const mode of this.modalSplitVariablesSubset) {
-          weekdayModeCalcs[time][inOut][mode] = ta.residentialUnits
-            * ta.dailyTripRate.weekday.rate
-            * ta.temporalDistributions[time].decimal
-            * (ta.inOutDists[time][inOut] / 100)
-            * this.modeAggregatePercents[mode];
+          weekdayModeCalcs[time][inOut][mode] =
+            ta.residentialUnits *
+            ta.dailyTripRate.weekday.rate *
+            ta.temporalDistributions[time].decimal *
+            (ta.inOutDists[time][inOut] / 100) *
+            this.modeAggregatePercents[mode];
         }
       }
     }
@@ -68,7 +79,8 @@ export default class TransportationTripGenerationTablesTripGenerationResultsComp
     for (const time of ['am', 'md', 'pm']) {
       for (const inOut of ['in', 'out']) {
         weekdayModesTotals[time][inOut] = this.modalSplitVariablesSubset.reduce(
-          (acc, mode) => acc += this.weekdayModeCalcs[time][inOut][mode], 0,
+          (acc, mode) => (acc += this.weekdayModeCalcs[time][inOut][mode]),
+          0
         );
       }
     }
@@ -86,8 +98,9 @@ export default class TransportationTripGenerationTablesTripGenerationResultsComp
     };
     for (const time of ['am', 'md', 'pm']) {
       for (const mode of this.modalSplitVariablesSubset) {
-        totalsOfWeekdayMode[time][mode] = this.weekdayModeCalcs[time].in[mode]
-          + this.weekdayModeCalcs[time].out[mode];
+        totalsOfWeekdayMode[time][mode] =
+          this.weekdayModeCalcs[time].in[mode] +
+          this.weekdayModeCalcs[time].out[mode];
       }
     }
     return totalsOfWeekdayMode;
@@ -103,25 +116,32 @@ export default class TransportationTripGenerationTablesTripGenerationResultsComp
     };
     for (const time of ['am', 'md', 'pm']) {
       totalsOfTotalsOfWeekdayMode[time] = this.modalSplitVariablesSubset.reduce(
-        (acc, mode) => acc += this.totalsOfWeekdayMode[time][mode], 0,
+        (acc, mode) => (acc += this.totalsOfWeekdayMode[time][mode]),
+        0
       );
     }
     return totalsOfTotalsOfWeekdayMode;
   }
 
-  @computed('modeAggregatePercents', 'modalSplitVariablesSubset', 'analysis.{residentialUnits,dailyTripRate.saturday.rate,temporalDistributions.decimal,inOutDists}')
+  @computed(
+    'modeAggregatePercents',
+    'modalSplitVariablesSubset',
+    'analysis.{residentialUnits,dailyTripRate.saturday.rate,temporalDistributions.decimal,inOutDists}'
+  )
   get saturdayModeCalcs() {
     const ta = this.analysis;
     const saturdayModeCalcs = {
-      in: {}, out: {},
+      in: {},
+      out: {},
     };
     for (const inOut of ['in', 'out']) {
       for (const mode of this.modalSplitVariablesSubset) {
-        saturdayModeCalcs[inOut][mode] = ta.residentialUnits
-            * ta.dailyTripRate.saturday.rate
-            * ta.temporalDistributions.saturday.decimal
-            * (ta.inOutDists.saturday[inOut] / 100)
-            * this.modeAggregatePercents[mode];
+        saturdayModeCalcs[inOut][mode] =
+          ta.residentialUnits *
+          ta.dailyTripRate.saturday.rate *
+          ta.temporalDistributions.saturday.decimal *
+          (ta.inOutDists.saturday[inOut] / 100) *
+          this.modeAggregatePercents[mode];
       }
     }
     return saturdayModeCalcs;
@@ -131,11 +151,13 @@ export default class TransportationTripGenerationTablesTripGenerationResultsComp
   @computed('saturdayModeCalcs', 'modalSplitVariablesSubset')
   get saturdayModesTotals() {
     const saturdayModesTotals = {
-      in: {}, out: {},
+      in: {},
+      out: {},
     };
     for (const inOut of ['in', 'out']) {
       saturdayModesTotals[inOut] = this.modalSplitVariablesSubset.reduce(
-        (acc, mode) => acc += this.saturdayModeCalcs[inOut][mode], 0,
+        (acc, mode) => (acc += this.saturdayModeCalcs[inOut][mode]),
+        0
       );
     }
     return saturdayModesTotals;
@@ -143,32 +165,38 @@ export default class TransportationTripGenerationTablesTripGenerationResultsComp
 
   // per-mode saturday totals.
   // i.e. total of both 'in' and 'out' directions for a given saturday and mode
-  @computed('saturdayModeCalcs', 'modalSplitVariablesSubset')
+  @computed('modalSplitVariablesSubset', 'saturdayModeCalcs.{in,out}')
   get totalsOfSaturdayMode() {
     const totalsOfSaturdayMode = {
       // keys of all modes in this.modalSplitVariablesSubset
     };
     for (const mode of this.modalSplitVariablesSubset) {
-      totalsOfSaturdayMode[mode] = this.saturdayModeCalcs.in[mode]
-        + this.saturdayModeCalcs.out[mode];
+      totalsOfSaturdayMode[mode] =
+        this.saturdayModeCalcs.in[mode] + this.saturdayModeCalcs.out[mode];
     }
     return totalsOfSaturdayMode;
   }
 
   // total of trip gen results across per-mode totals for Saturday
-  @computed('totalsOfSaturdayMode')
+  @computed('modalSplitVariablesSubset', 'totalsOfSaturdayMode')
   get totalOfTotalsOfSaturdayMode() {
     return this.modalSplitVariablesSubset.reduce(
-      (acc, mode) => acc += this.totalsOfSaturdayMode[mode], 0,
+      (acc, mode) => (acc += this.totalsOfSaturdayMode[mode]),
+      0
     );
   }
 
   /** VEHICLE TRIPS * */
 
-  @computed('selectedCensusTractData')
+  @computed('selectedCensusTractData.length')
   get vehicleOccupancy() {
     if (this.selectedCensusTractData) {
-      return getAggregateValue([this.selectedCensusTractData, ['vehicle_occupancy']]) / this.selectedCensusTractData.length;
+      return (
+        getAggregateValue([
+          this.selectedCensusTractData,
+          ['vehicle_occupancy'],
+        ]) / this.selectedCensusTractData.length
+      );
     }
     return null;
   }
@@ -183,7 +211,9 @@ export default class TransportationTripGenerationTablesTripGenerationResultsComp
     for (const time of ['am', 'md', 'pm']) {
       for (const inOut of ['in', 'out']) {
         if (!isNaN(this.weekdayModeCalcs[time][inOut].trans_auto_total)) {
-          weekdayAutoVehicleTripCalcs[time][inOut] = this.weekdayModeCalcs[time][inOut].trans_auto_total / this.vehicleOccupancy;
+          weekdayAutoVehicleTripCalcs[time][inOut] =
+            this.weekdayModeCalcs[time][inOut].trans_auto_total /
+            this.vehicleOccupancy;
         }
       }
     }
@@ -201,7 +231,9 @@ export default class TransportationTripGenerationTablesTripGenerationResultsComp
       for (const time of ['am', 'md', 'pm']) {
         for (const inOut of ['in', 'out']) {
           if (!isNaN(this.weekdayModeCalcs[time][inOut].trans_taxi)) {
-            weekdayTaxiVehicleTripCalcs[time][inOut] = this.weekdayModeCalcs[time][inOut].trans_taxi / this.analysis.taxiVehicleOccupancy;
+            weekdayTaxiVehicleTripCalcs[time][inOut] =
+              this.weekdayModeCalcs[time][inOut].trans_taxi /
+              this.analysis.taxiVehicleOccupancy;
           }
         }
       }
@@ -210,7 +242,11 @@ export default class TransportationTripGenerationTablesTripGenerationResultsComp
     return null;
   }
 
-  @computed('weekdayAutoVehicleTripCalcs', 'weekdayTaxiVehicleTripCalcs', 'analysis.taxiVehicleOccupancy')
+  @computed(
+    'weekdayAutoVehicleTripCalcs',
+    'weekdayTaxiVehicleTripCalcs',
+    'analysis.taxiVehicleOccupancy'
+  )
   get weekdayVehicleTripTotals() {
     if (this.analysis.taxiVehicleOccupancy) {
       const weekdayVehicleTripTotals = {
@@ -220,8 +256,9 @@ export default class TransportationTripGenerationTablesTripGenerationResultsComp
       };
       for (const time of ['am', 'md', 'pm']) {
         for (const inOut of ['in', 'out']) {
-          weekdayVehicleTripTotals[time][inOut] = this.weekdayAutoVehicleTripCalcs[time][inOut]
-            + this.weekdayTaxiVehicleTripCalcs[time][inOut];
+          weekdayVehicleTripTotals[time][inOut] =
+            this.weekdayAutoVehicleTripCalcs[time][inOut] +
+            this.weekdayTaxiVehicleTripCalcs[time][inOut];
         }
       }
       return weekdayVehicleTripTotals;
@@ -237,13 +274,14 @@ export default class TransportationTripGenerationTablesTripGenerationResultsComp
       pm: null,
     };
     for (const time of ['am', 'md', 'pm']) {
-      totalsOfWeekdayAutoVehicleTrip[time] = this.weekdayAutoVehicleTripCalcs[time].in
-      + this.weekdayAutoVehicleTripCalcs[time].out;
+      totalsOfWeekdayAutoVehicleTrip[time] =
+        this.weekdayAutoVehicleTripCalcs[time].in +
+        this.weekdayAutoVehicleTripCalcs[time].out;
     }
     return totalsOfWeekdayAutoVehicleTrip;
   }
 
-  @computed('weekdayTaxiVehicleTripCalcs')
+  @computed('analysis.taxiVehicleOccupancy', 'weekdayTaxiVehicleTripCalcs')
   get totalsOfWeekdayTaxiVehicleTrip() {
     if (this.analysis.taxiVehicleOccupancy) {
       const totalsOfWeekdayTaxiVehicleTrip = {
@@ -252,15 +290,20 @@ export default class TransportationTripGenerationTablesTripGenerationResultsComp
         pm: null,
       };
       for (const time of ['am', 'md', 'pm']) {
-        totalsOfWeekdayTaxiVehicleTrip[time] = this.weekdayTaxiVehicleTripCalcs[time].in
-        + this.weekdayTaxiVehicleTripCalcs[time].out;
+        totalsOfWeekdayTaxiVehicleTrip[time] =
+          this.weekdayTaxiVehicleTripCalcs[time].in +
+          this.weekdayTaxiVehicleTripCalcs[time].out;
       }
       return totalsOfWeekdayTaxiVehicleTrip;
     }
     return null;
   }
 
-  @computed('totalsOfWeekdayAutoVehicleTrip', 'totalsOfWeekdayTaxiVehicleTrip', 'analysis.taxiVehicleOccupancy')
+  @computed(
+    'totalsOfWeekdayAutoVehicleTrip',
+    'totalsOfWeekdayTaxiVehicleTrip',
+    'analysis.taxiVehicleOccupancy'
+  )
   get totalsOfTotalsOfWeekdayVehicleTrip() {
     if (this.analysis.taxiVehicleOccupancy) {
       const totalsOfTotalsOfWeekdayVehicleTrip = {
@@ -269,8 +312,9 @@ export default class TransportationTripGenerationTablesTripGenerationResultsComp
         pm: null,
       };
       for (const time of ['am', 'md', 'pm']) {
-        totalsOfTotalsOfWeekdayVehicleTrip[time] = this.totalsOfWeekdayAutoVehicleTrip[time]
-          + this.totalsOfWeekdayTaxiVehicleTrip[time];
+        totalsOfTotalsOfWeekdayVehicleTrip[time] =
+          this.totalsOfWeekdayAutoVehicleTrip[time] +
+          this.totalsOfWeekdayTaxiVehicleTrip[time];
       }
       return totalsOfTotalsOfWeekdayVehicleTrip;
     }
@@ -285,7 +329,9 @@ export default class TransportationTripGenerationTablesTripGenerationResultsComp
     };
     for (const inOut of ['in', 'out']) {
       if (!isNaN(this.saturdayModeCalcs[inOut].trans_auto_total)) {
-        saturdayAutoVehicleTripCalcs[inOut] = this.saturdayModeCalcs[inOut].trans_auto_total / this.vehicleOccupancy;
+        saturdayAutoVehicleTripCalcs[inOut] =
+          this.saturdayModeCalcs[inOut].trans_auto_total /
+          this.vehicleOccupancy;
       }
     }
     return saturdayAutoVehicleTripCalcs;
@@ -300,7 +346,9 @@ export default class TransportationTripGenerationTablesTripGenerationResultsComp
       };
       for (const inOut of ['in', 'out']) {
         if (!isNaN(this.saturdayModeCalcs[inOut].trans_taxi)) {
-          saturdayTaxiVehicleTripCalcs[inOut] = this.saturdayModeCalcs[inOut].trans_taxi / this.analysis.taxiVehicleOccupancy;
+          saturdayTaxiVehicleTripCalcs[inOut] =
+            this.saturdayModeCalcs[inOut].trans_taxi /
+            this.analysis.taxiVehicleOccupancy;
         }
       }
       return saturdayTaxiVehicleTripCalcs;
@@ -308,30 +356,45 @@ export default class TransportationTripGenerationTablesTripGenerationResultsComp
     return null;
   }
 
-  @computed('saturdayAutoVehicleTripCalcs', 'saturdayTaxiVehicleTripCalcs', 'analysis.taxiVehicleOccupancy')
+  @computed(
+    'saturdayAutoVehicleTripCalcs',
+    'saturdayTaxiVehicleTripCalcs',
+    'analysis.taxiVehicleOccupancy'
+  )
   get saturdayVehicleTripTotals() {
     if (this.analysis.taxiVehicleOccupancy) {
       const saturdayVehicleTripTotals = {
-        in: {}, out: {},
+        in: {},
+        out: {},
       };
       for (const inOut of ['in', 'out']) {
-        saturdayVehicleTripTotals[inOut] = this.saturdayAutoVehicleTripCalcs[inOut]
-          + this.saturdayTaxiVehicleTripCalcs[inOut];
+        saturdayVehicleTripTotals[inOut] =
+          this.saturdayAutoVehicleTripCalcs[inOut] +
+          this.saturdayTaxiVehicleTripCalcs[inOut];
       }
       return saturdayVehicleTripTotals;
     }
     return null;
   }
 
-  @computed('saturdayAutoVehicleTripCalcs')
+  @computed('saturdayAutoVehicleTripCalcs.{in,out}')
   get totalOfSaturdayAutoVehicleTrip() {
-    return this.saturdayAutoVehicleTripCalcs.in + this.saturdayAutoVehicleTripCalcs.out;
+    return (
+      this.saturdayAutoVehicleTripCalcs.in +
+      this.saturdayAutoVehicleTripCalcs.out
+    );
   }
 
-  @computed('saturdayTaxiVehicleTripCalcs')
+  @computed(
+    'analysis.taxiVehicleOccupancy',
+    'saturdayTaxiVehicleTripCalcs.{in,out}'
+  )
   get totalOfSaturdayTaxiVehicleTrip() {
     if (this.analysis.taxiVehicleOccupancy) {
-      return this.saturdayTaxiVehicleTripCalcs.in + this.saturdayTaxiVehicleTripCalcs.out;
+      return (
+        this.saturdayTaxiVehicleTripCalcs.in +
+        this.saturdayTaxiVehicleTripCalcs.out
+      );
     }
     return null;
   }
@@ -339,7 +402,10 @@ export default class TransportationTripGenerationTablesTripGenerationResultsComp
   @computed('totalOfSaturdayAutoVehicleTrip', 'totalOfSaturdayTaxiVehicleTrip')
   get totalOfTotalsOfSaturdayVehicleTrip() {
     if (this.totalOfSaturdayTaxiVehicleTrip) {
-      return this.totalOfSaturdayAutoVehicleTrip + this.totalOfSaturdayTaxiVehicleTrip;
+      return (
+        this.totalOfSaturdayAutoVehicleTrip +
+        this.totalOfSaturdayTaxiVehicleTrip
+      );
     }
     return null;
   }

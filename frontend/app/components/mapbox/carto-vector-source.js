@@ -26,6 +26,7 @@ export const CARTO_MAPS_ENDPOINT = `https://${CARTO_USERNAME}.carto.com/api/v1/m
 export default class MapboxCartoLayersComponent extends Component {
   // ember hook, triggered on render. used here to trigger template URL handshake.
   didInsertElement() {
+    super.didInsertElement(...arguments);
     this.fetchTemplate();
   }
 
@@ -45,7 +46,7 @@ export default class MapboxCartoLayersComponent extends Component {
   _tiles = [];
 
   // sets up source according mapbox-gl source specification
-  @computed('_tiles')
+  @computed('_tiles', 'options')
   get mapboxSourceOptions() {
     return {
       type: 'vector',
@@ -102,7 +103,13 @@ async function requestTileJSON(cartoMapOptions) {
   });
 
   const json = await result.json();
-  const { metadata: { tilejson: { vector: { tiles } } } } = json;
+  const {
+    metadata: {
+      tilejson: {
+        vector: { tiles },
+      },
+    },
+  } = json;
 
   return tiles;
 }

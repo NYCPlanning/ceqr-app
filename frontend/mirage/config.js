@@ -7,7 +7,7 @@ import patchXMLHTTPRequest from './helpers/mirage-mapbox-gl-monkeypatch';
 
 const secret = 'nevershareyoursecret';
 
-export default function() {
+export default function () {
   patchXMLHTTPRequest();
   /**
    *
@@ -20,37 +20,59 @@ export default function() {
   this.passthrough('https://layers-api.planninglabs.nyc/**');
   this.passthrough('https://tiles.planninglabs.nyc/**');
   this.passthrough('https://events.mapbox.com/events/**');
-  this.passthrough('https://edm-publishing.nyc3.digitaloceanspaces.com/ceqr-app-data/**');
+  this.passthrough(
+    'https://edm-publishing.nyc3.digitaloceanspaces.com/ceqr-app-data/**'
+  );
 
-  this.passthrough('https://cartocdn-gusc-a.global.ssl.fastly.net/planninglabs/**');
-  this.passthrough('https://cartocdn-gusc-b.global.ssl.fastly.net/planninglabs/**');
-  this.passthrough('https://cartocdn-gusc-c.global.ssl.fastly.net/planninglabs/**');
-  this.passthrough('https://cartocdn-gusc-d.global.ssl.fastly.net/planninglabs/**');
+  this.passthrough(
+    'https://cartocdn-gusc-a.global.ssl.fastly.net/planninglabs/**'
+  );
+  this.passthrough(
+    'https://cartocdn-gusc-b.global.ssl.fastly.net/planninglabs/**'
+  );
+  this.passthrough(
+    'https://cartocdn-gusc-c.global.ssl.fastly.net/planninglabs/**'
+  );
+  this.passthrough(
+    'https://cartocdn-gusc-d.global.ssl.fastly.net/planninglabs/**'
+  );
   this.passthrough('https://js-agent.newrelic.com/**');
 
   // related to ember-cli-code-coverage. required to be open to report back findings
   this.passthrough('/write-coverage');
 
   // CartoVL map
-  this.post('https://planninglabs.carto.com/api/v1/map', function() {
+  this.post('https://planninglabs.carto.com/api/v1/map', function () {
     return cartoMap;
   });
 
-  this.get('https://layers-api.planninglabs.nyc/v1/base/style.json', function() {
-    return dummyMapboxStyle;
-  });
+  this.get(
+    'https://layers-api.planninglabs.nyc/v1/base/style.json',
+    function () {
+      return dummyMapboxStyle;
+    }
+  );
 
   /**
    *
    * Carto Data
    *
    */
-  this.get(`https://${ENV.carto.domain}/**`, function(schema, request) {
-    const { response: { content: { text } } } = cartoresponses.log.entries.find((entry) => {
+  this.get(`https://${ENV.carto.domain}/**`, function (schema, request) {
+    const {
+      response: {
+        content: { text },
+      },
+    } = cartoresponses.log.entries.find((entry) => {
       // decode encoded uri so it's less noisy. trim it, then extract the columns
-      const recordedResponseUrl = decodeURI(entry.request.url).trim().match(/select[\s\S]*?from/i)[0];
+      const recordedResponseUrl = decodeURI(entry.request.url)
+        .trim()
+        .match(/select[\s\S]*?from/i)[0];
       // replace new lines and breaks, trim, and extract columns
-      const fakeRequestUrl = request.url.replace(/(\r\n|\n|\r)/gm, '').trim().match(/select[\s\S]*?from/i)[0];
+      const fakeRequestUrl = request.url
+        .replace(/(\r\n|\n|\r)/gm, '')
+        .trim()
+        .match(/select[\s\S]*?from/i)[0];
 
       return recordedResponseUrl === fakeRequestUrl;
     });
@@ -64,7 +86,7 @@ export default function() {
    * Users/Auth
    *
    */
-  this.post('/auth/v1/login', function() {
+  this.post('/auth/v1/login', function () {
     const token = JWT.sign({ user_id: 1, email: 'me@me.com' }, secret);
 
     return {
@@ -77,7 +99,7 @@ export default function() {
    * BBLs
    *
    */
-  this.get('/ceqr_data/v1/mappluto/validate/:bbl', function() {
+  this.get('/ceqr_data/v1/mappluto/validate/:bbl', function () {
     return {
       valid: true,
     };
@@ -97,7 +119,7 @@ export default function() {
    */
   this.get('/projects');
   this.get('/projects/:id');
-  this.post('/projects', function(schema) {
+  this.post('/projects', function (schema) {
     const attrs = this.normalizedRequestAttrs();
 
     attrs.borough = 'Manhattan';

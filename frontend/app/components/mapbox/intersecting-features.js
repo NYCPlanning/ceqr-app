@@ -10,7 +10,7 @@ export default class MapboxIntersectingFeatures extends Component {
   options = {};
 
   // a mapbox-gl "point-like" object
-  point = {}
+  point = {};
 
   /**
    * Callback called upon successfully acquiring features at @point
@@ -23,9 +23,12 @@ export default class MapboxIntersectingFeatures extends Component {
   _intersectingFeatures = null;
 
   didReceiveAttrs() {
+    super.didReceiveAttrs();
     const { map, point, options } = this;
     const { instance } = map;
-    const queriedFeatures = instance.queryRenderedFeatures(point, { ...options });
+    const queriedFeatures = instance.queryRenderedFeatures(point, {
+      ...options,
+    });
     this.set('_intersectingFeatures', queriedFeatures);
     if (this.handleIntersectingFeatures) {
       this.handleIntersectingFeatures(queriedFeatures);

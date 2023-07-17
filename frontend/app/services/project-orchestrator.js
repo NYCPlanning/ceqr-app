@@ -7,9 +7,9 @@ export default class ProjectOrchestratorService extends Service {
 
   @taskGroup projectTask;
 
-  @task({ group: 'projectTask' })* createProject() {
+  @task({ group: 'projectTask' }) *createProject() {
     try {
-      const project = yield this.get('changeset').save();
+      const project = yield this.changeset.save();
 
       this.router.transitionTo('project.show', project.id);
     } catch (err) {
@@ -17,11 +17,12 @@ export default class ProjectOrchestratorService extends Service {
     }
   }
 
-  @task({ group: 'projectTask' })* saveProject() {
+  @task({ group: 'projectTask' }) *saveProject() {
     try {
-      const project = yield this.get('changeset').save();
+      const project = yield this.changeset.save();
       // ensure changes to analyses triggered by project updates are reloaded
-      const transportationAnalysis = yield project.transportationAnalysis.reload();
+      const transportationAnalysis =
+        yield project.transportationAnalysis.reload();
       yield transportationAnalysis.transportationPlanningFactors.reload();
       yield transportationAnalysis.transportationPlanningFactors;
 
@@ -34,7 +35,7 @@ export default class ProjectOrchestratorService extends Service {
     }
   }
 
-  @task({ group: 'projectTask' })* saveAnalysis() {
-    yield this.get('analysis').save();
+  @task({ group: 'projectTask' }) *saveAnalysis() {
+    yield this.analysis.save();
   }
 }

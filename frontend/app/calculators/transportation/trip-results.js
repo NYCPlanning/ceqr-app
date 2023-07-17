@@ -18,7 +18,7 @@ import EmberObject, { computed } from '@ember/object';
  */
 
 export default class TransportationTripResultsCalculator extends EmberObject {
-  @computed('units', 'defaults')
+  @computed('defaults.tripGenRatePerUnit', 'units')
   get normalizedUnits() {
     return Math.round(this.units / this.defaults.tripGenRatePerUnit);
   }
@@ -26,7 +26,17 @@ export default class TransportationTripResultsCalculator extends EmberObject {
   // Returns an object whose keys are temporal types
   // TODO: It looks like many of the EmberObject parameters (documented above on lines 7-17)
   // are used in this CP but not added to the computed signature. Add them to this signature.
-  @computed('defaults')
+  @computed(
+    'defaults.temporalDistribution',
+    'defaults.tripGenerationRates.saturday.rate',
+    'defaults.tripGenerationRates.weekday.rate',
+    'inOutSplits',
+    'manualModeSplits',
+    'modeSplits',
+    'modes',
+    'normalizedUnits',
+    'temporalModeSplits'
+  )
   get personTrips() {
     const results = {
       am: {},
@@ -38,14 +48,21 @@ export default class TransportationTripResultsCalculator extends EmberObject {
     ['am', 'md', 'pm', 'saturday'].forEach((temporalId) => {
       let personTrips;
       if (temporalId === 'saturday') {
-        personTrips = this.normalizedUnits * this.defaults.tripGenerationRates.saturday.rate;
+        personTrips =
+          this.normalizedUnits *
+          this.defaults.tripGenerationRates.saturday.rate;
       } else {
-        personTrips = this.normalizedUnits * this.defaults.tripGenerationRates.weekday.rate;
+        personTrips =
+          this.normalizedUnits * this.defaults.tripGenerationRates.weekday.rate;
       }
 
-      const totalTrips = (personTrips * this.defaults.temporalDistribution[temporalId].percent) / 100;
-      const totalIn = (totalTrips * (parseFloat(this.inOutSplits[temporalId].in) / 100));
-      const totalOut = (totalTrips * (parseFloat(this.inOutSplits[temporalId].out) / 100));
+      const totalTrips =
+        (personTrips * this.defaults.temporalDistribution[temporalId].percent) /
+        100;
+      const totalIn =
+        totalTrips * (parseFloat(this.inOutSplits[temporalId].in) / 100);
+      const totalOut =
+        totalTrips * (parseFloat(this.inOutSplits[temporalId].out) / 100);
 
       results[temporalId].total = {
         in: 0,
@@ -61,7 +78,7 @@ export default class TransportationTripResultsCalculator extends EmberObject {
           period = 'allPeriods';
         }
 
-        const modeSplit = (parseFloat(this.modeSplits[mode][period]) / 100);
+        const modeSplit = parseFloat(this.modeSplits[mode][period]) / 100;
         // Per mode
         const modeIn = Math.round(modeSplit * totalIn);
         const modeOut = Math.round(modeSplit * totalOut);
@@ -69,7 +86,8 @@ export default class TransportationTripResultsCalculator extends EmberObject {
 
         results[temporalId].total.in = modeIn + results[temporalId].total.in;
         results[temporalId].total.out = modeOut + results[temporalId].total.out;
-        results[temporalId].total.total = modeTotal + results[temporalId].total.total;
+        results[temporalId].total.total =
+          modeTotal + results[temporalId].total.total;
 
         results[temporalId][mode] = {
           in: modeIn,
@@ -88,7 +106,17 @@ export default class TransportationTripResultsCalculator extends EmberObject {
     return results;
   }
 
-  @computed('personTrips')
+  @computed(
+    'defaults.truckTemporalDistribution',
+    'defaults.truckTripGenerationRates.saturday.rate',
+    'defaults.truckTripGenerationRates.weekday.rate',
+    'modes',
+    'normalizedUnits',
+    'personTrips',
+    'temporalVehicleOccupancy',
+    'truckInOutSplits.allDay.{in,out}',
+    'vehicleOccupancy'
+  )
   get vehicleTrips() {
     const results = {
       am: {},
@@ -100,22 +128,26 @@ export default class TransportationTripResultsCalculator extends EmberObject {
     ['am', 'md', 'pm', 'saturday'].forEach((temporalId) => {
       let truckTrips;
       if (temporalId === 'saturday') {
-        truckTrips = this.normalizedUnits * this.defaults.truckTripGenerationRates.saturday.rate;
+        truckTrips =
+          this.normalizedUnits *
+          this.defaults.truckTripGenerationRates.saturday.rate;
       } else {
-        truckTrips = this.normalizedUnits * this.defaults.truckTripGenerationRates.weekday.rate;
+        truckTrips =
+          this.normalizedUnits *
+          this.defaults.truckTripGenerationRates.weekday.rate;
       }
 
       const truckIn = Math.round(
-        truckTrips
-        * (parseFloat(this.truckInOutSplits.allDay.in) / 100)
-        * this.defaults.truckTemporalDistribution[temporalId].percent
-        / 100,
+        (truckTrips *
+          (parseFloat(this.truckInOutSplits.allDay.in) / 100) *
+          this.defaults.truckTemporalDistribution[temporalId].percent) /
+          100
       );
       const truckOut = Math.round(
-        truckTrips
-        * (parseFloat(this.truckInOutSplits.allDay.out) / 100)
-        * this.defaults.truckTemporalDistribution[temporalId].percent
-        / 100,
+        (truckTrips *
+          (parseFloat(this.truckInOutSplits.allDay.out) / 100) *
+          this.defaults.truckTemporalDistribution[temporalId].percent) /
+          100
       );
       const truckTotal = truckIn + truckOut;
 
@@ -138,10 +170,16 @@ export default class TransportationTripResultsCalculator extends EmberObject {
 
         let unbalancedIn;
         let unbalancedOut;
-        const vehicleOccupancy = this.temporalVehicleOccupancy ? this.vehicleOccupancy[mode][temporalId] : this.vehicleOccupancy[mode].allPeriods;
+        const vehicleOccupancy = this.temporalVehicleOccupancy
+          ? this.vehicleOccupancy[mode][temporalId]
+          : this.vehicleOccupancy[mode].allPeriods;
 
-        let modeIn = Math.round(this.personTrips[temporalId][mode].in / vehicleOccupancy);
-        let modeOut = Math.round(this.personTrips[temporalId][mode].out / vehicleOccupancy);
+        let modeIn = Math.round(
+          this.personTrips[temporalId][mode].in / vehicleOccupancy
+        );
+        let modeOut = Math.round(
+          this.personTrips[temporalId][mode].out / vehicleOccupancy
+        );
 
         // Make Taxi "Balanced" by doubling vehicle trips
         if (mode === 'taxi') {
@@ -156,7 +194,8 @@ export default class TransportationTripResultsCalculator extends EmberObject {
 
         results[temporalId].total.in = modeIn + results[temporalId].total.in;
         results[temporalId].total.out = modeOut + results[temporalId].total.out;
-        results[temporalId].total.total = modeTotal + results[temporalId].total.total;
+        results[temporalId].total.total =
+          modeTotal + results[temporalId].total.total;
 
         results[temporalId][mode] = {
           in: modeIn,

@@ -5,9 +5,9 @@ import { action } from '@ember/object';
 export default class ProjectShowTransportationTdfTripResultsShowRoute extends Route {
   async model(params) {
     const { project, transportationAnalysis } = this.modelFor('project/show');
-    const transportationPlanningFactor = await this.get('store').findRecord(
+    const transportationPlanningFactor = await this.store.findRecord(
       'transportation-planning-factor',
-      params.transportation_planning_factor_id,
+      params.transportation_planning_factor_id
     );
 
     return RSVP.hash({
@@ -23,7 +23,10 @@ export default class ProjectShowTransportationTdfTripResultsShowRoute extends Ro
     const projectId = transition.params['project.show'].id;
 
     if (fourohfour) {
-      this.replaceWith('project.show.transportation.tdf.trip-results', projectId);
+      this.replaceWith(
+        'project.show.transportation.tdf.trip-results',
+        projectId
+      );
     }
   }
 }

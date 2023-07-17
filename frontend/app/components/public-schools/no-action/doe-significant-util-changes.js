@@ -4,10 +4,11 @@ import { computed } from '@ember/object';
 export default Component.extend({
   didReceiveAttrs() {
     this._super(...arguments);
-    if (this.analysis.doeUtilChangesPerBldg) this.set('bldg_id', this.analysis.doeUtilChangesPerBldg[0].bldg_id);
+    if (this.analysis.doeUtilChangesPerBldg)
+      this.set('bldg_id', this.analysis.doeUtilChangesPerBldg[0].bldg_id);
   },
 
-  hasSigUtils: computed('analysis.doeUtilChangesPerBldg', function() {
+  hasSigUtils: computed('analysis.doeUtilChangesPerBldg.length', function () {
     return this.analysis.doeUtilChangesPerBldg.length !== 0;
   }),
 
@@ -17,7 +18,7 @@ export default Component.extend({
     },
     save() {
       this.set('saving', true);
-      this.get('analysis').save().then(() => this.set('saving', false));
+      this.analysis.save().then(() => this.set('saving', false));
     },
   },
 

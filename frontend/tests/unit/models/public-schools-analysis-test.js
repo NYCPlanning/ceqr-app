@@ -3,11 +3,11 @@ import { setupTest } from 'ember-qunit';
 import { setupMirage } from 'ember-cli-mirage/test-support';
 import { association } from 'ember-cli-mirage';
 
-module('Unit | Model | public schools analysis', function(hooks) {
+module('Unit | Model | public schools analysis', function (hooks) {
   setupTest(hooks);
   setupMirage(hooks);
 
-  test('calculates currentMultiplier correctly, tests that currentMultiplier is now multipliers property in futureResidentialDev', async function(assert) {
+  test('calculates currentMultiplier correctly, tests that currentMultiplier is now multipliers property in futureResidentialDev', async function (assert) {
     /*
       input variables:
       * subidistrictsFromDb (array of objects)
@@ -68,9 +68,11 @@ module('Unit | Model | public schools analysis', function(hooks) {
       }),
     });
 
-    const project = await this.owner.lookup('service:store').findRecord(
-      'project', analysisMirage.projectId, { include: 'public-schools-analysis' },
-    );
+    const project = await this.owner
+      .lookup('service:store')
+      .findRecord('project', analysisMirage.projectId, {
+        include: 'public-schools-analysis',
+      });
     const analysis = await project.get('publicSchoolsAnalysis');
 
     const district = 2;
@@ -79,11 +81,14 @@ module('Unit | Model | public schools analysis', function(hooks) {
     assert.equal(analysis.currentMultiplier.csd, district);
     assert.equal(analysis.futureResidentialDev[0].multipliers.csd, district); // should match the multiplier of the corresponding district
     assert.equal(analysis.currentMultiplier.hsThreshold, hsThreshold);
-    assert.equal(analysis.futureResidentialDev[0].multipliers.hsThreshold, hsThreshold);
+    assert.equal(
+      analysis.futureResidentialDev[0].multipliers.hsThreshold,
+      hsThreshold
+    );
   });
 
   //
-  test('calculates esEffect correctly', async function(assert) {
+  test('calculates esEffect correctly', async function (assert) {
     /*
       input variables:
       * the project model's totalUnits and seniorUnits (integers)
@@ -139,25 +144,31 @@ module('Unit | Model | public schools analysis', function(hooks) {
       }),
     };
 
-    const analysisMirageHsEffectTrue = server.create('public-schools-analysis', {
-      subdistrictsFromDb: [
-        {
-          district: 1,
-        },
-      ],
-      project: threeDistrictMultipliers.project,
-      multipliers: threeDistrictMultipliers.multipliers,
-    });
+    const analysisMirageHsEffectTrue = server.create(
+      'public-schools-analysis',
+      {
+        subdistrictsFromDb: [
+          {
+            district: 1,
+          },
+        ],
+        project: threeDistrictMultipliers.project,
+        multipliers: threeDistrictMultipliers.multipliers,
+      }
+    );
 
-    const analysisMirageEsEffectTrue = server.create('public-schools-analysis', {
-      subdistrictsFromDb: [
-        {
-          district: 2,
-        },
-      ],
-      project: threeDistrictMultipliers.project,
-      multipliers: threeDistrictMultipliers.multipliers,
-    });
+    const analysisMirageEsEffectTrue = server.create(
+      'public-schools-analysis',
+      {
+        subdistrictsFromDb: [
+          {
+            district: 2,
+          },
+        ],
+        project: threeDistrictMultipliers.project,
+        multipliers: threeDistrictMultipliers.multipliers,
+      }
+    );
 
     const analysisMirageAllFalse = server.create('public-schools-analysis', {
       subdistrictsFromDb: [
@@ -169,18 +180,28 @@ module('Unit | Model | public schools analysis', function(hooks) {
       multipliers: threeDistrictMultipliers.multipliers,
     });
 
-    const projectHsEffectTrue = await this.owner.lookup('service:store').findRecord(
-      'project', analysisMirageHsEffectTrue.projectId, { include: 'public-schools-analysis' },
-    );
-    const projectEsEffectTrue = await this.owner.lookup('service:store').findRecord(
-      'project', analysisMirageEsEffectTrue.projectId, { include: 'public-schools-analysis' },
-    );
-    const projectAllFalse = await this.owner.lookup('service:store').findRecord(
-      'project', analysisMirageAllFalse.projectId, { include: 'public-schools-analysis' },
-    );
+    const projectHsEffectTrue = await this.owner
+      .lookup('service:store')
+      .findRecord('project', analysisMirageHsEffectTrue.projectId, {
+        include: 'public-schools-analysis',
+      });
+    const projectEsEffectTrue = await this.owner
+      .lookup('service:store')
+      .findRecord('project', analysisMirageEsEffectTrue.projectId, {
+        include: 'public-schools-analysis',
+      });
+    const projectAllFalse = await this.owner
+      .lookup('service:store')
+      .findRecord('project', analysisMirageAllFalse.projectId, {
+        include: 'public-schools-analysis',
+      });
 
-    const analysisHsEffectTrue = await projectHsEffectTrue.get('publicSchoolsAnalysis');
-    const analysisEsEffectTrue = await projectEsEffectTrue.get('publicSchoolsAnalysis');
+    const analysisHsEffectTrue = await projectHsEffectTrue.get(
+      'publicSchoolsAnalysis'
+    );
+    const analysisEsEffectTrue = await projectEsEffectTrue.get(
+      'publicSchoolsAnalysis'
+    );
     const analysisAllFalse = await projectAllFalse.get('publicSchoolsAnalysis');
 
     assert.equal(projectHsEffectTrue.netUnits, 450); // project.totalUnits - project.seniorUnits = 500 - 50
@@ -190,22 +211,22 @@ module('Unit | Model | public schools analysis', function(hooks) {
     assert.equal(analysisHsEffectTrue.estHsStudents, 108); // math.ceil(currentMultiplier.hs * project.netUnits) = 0.24 * 450
 
     // condition 1: hsEffects is true but esEffect is false, making indirectEffect TRUE
-    assert.equal(analysisHsEffectTrue.esEffect, false); // if multipliers.thresholdPsIsStudents > estEsMsStudents, then false
-    assert.equal(analysisHsEffectTrue.hsEffect, true); // if multipliers.thresholdHsStudents < estHsStudents, then false
-    assert.equal(analysisHsEffectTrue.indirectEffect, true); // if esEffect or hsEffect are true
+    assert.false(analysisHsEffectTrue.esEffect); // if multipliers.thresholdPsIsStudents > estEsMsStudents, then false
+    assert.true(analysisHsEffectTrue.hsEffect); // if multipliers.thresholdHsStudents < estHsStudents, then false
+    assert.true(analysisHsEffectTrue.indirectEffect); // if esEffect or hsEffect are true
 
     // condition 2: hsEffects is false but esEffect is true, making indirectEffect TRUE
-    assert.equal(analysisEsEffectTrue.esEffect, true); // if multipliers.thresholdPsIsStudents < estEsMsStudents, then true
-    assert.equal(analysisEsEffectTrue.hsEffect, false); // if multipliers.thresholdHsStudents > estHsStudents, then false
-    assert.equal(analysisEsEffectTrue.indirectEffect, true); // if esEffect or hsEffect are true
+    assert.true(analysisEsEffectTrue.esEffect); // if multipliers.thresholdPsIsStudents < estEsMsStudents, then true
+    assert.false(analysisEsEffectTrue.hsEffect); // if multipliers.thresholdHsStudents > estHsStudents, then false
+    assert.true(analysisEsEffectTrue.indirectEffect); // if esEffect or hsEffect are true
 
     // condition 3: both esEffect and hsEffect are false, making indirectEffect FALSE
-    assert.equal(analysisAllFalse.esEffect, false); // if multipliers.thresholdPsIsStudents < estEsMsStudents, then true
-    assert.equal(analysisAllFalse.hsEffect, false); // if multipliers.thresholdHsStudents > estHsStudents, then false
-    assert.equal(analysisAllFalse.indirectEffect, false); // if esEffect or hsEffect are true
+    assert.false(analysisAllFalse.esEffect); // if multipliers.thresholdPsIsStudents < estEsMsStudents, then true
+    assert.false(analysisAllFalse.hsEffect); // if multipliers.thresholdHsStudents > estHsStudents, then false
+    assert.false(analysisAllFalse.indirectEffect); // if esEffect or hsEffect are true
   });
 
-  test('concatenates subdistricts from DB and subdistricts from user correctly', async function(assert) {
+  test('concatenates subdistricts from DB and subdistricts from user correctly', async function (assert) {
     /*
       input variables:
       * subdistrictsFromDb (array of objects)
@@ -234,18 +255,20 @@ module('Unit | Model | public schools analysis', function(hooks) {
       ],
       project: this.server.create('project'),
     });
-    const project = await this.owner.lookup('service:store').findRecord(
-      'project', analysisMirage.projectId, { include: 'public-schools-analysis' },
-    );
+    const project = await this.owner
+      .lookup('service:store')
+      .findRecord('project', analysisMirage.projectId, {
+        include: 'public-schools-analysis',
+      });
     const analysis = await project.get('publicSchoolsAnalysis');
 
     assert.equal(analysis.subdistricts.length, 2);
     assert.equal(analysis.subdistricts[1].id, 185);
-    assert.equal(analysis.multiSubdistrict, true);
+    assert.true(analysis.multiSubdistrict);
   });
 
   //
-  test('concatenates buildings and allSchools correctly', async function(assert) {
+  test('concatenates buildings and allSchools correctly', async function (assert) {
     /*
       input variables:
       * incorporates testsForSchools trait defined in the mirage factory with school_buildings and scaProjects as the
@@ -256,22 +279,38 @@ module('Unit | Model | public schools analysis', function(hooks) {
       * buildingsBldgIds (array)
     */
 
-    const analysisMirage = server.create('public-schools-analysis', 'schoolsForTests', {
-      project: association({
-        totalUnits: 1000,
-      }),
-    });
-
-    const project = await this.owner.lookup('service:store').findRecord(
-      'project', analysisMirage.projectId, { include: 'public-schools-analysis' },
+    const analysisMirage = server.create(
+      'public-schools-analysis',
+      'schoolsForTests',
+      {
+        project: association({
+          totalUnits: 1000,
+        }),
+      }
     );
+
+    const project = await this.owner
+      .lookup('service:store')
+      .findRecord('project', analysisMirage.projectId, {
+        include: 'public-schools-analysis',
+      });
     const analysis = await project.get('publicSchoolsAnalysis');
 
-    const bluebookBuildings = analysis.buildings.filter((obj) => obj.source === 'bluebook');
-    const lcgmsBuildings = analysis.buildings.filter((obj) => obj.source === 'lcgms');
-    const scaProjectsBuildings = analysis.buildings.filter((obj) => obj.source === 'scaProjects');
-    const bluebookSchools = analysis.allSchools.filter((obj) => obj.source === 'bluebook');
-    const lcgmsSchools = analysis.allSchools.filter((obj) => obj.source === 'lcgms');
+    const bluebookBuildings = analysis.buildings.filter(
+      (obj) => obj.source === 'bluebook'
+    );
+    const lcgmsBuildings = analysis.buildings.filter(
+      (obj) => obj.source === 'lcgms'
+    );
+    const scaProjectsBuildings = analysis.buildings.filter(
+      (obj) => obj.source === 'scaProjects'
+    );
+    const bluebookSchools = analysis.allSchools.filter(
+      (obj) => obj.source === 'bluebook'
+    );
+    const lcgmsSchools = analysis.allSchools.filter(
+      (obj) => obj.source === 'lcgms'
+    );
 
     // analysis.buildings.mapBy('name') =
     // ["I.S. 2 - K", "I.S. 61 - K", "Starfruit Sauna", "P.S. 91 - K", "Banana Bonanza", "Strawberry Sunrise",
@@ -296,7 +335,7 @@ module('Unit | Model | public schools analysis', function(hooks) {
     assert.equal(analysis.buildingsBldgIds[6], 'SCA_DD1'); // this.get('buildings').mapBy('bldg_id').uniq();
   });
 
-  test('calculates projectionOverMax correctly', async function(assert) {
+  test('calculates projectionOverMax correctly', async function (assert) {
     /*
       input variables:
       * project model's buildYear (integer)
@@ -326,23 +365,27 @@ module('Unit | Model | public schools analysis', function(hooks) {
       dataPackage: this.server.create('data-package', 'publicSchools'),
     });
 
-    const analysis2024 = await this.owner.lookup('service:store').findRecord(
-      'public-schools-analysis', analysisMirage2024.id, { include: 'data-package,project' },
-    );
-    const analysis2027 = await this.owner.lookup('service:store').findRecord(
-      'public-schools-analysis', analysisMirage2027.id, { include: 'data-package,project' },
-    );
+    const analysis2024 = await this.owner
+      .lookup('service:store')
+      .findRecord('public-schools-analysis', analysisMirage2024.id, {
+        include: 'data-package,project',
+      });
+    const analysis2027 = await this.owner
+      .lookup('service:store')
+      .findRecord('public-schools-analysis', analysisMirage2027.id, {
+        include: 'data-package,project',
+      });
 
     assert.equal(analysis2027.maxProjection, 2025); // maxProjection = datatables.enrollmentProjectionsMaxYear
-    assert.equal(analysis2027.projectionOverMax, true); // project.buildYear (2027) < maxProjection (2025), then false
+    assert.true(analysis2027.projectionOverMax); // project.buildYear (2027) < maxProjection (2025), then false
     assert.equal(analysis2027.buildYearMaxed, analysis2027.maxProjection); // if projectionOverMax is true, buildYearMaxed should equal maxProjection
 
     assert.equal(analysis2024.maxProjection, 2025); // maxProjection = datatables.enrollmentProjectionsMaxYear
-    assert.equal(analysis2024.projectionOverMax, false); // project.buildYear (2024) < maxProjection (2025), then false
+    assert.false(analysis2024.projectionOverMax); // project.buildYear (2024) < maxProjection (2025), then false
     assert.equal(analysis2024.buildYearMaxed, analysis2024.buildYear); // if projectionOverMax is false, buildYearMaxed should equal buildYear
   });
 
-  test('calculates doeUtilChangesPerBldg correctly', async function(assert) {
+  test('calculates doeUtilChangesPerBldg correctly', async function (assert) {
     /*
       input variables:
       * doeUtilChanges (array of objects)
@@ -437,9 +480,11 @@ module('Unit | Model | public schools analysis', function(hooks) {
       ],
     });
 
-    const project = await this.owner.lookup('service:store').findRecord(
-      'project', analysisMirage.projectId, { include: 'public-schools-analysis' },
-    );
+    const project = await this.owner
+      .lookup('service:store')
+      .findRecord('project', analysisMirage.projectId, {
+        include: 'public-schools-analysis',
+      });
     const analysis = await project.get('publicSchoolsAnalysis');
 
     // analysis.doeUtilChangesBldgIds.mapBy('name') = ["BBAA1", "BBPP1", "LCGMS_SS1", "BBRR1", "additional_AA", "additional_PP", "additional_PP1", "additional_SS", "additional_RR"]
@@ -454,7 +499,7 @@ module('Unit | Model | public schools analysis', function(hooks) {
 
     // create buildings array WITHOUT any high schools, match these IDs to doeUtilChangesBldgIds to create doeUtilChangesPerBldg
     // the only one with `level: hs` is "Raspberry Railway", so this one is removed
-    const buildingsNoHs = analysis.buildings.filter((b) => (b.level !== 'hs'));
+    const buildingsNoHs = analysis.buildings.filter((b) => b.level !== 'hs');
     assert.equal(buildingsNoHs[0].name, 'Plum Palace');
 
     // building IDs in buildingsNoHs are matched to building IDs in doeUtilChangesBldgIds
@@ -463,18 +508,33 @@ module('Unit | Model | public schools analysis', function(hooks) {
     assert.equal(analysis.doeUtilChangesPerBldg.length, 2);
     assert.equal(analysis.doeUtilChangesPerBldg[0].bldg_id, 'BBPP1');
     assert.equal(analysis.doeUtilChangesPerBldg[1].bldg_id, 'LCGMS_SS1');
-    assert.equal(analysis.doeUtilChangesPerBldg[0].buildings[0].name, 'Plum Palace');
-    assert.equal(analysis.doeUtilChangesPerBldg[1].buildings[0].name, 'Strawberry Sunrise');
+    assert.equal(
+      analysis.doeUtilChangesPerBldg[0].buildings[0].name,
+      'Plum Palace'
+    );
+    assert.equal(
+      analysis.doeUtilChangesPerBldg[1].buildings[0].name,
+      'Strawberry Sunrise'
+    );
     /* const doe_notices = this.get('doeUtilChanges').filter(b => (b.bldg_id === bldg_id || b.bldg_id_additional === bldg_id)).mapBy('title').uniq().map((title) => (
       this.doeUtilChanges.filterBy('title', title))); */
-    assert.equal(analysis.doeUtilChangesPerBldg[0].doe_notices[0][0].title, 'Proposing the Plum Palace');
-    assert.equal(analysis.doeUtilChangesPerBldg[0].doe_notices[1][0].title, 'Prepping the Plum Palace');
-    assert.equal(analysis.doeUtilChangesPerBldg[1].doe_notices[0][0].title, 'Selling the Strawberry Sunrise');
+    assert.equal(
+      analysis.doeUtilChangesPerBldg[0].doe_notices[0][0].title,
+      'Proposing the Plum Palace'
+    );
+    assert.equal(
+      analysis.doeUtilChangesPerBldg[0].doe_notices[1][0].title,
+      'Prepping the Plum Palace'
+    );
+    assert.equal(
+      analysis.doeUtilChangesPerBldg[1].doe_notices[0][0].title,
+      'Selling the Strawberry Sunrise'
+    );
 
     assert.equal(analysis.doeUtilChangesCount, 2); // this.doeUtilChangesPerBldg.length;
   });
 
-  test('calculates subdistrictTotals correctly', async function(assert) {
+  test('calculates subdistrictTotals correctly', async function (assert) {
     /*
       input variables:
       * this test incorporates all variables from the subdistrictTotalsTest trait in the public-schools-analysis mirage factory
@@ -492,16 +552,25 @@ module('Unit | Model | public schools analysis', function(hooks) {
         * subdistrictTotals[n].newCapacityWithAction (integer)
     */
 
-    const analysisMirage = server.create('public-schools-analysis', 'subdistrictTotalsTest', 'schoolsForTests');
-
-    const project = await this.owner.lookup('service:store').findRecord(
-      'project', analysisMirage.projectId, { include: 'public-schools-analysis' },
+    const analysisMirage = server.create(
+      'public-schools-analysis',
+      'subdistrictTotalsTest',
+      'schoolsForTests'
     );
+
+    const project = await this.owner
+      .lookup('service:store')
+      .findRecord('project', analysisMirage.projectId, {
+        include: 'public-schools-analysis',
+      });
     const analysis = await project.get('publicSchoolsAnalysis');
 
     assert.equal(analysis.borough, 'Brooklyn');
     assert.equal(analysis.allSchools[4].name, 'Banana Bonanza'); // 3rd school for bluebooks
-    assert.equal(analysis.subdistrictTotals[0].allBuildings[4].name, 'Banana Bonanza'); // allBuildings = this.allSchools = school_buildings
+    assert.equal(
+      analysis.subdistrictTotals[0].allBuildings[4].name,
+      'Banana Bonanza'
+    ); // allBuildings = this.allSchools = school_buildings
 
     // HS tables
     assert.equal(analysis.subdistrictTotals[0].studentMultiplier, 0.09); // currentMultiplier.hs

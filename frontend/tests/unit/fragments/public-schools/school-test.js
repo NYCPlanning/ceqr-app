@@ -3,10 +3,10 @@ import { setupTest } from 'ember-qunit';
 
 import School from 'labs-ceqr/fragments/public-schools/School';
 
-module('Unit | Fragment | School', function(hooks) {
+module('Unit | Fragment | School', function (hooks) {
   setupTest(hooks);
 
-  test('seats are calculated correctly', function(assert) {
+  test('seats are calculated correctly', function (assert) {
     const school_a = School.create({
       enroll: 115,
       capacity: '',
@@ -30,7 +30,7 @@ module('Unit | Fragment | School', function(hooks) {
     assert.equal(excluded_school.seats, -115);
   });
 
-  test('utilization is calculated correctly', function(assert) {
+  test('utilization is calculated correctly', function (assert) {
     const school = School.create({
       enroll: 116,
       capacity: 234,
@@ -40,7 +40,7 @@ module('Unit | Fragment | School', function(hooks) {
     assert.equal(school.utilization, 0.496);
   });
 
-  test('capacity delta is calculated correctly', function(assert) {
+  test('capacity delta is calculated correctly', function (assert) {
     const school = School.create({
       enroll: 116,
       capacity: 234,

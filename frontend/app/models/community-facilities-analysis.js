@@ -6,22 +6,25 @@ const { Model, belongsTo } = DS;
 export default class CommunityFacilitiesAnalysisModel extends Model {
   @belongsTo project;
 
-  @computed(
-    'potentialLibraryImpact',
-    'potentialChildCareImpact',
-  )
+  @computed('potentialLibraryImpact', 'potentialChildCareImpact')
   get detailedAnalysis() {
     return this.potentialLibraryImpact || this.potentialChildCareImpact;
   }
 
-  @computed('project.{borough,affordableUnits}')
+  @computed('childCareThresholds', 'project.{affordableUnits,borough}')
   get potentialChildCareImpact() {
-    return this.project.get('affordableUnits') >= this.childCareThresholds[this.project.get('boroAbbr')];
+    return (
+      this.project.get('affordableUnits') >=
+      this.childCareThresholds[this.project.get('boroAbbr')]
+    );
   }
 
-  @computed('project.{borough,totalUnits}')
+  @computed('libraryThresholds', 'project.{borough,totalUnits}')
   get potentialLibraryImpact() {
-    return this.project.get('totalUnits') >= this.libraryThresholds[this.project.get('boroAbbr')];
+    return (
+      this.project.get('totalUnits') >=
+      this.libraryThresholds[this.project.get('boroAbbr')]
+    );
   }
 
   childCareThresholds = {
@@ -30,7 +33,7 @@ export default class CommunityFacilitiesAnalysisModel extends Model {
     mn: 170,
     qn: 139,
     si: 217,
-  }
+  };
 
   libraryThresholds = {
     bx: 682,
@@ -38,5 +41,5 @@ export default class CommunityFacilitiesAnalysisModel extends Model {
     mn: 901,
     qn: 622,
     si: 652,
-  }
+  };
 }

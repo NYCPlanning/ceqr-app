@@ -8,25 +8,30 @@ import { getAggregateValue } from '../../helpers/get-aggregate-value';
  */
 export default class TransportationCensusTractsTableComponent extends Component {
   /**
-  * array of census tract IDs, each displayed as a column
- * @param {string[]}
- */
-  selectedCensusTractIds = []
+   * array of census tract IDs, each displayed as a column
+   * @param {string[]}
+   */
+  selectedCensusTractIds = [];
 
   // TODO: Figure out how to work around async selectedCensusTractData property.
   // Then, move this into existing-conditions controller.
   @computed('selectedCensusTractData.[]')
   get vehicleOccupancyAvg() {
     if (this.selectedCensusTractData) {
-      return getAggregateValue([this.selectedCensusTractData, ['vehicle_occupancy']]) / this.selectedCensusTractData.length;
+      return (
+        getAggregateValue([
+          this.selectedCensusTractData,
+          ['vehicle_occupancy'],
+        ]) / this.selectedCensusTractData.length
+      );
     }
     return null;
   }
 
   /**
-  * array of census tract modal splits, usually returned using readonlyStore.findByIds().
-  * Each modal split is displayed as a row.
-  */
+   * array of census tract modal splits, usually returned using readonlyStore.findByIds().
+   * Each modal split is displayed as a row.
+   */
   @computed('acsModalSplits', 'ctppModalSplits', 'isRJTW')
   get selectedCensusTractData() {
     if (this.isRJTW) {

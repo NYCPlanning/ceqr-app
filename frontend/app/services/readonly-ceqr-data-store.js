@@ -29,7 +29,7 @@ export default Service.extend({
    * @param value The object
    */
   add(type, id, value) {
-    const store = this.get('storeHash');
+    const store = this.storeHash;
     if (!store[type]) {
       store[type] = {};
     }
@@ -57,7 +57,7 @@ export default Service.extend({
   find(type, id) {
     const record = this.getRecord(type, id);
     if (record) {
-      return new Promise(function(resolve) {
+      return new Promise(function (resolve) {
         resolve(record);
       });
     }
@@ -84,14 +84,14 @@ export default Service.extend({
    * @returns Promise that resolves to the formatted object, or rejects with error message if not implemented
    */
   _fetch(type, id) {
-    const session = this.get('session');
+    const session = this.session;
     if (type === 'ACS-modal-split') {
       return fetchAndSaveModalSplit('ACS', id, session, this);
     }
     if (type === 'CTPP-modal-split') {
       return fetchAndSaveModalSplit('CTPP', id, session, this);
     }
-    return new Promise(function(resolve, reject) {
+    return new Promise(function (resolve, reject) {
       reject(`Fetch for ${type} not implemented`);
     });
   },

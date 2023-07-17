@@ -16,6 +16,7 @@ export default Component.extend({
   },
 
   didInsertElement() {
+    this._super(...arguments);
     $('.ui.form').form({
       fields: {
         email: 'email',
@@ -32,15 +33,17 @@ export default Component.extend({
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ user }),
-      }).then((res) => {
-        if (res.status === 201) {
-          this.get('router').transitionTo('signup.email');
-        } else if (res.status === 202) {
-          this.get('router').transitionTo('signup.in-review');
-        } else {
-          this.set('error', { message: 'The account could not be created' });
-        }
-      }).catch((err) => this.set('error', { message: err }));
+      })
+        .then((res) => {
+          if (res.status === 201) {
+            this.router.transitionTo('signup.email');
+          } else if (res.status === 202) {
+            this.router.transitionTo('signup.in-review');
+          } else {
+            this.set('error', { message: 'The account could not be created' });
+          }
+        })
+        .catch((err) => this.set('error', { message: err }));
     },
   },
 });

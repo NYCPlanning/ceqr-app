@@ -3,7 +3,7 @@ import { setupTest } from 'ember-qunit';
 import { setupMirage } from 'ember-cli-mirage/test-support';
 import { association } from 'ember-cli-mirage';
 
-module('Unit | Model | transportation analysis', function(hooks) {
+module('Unit | Model | transportation analysis', function (hooks) {
   setupTest(hooks);
   setupMirage(hooks);
 
@@ -60,12 +60,17 @@ module('Unit | Model | transportation analysis', function(hooks) {
     }),
   };
 
-  test('it correctly calculates square feet, ratios, and sum of ratios for project land use', async function(assert) {
-    const analysisMirage = server.create('transportation-analysis', hasAllLandUses);
-
-    const project = await this.owner.lookup('service:store').findRecord(
-      'project', analysisMirage.projectId, { include: 'transportation-analysis' },
+  test('it correctly calculates square feet, ratios, and sum of ratios for project land use', async function (assert) {
+    const analysisMirage = server.create(
+      'transportation-analysis',
+      hasAllLandUses
     );
+
+    const project = await this.owner
+      .lookup('service:store')
+      .findRecord('project', analysisMirage.projectId, {
+        include: 'transportation-analysis',
+      });
     const analysis = await project.get('transportationAnalysis');
 
     assert.equal(analysis.residentialUnits, 1000); // project.totalUnits
@@ -87,10 +92,10 @@ module('Unit | Model | transportation analysis', function(hooks) {
     // sumOfRatios = residentialUnitsRatio + officeSqFtRatio + regionalRetailSqFtRatio + localRetailSqFtRatio +
     // restaurantSqFtRatio + communityFacilitySqFtRatio + offStreetParkingSpacesRatio
     assert.equal(analysis.sumOfRatios, 7.014399999999999);
-    assert.equal(analysis.sumOfRatiosOver1, true); // if sumOfRatios > 1, then true
+    assert.true(analysis.sumOfRatiosOver1); // if sumOfRatios > 1, then true
   });
 
-  test('it correctly calculates detailedAnalysis', async function(assert) {
+  test('it correctly calculates detailedAnalysis', async function (assert) {
     // project that has fast food but does NOT have community facility or sumOfRatiosOver1
     // restaurantSqFt Ratio = restaurantSqFt / thresholdFor restaurantSqFt zone 2 = 40/20000 = 0.002
     // residentialUnitsRatio = residentialUnits / thresholdFor residentialUnits zone 2 = 2/200 = 0.01
@@ -113,66 +118,84 @@ module('Unit | Model | transportation analysis', function(hooks) {
     // offStreetParkingSpacesRatio = offStreetParkingSpaces / thresholdFor offStreetParkingSpaces zone 2 =  200/85 = 2.4
     // residentialUnitsRatio = residentialUnits / thresholdFor residentialUnits zone 2 = 2/200 = 0.01
     // sumOfRatios = 2.4 + 0.01 = 2.41 > 1; sumOfRatiosOver1 = true
-    const analysisMiragesumOfRatiosOver1 = server.create('transportation-analysis', {
-      trafficeZone: 2,
-      project: association({
-        totalUnits: 2, // residentialUnitsRatio = residentialUnits / thresholdFor residentialUnits zone 2 = 2/200 = 0.01
-        parkingLandUse: [
-          {
-            name: 'Lots',
-            type: 'lots',
-            spaces: 200,
-          },
-        ],
-      }),
-    });
+    const analysisMiragesumOfRatiosOver1 = server.create(
+      'transportation-analysis',
+      {
+        trafficeZone: 2,
+        project: association({
+          totalUnits: 2, // residentialUnitsRatio = residentialUnits / thresholdFor residentialUnits zone 2 = 2/200 = 0.01
+          parkingLandUse: [
+            {
+              name: 'Lots',
+              type: 'lots',
+              spaces: 200,
+            },
+          ],
+        }),
+      }
+    );
 
     // project that has NO sumOfRatiosOver1, Community Facilities or Fast Food
     // officeSqFtRatio = officeSqFt / thresholdFor officeSqFtRatio zone 2 = 15/100000 = 0.00015
     // residentialUnitsRatio = residentialUnits / thresholdFor residentialUnits zone 2 = 2/200 = 0.01
     // sumOfRatios = 0.01 + 0.00015 = 0.01015 < 1; sumOfRatiosOver1 = false
-    const analysisMirageNoConditions = server.create('transportation-analysis', {
-      trafficeZone: 2,
-      project: association({
-        totalUnits: 2,
-        commercialLandUse: [
-          {
-            name: 'Office',
-            type: 'office',
-            grossSqFt: 15,
-          },
-        ],
-      }),
-    });
+    const analysisMirageNoConditions = server.create(
+      'transportation-analysis',
+      {
+        trafficeZone: 2,
+        project: association({
+          totalUnits: 2,
+          commercialLandUse: [
+            {
+              name: 'Office',
+              type: 'office',
+              grossSqFt: 15,
+            },
+          ],
+        }),
+      }
+    );
 
     // project with fast food
-    const projectFastFood = await this.owner.lookup('service:store').findRecord(
-      'project', analysisMirageFastFood.projectId, { include: 'transportation-analysis' },
-    );
+    const projectFastFood = await this.owner
+      .lookup('service:store')
+      .findRecord('project', analysisMirageFastFood.projectId, {
+        include: 'transportation-analysis',
+      });
     // project with sumOfRatiosOver1
-    const projectsumOfRatiosOver1 = await this.owner.lookup('service:store').findRecord(
-      'project', analysisMiragesumOfRatiosOver1.projectId, { include: 'transportation-analysis' },
-    );
+    const projectsumOfRatiosOver1 = await this.owner
+      .lookup('service:store')
+      .findRecord('project', analysisMiragesumOfRatiosOver1.projectId, {
+        include: 'transportation-analysis',
+      });
     // project without fast food, community facility, or sumOfRatiosOver1
-    const projectNoConditions = await this.owner.lookup('service:store').findRecord(
-      'project', analysisMirageNoConditions.projectId, { include: 'transportation-analysis' },
-    );
+    const projectNoConditions = await this.owner
+      .lookup('service:store')
+      .findRecord('project', analysisMirageNoConditions.projectId, {
+        include: 'transportation-analysis',
+      });
 
-    const analysisFastFood = await projectFastFood.get('transportationAnalysis');
-    const analysisSumOfRatiosOver1 = await projectsumOfRatiosOver1.get('transportationAnalysis');
-    const analysisNoConditions = await projectNoConditions.get('transportationAnalysis');
+    const analysisFastFood = await projectFastFood.get(
+      'transportationAnalysis'
+    );
+    const analysisSumOfRatiosOver1 = await projectsumOfRatiosOver1.get(
+      'transportationAnalysis'
+    );
+    const analysisNoConditions = await projectNoConditions.get(
+      'transportationAnalysis'
+    );
 
     // Fast Food
-    assert.equal(analysisFastFood.hasFastFoodGte2500, true);
-    assert.equal(analysisFastFood.detailedAnalysis, true);
+    assert.true(analysisFastFood.hasFastFoodGte2500);
+    assert.true(analysisFastFood.detailedAnalysis);
 
     // sumOfRatiosOver1
-    assert.equal(analysisSumOfRatiosOver1.sumOfRatiosOver1, true);
-    assert.equal(analysisSumOfRatiosOver1.detailedAnalysis, true);
+    assert.true(analysisSumOfRatiosOver1.sumOfRatiosOver1);
+    assert.true(analysisSumOfRatiosOver1.detailedAnalysis);
 
     // None of the above conditions
-    assert.equal(analysisNoConditions.hasFastFoodGte2500, false);
-    assert.equal(analysisNoConditions.sumOfRatiosOver1, false);
-    assert.equal(analysisNoConditions.detailedAnalysis, false);
+    assert.false(analysisNoConditions.hasFastFoodGte2500);
+    assert.false(analysisNoConditions.sumOfRatiosOver1);
+    assert.false(analysisNoConditions.detailedAnalysis);
   });
 });

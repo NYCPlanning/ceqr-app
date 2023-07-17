@@ -1,8 +1,9 @@
-module.exports = function(environment) {
+module.exports = function (environment) {
   const ENV = {
     host: getHost(environment),
     'mapbox-gl': {
-      accessToken: 'pk.eyJ1IjoicGljaG90IiwiYSI6ImNqbWIzYzFyeTVrbHAzcW9nbmRmeXNmbHcifQ.VEiOF5YV_9kxwXekZ3fWLA',
+      accessToken:
+        'pk.eyJ1IjoicGljaG90IiwiYSI6ImNqbWIzYzFyeTVrbHAzcW9nbmRmeXNmbHcifQ.VEiOF5YV_9kxwXekZ3fWLA',
       map: {
         style: 'mapbox://styles/mapbox/light-v9',
       },
@@ -46,9 +47,7 @@ module.exports = function(environment) {
     ],
     fontawesome: {
       icons: {
-        'free-solid-svg-icons': [
-          'equals',
-        ],
+        'free-solid-svg-icons': ['equals'],
       },
     },
     SENTRY_DSN: process.env.SENTRY_DSN,

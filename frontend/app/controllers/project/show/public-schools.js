@@ -13,6 +13,8 @@ export default class ProjectShowPublicSchoolsController extends Controller {
   @computed('router.currentRouteName')
   get showMap() {
     const current = this.get('router.currentRouteName');
-    return (current.includes('existing-conditions') || current.includes('no-action'));
+    return (
+      current.includes('existing-conditions') || current.includes('no-action')
+    );
   }
 }

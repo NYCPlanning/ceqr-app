@@ -1,12 +1,10 @@
 const EmberApp = require('ember-cli/lib/broccoli/ember-app');
 const sass = require('sass-embedded');
 
-module.exports = function(defaults) {
+module.exports = function (defaults) {
   const app = new EmberApp(defaults, {
     babel: {
-      plugins: [
-        '@babel/plugin-proposal-object-rest-spread',
-      ],
+      plugins: ['@babel/plugin-proposal-object-rest-spread'],
     },
 
     // Disable jQuery bundled with Ember.js
@@ -20,28 +18,30 @@ module.exports = function(defaults) {
       alias: {
         // if in development mode, use development version of mapbox-gl for easier debugging
         // mapbox-gl-dev is unminified and therefore easier to read
-        ...(process.env.EMBER_ENV === 'development' ? { 'mapbox-gl': 'mapbox-gl/dist/mapbox-gl-dev' } : {}),
+        ...(process.env.EMBER_ENV === 'development'
+          ? { 'mapbox-gl': 'mapbox-gl/dist/mapbox-gl-dev' }
+          : {}),
       },
       webpack: {
         // required for the jwa (jsonwebtoken) dependency
         node: { crypto: true, stream: true, buffer: true },
       },
       // something to do with babel transpliation for mbgl. see https://github.com/mapbox/mapbox-gl-js/issues/3422
-      skipBabel: [{
-        package: 'mapbox-gl',
-        semverRange: '*',
-      }],
+      skipBabel: [
+        {
+          package: 'mapbox-gl',
+          semverRange: '*',
+        },
+      ],
     },
 
     sassOptions: {
       implementation: sass,
-    }
+    },
   });
 
   app.import('node_modules/@sentry/browser/dist/index.js', {
-    using: [
-      { transformation: 'cjs', as: '@sentry/browser' },
-    ],
+    using: [{ transformation: 'cjs', as: '@sentry/browser' }],
   });
 
   // app.import('vendor/carto-vl/carto-vl.min.js');

@@ -4,12 +4,12 @@ import { action } from '@ember/object';
 export default class TransportationTripGenerationTablesTripGenerationRatesComponent extends Component {
   // The project's transportation analysis object.
   // Must be passed from parent component.
-  analysis = {}
+  analysis = {};
 
   /**
    * @param {string} time - either "am", "md", "pm" or "saturday"
    * @param {string} inOut - either "in" or "out"
-  */
+   */
   @action
   setInOutDist(time, inOut) {
     const dists = this.analysis.inOutDists;
@@ -19,8 +19,11 @@ export default class TransportationTripGenerationTablesTripGenerationRatesCompon
     if (dists[time][inOut] < 0) {
       this.analysis.set(`inOutDists.${time}.${inOut}`, 0);
     }
-    const oppositeDir = (inOut == 'in') ? 'out' : 'in';
-    this.analysis.set(`inOutDists.${time}.${oppositeDir}`, 100 - dists[time][inOut]);
+    const oppositeDir = inOut == 'in' ? 'out' : 'in';
+    this.analysis.set(
+      `inOutDists.${time}.${oppositeDir}`,
+      100 - dists[time][inOut]
+    );
     this.analysis.save();
   }
 }

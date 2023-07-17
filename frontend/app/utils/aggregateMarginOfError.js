@@ -1,3 +1,5 @@
 export default function aggregateMarginOfError(moes) {
-  return Math.sqrt(moes.reduce((summedSquares, moe) => summedSquares + Math.pow(moe, 2)));
+  return Math.sqrt(
+    moes.reduce((summedSquares, moe) => summedSquares + Math.pow(moe, 2))
+  );
 }

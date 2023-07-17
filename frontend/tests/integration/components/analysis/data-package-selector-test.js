@@ -3,24 +3,27 @@ import { setupRenderingTest } from 'ember-qunit';
 import { render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
-module('Integration | Component | analysis/data-package-selector', function(hooks) {
-  setupRenderingTest(hooks);
+module(
+  'Integration | Component | analysis/data-package-selector',
+  function (hooks) {
+    setupRenderingTest(hooks);
 
-  skip('it renders', async function(assert) {
-    // Set any properties with this.set('myProperty', 'value');
-    // Handle any actions with this.set('myAction', function(val) { ... });
+    skip('it renders', async function (assert) {
+      // Set any properties with this.set('myProperty', 'value');
+      // Handle any actions with this.set('myAction', function(val) { ... });
 
-    await render(hbs`{{analysis/data-package-selector}}`);
+      await render(hbs`{{analysis/data-package-selector}}`);
 
-    assert.equal(this.element.textContent.trim(), '');
+      assert.equal(this.element.textContent.trim(), '');
 
-    // Template block usage:
-    await render(hbs`
+      // Template block usage:
+      await render(hbs`
       {{#analysis/data-package-selector}}
         template block text
       {{/analysis/data-package-selector}}
     `);
 
-    assert.equal(this.element.textContent.trim(), 'template block text');
-  });
-});
+      assert.equal(this.element.textContent.trim(), 'template block text');
+    });
+  }
+);

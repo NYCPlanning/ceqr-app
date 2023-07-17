@@ -22,25 +22,35 @@ export default DS.Model.extend({
   buildYear: DS.attr('number'),
   ceqrNumber: DS.attr('string'),
 
-  bbls: DS.attr('', { defaultValue() { return []; } }),
+  bbls: DS.attr('', {
+    defaultValue() {
+      return [];
+    },
+  }),
   bblsVersion: DS.attr('string'),
   bblsGeojson: DS.attr(''),
 
-  borough: computed('boroCode', function() {
+  borough: computed('boroCode', function () {
     switch (this.boroCode) {
-      case 1: return 'Manhattan';
-      case 2: return 'Bronx';
-      case 3: return 'Brooklyn';
-      case 4: return 'Queens';
-      case 5: return 'Staten Island';
-      default: return null;
+      case 1:
+        return 'Manhattan';
+      case 2:
+        return 'Bronx';
+      case 3:
+        return 'Brooklyn';
+      case 4:
+        return 'Queens';
+      case 5:
+        return 'Staten Island';
+      default:
+        return null;
     }
   }),
-  boroCode: computed('bbls.[]', function() {
+  boroCode: computed('bbls.[]', function () {
     if (this.bbls.length === 0) return null;
     return parseFloat(this.bbls.firstObject.charAt(0));
   }),
-  boroAbbr: computed('borough', function() {
+  boroAbbr: computed('borough', function () {
     return boroughToAbbr(this.borough);
   }),
 
@@ -49,15 +59,31 @@ export default DS.Model.extend({
   seniorUnits: DS.attr('number', { defaultValue: 0 }),
   affordableUnits: DS.attr('number', { defaultValue: 0 }),
 
-  commercialLandUse: DS.attr('', { defaultValue() { return []; } }),
-  industrialLandUse: DS.attr('', { defaultValue() { return []; } }),
-  communityFacilityLandUse: DS.attr('', { defaultValue() { return []; } }),
-  parkingLandUse: DS.attr('', { defaultValue() { return []; } }),
+  commercialLandUse: DS.attr('', {
+    defaultValue() {
+      return [];
+    },
+  }),
+  industrialLandUse: DS.attr('', {
+    defaultValue() {
+      return [];
+    },
+  }),
+  communityFacilityLandUse: DS.attr('', {
+    defaultValue() {
+      return [];
+    },
+  }),
+  parkingLandUse: DS.attr('', {
+    defaultValue() {
+      return [];
+    },
+  }),
 
   // Should probably move to PublicSchoolsAnalysis.
   // Any computed property that is specifically relevant to a given analyses should be its responsibility
-  netUnits: computed('totalUnits', 'seniorUnits', function() {
-    return this.get('totalUnits') - this.get('seniorUnits');
+  netUnits: computed('totalUnits', 'seniorUnits', function () {
+    return this.totalUnits - this.seniorUnits;
   }),
 
   // Analyses Relationships

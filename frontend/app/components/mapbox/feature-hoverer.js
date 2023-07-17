@@ -2,11 +2,11 @@ import Component from '@ember/component';
 import { action } from '@ember/object';
 
 /*
-* This component provides to the parent an array of features that intersect the
-* current mouse position.
-* The parent can acquire that array of features either through this component's yield,
-* or by passing to this action's onFeatures parameter a function that accepts the array.
-*/
+ * This component provides to the parent an array of features that intersect the
+ * current mouse position.
+ * The parent can acquire that array of features either through this component's yield,
+ * or by passing to this action's onFeatures parameter a function that accepts the array.
+ */
 export default class MapboxFeatureHovererComponent extends Component {
   /** @param {Mapbox Map object} */
   map = {};

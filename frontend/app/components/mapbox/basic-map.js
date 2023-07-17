@@ -1,4 +1,3 @@
 import Component from '@ember/component';
 
-export default class MapboxBasicMapComponent extends Component {
-}
+export default class MapboxBasicMapComponent extends Component {}

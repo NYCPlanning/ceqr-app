@@ -7,7 +7,7 @@
  * @param {string} event - name of the event to trigger.
  * @param {function} handler - The function to call when event occurs.
  */
-const registerEventHandler = function(registeredEvents, event, handler) {
+const registerEventHandler = function (registeredEvents, event, handler) {
   if (!registeredEvents[event]) {
     registeredEvents[event] = [handler];
   } else {
@@ -22,7 +22,7 @@ const registerEventHandler = function(registeredEvents, event, handler) {
  * @param {string} event - name of the event to trigger.
  * @param {function} data - mock of data resulting from the map event
  */
-const simulateEvent = function(registeredEvents, event, data) {
+const simulateEvent = function (registeredEvents, event, data) {
   if (registeredEvents[event]) {
     registeredEvents[event].forEach((eventHandler) => {
       eventHandler(data);

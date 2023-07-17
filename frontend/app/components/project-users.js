@@ -10,18 +10,23 @@ export default Component.extend({
   currentUser: service(),
 
   didRender() {
+    this._super(...arguments);
     $('.ui.dropdown.user-edit').dropdown({
       on: 'hover',
     });
   },
 
-  projectViewers: computed('project.viewers.@each', function() {
-    return this.project.viewers;
-  }),
+  projectViewers: computed.reads('project.viewers'),
 
-  projectEditors: computed('project.editors.@each', function() {
-    return this.project.editors.filter((u) => u.email !== this.currentUser.user.email);
-  }),
+  projectEditors: computed(
+    'currentUser.user.email',
+    'project.editors.[]',
+    function () {
+      return this.project.editors.filter(
+        (u) => u.email !== this.currentUser.user.email
+      );
+    }
+  ),
 
   reloadPermissions() {
     this.project.viewers.reload();
@@ -38,7 +43,9 @@ export default Component.extend({
     async addUser() {
       this.set('error', null);
 
-      const results = await this.store.query('user', { filter: { email: this.email } });
+      const results = await this.store.query('user', {
+        filter: { email: this.email },
+      });
       const user = results.firstObject;
 
       if (!user) {

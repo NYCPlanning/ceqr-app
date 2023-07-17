@@ -2,7 +2,10 @@ import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
-import { registerEventHandler, simulateEvent } from '../../../helpers/mapbox/mapbox-stub-helpers';
+import {
+  registerEventHandler,
+  simulateEvent,
+} from '../../../helpers/mapbox/mapbox-stub-helpers';
 
 const DEFAULT_MAPBOX_GL_INSTANCE = {
   addSource: () => {},
@@ -15,10 +18,10 @@ const DEFAULT_MAPBOX_GL_INSTANCE = {
   off: () => {},
 };
 
-module('Integration | Component | mapbox/feature-hoverer', function(hooks) {
+module('Integration | Component | mapbox/feature-hoverer', function (hooks) {
   setupRenderingTest(hooks);
 
-  hooks.beforeEach(async function() {
+  hooks.beforeEach(async function () {
     this.expectedQueriedFeature = {
       type: 'Feature',
       properties: {
@@ -36,7 +39,7 @@ module('Integration | Component | mapbox/feature-hoverer', function(hooks) {
     };
   });
 
-  test('it returns hovered features via onFeatures handler', async function(assert) {
+  test('it returns hovered features via onFeatures handler', async function (assert) {
     this.hoveredFeature = null;
     this.setHoveredFeature = (features) => {
       this.hoveredFeature = features;
@@ -51,6 +54,9 @@ module('Integration | Component | mapbox/feature-hoverer', function(hooks) {
     `);
 
     simulateEvent(this.events, 'mousemove', { point: { x: 0, y: 0 } });
-    assert.equal(JSON.stringify(this.hoveredFeature), JSON.stringify([this.expectedQueriedFeature]));
+    assert.equal(
+      JSON.stringify(this.hoveredFeature),
+      JSON.stringify([this.expectedQueriedFeature])
+    );
   });
 });

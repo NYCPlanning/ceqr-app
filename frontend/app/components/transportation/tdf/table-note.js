@@ -4,12 +4,13 @@ import { isEmpty } from '@ember/utils';
 
 export default class TransportationTdfTableNoteComponent extends Component {
   didUpdateAttrs() {
+    super.didUpdateAttrs();
     this.set('addingNote', false);
   }
 
   addingNote = false;
 
-  @computed('factor', 'tableName')
+  @computed('factor.tableNotes', 'tableName')
   get tableNote() {
     return this.factor.tableNotes[this.tableName];
   }

@@ -23,95 +23,128 @@ export default class ProjectAnalysisFrameworkComponent extends Component {
 
   // Commercial Land Use
 
-  @computed('project.commercialLandUse.@each')
+  @computed('project.commercialLandUse.[]')
   get totalCommercialSqFt() {
-    return this.get('project.commercialLandUse').mapBy('grossSqFt').reduce((a, b) => a + b, 0);
+    return this.get('project.commercialLandUse')
+      .mapBy('grossSqFt')
+      .reduce((a, b) => a + b, 0);
   }
 
-  _commercialLandUseTypes = [{
-    name: 'Office',
-    type: 'office',
-  }, {
-    name: 'Regional Retail',
-    type: 'regional-retail',
-  }, {
-    name: 'Local Retail',
-    type: 'local-retail',
-  }, {
-    name: 'Resturant (not fast food)',
-    type: 'restaurant',
-  }, {
-    name: 'Fast Food Restaurant',
-    type: 'fast-food',
-  }];
+  _commercialLandUseTypes = [
+    {
+      name: 'Office',
+      type: 'office',
+    },
+    {
+      name: 'Regional Retail',
+      type: 'regional-retail',
+    },
+    {
+      name: 'Local Retail',
+      type: 'local-retail',
+    },
+    {
+      name: 'Resturant (not fast food)',
+      type: 'restaurant',
+    },
+    {
+      name: 'Fast Food Restaurant',
+      type: 'fast-food',
+    },
+  ];
 
-  @computed('project.commercialLandUse.@each')
+  @computed('_commercialLandUseTypes', 'project.commercialLandUse.[]')
   get commercialUseTypes() {
     const existing = this.get('project.commercialLandUse').mapBy('type');
 
-    return this._commercialLandUseTypes.filter((ut) => !existing.includes(ut.type));
+    return this._commercialLandUseTypes.filter(
+      (ut) => !existing.includes(ut.type)
+    );
   }
 
   // Community Facility Land Use
 
-    @computed('project.communityFacilityLandUse.@each')
+  @computed('project.communityFacilityLandUse.[]')
   get totalCommunityFacilitySqFt() {
-    return this.get('project.communityFacilityLandUse').mapBy('grossSqFt').reduce((a, b) => a + b, 0);
+    return this.get('project.communityFacilityLandUse')
+      .mapBy('grossSqFt')
+      .reduce((a, b) => a + b, 0);
   }
 
-    _communityFacilityLandUseTypes = [{
+  _communityFacilityLandUseTypes = [
+    {
       name: 'General Community Facility',
       type: 'community-facility',
-    }];
+    },
+  ];
 
-    @computed('project.communityFacilityLandUse.@each')
-    get communityFacilityUseTypes() {
-      const existing = this.get('project.communityFacilityLandUse').mapBy('type');
+  @computed(
+    '_communityFacilityLandUseTypes',
+    'project.communityFacilityLandUse.[]'
+  )
+  get communityFacilityUseTypes() {
+    const existing = this.get('project.communityFacilityLandUse').mapBy('type');
 
-      return this._communityFacilityLandUseTypes.filter((ut) => !existing.includes(ut.type));
-    }
+    return this._communityFacilityLandUseTypes.filter(
+      (ut) => !existing.includes(ut.type)
+    );
+  }
 
-    // Industrial Land Use
+  // Industrial Land Use
 
-  @computed('project.industrialLandUse.@each')
-    get totalIndustrialSqFt() {
-      return this.get('project.industrialLandUse').mapBy('grossSqFt').reduce((a, b) => a + b, 0);
-    }
+  @computed('project.industrialLandUse.[]')
+  get totalIndustrialSqFt() {
+    return this.get('project.industrialLandUse')
+      .mapBy('grossSqFt')
+      .reduce((a, b) => a + b, 0);
+  }
 
-  _industrialLandUseTypes = [{
-    name: 'Warehouse Space',
-    type: 'warehouse',
-  }, {
-    name: 'General Industrial',
-    type: 'industrial',
-  }];
+  _industrialLandUseTypes = [
+    {
+      name: 'Warehouse Space',
+      type: 'warehouse',
+    },
+    {
+      name: 'General Industrial',
+      type: 'industrial',
+    },
+  ];
 
-  @computed('project.industrialLandUse.@each')
+  @computed('_industrialLandUseTypes', 'project.industrialLandUse.[]')
   get industrialUseTypes() {
     const existing = this.get('project.industrialLandUse').mapBy('type');
 
-    return this._industrialLandUseTypes.filter((ut) => !existing.includes(ut.type));
+    return this._industrialLandUseTypes.filter(
+      (ut) => !existing.includes(ut.type)
+    );
   }
 
   // Parking Land Use
-  @computed('project.parkingLandUse.@each')
+  @computed('project.parkingLandUse.[]')
   get totalParkingSpaces() {
-    return this.get('project.parkingLandUse').mapBy('spaces').reduce((a, b) => a + b, 0);
+    return this.get('project.parkingLandUse')
+      .mapBy('spaces')
+      .reduce((a, b) => a + b, 0);
   }
 
-  _parkingLandUseTypes = [{
-    name: 'Garages',
-    type: 'garages',
-  }, {
-    name: 'Lots',
-    type: 'lots',
-  }];
+  _parkingLandUseTypes = [
+    {
+      name: 'Garages',
+      type: 'garages',
+    },
+    {
+      name: 'Lots',
+      type: 'lots',
+    },
+  ];
 
-  @computed('project.parkingLandUse.@each')
+  @computed('_parkingLandUseTypes', 'project.parkingLandUse.[]')
   get parkingUseTypes() {
     const existing = this.get('project.parkingLandUse').mapBy('type');
 
-    return this._parkingLandUseTypes.filter((ut) => !existing.includes(ut.type));
+    return this._parkingLandUseTypes.filter(
+      (ut) => !existing.includes(ut.type)
+    );
   }
 
   // Actions
@@ -133,7 +166,7 @@ export default class ProjectAnalysisFrameworkComponent extends Component {
   @action
   addParkingLandUse({ type, spaces }, use) {
     const landuses = this.get('project.parkingLandUse');
-    const useType = this.get('_parkingLandUseTypes').findBy('type', type);
+    const useType = this._parkingLandUseTypes.findBy('type', type);
 
     landuses.pushObject({
       ...useType,

@@ -8,7 +8,7 @@ export default class MapboxLayerRegistryComponent extends Component {
   }
 
   // public callback function
-  didUpdateLayersRegistry = () => {}
+  didUpdateLayersRegistry = () => {};
 
   // stores references to instances of child layers
   __registeredLayers = new Set();

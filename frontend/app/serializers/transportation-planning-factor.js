@@ -6,5 +6,5 @@ export default class TransportationPlanningFactorSerializer extends JSONAPISeria
   attrs = {
     censusTractVariables: { serialize: false },
     transportationAnalysis: { serialize: false },
-  }
+  };
 }

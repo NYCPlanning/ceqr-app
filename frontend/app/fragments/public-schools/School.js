@@ -31,17 +31,17 @@ export default EmberObject.extend({
     return `${this.source}-${this.org_id}-${this.bldg_id}-${this.level}`;
   }),
 
-  seats: computed('excluded', 'enroll', 'capacity', function() {
+  seats: computed('excluded', 'enroll', 'capacity', function () {
     if (this.excluded) return Math.round(0 - this.enroll);
     if (!this.capacity) return 0;
     return Math.round(this.capacity - this.enroll);
   }),
 
-  utilization: computed('enroll', 'capacity', function() {
-    return round((this.enroll / this.capacity), 3);
+  utilization: computed('enroll', 'capacity', function () {
+    return round(this.enroll / this.capacity, 3);
   }),
 
-  capacityDelta: computed('capacity', 'capacityFuture', function() {
+  capacityDelta: computed('capacity', 'capacityFuture', function () {
     return this.capacityFuture - this.capacity;
   }),
 });

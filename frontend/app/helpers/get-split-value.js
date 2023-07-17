@@ -1,6 +1,6 @@
 import { helper } from '@ember/component/helper';
 
-export function getSplitValue(params/* , hash */) {
+export function getSplitValue(params /* , hash */) {
   const [modalSplitData, variable] = params;
 
   const split = modalSplitData[variable];

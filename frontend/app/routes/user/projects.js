@@ -6,9 +6,11 @@ export default Route.extend({
   currentUser: service(),
 
   async model() {
-    return this.store.findAll('project', { reload: true }).then(function(projects) {
-      return projects.filterBy('isNew', false);
-    });
+    return this.store
+      .findAll('project', { reload: true })
+      .then(function (projects) {
+        return projects.filterBy('isNew', false);
+      });
   },
 
   afterModel(model) {
@@ -24,8 +26,8 @@ export default Route.extend({
       $('.mini.modal').modal('show');
     },
     deleteProject() {
-      const id = this.get('deleteProjectId');
-      this.get('store')
+      const id = this.deleteProjectId;
+      this.store
         .findRecord('project', id, { backgroundReload: false })
         .then((p) => p.destroyRecord())
         .then(() => this.refresh());

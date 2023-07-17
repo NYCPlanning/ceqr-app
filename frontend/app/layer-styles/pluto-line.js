@@ -5,14 +5,8 @@ export const plutoLineStyles = {
       'line-color': 'rgba(130, 130, 130, 1)',
       'line-opacity': {
         stops: [
-          [
-            15,
-            0,
-          ],
-          [
-            16,
-            1,
-          ],
+          [15, 0],
+          [16, 1],
         ],
       },
     },

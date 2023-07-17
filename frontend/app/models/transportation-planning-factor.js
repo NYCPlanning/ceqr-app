@@ -30,13 +30,16 @@ export default class TransportationPlanningFactorModel extends Model {
     // Default modeSplits
     if (Object.keys(this.modeSplitsFromUser).length === 0) {
       const modeSplitsFromUser = {};
-      MODES.forEach((m) => modeSplitsFromUser[m] = {
-        am: 0,
-        md: 0,
-        pm: 0,
-        saturday: 0,
-        allPeriods: 0,
-      });
+      MODES.forEach(
+        (m) =>
+          (modeSplitsFromUser[m] = {
+            am: 0,
+            md: 0,
+            pm: 0,
+            saturday: 0,
+            allPeriods: 0,
+          })
+      );
 
       this.set('modeSplitsFromUser', EmberObject.create(modeSplitsFromUser));
     }
@@ -70,12 +73,17 @@ export default class TransportationPlanningFactorModel extends Model {
 
   @attr({
     defaultValue: () => ({}),
-  }) tableNotes;
+  })
+  tableNotes;
 
   // Census tract variable data if landUse is residential or office
   @attr({ defaultValue: () => [] }) censusTractVariables;
 
-  @computed('censusTractVariables', 'transportationAnalysis.censusTractsSelection.@each')
+  @computed(
+    'censusTractVariables',
+    'modesForAnalysis',
+    'transportationAnalysis.censusTractsSelection.[]'
+  )
   get censusTractsCalculator() {
     return CensusTractsCalculator.create({
       censusTracts: this.censusTractVariables,
@@ -91,9 +99,14 @@ export default class TransportationPlanningFactorModel extends Model {
 
   @attr('ember-object', {
     defaultValue: () => ({}),
-  }) modeSplitsFromUser;
+  })
+  modeSplitsFromUser;
 
-  @computed('manualModeSplits', 'censusTractsCalculator', 'modeSplitsFromUser')
+  @computed(
+    'censusTractsCalculator.modeSplits',
+    'manualModeSplits',
+    'modeSplitsFromUser'
+  )
   get modeSplits() {
     if (this.manualModeSplits) {
       return this.modeSplitsFromUser;
@@ -108,9 +121,14 @@ export default class TransportationPlanningFactorModel extends Model {
   // User-entered vehicle occupancy rate for "trip generation" existing conditions step
   @attr({
     defaultValue: () => ({}),
-  }) vehicleOccupancyFromUser;
+  })
+  vehicleOccupancyFromUser;
 
-  @computed('manualModeSplits', 'vehicleOccupancyFromUser', 'censusTractsCalculator')
+  @computed(
+    'manualModeSplits',
+    'vehicleOccupancyFromUser',
+    'censusTractsCalculator'
+  )
   get vehicleOccupancy() {
     return this.vehicleOccupancyFromUser;
   }
@@ -122,19 +140,26 @@ export default class TransportationPlanningFactorModel extends Model {
   // The percentage values for trip generation per-peak-hour In and Out trip distributions
   @attr({
     defaultValue: () => ({}),
-  }) inOutSplits;
+  })
+  inOutSplits;
 
   @attr({
     defaultValue: () => ({}),
-  }) truckInOutSplits;
+  })
+  truckInOutSplits;
 
-  @computed('transportationAnalysis.project.{totalUnits,commercialLandUse}', 'landUse')
+  @computed(
+    'transportationAnalysis.project.{totalUnits,commercialLandUse}',
+    'landUse'
+  )
   get units() {
     if (this.landUse === 'residential') {
       return this.get('transportationAnalysis.project.totalUnits');
     }
     if (this.landUse === 'office') {
-      const commercialLandUse = this.get('transportationAnalysis.project.commercialLandUse');
+      const commercialLandUse = this.get(
+        'transportationAnalysis.project.commercialLandUse'
+      );
       return commercialLandUse.findBy('type', 'office').grossSqFt;
     }
 
@@ -154,13 +179,17 @@ export default class TransportationPlanningFactorModel extends Model {
   @alias('transportationAnalysis.inactiveModes') inactiveModes;
 
   @computed(
-    'landUse',
     'activeModes',
-    'modeSplits',
-    'vehicleOccupancy',
     'inOutSplits',
-    'truckInOutSplits',
+    'landUse',
+    'manualModeSplits',
+    'modeSplits',
+    'temporalModeSplits',
+    'temporalVehicleOccupancy',
     'transportationAnalysis.project',
+    'truckInOutSplits',
+    'units',
+    'vehicleOccupancy'
   )
   get tripResults() {
     return TripResultsCalculator.create({

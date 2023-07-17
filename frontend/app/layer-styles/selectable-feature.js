@@ -34,33 +34,18 @@ export const selectableFeatureStyles = {
       'text-halo-blur': 2,
       'text-opacity': {
         stops: [
-          [
-            12,
-            0,
-          ],
-          [
-            13,
-            1,
-          ],
+          [12, 0],
+          [13, 1],
         ],
       },
     },
     layout: {
       'text-field': '{ctlabel}',
-      'text-font': [
-        'Open Sans Semibold',
-        'Arial Unicode MS Bold',
-      ],
+      'text-font': ['Open Sans Semibold', 'Arial Unicode MS Bold'],
       'text-size': {
         stops: [
-          [
-            11,
-            8,
-          ],
-          [
-            14,
-            16,
-          ],
+          [11, 8],
+          [14, 16],
         ],
       },
     },

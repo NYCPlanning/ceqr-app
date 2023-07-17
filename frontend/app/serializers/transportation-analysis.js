@@ -7,5 +7,5 @@ export default class PublicSchoolsAnalysisSerializer extends JSONAPISerializer {
     censusTractsCentroid: { serialize: false },
     requiredCensusTractsSelection: { serialize: false },
     trafficZone: { serialize: false },
-  }
+  };
 }

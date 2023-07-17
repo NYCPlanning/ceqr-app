@@ -12,7 +12,9 @@ export default function createMap() {
     map.style.once('data', () => resolve(map));
 
     const onErr = (data) => {
-      QUnit.onUnhandledRejection((data && data.error) || data || 'Empty error event from mapbox-gl-js');
+      QUnit.onUnhandledRejection(
+        (data && data.error) || data || 'Empty error event from mapbox-gl-js'
+      );
     };
 
     map.style.on('error', onErr);

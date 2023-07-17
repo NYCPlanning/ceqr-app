@@ -23,7 +23,9 @@ export default class TransportationTdfModalSplitsComponent extends Component {
   // Compute when any land use is changed
   @computed(
     'activeModes',
-    'modeSplits.{auto,taxi,bus,subway,railroad,walk,ferry,streetcar,bicycle,motorcycle,other}.{allPeriods,am,pm,md,saturday}',
+    'factor.modesForAnalysis',
+    'modeSplits.other',
+    'modeSplits.{auto,bicycle,bus,ferry,motorcycle,railroad,streetcar,subway,taxi,walk}'
   )
   get total() {
     // modesForAnalysis = e.g. ['auto', 'taxi', 'bus', 'subway', 'walk', 'railroad']
@@ -31,12 +33,30 @@ export default class TransportationTdfModalSplitsComponent extends Component {
     // reduce function to add up the am/md/pm/saturday/allPeriods values for each mode in the modesForAnalysis array
     // example: auto saturday value + taxi saturday value + bus saturday value + subway saturday value
     return {
-      allPeriods: this.factor.modesForAnalysis.reduce((pv, key) => pv + parseFloat(this.modeSplits[key].allPeriods), 0),
-      am: this.factor.modesForAnalysis.reduce((pv, key) => pv + parseFloat(this.modeSplits[key].am), 0),
-      md: this.factor.modesForAnalysis.reduce((pv, key) => pv + parseFloat(this.modeSplits[key].md), 0),
-      pm: this.factor.modesForAnalysis.reduce((pv, key) => pv + parseFloat(this.modeSplits[key].pm), 0),
-      saturday: this.factor.modesForAnalysis.reduce((pv, key) => pv + parseFloat(this.modeSplits[key].saturday), 0),
-      count: this.factor.modesForAnalysis.reduce((pv, key) => pv + parseFloat(this.modeSplits[key].count), 0),
+      allPeriods: this.factor.modesForAnalysis.reduce(
+        (pv, key) => pv + parseFloat(this.modeSplits[key].allPeriods),
+        0
+      ),
+      am: this.factor.modesForAnalysis.reduce(
+        (pv, key) => pv + parseFloat(this.modeSplits[key].am),
+        0
+      ),
+      md: this.factor.modesForAnalysis.reduce(
+        (pv, key) => pv + parseFloat(this.modeSplits[key].md),
+        0
+      ),
+      pm: this.factor.modesForAnalysis.reduce(
+        (pv, key) => pv + parseFloat(this.modeSplits[key].pm),
+        0
+      ),
+      saturday: this.factor.modesForAnalysis.reduce(
+        (pv, key) => pv + parseFloat(this.modeSplits[key].saturday),
+        0
+      ),
+      count: this.factor.modesForAnalysis.reduce(
+        (pv, key) => pv + parseFloat(this.modeSplits[key].count),
+        0
+      ),
     };
   }
 
@@ -100,7 +120,10 @@ export default class TransportationTdfModalSplitsComponent extends Component {
 
   @action
   removeCensusTract(tract) {
-    this.analysis.set('censusTractsSelection', this.analysis.censusTractsSelection.without(tract));
+    this.analysis.set(
+      'censusTractsSelection',
+      this.analysis.censusTractsSelection.without(tract)
+    );
     this.saveAnalysisAndRefreshFactor.perform();
   }
 
@@ -113,12 +136,14 @@ export default class TransportationTdfModalSplitsComponent extends Component {
   // Ember Concurrency Tasks and Groups
   @taskGroup censusTracksChanging;
 
-  @task({ group: 'censusTracksChanging' })* saveAnalysisAndRefreshFactor() {
+  @task({ group: 'censusTracksChanging' }) *saveAnalysisAndRefreshFactor() {
     yield this.analysis.save();
-    yield this.analysis.transportationPlanningFactors.forEach((factor) => factor.reload());
+    yield this.analysis.transportationPlanningFactors.forEach((factor) =>
+      factor.reload()
+    );
   }
 
-  @task({ group: 'censusTracksChanging' })* saveFactorAndRefresh() {
+  @task({ group: 'censusTracksChanging' }) *saveFactorAndRefresh() {
     yield this.factor.save();
   }
 }

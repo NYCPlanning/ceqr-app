@@ -7,7 +7,10 @@ export default Route.extend({
 
   afterModel(model) {
     if (model.project.viewOnly) {
-      this.transitionTo('project.show.public-schools.summary', model.project.id);
+      this.transitionTo(
+        'project.show.public-schools.summary',
+        model.project.id
+      );
     }
   },
 

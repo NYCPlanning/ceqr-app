@@ -17,6 +17,7 @@ export default class MapboxMapboxAnonymousMapLayerComponent extends Component {
   }
 
   willDestroyElement() {
+    super.willDestroyElement(...arguments);
     this.unregisterWithParent(this);
   }
 
@@ -45,7 +46,7 @@ export default class MapboxMapboxAnonymousMapLayerComponent extends Component {
     return guidFor(this);
   }
 
-  @computed('layer')
+  @computed('_parentElementId', 'elementId', 'layer', 'layerId')
   get mapboxLayerOptions() {
     return {
       id: this.elementId,

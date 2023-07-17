@@ -4,11 +4,11 @@ import { render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 import { setupMirage } from 'ember-cli-mirage/test-support';
 
-module('Integration | Component | public-schools/summary', function(hooks) {
+module('Integration | Component | public-schools/summary', function (hooks) {
   setupRenderingTest(hooks);
   setupMirage(hooks);
 
-  test('it renders', async function(assert) {
+  test('it renders', async function (assert) {
     const store = this.owner.lookup('service:store');
 
     this.server.create('public-schools-analysis', { id: 1 });

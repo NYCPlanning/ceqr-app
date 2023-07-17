@@ -175,322 +175,311 @@ const sampleTripData = function () {
   };
 };
 
-const createTripResultWithPersonTrips = function() {
+const createTripResultWithPersonTrips = function () {
   return {
     personTrips: sampleTripData(),
   };
 };
 
-const createTripResultWithVehicleTrips = function() {
+const createTripResultWithVehicleTrips = function () {
   return {
     vehicleTrips: sampleTripData(),
   };
 };
 
-module('Unit | Calculator | transportation-trip-results-totals', function (hooks) {
-  setupTest(hooks);
+module(
+  'Unit | Calculator | transportation-trip-results-totals',
+  function (hooks) {
+    setupTest(hooks);
 
-  test('it calculates personTrips', function (assert) {
-    const modes = [
-      'auto',
-      'taxi',
-      'bus',
-      'subway',
-      'railroad',
-      'walk',
-    ];
+    test('it calculates personTrips', function (assert) {
+      const modes = ['auto', 'taxi', 'bus', 'subway', 'railroad', 'walk'];
 
-    const tripResults = [
-      createTripResultWithPersonTrips(),
-      createTripResultWithPersonTrips(),
-    ];
+      const tripResults = [
+        createTripResultWithPersonTrips(),
+        createTripResultWithPersonTrips(),
+      ];
 
-    const newTtrtCalc = ttrtCalc.create({
-      tripResults,
-      modes,
+      const newTtrtCalc = ttrtCalc.create({
+        tripResults,
+        modes,
+      });
+
+      assert.deepEqual(newTtrtCalc.personTrips, {
+        am: {
+          auto: {
+            in: 12,
+            out: 12,
+            total: 24,
+          },
+          taxi: {
+            in: 6,
+            out: 6,
+            total: 12,
+          },
+          bus: {
+            in: 2,
+            out: 2,
+            total: 4,
+          },
+          subway: {
+            in: 102,
+            out: 102,
+            total: 204,
+          },
+          railroad: {
+            in: 2,
+            out: 2,
+            total: 4,
+          },
+          walk: {
+            in: 62,
+            out: 62,
+            total: 124,
+          },
+        },
+        md: {
+          auto: {
+            in: 6,
+            out: 6,
+            total: 12,
+          },
+          taxi: {
+            in: 4,
+            out: 4,
+            total: 8,
+          },
+          bus: {
+            in: 0,
+            out: 0,
+            total: 0,
+          },
+          subway: {
+            in: 50,
+            out: 50,
+            total: 100,
+          },
+          railroad: {
+            in: 2,
+            out: 2,
+            total: 4,
+          },
+          walk: {
+            in: 30,
+            out: 30,
+            total: 60,
+          },
+        },
+        pm: {
+          auto: {
+            in: 14,
+            out: 14,
+            total: 28,
+          },
+          taxi: {
+            in: 8,
+            out: 8,
+            total: 16,
+          },
+          bus: {
+            in: 2,
+            out: 2,
+            total: 4,
+          },
+          subway: {
+            in: 112,
+            out: 112,
+            total: 224,
+          },
+          railroad: {
+            in: 4,
+            out: 4,
+            total: 8,
+          },
+          walk: {
+            in: 68,
+            out: 68,
+            total: 136,
+          },
+        },
+        saturday: {
+          auto: {
+            in: 12,
+            out: 12,
+            total: 24,
+          },
+          taxi: {
+            in: 6,
+            out: 6,
+            total: 12,
+          },
+          bus: {
+            in: 2,
+            out: 2,
+            total: 4,
+          },
+          subway: {
+            in: 96,
+            out: 96,
+            total: 192,
+          },
+          railroad: {
+            in: 2,
+            out: 2,
+            total: 4,
+          },
+          walk: {
+            in: 58,
+            out: 58,
+            total: 116,
+          },
+        },
+      });
     });
 
-    assert.deepEqual(newTtrtCalc.personTrips, {
-      am: {
-        auto: {
-          in: 12,
-          out: 12,
-          total: 24,
+    test('it calculates vehicleTrips', function (assert) {
+      const modes = ['auto', 'taxi', 'bus', 'subway', 'railroad', 'walk'];
+
+      const tripResults = [
+        createTripResultWithVehicleTrips(),
+        createTripResultWithVehicleTrips(),
+      ];
+
+      const newTtrtCalc = ttrtCalc.create({
+        tripResults,
+        modes,
+      });
+
+      assert.deepEqual(newTtrtCalc.vehicleTrips, {
+        am: {
+          auto: {
+            in: 12,
+            out: 12,
+            total: 24,
+          },
+          taxi: {
+            in: 6,
+            out: 6,
+            total: 12,
+          },
+          bus: {
+            in: 2,
+            out: 2,
+            total: 4,
+          },
+          subway: {
+            in: 102,
+            out: 102,
+            total: 204,
+          },
+          railroad: {
+            in: 2,
+            out: 2,
+            total: 4,
+          },
+          walk: {
+            in: 62,
+            out: 62,
+            total: 124,
+          },
         },
-        taxi: {
-          in: 6,
-          out: 6,
-          total: 12,
+        md: {
+          auto: {
+            in: 6,
+            out: 6,
+            total: 12,
+          },
+          taxi: {
+            in: 4,
+            out: 4,
+            total: 8,
+          },
+          bus: {
+            in: 0,
+            out: 0,
+            total: 0,
+          },
+          subway: {
+            in: 50,
+            out: 50,
+            total: 100,
+          },
+          railroad: {
+            in: 2,
+            out: 2,
+            total: 4,
+          },
+          walk: {
+            in: 30,
+            out: 30,
+            total: 60,
+          },
         },
-        bus: {
-          in: 2,
-          out: 2,
-          total: 4,
+        pm: {
+          auto: {
+            in: 14,
+            out: 14,
+            total: 28,
+          },
+          taxi: {
+            in: 8,
+            out: 8,
+            total: 16,
+          },
+          bus: {
+            in: 2,
+            out: 2,
+            total: 4,
+          },
+          subway: {
+            in: 112,
+            out: 112,
+            total: 224,
+          },
+          railroad: {
+            in: 4,
+            out: 4,
+            total: 8,
+          },
+          walk: {
+            in: 68,
+            out: 68,
+            total: 136,
+          },
         },
-        subway: {
-          in: 102,
-          out: 102,
-          total: 204,
+        saturday: {
+          auto: {
+            in: 12,
+            out: 12,
+            total: 24,
+          },
+          taxi: {
+            in: 6,
+            out: 6,
+            total: 12,
+          },
+          bus: {
+            in: 2,
+            out: 2,
+            total: 4,
+          },
+          subway: {
+            in: 96,
+            out: 96,
+            total: 192,
+          },
+          railroad: {
+            in: 2,
+            out: 2,
+            total: 4,
+          },
+          walk: {
+            in: 58,
+            out: 58,
+            total: 116,
+          },
         },
-        railroad: {
-          in: 2,
-          out: 2,
-          total: 4,
-        },
-        walk: {
-          in: 62,
-          out: 62,
-          total: 124,
-        },
-      },
-      md: {
-        auto: {
-          in: 6,
-          out: 6,
-          total: 12,
-        },
-        taxi: {
-          in: 4,
-          out: 4,
-          total: 8,
-        },
-        bus: {
-          in: 0,
-          out: 0,
-          total: 0,
-        },
-        subway: {
-          in: 50,
-          out: 50,
-          total: 100,
-        },
-        railroad: {
-          in: 2,
-          out: 2,
-          total: 4,
-        },
-        walk: {
-          in: 30,
-          out: 30,
-          total: 60,
-        },
-      },
-      pm: {
-        auto: {
-          in: 14,
-          out: 14,
-          total: 28,
-        },
-        taxi: {
-          in: 8,
-          out: 8,
-          total: 16,
-        },
-        bus: {
-          in: 2,
-          out: 2,
-          total: 4,
-        },
-        subway: {
-          in: 112,
-          out: 112,
-          total: 224,
-        },
-        railroad: {
-          in: 4,
-          out: 4,
-          total: 8,
-        },
-        walk: {
-          in: 68,
-          out: 68,
-          total: 136,
-        },
-      },
-      saturday: {
-        auto: {
-          in: 12,
-          out: 12,
-          total: 24,
-        },
-        taxi: {
-          in: 6,
-          out: 6,
-          total: 12,
-        },
-        bus: {
-          in: 2,
-          out: 2,
-          total: 4,
-        },
-        subway: {
-          in: 96,
-          out: 96,
-          total: 192,
-        },
-        railroad: {
-          in: 2,
-          out: 2,
-          total: 4,
-        },
-        walk: {
-          in: 58,
-          out: 58,
-          total: 116,
-        },
-      },
+      });
     });
-  });
-
-  test('it calculates vehicleTrips', function (assert) {
-    const modes = [
-      'auto',
-      'taxi',
-      'bus',
-      'subway',
-      'railroad',
-      'walk',
-    ];
-
-    const tripResults = [
-      createTripResultWithVehicleTrips(),
-      createTripResultWithVehicleTrips(),
-    ];
-
-    const newTtrtCalc = ttrtCalc.create({
-      tripResults,
-      modes,
-    });
-
-    assert.deepEqual(newTtrtCalc.vehicleTrips, {
-      am: {
-        auto: {
-          in: 12,
-          out: 12,
-          total: 24,
-        },
-        taxi: {
-          in: 6,
-          out: 6,
-          total: 12,
-        },
-        bus: {
-          in: 2,
-          out: 2,
-          total: 4,
-        },
-        subway: {
-          in: 102,
-          out: 102,
-          total: 204,
-        },
-        railroad: {
-          in: 2,
-          out: 2,
-          total: 4,
-        },
-        walk: {
-          in: 62,
-          out: 62,
-          total: 124,
-        },
-      },
-      md: {
-        auto: {
-          in: 6,
-          out: 6,
-          total: 12,
-        },
-        taxi: {
-          in: 4,
-          out: 4,
-          total: 8,
-        },
-        bus: {
-          in: 0,
-          out: 0,
-          total: 0,
-        },
-        subway: {
-          in: 50,
-          out: 50,
-          total: 100,
-        },
-        railroad: {
-          in: 2,
-          out: 2,
-          total: 4,
-        },
-        walk: {
-          in: 30,
-          out: 30,
-          total: 60,
-        },
-      },
-      pm: {
-        auto: {
-          in: 14,
-          out: 14,
-          total: 28,
-        },
-        taxi: {
-          in: 8,
-          out: 8,
-          total: 16,
-        },
-        bus: {
-          in: 2,
-          out: 2,
-          total: 4,
-        },
-        subway: {
-          in: 112,
-          out: 112,
-          total: 224,
-        },
-        railroad: {
-          in: 4,
-          out: 4,
-          total: 8,
-        },
-        walk: {
-          in: 68,
-          out: 68,
-          total: 136,
-        },
-      },
-      saturday: {
-        auto: {
-          in: 12,
-          out: 12,
-          total: 24,
-        },
-        taxi: {
-          in: 6,
-          out: 6,
-          total: 12,
-        },
-        bus: {
-          in: 2,
-          out: 2,
-          total: 4,
-        },
-        subway: {
-          in: 96,
-          out: 96,
-          total: 192,
-        },
-        railroad: {
-          in: 2,
-          out: 2,
-          total: 4,
-        },
-        walk: {
-          in: 58,
-          out: 58,
-          total: 116,
-        },
-      },
-    });
-  });
-});
+  }
+);

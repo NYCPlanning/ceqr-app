@@ -2,9 +2,9 @@ import { helper } from '@ember/component/helper';
 
 const COUNTY_LOOKUP = {
   '085': 'Richmond County',
-  '081': 'King\'s County',
+  '081': "King's County",
   '061': 'New York County',
-  '047': 'Queen\'s County',
+  '047': "Queen's County",
   '005': 'Bronx County',
 };
 
@@ -12,7 +12,7 @@ const COUNTY_LOOKUP = {
  * Helper for CensusTractsTable that composes a human-readable version of a census
  * tract from the geoid, for use as column headers
  */
-export function humanReadableCensusTract(params/* , hash */) {
+export function humanReadableCensusTract(params /* , hash */) {
   const [geoid] = params;
 
   const countyCode = geoid.substring(2, 5);

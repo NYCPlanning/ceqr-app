@@ -5,13 +5,13 @@ import { action } from '@ember/object';
 export default class ProjectShowTransportationTdfPlanningFactorsShowRoute extends Route {
   async model(params) {
     const { project, transportationAnalysis } = this.modelFor('project/show');
-    const transportationPlanningFactor = await this.get('store').findRecord(
+    const transportationPlanningFactor = await this.store.findRecord(
       'transportation-planning-factor',
       params.transportation_planning_factor_id,
-      { include: 'data-package' },
+      { include: 'data-package' }
     );
     const dataPackage = transportationPlanningFactor.get('dataPackage');
-    const availablePackages = await this.get('store').query('data-package', {
+    const availablePackages = await this.store.query('data-package', {
       filter: {
         package: dataPackage.get('package'),
       },
@@ -31,7 +31,10 @@ export default class ProjectShowTransportationTdfPlanningFactorsShowRoute extend
     const projectId = transition.params['project.show'].id;
 
     if (fourohfour) {
-      this.replaceWith('project.show.transportation.tdf.planning-factors', projectId);
+      this.replaceWith(
+        'project.show.transportation.tdf.planning-factors',
+        projectId
+      );
     }
   }
 }

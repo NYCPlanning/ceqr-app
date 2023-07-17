@@ -2,19 +2,17 @@ import Component from '@glimmer/component';
 import ENV from 'labs-ceqr/config/environment';
 
 const MAINTENANCE_RANGE = ENV.maintenanceTimes;
-const [start, end] = MAINTENANCE_RANGE
-  .map((string) => new Date(string));
+const [start, end] = MAINTENANCE_RANGE.map((string) => new Date(string));
 
-const userReadableTime = function(time) {
-  return time.toLocaleDateString('en-us',
-    {
-      weekday: 'long',
-      year: 'numeric',
-      month: 'short',
-      day: 'numeric',
-      hour: 'numeric',
-      minute: 'numeric',
-    });
+const userReadableTime = function (time) {
+  return time.toLocaleDateString('en-us', {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+    hour: 'numeric',
+    minute: 'numeric',
+  });
 };
 
 export default class MaintenanceNoticeComponent extends Component {

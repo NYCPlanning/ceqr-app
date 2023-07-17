@@ -14,7 +14,7 @@ export default class TransportationTdfTripResultsVehicleTripsComponent extends C
     }));
   }
 
-  @computed('vehicleTrips')
+  @computed('vehicleTrips.total')
   get total() {
     return this.vehicleTrips.total;
   }

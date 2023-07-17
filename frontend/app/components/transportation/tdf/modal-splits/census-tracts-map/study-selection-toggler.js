@@ -22,6 +22,7 @@ export default class TransportationCensusTractsMapStudySelectionTogglerComponent
    * Census tract selection handling is triggered whenever bound property 'selectedFeatures' is updated
    */
   didUpdateAttrs() {
+    super.didUpdateAttrs();
     this.toggleCensusTract(this.selectedFeatureArray);
   }
 
@@ -34,9 +35,14 @@ export default class TransportationCensusTractsMapStudySelectionTogglerComponent
     const { analysis } = this;
 
     const existingStudySelection = analysis.get('censusTractsSelection');
-    const requiredStudySelection = analysis.get('requiredCensusTractsSelection');
+    const requiredStudySelection = analysis.get(
+      'requiredCensusTractsSelection'
+    );
     // check that selectedCensusTractFeature array exists and has an item
-    if (selectedCensusTractFeatureArray && selectedCensusTractFeatureArray.length) {
+    if (
+      selectedCensusTractFeatureArray &&
+      selectedCensusTractFeatureArray.length
+    ) {
       const { geoid } = selectedCensusTractFeatureArray[0].properties || {};
       // check that the feature has a geoid property and is not part of the required selection
       if (geoid && !requiredStudySelection.includes(geoid)) {

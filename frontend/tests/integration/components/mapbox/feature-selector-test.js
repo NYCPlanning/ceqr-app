@@ -3,10 +3,10 @@ import { setupRenderingTest } from 'ember-qunit';
 import { render, settled } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
-module('Integration | Component | mapbox/feature-selector', function(hooks) {
+module('Integration | Component | mapbox/feature-selector', function (hooks) {
   setupRenderingTest(hooks);
 
-  test('it yields the result of queryRenderedFeatures on click event', async function(assert) {
+  test('it yields the result of queryRenderedFeatures on click event', async function (assert) {
     const point = 'test';
     const events = {};
     this.map = {
