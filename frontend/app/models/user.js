@@ -1,12 +1,12 @@
-import DS from 'ember-data';
+import Model, { attr, hasMany } from '@ember-data/model';
 
-export default DS.Model.extend({
-  email: DS.attr('string'),
+export default class User extends Model {
+  @attr('string') email;
 
-  projectPermissions: DS.hasMany('project-permissions'),
+  @hasMany('project-permissions') projectPermissions;
 
-  editable_and_viewable_projects: DS.hasMany('projects'),
+  @hasMany('projects') editable_and_viewable_projects;
 
-  editable_projects: DS.hasMany('project', { inverse: 'editors' }),
-  viewable_projects: DS.hasMany('project', { inverse: 'viewers' }),
-});
+  @hasMany('project', { inverse: 'editors' }) editable_projects;
+  @hasMany('project', { inverse: 'viewers' }) viewable_projects;
+}
