@@ -22,7 +22,9 @@ module.exports = {
   env: {
     browser: true,
   },
-  rules: {},
+  rules: {
+    "ember/no-classic-classes": "warn",
+  },
   overrides: [
     // node files
     {
