@@ -6682,7 +6682,7 @@ ember-cli-get-component-path-option@^1.0.0:
   resolved "https://registry.yarnpkg.com/ember-cli-get-component-path-option/-/ember-cli-get-component-path-option-1.0.0.tgz#0d7b595559e2f9050abed804f1d8eff1b08bc771"
   integrity sha512-k47TDwcJ2zPideBCZE8sCiShSxQSpebY2BHcX2DdipMmBox5gsfyVrbKJWIHeSTTKyEUgmBIvQkqTOozEziCZA==
 
-ember-cli-htmlbars@^2.0.1, ember-cli-htmlbars@^2.0.3:
+ember-cli-htmlbars@^2.0.3:
   version "2.0.5"
   resolved "https://registry.yarnpkg.com/ember-cli-htmlbars/-/ember-cli-htmlbars-2.0.5.tgz#b5a105429a6bce4f7c9c97b667e3b8926e31397f"
   integrity sha512-3f3PAxdnQ/fhQa8XP/3z4RLRgLHxV8j4Ln75aHbRdemOCjBa048KxL9l+acRLhCulbGQCMnLiIUIC89PAzLrcA==
@@ -7354,13 +7354,6 @@ ember-in-element-polyfill@^1.0.0:
     ember-cli-htmlbars "^5.3.1"
     ember-cli-version-checker "^5.1.2"
 
-ember-in-viewport@~3.0.0:
-  version "3.0.3"
-  resolved "https://registry.yarnpkg.com/ember-in-viewport/-/ember-in-viewport-3.0.3.tgz#49c60b52525795246761742ed4495ad6cd9bf70d"
-  integrity sha512-Iw8qquApABdrP9xA8hJFaYAxz/iOGLJ0Acq4QptemEnpsHcQqAET/SKL/A1fbtDGQAVtB5+bULaJcsrzRMCteg==
-  dependencies:
-    ember-cli-babel "^6.6.0"
-
 "ember-inflector@^2.0.0 || ^3.0.0", ember-inflector@^3.0.1:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/ember-inflector/-/ember-inflector-3.0.1.tgz#04be6df4d7e4000f6d6bd70787cdc995f77be4ab"
@@ -7634,15 +7627,6 @@ ember-source@^3.28.11:
     resolve "^1.17.0"
     semver "^7.3.4"
     silent-error "^1.1.1"
-
-ember-sticky-element@^0.2.3:
-  version "0.2.3"
-  resolved "https://registry.yarnpkg.com/ember-sticky-element/-/ember-sticky-element-0.2.3.tgz#39702e0fc0f04905a7b34add61a85a9186d3d16b"
-  integrity sha512-AtKkM8zh6LK5FsPxtsDywUSodGk5c2AI03vcgk995dC5Z7DG4XLJoAwV0FZM5RYnymnYEJvOs6VTcIM8uwcX5w==
-  dependencies:
-    ember-cli-babel "^6.8.2"
-    ember-cli-htmlbars "^2.0.1"
-    ember-in-viewport "~3.0.0"
 
 ember-template-lint@^3.15.0:
   version "3.16.0"
