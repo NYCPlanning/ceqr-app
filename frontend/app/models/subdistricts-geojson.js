@@ -1,7 +1,7 @@
-import DS from 'ember-data';
+import Model, { attr, belongsTo } from '@ember-data/model';
 
-export default DS.Model.extend({
-  publicSchoolsAnalysis: DS.belongsTo('public-schools-analysis'),
+export default Model.extend({
+  publicSchoolsAnalysis: belongsTo('public-schools-analysis'),
 
-  subdistrictsGeojson: DS.attr(''),
+  subdistrictsGeojson: attr(''),
 });

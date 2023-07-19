@@ -1,15 +1,15 @@
-import DS from 'ember-data';
+import Model, { attr, belongsTo } from '@ember-data/model';
 import { computed } from '@ember/object';
 
 import turf from '@turf/helpers';
 import SubdistrictTotals from '../fragments/public-schools/SubdistrictTotals';
 import LevelTotals from '../fragments/public-schools/LevelTotals';
 
-export default DS.Model.extend({
-  project: DS.belongsTo('project'),
-  dataPackage: DS.belongsTo('data-package'),
+export default Model.extend({
+  project: belongsTo('project'),
+  dataPackage: belongsTo('data-package'),
 
-  newDataAvailable: DS.attr('boolean'),
+  newDataAvailable: attr('boolean'),
 
   // Analysis Model triggers across
   detailedAnalysis: computed.alias('indirectEffect'),
@@ -21,22 +21,29 @@ export default DS.Model.extend({
   buildYear: computed.alias('project.buildYear'),
 
   // Public Schools Multipliers
-  multipliers: DS.attr(''),
+  multipliers: attr(''),
   multiplierVersion: computed.alias('multipliers.version'),
-  currentMultiplier: computed('borough', 'district', 'multipliers.{boroughs,districts,version}', function () {
-    switch (this.multipliers.version) {
-      case 'march-2014':
-        return this.multipliers.boroughs.findBy('name', this.borough) || {};
-      case 'november-2018':
-      case 'november-2019':
-        return (
-          this.multipliers.districts.findBy('csd', parseFloat(this.district)) ||
-          {}
-        );
-      default:
-        return {};
+  currentMultiplier: computed(
+    'borough',
+    'district',
+    'multipliers.{boroughs,districts,version}',
+    function () {
+      switch (this.multipliers.version) {
+        case 'march-2014':
+          return this.multipliers.boroughs.findBy('name', this.borough) || {};
+        case 'november-2018':
+        case 'november-2019':
+          return (
+            this.multipliers.districts.findBy(
+              'csd',
+              parseFloat(this.district)
+            ) || {}
+          );
+        default:
+          return {};
+      }
     }
-  }),
+  ),
 
   // Schools Data version
   dataVersion: computed.alias('dataPackage.version'),
@@ -48,62 +55,83 @@ export default DS.Model.extend({
   ),
 
   // Derived from map
-  esSchoolChoice: DS.attr('boolean'),
-  isSchoolChoice: DS.attr('boolean'),
+  esSchoolChoice: attr('boolean'),
+  isSchoolChoice: attr('boolean'),
 
   // Effects
-  esEffect: computed('estEsMsStudents', 'multipliers.thresholdPsIsStudents', function () {
-    return this.multipliers.thresholdPsIsStudents < this.estEsMsStudents;
-  }),
-  hsEffect: computed('estHsStudents', 'multipliers.thresholdHsStudents', function () {
-    return this.multipliers.thresholdHsStudents < this.estHsStudents;
-  }),
+  esEffect: computed(
+    'estEsMsStudents',
+    'multipliers.thresholdPsIsStudents',
+    function () {
+      return this.multipliers.thresholdPsIsStudents < this.estEsMsStudents;
+    }
+  ),
+  hsEffect: computed(
+    'estHsStudents',
+    'multipliers.thresholdHsStudents',
+    function () {
+      return this.multipliers.thresholdHsStudents < this.estHsStudents;
+    }
+  ),
   indirectEffect: computed.or('esEffect', 'hsEffect'),
   hsAnalysis: computed.alias('hsEffect'),
 
   // Estimated Students
-  estEsStudents: computed('borough', 'currentMultiplier.ps', 'netUnits', function() {
+  estEsStudents: computed(
+    'borough',
+    'currentMultiplier.ps',
+    'netUnits',
+    function () {
       return Math.ceil(this.currentMultiplier.ps * this.netUnits);
     }
   ),
-  estIsStudents: computed('borough', 'currentMultiplier.is', 'netUnits', function() {
+  estIsStudents: computed(
+    'borough',
+    'currentMultiplier.is',
+    'netUnits',
+    function () {
       return Math.ceil(this.currentMultiplier.is * this.netUnits);
     }
   ),
   estEsMsStudents: computed('estEsStudents', 'estIsStudents', function () {
     return this.estEsStudents + this.estIsStudents;
   }),
-  estHsStudents: computed('borough', 'currentMultiplier.hs', 'netUnits', function() {
+  estHsStudents: computed(
+    'borough',
+    'currentMultiplier.hs',
+    'netUnits',
+    function () {
       return Math.ceil(this.currentMultiplier.hs * this.netUnits);
     }
   ),
 
   // School District & Subdistricts
-  subdistrictsFromDb: DS.attr('', {
+  subdistrictsFromDb: attr('', {
     defaultValue() {
       return [];
     },
   }),
-  subdistrictsFromUser: DS.attr('', {
+  subdistrictsFromUser: attr('', {
     defaultValue() {
       return [];
     },
   }),
-  subdistrictsGeojson: DS.belongsTo('subdistricts-geojson'),
+  subdistrictsGeojson: belongsTo('subdistricts-geojson'),
 
-  subdistricts: computed('subdistrictsFromDb.[]', 'subdistrictsFromUser.[]', function() {
+  subdistricts: computed(
+    'subdistrictsFromDb.[]',
+    'subdistrictsFromUser.[]',
+    function () {
       return this.subdistrictsFromDb.concat(this.subdistrictsFromUser);
     }
   ),
   district: computed('subdistrictsFromDb', function () {
     return parseFloat(this.subdistrictsFromDb[0].district);
   }),
-  multiSubdistrict: computed('subdistricts', function () {
-    return this.get('subdistricts').length > 1;
-  }),
+  multiSubdistrict: computed.gt('subdistricts.length', 1),
 
   // By Subdistrict
-  school_buildings: DS.attr('public-schools/schools', {
+  school_buildings: attr('public-schools/schools', {
     defaultValue() {
       return [];
     },
@@ -130,7 +158,7 @@ export default DS.Model.extend({
     return turf.featureCollection(features);
   }),
 
-  scaProjects: DS.attr('public-schools/sca-projects', {
+  scaProjects: attr('public-schools/sca-projects', {
     defaultValue() {
       return [];
     },
@@ -155,9 +183,7 @@ export default DS.Model.extend({
   }),
 
   buildings: computed('school_buildings', 'scaProjects', function () {
-    return this.get('school_buildings')
-      .concat(this.get('scaProjects'))
-      .compact();
+    return this.school_buildings.concat(this.scaProjects).compact();
   }),
   buildingsBldgIds: computed('buildings', function () {
     return this.buildings.mapBy('bldg_id').uniq();
@@ -165,56 +191,72 @@ export default DS.Model.extend({
 
   // ceqr_school_buildings dataset is a combination of two datasets lcgms and bluebook
   // lcgms dataset represents schools that opened recently
-  newlyOpenedSchools: computed('analysis.school_buildings', 'school_buildings', function () {
-    return this.school_buildings.find((school) => school.source === 'lcgms');
-  }),
+  newlyOpenedSchools: computed(
+    'analysis.school_buildings',
+    'school_buildings',
+    function () {
+      return this.school_buildings.find((school) => school.source === 'lcgms');
+    }
+  ),
 
   // Future
   projectionOverMax: computed('buildYear', 'maxProjection', function () {
     return this.buildYear > this.maxProjection;
   }),
-  buildYearMaxed: computed('buildYear', 'maxProjection', 'projectionOverMax', function () {
-    return this.projectionOverMax ? this.maxProjection : this.buildYear;
-  }),
+  buildYearMaxed: computed(
+    'buildYear',
+    'maxProjection',
+    'projectionOverMax',
+    function () {
+      return this.projectionOverMax ? this.maxProjection : this.buildYear;
+    }
+  ),
 
-  doeUtilChanges: DS.attr('', {
+  doeUtilChanges: attr('', {
     defaultValue() {
       return [];
     },
   }),
   doeUtilChangesBldgIds: computed('doeUtilChanges.[]', function () {
-    return this.doeUtilChanges.mapBy('bldg_id').concat(
-      this.doeUtilChanges.mapBy('bldg_id_additional'),
-      ).without('')
+    return this.doeUtilChanges
+      .mapBy('bldg_id')
+      .concat(this.doeUtilChanges.mapBy('bldg_id_additional'))
+      .without('')
       .uniq();
   }),
-  doeUtilChangesPerBldg: computed('buildings', 'doeUtilChanges', 'doeUtilChangesBldgIds', function () {
-    const buildingsNoHs = this.buildings.filter((b) => b.level !== 'hs');
+  doeUtilChangesPerBldg: computed(
+    'buildings',
+    'doeUtilChanges',
+    'doeUtilChangesBldgIds',
+    function () {
+      const buildingsNoHs = this.buildings.filter((b) => b.level !== 'hs');
 
-    return this.doeUtilChangesBldgIds.map((bldg_id) => {
-        const buildings = buildingsNoHs.filterBy('bldg_id', bldg_id);
+      return this.doeUtilChangesBldgIds
+        .map((bldg_id) => {
+          const buildings = buildingsNoHs.filterBy('bldg_id', bldg_id);
 
-        if (buildings.length === 0) return;
+          if (buildings.length === 0) return;
 
-        const doe_notices = this.get('doeUtilChanges')
-          .filter(
-            (b) => b.bldg_id === bldg_id || b.bldg_id_additional === bldg_id
-          )
-          .mapBy('title')
-          .uniq()
-          .map((title) => this.doeUtilChanges.filterBy('title', title));
+          const doe_notices = this.doeUtilChanges
+            .filter(
+              (b) => b.bldg_id === bldg_id || b.bldg_id_additional === bldg_id
+            )
+            .mapBy('title')
+            .uniq()
+            .map((title) => this.doeUtilChanges.filterBy('title', title));
 
-        return {
-          bldg_id,
-          buildings,
-          doe_notices,
-        };
-      })
-      .compact();
-  }),
+          return {
+            bldg_id,
+            buildings,
+            doe_notices,
+          };
+        })
+        .compact();
+    }
+  ),
   doeUtilChangesCount: computed.reads('doeUtilChangesPerBldg.length'),
 
-  residentialDevelopments: DS.attr('public-schools/residential-developments', {
+  residentialDevelopments: attr('public-schools/residential-developments', {
     defaultValue() {
       return [];
     },
@@ -230,24 +272,24 @@ export default DS.Model.extend({
     }
   ),
 
-  schoolsWithAction: DS.attr('', {
+  schoolsWithAction: attr('', {
     defaultValue() {
       return [];
     },
   }),
 
-  hsProjections: DS.attr('', {
+  hsProjections: attr('', {
     defaultValue() {
       return [];
     },
   }),
-  hsStudentsFromHousing: DS.attr('number', { defaultValue: 0 }),
-  futureEnrollmentProjections: DS.attr('', {
+  hsStudentsFromHousing: attr('number', { defaultValue: 0 }),
+  futureEnrollmentProjections: attr('', {
     defaultValue() {
       return [];
     },
   }),
-  futureEnrollmentNewHousing: DS.attr('', {
+  futureEnrollmentNewHousing: attr('', {
     defaultValue() {
       return [];
     },
@@ -259,7 +301,17 @@ export default DS.Model.extend({
   }),
 
   subdistrictTotals: computed(
-    'allSchools', 'borough', 'currentMultiplier.{hs,is,ps}', 'futureEnrollmentNewHousing', 'futureEnrollmentProjections.@each.{ms,ps}', 'futureResidentialDev', 'hsProjections', 'hsStudentsFromHousing', 'scaProjects.@each.{hs_capacity,includeInCapacity,is_capacity,ps_capacity}', 'schoolsWithAction', 'subdistricts',
+    'allSchools',
+    'borough',
+    'currentMultiplier.{hs,is,ps}',
+    'futureEnrollmentNewHousing',
+    'futureEnrollmentProjections.@each.{ms,ps}',
+    'futureResidentialDev',
+    'hsProjections',
+    'hsStudentsFromHousing',
+    'scaProjects.@each.{hs_capacity,includeInCapacity,is_capacity,ps_capacity}',
+    'schoolsWithAction',
+    'subdistricts',
     function () {
       const tables = [];
 
@@ -419,7 +471,11 @@ export default DS.Model.extend({
     }
   ),
 
-  psLevelTotals: computed('estEsStudents', 'schoolsWithAction.@each', 'subdistrictTotals', function() {
+  psLevelTotals: computed(
+    'estEsStudents',
+    'schoolsWithAction.[]',
+    'subdistrictTotals',
+    function () {
       return LevelTotals.create({
         subdistrictTotals: this.subdistrictTotals.filterBy('level', 'ps'),
         studentsWithAction: this.estEsStudents || 0,
@@ -427,7 +483,11 @@ export default DS.Model.extend({
     }
   ),
 
-  isLevelTotals: computed('estIsStudents', 'schoolsWithAction.@each', 'subdistrictTotals', function() {
+  isLevelTotals: computed(
+    'estIsStudents',
+    'schoolsWithAction.[]',
+    'subdistrictTotals',
+    function () {
       return LevelTotals.create({
         subdistrictTotals: this.subdistrictTotals.filterBy('level', 'is'),
         studentsWithAction: this.estIsStudents || 0,
@@ -435,7 +495,11 @@ export default DS.Model.extend({
     }
   ),
 
-  hsLevelTotals: computed('estHsStudents', 'schoolsWithAction.@each', 'subdistrictTotals', function() {
+  hsLevelTotals: computed(
+    'estHsStudents',
+    'schoolsWithAction.[]',
+    'subdistrictTotals',
+    function () {
       return LevelTotals.create({
         subdistrictTotals: this.subdistrictTotals.filterBy('level', 'hs'),
         studentsWithAction: this.estHsStudents || 0,
