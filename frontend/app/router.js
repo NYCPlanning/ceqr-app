@@ -3,17 +3,17 @@ import { inject as service } from '@ember/service';
 import { scheduleOnce } from '@ember/runloop';
 import config from 'labs-ceqr/config/environment';
 
-const Router = EmberRouter.extend({
-  init(...args) {
-    this._super(...args);
+export default class Router extends EmberRouter {
+  constructor(...args) {
+    super(...args);
     this.on('routeDidChange', () => {
       this._trackPage();
     });
-  },
+  }
 
-  location: config.locationType,
-  rootURL: config.rootURL,
-  metrics: service(),
+  location = config.locationType;
+  rootURL = config.rootURL;
+  @service metrics;
 
   _trackPage() {
     function trackPage() {
@@ -24,8 +24,8 @@ const Router = EmberRouter.extend({
       this.metrics.trackPage({ page, title });
     }
     scheduleOnce('afterRender', this, trackPage);
-  },
-});
+  }
+}
 
 Router.map(function () {
   this.route('login');
@@ -104,5 +104,3 @@ Router.map(function () {
     this.route('transportation-trip-generation');
   });
 });
-
-export default Router;
