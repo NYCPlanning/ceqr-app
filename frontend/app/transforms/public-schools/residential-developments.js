@@ -1,7 +1,5 @@
-import DS from 'ember-data';
+import Transform from '@ember-data/serializer/transform';
 import FutureResidentialDevelopment from '../../fragments/public-schools/FutureResidentialDevelopment';
-
-const { Transform } = DS;
 
 export default class PublicSchoolsResidentialDevelopmentsTransform extends Transform {
   deserialize(serialized) {
