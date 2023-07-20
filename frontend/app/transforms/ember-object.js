@@ -1,12 +1,12 @@
-import DS from 'ember-data';
+import Transform from '@ember-data/serializer/transform';
 import EmberObject from '@ember/object';
 
-export default DS.Transform.extend({
+export default class EmberObjectTransform extends Transform {
   deserialize(serialized) {
     return EmberObject.create(serialized);
-  },
+  }
 
   serialize(deserialized) {
     return { ...deserialized };
-  },
-});
+  }
+}
