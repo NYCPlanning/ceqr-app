@@ -1,6 +1,7 @@
 import Route from '@ember/routing/route';
 import RSVP from 'rsvp';
 import fetch from 'fetch';
+import { set } from '@ember/object';
 
 import ENV from 'labs-ceqr/config/environment';
 
@@ -10,7 +11,7 @@ export default class SignupApproveRoute extends Route {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ token }),
-    }).catch((err) => this.set('error', { message: err }));
+    }).catch((err) => set(this, 'error', { message: err }));
 
     const body = await response.json();
 
