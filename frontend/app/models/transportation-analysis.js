@@ -1,16 +1,14 @@
-import DS from 'ember-data';
-import { computed } from '@ember/object';
+import Model, { attr, belongsTo, hasMany } from '@ember-data/model';
+import { computed, get, set } from '@ember/object';
 import { alias } from '@ember/object/computed';
 import { MODES } from 'labs-ceqr/utils/censusTractVariableForMode';
 import TripResultsTotalsCalculator from '../calculators/transportation/trip-results-totals';
-
-const { Model, attr, belongsTo, hasMany } = DS;
 
 export default class TransportationAnalysisModel extends Model {
   ready() {
     // Default modesForAnalysis
     if (Object.keys(this.modesForAnalysis).length === 0) {
-      this.set('modesForAnalysis', [
+      set(this, 'modesForAnalysis', [
         'auto',
         'taxi',
         'bus',
@@ -101,7 +99,11 @@ export default class TransportationAnalysisModel extends Model {
   // Office sq ft
   @computed('project.commercialLandUse.[]')
   get officeSqFt() {
-    const type = this.get('project.commercialLandUse').findBy('type', 'office');
+    /* eslint-disable-next-line ember/no-get */
+    const type = get(this, 'project.commercialLandUse').findBy(
+      'type',
+      'office'
+    );
     return type ? type.grossSqFt : 0;
   }
 
@@ -113,7 +115,8 @@ export default class TransportationAnalysisModel extends Model {
   // Regional Retail sq ft
   @computed('project.commercialLandUse.[]')
   get regionalRetailSqFt() {
-    const type = this.get('project.commercialLandUse').findBy(
+    /* eslint-disable-next-line ember/no-get */
+    const type = get(this, 'project.commercialLandUse').findBy(
       'type',
       'regional-retail'
     );
@@ -128,7 +131,8 @@ export default class TransportationAnalysisModel extends Model {
   // Local Retail sq ft
   @computed('project.commercialLandUse.[]')
   get localRetailSqFt() {
-    const type = this.get('project.commercialLandUse').findBy(
+    /* eslint-disable-next-line ember/no-get */
+    const type = get(this, 'project.commercialLandUse').findBy(
       'type',
       'local-retail'
     );
@@ -143,7 +147,8 @@ export default class TransportationAnalysisModel extends Model {
   // Restaurant sq ft
   @computed('project.commercialLandUse.[]')
   get restaurantSqFt() {
-    const resturants = this.get('project.commercialLandUse').filter(
+    /* eslint-disable-next-line ember/no-get */
+    const resturants = get(this, 'project.commercialLandUse').filter(
       (r) => r.type === 'restaurant' || r.type === 'fast-food'
     );
     return resturants.reduce((a, r) => a + r.grossSqFt, 0);
@@ -160,7 +165,8 @@ export default class TransportationAnalysisModel extends Model {
   // currently suggests only one fast-food land use can be created per project.
   @computed('project.commercialLandUse.[]')
   get fastFoodSqFt() {
-    return this.get('project.commercialLandUse')
+    /* eslint-disable-next-line ember/no-get */
+    return get(this, 'project.commercialLandUse')
       .filter((landUse) => landUse.type === 'fast-food')
       .reduce(
         (landUseTotalSqFt, curLandUse) =>
@@ -172,7 +178,8 @@ export default class TransportationAnalysisModel extends Model {
   // Community Facility sq ft
   @computed('project.communityFacilityLandUse.[]')
   get communityFacilitySqFt() {
-    const type = this.get('project.communityFacilityLandUse').findBy(
+    /* eslint-disable-next-line ember/no-get */
+    const type = get(this, 'project.communityFacilityLandUse').findBy(
       'type',
       'community-facility'
     );
@@ -187,7 +194,11 @@ export default class TransportationAnalysisModel extends Model {
   // Off Street Parking spaces
   @computed('project.parkingLandUse.[]')
   get offStreetParkingSpaces() {
-    return this.get('project.parkingLandUse').reduce((a, p) => a + p.spaces, 0);
+    /* eslint-disable-next-line ember/no-get */
+    return get(this, 'project.parkingLandUse').reduce(
+      (a, p) => a + p.spaces,
+      0
+    );
   }
 
   @computed('offStreetParkingSpaces')
@@ -261,10 +272,11 @@ export default class TransportationAnalysisModel extends Model {
   };
 
   thresholdFor(type) {
-    return this.get(`trafficZoneThresholds.${type}.zone${this.trafficZone}`);
+    const zone = `zone${this.trafficZone}`;
+    return this.trafficZoneThresholds[type]?.[zone];
   }
 
   ratioFor(type) {
-    return this.get(type) / this.thresholdFor(type);
+    return this[type] / this.thresholdFor(type);
   }
 }

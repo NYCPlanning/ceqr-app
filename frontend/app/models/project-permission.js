@@ -1,10 +1,11 @@
 import Model, { attr, belongsTo } from '@ember-data/model';
 
-export default Model.extend({
-  project: belongsTo('project'),
-  user: belongsTo('user'),
-  permission: attr('string'),
+export default class ProjectPermissionsModel extends Model {
+  @belongsTo project;
+  @belongsTo user;
 
-  userId: attr('number'),
-  projectId: attr('number'),
-});
+  @attr('string') permission;
+
+  @attr('number') userId;
+  @attr('number') projectId;
+}

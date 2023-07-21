@@ -1,18 +1,16 @@
-import DS from 'ember-data';
-import EmberObject, { computed } from '@ember/object';
+import Model, { attr, belongsTo } from '@ember-data/model';
+import EmberObject, { computed, get, set } from '@ember/object';
 import { alias } from '@ember/object/computed';
 import { MODES } from 'labs-ceqr/utils/censusTractVariableForMode';
 import CensusTractsCalculator from '../calculators/transportation/census-tracts';
 import TripResultsCalculator from '../calculators/transportation/trip-results';
-
-const { Model, attr, belongsTo } = DS;
 
 export default class TransportationPlanningFactorModel extends Model {
   // Set defaults on values not received from server
   ready() {
     // Default inOutSplits
     if (Object.keys(this.inOutSplits).length === 0) {
-      this.set('inOutSplits', {
+      set(this, 'inOutSplits', {
         am: { in: 50, out: 50 },
         md: { in: 50, out: 50 },
         pm: { in: 50, out: 50 },
@@ -22,7 +20,7 @@ export default class TransportationPlanningFactorModel extends Model {
 
     // Default truckInOutSplits
     if (Object.keys(this.truckInOutSplits).length === 0) {
-      this.set('truckInOutSplits', {
+      set(this, 'truckInOutSplits', {
         allDay: { in: 50, out: 50 },
       });
     }
@@ -41,12 +39,12 @@ export default class TransportationPlanningFactorModel extends Model {
           })
       );
 
-      this.set('modeSplitsFromUser', EmberObject.create(modeSplitsFromUser));
+      set(this, 'modeSplitsFromUser', EmberObject.create(modeSplitsFromUser));
     }
 
     // Default truckInOutSplits
     if (Object.keys(this.vehicleOccupancyFromUser).length === 0) {
-      this.set('vehicleOccupancyFromUser', {
+      set(this, 'vehicleOccupancyFromUser', {
         auto: {
           am: 1,
           md: 1,
@@ -115,7 +113,7 @@ export default class TransportationPlanningFactorModel extends Model {
   }
 
   set modeSplits(modeSplits) {
-    this.set('modeSplitsFromUser', modeSplits);
+    set(this, 'modeSplitsFromUser', modeSplits);
   }
 
   // User-entered vehicle occupancy rate for "trip generation" existing conditions step
@@ -134,7 +132,7 @@ export default class TransportationPlanningFactorModel extends Model {
   }
 
   set vehicleOccupancy(value) {
-    this.set('vehicleOccupancyFromUser', value);
+    set(this, 'vehicleOccupancyFromUser', value);
   }
 
   // The percentage values for trip generation per-peak-hour In and Out trip distributions
@@ -154,10 +152,13 @@ export default class TransportationPlanningFactorModel extends Model {
   )
   get units() {
     if (this.landUse === 'residential') {
-      return this.get('transportationAnalysis.project.totalUnits');
+      /* eslint-disable-next-line ember/no-get */
+      return get(this, 'transportationAnalysis.project.totalUnits');
     }
     if (this.landUse === 'office') {
-      const commercialLandUse = this.get(
+      /* eslint-disable-next-line ember/no-get */
+      const commercialLandUse = get(
+        this,
         'transportationAnalysis.project.commercialLandUse'
       );
       return commercialLandUse.findBy('type', 'office').grossSqFt;
@@ -198,7 +199,8 @@ export default class TransportationPlanningFactorModel extends Model {
       inOutSplits: this.inOutSplits,
       truckInOutSplits: this.truckInOutSplits,
       vehicleOccupancy: this.vehicleOccupancy,
-      project: this.get('transportationAnalysis.project'),
+      /* eslint-disable-next-line ember/no-get */
+      project: get(this, 'transportationAnalysis.project'),
       manualModeSplits: this.manualModeSplits,
       temporalModeSplits: this.temporalModeSplits,
       temporalVehicleOccupancy: this.temporalVehicleOccupancy,

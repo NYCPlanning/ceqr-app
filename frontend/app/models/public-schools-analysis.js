@@ -1,29 +1,30 @@
 import Model, { attr, belongsTo } from '@ember-data/model';
 import { computed } from '@ember/object';
+import { alias, or, gt, reads } from '@ember/object/computed';
 
 import turf from '@turf/helpers';
 import SubdistrictTotals from '../fragments/public-schools/SubdistrictTotals';
 import LevelTotals from '../fragments/public-schools/LevelTotals';
 
-export default Model.extend({
-  project: belongsTo('project'),
-  dataPackage: belongsTo('data-package'),
+export default class PublicSchoolsAnalysisModel extends Model {
+  @belongsTo('project') project;
+  @belongsTo('data-package') dataPackage;
 
-  newDataAvailable: attr('boolean'),
+  @attr('boolean') newDataAvailable;
 
   // Analysis Model triggers across
-  detailedAnalysis: computed.alias('indirectEffect'),
+  @alias('indirectEffect') detailedAnalysis;
 
   // Aliases from project
-  borough: computed.alias('project.borough'),
-  netUnits: computed.alias('project.netUnits'),
-  bbls: computed.alias('project.bbls'),
-  buildYear: computed.alias('project.buildYear'),
+  @alias('project.borough') borough;
+  @alias('project.netUnits') netUnits;
+  @alias('project.bbls') bbls;
+  @alias('project.buildYear') buildYear;
 
   // Public Schools Multipliers
-  multipliers: attr(''),
-  multiplierVersion: computed.alias('multipliers.version'),
-  currentMultiplier: computed(
+  @attr('') multipliers;
+  @alias('multipliers.version') multiplierVersion;
+  @computed(
     'borough',
     'district',
     'multipliers.{boroughs,districts,version}',
@@ -43,101 +44,86 @@ export default Model.extend({
           return {};
       }
     }
-  ),
+  )
+  currentMultiplier;
 
   // Schools Data version
-  dataVersion: computed.alias('dataPackage.version'),
-  maxProjection: computed.alias(
-    'dataPackage.schemas.sca_e_projections_by_sd.maxYear'
-  ),
-  minProjection: computed.alias(
-    'dataPackage.schemas.sca_e_projections_by_sd.minYear'
-  ),
+  @alias('dataPackage.version') dataVersion;
+  @alias('dataPackage.schemas.sca_e_projections_by_sd.maxYear') maxProjection;
+  @alias('dataPackage.schemas.sca_e_projections_by_sd.minYear') minProjection;
 
   // Derived from map
-  esSchoolChoice: attr('boolean'),
-  isSchoolChoice: attr('boolean'),
+  @attr('boolean') esSchoolChoice;
+  @attr('boolean') isSchoolChoice;
 
   // Effects
-  esEffect: computed(
+  @computed(
     'estEsMsStudents',
     'multipliers.thresholdPsIsStudents',
     function () {
       return this.multipliers.thresholdPsIsStudents < this.estEsMsStudents;
     }
-  ),
-  hsEffect: computed(
-    'estHsStudents',
-    'multipliers.thresholdHsStudents',
-    function () {
-      return this.multipliers.thresholdHsStudents < this.estHsStudents;
-    }
-  ),
-  indirectEffect: computed.or('esEffect', 'hsEffect'),
-  hsAnalysis: computed.alias('hsEffect'),
+  )
+  esEffect;
+  @computed('estHsStudents', 'multipliers.thresholdHsStudents', function () {
+    return this.multipliers.thresholdHsStudents < this.estHsStudents;
+  })
+  hsEffect;
+  @or('esEffect', 'hsEffect') indirectEffect;
+  @alias('hsEffect') hsAnalysis;
 
   // Estimated Students
-  estEsStudents: computed(
-    'borough',
-    'currentMultiplier.ps',
-    'netUnits',
-    function () {
-      return Math.ceil(this.currentMultiplier.ps * this.netUnits);
-    }
-  ),
-  estIsStudents: computed(
-    'borough',
-    'currentMultiplier.is',
-    'netUnits',
-    function () {
-      return Math.ceil(this.currentMultiplier.is * this.netUnits);
-    }
-  ),
-  estEsMsStudents: computed('estEsStudents', 'estIsStudents', function () {
+  @computed('borough', 'currentMultiplier.ps', 'netUnits', function () {
+    return Math.ceil(this.currentMultiplier.ps * this.netUnits);
+  })
+  estEsStudents;
+  @computed('borough', 'currentMultiplier.is', 'netUnits', function () {
+    return Math.ceil(this.currentMultiplier.is * this.netUnits);
+  })
+  estIsStudents;
+  @computed('estEsStudents', 'estIsStudents', function () {
     return this.estEsStudents + this.estIsStudents;
-  }),
-  estHsStudents: computed(
-    'borough',
-    'currentMultiplier.hs',
-    'netUnits',
-    function () {
-      return Math.ceil(this.currentMultiplier.hs * this.netUnits);
-    }
-  ),
+  })
+  estEsMsStudents;
+  @computed('borough', 'currentMultiplier.hs', 'netUnits', function () {
+    return Math.ceil(this.currentMultiplier.hs * this.netUnits);
+  })
+  estHsStudents;
 
   // School District & Subdistricts
-  subdistrictsFromDb: attr('', {
+  @attr('', {
     defaultValue() {
       return [];
     },
-  }),
-  subdistrictsFromUser: attr('', {
+  })
+  subdistrictsFromDb;
+  @attr('', {
     defaultValue() {
       return [];
     },
-  }),
-  subdistrictsGeojson: belongsTo('subdistricts-geojson'),
+  })
+  subdistrictsFromUser;
+  @belongsTo('subdistricts-geojson') subdistrictsGeojson;
 
-  subdistricts: computed(
-    'subdistrictsFromDb.[]',
-    'subdistrictsFromUser.[]',
-    function () {
-      return this.subdistrictsFromDb.concat(this.subdistrictsFromUser);
-    }
-  ),
-  district: computed('subdistrictsFromDb', function () {
+  @computed('subdistrictsFromDb.[]', 'subdistrictsFromUser.[]', function () {
+    return this.subdistrictsFromDb.concat(this.subdistrictsFromUser);
+  })
+  subdistricts;
+  @computed('subdistrictsFromDb', function () {
     return parseFloat(this.subdistrictsFromDb[0].district);
-  }),
-  multiSubdistrict: computed.gt('subdistricts.length', 1),
+  })
+  district;
+  @gt('subdistricts.length', 1) multiSubdistrict;
 
   // By Subdistrict
-  school_buildings: attr('public-schools/schools', {
+  @attr('public-schools/schools', {
     defaultValue() {
       return [];
     },
-  }),
+  })
+  school_buildings;
 
-  buildingsGeojson: computed('school_buildings', function () {
+  @computed('school_buildings', function () {
     const buildings = this.school_buildings;
 
     const features = buildings.map((building) => {
@@ -156,14 +142,16 @@ export default Model.extend({
     });
 
     return turf.featureCollection(features);
-  }),
+  })
+  buildingsGeojson;
 
-  scaProjects: attr('public-schools/sca-projects', {
+  @attr('public-schools/sca-projects', {
     defaultValue() {
       return [];
     },
-  }),
-  scaProjectsGeojson: computed('scaProjects', function () {
+  })
+  scaProjects;
+  @computed('scaProjects', function () {
     const features = this.scaProjects.map((b) => {
       const { geojson } = b;
 
@@ -180,51 +168,50 @@ export default Model.extend({
     });
 
     return turf.featureCollection(features);
-  }),
+  })
+  scaProjectsGeojson;
 
-  buildings: computed('school_buildings', 'scaProjects', function () {
+  @computed('school_buildings', 'scaProjects', function () {
     return this.school_buildings.concat(this.scaProjects).compact();
-  }),
-  buildingsBldgIds: computed('buildings', function () {
+  })
+  buildings;
+  @computed('buildings', function () {
     return this.buildings.mapBy('bldg_id').uniq();
-  }),
+  })
+  buildingsBldgIds;
 
   // ceqr_school_buildings dataset is a combination of two datasets lcgms and bluebook
   // lcgms dataset represents schools that opened recently
-  newlyOpenedSchools: computed(
-    'analysis.school_buildings',
-    'school_buildings',
-    function () {
-      return this.school_buildings.find((school) => school.source === 'lcgms');
-    }
-  ),
+  @computed('analysis.school_buildings', 'school_buildings', function () {
+    return this.school_buildings.find((school) => school.source === 'lcgms');
+  })
+  newlyOpenedSchools;
 
   // Future
-  projectionOverMax: computed('buildYear', 'maxProjection', function () {
+  @computed('buildYear', 'maxProjection', function () {
     return this.buildYear > this.maxProjection;
-  }),
-  buildYearMaxed: computed(
-    'buildYear',
-    'maxProjection',
-    'projectionOverMax',
-    function () {
-      return this.projectionOverMax ? this.maxProjection : this.buildYear;
-    }
-  ),
+  })
+  projectionOverMax;
+  @computed('buildYear', 'maxProjection', 'projectionOverMax', function () {
+    return this.projectionOverMax ? this.maxProjection : this.buildYear;
+  })
+  buildYearMaxed;
 
-  doeUtilChanges: attr('', {
+  @attr('', {
     defaultValue() {
       return [];
     },
-  }),
-  doeUtilChangesBldgIds: computed('doeUtilChanges.[]', function () {
+  })
+  doeUtilChanges;
+  @computed('doeUtilChanges.[]', function () {
     return this.doeUtilChanges
       .mapBy('bldg_id')
       .concat(this.doeUtilChanges.mapBy('bldg_id_additional'))
       .without('')
       .uniq();
-  }),
-  doeUtilChangesPerBldg: computed(
+  })
+  doeUtilChangesBldgIds;
+  @computed(
     'buildings',
     'doeUtilChanges',
     'doeUtilChangesBldgIds',
@@ -253,54 +240,58 @@ export default Model.extend({
         })
         .compact();
     }
-  ),
-  doeUtilChangesCount: computed.reads('doeUtilChangesPerBldg.length'),
+  )
+  doeUtilChangesPerBldg;
+  @reads('doeUtilChangesPerBldg.length') doeUtilChangesCount;
 
-  residentialDevelopments: attr('public-schools/residential-developments', {
+  @attr('public-schools/residential-developments', {
     defaultValue() {
       return [];
     },
-  }),
-  futureResidentialDev: computed(
-    'currentMultiplier',
-    'residentialDevelopments.[]',
-    function () {
-      return this.residentialDevelopments.map((d) => {
-        d.set('multipliers', this.currentMultiplier);
-        return d;
-      });
-    }
-  ),
+  })
+  residentialDevelopments;
+  @computed('currentMultiplier', 'residentialDevelopments.[]', function () {
+    return this.residentialDevelopments.map((d) => {
+      d.set('multipliers', this.currentMultiplier);
+      return d;
+    });
+  })
+  futureResidentialDev;
 
-  schoolsWithAction: attr('', {
+  @attr('', {
     defaultValue() {
       return [];
     },
-  }),
+  })
+  schoolsWithAction;
 
-  hsProjections: attr('', {
+  @attr('', {
     defaultValue() {
       return [];
     },
-  }),
-  hsStudentsFromHousing: attr('number', { defaultValue: 0 }),
-  futureEnrollmentProjections: attr('', {
+  })
+  hsProjections;
+  @attr('number', { defaultValue: 0 }) hsStudentsFromHousing;
+  @attr('', {
     defaultValue() {
       return [];
     },
-  }),
-  futureEnrollmentNewHousing: attr('', {
+  })
+  futureEnrollmentProjections;
+  @attr('', {
     defaultValue() {
       return [];
     },
-  }),
+  })
+  futureEnrollmentNewHousing;
 
   // Tables
-  allSchools: computed('school_buildings', function () {
+  @computed('school_buildings', function () {
     return this.school_buildings.compact();
-  }),
+  })
+  allSchools;
 
-  subdistrictTotals: computed(
+  @computed(
     'allSchools',
     'borough',
     'currentMultiplier.{hs,is,ps}',
@@ -469,9 +460,10 @@ export default Model.extend({
 
       return tables;
     }
-  ),
+  )
+  subdistrictTotals;
 
-  psLevelTotals: computed(
+  @computed(
     'estEsStudents',
     'schoolsWithAction.[]',
     'subdistrictTotals',
@@ -481,9 +473,10 @@ export default Model.extend({
         studentsWithAction: this.estEsStudents || 0,
       });
     }
-  ),
+  )
+  psLevelTotals;
 
-  isLevelTotals: computed(
+  @computed(
     'estIsStudents',
     'schoolsWithAction.[]',
     'subdistrictTotals',
@@ -493,9 +486,10 @@ export default Model.extend({
         studentsWithAction: this.estIsStudents || 0,
       });
     }
-  ),
+  )
+  isLevelTotals;
 
-  hsLevelTotals: computed(
+  @computed(
     'estHsStudents',
     'schoolsWithAction.[]',
     'subdistrictTotals',
@@ -505,5 +499,6 @@ export default Model.extend({
         studentsWithAction: this.estHsStudents || 0,
       });
     }
-  ),
-});
+  )
+  hsLevelTotals;
+}

@@ -1,7 +1,7 @@
 import Model, { attr, belongsTo } from '@ember-data/model';
 
-export default Model.extend({
-  publicSchoolsAnalysis: belongsTo('public-schools-analysis'),
+export default class SubdistrictsGeojsonModel extends Model {
+  @belongsTo('public-schools-analysis') publicSchoolsAnalysis;
 
-  subdistrictsGeojson: attr(''),
-});
+  @attr('') subdistrictsGeojson;
+}

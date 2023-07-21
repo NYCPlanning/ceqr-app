@@ -3,34 +3,35 @@ import { computed } from '@ember/object';
 import { inject as service } from '@ember/service';
 import boroughToAbbr from 'labs-ceqr/utils/boroughToAbbr';
 
-export default Model.extend({
-  currentUser: service(),
+export default class ProjectModel extends Model {
+  @service currentUser;
 
-  editors: hasMany('user', { inverse: 'editable_projects' }),
-  viewers: hasMany('user', { inverse: 'viewable_projects' }),
-  projectPermissions: hasMany('project-permissions'),
+  @hasMany('user', { inverse: 'editable_projects' }) editors;
+  @hasMany('user', { inverse: 'viewable_projects' }) viewers;
+  @hasMany('project-permissions') projectPermissions;
 
-  dataPackage: belongsTo('dataPackage'),
+  @belongsTo('dataPackage') dataPackage;
 
-  viewOnly: attr('boolean'),
+  @attr('boolean') viewOnly;
 
-  created_at: attr('string'),
-  updated_at: attr('string'),
-  updated_by: attr('string'),
+  @attr('string') created_at;
+  @attr('string') updated_at;
+  @attr('string') updated_by;
 
-  name: attr('string'),
-  buildYear: attr('number'),
-  ceqrNumber: attr('string'),
+  @attr('string') name;
+  @attr('number') buildYear;
+  @attr('string') ceqrNumber;
 
-  bbls: attr('', {
+  @attr('', {
     defaultValue() {
       return [];
     },
-  }),
-  bblsVersion: attr('string'),
-  bblsGeojson: attr(''),
+  })
+  bbls;
+  @attr('string') bblsVersion;
+  @attr('') bblsGeojson;
 
-  borough: computed('boroCode', function () {
+  @computed('boroCode', function () {
     switch (this.boroCode) {
       case 1:
         return 'Manhattan';
@@ -45,49 +46,62 @@ export default Model.extend({
       default:
         return null;
     }
-  }),
-  boroCode: computed('bbls.[]', function () {
+  })
+  borough;
+
+  @computed('bbls.[]', function () {
     if (this.bbls.length === 0) return null;
     return parseFloat(this.bbls.firstObject.charAt(0));
-  }),
-  boroAbbr: computed('borough', function () {
+  })
+  boroCode;
+
+  @computed('borough', function () {
     return boroughToAbbr(this.borough);
-  }),
+  })
+  boroAbbr;
 
   // Analysis Framework
-  totalUnits: attr('number', { defaultValue: 0 }),
-  seniorUnits: attr('number', { defaultValue: 0 }),
-  affordableUnits: attr('number', { defaultValue: 0 }),
+  @attr('number', { defaultValue: 0 }) totalUnits;
+  @attr('number', { defaultValue: 0 }) seniorUnits;
+  @attr('number', { defaultValue: 0 }) affordableUnits;
 
-  commercialLandUse: attr('', {
+  @attr('', {
     defaultValue() {
       return [];
     },
-  }),
-  industrialLandUse: attr('', {
+  })
+  commercialLandUse;
+
+  @attr('', {
     defaultValue() {
       return [];
     },
-  }),
-  communityFacilityLandUse: attr('', {
+  })
+  industrialLandUse;
+
+  @attr('', {
     defaultValue() {
       return [];
     },
-  }),
-  parkingLandUse: attr('', {
+  })
+  communityFacilityLandUse;
+
+  @attr('', {
     defaultValue() {
       return [];
     },
-  }),
+  })
+  parkingLandUse;
 
   // Should probably move to PublicSchoolsAnalysis.
   // Any computed property that is specifically relevant to a given analyses should be its responsibility
-  netUnits: computed('totalUnits', 'seniorUnits', function () {
+  @computed('totalUnits', 'seniorUnits', function () {
     return this.totalUnits - this.seniorUnits;
-  }),
+  })
+  netUnits;
 
   // Analyses Relationships
-  publicSchoolsAnalysis: belongsTo('public-schools-analysis'),
-  transportationAnalysis: belongsTo('transportation-analysis'),
-  communityFacilitiesAnalysis: belongsTo('community-facilities-analysis'),
-});
+  @belongsTo('public-schools-analysis') publicSchoolsAnalysis;
+  @belongsTo('transportation-analysis') transportationAnalysis;
+  @belongsTo('community-facilities-analysis') communityFacilitiesAnalysis;
+}
