@@ -1,8 +1,8 @@
 import Route from '@ember/routing/route';
 import RSVP from 'rsvp';
 
-export default Route.extend({
-  controllerName: 'project',
+export default class ProjectShowPublicSchoolRoute extends Route {
+  controllerName = 'project';
 
   async model() {
     const { project } = this.modelFor('project/show');
@@ -17,7 +17,7 @@ export default Route.extend({
       publicSchoolsAnalysis,
       availablePackages,
     });
-  },
+  }
 
   afterModel(model) {
     if (model.project.viewOnly) {
@@ -26,5 +26,5 @@ export default Route.extend({
         model.project.id
       );
     }
-  },
-});
+  }
+}

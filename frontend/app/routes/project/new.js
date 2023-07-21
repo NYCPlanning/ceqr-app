@@ -1,12 +1,13 @@
 import Route from '@ember/routing/route';
 import RSVP from 'rsvp';
 import { inject as service } from '@ember/service';
+import { action, set } from '@ember/object';
 
-export default Route.extend({
-  controllerName: 'edit-project',
+export default class ProjectNewRoute extends Route {
+  controllerName = 'edit-project';
 
-  currentUser: service(),
-  'project-orchestrator': service(),
+  @service() currentUser;
+  @service projectOrchestrator;
 
   async model() {
     const project = await this.store.createRecord('project');
@@ -20,16 +21,15 @@ export default Route.extend({
       project,
       mapplutoVersions,
     });
-  },
+  }
 
-  actions: {
-    async createProject(changeset) {
-      await changeset.validate();
+  @action
+  async createProject(changeset) {
+    await changeset.validate();
 
-      if (!changeset.isValid) return;
+    if (!changeset.isValid) return;
 
-      this.get('project-orchestrator').set('changeset', changeset);
-      this.get('project-orchestrator.createProject').perform();
-    },
-  },
-});
+    set(this.projectOrchestrator, 'changeset', changeset);
+    this.projectOrchestrator?.createProject.perform();
+  }
+}

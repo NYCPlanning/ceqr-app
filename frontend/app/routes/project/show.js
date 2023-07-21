@@ -1,8 +1,8 @@
 import Route from '@ember/routing/route';
 import RSVP from 'rsvp';
 
-export default Route.extend({
-  controllerName: 'project',
+export default class ProjectShowRoute extends Route {
+  controllerName = 'project';
 
   async model(params) {
     const project = await this.store.findRecord('project', params.id, {
@@ -26,5 +26,5 @@ export default Route.extend({
       transportationAnalysis: project.transportationAnalysis,
       communityFacilitiesAnalysis: project.communityFacilitiesAnalysis,
     });
-  },
-});
+  }
+}

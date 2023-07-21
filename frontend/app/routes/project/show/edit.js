@@ -1,9 +1,10 @@
 import Route from '@ember/routing/route';
 import { inject as service } from '@ember/service';
+import { action, set } from '@ember/object';
 
-export default Route.extend({
-  controllerName: 'edit-project',
-  'project-orchestrator': service(),
+export default class ProjectShowEditRoute extends Route {
+  controllerName = 'edit-project';
+  @service projectOrchestrator;
 
   afterModel(model) {
     if (model.project.viewOnly) {
@@ -12,20 +13,20 @@ export default Route.extend({
         model.project.id
       );
     }
-  },
+  }
 
-  actions: {
-    async save(changeset) {
-      await changeset.validate();
+  @action
+  async save(changeset) {
+    await changeset.validate();
 
-      if (!changeset.isValid) return;
+    if (!changeset.isValid) return;
 
-      this.get('project-orchestrator').set('changeset', changeset);
-      this.get('project-orchestrator.saveProject').perform();
-    },
+    set(this.projectOrchestrator, 'changeset', changeset);
+    this.projectOrchestrator?.saveProject.perform();
+  }
 
-    rollback(changeset) {
-      return changeset.rollback();
-    },
-  },
-});
+  @action
+  rollback(changeset) {
+    return changeset.rollback();
+  }
+}
