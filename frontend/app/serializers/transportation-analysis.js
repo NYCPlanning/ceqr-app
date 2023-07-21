@@ -1,6 +1,4 @@
-import DS from 'ember-data';
-
-const { JSONAPISerializer } = DS;
+import JSONAPISerializer from '@ember-data/serializer/json-api';
 
 export default class PublicSchoolsAnalysisSerializer extends JSONAPISerializer {
   attrs = {
