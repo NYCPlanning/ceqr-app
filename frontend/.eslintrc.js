@@ -26,7 +26,8 @@ module.exports = {
     "ember/no-classic-classes": "warn",
     "ember/no-classic-components": "warn",
     "ember/no-jquery": "warn",
-    "ember/no-mixins": "warn"
+    "ember/no-mixins": "warn",
+    "ember/no-computed-properties-in-native-classes": "warn"
   },
   overrides: [
     // node files
