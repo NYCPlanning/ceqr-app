@@ -1,4 +1,5 @@
 import Service, { inject as service } from '@ember/service';
+import { set } from '@ember/object';
 
 import { fetchAndSaveModalSplit } from 'labs-ceqr/utils/modalSplit';
 
@@ -11,16 +12,16 @@ import { fetchAndSaveModalSplit } from 'labs-ceqr/utils/modalSplit';
  * fetchAndSave[OBJECT] should return a promise that resolves to the requested object. It should take
  * a reference to this store as an argument, and add the requested object to the store before returning.
  */
-export default Service.extend({
+export default class ReadOnlyCeqrDataStoreService extends Service {
   /**
    * Session service, required to make authenticated calls to the backend rails service
    */
-  session: service('session'),
+  @service session;
 
-  init() {
-    this._super(...arguments);
-    this.set('storeHash', {});
-  },
+  constructor(...args) {
+    super(...args);
+    set(this, 'storeHash', {});
+  }
 
   /**
    * Adds an object to the store
@@ -35,7 +36,7 @@ export default Service.extend({
     }
 
     store[type][id] = value;
-  },
+  }
 
   /**
    * Returns a promise that resolves to an array of objects
@@ -45,7 +46,7 @@ export default Service.extend({
    */
   findByIds(type, ids) {
     return Promise.all(ids.map((id) => this.find(type, id)));
-  },
+  }
 
   /**
    * Returns a promise that resolves to the record, either from the local store
@@ -62,7 +63,7 @@ export default Service.extend({
       });
     }
     return this._fetch(type, id);
-  },
+  }
 
   /**
    * Retrieves a record from the local store, or false if it does not exist yet.
@@ -71,10 +72,8 @@ export default Service.extend({
    * @returns The object or false
    */
   getRecord(type, id) {
-    if (this.get(`storeHash.${type}`)) {
-      return this.get(`storeHash.${type}.${id}`);
-    }
-  },
+    if (this.storeHash[type]) return this.storeHash[type][id];
+  }
 
   /**
    * Retrieves the resource from the rails backend, if fetch has been implemented
@@ -94,5 +93,5 @@ export default Service.extend({
     return new Promise(function (resolve, reject) {
       reject(`Fetch for ${type} not implemented`);
     });
-  },
-});
+  }
+}
