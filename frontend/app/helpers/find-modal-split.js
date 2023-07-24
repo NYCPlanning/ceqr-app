@@ -6,21 +6,22 @@ import { task } from 'ember-concurrency';
  * Helper for NeedsAsync component that wraps async call to get modal split data
  * in a task for async conditional rendering
  */
-export default Helper.extend({
+export default class FindModalSplitHelper extends Helper {
   /**
    * The readonly-ceqr-data-store where modal-split objects are stored
    */
-  readonlyStore: service('readonly-ceqr-data-store'),
+  @service('readonly-ceqr-data-store') readonlyStore;
 
   /**
    * Task that wraps async call to get modal-split record from store
    */
-  findModalSplitTask: task(function* (geoid) {
+  @task(function* (geoid) {
     return yield Promise.all([
       this.readonlyStore.find('ACS-modal-split', geoid),
       this.readonlyStore.find('CTPP-modal-split', geoid),
     ]);
-  }),
+  })
+  findModalSplitTask;
 
   /**
    * Main helper 'compute' function
@@ -29,5 +30,5 @@ export default Helper.extend({
     const [geoid] = params;
     if (!geoid) return null;
     return this.findModalSplitTask.perform(geoid);
-  },
-});
+  }
+}

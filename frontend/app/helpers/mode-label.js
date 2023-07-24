@@ -1,5 +1,5 @@
 import { helper } from '@ember/component/helper';
-import { htmlSafe } from '@ember/string';
+import { htmlSafe, capitalize } from '@ember/string';
 
 export function modeLabel(params) {
   switch (params[0]) {
@@ -28,7 +28,7 @@ export function modeLabel(params) {
     case 'truck':
       return htmlSafe('<i class="truck icon"></i> Truck (delivery)');
     default:
-      return params[0].capitalize();
+      return capitalize(params[0]);
   }
 }
 
