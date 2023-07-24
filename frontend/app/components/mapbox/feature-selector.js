@@ -7,6 +7,7 @@ import Component from '@ember/component';
  * Resulting intersecting features array is yielded out in the mapbox-feature-selector template
  */
 export default class MapboxFeatureSelectorComponent extends Component {
+  tagName = '';
   /**
    * MapboxGL Instance
    */

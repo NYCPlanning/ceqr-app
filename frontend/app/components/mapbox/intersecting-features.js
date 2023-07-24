@@ -1,6 +1,8 @@
 import Component from '@ember/component';
+import { set } from '@ember/object';
 
 export default class MapboxIntersectingFeatures extends Component {
+  tagName = '';
   // required
   // option
   // mapbox-gl instance
@@ -29,7 +31,7 @@ export default class MapboxIntersectingFeatures extends Component {
     const queriedFeatures = instance.queryRenderedFeatures(point, {
       ...options,
     });
-    this.set('_intersectingFeatures', queriedFeatures);
+    set(this, '_intersectingFeatures', queriedFeatures);
     if (this.handleIntersectingFeatures) {
       this.handleIntersectingFeatures(queriedFeatures);
     }

@@ -1,5 +1,5 @@
 import Component from '@ember/component';
-import { action } from '@ember/object';
+import { action, set } from '@ember/object';
 
 /*
  * This component provides to the parent an array of features that intersect the
@@ -8,6 +8,7 @@ import { action } from '@ember/object';
  * or by passing to this action's onFeatures parameter a function that accepts the array.
  */
 export default class MapboxFeatureHovererComponent extends Component {
+  tagName = '';
   /** @param {Mapbox Map object} */
   map = {};
 
@@ -23,7 +24,7 @@ export default class MapboxFeatureHovererComponent extends Component {
 
   @action
   setFeatures(features) {
-    this.set('_features', features);
+    set(this, '_features', features);
     this._passFeaturesToParent();
   }
 

@@ -3,6 +3,7 @@ import { computed } from '@ember/object';
 import boroughToAbbr from 'labs-ceqr/utils/boroughToAbbr';
 
 export default class CommunityFacilitiesTrThresholdComponent extends Component {
+  /*eslint-disable-next-line ember/require-tagless-components*/
   tagName = 'tr';
 
   @computed('analysis.childCareThresholds', 'borough')

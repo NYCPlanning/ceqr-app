@@ -1,6 +1,7 @@
 import Component from '@ember/component';
 import fetch from 'fetch';
 import { action, computed } from '@ember/object';
+import { set } from '@ember/object';
 
 export const CARTO_USERNAME = 'planninglabs';
 export const CARTO_MAPS_ENDPOINT = `https://${CARTO_USERNAME}.carto.com/api/v1/map`;
@@ -24,6 +25,7 @@ export const CARTO_MAPS_ENDPOINT = `https://${CARTO_USERNAME}.carto.com/api/v1/m
  * API for it. See https://github.com/mapbox/mapbox-gl-js/pull/8048.
  */
 export default class MapboxCartoLayersComponent extends Component {
+  tagName = '';
   // ember hook, triggered on render. used here to trigger template URL handshake.
   didInsertElement() {
     super.didInsertElement(...arguments);
@@ -78,7 +80,7 @@ export default class MapboxCartoLayersComponent extends Component {
   // local callback function used to update layers
   @action
   handleUpdatedLayersRegistry(registeredLayers) {
-    this.set('_registeredLayers', registeredLayers);
+    set(this, '_registeredLayers', registeredLayers);
   }
 
   // fetches a valid tilejson template from carto and sets it
@@ -88,7 +90,7 @@ export default class MapboxCartoLayersComponent extends Component {
 
     const tiles = await requestTileJSON(this.cartoAnonMapOptions);
 
-    this.set('_tiles', tiles);
+    set(this, '_tiles', tiles);
   }
 }
 

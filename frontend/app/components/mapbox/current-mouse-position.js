@@ -1,7 +1,9 @@
 import Component from '@ember/component';
 import { action, computed } from '@ember/object';
+import { set } from '@ember/object';
 
 export default class MapboxCurrentMousePositionComponent extends Component {
+  tagName = '';
   currentMapMouseEvent = null;
 
   /**
@@ -13,13 +15,13 @@ export default class MapboxCurrentMousePositionComponent extends Component {
 
   @action
   handleMouseMove(e) {
-    this.set('currentMapMouseEvent', e);
+    set(this, 'currentMapMouseEvent', e);
     this._passPositionToParent();
   }
 
   @action
   handleMouseLeave() {
-    this.set('currentMapMouseEvent', null);
+    set(this, 'currentMapMouseEvent', null);
     this._passPositionToParent();
   }
 

@@ -1,7 +1,8 @@
 import Component from '@ember/component';
-import { action, computed } from '@ember/object';
+import { action, computed, notifyPropertyChange } from '@ember/object';
 
 export default class MapboxLayerRegistryComponent extends Component {
+  tagName = '';
   @computed('__registeredLayers')
   get registeredLayers() {
     return Array.from(this.__registeredLayers);
@@ -15,7 +16,7 @@ export default class MapboxLayerRegistryComponent extends Component {
 
   // notify layers list
   _didUpdateLayersRegistry() {
-    this.notifyPropertyChange('__registeredLayers');
+    notifyPropertyChange(this, '__registeredLayers');
 
     this.didUpdateLayersRegistry(this.registeredLayers);
   }

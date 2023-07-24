@@ -4,6 +4,7 @@ import Component from '@ember/component';
  * Component to filter a given layer to a set of features specified by a list of their Ids.
  */
 export default class MapboxFeatureFiltererComponent extends Component {
+  tagName = '';
   /** @param {Mapbox Map} Mapbox map */
   map = {};
 

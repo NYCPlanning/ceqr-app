@@ -1,11 +1,13 @@
 import Component from '@ember/component';
 import { action } from '@ember/object';
+import { set } from '@ember/object';
 
 export default class MapboxCurrentMouseEventComponent extends Component {
+  tagName = '';
   currentMapMouseEvent = null;
 
   @action
   handleEvent(e) {
-    this.set('currentMapMouseEvent', e);
+    set(this, 'currentMapMouseEvent', e);
   }
 }

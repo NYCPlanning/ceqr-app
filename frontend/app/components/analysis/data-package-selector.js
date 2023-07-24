@@ -3,6 +3,7 @@ import { computed, action } from '@ember/object';
 import { inject as service } from '@ember/service';
 
 export default class AnalysisDataPackageSelectorComponent extends Component {
+  tagName = '';
   @service store;
 
   currentPackage = {};
