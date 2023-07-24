@@ -1,6 +1,6 @@
 import Controller from '@ember/controller';
 
-export default Controller.extend({
-  queryParams: ['validate'],
-  validate: null,
-});
+export default class LoginController extends Controller {
+  queryParams = ['validate'];
+  validate = null;
+}

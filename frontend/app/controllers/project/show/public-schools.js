@@ -4,7 +4,7 @@ import { computed } from '@ember/object';
 import { alias } from '@ember/object/computed';
 
 export default class ProjectShowPublicSchoolsController extends Controller {
-  router = service();
+  @service() router;
 
   @alias('model.project') project;
 
@@ -12,7 +12,7 @@ export default class ProjectShowPublicSchoolsController extends Controller {
 
   @computed('router.currentRouteName')
   get showMap() {
-    const current = this.get('router.currentRouteName');
+    const current = this.router.currentRouteName;
     return (
       current.includes('existing-conditions') || current.includes('no-action')
     );

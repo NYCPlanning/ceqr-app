@@ -1,6 +1,6 @@
 import Controller from '@ember/controller';
 
-export default Controller.extend({
-  queryParams: ['token'],
-  token: null,
-});
+export default class PasswordReset extends Controller {
+  queryParams = ['token'];
+  token = null;
+}
