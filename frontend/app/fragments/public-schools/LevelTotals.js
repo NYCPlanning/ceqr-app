@@ -12,18 +12,20 @@ import sumOf from '../../utils/sumMapBy';
  * @param {integer} studentsWithAction - Number of students to be added by project under analysis
  */
 
-export default EmberObject.extend({
+export default class LevelTotalsFragment extends EmberObject {
   // Existing Conditions
 
-  existingConditionsEnrollment: computed('subdistrictTotals', function () {
+  @computed('subdistrictTotals', function () {
     return sumOf(this.subdistrictTotals.mapBy('enrollmentTotal'));
-  }),
+  })
+  existingConditionsEnrollment;
 
-  existingConditionsCapacity: computed('subdistrictTotals', function () {
+  @computed('subdistrictTotals', function () {
     return sumOf(this.subdistrictTotals.mapBy('capacityTotal'));
-  }),
+  })
+  existingConditionsCapacity;
 
-  existingConditionsUtilization: computed(
+  @computed(
     'existingConditionsEnrollment',
     'existingConditionsCapacity',
     function () {
@@ -32,157 +34,148 @@ export default EmberObject.extend({
         4
       );
     }
-  ),
+  )
+  existingConditionsUtilization;
 
-  existingConditionsSeats: computed('subdistrictTotals', function () {
+  @computed('subdistrictTotals', function () {
     return sumOf(this.subdistrictTotals.mapBy('seatsTotal'));
-  }),
+  })
+  existingConditionsSeats;
 
   // No Action
 
-  noActionEnrollment: alias('enrollNoActionTotal'),
-  noActionEnrollmentDelta: alias('enrollNoActionDeltaTotal'),
-  noActionCapacity: alias('capacityNoActionTotal'),
-  noActionCapacityDelta: computed('subdistrictTotals', function () {
+  @alias('enrollNoActionTotal') noActionEnrollment;
+  @alias('enrollNoActionDeltaTotal') noActionEnrollmentDelta;
+  @alias('capacityNoActionTotal') noActionCapacity;
+  @computed('subdistrictTotals', function () {
     return sumOf(this.subdistrictTotals.mapBy('capacityNoActionDelta'));
-  }),
-  noActionUtilization: alias('utilizationNoActionTotal'),
-  noActionSeats: alias('seatsNoActionTotal'),
+  })
+  noActionCapacityDelta;
+  @alias('utilizationNoActionTotal') noActionUtilization;
+  @alias('seatsNoActionTotal') noActionSeats;
 
   // With Action
 
-  withActionEnrollment: alias('enrollWithActionTotal'),
-  withActionEnrollmentDelta: alias('enrollWithActionDeltaTotal'),
-  withActionCapacity: alias('capacityWithActionTotal'),
-  withActionCapacityDelta: alias('newSchoolSeats'),
-  withActionUtilization: alias('utilizationWithActionTotal'),
-  withActionSeats: alias('seatsWithActionTotal'),
+  @alias('enrollWithActionTotal') withActionEnrollment;
+  @alias('enrollWithActionDeltaTotal') withActionEnrollmentDelta;
+  @alias('capacityWithActionTotal') withActionCapacity;
+  @alias('newSchoolSeats') withActionCapacityDelta;
+  @alias('utilizationWithActionTotal') withActionUtilization;
+  @alias('seatsWithActionTotal') withActionSeats;
 
   // Individual Attribute Totals
 
-  scaCapacityIncrease: computed('subdistrictTotals', function () {
+  @computed('subdistrictTotals', function () {
     return sumOf(this.subdistrictTotals.mapBy('scaCapacityIncrease'));
-  }),
+  })
+  scaCapacityIncrease;
 
   // Older methods
 
-  enrollTotal: computed('subdistrictTotals', function () {
+  @computed('subdistrictTotals', function () {
     return this.subdistrictTotals.mapBy('enroll').reduce(function (acc, value) {
       return acc + parseFloat(value);
     }, 0);
-  }),
+  })
+  enrollTotal;
 
-  studentsTotal: computed('subdistrictTotals', function () {
+  @computed('subdistrictTotals', function () {
     return this.subdistrictTotals
       .mapBy('students')
       .reduce(function (acc, value) {
         return acc + parseFloat(value);
       }, 0);
-  }),
+  })
+  studentsTotal;
 
-  enrollNoActionTotal: computed('enrollTotal', 'studentsTotal', function () {
+  @computed('enrollTotal', 'studentsTotal', function () {
     return this.enrollTotal + this.studentsTotal;
-  }),
+  })
+  enrollNoActionTotal;
 
-  enrollWithActionTotal: computed(
+  @computed(
     'enrollNoActionTotal',
     'studentsWithAction',
     'subdistrictTotals',
     function () {
       return this.enrollNoActionTotal + this.studentsWithAction;
     }
-  ),
+  )
+  enrollWithActionTotal;
 
-  enrollNoActionDeltaTotal: computed(
-    'enrollNoActionTotal',
-    'enrollTotal',
-    function () {
-      return this.enrollNoActionTotal - this.enrollTotal;
-    }
-  ),
+  @computed('enrollNoActionTotal', 'enrollTotal', function () {
+    return this.enrollNoActionTotal - this.enrollTotal;
+  })
+  enrollNoActionDeltaTotal;
 
-  enrollWithActionDeltaTotal: computed(
-    'enrollWithActionTotal',
-    'enrollTotal',
-    function () {
-      return this.enrollWithActionTotal - this.enrollTotal;
-    }
-  ),
+  @computed('enrollWithActionTotal', 'enrollTotal', function () {
+    return this.enrollWithActionTotal - this.enrollTotal;
+  })
+  enrollWithActionDeltaTotal;
 
-  enrollDifferenceTotal: computed(
-    'enrollWithActionTotal',
-    'enrollNoActionTotal',
-    function () {
-      return this.enrollWithActionTotal - this.enrollNoActionTotal;
-    }
-  ),
+  @computed('enrollWithActionTotal', 'enrollNoActionTotal', function () {
+    return this.enrollWithActionTotal - this.enrollNoActionTotal;
+  })
+  enrollDifferenceTotal;
 
-  enrollDeltaDifferenceTotal: computed(
+  @computed(
     'enrollNoActionDeltaTotal',
     'enrollWithActionDeltaTotal',
     function () {
       return this.enrollWithActionDeltaTotal - this.enrollNoActionDeltaTotal;
     }
-  ),
+  )
+  enrollDeltaDifferenceTotal;
 
-  capacityNoActionTotal: computed('subdistrictTotals', function () {
+  @computed('subdistrictTotals', function () {
     return this.subdistrictTotals
       .mapBy('capacityNoAction')
       .reduce(function (acc, value) {
         return acc + parseFloat(value);
       }, 0);
-  }),
+  })
+  capacityNoActionTotal;
 
-  newSchoolSeats: computed('subdistrictTotals', function () {
+  @computed('subdistrictTotals', function () {
     return this.subdistrictTotals
       .mapBy('newCapacityWithAction')
       .reduce(function (acc, value) {
         return acc + parseFloat(value);
       }, 0);
-  }),
+  })
+  newSchoolSeats;
 
-  capacityWithActionTotal: computed(
-    'capacityNoActionTotal',
-    'newSchoolSeats',
-    function () {
-      return this.capacityNoActionTotal + this.newSchoolSeats;
-    }
-  ),
+  @computed('capacityNoActionTotal', 'newSchoolSeats', function () {
+    return this.capacityNoActionTotal + this.newSchoolSeats;
+  })
+  capacityWithActionTotal;
 
-  seatsNoActionTotal: computed(
-    'enrollNoActionTotal',
-    'capacityNoActionTotal',
-    function () {
-      return this.capacityNoActionTotal - this.enrollNoActionTotal;
-    }
-  ),
+  @computed('enrollNoActionTotal', 'capacityNoActionTotal', function () {
+    return this.capacityNoActionTotal - this.enrollNoActionTotal;
+  })
+  seatsNoActionTotal;
 
-  seatsWithActionTotal: computed(
+  @computed(
     'capacityWithActionTotal',
     'enrollWithActionTotal',
     'subdistrictTotals',
     function () {
       return this.capacityWithActionTotal - this.enrollWithActionTotal;
     }
-  ),
+  )
+  seatsWithActionTotal;
 
-  seatsDifferenceTotal: computed(
-    'seatsNoActionTotal',
-    'seatsWithActionTotal',
-    function () {
-      return this.seatsWithActionTotal - this.seatsNoActionTotal;
-    }
-  ),
+  @computed('seatsNoActionTotal', 'seatsWithActionTotal', function () {
+    return this.seatsWithActionTotal - this.seatsNoActionTotal;
+  })
+  seatsDifferenceTotal;
 
-  utilizationNoActionTotal: computed(
-    'enrollNoActionTotal',
-    'capacityNoActionTotal',
-    function () {
-      return round(this.enrollNoActionTotal / this.capacityNoActionTotal, 4);
-    }
-  ),
+  @computed('enrollNoActionTotal', 'capacityNoActionTotal', function () {
+    return round(this.enrollNoActionTotal / this.capacityNoActionTotal, 4);
+  })
+  utilizationNoActionTotal;
 
-  utilizationWithActionTotal: computed(
+  @computed(
     'capacityNoActionTotal',
     'capacityWithActionTotal',
     'enrollWithActionTotal',
@@ -192,9 +185,10 @@ export default EmberObject.extend({
         4
       );
     }
-  ),
+  )
+  utilizationWithActionTotal;
 
-  utilizationChangeTotal: computed(
+  @computed(
     'utilizationWithActionTotal',
     'utilizationNoActionTotal',
     function () {
@@ -203,9 +197,10 @@ export default EmberObject.extend({
         4
       );
     }
-  ),
+  )
+  utilizationChangeTotal;
 
-  impact: computed(
+  @computed(
     'utilizationChangeTotal',
     'utilizationWithActionTotal',
     function () {
@@ -214,10 +209,11 @@ export default EmberObject.extend({
         this.utilizationWithActionTotal >= 1
       );
     }
-  ),
+  )
+  impact;
 
   // Mitigation
-  mitigateSeatCount: computed(
+  @computed(
     'enrollWithActionTotal',
     'utilizationNoActionTotal',
     'capacityWithActionTotal',
@@ -234,15 +230,13 @@ export default EmberObject.extend({
         ? seatsToMitigateUtilization
         : seatsToMitigateChange;
     }
-  ),
-  mitigateUnitCount: computed(
-    'mitigateSeatCount',
-    'subdistrictTotals',
-    function () {
-      return Math.ceil(
-        this.mitigateSeatCount /
-          this.subdistrictTotals[0].get('studentMultiplier')
-      );
-    }
-  ),
-});
+  )
+  mitigateSeatCount;
+  @computed('mitigateSeatCount', 'subdistrictTotals', function () {
+    return Math.ceil(
+      this.mitigateSeatCount /
+        this.subdistrictTotals[0].get('studentMultiplier')
+    );
+  })
+  mitigateUnitCount;
+}

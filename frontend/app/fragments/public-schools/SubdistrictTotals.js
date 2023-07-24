@@ -28,66 +28,63 @@ import round from '../../utils/round';
  * @todo experiment with typescript for calculation fragments
  */
 
-export default EmberObject.extend({
-  buildings: computed(
-    'allBuildings',
-    'district',
-    'level',
-    'subdistrict',
-    function () {
-      if (this.level === 'hs') {
-        return this.allBuildings.filter((b) => b.level === 'hs');
-      }
-      return this.allBuildings.filter(
-        (b) =>
-          b.district === this.district &&
-          b.subdistrict === this.subdistrict &&
-          b.level === this.level
-      );
+export default class SubdistrictTotalsFragment extends EmberObject {
+  @computed('allBuildings', 'district', 'level', 'subdistrict', function () {
+    if (this.level === 'hs') {
+      return this.allBuildings.filter((b) => b.level === 'hs');
     }
-  ),
+    return this.allBuildings.filter(
+      (b) =>
+        b.district === this.district &&
+        b.subdistrict === this.subdistrict &&
+        b.level === this.level
+    );
+  })
+  buildings;
 
-  enrollmentTotal: computed('buildings.@each.enroll', function () {
+  @computed('buildings.@each.enroll', function () {
     return this.buildings.mapBy('enroll').reduce((acc, value) => {
       if (value === undefined) return acc;
       return acc + parseFloat(value);
     }, 0);
-  }),
+  })
+  enrollmentTotal;
 
-  capacityTotal: computed('buildings.@each.capacity', function () {
+  @computed('buildings.@each.capacity', function () {
     return this.buildings
       .map((b) => (b.excluded ? 0 : b.capacity))
       .reduce((acc, value) => {
         if (value === undefined) return acc;
         return acc + parseFloat(value);
       }, 0);
-  }),
+  })
+  capacityTotal;
 
-  capacityTotalNoAction: computed(
-    'buildings.@each.capacityFuture',
-    function () {
-      return this.buildings
-        .map((b) => (b.excluded ? 0 : b.capacityFuture))
-        .reduce((acc, value) => {
-          if (value === undefined) return acc;
-          return acc + parseFloat(value);
-        }, 0);
-    }
-  ),
+  @computed('buildings.@each.capacityFuture', function () {
+    return this.buildings
+      .map((b) => (b.excluded ? 0 : b.capacityFuture))
+      .reduce((acc, value) => {
+        if (value === undefined) return acc;
+        return acc + parseFloat(value);
+      }, 0);
+  })
+  capacityTotalNoAction;
 
-  seatsTotal: computed('buildings.@each.seats', function () {
+  @computed('buildings.@each.seats', function () {
     return this.buildings.mapBy('seats').reduce((acc, value) => {
       if (value === undefined) return acc;
       return acc + parseFloat(value);
     }, 0);
-  }),
+  })
+  seatsTotal;
 
-  utilizationTotal: computed('enrollmentTotal', 'capacityTotal', function () {
+  @computed('enrollmentTotal', 'capacityTotal', function () {
     return round(this.enrollmentTotal / this.capacityTotal, 3);
-  }),
+  })
+  utilizationTotal;
 
   // Totals across all subdistricts
-  enrollmentMetaTotal: computed('allBuildings', 'level', function () {
+  @computed('allBuildings', 'level', function () {
     return this.allBuildings
       .filterBy('level', this.level)
       .mapBy('enroll')
@@ -95,9 +92,10 @@ export default EmberObject.extend({
         if (value === undefined) return acc;
         return acc + parseFloat(value);
       }, 0);
-  }),
+  })
+  enrollmentMetaTotal;
 
-  capacityMetaTotal: computed('allBuildings', 'level', function () {
+  @computed('allBuildings', 'level', function () {
     return this.allBuildings
       .filterBy('level', this.level)
       .map((b) => (b.excluded ? 0 : b.capacity))
@@ -105,9 +103,10 @@ export default EmberObject.extend({
         if (value === undefined) return acc;
         return acc + parseFloat(value);
       }, 0);
-  }),
+  })
+  capacityMetaTotal;
 
-  seatsMetaTotal: computed('allBuildings', 'level', function () {
+  @computed('allBuildings', 'level', function () {
     return this.allBuildings
       .filterBy('level', this.level)
       .mapBy('seats')
@@ -115,86 +114,66 @@ export default EmberObject.extend({
         if (value === undefined) return acc;
         return acc + parseFloat(value);
       }, 0);
-  }),
+  })
+  seatsMetaTotal;
 
-  utilizationMetaTotal: computed(
-    'enrollmentMetaTotal',
-    'capacityMetaTotal',
-    function () {
-      return round(this.enrollmentMetaTotal / this.capacityMetaTotal, 3);
-    }
-  ),
+  @computed('enrollmentMetaTotal', 'capacityMetaTotal', function () {
+    return round(this.enrollmentMetaTotal / this.capacityMetaTotal, 3);
+  })
+  utilizationMetaTotal;
 
   // Aggregate Totals
-  enrollExistingConditions: alias('enrollmentTotal'),
+  @alias('enrollmentTotal') enrollExistingConditions;
 
-  enrollNoAction: computed('enroll', 'students', function () {
+  @computed('enroll', 'students', function () {
     return this.enroll + this.students;
-  }),
-  enrollNoActionDelta: computed(
-    'enrollNoAction',
-    'enrollExistingConditions',
-    function () {
-      return this.enrollNoAction - this.enrollExistingConditions;
-    }
-  ),
+  })
+  enrollNoAction;
+  @computed('enrollNoAction', 'enrollExistingConditions', function () {
+    return this.enrollNoAction - this.enrollExistingConditions;
+  })
+  enrollNoActionDelta;
 
-  capacityExisting: alias('capacityTotal'),
-  capacityFuture: alias('capacityTotalNoAction'),
+  @alias('capacityTotal') capacityExisting;
+  @alias('capacityTotalNoAction') capacityFuture;
 
-  capacityNoAction: computed(
-    'capacityFuture',
-    'scaCapacityIncrease',
-    function () {
-      return this.capacityFuture + this.scaCapacityIncrease;
-    }
-  ),
-  capacityNoActionDelta: computed(
-    'capacityExisting',
-    'capacityNoAction',
-    function () {
-      return this.capacityNoAction - this.capacityExisting;
-    }
-  ),
-  capacityWithAction: computed(
-    'capacityNoAction',
-    'newCapacityWithAction',
-    function () {
-      return this.capacityNoAction + this.newCapacityWithAction;
-    }
-  ),
-  capacityWithActionDelta: computed(
+  @computed('capacityFuture', 'scaCapacityIncrease', function () {
+    return this.capacityFuture + this.scaCapacityIncrease;
+  })
+  capacityNoAction;
+  @computed('capacityExisting', 'capacityNoAction', function () {
+    return this.capacityNoAction - this.capacityExisting;
+  })
+  capacityNoActionDelta;
+  @computed('capacityNoAction', 'newCapacityWithAction', function () {
+    return this.capacityNoAction + this.newCapacityWithAction;
+  })
+  capacityWithAction;
+  @computed(
     'capacityExisting',
     'capacityNoAction',
     'capacityWithAction',
     function () {
       return this.capacityWithAction - this.capacityExisting;
     }
-  ),
-  capacityDifference: computed(
-    'capacityNoAction',
-    'capacityWithAction',
-    function () {
-      return this.capacityWithAction - this.capacityNoAction;
-    }
-  ),
-  capacityDeltaDifference: computed(
-    'capacityNoActionDelta',
-    'capacityWithActionDelta',
-    function () {
-      return this.capacityWithActionDelta - this.capacityNoActionDelta;
-    }
-  ),
+  )
+  capacityWithActionDelta;
+  @computed('capacityNoAction', 'capacityWithAction', function () {
+    return this.capacityWithAction - this.capacityNoAction;
+  })
+  capacityDifference;
+  @computed('capacityNoActionDelta', 'capacityWithActionDelta', function () {
+    return this.capacityWithActionDelta - this.capacityNoActionDelta;
+  })
+  capacityDeltaDifference;
 
-  seatsNoAction: computed('capacityNoAction', 'enrollNoAction', function () {
+  @computed('capacityNoAction', 'enrollNoAction', function () {
     return this.capacityNoAction - this.enrollNoAction;
-  }),
+  })
+  seatsNoAction;
 
-  utilizationNoAction: computed(
-    'capacityNoAction',
-    'enrollNoAction',
-    function () {
-      return round(this.enrollNoAction / this.capacityNoAction, 3);
-    }
-  ),
-});
+  @computed('capacityNoAction', 'enrollNoAction', function () {
+    return round(this.enrollNoAction / this.capacityNoAction, 3);
+  })
+  utilizationNoAction;
+}

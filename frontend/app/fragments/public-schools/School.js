@@ -26,22 +26,26 @@ import round from '../../utils/round';
  * @param {integer} enroll - School's current enrollment
  * @param {json} geojson - Geojson feature of school's point
  */
-export default EmberObject.extend({
-  id: computed('source', 'org_id', 'bldg_id', 'level', function () {
+export default class SchoolFragment extends EmberObject {
+  @computed('source', 'org_id', 'bldg_id', 'level', function () {
     return `${this.source}-${this.org_id}-${this.bldg_id}-${this.level}`;
-  }),
+  })
+  id;
 
-  seats: computed('excluded', 'enroll', 'capacity', function () {
+  @computed('excluded', 'enroll', 'capacity', function () {
     if (this.excluded) return Math.round(0 - this.enroll);
     if (!this.capacity) return 0;
     return Math.round(this.capacity - this.enroll);
-  }),
+  })
+  seats;
 
-  utilization: computed('enroll', 'capacity', function () {
+  @computed('enroll', 'capacity', function () {
     return round(this.enroll / this.capacity, 3);
-  }),
+  })
+  utilization;
 
-  capacityDelta: computed('capacity', 'capacityFuture', function () {
+  @computed('capacity', 'capacityFuture', function () {
     return this.capacityFuture - this.capacity;
-  }),
-});
+  })
+  capacityDelta;
+}
