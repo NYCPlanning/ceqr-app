@@ -27,9 +27,7 @@ export default class TransportationTripResultsCalculator extends EmberObject {
   // TODO: It looks like many of the EmberObject parameters (documented above on lines 7-17)
   // are used in this CP but not added to the computed signature. Add them to this signature.
   @computed(
-    'defaults.temporalDistribution',
-    'defaults.tripGenerationRates.saturday.rate',
-    'defaults.tripGenerationRates.weekday.rate',
+    'defaults.{temporalDistribution,tripGenerationRates.saturday.rate,tripGenerationRates.weekday.rate}',
     'inOutSplits',
     'manualModeSplits',
     'modeSplits',
@@ -107,9 +105,7 @@ export default class TransportationTripResultsCalculator extends EmberObject {
   }
 
   @computed(
-    'defaults.truckTemporalDistribution',
-    'defaults.truckTripGenerationRates.saturday.rate',
-    'defaults.truckTripGenerationRates.weekday.rate',
+    'defaults.{truckTemporalDistribution,truckTripGenerationRates.saturday.rate,truckTripGenerationRates.weekday.rate}',
     'modes',
     'normalizedUnits',
     'personTrips',
