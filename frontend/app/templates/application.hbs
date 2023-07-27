@@ -1,7 +1,6 @@
 <div class="ember-view">
-  {{head-layout}}
   {{page-title "CEQR App" prepend=true separator=" | "}}
-  {{top-bar}}
+  <TopBar/>
   <div class="ui grid container">
     {{outlet}}
   </div>
@@ -9,7 +8,7 @@
     <div class="ui container">
       <div class="ui grid">
         <div class="eight wide column">
-          {{general-disclaimer-message}}
+          <GeneralDisclaimerMessage/>
         </div>
         <div class="center aligned eight wide column">
           <p>
@@ -30,7 +29,7 @@
               >
                 <img
                   class="planning-logo"
-                  alt="NYC Planning logo"
+                  alt="NYC Planning home page"
                   src="/imgs/dcp_logo_772.png"
                 >
               </a>
@@ -42,7 +41,7 @@
               >
                 <img
                   class="moec-logo"
-                  alt="Mayor's Office of Environmental Coordination logo"
+                  alt="Mayor's Office of Environmental Coordination home page"
                   src="/imgs/moec_logo.png"
                 >
               </a>

@@ -1,4 +1,4 @@
-<div class="cell route-{{currentRouteName}}">
+<div class="cell route-{{this.router.currentRouteName}}">
   <div class="grid-container">
 
     <br>
@@ -12,18 +12,18 @@
     <p>Let's get started by creating a new project.</p>
 
     <div>
-      {{#link-to
-        "project.new"
+      <LinkTo
+        @route="project.new"
         class="ui green button"
         data-test-new-project="intro page"
-      }}
+      >
         New Project
-      {{/link-to}}
+      </LinkTo>
     </div>
 
     <br>
-    <a href="mailto:Labs_DL@planning.nyc.gov?subject=CEQR App Feedback" target="_blank" rel="noopener noreferrer">
-      <font color="#3232ff">Email Us</font>
+    <a href="mailto:Labs_DL@planning.nyc.gov?subject=CEQR App Feedback" target="_blank" rel="noopener noreferrer" class="ceqr-feedback-link">
+      Email Us
     </a>
 
     <br>
