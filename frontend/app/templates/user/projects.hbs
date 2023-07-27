@@ -14,13 +14,13 @@
           </tr>
         </thead>
         <tbody>
-          {{#if model}}
-            {{#each model as |project|}}
+          {{#if this.model}}
+            {{#each this.model as |project|}}
               <tr class="project-row">
                 <td>
-                  {{#link-to "project.show" project.id class="project-name" data-test-project=project.id}}
+                  <LinkTo @route="project.show" @model={{project.id}} class="project-name" data-test-project={{project.id}}>
                     {{project.name}}
-                  {{/link-to}}
+                  </LinkTo>
                   {{#if project.ceqrNumber}}
                     ({{project.ceqrNumber}})
                   {{/if}}
@@ -38,13 +38,13 @@
                   {{#if project.viewOnly}}
                     (summary only)
                   {{else}}
-                    {{#link-to
-                      "project.show.edit"
-                      project.id
+                    <LinkTo
+                      @route="project.show.edit"
+                      @model={{project.id}}
                       class="ui compact small labeled primary icon button"
-                    }}
+                    >
                       <i class="edit icon"></i>Edit
-                    {{/link-to}}
+                    </LinkTo>
                     <button
                       class="ui compact small negative icon button" type="button" {{action "deleteModal" project.id}}
                     >
@@ -58,9 +58,10 @@
             <tr>
               <td colspan="4">
                 You have no projects assigned to you. Create a
-                {{#link-to "project.new"}}
+                <LinkTo
+                @route="project.new">
                   new project
-                {{/link-to}}
+                </LinkTo>
                 .
               </td>
             </tr>
@@ -69,13 +70,13 @@
       </table>
     </div>
     <div class="row">
-      {{#link-to
-        "project.new"
+      <LinkTo
+        @route="project.new"
         class="ui green button"
-        data-test-new-project=true
-      }}
+        data-test-new-project={{true}}
+      >
         New Project
-      {{/link-to}}
+      </LinkTo>
     </div>
   </div>
 </div>
@@ -95,6 +96,7 @@
     <div
       class="ui negative right labeled icon button"
       {{action "deleteProject"}}
+      role="button"
     >
       Delete
       <i class="trash icon"></i>

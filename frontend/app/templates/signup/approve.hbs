@@ -1,18 +1,18 @@
 <div class="ui grid container">
   <div class="six wide centered center aligned column">
-    {{#if (eq model.status 200)}}    
+    {{#if (eq this.model.status 200)}}    
       <h2 class="ui blue header">
         <div class="content">
           Successful account activation
         </div>
       </h2>
       <p>
-        The account for user <strong>{{model.body.email}}</strong> has been approved. They have been notified by email.
+        The account for user <strong>{{this.model.body.email}}</strong> has been approved. They have been notified by email.
       </p>
     {{else}}
       <h2 class="ui blue header">
         <div class="content">
-          An error occured
+          An error occurred
         </div>
       </h2>
       <p>
