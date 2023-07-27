@@ -3,30 +3,30 @@
 <div class="row">
   <div class="eight wide column" style="z-index: 1">
     <PublicSchools::VersionSelector
-      @analysis={{model.publicSchoolsAnalysis}}
-      @project={{model.project}}
-      @availablePackages={{model.availablePackages}}
+      @analysis={{this.model.publicSchoolsAnalysis}}
+      @project={{this.model.project}}
+      @availablePackages={{this.model.availablePackages}}
     />
   </div>
   <div class="eight wide column right aligned">
     <div class="ui medium label">
       Schools Multipliers:
       <div class="detail">
-        {{humanize model.publicSchoolsAnalysis.multiplierVersion}}
+        {{humanize this.model.publicSchoolsAnalysis.multiplierVersion}}
       </div>
     </div>
   </div>
 </div>
 
-{{#if showAnalysisSteps}}
+{{#if this.showAnalysisSteps}}
   <div class="row">
     <div class="sixteen wide column">
-      <PublicSchools::AnalysisSteps @project={{model.project}} />
+      <PublicSchools::AnalysisSteps @project={{this.model.project}} />
     </div>
 
     <div
       class="ui inverted dimmer
-        {{if project-orchestrator.projectTask.isRunning "active"}}"
+        {{if this.project-orchestrator.projectTask.isRunning "active"}}"
     >
       <div class="ui text loader">
         Loading
@@ -35,17 +35,17 @@
   </div>
 {{/if}}
 
-{{#if (and showMap project-orchestrator.projectTask.isIdle)}}
+{{#if (and this.showMap this.project-orchestrator.projectTask.isIdle)}}
   <div class="row">
     <div class="sixteen wide column">
-      {{#with model.publicSchoolsAnalysis.subdistrictsGeojson.subdistrictsGeojson as |subdistricts|}}
+      {{#with this.model.publicSchoolsAnalysis.subdistrictsGeojson.subdistrictsGeojson as |subdistricts|}}
           <PublicSchools::ProjectMap
-            @project={{model.project}}
-            @analysis={{model.publicSchoolsAnalysis}}
+            @project={{this.model.project}}
+            @analysis={{this.model.publicSchoolsAnalysis}}
             @subdistrictsGeojson={{subdistricts}}
           />
       {{/with}}
-      {{#unless model.publicSchoolsAnalysis.subdistrictsGeojson.subdistrictsGeojson}}
+      {{#unless this.model.publicSchoolsAnalysis.subdistrictsGeojson.subdistrictsGeojson}}
           <div style="height: 100px; background-color: #CCE2FF">
             <div class="ui active inverted dimmer">
               <div class="ui text loader">Loading map of subdistricts... Please wait... </div>
@@ -56,6 +56,6 @@
   </div>
 {{/if}}
 
-{{#if project-orchestrator.projectTask.isIdle}}
+{{#if this.project-orchestrator.projectTask.isIdle}}
   {{outlet}}
 {{/if}}

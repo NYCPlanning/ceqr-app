@@ -1,14 +1,14 @@
 <div class="ui grid">
   <div class="ten wide column">
     <ProjectDetails
-      @project={{changeset model.project ProjectValidations}}
-      @mapplutoVersions={{model.mapplutoVersions}}
+      @project={{changeset this.model.project this.ProjectValidations}}
+      @mapplutoVersions={{this.model.mapplutoVersions}}
       @save={{route-action "save"}}
       @rollback={{route-action "rollback"}}
      />
 
   </div>
   <div class="six wide column">
-    <ProjectUsers @project={{model.project}} />
+    <ProjectUsers @project={{this.model.project}} />
   </div>
 </div>

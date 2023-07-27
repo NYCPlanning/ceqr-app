@@ -1,9 +1,9 @@
 {{! Shares the controller context from 'project' }}
 {{page-title "[Community Facilities]" prepend=false}}
-{{#if showAnalysisSteps}}
+{{#if this.showAnalysisSteps}}
   <div class="row">
     <div class="sixteen wide column">
-      <CommunityFacilities::AnalysisSteps @project={{project}} />
+      <CommunityFacilities::AnalysisSteps @project={{this.project}} />
     </div>
   </div>
 {{/if}}

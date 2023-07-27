@@ -1,20 +1,20 @@
-<Transportation::Tdf::TripGenerationRates @factor={{model.transportationPlanningFactor}} />
+<Transportation::Tdf::TripGenerationRates @factor={{this.model.transportationPlanningFactor}} />
 
-<Transportation::Tdf::TemporalDistribution @factor={{model.transportationPlanningFactor}} />
+<Transportation::Tdf::TemporalDistribution @factor={{this.model.transportationPlanningFactor}} />
 
 <Transportation::Tdf::ModalSplits
-  @project={{model.project}}
-  @analysis={{model.transportationAnalysis}}
-  @factor={{model.transportationPlanningFactor}}
-  @availablePackages={{model.availablePackages}}
+  @project={{this.model.project}}
+  @analysis={{this.model.transportationAnalysis}}
+  @factor={{this.model.transportationPlanningFactor}}
+  @availablePackages={{this.model.availablePackages}}
 />
 
-<Transportation::Tdf::InOutSplits @factor={{model.transportationPlanningFactor}} />
+<Transportation::Tdf::InOutSplits @factor={{this.model.transportationPlanningFactor}} />
 
-<Transportation::Tdf::VehicleOccupancy @factor={{model.transportationPlanningFactor}} />
+<Transportation::Tdf::VehicleOccupancy @factor={{this.model.transportationPlanningFactor}} />
 
-<Transportation::Tdf::TruckTripGenerationRates @factor={{model.transportationPlanningFactor}} />
+<Transportation::Tdf::TruckTripGenerationRates @factor={{this.model.transportationPlanningFactor}} />
 
-<Transportation::Tdf::TruckTemporalDistribution @factor={{model.transportationPlanningFactor}} />
+<Transportation::Tdf::TruckTemporalDistribution @factor={{this.model.transportationPlanningFactor}} />
 
-<Transportation::Tdf::TruckDirectionalDistribution @factor={{model.transportationPlanningFactor}} />
+<Transportation::Tdf::TruckDirectionalDistribution @factor={{this.model.transportationPlanningFactor}} />

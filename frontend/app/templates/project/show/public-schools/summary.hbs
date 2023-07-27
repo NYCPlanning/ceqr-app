@@ -1,19 +1,19 @@
 <div class="sixteen wide column">
   <PublicSchools::StudentsGenerated
-    @project={{project}}
-    @analysis={{model.publicSchoolsAnalysis}}
+    @project={{this.project}}
+    @analysis={{this.model.publicSchoolsAnalysis}}
    />
 
 </div>
 <div class="sixteen wide column">
   <PublicSchools::Summary
-    @project={{project}}
-    @analysis={{model.publicSchoolsAnalysis}}
+    @project={{this.project}}
+    @analysis={{this.model.publicSchoolsAnalysis}}
    />
 
   <div
     class="ui inverted dimmer
-      {{if public-schools.fullReload.isRunning "active"}}"
+      {{if this.public-schools.fullReload.isRunning "active"}}"
   >
     <div class="ui text loader">
       Loading

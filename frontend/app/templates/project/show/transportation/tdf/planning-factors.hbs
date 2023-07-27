@@ -2,7 +2,7 @@
   <div class="sixteen wide column">
       <Transportation::LandUseMenu
         @tdfSection="planning-factors"
-        @model={{model}}
+        @model={{this.model}}
       />
   </div>
 </div>
@@ -18,8 +18,8 @@
         The CEQR Transportation chapter offers a census data explorer allowing you to select
       census tracts for your project and gather mode split data from ACS and CTPP data sources.
       </p>
-      <p>
-        <font color="red">We currently only offer data for Residential and Office land uses.</font>
+      <p class="analysis-threshold-notice">
+        We currently only offer data for Residential and Office land uses.
       </p>
     </div>
   </div>

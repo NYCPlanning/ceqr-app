@@ -3,14 +3,14 @@
     <Analysis::DataPackageSelector
       @dataPackageType="nyc_acs"
       @title="Journey to Work"
-      @currentPackage={{analysis.nycAcsDataPackage}}
-      @updateDataPackageAction={{analysis.updateDataPackage}}
+      @currentPackage={{this.analysis.nycAcsDataPackage}}
+      @updateDataPackageAction={{this.analysis.updateDataPackage}}
     />
     <Analysis::DataPackageSelector
       @dataPackageType="ctpp"
       @title="Reverse Journey to Work"
-      @currentPackage={{analysis.ctppDataPackage}}
-      @updateDataPackageAction={{analysis.updateDataPackage}}
+      @currentPackage={{this.analysis.ctppDataPackage}}
+      @updateDataPackageAction={{this.analysis.updateDataPackage}}
     />
   </div>
 </div>
@@ -25,8 +25,8 @@
     <Transportation::CensusTractsTable
       @isRJTW={{this.isRJTW}}
       @selectedCensusTractIds={{this.selectedCensusTractIds}}
-      @acsModalSplits={{analysis.acsModalSplits}}
-      @ctppModalSplits={{analysis.ctppModalSplits}}
+      @acsModalSplits={{this.analysis.acsModalSplits}}
+      @ctppModalSplits={{this.analysis.ctppModalSplits}}
       @modeLookup={{this.modeLookup}}
       @commuterModes={{this.commuterModes}}
     />

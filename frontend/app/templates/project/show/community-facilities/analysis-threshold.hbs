@@ -1,7 +1,7 @@
 <div class="row">
   <div class="column">
     <Project::DetailedAnalysisBanner
-      @analysisNeeded={{model.communityFacilitiesAnalysis.potentialLibraryImpact
+      @analysisNeeded={{this.model.communityFacilitiesAnalysis.potentialLibraryImpact
       }}
     >
       Does this project require a detailed analysis of potential impacts to library capacity?
@@ -11,7 +11,7 @@
 <div class="row">
   <div class="sixteen wide column">
     <Project::DetailedAnalysisBanner
-      @analysisNeeded={{model.communityFacilitiesAnalysis.potentialChildCareImpact
+      @analysisNeeded={{this.model.communityFacilitiesAnalysis.potentialChildCareImpact
       }}
     >
       Does this project require a detailed analysis of potential impacts to child care center capacity?
@@ -21,8 +21,8 @@
 <div class="row">
   <div class="column">
     <CommunityFacilities::DetailedAnalysisThresholds
-      @analysis={{model.communityFacilitiesAnalysis}}
-      @project={{model.project}}
+      @analysis={{this.model.communityFacilitiesAnalysis}}
+      @project={{this.model.project}}
      />
 
   </div>

@@ -6,8 +6,8 @@
   </div>
   <div class="sixteen wide column">
     <ProjectDetails
-      @project={{changeset model.project ProjectValidations}}
-      @mapplutoVersions={{model.mapplutoVersions}}
+      @project={{changeset this.model.project this.ProjectValidations}}
+      @mapplutoVersions={{this.model.mapplutoVersions}}
       @save={{route-action "createProject"}}
      />
 

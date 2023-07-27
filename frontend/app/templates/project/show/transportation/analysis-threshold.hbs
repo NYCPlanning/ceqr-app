@@ -1,36 +1,36 @@
 <div class="row">
   <div class="one wide column">
-    <i class="ui huge {{if model.transportationAnalysis.detailedAnalysis "yellow exclamation circle" "green check"}} icon"></i>
+    <i class="ui huge {{if this.model.transportationAnalysis.detailedAnalysis "yellow exclamation circle" "green check"}} icon"></i>
   </div>
   <div class="fifteen wide column" style="margin-top: 1em;">    
     <h2>
-      {{#if model.transportationAnalysis.detailedAnalysis}}
+      {{#if this.model.transportationAnalysis.detailedAnalysis}}
         TDF Memo Required
       {{else}}
         TDF Memo Not Required
       {{/if}}
     </h2>
 
-    {{#link-to
-      "data.transportation-trip-generation"
+    <LinkTo
+      @route="data.transportation-trip-generation"
       class="ui right floated button primary"
-    }}
+    >
       <i class="download icon"></i>
       Trip Generation Data
       <br>
       for additional land uses
-    {{/link-to}}
+    </LinkTo>
 
-    {{#if model.transportationAnalysis.detailedAnalysis}}
+    {{#if this.model.transportationAnalysis.detailedAnalysis}}
       <p>Verify the numbers below before you set your Planning Factors.</p>
 
-      {{#link-to
-        "project.show.transportation.tdf.planning-factors"
-        model.project.id
+      <LinkTo
+        @route="project.show.transportation.tdf.planning-factors"
+        @model={{this.model.project.id}}
         class="ui primary button"
-      }}
+      >
         Planning Factors <i class="ui icon caret right"></i>
-      {{/link-to}}
+      </LinkTo>
     {{/if}}
   </div>
 </div>
@@ -39,18 +39,18 @@
   <div class="sixteen wide column">
     <div
       class="ui
-        {{if model.transportationAnalysis.detailedAnalysis "yellow" "grey"}}
+        {{if this.model.transportationAnalysis.detailedAnalysis "yellow" "grey"}}
          segment"
     >
       <h3>
         Does this project require a preliminary trip generation analysis?
         <div
           class="ui big horizontal label
-            {{if model.transportationAnalysis.detailedAnalysis "yellow" "grey"
+            {{if this.model.transportationAnalysis.detailedAnalysis "yellow" "grey"
             }}"
           data-test-transportation-detailed-analysis-answer
         >
-          {{if model.transportationAnalysis.detailedAnalysis "Yes" "No"}}
+          {{if this.model.transportationAnalysis.detailedAnalysis "Yes" "No"}}
         </div>
       </h3>
     </div>
@@ -59,7 +59,7 @@
 <div class="row">
   <div class="sixteen wide column">
     <Transportation::ThresholdCalculation
-      @analysis={{model.transportationAnalysis}}
+      @analysis={{this.model.transportationAnalysis}}
      />
 
   </div>
@@ -68,19 +68,19 @@
   <div class="sixteen wide column">
     <Transportation::TrafficZoneThresholds
       @analysis={{this.model.transportationAnalysis}}
-      @project={{model.project}}
+      @project={{this.model.project}}
      />
 
   </div>
 </div>
 <div class="row">
   <div class="sixteen wide column">
-    {{#link-to
-      "project.show.transportation.tdf.planning-factors"
-      model.project.id
+    <LinkTo
+      @route="project.show.transportation.tdf.planning-factors"
+      @model={{this.model.project.id}}
       class="ui primary massive button"
-    }}
+    >
       Next <i class="ui icon caret right"></i>
-    {{/link-to}}
+    </LinkTo>
   </div>
 </div>

@@ -4,13 +4,13 @@
 
 <div class="eight wide column">
   <Transportation::Tdf::TripResults::PersonTrips
-    @modes={{model.transportationAnalysis.transportationPlanningFactors.firstObject.activeModes}}
-    @results={{model.transportationAnalysis.tripTotals.personTrips.am}}
+    @modes={{this.model.transportationAnalysis.transportationPlanningFactors.firstObject.activeModes}}
+    @results={{this.model.transportationAnalysis.tripTotals.personTrips.am}}
   />
 </div>
 
 <div class="eight wide column">
   <Transportation::Tdf::TripResults::VehicleTrips
-    @vehicleTrips={{model.transportationPlanningFactor.tripResults.vehicleTrips.am}}
+    @vehicleTrips={{this.model.transportationPlanningFactor.tripResults.vehicleTrips.am}}
   />
 </div>

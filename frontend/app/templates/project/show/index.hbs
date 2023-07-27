@@ -1,7 +1,7 @@
 <div class="row">
   <div class="column">
     <div class="ui link cards">
-      {{#link-to "project.show.community-facilities" class="ui card"}}
+      <LinkTo @route="project.show.community-facilities" class="ui card">
         <div class="content">
           <div class="header">
             <i class="university icon"></i>
@@ -17,13 +17,13 @@
             style="display: inline-block;"
             class="ui small label
               {{if
-                model.project.communityFacilitiesAnalysis.detailedAnalysis
+                this.model.project.communityFacilitiesAnalysis.detailedAnalysis
                 "yellow"
                 "grey"
               }}"
           >
             {{if
-              model.project.communityFacilitiesAnalysis.detailedAnalysis
+              this.model.project.communityFacilitiesAnalysis.detailedAnalysis
               "Yes"
               "No"
             }}
@@ -31,15 +31,15 @@
         </div>
         <div
           class="ui inverted dimmer
-            {{if model.project.communityFacilitiesAnalysis.isPending "active"}}"
+            {{if this.model.project.communityFacilitiesAnalysis.isPending "active"}}"
         >
           <div class="ui text loader">
             Loading
           </div>
         </div>
-      {{/link-to}}
+      </LinkTo>
 
-      {{#link-to "project.show.public-schools" class="ui card"}}
+      <LinkTo @route="project.show.public-schools" class="ui card">
         <div class="content">
           <div class="header">
             <i class="graduation cap icon"></i>
@@ -52,12 +52,12 @@
             style="display: inline-block;"
             class="ui small label
               {{if
-                model.project.publicSchoolsAnalysis.detailedAnalysis
+                this.model.project.publicSchoolsAnalysis.detailedAnalysis
                 "yellow"
                 "grey"
               }}"
           >
-            {{if model.project.publicSchoolsAnalysis.detailedAnalysis "Yes" "No"
+            {{if this.model.project.publicSchoolsAnalysis.detailedAnalysis "Yes" "No"
             }}
           </div>
         </div>
@@ -65,9 +65,9 @@
           class="ui inverted dimmer
             {{if
               (or
-                model.project.publicSchoolsAnalysis.isPending
-                public-schools.fullReload.isRunning
-                public-schools.initialLoad.isRunning
+                this.model.project.publicSchoolsAnalysis.isPending
+                this.public-schools.fullReload.isRunning
+                this.public-schools.initialLoad.isRunning
               )
               "active"
             }}"
@@ -76,9 +76,9 @@
             Loading
           </div>
         </div>
-      {{/link-to}}
+      </LinkTo>
 
-      {{#link-to "project.show.transportation" class="ui card" data-test-chapter="transportation"}}
+      <LinkTo @route="project.show.transportation" class="ui card" data-test-chapter="transportation">
         <div class="content">
           <div class="header">
             <i class="car icon"></i>
@@ -94,13 +94,13 @@
             style="display: inline-block;"
             class="ui small label
               {{if
-                model.project.transportationAnalysis.detailedAnalysis
+                this.model.project.transportationAnalysis.detailedAnalysis
                 "yellow"
                 "grey"
               }}"
           >
             {{if
-              model.project.transportationAnalysis.detailedAnalysis
+              this.model.project.transportationAnalysis.detailedAnalysis
               "Yes"
               "No"
             }}
@@ -108,15 +108,15 @@
         </div>
         <div
           class="ui inverted dimmer
-            {{if model.project.transportationAnalysis.isPending "active"}}"
+            {{if this.model.project.transportationAnalysis.isPending "active"}}"
         >
           <div class="ui text loader">
             Loading
           </div>
         </div>
-      {{/link-to}}
+      </LinkTo>
 
-      {{#link-to "data.air-quality" class="ui card" data-test-chapter="air-quality"}}
+      <LinkTo @route="data.air-quality" class="ui card" data-test-chapter="air-quality">
         <div class="content">
           <div class="header">
             <i class="industry icon"></i>
@@ -126,7 +126,7 @@
         <div class="extra content">
           Light Industrial, Large, and Major Source
         </div>
-      {{/link-to}}
+      </LinkTo>
     </div>
   </div>
 </div>
