@@ -2,6 +2,7 @@ import Component from '@ember/component';
 import { computed } from '@ember/object';
 
 export default class Nov2018Multipliers extends Component {
+  tagName = '';
   @computed('analysis.multipliers.districts')
   get multipliers() {
     const districts = this.analysis.get('multipliers.districts');

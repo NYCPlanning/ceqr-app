@@ -1,10 +1,10 @@
 import Component from '@ember/component';
 import { computed } from '@ember/object';
 
-export default Component.extend({
-  displayWarning: computed(
-    'analysis.subdistrictsFromDb.length',
-    'analysis.{esSchoolChoice,isSchoolChoice}',
+export default class PublicSchoolsExistingConditionsSteps extends Component {
+  tagName = '';
+  @computed(
+    'analysis.{subdistrictsFromDb.length,esSchoolChoice,isSchoolChoice}',
     function () {
       return (
         this.analysis.esSchoolChoice ||
@@ -12,5 +12,6 @@ export default Component.extend({
         this.analysis.subdistrictsFromDb.length > 1
       );
     }
-  ),
-});
+  )
+  displayWarning;
+}

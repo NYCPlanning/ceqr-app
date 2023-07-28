@@ -1,27 +1,29 @@
 import Component from '@ember/component';
-import { computed } from '@ember/object';
+import { computed, action, set } from '@ember/object';
 import mapColors from '../../../utils/mapColors';
 
-export default Component.extend({
-  activeSchoolsLevel: 'ps',
-  activeSdId: null,
-  mapColors,
+export default class PublicSchoolsTableExistingConditionsComponent extends Component {
+  tagName = '';
+  activeSchoolsLevel = 'ps';
+  activeSdId = null;
+  mapColors;
 
   styleFor(level) {
     return mapColors.styleFor(level);
-  },
+  }
 
   didReceiveAttrs() {
-    this._super(...arguments);
+    super.didReceiveAttrs();
+    super.didReceiveAttrs(...arguments);
     const { analysis } = this;
 
     if (analysis) {
-      this.set('activeSdId', analysis.subdistricts[0].id);
+      set(this, 'activeSdId', analysis.subdistricts[0].id);
     }
-  },
+  }
 
   // ceqr_school_buildings dataset is a combination of two datasets with different metadata: bluebook dataset and lcgms dataset
-  bluebookMetadata: computed(
+  @computed(
     'analysis.dataPackage.schemas.ceqr_school_buildings.sources',
     function () {
       return this.analysis
@@ -30,9 +32,10 @@ export default Component.extend({
           (source) => source.name === 'bluebook'
         );
     }
-  ),
+  )
+  bluebookMetadata;
 
-  table: computed(
+  @computed(
     'activeSchoolsLevel',
     'activeSdId',
     'analysis.subdistrictTotals',
@@ -46,19 +49,21 @@ export default Component.extend({
           total.level === this.activeSchoolsLevel
       );
     }
-  ),
+  )
+  table;
 
-  buildings: computed('table.buildings', function () {
+  @computed('table.buildings', function () {
     return this.table.buildings.sortBy('org_id');
-  }),
+  })
+  buildings;
 
-  sd: computed('activeSdId', 'analysis.subdistricts', function () {
+  @computed('activeSdId', 'analysis.subdistricts', function () {
     return this.analysis.subdistricts.findBy('id', this.activeSdId);
-  }),
+  })
+  sd;
 
-  actions: {
-    setSdId(sdId) {
-      this.set('activeSdId', sdId);
-    },
-  },
-});
+  @action
+  setSdId(sdId) {
+    set(this, 'activeSdId', sdId);
+  }
+}

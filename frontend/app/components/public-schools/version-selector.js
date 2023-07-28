@@ -1,18 +1,19 @@
 import Component from '@ember/component';
 import { inject as service } from '@ember/service';
+import { action } from '@ember/object';
 
-export default Component.extend({
-  store: service(),
-  'project-orchestrator': service(),
+export default class PublicSchoolsSummaryVersionSelector extends Component {
+  tagName = '';
+  @service() store;
+  @service() projectOrchestrator;
 
-  actions: {
-    async changeDataPackage(dataPackage) {
-      const analysis = await this.analysis;
+  @action
+  async changeDataPackage(dataPackage) {
+    const analysis = await this.analysis;
 
-      analysis.set('dataPackage', dataPackage);
+    analysis.set('dataPackage', dataPackage);
 
-      this.get('project-orchestrator').set('analysis', analysis);
-      this.get('project-orchestrator.saveAnalysis').perform();
-    },
-  },
-});
+    this.projectOrchestrator.set('analysis', analysis);
+    this.projectOrchestrator.saveAnalysis.perform();
+  }
+}

@@ -1,21 +1,22 @@
 import Component from '@ember/component';
-import { computed } from '@ember/object';
+import { computed, action, set } from '@ember/object';
 
-export default Component.extend({
+export default class PublicSchoolsExistingConditionsRecentBuiltComponent extends Component.extend {
+  tagName = '';
   // ceqr_school_buildings dataset is a combination of two datasets with different metadata: lcgms dataset and bluebook dataset
-  lcgmsMetadata: computed(
+  @computed(
     'analysis.dataPackage.schemas.ceqr_school_buildings.sources',
     function () {
       return this.analysis.dataPackage.schemas.ceqr_school_buildings.sources.find(
         (source) => source.name === 'lcgms'
       );
     }
-  ),
+  )
+  lcgmsMetadata;
 
-  actions: {
-    save() {
-      this.set('saving', true);
-      this.project.save().then(() => this.set('saving', false));
-    },
-  },
-});
+  @action
+  save() {
+    set(this, 'saving', true);
+    this.project.save().then(() => set(this, 'saving', false));
+  }
+}

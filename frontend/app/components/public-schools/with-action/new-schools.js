@@ -1,27 +1,30 @@
 import Component from '@ember/component';
+import { action, set } from '@ember/object';
 
-export default Component.extend({
-  init() {
-    this._super(...arguments);
+export default class PublicSchoolsWithActionNewSchoolComponent extends Component {
+  tagName = '';
+  constructor() {
+    super(...arguments);
     this.school = {};
-  },
+  }
 
-  actions: {
-    addSchool({ name, subdistrict, ps_seats, is_seats, hs_seats }) {
-      this.get('analysis.schoolsWithAction').pushObject({
-        ...subdistrict,
-        name,
-        ps_seats: ps_seats || 0,
-        is_seats: is_seats || 0,
-        hs_seats: hs_seats || 0,
-      });
+  @action
+  addSchool({ name, subdistrict, ps_seats, is_seats, hs_seats }) {
+    this.analysis.schoolsWithAction.pushObject({
+      ...subdistrict,
+      name,
+      ps_seats: ps_seats || 0,
+      is_seats: is_seats || 0,
+      hs_seats: hs_seats || 0,
+    });
 
-      this.analysis.save();
-      this.set('school', {});
-    },
-    removeSchool(school) {
-      this.get('analysis.schoolsWithAction').removeObject(school);
-      this.analysis.save();
-    },
-  },
-});
+    this.analysis.save();
+    set(this, 'school', {});
+  }
+
+  @action
+  removeSchool(school) {
+    this.analysis.schoolsWithAction.removeObject(school);
+    this.analysis.save();
+  }
+}

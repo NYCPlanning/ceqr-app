@@ -2,25 +2,26 @@ import { set } from '@ember/object';
 import Component from '@ember/component';
 import { task } from 'ember-concurrency';
 import { inject as service } from '@ember/service';
-import { computed } from '@ember/object';
+import { computed, action } from '@ember/object';
 
-export default Component.extend({
-  mapservice: service(),
-  'ceqr-data': service(),
-  'project-orchestrator': service(),
-  store: service(),
+export default class PublicSchoolsExistingConditionsAdditionalSubdistrictComponent extends Component {
+  tagName = '';
+  @service() mapservice;
+  @service() ceqrData;
+  @service() projectOrchestrator;
+  @service() store;
 
-  init(...args) {
-    this._super(...args);
+  constructor(...args) {
+    super(...args);
     this.fetchSubdistricts.perform();
 
     this.districts = [];
     set(this, 'allSubdistricts', []);
-  },
+  }
 
-  fetchSubdistricts: task(function* () {
-    const dataPackage = yield this.get('analysis.dataPackage');
-    const response = yield this.get('ceqr-data').subdistricts(
+  @task(function* () {
+    const dataPackage = yield this.analysis.dataPackage;
+    const response = yield this.ceqrData.subdistricts(
       dataPackage.schemas.doe_school_subdistricts.table
     );
 
@@ -35,77 +36,77 @@ export default Component.extend({
       return !!fromUser || !!fromDb;
     });
 
-    this.set('allSubdistricts', allSubdistricts);
+    set(this, 'allSubdistricts', allSubdistricts);
 
     const districts = allSubdistricts.mapBy('district').uniq();
-    this.set('districts', districts);
-  }),
+    set(this, 'districts', districts);
+  })
+  fetchSubdistricts;
 
-  subdistricts: computed('allSubdistricts', 'district', function () {
+  @computed('allSubdistricts', 'district', function () {
     if (!this.district) return [];
     return this.allSubdistricts
       .filterBy('district', this.district)
       .mapBy('subdistrict');
-  }),
+  })
+  subdistricts;
 
-  actions: {
-    setDistrict(district) {
-      this.set('district', parseFloat(district));
-      this.set('subdistrict', null);
-    },
+  @action
+  setDistrict(district) {
+    set(this, 'district', parseFloat(district));
+    set(this, 'subdistrict', null);
+  }
 
-    setSubdistrict(subdistrict) {
-      this.set('subdistrict', parseFloat(subdistrict));
-    },
+  @action
+  setSubdistrict(subdistrict) {
+    set(this, 'subdistrict', parseFloat(subdistrict));
+  }
 
-    addSubdistrict() {
-      const subdistricts = this.analysis.subdistrictsFromUser;
-      subdistricts.pushObject({
-        district: parseFloat(this.district),
-        subdistrict: parseFloat(this.subdistrict),
-        id: `${this.district}${this.subdistrict}`,
-        sdName: `District ${this.district} - Subdistrict ${this.subdistrict}`,
-      });
+  @action
+  addSubdistrict() {
+    const subdistricts = this.analysis.subdistrictsFromUser;
+    subdistricts.pushObject({
+      district: parseFloat(this.district),
+      subdistrict: parseFloat(this.subdistrict),
+      id: `${this.district}${this.subdistrict}`,
+      sdName: `District ${this.district} - Subdistrict ${this.subdistrict}`,
+    });
 
-      this.set('analysis.subdistrictsFromUser', subdistricts);
-      this.set('subdistrict', null);
+    set(this, 'analysis.subdistrictsFromUser', subdistricts);
+    set(this, 'subdistrict', null);
 
-      this.get('project-orchestrator').set('analysis', this.analysis);
-      this.get('project-orchestrator.saveAnalysis')
-        .perform()
+    this.projectOrchestrator.set('analysis', this.analysis);
+    this.projectOrchestrator.saveAnalysis.perform().then(() => {
+      this.store
+        .findRecord(
+          'subdistricts-geojson',
+          this.analysis.get('subdistrictsGeojson.id')
+        )
         .then(() => {
-          this.store
-            .findRecord(
-              'subdistricts-geojson',
-              this.analysis.get('subdistrictsGeojson.id')
-            )
-            .then(() => {
-              this.mapservice.fitToSubdistricts(
-                this.analysis.get('subdistrictsGeojson.subdistrictsGeojson')
-              );
-            });
+          this.mapservice.fitToSubdistricts(
+            this.analysis.get('subdistrictsGeojson.subdistrictsGeojson')
+          );
         });
-    },
+    });
+  }
 
-    removeSubdistrict(sd) {
-      const subdistricts = this.analysis.subdistrictsFromUser;
-      this.set('analysis.subdistrictsFromUser', subdistricts.removeObject(sd));
+  @action
+  removeSubdistrict(sd) {
+    const subdistricts = this.analysis.subdistrictsFromUser;
+    set(this, 'analysis.subdistrictsFromUser', subdistricts.removeObject(sd));
 
-      this.get('project-orchestrator').set('analysis', this.analysis);
-      this.get('project-orchestrator.saveAnalysis')
-        .perform()
+    this.projectOrchestrator.set('analysis', this.analysis);
+    this.projectOrchestrator.saveAnalysis.perform().then(() => {
+      this.store
+        .findRecord(
+          'subdistricts-geojson',
+          this.analysis.get('subdistrictsGeojson.id')
+        )
         .then(() => {
-          this.store
-            .findRecord(
-              'subdistricts-geojson',
-              this.analysis.get('subdistrictsGeojson.id')
-            )
-            .then(() => {
-              this.mapservice.fitToSubdistricts(
-                this.analysis.get('subdistrictsGeojson.subdistrictsGeojson')
-              );
-            });
+          this.mapservice.fitToSubdistricts(
+            this.analysis.get('subdistrictsGeojson.subdistrictsGeojson')
+          );
         });
-    },
-  },
-});
+    });
+  }
+}

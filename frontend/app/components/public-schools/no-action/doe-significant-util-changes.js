@@ -1,26 +1,28 @@
 import Component from '@ember/component';
-import { computed } from '@ember/object';
+import { computed, action, set } from '@ember/object';
 
-export default Component.extend({
+export default class PublicSchoolsNoActionDOEComponent extends Component {
+  tagName = '';
   didReceiveAttrs() {
-    this._super(...arguments);
+    super.didReceiveAttrs(...arguments);
     if (this.analysis.doeUtilChangesPerBldg)
-      this.set('bldg_id', this.analysis.doeUtilChangesPerBldg[0].bldg_id);
-  },
+      set(this, 'bldg_id', this.analysis.doeUtilChangesPerBldg[0].bldg_id);
+  }
 
-  hasSigUtils: computed('analysis.doeUtilChangesPerBldg.length', function () {
+  @computed('analysis.doeUtilChangesPerBldg.length', function () {
     return this.analysis.doeUtilChangesPerBldg.length !== 0;
-  }),
+  })
+  hasSigUtils;
 
-  actions: {
-    showBldg(bldg_id) {
-      this.set('bldg_id', bldg_id);
-    },
-    save() {
-      this.set('saving', true);
-      this.analysis.save().then(() => this.set('saving', false));
-    },
-  },
+  @action
+  showBldg(bldg_id) {
+    set(this, 'bldg_id', bldg_id);
+  }
+  @action
+  save() {
+    set(this, 'saving', true);
+    this.analysis.save().then(() => set(this, 'saving', false));
+  }
 
   /*
   [
@@ -31,4 +33,4 @@ export default Component.extend({
     }
   ]
   */
-});
+}

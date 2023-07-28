@@ -1,38 +1,35 @@
 import Component from '@ember/component';
-import { computed } from '@ember/object';
+import { computed, action, set } from '@ember/object';
 import { isEmpty } from '@ember/utils';
 
-export default Component.extend({
+export default class PublicSchoolsNoActionSCAComponent extends Component {
+  tagName = '';
   didRender() {
-    this._super(...arguments);
+    super.didRender(...arguments);
     this.$('.progress').progress();
     this.$('.progress').popup();
-  },
+  }
 
-  tables: computed(
-    'analysis.scaProjects',
-    'analysis.subdistricts.[]',
-    function () {
-      const tables = this.get('analysis.subdistricts').map((sd) => {
-        const buildings = this.get('analysis.scaProjects').filter(
-          (b) => b.district === sd.district && b.subdistrict === sd.subdistrict
-        );
+  @computed('analysis.{scaProjects,subdistricts.[]}', function () {
+    const tables = this.analysis.subdistricts.map((sd) => {
+      const buildings = this.analysis.scaProjects.filter(
+        (b) => b.district === sd.district && b.subdistrict === sd.subdistrict
+      );
 
-        if (isEmpty(buildings)) return null;
-        return {
-          ...sd,
-          buildings,
-        };
-      });
+      if (isEmpty(buildings)) return null;
+      return {
+        ...sd,
+        buildings,
+      };
+    });
 
-      return tables.compact();
-    }
-  ),
+    return tables.compact();
+  })
+  tables;
 
-  actions: {
-    save() {
-      this.set('saving', true);
-      this.analysis.save().then(() => this.set('saving', false));
-    },
-  },
-});
+  @action
+  save() {
+    set(this, 'saving', true);
+    this.analysis.save().then(() => set(this, 'saving', false));
+  }
+}

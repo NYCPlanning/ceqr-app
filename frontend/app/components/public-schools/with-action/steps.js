@@ -1,3 +1,5 @@
 import Component from '@ember/component';
 
-export default Component.extend({});
+export default class PublicSchoolsWithActionSteps extends Component {
+  tagName = '';
+}
