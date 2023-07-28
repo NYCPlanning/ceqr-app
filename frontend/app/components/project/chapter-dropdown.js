@@ -3,11 +3,12 @@ import { inject as service } from '@ember/service';
 import { action, computed } from '@ember/object';
 
 export default class ProjectChapterDropdownComponent extends Component {
+  tagName = '';
   @service router;
 
   @computed('router.currentRouteName')
   get currentChapter() {
-    const current = this.get('router.currentRouteName');
+    const current = this.router.currentRouteName;
 
     if (current.includes('public-schools')) return 'public-schools';
     if (current.includes('transportation')) return 'transportation';

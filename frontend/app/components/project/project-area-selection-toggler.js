@@ -1,6 +1,7 @@
 import Component from '@ember/component';
 
 export default class ProjectProjectAreaSelectionTogglerComponent extends Component {
+  tagName = '';
   /**
    * Array containing selected feature passed down from the Mapbox::FeatureSelector component.
    * Can be expected to only contain a single Feature object, as tax lots do not overlap,

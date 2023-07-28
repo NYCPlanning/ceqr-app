@@ -1,83 +1,88 @@
 import Component from '@ember/component';
 import { inject as service } from '@ember/service';
-import { computed } from '@ember/object';
+import { computed, action, set } from '@ember/object';
 
-export default Component.extend({
-  store: service(),
-  'ceqr-data': service(),
+export default class ProectAreaSelectorComponent extends Component {
+  tagName = '';
+  store = service();
+  @service() store;
+  @service() ceqrData;
 
-  bblsVersion: computed('project.bblsVersion', function () {
+  @computed('project.bblsVersion', function () {
     const bblsVersion = this.project.get('bblsVersion');
 
     if (bblsVersion) {
       return bblsVersion;
     }
     return '';
-  }),
+  })
+  bblsVersion;
 
-  actions: {
-    changeDataPackage(dp) {
-      this.project.set('dataPackage', dp);
-    },
+  @action
+  changeDataPackage(dp) {
+    set(this.project, 'dataPackage', dp);
+  }
 
-    toggleBbl(_bbl) {
-      const bbl = _bbl.toString();
+  @action
+  toggleBbl(_bbl) {
+    const bbl = _bbl.toString();
 
-      if (this.project.get('bbls').includes(bbl)) {
-        this.send('removeBbl', bbl);
-      } else {
-        this.send('addBbl', bbl);
-      }
-    },
+    if (this.project.get('bbls').includes(bbl)) {
+      this.send('removeBbl', bbl);
+    } else {
+      this.send('addBbl', bbl);
+    }
+  }
 
-    async addBbl(_bbl) {
-      this.set('error', null);
-      const bbl = _bbl.toString();
+  @action
+  async addBbl(_bbl) {
+    set(this, 'error', null);
+    const bbl = _bbl.toString();
 
-      const bblRegex = /\b[1-5]{1}[0-9]{5}[0-9]{4}\b/;
+    const bblRegex = /\b[1-5]{1}[0-9]{5}[0-9]{4}\b/;
 
-      if (!bbl.match(bblRegex)) {
-        this.set('error', {
-          message:
-            'BBL must be a 10 digit integer, beginning with an integer from 1 to 5',
-        });
-        this.set('bbl', null);
-        return;
-      }
+    if (!bbl.match(bblRegex)) {
+      set(this, 'error', {
+        message:
+          'BBL must be a 10 digit integer, beginning with an integer from 1 to 5',
+      });
+      set(this, 'bbl', null);
+      return;
+    }
 
-      // if additional bbl is not in same boro
-      if (
-        this.project.get('bbls').length > 0 &&
-        parseFloat(bbl.charAt(0)) !==
-          parseFloat(this.project.get('bbls.firstObject').charAt(0))
-      ) {
-        this.set('error', {
-          message:
-            'All BBLs must be in the same borough. CEQR App currently does not support multi-borough project areas.',
-        });
-        this.set('bbl', null);
-        return;
-      }
+    // if additional bbl is not in same boro
+    if (
+      this.project.get('bbls').length > 0 &&
+      parseFloat(bbl.charAt(0)) !==
+        parseFloat(this.project.get('bbls.firstObject').charAt(0))
+    ) {
+      set(this, 'error', {
+        message:
+          'All BBLs must be in the same borough. CEQR App currently does not support multi-borough project areas.',
+      });
+      set(this, 'bbl', null);
+      return;
+    }
 
-      const bblVersion = this.project.get('dataPackage.schemas.mappluto.table');
-      const valid_bbl = await this.get('ceqr-data').valid_bbl(bbl, bblVersion);
+    const bblVersion = this.project.get('dataPackage.schemas.mappluto.table');
+    const valid_bbl = await this.ceqrData.valid_bbl(bbl, bblVersion);
 
-      // if no bbl exists
-      if (!valid_bbl) {
-        this.set('error', {
-          message:
-            'The entered BBL does not exist in the current version of MapPLUTO',
-        });
-        this.set('bbl', null);
-        return;
-      }
+    // if no bbl exists
+    if (!valid_bbl) {
+      set(this, 'error', {
+        message:
+          'The entered BBL does not exist in the current version of MapPLUTO',
+      });
+      set(this, 'bbl', null);
+      return;
+    }
 
-      this.project.get('bbls').pushObject(bbl);
-      this.set('bbl', null);
-    },
+    this.project.get('bbls').pushObject(bbl);
+    set(this, 'bbl', null);
+  }
 
-    removeBbl(bbl) {
-      this.project.get('bbls').removeObject(bbl);
-    },
-  },
-});
+  @action
+  removeBbl(bbl) {
+    this.project.get('bbls').removeObject(bbl);
+  }
+}

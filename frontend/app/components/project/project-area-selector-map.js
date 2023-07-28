@@ -1,5 +1,5 @@
 import Component from '@ember/component';
-import { computed, action } from '@ember/object';
+import { computed, action, set } from '@ember/object';
 import mapboxgl from 'mapbox-gl';
 import bbox from '@turf/bbox';
 import buffer from '@turf/buffer';
@@ -19,6 +19,7 @@ const onMapStyleLoaded = function (e) {
 };
 
 export default class ProjectProjectAreaSelectorMapComponent extends Component {
+  tagName = '';
   hoveredFeatureId = null;
 
   @computed('project.bbls.[]')
@@ -35,9 +36,9 @@ export default class ProjectProjectAreaSelectorMapComponent extends Component {
   @action
   setFirstHoveredFeatureId(features) {
     if (features && features.length && features[0]) {
-      this.set('hoveredFeatureId', features[0].properties.bbl);
+      set(this, 'hoveredFeatureId', features[0].properties.bbl);
     } else {
-      this.set('hoveredFeatureId', null);
+      set(this, 'hoveredFeatureId', null);
     }
   }
 
