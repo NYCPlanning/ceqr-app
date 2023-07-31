@@ -1,17 +1,19 @@
 import Component from '@ember/component';
 import { inject as service } from '@ember/service';
+import { action } from '@ember/object';
 
-export default Component.extend({
-  session: service(),
-  currentUser: service(),
+export default class TopBarComponent extends Component {
+  tagName = '';
+  @service() session;
+  @service() currentUser;
 
-  actions: {
-    saveProject() {
-      this.project.save();
-    },
+  @action
+  saveProject() {
+    this.project.save();
+  }
 
-    logOut() {
-      this.session.invalidate();
-    },
-  },
-});
+  @action
+  logOut() {
+    this.session.invalidate();
+  }
+}

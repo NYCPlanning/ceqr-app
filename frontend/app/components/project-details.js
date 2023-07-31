@@ -1,21 +1,22 @@
 import Component from '@ember/component';
 import { inject as service } from '@ember/service';
+import { action } from '@ember/object';
 
-export default Component.extend({
-  'project-orchestrator': service(),
+export default class ProjectDetailsComponent extends Component {
+  tagName = '';
+  @service() projectOrchestrator;
 
-  buildYearRange: Array.from({ length: 2040 - 2018 }, (v, k) => k + 2018),
+  buildYearRange = Array.from({ length: 2040 - 2018 }, (v, k) => k + 2018);
 
-  // noop
-  save() {},
+  save() {}
 
-  actions: {
-    // "save" is a passed in action
-    save() {
-      this.save(this.project);
-    },
-    back() {
-      history.back();
-    },
-  },
-});
+  @action
+  saveProject() {
+    this.save(this.project);
+  }
+
+  @action
+  back() {
+    history.back();
+  }
+}

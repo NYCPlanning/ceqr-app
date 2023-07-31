@@ -3,6 +3,7 @@ import { htmlSafe } from '@ember/string';
 import { computed } from '@ember/object';
 
 export default class HoverCardComponent extends Component {
+  tagName = '';
   // option
   // public
   // hash with x and y key/values

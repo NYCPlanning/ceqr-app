@@ -2,14 +2,17 @@ import Component from '@ember/component';
 import { computed } from '@ember/object';
 import { inject as service } from '@ember/service';
 
-export default Component.extend({
-  router: service(),
+export default class ProjectHeaderComponent extends Component {
+  tagName = '';
+  @service() router;
 
-  onPublicSchools: computed('router.currentRouteName', function () {
-    return this.get('router.currentRouteName').includes('public-schools');
-  }),
+  @computed('router.currentRouteName', function () {
+    return this.router.currentRouteName.includes('public-schools');
+  })
+  onPublicSchools;
 
-  onSummary: computed('router.currentRouteName', function () {
-    return this.get('router.currentRouteName').includes('summary');
-  }),
-});
+  @computed('router.currentRouteName', function () {
+    return this.router.currentRouteName.includes('summary');
+  })
+  onSummary;
+}

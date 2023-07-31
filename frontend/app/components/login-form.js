@@ -1,29 +1,32 @@
 import Component from '@ember/component';
 import { inject as service } from '@ember/service';
+import { action, set } from '@ember/object';
 import fetch from 'fetch';
 import $ from 'jquery';
 
 import ENV from 'labs-ceqr/config/environment';
 
-export default Component.extend({
-  session: service(),
-  router: service(),
-  flashMessages: service(),
+export default class LoginFormComponent extends Component {
+  tagName = '';
+  @service() session;
+  @service() router;
+  @service() flashMessages;
 
-  init() {
-    this._super(...arguments);
+  constructor() {
+    super(...arguments);
     this.login = {};
-  },
+  }
 
   didReceiveAttrs() {
-    this._super();
+    super.didReceiveAttrs();
+    super.didReceiveAttrs();
     if (this.validate) {
       fetch(`${ENV.host}/auth/v1/validate`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ token: this.validate }),
       })
-        .catch((err) => this.set('error', { message: err }))
+        .catch((err) => set(this, 'error', { message: err }))
         .then((res) => {
           if (res.status === 200) {
             this.flashMessages.add({
@@ -40,25 +43,25 @@ export default Component.extend({
           }
         });
     }
-  },
+  }
 
   didInsertElement() {
-    this._super(...arguments);
+    super.didInsertElement(...arguments);
+    super.didInsertElement(...arguments);
     $('.ui.login').form({
       fields: {
         email: 'email',
         password: 'empty',
       },
     });
-  },
+  }
 
-  actions: {
-    logIn(user) {
-      const authenticator = 'authenticator:jwt'; // or 'authenticator:jwt'
-      this.session.authenticate(authenticator, user).catch((error) => {
-        const { message } = JSON.parse(error.text);
-        this.set('error', { message });
-      });
-    },
-  },
-});
+  @action
+  logIn(user) {
+    const authenticator = 'authenticator:jwt'; // or 'authenticator:jwt'
+    this.session.authenticate(authenticator, user).catch((error) => {
+      const { message } = JSON.parse(error.text);
+      set(this, 'error', { message });
+    });
+  }
+}

@@ -4,6 +4,7 @@ import { isEqual } from 'lodash';
 
 export default Component.extend({
   tablehover: service(),
+  /* eslint-disable-next-line ember/require-tagless-components */
   tagName: 'td',
   classNameBindings: ['hover'],
   attributeBindings: ['rowspan'],

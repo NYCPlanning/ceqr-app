@@ -8,8 +8,9 @@ const DEFAULT_TIMEOUT_MS = 500;
 // through templates, and throttles the update stream to a given
 // number of milliseconds. The throttled updates are yielded
 export default class ThrottlePropertyComponent extends Component {
-  init(...args) {
-    super.init(...args);
+  tagName = '';
+  constructor(...args) {
+    super(...args);
 
     this.didUpdateAttributesTask.perform();
   }
