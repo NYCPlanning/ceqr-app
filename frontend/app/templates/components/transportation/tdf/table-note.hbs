@@ -1,30 +1,30 @@
 <strong>
-  {{#if (and emptyNote (not addingNote))}}
-    <a style="cursor: pointer" class="ui link blue" data-test-button="add note" onClick={{action (mut addingNote) true}}>
+  {{#if (and this.emptyNote (not this.addingNote))}}
+    <a style="cursor: pointer" class="ui link blue" data-test-button="add note" onClick={{action (mut this.addingNote) true}}>
       Add Note
     </a>
-  {{else if addingNote}}
-    <a style="cursor: pointer" class="ui link blue" data-test-button="save note" onClick={{action saveNote}}>
+  {{else if this.addingNote}}
+    <a style="cursor: pointer" class="ui link blue" data-test-button="save note" onClick={{action this.saveNote}}>
       Save Note
     </a>
   {{else}}
-    <a style="cursor: pointer" class="ui link blue" onClick={{action (mut addingNote) true}}>
+    <a style="cursor: pointer" class="ui link blue" onClick={{action (mut this.addingNote) true}}>
       Edit Note
     </a>
   {{/if}}
 </strong>
 
-{{#if addingNote}}
+{{#if this.addingNote}}
   <div class="ui form">
     <div class="field">
       {{textarea
         name="note"
-        value=tableNote
+        value=this.tableNote
         rows="4"
         data-test-text-area="table note"
       }}
     </div>
   </div>
-{{else if (not emptyNote)}}
-  <p style="color: #767676" data-test-text="table note">{{tableNote}}</p>
+{{else if (not this.emptyNote)}}
+  <p style="color: #767676" data-test-text="table note">{{this.tableNote}}</p>
 {{/if}}

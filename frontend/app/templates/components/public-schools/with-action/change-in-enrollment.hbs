@@ -1,15 +1,15 @@
 <h4 class="ui header attached top">
   Estimated School Enrollment, Capacity, and Utilization
-  {{#if analysis.projectionOverMax}}
+  {{#if this.analysis.projectionOverMax}}
     <div
       data-tooltip="Build year beyond maximum projections available. Using
-        {{analysis.maxProjection}}
+        {{this.analysis.maxProjection}}
          enrollment projection."
       data-inverted
       class="ui orange label"
     >
       <i class="warning icon"></i>
-      {{analysis.maxProjection}}
+      {{this.analysis.maxProjection}}
     </div>
   {{/if}}
 </h4>
@@ -43,7 +43,7 @@
       </th>
     </tr>
   </thead>
-  {{#if analysis.psLevelTotals}}
+  {{#if this.analysis.psLevelTotals}}
     <tbody>
       <tr>
         <td>
@@ -52,30 +52,30 @@
           </strong>
         </td>
         <td>
-          {{analysis.psLevelTotals.enrollNoActionTotal}}
+          {{this.analysis.psLevelTotals.enrollNoActionTotal}}
         </td>
         <TdHover @payload={{hash name="studentsFromDev" level="ps"}}>
-          {{analysis.estEsStudents}}
+          {{this.analysis.estEsStudents}}
         </TdHover>
         <td>
-          {{analysis.psLevelTotals.enrollWithActionTotal}}
+          {{this.analysis.psLevelTotals.enrollWithActionTotal}}
         </td>
         <td>
-          {{analysis.psLevelTotals.capacityWithActionTotal}}
+          {{this.analysis.psLevelTotals.capacityWithActionTotal}}
         </td>
         <td>
-          {{analysis.psLevelTotals.seatsWithActionTotal}}
+          {{this.analysis.psLevelTotals.seatsWithActionTotal}}
         </td>
         <TdHover @payload={{hash name="utilizationWithAction" level="ps"}}>
-          {{percentage analysis.psLevelTotals.utilizationWithActionTotal}}
+          {{percentage this.analysis.psLevelTotals.utilizationWithActionTotal}}
         </TdHover>
         <TdHover @payload={{hash name="utilizationChange" level="ps"}}>
-          {{percentage analysis.psLevelTotals.utilizationChangeTotal decimals=2}}
+          {{percentage this.analysis.psLevelTotals.utilizationChangeTotal decimals=2}}
         </TdHover>
       </tr>
     </tbody>
   {{/if}}
-  {{#if analysis.isLevelTotals}}
+  {{#if this.analysis.isLevelTotals}}
     <tbody>
       <tr>
         <td>
@@ -84,30 +84,30 @@
           </strong>
         </td>
         <td>
-          {{analysis.isLevelTotals.enrollNoActionTotal}}
+          {{this.analysis.isLevelTotals.enrollNoActionTotal}}
         </td>
         <TdHover @payload={{hash name="studentsFromDev" level="is"}}>
-          {{analysis.estIsStudents}}
+          {{this.analysis.estIsStudents}}
         </TdHover>
         <td>
-          {{analysis.isLevelTotals.enrollWithActionTotal}}
+          {{this.analysis.isLevelTotals.enrollWithActionTotal}}
         </td>
         <td>
-          {{analysis.isLevelTotals.capacityWithActionTotal}}
+          {{this.analysis.isLevelTotals.capacityWithActionTotal}}
         </td>
         <td>
-          {{analysis.isLevelTotals.seatsWithActionTotal}}
+          {{this.analysis.isLevelTotals.seatsWithActionTotal}}
         </td>
         <TdHover @payload={{hash name="utilizationWithAction" level="is"}}>
-          {{percentage analysis.isLevelTotals.utilizationWithActionTotal}}
+          {{percentage this.analysis.isLevelTotals.utilizationWithActionTotal}}
         </TdHover>
         <TdHover @payload={{hash name="utilizationChange" level="is"}}>
-          {{percentage analysis.isLevelTotals.utilizationChangeTotal decimals=2}}
+          {{percentage this.analysis.isLevelTotals.utilizationChangeTotal decimals=2}}
         </TdHover>
       </tr>
     </tbody>
   {{/if}}
-  {{#if analysis.hsAnalysis}}
+  {{#if this.analysis.hsAnalysis}}
     <tbody>
       <tr>
         <td>
@@ -116,25 +116,25 @@
           </strong>
         </td>
         <td>
-          {{analysis.hsLevelTotals.enrollNoActionTotal}}
+          {{this.analysis.hsLevelTotals.enrollNoActionTotal}}
         </td>
         <TdHover @payload={{hash name="studentsFromDev" level="hs"}}>
-          {{analysis.estHsStudents}}
+          {{this.analysis.estHsStudents}}
         </TdHover>
         <td>
-          {{analysis.hsLevelTotals.enrollWithActionTotal}}
+          {{this.analysis.hsLevelTotals.enrollWithActionTotal}}
         </td>
         <td>
-          {{analysis.hsLevelTotals.capacityWithActionTotal}}
+          {{this.analysis.hsLevelTotals.capacityWithActionTotal}}
         </td>
         <td>
-          {{analysis.hsLevelTotals.seatsWithActionTotal}}
+          {{this.analysis.hsLevelTotals.seatsWithActionTotal}}
         </td>
         <TdHover @payload={{hash name="utilizationWithAction" level="hs"}}>
-          {{percentage analysis.hsLevelTotals.utilizationWithActionTotal}}
+          {{percentage this.analysis.hsLevelTotals.utilizationWithActionTotal}}
         </TdHover>
         <TdHover @payload={{hash name="utilizationChange" level="hs"}}>
-          {{percentage analysis.hsLevelTotals.utilizationChangeTotal decimals=2}}
+          {{percentage this.analysis.hsLevelTotals.utilizationChangeTotal decimals=2}}
         </TdHover>
       </tr>
     </tbody>

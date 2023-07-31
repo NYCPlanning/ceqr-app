@@ -12,26 +12,26 @@
     </thead>
     <tbody>
       <tr>
-        <td>{{data.am.label}}</td>
-        <td>{{data.am.percent}} %</td>
+        <td>{{this.data.am.label}}</td>
+        <td>{{this.data.am.percent}} %</td>
       </tr>
       <tr>
-        <td>{{data.md.label}}</td>
-        <td>{{data.md.percent}} %</td>
+        <td>{{this.data.md.label}}</td>
+        <td>{{this.data.md.percent}} %</td>
       </tr>
       <tr>
-        <td>{{data.pm.label}}</td>
-        <td>{{data.pm.percent}} %</td>
+        <td>{{this.data.pm.label}}</td>
+        <td>{{this.data.pm.percent}} %</td>
       </tr>
       <tr>
-        <td>{{data.saturday.label}}</td>
-        <td>{{data.saturday.percent}} %</td>
+        <td>{{this.data.saturday.label}}</td>
+        <td>{{this.data.saturday.percent}} %</td>
       </tr>
       <tr>
         <td colspan="2">
           <Transportation::Tdf::TableNote 
             @tableName="temporalDistribution"
-            @factor={{factor}}
+            @factor={{this.factor}}
           />
         </td>
       </tr>

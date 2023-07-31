@@ -4,7 +4,7 @@
   @initOptions={{hash
     style="https://layers-api.planninglabs.nyc/v1/base/style.json"
     zoom=14
-    center=censusTractsCentroidLngLat
+    center=this.censusTractsCentroidLngLat
   }} as |map|
 >
   <Transportation::Tdf::ModalSplits::CensusTractsMap::Features
@@ -15,7 +15,7 @@
   <MapboxGlSource
     @sourceId="bbls_geojson"
     @map={{map.instance}}
-    @options={{hash type="geojson" data=project.bblsGeojson}} as |source|
+    @options={{hash type="geojson" data=this.project.bblsGeojson}} as |source|
   >
     <source.layer
       @layer={{hash
@@ -76,7 +76,7 @@
       <Mapbox::FeatureHoverer
         @map={{map}}
         @layerId={{layer.layerId}}
-        @onFeatures={{setFirstHoveredFeatureId}}
+        @onFeatures={{this.setFirstHoveredFeatureId}}
       />
 
       <Mapbox::FeatureSelector
@@ -84,9 +84,9 @@
         @layerId={{layer.layerId}} as |selectedFeatures| >
         <Transportation::Tdf::ModalSplits::CensusTractsMap::StudySelectionToggler
           @selectedFeatureArray={{selectedFeatures}}
-          @analysis={{analysis}}
-          @addCensusTract={{addCensusTract}}
-          @removeCensusTract={{removeCensusTract}}
+          @analysis={{this.analysis}}
+          @addCensusTract={{this.addCensusTract}}
+          @removeCensusTract={{this.removeCensusTract}}
         />
       </Mapbox::FeatureSelector>
     </carto-source.layer>
@@ -124,7 +124,7 @@
         @map={{map}}
         @layerId={{layer.layerId}}
         @filterById="geoid"
-        @featureIds={{array hoveredFeatureId}}
+        @featureIds={{array this.hoveredFeatureId}}
       />
     </carto-source.layer>
 
@@ -140,7 +140,7 @@
         @map={{map}}
         @layerId={{layer.layerId}}
         @filterById="geoid"
-        @featureIds={{analysis.requiredCensusTractsSelection}}
+        @featureIds={{this.analysis.requiredCensusTractsSelection}}
       />
     </carto-source.layer>
 
@@ -156,7 +156,7 @@
         @map={{map}}
         @layerId={{layer.layerId}}
         @filterById="geoid"
-        @featureIds={{analysis.censusTractsSelection}}
+        @featureIds={{this.analysis.censusTractsSelection}}
       />
     </carto-source.layer>
 
@@ -173,7 +173,7 @@
         @map={{map}}
         @layerId={{layer.layerId}}
         @filterById="geoid"
-        @featureIds={{completeCensusTractsSelection}}
+        @featureIds={{this.completeCensusTractsSelection}}
       />
     </carto-source.layer>
 

@@ -2,15 +2,15 @@
   <div data-test-tz-checkbox class="transit-zone-dropdown">
     <UiCheckbox
       @label="Show Transit Zones"
-      @checked={{showTransitZones}}
-      @onChange={{action (mut showTransitZones)}}
+      @checked={{this.showTransitZones}}
+      @onChange={{action (mut this.showTransitZones)}}
     />
   </div>
   <div data-test-lu-checkbox class="land-use-dropdown">
     <UiCheckbox
       @label="Show Land Use"
-      @checked={{showLandUse}}
-      @onChange={{action (mut showLandUse)}}
+      @checked={{this.showLandUse}}
+      @onChange={{action (mut this.showLandUse)}}
     />
   </div>
 </div>
@@ -33,7 +33,7 @@
       <div class="content">Required Census Tracts</div>
     </div>
     {{/let}}
-    {{#if showTransitZones}}
+    {{#if this.showTransitZones}}
       <div class="ui divider" style="margin: 0.5rem 0rem"></div>
       {{#each (get-layer-category-colors "transit-zone") as |categoryColor|}}
         <div data-test-tz-legend-item class="item">
@@ -42,12 +42,12 @@
         </div>
       {{/each}}
     {{/if}}
-    {{#if showLandUse}}
+    {{#if this.showLandUse}}
       <div class="ui divider" style="margin: 0.5rem 0rem"></div>
       {{#each (get-layer-category-colors "land-use") as |categoryColor|}}
         <div data-test-lu-legend-item class="item">
           <i class="square icon" style={{get-color-style (get categoryColor "color")}}></i>
-          <div class="content">{{get landUseDescriptionsLookup (get categoryColor "category")}}</div>
+          <div class="content">{{get this.landUseDescriptionsLookup (get categoryColor "category")}}</div>
         </div>
       {{/each}}
     {{/if}}

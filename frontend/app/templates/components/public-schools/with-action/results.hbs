@@ -27,24 +27,24 @@
   </thead>
  
   <tbody>
-    <tr class={{if analysis.psLevelTotals.impact "negative"}}>
+    <tr class={{if this.analysis.psLevelTotals.impact "negative"}}>
       <td>
         Primary Schools
       </td>
       <TdHover @payload={{hash name="utilizationWithAction" level="analysis.psLevelTotals"}}>
-        {{percentage analysis.psLevelTotals.utilizationWithActionTotal}}
+        {{percentage this.analysis.psLevelTotals.utilizationWithActionTotal}}
       </TdHover>
       <TdHover @payload={{hash name="utilizationChange" level="analysis.psLevelTotals"}}>
-        {{percentage analysis.psLevelTotals.utilizationChangeTotal decimals=2}}
+        {{percentage this.analysis.psLevelTotals.utilizationChangeTotal decimals=2}}
       </TdHover>
       <td>
-        {{#if analysis.psLevelTotals.impact}}
+        {{#if this.analysis.psLevelTotals.impact}}
           <div
             class="ui red label"
             data-tooltip="Utilization with project is 100% or higher (at
-              {{percentage analysis.psLevelTotals.utilizationWithActionTotal}}
+              {{percentage this.analysis.psLevelTotals.utilizationWithActionTotal}}
                 ) and Change in Utilization is 5% or higher (at
-              {{percentage analysis.psLevelTotals.utilizationChangeTotal decimals=2}}
+              {{percentage this.analysis.psLevelTotals.utilizationChangeTotal decimals=2}}
                 )"
             data-inverted
           >
@@ -63,33 +63,33 @@
         {{/if}}
       </td>
       <td>
-        {{if analysis.psLevelTotals.impact analysis.psLevelTotals.mitigateSeatCount "n/a"}}
+        {{if this.analysis.psLevelTotals.impact this.analysis.psLevelTotals.mitigateSeatCount "n/a"}}
       </td>
       <td>
-        {{if analysis.psLevelTotals.impact analysis.psLevelTotals.mitigateUnitCount "n/a"}}
+        {{if this.analysis.psLevelTotals.impact this.analysis.psLevelTotals.mitigateUnitCount "n/a"}}
       </td>
     </tr>
   </tbody>
 
   <tbody>
-    <tr class={{if analysis.isLevelTotals.impact "negative"}}>
+    <tr class={{if this.analysis.isLevelTotals.impact "negative"}}>
       <td>
         Intermediate Schools
       </td>
       <TdHover @payload={{hash name="utilizationWithAction" level="is"}}>
-        {{percentage analysis.isLevelTotals.utilizationWithActionTotal}}
+        {{percentage this.analysis.isLevelTotals.utilizationWithActionTotal}}
       </TdHover>
       <TdHover @payload={{hash name="utilizationChange" level="is"}}>
-        {{percentage analysis.isLevelTotals.utilizationChangeTotal decimals=2}}
+        {{percentage this.analysis.isLevelTotals.utilizationChangeTotal decimals=2}}
       </TdHover>
       <td>
-        {{#if analysis.isLevelTotals.impact}}
+        {{#if this.analysis.isLevelTotals.impact}}
           <div
             class="ui red label"
             data-tooltip="Utilization with project is 100% or higher (at
-              {{percentage analysis.isLevelTotals.utilizationWithActionTotal}}
+              {{percentage this.analysis.isLevelTotals.utilizationWithActionTotal}}
                 ) and Change in Utilization is 5% or higher (at
-              {{percentage analysis.isLevelTotals.utilizationChangeTotal decimals=2}}
+              {{percentage this.analysis.isLevelTotals.utilizationChangeTotal decimals=2}}
                 )"
             data-inverted
           >
@@ -108,34 +108,34 @@
         {{/if}}
       </td>
       <td>
-        {{if analysis.isLevelTotals.impact analysis.isLevelTotals.mitigateSeatCount "n/a"}}
+        {{if this.analysis.isLevelTotals.impact this.analysis.isLevelTotals.mitigateSeatCount "n/a"}}
       </td>
       <td>
-        {{if analysis.isLevelTotals.impact analysis.isLevelTotals.mitigateUnitCount "n/a"}}
+        {{if this.analysis.isLevelTotals.impact this.analysis.isLevelTotals.mitigateUnitCount "n/a"}}
       </td>
     </tr>
   </tbody>
 
-  {{#if analysis.hsAnalysis}}
+  {{#if this.analysis.hsAnalysis}}
     <tbody>
-      <tr class={{if analysis.hsLevelTotals.impact "negative"}}>
+      <tr class={{if this.analysis.hsLevelTotals.impact "negative"}}>
         <td>
           High Schools
         </td>
         <TdHover @payload={{hash name="utilizationWithAction" level="hs"}}>
-          {{percentage analysis.hsLevelTotals.utilizationWithActionTotal}}
+          {{percentage this.analysis.hsLevelTotals.utilizationWithActionTotal}}
         </TdHover>
         <TdHover @payload={{hash name="utilizationChange" level="hs"}}>
-          {{percentage analysis.hsLevelTotals.utilizationChangeTotal decimals=2}}
+          {{percentage this.analysis.hsLevelTotals.utilizationChangeTotal decimals=2}}
         </TdHover>
         <td>
-          {{#if analysis.hsLevelTotals.impact}}
+          {{#if this.analysis.hsLevelTotals.impact}}
             <div
               class="ui red label"
               data-tooltip="Utilization with project is 100% or higher (at
-                {{percentage analysis.hsLevelTotals.utilizationWithActionTotal}}
+                {{percentage this.analysis.hsLevelTotals.utilizationWithActionTotal}}
                  ) and Change in Utilization is 5% or higher (at
-                {{percentage analysis.hsLevelTotals.utilizationChangeTotal decimals=2}}
+                {{percentage this.analysis.hsLevelTotals.utilizationChangeTotal decimals=2}}
                  )"
               data-inverted
             >
@@ -154,10 +154,10 @@
           {{/if}}
         </td>
         <td>
-          {{if analysis.hsLevelTotals.impact analysis.hsLevelTotals.mitigateSeatCount "n/a"}}
+          {{if this.analysis.hsLevelTotals.impact this.analysis.hsLevelTotals.mitigateSeatCount "n/a"}}
         </td>
         <td>
-          {{if analysis.hsLevelTotals.impact analysis.hsLevelTotals.mitigateUnitCount "n/a"}}
+          {{if this.analysis.hsLevelTotals.impact this.analysis.hsLevelTotals.mitigateUnitCount "n/a"}}
         </td>
       </tr>
     </tbody>

@@ -12,12 +12,12 @@
       </tr>
     </thead>
     <tbody class="ui form">
-      <Transportation::Tdf::InOutSplits::TableRow @data={{data.allDay}} @label="All Day" />
+      <Transportation::Tdf::InOutSplits::TableRow @data={{this.data.allDay}} @label="All Day" />
       <tr>
         <td colspan="3">
           <Transportation::Tdf::TableNote
             @tableName="truckDirectionalDistribution"
-            @factor={{factor}}
+            @factor={{this.factor}}
           />
         </td>
       </tr>

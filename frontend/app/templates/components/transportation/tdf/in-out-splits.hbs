@@ -12,10 +12,10 @@
       </tr>
     </thead>
     <tbody class="ui form">
-      <Transportation::Tdf::InOutSplits::TableRow @data={{data.am}} @label="AM" data-test-in-out-split="am"/>
-      <Transportation::Tdf::InOutSplits::TableRow @data={{data.md}} @label="Midday" />
-      <Transportation::Tdf::InOutSplits::TableRow @data={{data.pm}} @label="PM" />
-      <Transportation::Tdf::InOutSplits::TableRow @data={{data.saturday}} @label="Saturday" />
+      <Transportation::Tdf::InOutSplits::TableRow @data={{this.data.am}} @label="AM" data-test-in-out-split="am"/>
+      <Transportation::Tdf::InOutSplits::TableRow @data={{this.data.md}} @label="Midday" />
+      <Transportation::Tdf::InOutSplits::TableRow @data={{this.data.pm}} @label="PM" />
+      <Transportation::Tdf::InOutSplits::TableRow @data={{this.data.saturday}} @label="Saturday" />
     </tbody>
   </table>
 </div>

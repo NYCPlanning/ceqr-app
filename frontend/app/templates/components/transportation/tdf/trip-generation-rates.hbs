@@ -7,23 +7,23 @@
     <thead>
       <tr>
         <th class="eight wide">Day</th>
-        <th class="eight wide" data-test-total-per={{factor.landUse}}>Total (Per {{factor.tripGenRatePerUnit}} {{factor.unitName}})</th>
+        <th class="eight wide" data-test-total-per={{this.factor.landUse}}>Total (Per {{this.factor.tripGenRatePerUnit}} {{this.factor.unitName}})</th>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <td data-label="Day">{{data.weekday.label}}</td>
-        <td data-label="Total">{{data.weekday.rate}}</td>
+        <td data-label="Day">{{this.data.weekday.label}}</td>
+        <td data-label="Total">{{this.data.weekday.rate}}</td>
       </tr>
       <tr>
-        <td data-label="Day">{{data.saturday.label}}</td>
-        <td data-label="Total">{{data.saturday.rate}}</td>
+        <td data-label="Day">{{this.data.saturday.label}}</td>
+        <td data-label="Total">{{this.data.saturday.rate}}</td>
       </tr>
       <tr>
         <td colspan="2">
           <Transportation::Tdf::TableNote 
             @tableName="tripGenerationRates"
-            @factor={{factor}}
+            @factor={{this.factor}}
           />
         </td>
       </tr>

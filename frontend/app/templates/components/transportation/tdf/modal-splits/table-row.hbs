@@ -1,22 +1,22 @@
-<td data-test-row-mode-title={{mode}}>
-  {{#if editModes}}
+<td data-test-row-mode-title={{this.mode}}>
+  {{#if this.editModes}}
     <UiCheckbox
-      @checked={{modeActive}}
-      @value={{mode}}
-      @onChecked={{action addActiveMode}}
-      @onUnchecked={{action removeActiveMode}}
-      data-test-checkbox={{mode}}
+      @checked={{this.modeActive}}
+      @value={{this.mode}}
+      @onChecked={{action this.addActiveMode}}
+      @onUnchecked={{action this.removeActiveMode}}
+      data-test-checkbox={{this.mode}}
     />  
   {{/if}}
 
-  {{mode-label mode}}
+  {{mode-label this.mode}}
 </td>
 
-{{#if showInput}}
-  {{#if showTemporalModeSplits}}
+{{#if this.showInput}}
+  {{#if this.showTemporalModeSplits}}
     <td>
       <div class="ui right labeled input">
-        {{input type="number" max="100" min="0" step="0.1" value=amPercent data-test-modal-split-input-am=mode}}
+        {{input type="number" max="100" min="0" step="0.1" value=this.amPercent data-test-modal-split-input-am=this.mode}}
         <div class="ui basic label">
           %
         </div>
@@ -24,7 +24,7 @@
     </td>
     <td>
       <div class="ui right labeled input">
-        {{input type="number" max="100" min="0" step="0.1" value=mdPercent data-test-modal-split-input-md=mode}}
+        {{input type="number" max="100" min="0" step="0.1" value=this.mdPercent data-test-modal-split-input-md=this.mode}}
         <div class="ui basic label">
           %
         </div>
@@ -32,7 +32,7 @@
     </td>
     <td>
       <div class="ui right labeled input">
-        {{input type="number" max="100" min="0" step="0.1" value=pmPercent data-test-modal-split-input-pm=mode}}
+        {{input type="number" max="100" min="0" step="0.1" value=this.pmPercent data-test-modal-split-input-pm=this.mode}}
         <div class="ui basic label">
           %
         </div>
@@ -40,7 +40,7 @@
     </td>
     <td>
       <div class="ui right labeled input">
-        {{input type="number" max="100" min="0" step="0.1" value=satPercent data-test-modal-split-input-saturday=mode}}
+        {{input type="number" max="100" min="0" step="0.1" value=this.satPercent data-test-modal-split-input-saturday=this.mode}}
         <div class="ui basic label">
           %
         </div>
@@ -49,7 +49,7 @@
   {{else}}
     <td>
       <div class="ui right labeled input">
-        {{input type="number" max="100" min="0" step="0.1" value=allPeriodPercent data-test-modal-split-input-allperiods=mode}}
+        {{input type="number" max="100" min="0" step="0.1" value=this.allPeriodPercent data-test-modal-split-input-allperiods=this.mode}}
         <div class="ui basic label">
           %
         </div>
@@ -57,8 +57,8 @@
     </td>
   {{/if}}
 {{else}}    
-  <td data-test-all-period-percent-value={{mode}}>
-    {{allPeriodPercent}} % ({{count}})
+  <td data-test-all-period-percent-value={{this.mode}}>
+    {{this.allPeriodPercent}} % ({{this.count}})
   </td>
 {{/if}}
 

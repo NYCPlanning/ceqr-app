@@ -6,35 +6,35 @@
   </div>
 </div>
 
-{{#if manualModeSplits}}
-  <div class="{{if factor.temporalModeSplits "sixteen" "eight"}} wide column">
+{{#if this.manualModeSplits}}
+  <div class="{{if this.factor.temporalModeSplits "sixteen" "eight"}} wide column">
     <table class="ui celled table">
       <thead>
         <tr>
           <td class="four wide">
             <div class="ui small buttons">
-              <button class="ui button {{if factor.manualModeSplits "positive"}}" onClick={{action toggleManualModeSplits}} type="button">Manual</button>
+              <button class="ui button {{if this.factor.manualModeSplits "positive"}}" onClick={{action this.toggleManualModeSplits}} type="button">Manual</button>
               <div class="or"></div>
               <button 
-                class="ui button {{unless factor.manualModeSplits "positive"}}" 
-                onClick={{action toggleCensusTractModeSplits}}
+                class="ui button {{unless this.factor.manualModeSplits "positive"}}" 
+                onClick={{action this.toggleCensusTractModeSplits}}
                 data-test-button="census tracts tab" type="button">
                 Census Tracts
               </button>
             </div>
           </td>
-          <td colspan={{if factor.temporalModeSplits "4" "1"}}>
+          <td colspan={{if this.factor.temporalModeSplits "4" "1"}}>
             <div class="ui small buttons">
               <button 
-                class="ui button {{if factor.temporalModeSplits "positive"}}" 
-                onClick={{action toggleTemporalModeSplits true}}
+                class="ui button {{if this.factor.temporalModeSplits "positive"}}" 
+                onClick={{action this.toggleTemporalModeSplits true}}
                 data-test-button="temporal splits tab" type="button">
                 Temporal Splits
               </button>
               <div class="or"></div>
               <button 
-                class="ui button {{unless factor.temporalModeSplits "positive"}}" 
-                onClick={{action toggleTemporalModeSplits false}}
+                class="ui button {{unless this.factor.temporalModeSplits "positive"}}" 
+                onClick={{action this.toggleTemporalModeSplits false}}
                 data-test-button="all periods tab" type="button">
                 All Periods
               </button>
@@ -44,7 +44,7 @@
         <tr>
           <th class="four wide">
             <span style="color: #2185D0;">Mode</span>
-              {{#if editModes}}
+              {{#if this.editModes}}
                 <div class="ui tiny blue button" onClick={{action "toggleEditModes"}} data-test-button="exit edit mode">
                   Ok
                 </div>
@@ -52,7 +52,7 @@
                 <i class="icon blue pencil alternate" onClick={{action "toggleEditModes"}} style="cursor: pointer;" data-test-button="enter edit mode"></i>
               {{/if}}
           </th>
-          {{#if factor.temporalModeSplits}}
+          {{#if this.factor.temporalModeSplits}}
             <th class="two wide" data-test-column-title="am">
               AM
             </th>
@@ -73,61 +73,61 @@
 
         </tr>
       </thead>
-      <tbody class="ui form {{if censusTracksChanging.isRunning "loading"}}">
-        {{#each activeModes as |mode|}}
+      <tbody class="ui form {{if this.censusTracksChanging.isRunning "loading"}}">
+        {{#each this.activeModes as |mode|}}
           <Transportation::Tdf::ModalSplits::TableRow
             @mode={{mode}}
             @modeActive={{true}}
-            @addActiveMode={{addActiveMode}}
-            @removeActiveMode={{removeActiveMode}}
+            @addActiveMode={{this.addActiveMode}}
+            @removeActiveMode={{this.removeActiveMode}}
             
-            @modeSplits={{modeSplits}}
+            @modeSplits={{this.modeSplits}}
             
-            @showInput={{manualModeSplits}}
-            @showTemporalModeSplits={{factor.temporalModeSplits}}
-            @editModes={{editModes}}
+            @showInput={{this.manualModeSplits}}
+            @showTemporalModeSplits={{this.factor.temporalModeSplits}}
+            @editModes={{this.editModes}}
             data-test-active-mode={{mode}}
           />
         {{/each}}
 
         <tr class="warning">
           <td><strong>TOTAL</strong></td>          
-          {{#if factor.temporalModeSplits}}
-            <td data-test-total-am>{{total.am}}</td>
-            <td data-test-total-md>{{total.md}}</td>
-            <td data-test-total-pm>{{total.pm}}</td>
-            <td data-test-total-saturday>{{total.saturday}}</td>
+          {{#if this.factor.temporalModeSplits}}
+            <td data-test-total-am>{{this.total.am}}</td>
+            <td data-test-total-md>{{this.total.md}}</td>
+            <td data-test-total-pm>{{this.total.pm}}</td>
+            <td data-test-total-saturday>{{this.total.saturday}}</td>
           {{else}}
             <td data-test-total-all-periods>
-              {{total.allPeriods}} % 
-              {{#unless manualModeSplits}}
-                ({{total.count}})
+              {{this.total.allPeriods}} % 
+              {{#unless this.manualModeSplits}}
+                ({{this.total.count}})
               {{/unless}}
             </td>
           {{/if}}
         </tr>
     
-        {{#if editModes}}
-          {{#each inactiveModes as |mode|}}
+        {{#if this.editModes}}
+          {{#each this.inactiveModes as |mode|}}
             <Transportation::Tdf::ModalSplits::TableRow
               @mode={{mode}}
-              @addActiveMode={{addActiveMode}}
-              @removeActiveMode={{removeActiveMode}}
+              @addActiveMode={{this.addActiveMode}}
+              @removeActiveMode={{this.removeActiveMode}}
               
-              @modeSplits={{modeSplits}}
+              @modeSplits={{this.modeSplits}}
               
-              @showInput={{manualModeSplits}}
-              @showTemporalModeSplits={{factor.temporalModeSplits}}
-              @editModes={{editModes}}
+              @showInput={{this.manualModeSplits}}
+              @showTemporalModeSplits={{this.factor.temporalModeSplits}}
+              @editModes={{this.editModes}}
               data-test-inactive-mode={{mode}}
             />
           {{/each}}
         {{/if}}
         <tr>
-          <td colspan={{if factor.temporalModeSplits "5" "2"}}>
+          <td colspan={{if this.factor.temporalModeSplits "5" "2"}}>
             <Transportation::Tdf::TableNote 
               @tableName="modalSplits"
-              @factor={{factor}}
+              @factor={{this.factor}}
             />
           </td>
         </tr>
@@ -142,25 +142,25 @@
           <td>
             <div class="ui small buttons">
               <button 
-                class="ui button {{if factor.manualModeSplits "positive"}}" 
-                onClick={{action toggleManualModeSplits}}
+                class="ui button {{if this.factor.manualModeSplits "positive"}}" 
+                onClick={{action this.toggleManualModeSplits}}
                 data-test-button="manual tab" type="button">
                 Manual
               </button>
               <div class="or"></div>
-              <button class="ui button {{unless factor.manualModeSplits "positive"}}" onClick={{action toggleCensusTractModeSplits}} type="button">Census Tracts</button>
+              <button class="ui button {{unless this.factor.manualModeSplits "positive"}}" onClick={{action this.toggleCensusTractModeSplits}} type="button">Census Tracts</button>
             </div>
           </td>
           <td>
             {{!-- Census Tract calculations only product on period --}}
           </td>
-          <td colspan={{if seeCensusTracts (add analysis.censusTractsSelection.length analysis.requiredCensusTractsSelection.length) 1}}>
+          <td colspan={{if this.seeCensusTracts (add this.this.analysis.censusTractsSelection.length this.analysis.requiredCensusTractsSelection.length) 1}}>
             <div class="ui small buttons">
-              <button class="ui button {{unless seeCensusTracts "positive"}}" onClick={{action toggleSeeCensusTracts false}} type="button">Map</button>
+              <button class="ui button {{unless this.seeCensusTracts "positive"}}" onClick={{action this.toggleSeeCensusTracts false}} type="button">Map</button>
               <div class="or"></div>
               <button 
-                class="ui button {{if seeCensusTracts "positive"}}" 
-                onClick={{action toggleSeeCensusTracts true}}
+                class="ui button {{if this.seeCensusTracts "positive"}}" 
+                onClick={{action this.toggleSeeCensusTracts true}}
                 data-test-census-tracts-table-tab type="button">
                 Table
               </button>
@@ -168,16 +168,16 @@
             
             <Analysis::DataPackageSelector
               style="display: inline-block;"
-              @currentPackage={{factor.dataPackage}}
-              @availablePackages={{availablePackages}}
-              @changeDataPackageAction={{action changeDataPackage}}
+              @currentPackage={{this.factor.dataPackage}}
+              @availablePackages={{this.availablePackages}}
+              @changeDataPackageAction={{action this.changeDataPackage}}
             />
           </td>
         </tr>
         <tr>
           <th class="four wide">
             <span style="color: #2185D0;">Mode</span>
-              {{#if editModes}}
+              {{#if this.editModes}}
                 <div class="ui tiny blue button" onClick={{action "toggleEditModes"}}>
                   Ok
                 </div>
@@ -188,68 +188,68 @@
           <th class="four wide">
             All Periods
           </th>
-          {{#if seeCensusTracts}}
-            {{#each analysis.requiredCensusTractsSelection as |geoid|}}
+          {{#if this.seeCensusTracts}}
+            {{#each this.analysis.requiredCensusTractsSelection as |geoid|}}
               <th>
                 <div class="ui grey label">
                   {{humanize-geoid geoid}}
                 </div>
               </th>
             {{/each}}
-            {{#each analysis.censusTractsSelection as |geoid|}}
+            {{#each this.analysis.censusTractsSelection as |geoid|}}
               <th>
                 <div class="ui label" style="display: flex;" data-test-census-tract={{humanize-geoid geoid}}>
                   {{humanize-geoid geoid}}
-                  <i class="delete icon" onclick={{action removeCensusTract geoid}} data-test-census-tract-delete></i>
+                  <i class="delete icon" onclick={{action this.removeCensusTract geoid}} data-test-census-tract-delete></i>
                 </div>
               </th>
             {{/each}}
           {{else}}
             <th class="eight wide">
               Selected Tracts
-              {{#each analysis.requiredCensusTractsSelection as |geoid|}}
+              {{#each this.analysis.requiredCensusTractsSelection as |geoid|}}
                 <div class="ui grey label">
                   {{humanize-geoid geoid}}
                 </div>
               {{/each}}
-              {{#each analysis.censusTractsSelection as |geoid|}}
+              {{#each this.analysis.censusTractsSelection as |geoid|}}
                 <div class="ui label">
                   {{humanize-geoid geoid}}
-                  <i class="delete icon" onclick={{action removeCensusTract geoid}}></i>
+                  <i class="delete icon" onclick={{action this.removeCensusTract geoid}}></i>
                 </div>
               {{/each}}
             </th>
           {{/if}}
         </tr>
       </thead>
-      <tbody class="ui form {{if censusTracksChanging.isRunning "loading"}}">
-        {{#each activeModes as |mode idx|}}
+      <tbody class="ui form {{if this.censusTracksChanging.isRunning "loading"}}">
+        {{#each this.activeModes as |mode idx|}}
           <Transportation::Tdf::ModalSplits::TableRow
             @mode={{mode}}
             @modeActive={{true}}
-            @addActiveMode={{addActiveMode}}
-            @removeActiveMode={{removeActiveMode}}
+            @addActiveMode={{this.addActiveMode}}
+            @removeActiveMode={{this.removeActiveMode}}
             
-            @modeSplits={{modeSplits}}
+            @modeSplits={{this.modeSplits}}
             
-            @showInput={{manualModeSplits}}
-            @showTemporalModeSplits={{factor.temporalModeSplits}}
-            @editModes={{editModes}}
+            @showInput={{this.manualModeSplits}}
+            @showTemporalModeSplits={{this.factor.temporalModeSplits}}
+            @editModes={{this.editModes}}
           >
             {{#if (eq idx 0)}}
-              <td rowspan={{add activeModes.length 1}} style={{if seeCensusTracts "display:none;" ""}}>
+              <td rowspan={{add this.activeModes.length 1}} style={{if this.seeCensusTracts "display:none;" ""}}>
                 <Transportation::Tdf::ModalSplits::CensusTractsMap 
-                  @analysis={{analysis}}
-                  @project={{project}}
-                  @factor={{factor}}
-                  @addCensusTract={{action addCensusTract}}
-                  @removeCensusTract={{action removeCensusTract}}
+                  @analysis={{this.analysis}}
+                  @project={{this.project}}
+                  @factor={{this.factor}}
+                  @addCensusTract={{action this.addCensusTract}}
+                  @removeCensusTract={{action this.removeCensusTract}}
                 />
               </td>
             {{/if}}
 
-            {{#if seeCensusTracts}}
-              {{#each censusTractVariables as |tract|}}
+            {{#if this.seeCensusTracts}}
+              {{#each this.censusTractVariables as |tract|}}
                 <Transportation::Tdf::ModalSplits::CensusTractTableCell
                   @mode={{mode}}
                   @tract={{tract}}
@@ -263,34 +263,34 @@
         <tr class="warning">
           <td><strong>TOTAL</strong></td>
           <td>
-            {{total.allPeriods}} % 
-            {{#unless manualModeSplits}}
-              ({{total.count}})
+            {{this.total.allPeriods}} % 
+            {{#unless this.manualModeSplits}}
+              ({{this.total.count}})
             {{/unless}}  
           </td>
 
-          {{#if seeCensusTracts}}
-            {{#each censusTractVariables as |tract|}}
+          {{#if this.seeCensusTracts}}
+            {{#each this.censusTractVariables as |tract|}}
               <Transportation::Tdf::ModalSplits::CensusTractTableCell::Total
                 @tract={{tract}}
-                @activeModes={{activeModes}}
+                @activeModes={{this.activeModes}}
               />
             {{/each}}
           {{/if}}
         </tr>
     
-        {{#if editModes}}
-          {{#each inactiveModes as |mode|}}
+        {{#if this.editModes}}
+          {{#each this.inactiveModes as |mode|}}
             <Transportation::Tdf::ModalSplits::TableRow
               @mode={{mode}}
-              @addActiveMode={{addActiveMode}}
-              @removeActiveMode={{removeActiveMode}}
+              @addActiveMode={{this.addActiveMode}}
+              @removeActiveMode={{this.removeActiveMode}}
               
-              @modeSplits={{modeSplits}}
+              @modeSplits={{this.modeSplits}}
               
-              @showInput={{manualModeSplits}}
-              @showTemporalModeSplits={{factor.temporalModeSplits}}
-              @editModes={{editModes}}
+              @showInput={{this.manualModeSplits}}
+              @showTemporalModeSplits={{this.factor.temporalModeSplits}}
+              @editModes={{this.editModes}}
             />
           {{/each}}
         {{/if}}
@@ -298,10 +298,10 @@
           <td colspan="2">
             <Transportation::Tdf::TableNote 
               @tableName="modalSplits"
-              @factor={{factor}}
+              @factor={{this.factor}}
             />
           </td>
-          <td colspan={{if seeCensusTracts (add analysis.censusTractsSelection.length analysis.requiredCensusTractsSelection.length) 1}}></td>
+          <td colspan={{if this.seeCensusTracts (add this.analysis.censusTractsSelection.length this.analysis.requiredCensusTractsSelection.length) 1}}></td>
         </tr>
       </tbody>
     </table>

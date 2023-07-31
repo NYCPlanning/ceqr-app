@@ -18,7 +18,7 @@
       </tr>
     </thead>
     <tbody>
-      {{#each rows as |row|}}
+      {{#each this.rows as |row|}}
         <tr>
           <td>{{mode-label row.mode}}</td>
           <td>{{row.in}}</td>
@@ -30,15 +30,15 @@
     <tfoot>
       <tr class="ui warning">
         <td>TOTAL</td>
-        <td>{{total.in}}</td>
-        <td>{{total.out}}</td>
-        <td>{{total.total}}</td>
+        <td>{{this.total.in}}</td>
+        <td>{{this.total.out}}</td>
+        <td>{{this.total.total}}</td>
       </tr>
       <tr>
         <td>
           <Transportation::Tdf::TableNote
             @tableName="personTrips"
-            @factor={{factor}}
+            @factor={{this.factor}}
           />
         </td>
       </tr>

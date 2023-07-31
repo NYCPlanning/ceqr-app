@@ -81,7 +81,7 @@
                   </td>
                   <td>
                     {{#if ta.taxiVehicleOccupancy}}
-                      {{round (get (get weekdayVehicleTripTotals time) inOutOrTotal.key)}}
+                      {{round (get (get this.weekdayVehicleTripTotals time) inOutOrTotal.key)}}
                     {{else}}
                       -
                     {{/if}}

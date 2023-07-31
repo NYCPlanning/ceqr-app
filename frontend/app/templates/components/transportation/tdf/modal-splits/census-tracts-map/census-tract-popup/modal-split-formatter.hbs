@@ -8,9 +8,9 @@
     <tr>
       <th></th>
       <th>Population: </th>
-      <th data-test-population>{{acsData.population.value}}</th>
+      <th data-test-population>{{this.acsData.population.value}}</th>
       <th>Workers: </th>
-      <th data-test-workers>{{ctppData.workers.value}}</th>
+      <th data-test-workers>{{this.ctppData.workers.value}}</th>
     </tr>
     <tr>
       <th>Mode</th>
@@ -24,18 +24,18 @@
   <tbody>
     {{#each this.displayVariables as |variable|}}
       <tr>
-       <td data-test-mode={{variable}}>{{get (get acsData variable) "mode"}}</td>
+       <td data-test-mode={{variable}}>{{get (get this.acsData variable) "mode"}}</td>
        <td class="single line" data-test-acs-value={{variable}}>
-         {{get-split-value acsData variable}}<span class="moe"> {{get-split-moe acsData variable}}</span>
+         {{get-split-value this.acsData variable}}<span class="moe"> {{get-split-moe this.acsData variable}}</span>
        </td>
        <td class="single line" data-test-acs-percent={{variable}}>
-         {{get-split-percent acsData (array variable)}}
+         {{get-split-percent this.acsData (array variable)}}
         </td>
        <td class="single line" data-test-ctpp-value={{variable}}>
-         {{get-split-value ctppData variable}}<span class="moe"> {{get-split-moe ctppData variable}}</span>
+         {{get-split-value this.ctppData variable}}<span class="moe"> {{get-split-moe this.ctppData variable}}</span>
        </td>
        <td class="single line" data-test-ctpp-percent={{variable}}>
-         {{get-split-percent ctppData (array variable)}}
+         {{get-split-percent this.ctppData (array variable)}}
        </td>
      </tr>
     {{/each}}

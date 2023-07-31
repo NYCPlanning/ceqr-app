@@ -18,22 +18,22 @@
       </tr>
     </thead>
     <tbody>
-      {{#each rows as |row|}}
-        {{#if (and (eq row.mode "taxi") balancedTaxi)}}
+      {{#each this.rows as |row|}}
+        {{#if (and (eq row.mode "taxi") this.balancedTaxi)}}
           <tr>
             <td>
               {{mode-label row.mode}} 
-              <div class="ui small label" style="cursor: pointer;" onClick={{action toggleBalancedTaxi}}>Balanced</div>
+              <div class="ui small label" style="cursor: pointer;" onClick={{action this.toggleBalancedTaxi}}>Balanced</div>
             </td>
             <td>{{row.in}}</td>
             <td>{{row.out}}</td>
             <td>{{row.total}}</td>
           </tr>
-        {{else if (and (eq row.mode "taxi") (not balancedTaxi))}}
+        {{else if (and (eq row.mode "taxi") (not this.balancedTaxi))}}
           <tr>
             <td>
               {{mode-label row.mode}} 
-              <div class="ui small red label" style="cursor: pointer;" onClick={{action toggleBalancedTaxi}}>Unbalanced</div>
+              <div class="ui small red label" style="cursor: pointer;" onClick={{action this.toggleBalancedTaxi}}>Unbalanced</div>
             </td>
             <td class="error">{{row.unbalancedIn}}</td>
             <td class="error">{{row.unbalancedOut}}</td>
@@ -52,9 +52,9 @@
     <tfoot>
       <tr class="ui warning">
         <td>TOTAL</td>
-        <td>{{total.in}}</td>
-        <td>{{total.out}}</td>
-        <td>{{total.total}}</td>
+        <td>{{this.total.in}}</td>
+        <td>{{this.total.out}}</td>
+        <td>{{this.total.total}}</td>
       </tr>
     </tfoot>
   </table>

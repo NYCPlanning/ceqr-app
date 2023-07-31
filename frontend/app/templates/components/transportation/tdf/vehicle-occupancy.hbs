@@ -2,22 +2,22 @@
   <h3 class="ui header" style="margin-bottom: 10px">Vehicle Occupancy</h3>
 </div>
 
-<div class="{{if factor.temporalVehicleOccupancy "twelve" "eight"}} wide column">
+<div class="{{if this.factor.temporalVehicleOccupancy "twelve" "eight"}} wide column">
   <table class="ui celled table">
     <thead>
       <tr>
         <td class="six wide"></td>
-        <td class="three wide" colspan={{if factor.temporalVehicleOccupancy "4" "1"}}>
+        <td class="three wide" colspan={{if this.factor.temporalVehicleOccupancy "4" "1"}}>
           <div class="ui small buttons">
-            <button class="ui button {{if factor.temporalVehicleOccupancy "positive"}}" onClick={{action toggleTemporalVehicleOccupancy true}} type="button">Temporal Splits</button>
+            <button class="ui button {{if this.factor.temporalVehicleOccupancy "positive"}}" onClick={{action this.toggleTemporalVehicleOccupancy true}} type="button">Temporal Splits</button>
             <div class="or"></div>
-            <button class="ui button {{unless factor.temporalVehicleOccupancy "positive"}}" onClick={{action toggleTemporalVehicleOccupancy false}} type="button">All Periods</button>
+            <button class="ui button {{unless this.factor.temporalVehicleOccupancy "positive"}}" onClick={{action this.toggleTemporalVehicleOccupancy false}} type="button">All Periods</button>
           </div>
         </td>
       </tr>
       <tr>
         <th class="three wide">Mode</th>
-        {{#if factor.temporalVehicleOccupancy}}
+        {{#if this.factor.temporalVehicleOccupancy}}
           <th class="two wide">
             AM
           </th>
@@ -39,10 +39,10 @@
       <tr>
         <td>
           {{mode-label "auto"}}
-          {{#unless factor.manualModeSplits}}
+          {{#unless this.factor.manualModeSplits}}
             <UiPopup style="float: right;" @content="Average calculated using selected Census Tracts">
               <div class="ui basic blue horizontal label">
-                {{factor.censusTractsCalculator.autoVehicleOccupancy}}
+                {{this.factor.censusTractsCalculator.autoVehicleOccupancy}}
 
                 <div class="detail"><i class="icon question circle"></i></div>
               </div>
@@ -50,32 +50,32 @@
           {{/unless}}
         </td>
 
-        {{#if factor.temporalVehicleOccupancy}}
-          <td>{{input type="number" step=".01" min="0" value=vehicleOccupancy.auto.am}}</td>
-          <td>{{input type="number" step=".01" min="0" value=vehicleOccupancy.auto.md}}</td>
-          <td>{{input type="number" step=".01" min="0" value=vehicleOccupancy.auto.pm}}</td>
-          <td>{{input type="number" step=".01" min="0" value=vehicleOccupancy.auto.saturday}}</td>
+        {{#if this.factor.temporalVehicleOccupancy}}
+          <td>{{input type="number" step=".01" min="0" value=this.vehicleOccupancy.auto.am}}</td>
+          <td>{{input type="number" step=".01" min="0" value=this.vehicleOccupancy.auto.md}}</td>
+          <td>{{input type="number" step=".01" min="0" value=this.vehicleOccupancy.auto.pm}}</td>
+          <td>{{input type="number" step=".01" min="0" value=this.vehicleOccupancy.auto.saturday}}</td>
         {{else}}
-          <td>{{input type="number" step=".01" min="0" value=vehicleOccupancy.auto.allPeriods}}</td>
+          <td>{{input type="number" step=".01" min="0" value=this.vehicleOccupancy.auto.allPeriods}}</td>
         {{/if}}
       </tr>
       <tr>
         <td>{{mode-label "taxi"}}</td>
 
-        {{#if factor.temporalVehicleOccupancy}}
-          <td>{{input type="number" step=".01" min="0" value=vehicleOccupancy.taxi.am}}</td>
-          <td>{{input type="number" step=".01" min="0" value=vehicleOccupancy.taxi.md}}</td>
-          <td>{{input type="number" step=".01" min="0" value=vehicleOccupancy.taxi.pm}}</td>
-          <td>{{input type="number" step=".01" min="0" value=vehicleOccupancy.taxi.saturday}}</td>
+        {{#if this.factor.temporalVehicleOccupancy}}
+          <td>{{input type="number" step=".01" min="0" value=this.vehicleOccupancy.taxi.am}}</td>
+          <td>{{input type="number" step=".01" min="0" value=this.vehicleOccupancy.taxi.md}}</td>
+          <td>{{input type="number" step=".01" min="0" value=this.vehicleOccupancy.taxi.pm}}</td>
+          <td>{{input type="number" step=".01" min="0" value=this.vehicleOccupancy.taxi.saturday}}</td>
         {{else}}
-          <td>{{input type="number" step=".01" min="0" value=vehicleOccupancy.taxi.allPeriods}}</td>
+          <td>{{input type="number" step=".01" min="0" value=this.vehicleOccupancy.taxi.allPeriods}}</td>
         {{/if}}
       </tr>
       <tr>
         <td colspan="5">
           <Transportation::Tdf::TableNote
             @tableName="vehicleOccupancy"
-            @factor={{factor}}
+            @factor={{this.factor}}
           />
         </td>
       </tr>

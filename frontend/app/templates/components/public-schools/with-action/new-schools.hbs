@@ -31,20 +31,20 @@
     <tr>
       <td>
         <div class="ui input transparent edit-cell" style="width: 100%">
-          {{input type="string" value=school.name placeholder="School Name"}}
+          {{input type="string" value=this.school.name placeholder="School Name"}}
         </div>
       </td>
       <td>
         <UiDropdown
-          @selected={{school.subdistrict}}
-          @onChange={{action (mut school.subdistrict)}} as |execute mapper|
+          @selected={{this.school.subdistrict}}
+          @onChange={{action (mut this.school.subdistrict)}} as |execute mapper|
         >
           <div class="default text">
             Subdistrict
           </div>
           <i class="dropdown icon"></i>
           <div class="menu">
-            {{#each analysis.subdistricts as |sd|}}
+            {{#each this.analysis.subdistricts as |sd|}}
               <div data-value={{map-value mapper sd}} class="item">
                 District
                 {{sd.district}}
@@ -57,26 +57,26 @@
       </td>
       <td>
         <div class="ui input transparent edit-cell">
-          {{input type="number" value=school.ps_seats placeholder="0"}}
+          {{input type="number" value=this.school.ps_seats placeholder="0"}}
         </div>
       </td>
       <td>
         <div class="ui input transparent edit-cell">
-          {{input type="number" value=school.is_seats placeholder="0"}}
+          {{input type="number" value=this.school.is_seats placeholder="0"}}
         </div>
       </td>
       <td>
         <div class="ui input transparent edit-cell">
-          {{input type="number" value=school.hs_seats placeholder="0"}}
+          {{input type="number" value=this.school.hs_seats placeholder="0"}}
         </div>
       </td>
       <td>
-        <button class="ui button blue" type="button" {{action "addSchool" school}}>
+        <button class="ui button blue" type="button" {{action "addSchool" this.school}}>
           Add
         </button>
       </td>
     </tr>
-    {{#each analysis.schoolsWithAction as |s|}}
+    {{#each this.analysis.schoolsWithAction as |s|}}
       <tr>
         <td>
           {{s.name}}
