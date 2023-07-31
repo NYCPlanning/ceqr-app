@@ -115,9 +115,8 @@ module(
 
       await settled();
 
-      const updatedStudySelection = await this.get(
-        'model.transportationAnalysis.jtwStudySelection'
-      );
+      const updatedStudySelection = await this.model.transportationAnalysis
+        .jtwStudySelection;
       assert.ok(updatedStudySelection.includes(geoid));
     });
   }

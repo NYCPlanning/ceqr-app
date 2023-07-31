@@ -19,9 +19,8 @@ module(
           include: 'transportation-analysis',
         });
 
-      const existingStudySelectionLength = await this.get(
-        'model.transportationAnalysis.jtwStudySelection'
-      ).length;
+      const existingStudySelectionLength = await this.model
+        .transportationAnalysis.jtwStudySelection.length;
 
       // When a feature with geoid = '1' is selected
       await render(hbs`
@@ -32,9 +31,8 @@ module(
       await settled();
 
       // Then the geoid should be added to the transportationAnalysis study selection
-      const updatedStudySelection = await this.get(
-        'model.transportationAnalysis.jtwStudySelection'
-      );
+      const updatedStudySelection = await this.model.transportationAnalysis
+        .jtwStudySelection;
       assert.equal(
         updatedStudySelection.length,
         existingStudySelectionLength + 1
@@ -66,9 +64,8 @@ module(
       await settled();
 
       // Then the geoid should be removed from the transportationAnalysis study selection
-      const updatedStudySelection = await this.get(
-        'model.transportationAnalysis.jtwStudySelection'
-      );
+      const updatedStudySelection = await this.model.transportationAnalysis
+        .jtwStudySelection;
       assert.equal(updatedStudySelection.length, 2);
       assert.notOk(updatedStudySelection.includes(geoid));
     });

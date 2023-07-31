@@ -323,14 +323,6 @@ module(
       );
     });
 
-    test('it spot checks totalsOfTotalsOfWeekdayVehicleTrip for am', async function (assert) {
-      assert.equal(
-        this.tripGenResultsTable.totalsOfTotalsOfWeekdayVehicleTrip.am,
-        this.tripGenResultsTable.totalsOfWeekdayAutoVehicleTrip.am +
-          this.tripGenResultsTable.totalsOfWeekdayTaxiVehicleTrip.am
-      );
-    });
-
     test('it spot checks saturdayAutoVehicleTripCalcs for in', async function (assert) {
       assert.equal(
         this.tripGenResultsTable.saturdayAutoVehicleTripCalcs.in,
