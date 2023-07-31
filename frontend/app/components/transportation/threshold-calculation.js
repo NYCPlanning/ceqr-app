@@ -3,6 +3,7 @@ import { computed } from '@ember/object';
 import round from '../../utils/round';
 
 export default class TransportationThresholdCalculationComponent extends Component {
+  tagName = '';
   @computed('analysis.{detailedAnalysis,sumOfRatios}')
   get detailedAnalysisPopupText() {
     return `Total Sum of Ratios is above 1 (at ${round(

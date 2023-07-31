@@ -2,6 +2,7 @@ import Component from '@ember/component';
 import { computed, action } from '@ember/object';
 
 export default class TransportationLandUseMenuComponent extends Component {
+  tagName = '';
   showTotalLink = false;
 
   @computed('tdfSection')
