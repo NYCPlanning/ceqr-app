@@ -4,6 +4,7 @@ import { getAggregatePercent } from '../../../helpers/get-aggregate-percent';
 import { getAggregateValue } from '../../../helpers/get-aggregate-value';
 
 export default class TransportationTripGenerationTablesTripGenerationResultsComponent extends Component {
+  tagName = '';
   // the Transportation Analysis model belonging to the Project model
   analysis = {};
 

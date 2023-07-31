@@ -2,6 +2,7 @@ import Component from '@ember/component';
 import { action } from '@ember/object';
 
 export default class TransportationTripGenerationTablesTripGenerationRatesComponent extends Component {
+  tagName = '';
   // The project's transportation analysis object.
   // Must be passed from parent component.
   analysis = {};
