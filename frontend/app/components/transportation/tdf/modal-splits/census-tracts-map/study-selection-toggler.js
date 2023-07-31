@@ -6,6 +6,7 @@ import Component from '@ember/component';
  * the 'geoid' property, in the model's study selection ('jtwStudySelection')
  */
 export default class TransportationCensusTractsMapStudySelectionTogglerComponent extends Component {
+  tagName = '';
   /**
    * The transportation-analysis Model, passed down from projects/show/transportation-analysis controller
    */

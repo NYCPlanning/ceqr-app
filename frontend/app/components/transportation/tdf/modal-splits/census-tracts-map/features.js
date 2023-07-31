@@ -1,6 +1,7 @@
 import Component from '@ember/component';
 
 export default class TransportationCensusTractsMapFeaturesComponent extends Component {
+  tagName = '';
   /**
    * Flag for optionally displaying transit zones
    */

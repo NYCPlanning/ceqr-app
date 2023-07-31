@@ -14,6 +14,7 @@ export const MODAL_SPLIT_POPUP_DISPLAY_VARIABLES = [
  * and formatting the data for display.
  */
 export default class TransportationCensusTractsMapCensusTractPopupModalSplitFormatterComponent extends Component {
+  tagName = '';
   /**
    * ACS modal-split, composed from multiple 'acs-estimate' rows
    * (See utils/modalSplit)

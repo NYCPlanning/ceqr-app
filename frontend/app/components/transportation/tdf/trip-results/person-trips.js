@@ -2,6 +2,7 @@ import Component from '@ember/component';
 import { computed } from '@ember/object';
 
 export default class TransportationTdfTripResultsPersonTripsComponent extends Component {
+  tagName = '';
   @computed('modes', 'results')
   get rows() {
     return this.modes.map((mode) => ({

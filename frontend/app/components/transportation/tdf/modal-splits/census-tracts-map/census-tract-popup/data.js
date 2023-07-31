@@ -8,6 +8,7 @@ import Component from '@ember/component';
  * moves quickly across the map.
  */
 export default class TransportationCensusTractsMapCensusTractPopupDataComponent extends Component {
+  tagName = '';
   /**
    * The name of the data resource to asynchronously request
    */

@@ -1,9 +1,10 @@
 import Component from '@ember/component';
 import { alias } from '@ember/object/computed';
-import { action, computed } from '@ember/object';
+import { action, computed, set, toggleProperty } from '@ember/object';
 import { task, taskGroup } from 'ember-concurrency-decorators';
 
 export default class TransportationTdfModalSplitsComponent extends Component {
+  tagName = '';
   classNames = ['row'];
 
   editModes = false;
@@ -24,8 +25,7 @@ export default class TransportationTdfModalSplitsComponent extends Component {
   @computed(
     'activeModes',
     'factor.modesForAnalysis',
-    'modeSplits.other',
-    'modeSplits.{auto,bicycle,bus,ferry,motorcycle,railroad,streetcar,subway,taxi,walk}'
+    'modeSplits.{other,auto,bicycle,bus,ferry,motorcycle,railroad,streetcar,subway,taxi,walk}'
   )
   get total() {
     // modesForAnalysis = e.g. ['auto', 'taxi', 'bus', 'subway', 'walk', 'railroad']
@@ -63,7 +63,7 @@ export default class TransportationTdfModalSplitsComponent extends Component {
   @action
   toggleManualModeSplits() {
     this.factor.set('manualModeSplits', true);
-    this.set('seeCensusTracts', false);
+    set(this, 'seeCensusTracts', false);
 
     this.factor.save();
   }
@@ -89,12 +89,12 @@ export default class TransportationTdfModalSplitsComponent extends Component {
 
   @action
   toggleEditModes() {
-    this.toggleProperty('editModes');
+    toggleProperty(this, 'editModes');
   }
 
   @action
   toggleSeeCensusTracts(bool) {
-    this.set('seeCensusTracts', bool);
+    set(this, 'seeCensusTracts', bool);
     // this.toggleProperty("seeCensusTracts");
   }
 

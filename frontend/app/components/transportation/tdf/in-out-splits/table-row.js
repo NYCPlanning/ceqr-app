@@ -1,16 +1,17 @@
 import Component from '@ember/component';
-import { action } from '@ember/object';
+import { action, set } from '@ember/object';
 
 export default class TransportationTdfInOutSplitsTableRowComponent extends Component {
+  /* eslint-disable-next-line ember/require-tagless-components */
   tagName = 'tr';
 
   @action
   syncIn(value) {
-    this.set('data.in', 100 - value);
+    set(this, 'data.in', 100 - value);
   }
 
   @action
   syncOut(value) {
-    this.set('data.out', 100 - value);
+    set(this, 'data.out', 100 - value);
   }
 }

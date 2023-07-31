@@ -1,7 +1,8 @@
 import Component from '@ember/component';
-import { computed, action } from '@ember/object';
+import { computed, action, toggleProperty } from '@ember/object';
 
 export default class TransportationTdfTripResultsVehicleTripsComponent extends Component {
+  tagName = '';
   balancedTaxi = true;
 
   @computed('vehicleTrips')
@@ -21,6 +22,6 @@ export default class TransportationTdfTripResultsVehicleTripsComponent extends C
 
   @action
   toggleBalancedTaxi() {
-    this.toggleProperty('balancedTaxi');
+    toggleProperty(this, 'balancedTaxi');
   }
 }

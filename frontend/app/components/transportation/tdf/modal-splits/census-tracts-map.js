@@ -1,5 +1,5 @@
 import Component from '@ember/component';
-import { computed, action } from '@ember/object';
+import { computed, action, set } from '@ember/object';
 import mapboxgl from 'mapbox-gl';
 import MapboxAccessibility from '@mapbox/mapbox-gl-accessibility';
 
@@ -18,6 +18,7 @@ const onMapStyleLoaded = function (e) {
 };
 
 export default class TransportationCensusTractsMapComponent extends Component {
+  tagName = '';
   /**
    * Required
    */
@@ -49,9 +50,9 @@ export default class TransportationCensusTractsMapComponent extends Component {
   @action
   setFirstHoveredFeatureId(features) {
     if (features && features.length && features[0]) {
-      this.set('hoveredFeatureId', features[0].properties.geoid);
+      set(this, 'hoveredFeatureId', features[0].properties.geoid);
     } else {
-      this.set('hoveredFeatureId', null);
+      set(this, 'hoveredFeatureId', null);
     }
   }
 
@@ -71,9 +72,8 @@ export default class TransportationCensusTractsMapComponent extends Component {
     'analysis.{censusTractsSelection.[],requiredCensusTractsSelection.[]}'
   )
   get completeCensusTractsSelection() {
-    const selectedFeatures = this.get('analysis.censusTractsSelection') || [];
-    const requiredFeatures =
-      this.get('analysis.requiredCensusTractsSelection') || [];
+    const selectedFeatures = this.analysis.censusTractsSelection || [];
+    const requiredFeatures = this.analysis.requiredCensusTractsSelection || [];
     return [...selectedFeatures, ...requiredFeatures];
   }
 

@@ -1,11 +1,12 @@
 import Component from '@ember/component';
-import { computed, action } from '@ember/object';
+import { computed, action, set } from '@ember/object';
 import { isEmpty } from '@ember/utils';
 
 export default class TransportationTdfTableNoteComponent extends Component {
+  tagName = '';
   didUpdateAttrs() {
     super.didUpdateAttrs();
-    this.set('addingNote', false);
+    set(this, 'addingNote', false);
   }
 
   addingNote = false;
@@ -27,6 +28,6 @@ export default class TransportationTdfTableNoteComponent extends Component {
   @action
   saveNote() {
     this.factor.save();
-    this.set('addingNote', false);
+    set(this, 'addingNote', false);
   }
 }

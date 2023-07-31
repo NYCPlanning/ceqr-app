@@ -3,6 +3,7 @@ import { computed } from '@ember/object';
 import { censusTractVariableForMode } from 'labs-ceqr/utils/censusTractVariableForMode';
 
 export default class TransportationTdfModalSplitsCensusTractTableCellTotalComponent extends Component {
+  /* eslint-disable-next-line ember/require-tagless-components */
   tagName = 'td';
 
   @computed('activeModes', 'tract')
