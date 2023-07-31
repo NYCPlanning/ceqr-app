@@ -23,12 +23,13 @@ module.exports = {
     browser: true,
   },
   rules: {
-    "ember/no-classic-classes": "warn",
-    "ember/no-classic-components": "warn",
-    "ember/no-jquery": "warn",
-    "ember/no-mixins": "warn",
-    "ember/no-computed-properties-in-native-classes": "warn",
-    "ember/no-component-lifecycle-hooks": "warn"
+    'ember/no-get': 'warn',
+    'ember/no-classic-classes': 'warn',
+    'ember/no-classic-components': 'warn',
+    'ember/no-jquery': 'warn',
+    'ember/no-mixins': 'warn',
+    'ember/no-computed-properties-in-native-classes': 'warn',
+    'ember/no-component-lifecycle-hooks': 'warn',
   },
   overrides: [
     // node files
@@ -63,6 +64,9 @@ module.exports = {
       // Test files:
       files: ['tests/**/*-test.{js,ts}'],
       extends: ['plugin:qunit/recommended'],
+      rules: {
+        'qunit/require-expect': 'warn',
+      },
     },
   ],
 };
