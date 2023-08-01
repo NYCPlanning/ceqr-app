@@ -10,15 +10,15 @@
 <div class="ui segment divided grid">
   {{#if
     (or
-      analysis.esSchoolChoice
-      analysis.isSchoolChoice
-      (gt analysis.subdistrictsFromDb.length 1)
+      this.analysis.esSchoolChoice
+      this.analysis.isSchoolChoice
+      (gt this.analysis.subdistrictsFromDb.length 1)
     )
   }}
     <div class="sixteen wide column">
       <div class="row">
         <div class="ui message warning">
-          {{#if analysis.esSchoolChoice}}
+          {{#if this.analysis.esSchoolChoice}}
             <div class="header">
               <i class="attention icon"></i>
               Project may be in Elementary School Choice district
@@ -27,7 +27,7 @@
               This project may be located in an elementary school choice district. Confirm with lead agency that a district-wide study area is appropriate.
             </p>
           {{/if}}
-          {{#if analysis.isSchoolChoice}}
+          {{#if this.analysis.isSchoolChoice}}
             <div class="header">
               <i class="attention icon"></i>
               Project may be in Intermediate School Choice district
@@ -36,7 +36,7 @@
               This project may be located in an intermediate school choice district. Confirm with lead agency that a district-wide study area is appropriate.
             </p>
           {{/if}}
-          {{#if (gt analysis.subdistrictsFromDb.length 1)}}
+          {{#if (gt this.analysis.subdistrictsFromDb.length 1)}}
             <div class="header">
               <i class="attention icon"></i>
               Project straddles two or more subdistricts
@@ -54,7 +54,7 @@
       Subdistricts derived from BBLs
     </h4>
     <div class="ui list">
-      {{#each analysis.subdistrictsFromDb as |sd|}}
+      {{#each this.analysis.subdistrictsFromDb as |sd|}}
         <div class="item">
           <div class="ui label">
             {{sd.sdName}}
@@ -69,7 +69,7 @@
         Additional Subdistricts
       </h4>
       <div class="ui list">
-        {{#each analysis.subdistrictsFromUser as |sd|}}
+        {{#each this.analysis.subdistrictsFromUser as |sd|}}
           <div class="item">
             <div class="ui blue label">
               {{sd.sdName}}
@@ -80,7 +80,7 @@
       </div>
       <UiDropdown
         class="selection"
-        @selected={{district}}
+        @selected={{this.district}}
         @onChange={{action "setDistrict"}}
       >
         <div class="default text">
@@ -88,7 +88,7 @@
         </div>
         <i class="dropdown icon"></i>
         <div class="menu">
-          {{#each districts as |d|}}
+          {{#each this.districts as |d|}}
             <div data-value={{d}} class="item">
               District {{d}}
             </div>
@@ -96,8 +96,8 @@
         </div>
       </UiDropdown>
       <UiDropdown
-        class="selection {{unless district "disabled"}}"
-        @selected={{subdistrict}}
+        class="selection {{unless this.district "disabled"}}"
+        @selected={{this.subdistrict}}
         @onChange={{action "setSubdistrict"}}
       >
         <div class="default text">
@@ -105,12 +105,12 @@
         </div>
         <i class="dropdown icon"></i>
         <div class="menu">
-          {{#each subdistricts as |sd|}}
+          {{#each this.subdistricts as |sd|}}
             <div data-value={{sd}} class="item">Subdistrict {{sd}}</div>
           {{/each}}
         </div>
       </UiDropdown>
-      <button class="ui button {{unless subdistrict "disabled"}}" type="button" {{action "addSubdistrict"}}>
+      <button class="ui button {{unless this.subdistrict "disabled"}}" type="button" {{action "addSubdistrict"}}>
         Add
       </button>
     </div>
@@ -118,7 +118,7 @@
 </div>
 <div
   class="ui inverted dimmer
-    {{if public-schools.addSubdistrict.isRunning "active"}}"
+    {{if this.public-schools.addSubdistrict.isRunning "active"}}"
 >
   <div class="ui text loader">
     Loading

@@ -2,11 +2,11 @@
   <div class="ui secondary menu">
     <div class="ui simple dropdown item">
       <strong>
-        {{sd.sdName}}
+        {{this.sd.sdName}}
       </strong>
       <i class="dropdown icon"></i>
       <div class="menu">
-        {{#each analysis.subdistricts as |sd|}}
+        {{#each this.analysis.subdistricts as |sd|}}
           <a class="item" {{action "setSdId" sd.id}}>
             {{sd.sdName}}
           </a>
@@ -14,26 +14,26 @@
       </div>
     </div>
     <a
-      class="item {{if (eq activeSchoolsLevel "ps") "active"}}"
-      {{action (mut activeSchoolsLevel) "ps"}}
+      class="item {{if (eq this.activeSchoolsLevel "ps") "active"}}"
+      {{action (mut this.activeSchoolsLevel) "ps"}}
     >
       Primary Schools
     </a>
     <a
-      class="item {{if (eq activeSchoolsLevel "is") "active"}}"
-      {{action (mut activeSchoolsLevel) "is"}}
+      class="item {{if (eq this.activeSchoolsLevel "is") "active"}}"
+      {{action (mut this.activeSchoolsLevel) "is"}}
     >
       Intermediate Schools
     </a>
     <div class="ui divider"></div>
-    {{#if analysis.hsAnalysis}}
+    {{#if this.analysis.hsAnalysis}}
       <div class="right menu">
         <a
-          class="item {{if (eq activeSchoolsLevel "hs") "active"}}"
-          {{action (mut activeSchoolsLevel) "hs"}}
+          class="item {{if (eq this.activeSchoolsLevel "hs") "active"}}"
+          {{action (mut this.activeSchoolsLevel) "hs"}}
         >
           High Schools (
-          {{analysis.borough}}
+          {{this.analysis.borough}}
           )
         </a>
       </div>
@@ -77,7 +77,7 @@
     </tr>
   </thead>
   <tbody>
-    {{#each buildings as |b|}}
+    {{#each this.buildings as |b|}}
       <TrHover class={{b.level}} @source="buildings" @id={{b.id}}>
         <td>
           {{b.org_id}}
@@ -150,26 +150,26 @@
     {{/each}}
   </tbody>
   <tfoot>
-    {{#if (eq activeSchoolsLevel "hs")}}
+    {{#if (eq this.activeSchoolsLevel "hs")}}
       <tr>
         <th colspan="5">
           <em>
             Totals (
-            {{analysis.borough}}
+            {{this.analysis.borough}}
             )
           </em>
         </th>
         <th>
-          {{table.enrollmentTotal}}
+          {{this.table.enrollmentTotal}}
         </th>
         <th>
-          {{table.capacityTotal}}
+          {{this.table.capacityTotal}}
         </th>
         <th>
-          {{table.seatsTotal}}
+          {{this.table.seatsTotal}}
         </th>
         <th>
-          {{percentage table.utilizationTotal}}
+          {{percentage this.table.utilizationTotal}}
         </th>
       </tr>
     {{else}}
@@ -177,24 +177,24 @@
         <th colspan="5">
           <em>
             Totals (
-            {{sd.sdName}}
+            {{this.sd.sdName}}
             )
           </em>
         </th>
         <th>
-          {{table.enrollmentTotal}}
+          {{this.table.enrollmentTotal}}
         </th>
         <th>
-          {{table.capacityTotal}}
+          {{this.table.capacityTotal}}
         </th>
         <th>
-          {{table.seatsTotal}}
+          {{this.table.seatsTotal}}
         </th>
         <th>
-          {{percentage table.utilizationTotal}}
+          {{percentage this.table.utilizationTotal}}
         </th>
       </tr>
-      {{#if analysis.multiSubdistrict}}
+      {{#if this.analysis.multiSubdistrict}}
         <tr>
           <th colspan="5">
             <em>
@@ -202,16 +202,16 @@
             </em>
           </th>
           <th>
-            {{table.enrollmentMetaTotal}}
+            {{this.table.enrollmentMetaTotal}}
           </th>
           <th>
-            {{table.capacityMetaTotal}}
+            {{this.table.capacityMetaTotal}}
           </th>
           <th>
-            {{table.seatsMetaTotal}}
+            {{this.table.seatsMetaTotal}}
           </th>
           <th>
-            {{percentage table.utilizationMetaTotal}}
+            {{percentage this.table.utilizationMetaTotal}}
           </th>
         </tr>
       {{/if}}

@@ -1,4 +1,4 @@
-{{#if tables}}
+{{#if this.tables}}
   <div class="ui message">
     <div class="header">
       Instructions
@@ -17,7 +17,7 @@
       to confirm school target capacities.
     </p>
   </div>
-  {{#each tables as |t|}}
+  {{#each this.tables as |t|}}
     <table class="ui top attached orange celled table">
       <thead>
         <th colspan="8">
@@ -126,7 +126,7 @@
   {{/each}}
   <div class="ui clearing attached segment">
     <button
-      class="ui right floated button compact primary {{if saving "loading"}}" type="button" {{action "save"}}
+      class="ui right floated button compact primary {{if this.saving "loading"}}" type="button" {{action "save"}}
     >
       Save
     </button>

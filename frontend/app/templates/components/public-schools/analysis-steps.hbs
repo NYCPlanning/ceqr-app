@@ -1,7 +1,7 @@
 <div class="ui tiny steps fluid">
   {{#link-to
     "project.show.public-schools.analysis-threshold"
-    project.id
+    this.project.id
     class="step"
   }}
     <div class="content">
@@ -15,7 +15,7 @@
   {{/link-to}}
   {{#link-to
     "project.show.public-schools.existing-conditions"
-    project.id
+    this.project.id
     class="step"
   }}
     <div class="content">
@@ -27,7 +27,7 @@
       </div>
     </div>
   {{/link-to}}
-  {{#link-to "project.show.public-schools.no-action" project.id class="step"}}
+  {{#link-to "project.show.public-schools.no-action" this.project.id class="step"}}
     <div class="content">
       <div class="title">
         No Action Scenario
@@ -39,7 +39,7 @@
       </div>
     </div>
   {{/link-to}}
-  {{#link-to "project.show.public-schools.with-action" project.id class="step"}}
+  {{#link-to "project.show.public-schools.with-action" this.project.id class="step"}}
     <div class="content">
       <div class="title">
         With Action Scenario

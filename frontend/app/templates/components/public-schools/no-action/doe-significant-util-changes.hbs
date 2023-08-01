@@ -1,4 +1,4 @@
-{{#if hasSigUtils}}
+{{#if this.hasSigUtils}}
   <div class="ui message">
     <div class="header">
       Instructions
@@ -27,9 +27,9 @@
         <div class="header item">
           Building ID
         </div>
-        {{#each analysis.doeUtilChangesPerBldg as |t|}}
+        {{#each this.analysis.doeUtilChangesPerBldg as |t|}}
           <a
-            class="item {{if (eq bldg_id t.bldg_id) "active"}}"
+            class="item {{if (eq this.bldg_id this.t.bldg_id) "active"}}"
             {{action "showBldg" t.bldg_id}}
           >
             {{t.bldg_id}}
@@ -38,8 +38,8 @@
       </div>
     </div>
     <div class="thirteen wide column">
-      {{#each analysis.doeUtilChangesPerBldg as |t|}}
-        {{#if (eq bldg_id t.bldg_id)}}
+      {{#each this.analysis.doeUtilChangesPerBldg as |t|}}
+        {{#if (eq this.bldg_id t.bldg_id)}}
           <div class="ui teal top attached segment">
             <h3>
               Building ID
@@ -68,7 +68,7 @@
                   Current Capacity
                 </th>
                 <th class="one wide">
-                  {{project.buildYear}}
+                  {{this.project.buildYear}}
                   Capacity
                   <UiPopup
                     @tagName="i"
@@ -122,7 +122,7 @@
           <div class="ui clearing attached segment">
             <button
               class="ui right floated button compact primary
-                {{if saving "loading"}}" type="button" {{action "save"}}
+                {{if this.saving "loading"}}" type="button" {{action "save"}}
             >
               Save
             </button>
@@ -199,7 +199,7 @@
           target="_blank" rel="noopener noreferrer" href="https://www.schools.nyc.gov/about-us/leadership/panel-for-education-policy"
         >
           Panel for Educational Policy meeting minutes [as of
-          {{analysis.dataPackage.schemas.doe_significant_utilization_changes.version}}]
+          {{this.analysis.dataPackage.schemas.doe_significant_utilization_changes.version}}]
           <i class="external alternate icon"></i>
         </a>
       </div>

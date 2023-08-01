@@ -27,37 +27,37 @@
         Elementary
       </td>
       <TdHover @rowspan="3" @payload={{hash name="housingFromDev"}}>
-        {{analysis.netUnits}}
+        {{this.analysis.netUnits}}
       </TdHover>
       <td class="math--left">
         <i class="times circle icon"></i>
-        {{round analysis.currentMultiplier.ps decimals=2}}
+        {{round this.analysis.currentMultiplier.ps decimals=2}}
       </td>
       <td>
-        {{analysis.estEsStudents}}
+        {{this.analysis.estEsStudents}}
       </td>
-      <td class={{if analysis.esEffect "warning"}} rowspan="2">
-        {{#if analysis.esEffect}}
+      <td class={{if this.analysis.esEffect "warning"}} rowspan="2">
+        {{#if this.analysis.esEffect}}
           <UiPopup
             @title="Triggers a Detailed Analysis"
-            @content={{esMsEffectPopupText}}
+            @content={{this.esMsEffectPopupText}}
           >
-            {{analysis.estEsMsStudents}}
+            {{this.analysis.estEsMsStudents}}
             <i class="attention icon"></i>
           </UiPopup>
         {{else}}
-          {{analysis.estEsMsStudents}}
+          {{this.analysis.estEsMsStudents}}
         {{/if}}
       </td>
       <td rowspan="2">
-        {{analysis.multipliers.thresholdPsIsStudents}}
+        {{this.analysis.multipliers.thresholdPsIsStudents}}
       </td>
       <td rowspan="2">
         <div
           style="display: inline-block;"
-          class="ui medium label {{if analysis.esEffect "yellow" "grey"}}"
+          class="ui medium label {{if this.analysis.esEffect "yellow" "grey"}}"
         >
-          {{if analysis.esEffect "Yes" "No"}}
+          {{if this.analysis.esEffect "Yes" "No"}}
         </div>
       </td>
     </tr>
@@ -67,10 +67,10 @@
       </td>
       <td class="math--left">
         <i class="times circle icon"></i>
-        {{round analysis.currentMultiplier.is decimals=2}}
+        {{round this.analysis.currentMultiplier.is decimals=2}}
       </td>
       <td>
-        {{analysis.estIsStudents}}
+        {{this.analysis.estIsStudents}}
       </td>
     </tr>
     <tr>
@@ -79,30 +79,30 @@
       </td>
       <td class="math--left">
         <i class="times circle icon"></i>
-        {{analysis.currentMultiplier.hs}}
+        {{this.analysis.currentMultiplier.hs}}
       </td>
-      <td class={{if analysis.hsEffect "warning"}} colspan="2">
-        {{#if analysis.hsEffect}}
+      <td class={{if this.analysis.hsEffect "warning"}} colspan="2">
+        {{#if this.analysis.hsEffect}}
           <UiPopup
             @title="Triggers a Detailed Analysis"
-            @content={{hsEffectPopupText}}
+            @content={{this.hsEffectPopupText}}
           >
-            {{analysis.estHsStudents}}
+            {{this.analysis.estHsStudents}}
             <i class="attention icon"></i>
           </UiPopup>
         {{else}}
-          {{analysis.estHsStudents}}
+          {{this.analysis.estHsStudents}}
         {{/if}}
       </td>
       <td>
-        {{analysis.multipliers.thresholdHsStudents}}
+        {{this.analysis.multipliers.thresholdHsStudents}}
       </td>
       <td>
         <div
           style="display: inline-block;"
-          class="ui medium label {{if analysis.hsEffect "yellow" "grey"}}"
+          class="ui medium label {{if this.analysis.hsEffect "yellow" "grey"}}"
         >
-          {{if analysis.hsEffect "Yes" "No"}}
+          {{if this.analysis.hsEffect "Yes" "No"}}
         </div>
       </td>
     </tr>

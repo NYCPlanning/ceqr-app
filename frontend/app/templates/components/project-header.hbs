@@ -1,23 +1,23 @@
 <div class="ui top attached clearing segment">
-  {{#link-to "project.show" project.id class="ui left floated project title"}}
+  {{#link-to "project.show" this.project.id class="ui left floated project title"}}
     <h1>
-      {{project.name}}
+      {{this.project.name}}
     </h1>
   {{/link-to}}
   <div class="ui right floated horizontal list">
     <div class="item">
-      {{#if project.ceqrNumber}}
+      {{#if this.project.ceqrNumber}}
         <div class="ui label large">
           CEQR #
           <div class="detail">
-            {{project.ceqrNumber}}
+            {{this.project.ceqrNumber}}
           </div>
         </div>
       {{/if}}
     </div>
     <div class="item">
       <div class="ui label large">
-        {{project.borough}}
+        {{this.project.borough}}
       </div>
     </div>
     <div class="item">
@@ -28,14 +28,14 @@
         data-inverted
       >
         <i class="calendar alternate icon"></i>
-        {{project.buildYear}}
+        {{this.project.buildYear}}
       </div>
     </div>
-    {{#unless project.viewOnly}}
+    {{#unless this.project.viewOnly}}
       <div class="item">
         {{#link-to
           "project.show.edit"
-          project.id
+          this.project.id
           class="ui primary compact basic icon button"
         }}
           <i class="edit icon"></i>Edit
@@ -46,16 +46,16 @@
 </div>
 <div class="ui bottom attached clearing segment">
   <div style="float: left">
-    <Project::ChapterDropdown @project={{project}} />
+    <Project::ChapterDropdown @project={{this.project}} />
   </div>
-  {{#if onPublicSchools}}
+  {{#if this.onPublicSchools}}
     <div class="ui right floated buttons">
-      {{#unless project.viewOnly}}
+      {{#unless this.project.viewOnly}}
         {{#link-to
           "project.show.public-schools"
-          project.id
+          this.project.id
           class=(if
-            onSummary
+            this.onSummary
             "ui right basic teal compact icon button"
             "ui right teal compact icon button"
           )
@@ -65,9 +65,9 @@
       {{/unless}}
       {{#link-to
         "project.show.public-schools.summary"
-        project.id
+        this.project.id
         class=(if
-          onSummary
+          this.onSummary
           "ui right teal compact icon button"
           "ui right basic teal compact icon button"
         )

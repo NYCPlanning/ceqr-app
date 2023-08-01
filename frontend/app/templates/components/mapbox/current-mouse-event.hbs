@@ -1,7 +1,7 @@
 <MapboxGlOn
   @event={{this.mapboxEventName}}
   @action={{action "handleEvent"}}
-  @eventSource={{map.instance}}
+  @eventSource={{this.map.instance}}
  />
 
-{{yield currentMapMouseEvent}}
+{{yield this.currentMapMouseEvent}}

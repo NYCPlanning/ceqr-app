@@ -1,26 +1,26 @@
 <div class="ui basic top attached segment">
   <div class="ui secondary menu">
     <a
-      class="item {{if (eq activeSchoolsLevel "ps") "active"}}"
-      {{action (mut activeSchoolsLevel) "ps"}}
+      class="item {{if (eq this.activeSchoolsLevel "ps") "active"}}"
+      {{action (mut this.activeSchoolsLevel) "ps"}}
     >
       Primary Schools
     </a>
     <a
-      class="item {{if (eq activeSchoolsLevel "is") "active"}}"
-      {{action (mut activeSchoolsLevel) "is"}}
+      class="item {{if (eq this.activeSchoolsLevel "is") "active"}}"
+      {{action (mut this.activeSchoolsLevel) "is"}}
     >
       Intermediate Schools
     </a>
     <div class="ui divider"></div>
-    {{#if analysis.hsAnalysis}}
+    {{#if this.analysis.hsAnalysis}}
       <div class="right menu">
         <a
-          class="item {{if (eq activeSchoolsLevel "hs") "active"}}"
-          {{action (mut activeSchoolsLevel) "hs"}}
+          class="item {{if (eq this.activeSchoolsLevel "hs") "active"}}"
+          {{action (mut this.activeSchoolsLevel) "hs"}}
         >
           High Schools (
-          {{analysis.borough}}
+          {{this.analysis.borough}}
           )
         </a>
       </div>
@@ -64,10 +64,10 @@
         Existing Conditions
       </td>
       <td>
-        {{levelTotals.existingConditionsEnrollment}}
+        {{this.levelTotals.existingConditionsEnrollment}}
       </td>
       <td>
-        {{levelTotals.existingConditionsCapacity}}
+        {{this.levelTotals.existingConditionsCapacity}}
       </td>
       <td class="disabled">
         –
@@ -76,10 +76,10 @@
         –
       </td>
       <td>
-        {{percentage levelTotals.existingConditionsUtilization}}
+        {{percentage this.levelTotals.existingConditionsUtilization}}
       </td>
       <td>
-        {{levelTotals.existingConditionsSeats}}
+        {{this.levelTotals.existingConditionsSeats}}
       </td>
     </tr>
     <tr>
@@ -90,22 +90,22 @@
         No Action
       </td>
       <td>
-        {{levelTotals.noActionEnrollment}}
+        {{this.levelTotals.noActionEnrollment}}
       </td>
       <td>
-        {{levelTotals.noActionCapacity}}
+        {{this.levelTotals.noActionCapacity}}
       </td>
       <td>
-        {{levelTotals.noActionEnrollmentDelta}}
+        {{this.levelTotals.noActionEnrollmentDelta}}
       </td>
       <td>
-        {{levelTotals.noActionCapacityDelta}}
+        {{this.levelTotals.noActionCapacityDelta}}
       </td>
       <td>
-        {{percentage levelTotals.noActionUtilization}}
+        {{percentage this.levelTotals.noActionUtilization}}
       </td>
       <td>
-        {{levelTotals.noActionSeats}}
+        {{this.levelTotals.noActionSeats}}
       </td>
     </tr>
     <tr>
@@ -113,22 +113,22 @@
         With Action
       </td>
       <td>
-        {{levelTotals.withActionEnrollment}}
+        {{this.levelTotals.withActionEnrollment}}
       </td>
       <td>
-        {{levelTotals.withActionCapacity}}
+        {{this.levelTotals.withActionCapacity}}
       </td>
       <td>
-        {{levelTotals.withActionEnrollmentDelta}}
+        {{this.levelTotals.withActionEnrollmentDelta}}
       </td>
       <td>
-        {{levelTotals.withActionCapacityDelta}}
+        {{this.levelTotals.withActionCapacityDelta}}
       </td>
       <td>
-        {{percentage levelTotals.withActionUtilization}}
+        {{percentage this.levelTotals.withActionUtilization}}
       </td>
       <td>
-        {{levelTotals.withActionSeats}}
+        {{this.levelTotals.withActionSeats}}
       </td>
     </tr>
   </tbody>
@@ -150,23 +150,23 @@
     <tr
       onclick={{action "toggle" "EC_active"}}
       class="highlight
-        {{unless EC_newSchoolsOpened.schools "disabled"}}
+        {{unless this.EC_newSchoolsOpened.schools "disabled"}}
 
-        {{if EC_active "open"}}"
+        {{if this.EC_active "open"}}"
     >
       <td class="section-name">
-        <i class="caret {{if EC_active "down" "right"}} icon"></i>
+        <i class="caret {{if this.EC_active "down" "right"}} icon"></i>
         Existing Conditions - New Schools Opened
       </td>
       <td>
-        {{EC_newSchoolsOpened.enrollment}}
+        {{this.EC_newSchoolsOpened.enrollment}}
       </td>
       <td>
-        {{EC_newSchoolsOpened.capacity}}
+        {{this.EC_newSchoolsOpened.capacity}}
       </td>
     </tr>
-    {{#if EC_active}}
-      {{#each EC_newSchoolsOpened.schools as |b|}}
+    {{#if this.EC_active}}
+      {{#each this.EC_newSchoolsOpened.schools as |b|}}
         <tr>
           <td>
             {{b.name}}
@@ -187,23 +187,23 @@
     <tr
       onclick={{action "toggle" "NA_resdev"}}
       class="highlight
-        {{unless NA_newResidentialDevelopment.developments "disabled"}}
+        {{unless this.NA_newResidentialDevelopment.developments "disabled"}}
 
-        {{if NA_resdev "open"}}"
+        {{if this.NA_resdev "open"}}"
     >
       <td class="section-name">
-        <i class="caret {{if NA_resdev "down" "right"}} icon"></i>
+        <i class="caret {{if this.NA_resdev "down" "right"}} icon"></i>
         No Action - New Residential Development
       </td>
       <td>
-        {{NA_newResidentialDevelopment.enrollment}}
+        {{this.NA_newResidentialDevelopment.enrollment}}
       </td>
       <td class="disabled">
         –
       </td>
     </tr>
-    {{#if NA_resdev}}
-      {{#each NA_newResidentialDevelopment.developments as |b|}}
+    {{#if this.NA_resdev}}
+      {{#each this.NA_newResidentialDevelopment.developments as |b|}}
         <tr>
           <td>
             {{b.name}}
@@ -224,23 +224,23 @@
     <tr
       onclick={{action "toggle" "NA_schools"}}
       class="highlight
-        {{unless NA_plannedSchools.schools "disabled"}}
+        {{unless this.NA_plannedSchools.schools "disabled"}}
 
-        {{if NA_schools "open"}}"
+        {{if this.NA_schools "open"}}"
     >
       <td class="section-name">
-        <i class="caret {{if NA_schools "down" "right"}} icon"></i>
+        <i class="caret {{if this.NA_schools "down" "right"}} icon"></i>
         No Action - Capacity Δ from Planned Schools
       </td>
       <td class="disabled">
         –
       </td>
       <td>
-        {{NA_plannedSchools.capacity}}
+        {{this.NA_plannedSchools.capacity}}
       </td>
     </tr>
-    {{#if NA_schools}}
-      {{#each NA_plannedSchools.schools as |b|}}
+    {{#if this.NA_schools}}
+      {{#each this.NA_plannedSchools.schools as |b|}}
         <tr>
           <td>
             {{b.name}}
@@ -261,23 +261,23 @@
     <tr
       onclick={{action "toggle" "NA_utilchanges"}}
       class="highlight
-        {{unless NA_significantUtilChanges.schools "disabled"}}
+        {{unless this.NA_significantUtilChanges.schools "disabled"}}
 
-        {{if NA_utilchanges "open"}}"
+        {{if this.NA_utilchanges "open"}}"
     >
       <td class="section-name">
-        <i class="caret {{if NA_utilchanges "down" "right"}} icon"></i>
+        <i class="caret {{if this.NA_utilchanges "down" "right"}} icon"></i>
         No Action - Capacity Δ from DOE Significant Utilization Changes
       </td>
       <td class="disabled">
         –
       </td>
       <td>
-        {{NA_significantUtilChanges.capacityDelta}}
+        {{this.NA_significantUtilChanges.capacityDelta}}
       </td>
     </tr>
-    {{#if NA_utilchanges}}
-      {{#each NA_significantUtilChanges.schools as |b|}}
+    {{#if this.NA_utilchanges}}
+      {{#each this.NA_significantUtilChanges.schools as |b|}}
         <tr>
           <td>
             {{b.name}}
@@ -298,23 +298,23 @@
     <tr
       onclick={{action "toggle" "WA_schools"}}
       class="highlight
-        {{unless WA_newSchools.capacity "disabled"}}
+        {{unless this.WA_newSchools.capacity "disabled"}}
 
-        {{if WA_schools "open"}}"
+        {{this.if this.WA_schools "open"}}"
     >
       <td class="section-name">
-        <i class="caret {{if WA_schools "down" "right"}} icon"></i>
+        <i class="caret {{if this.WA_schools "down" "right"}} icon"></i>
         With Action - Schools Proposed with Project
       </td>
       <td class="disabled">
         –
       </td>
       <td>
-        {{WA_newSchools.capacity}}
+        {{this.WA_newSchools.capacity}}
       </td>
     </tr>
-    {{#if WA_schools}}
-      {{#each WA_newSchools.schools as |b|}}
+    {{#if this.WA_schools}}
+      {{#each this.WA_newSchools.schools as |b|}}
         <tr>
           <td>
             {{b.name}}

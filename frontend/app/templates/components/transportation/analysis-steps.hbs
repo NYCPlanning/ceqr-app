@@ -1,7 +1,7 @@
 <div class="ui tiny steps">
   {{#link-to
     "project.show.transportation.analysis-threshold"
-    project.id
+    this.project.id
     class="step"
   }}
     <div class="content">
@@ -15,7 +15,7 @@
   {{/link-to}}
   {{#link-to
     "project.show.transportation.tdf.planning-factors"
-    project.id
+    this.project.id
     class="step"
     data-test-transportation-step="planning-factors"
   }}
@@ -28,7 +28,7 @@
 
   {{#link-to
     "project.show.transportation.tdf.trip-results"
-    project.id
+    this.project.id
     class="step"
     data-test-transportation-step="trip-results"
   }}

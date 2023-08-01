@@ -47,8 +47,8 @@
     </tr>
   </thead>
   <tbody>
-    {{#each analysis.multipliers.boroughs as |boro|}}
-      <tr class="{{boro.name}} {{if (eq boro.name analysis.borough) "active"}}">
+    {{#each this.analysis.multipliers.boroughs as |boro|}}
+      <tr class="{{boro.name}} {{if (eq boro.name this.analysis.borough) "active"}}">
         <td>
           {{boro.name}}
         </td>

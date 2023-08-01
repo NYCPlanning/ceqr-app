@@ -1,6 +1,6 @@
 <div class="ui segment top attached">
   <h4>
-    {{project.name}}
+    {{this.project.name}}
     – Public School Students Generated
   </h4>
 </div>
@@ -34,20 +34,20 @@
           data-inverted
         >
           <i class="calendar alternate icon"></i>
-          {{project.buildYear}}
+          {{this.project.buildYear}}
         </div>
       </td>
       <TdHover @payload={{hash name="housingFromDev"}}>
-        {{project.netUnits}}
+        {{this.project.netUnits}}
       </TdHover>
       <TdHover @payload={{hash name="studentsFromDev" level="ps"}}>
-        {{analysis.estEsStudents}}
+        {{this.analysis.estEsStudents}}
       </TdHover>
       <TdHover @payload={{hash name="studentsFromDev" level="is"}}>
-        {{analysis.estIsStudents}}
+        {{this.analysis.estIsStudents}}
       </TdHover>
       <TdHover @payload={{hash name="studentsFromDev" level="hs"}}>
-        {{analysis.estHsStudents}}
+        {{this.analysis.estHsStudents}}
       </TdHover>
     </tr>
   </tbody>

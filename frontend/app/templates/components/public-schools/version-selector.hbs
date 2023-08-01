@@ -1,6 +1,6 @@
 
   <div class="ui medium label">
-    {{#if analysis.newDataAvailable}}
+    {{#if this.analysis.newDataAvailable}}
       <UiPopup
         @tagName="i"
         class="exclamation orange circle icon"
@@ -9,17 +9,17 @@
     {{/if}}
     Data Package:
     <div class="detail">
-      {{#if project.viewOnly}}
-        {{humanize analysis.dataVersion}}
+      {{#if this.project.viewOnly}}
+        {{humanize this.analysis.dataVersion}}
       {{else}}
         <UiDropdown
-          @selected={{analysis.dataVersion}}
+          @selected={{this.analysis.dataVersion}}
           class="public-schools-data-dropdown"
         >
           <div class="text"></div>
           <i class="dropdown icon"></i>
           <div class="menu">
-            {{#each availablePackages as |package|}}
+            {{#each this.availablePackages as |package|}}
               <div
                 data-value={{package.version}}
                 class="item"

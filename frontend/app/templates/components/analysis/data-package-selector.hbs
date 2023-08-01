@@ -1,5 +1,5 @@
 <div class="ui column">
-  {{#if newDataAvailable}}
+  {{#if this.newDataAvailable}}
     <div class="row" style="margin-bottom: 10px;">
       <div class="ui label">
         <i class="exclamation orange circle icon"></i> New data available
@@ -9,13 +9,13 @@
 
   <div class="row" style="margin-bottom: 10px;">
     <UiDropdown
-      @selected={{currentPackage.version}}
+      @selected={{this.currentPackage.version}}
       class="selection fluid"
     >
       <div class="text"></div>
       <i class="dropdown icon"></i>
       <div class="menu">
-        {{#each availablePackages as |package|}}
+        {{#each this.availablePackages as |package|}}
           <div
             data-value={{package.version}}
             class="item"

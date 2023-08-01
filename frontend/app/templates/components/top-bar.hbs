@@ -120,9 +120,9 @@
           </a>
         </div>
       </div>
-      {{#if session.isAuthenticated}}
+      {{#if this.session.isAuthenticated}}
         <div class="ui simple dropdown item">
-          {{currentUser.user.email}}
+          {{this.currentUser.user.email}}
           <i class="dropdown icon"></i>
           <div class="menu">
             <a class="item" {{action "logOut"}}>

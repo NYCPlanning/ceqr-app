@@ -3,7 +3,7 @@
   Project Area
 </div>
 <div class="ui bottom attached segment">
-  <Project::ProjectAreaSelector @project={{project}} @mapplutoVersions={{mapplutoVersions}} />
+  <Project::ProjectAreaSelector @project={{this.project}} @mapplutoVersions={{this.mapplutoVersions}} />
 </div>
 <div class="ui top attached large header">
   <i class="home icon"></i>
@@ -29,7 +29,7 @@
             min=0
             max=9999
             type="number"
-            value=project.totalUnits
+            value=this.project.totalUnits
             placeholder=0
             data-test-housing-units-total=true
           }}
@@ -46,7 +46,7 @@
             Senior Units
             <div class="sub header">
               Of the
-              {{project.totalUnits}}
+              {{this.project.totalUnits}}
               Total Units, number of those exclusively for seniors or HPD supportive housing facilities for special needs populations
             </div>
           </div>
@@ -59,7 +59,7 @@
             min=0
             max=9999
             type="number"
-            value=project.seniorUnits
+            value=this.project.seniorUnits
             placeholder=0
             data-test-housing-units-senior=true
           }}
@@ -74,7 +74,7 @@
       </td>
       <td>
         <strong>
-          {{unitsForPublicSchools}}
+          {{this.unitsForPublicSchools}}
         </strong>
       </td>
     </tr>
@@ -88,7 +88,7 @@
             Affordable Units
             <div class="sub header">
               Of the
-              {{project.totalUnits}}
+              {{this.project.totalUnits}}
               Total Units, number of those at or below 80% AMI
             </div>
           </div>
@@ -101,7 +101,7 @@
             min=0
             max=9999
             type="number"
-            value=project.affordableUnits
+            value=this.project.affordableUnits
             placeholder=0
             data-test-housing-units-affordable=true
           }}
@@ -116,7 +116,7 @@
       </td>
       <td>
         <strong>
-          {{unitsForChildCare}}
+          {{this.unitsForChildCare}}
         </strong>
       </td>
     </tr>
@@ -129,12 +129,12 @@
 </div>
 <table class="ui bottom attached celled table">
   <tbody>
-    {{#if commercialUseTypes}}
+    {{#if this.commercialUseTypes}}
       <tr>
         <td class="seven wide">
           <UiDropdown
-            @selected={{commercialLandUse.type}}
-            @onChange={{action (mut commercialLandUse.type)}}
+            @selected={{this.commercialLandUse.type}}
+            @onChange={{action (mut this.commercialLandUse.type)}}
             data-test-commercial-use="dropdown"
           >
             <div class="default text">
@@ -142,7 +142,7 @@
             </div>
             <i class="dropdown icon"></i>
             <div class="menu">
-              {{#each commercialUseTypes as |t|}}
+              {{#each this.commercialUseTypes as |t|}}
                 <div
                   class="item"
                   data-value={{t.type}}
@@ -159,7 +159,7 @@
             {{input
               type="number"
               min=0
-              value=commercialLandUse.grossSqFt
+              value=this.commercialLandUse.grossSqFt
               placeholder=0
               data-test-commercial-use="sq-ft"
             }}
@@ -171,7 +171,7 @@
         <td class="one wide">
           <button
             class="ui button blue centered"
-            onClick={{action "addLandUse" commercialLandUse "commercialLandUse"
+            onClick={{action "addLandUse" this.commercialLandUse "commercialLandUse"
             }}
             data-test-commercial-use="add" type="button"
           >
@@ -180,7 +180,7 @@
         </td>
       </tr>
     {{/if}}
-    {{#each project.commercialLandUse as |lu|}}
+    {{#each this.project.commercialLandUse as |lu|}}
       <tr data-test-commercial-use={{lu.name}}>
         <td>
           {{lu.name}}
@@ -210,7 +210,7 @@
     </th>
     <th>
       <h4>
-        {{totalCommercialSqFt}}
+        {{this.totalCommercialSqFt}}
       </h4>
     </th>
   </tfoot>
@@ -222,12 +222,12 @@
 </div>
 <table class="ui bottom attached celled table">
   <tbody>
-    {{#if communityFacilityUseTypes}}
+    {{#if this.communityFacilityUseTypes}}
       <tr>
         <td class="seven wide">
           <UiDropdown
-            @selected={{communityFacilityLandUse.type}}
-            @onChange={{action (mut communityFacilityLandUse.type)}}
+            @selected={{this.communityFacilityLandUse.type}}
+            @onChange={{action (mut this.communityFacilityLandUse.type)}}
             data-test-community-facility="dropdown"
           >
             <div class="default text">
@@ -235,7 +235,7 @@
             </div>
             <i class="dropdown icon"></i>
             <div class="menu">
-              {{#each communityFacilityUseTypes as |t|}}
+              {{#each this.communityFacilityUseTypes as |t|}}
                 <div
                   class="item"
                   data-value={{t.type}}
@@ -252,7 +252,7 @@
             {{input
               type="number"
               min=0
-              value=communityFacilityLandUse.grossSqFt
+              value=this.communityFacilityLandUse.grossSqFt
               placeholder=0
               data-test-community-facility="sq-ft"
             }}
@@ -266,7 +266,7 @@
             class="ui button blue centered"
             onClick={{action
               "addLandUse"
-              communityFacilityLandUse
+              this.communityFacilityLandUse
               "communityFacilityLandUse"
             }}
             data-test-community-facility="add" type="button"
@@ -276,7 +276,7 @@
         </td>
       </tr>
     {{/if}}
-    {{#each project.communityFacilityLandUse as |lu|}}
+    {{#each this.project.communityFacilityLandUse as |lu|}}
       <tr data-test-community-facility={{lu.name}}>
         <td>
           {{lu.name}}
@@ -306,7 +306,7 @@
     </th>
     <th>
       <h4>
-        {{totalCommunityFacilitySqFt}}
+        {{this.totalCommunityFacilitySqFt}}
       </h4>
     </th>
   </tfoot>
@@ -318,12 +318,12 @@
 </div>
 <table class="ui bottom attached celled table">
   <tbody>
-    {{#if industrialUseTypes}}
+    {{#if this.industrialUseTypes}}
       <tr>
         <td class="seven wide">
           <UiDropdown
-            @selected={{industrialLandUse.type}}
-            @onChange={{action (mut industrialLandUse.type)}}
+            @selected={{this.industrialLandUse.type}}
+            @onChange={{action (mut this.industrialLandUse.type)}}
             data-test-industrial-use="dropdown"
           >
             <div class="default text">
@@ -331,7 +331,7 @@
             </div>
             <i class="dropdown icon"></i>
             <div class="menu">
-              {{#each industrialUseTypes as |t|}}
+              {{#each this.industrialUseTypes as |t|}}
                 <div
                   class="item"
                   data-value={{t.type}}
@@ -348,7 +348,7 @@
             {{input
               type="number"
               min=0
-              value=industrialLandUse.grossSqFt
+              value=this.industrialLandUse.grossSqFt
               placeholder=0
               data-test-industrial-use="sq-ft"
             }}
@@ -360,7 +360,7 @@
         <td class="one wide">
           <button
             class="ui button blue centered"
-            onClick={{action "addLandUse" industrialLandUse "industrialLandUse"
+            onClick={{action "addLandUse" this.industrialLandUse "industrialLandUse"
             }}
             data-test-industrial-use="add" type="button"
           >
@@ -369,8 +369,8 @@
         </td>
       </tr>
     {{/if}}
-    {{#each project.industrialLandUse as |lu|}}
-      <tr data-test-industrial-use={{u.name}}>
+    {{#each this.project.industrialLandUse as |lu|}}
+      <tr data-test-industrial-use={{this.u.name}}>
         <td>
           {{lu.name}}
         </td>
@@ -399,7 +399,7 @@
     </th>
     <th>
       <h4>
-        {{totalIndustrialSqFt}}
+        {{this.totalIndustrialSqFt}}
       </h4>
     </th>
   </tfoot>
@@ -411,12 +411,12 @@
 </div>
 <table class="ui bottom attached celled table">
   <tbody>
-    {{#if parkingUseTypes}}
+    {{#if this.parkingUseTypes}}
       <tr>
         <td class="seven wide">
           <UiDropdown
-            @selected={{parkingLandUse.type}}
-            @onChange={{action (mut parkingLandUse.type)}}
+            @selected={{this.parkingLandUse.type}}
+            @onChange={{action (mut this.parkingLandUse.type)}}
             data-test-parking="dropdown"
           >
             <div class="default text">
@@ -424,7 +424,7 @@
             </div>
             <i class="dropdown icon"></i>
             <div class="menu">
-              {{#each parkingUseTypes as |t|}}
+              {{#each this.parkingUseTypes as |t|}}
                 <div
                   class="item"
                   data-value={{t.type}}
@@ -441,7 +441,7 @@
             {{input
               type="number"
               min=0
-              value=parkingLandUse.spaces
+              value=this.parkingLandUse.spaces
               placeholder=0
               data-test-parking="spaces"
             }}
@@ -453,7 +453,7 @@
         <td class="one wide">
           <button
             class="ui button blue centered"
-            onClick={{action "addParkingLandUse" parkingLandUse "parkingLandUse"
+            onClick={{action "addParkingLandUse" this.parkingLandUse "parkingLandUse"
             }}
             data-test-parking="add" type="button"
           >
@@ -462,7 +462,7 @@
         </td>
       </tr>
     {{/if}}
-    {{#each project.parkingLandUse as |lu|}}
+    {{#each this.project.parkingLandUse as |lu|}}
       <tr data-test-parking={{lu.name}}>
         <td>
           {{lu.name}}
@@ -492,7 +492,7 @@
     </th>
     <th>
       <h4>
-        {{totalParkingSpaces}}
+        {{this.totalParkingSpaces}}
       </h4>
     </th>
   </tfoot>

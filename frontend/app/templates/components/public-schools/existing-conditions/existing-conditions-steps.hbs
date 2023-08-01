@@ -1,7 +1,7 @@
 <div class="ui pointing menu">
   {{#link-to
     "project.show.public-schools.existing-conditions.schools"
-    project.id
+    this.project.id
     class="item"
   }}
     Public Schools Serving Study Area
@@ -9,11 +9,11 @@
   <div class="right menu">
     {{#link-to
       "project.show.public-schools.existing-conditions.study-area"
-      project.id
+      this.project.id
       class="item"
     }}
       Study Area
-      {{#if displayWarning}}
+      {{#if this.displayWarning}}
         <div class="ui basic label orange">
           <i class="attention orange icon" style="margin: 0"></i>  
         </div>
@@ -22,14 +22,14 @@
 
     {{#link-to
       "project.show.public-schools.existing-conditions.new-schools"
-      project.id
+      this.project.id
       class="item"
     }}
       Newly Opened Schools
       <div
-        class="ui label {{if (gt analysis.newlyOpenedSchools.length 0) "orange" "green"}}"
+        class="ui label {{if (gt this.analysis.newlyOpenedSchools.length 0) "orange" "green"}}"
       >
-        {{analysis.newlyOpenedSchools.length}}
+        {{this.analysis.newlyOpenedSchools.length}}
       </div>
     {{/link-to}}
   </div>

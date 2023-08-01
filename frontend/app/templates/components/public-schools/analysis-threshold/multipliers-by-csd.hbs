@@ -51,10 +51,10 @@
   </thead>
 
   <tbody>
-    {{#each multipliers.mn.districts as |m idx|}}
-      <tr class="{{m.csd}} {{if (eq m.csd analysis.district) "active"}}">
+    {{#each this.multipliers.mn.districts as |m idx|}}
+      <tr class="{{m.csd}} {{if (eq m.csd this.analysis.district) "active"}}">
         {{#if (eq idx 0)}}
-          <td rowspan={{multipliers.mn.count}}>
+          <td rowspan={{this.multipliers.mn.count}}>
             Manhattan
           </td>
         {{/if}}
@@ -78,10 +78,10 @@
         </td>
       </tr>
     {{/each}}
-    {{#each multipliers.bx.districts as |m idx|}}
-      <tr class="{{m.csd}} {{if (eq m.csd analysis.district) "active"}}">
+    {{#each this.multipliers.bx.districts as |m idx|}}
+      <tr class="{{m.csd}} {{if (eq m.csd this.analysis.district) "active"}}">
         {{#if (eq idx 0)}}
-          <td rowspan={{multipliers.bx.count}}>
+          <td rowspan={{this.multipliers.bx.count}}>
             Bronx
           </td>
         {{/if}}
@@ -105,10 +105,10 @@
         </td>
       </tr>
     {{/each}}
-    {{#each multipliers.bk.districts as |m idx|}}
-      <tr class="{{m.csd}} {{if (eq m.csd analysis.district) "active"}}">
+    {{#each this.multipliers.bk.districts as |m idx|}}
+      <tr class="{{m.csd}} {{if (eq m.csd this.analysis.district) "active"}}">
         {{#if (eq idx 0)}}
-          <td rowspan={{multipliers.bk.count}}>
+          <td rowspan={{this.multipliers.bk.count}}>
             Brooklyn
           </td>
         {{/if}}
@@ -132,10 +132,10 @@
         </td>
       </tr>
     {{/each}}
-    {{#each multipliers.qn.districts as |m idx|}}
-      <tr class="{{m.csd}} {{if (eq m.csd analysis.district) "active"}}">
+    {{#each this.multipliers.qn.districts as |m idx|}}
+      <tr class="{{m.csd}} {{if (eq m.csd this.analysis.district) "active"}}">
         {{#if (eq idx 0)}}
-          <td rowspan={{multipliers.qn.count}}>
+          <td rowspan={{this.multipliers.qn.count}}>
             Queens
           </td>
         {{/if}}
@@ -159,10 +159,10 @@
         </td>
       </tr>
     {{/each}}
-    {{#each multipliers.si.districts as |m idx|}}
-      <tr class="{{m.csd}} {{if (eq m.csd analysis.district) "active"}}">
+    {{#each this.multipliers.si.districts as |m idx|}}
+      <tr class="{{m.csd}} {{if (eq m.csd this.analysis.district) "active"}}">
         {{#if (eq idx 0)}}
-          <td rowspan={{multipliers.si.count}}>
+          <td rowspan={{this.multipliers.si.count}}>
             Staten Island
           </td>
         {{/if}}

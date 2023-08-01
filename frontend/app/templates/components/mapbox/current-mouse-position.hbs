@@ -2,13 +2,13 @@
 <MapboxGlOn
   @event="mousemove"
   @action={{action "handleMouseMove"}}
-  @eventSource={{map.instance}}
+  @eventSource={{this.map.instance}}
  />
 
 <MapboxGlOn
   @event="mouseout"
   @action={{action "handleMouseLeave"}}
-  @eventSource={{map.instance}}
+  @eventSource={{this.map.instance}}
  />
 
 {{yield this.mousePosition}}

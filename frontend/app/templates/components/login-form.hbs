@@ -1,4 +1,4 @@
-{{maintenance-notice}}
+{{this.maintenance-notice}}
 <div class="ui grid container">
   <div class="ten wide centered column">
     <h2 class="ui blue header">
@@ -7,7 +7,7 @@
       </div>
     </h2>
     <div class="row">
-      {{#each flashMessages.queue as |flash|}}
+      {{#each this.flashMessages.queue as |flash|}}
         <FlashMessage @flash={{flash}} as |component flash|>
           <div class="ui {{lowercase component.flashType}} message">
             <p>
@@ -21,8 +21,8 @@
       <div class="ui two column very relaxed stackable grid">
         <div class="column">
           <form
-            class="ui form {{if error "error"}}"
-            {{action "logIn" login on="submit"}}
+            class="ui form {{if this.error "error"}}"
+            {{action "logIn" this.login on="submit"}}
           >
             <div class="field">
               <div class="ui left icon input">
@@ -30,7 +30,7 @@
                 {{input
                   type="text"
                   name="email"
-                  value=login.email
+                  value=this.login.email
                   placeholder="Email"
                   data-test-login-form="email"
                 }}
@@ -42,7 +42,7 @@
                 {{input
                   type="password"
                   name="password"
-                  value=login.password
+                  value=this.login.password
                   placeholder="Password"
                   data-test-login-form="password"
                 }}
@@ -63,7 +63,7 @@
                 Error
               </div>
               <p>
-                {{error.message}}
+                {{this.error.message}}
               </p>
             </div>
           </form>

@@ -8,7 +8,7 @@
   <Mapbox::CartoVectorSource @sourceId="carto" @map={{map}} as |carto-source|>
     <carto-source.layer
       @id="pluto-line"
-      @sql={{mapplutoSql}}
+      @sql={{this.mapplutoSql}}
       @layer={{hash
         type="line"
         paint=(get-layer-style "pluto-line" "paint")
@@ -17,7 +17,7 @@
 
     <carto-source.layer
       @id="pluto-labels"
-      @sql={{mapplutoSql}}
+      @sql={{this.mapplutoSql}}
       @layer={{hash
         type="symbol"
         layout=(get-layer-style "pluto-labels" "layout")
@@ -27,7 +27,7 @@
 
     <carto-source.layer
       @id="pluto-selected"
-      @sql={{mapplutoSql}}
+      @sql={{this.mapplutoSql}}
       @layer={{hash
         type="fill"
         paint=(get-layer-style "selectable-feature-content" "paint")
@@ -36,7 +36,7 @@
       <Mapbox::FeatureHoverer
         @map={{map}}
         @layerId={{layer.layerId}}
-        @onFeatures={{setFirstHoveredFeatureId}}
+        @onFeatures={{this.setFirstHoveredFeatureId}}
       />
 
       <Mapbox::FeatureSelector
@@ -45,14 +45,14 @@
       >
         <Project::ProjectAreaSelectionToggler
           @selectedBbls={{selectedFeatures}}
-          @toggleBbl={{toggleBbl}}
+          @toggleBbl={{this.toggleBbl}}
         />
       </Mapbox::FeatureSelector>
     </carto-source.layer>
 
     <carto-source.layer
       @id="tracts-hover"
-      @sql={{mapplutoSql}}
+      @sql={{this.mapplutoSql}}
       @layer={{hash
         type="line"
         paint=(get-layer-style "selectable-feature-line" "paint")
@@ -63,13 +63,13 @@
         @map={{map}}
         @layerId={{layer.layerId}}
         @filterById="bbl"
-        @featureIds={{array hoveredFeatureId}}
+        @featureIds={{array this.hoveredFeatureId}}
       />
     </carto-source.layer>
 
     <carto-source.layer
       @id="project-area"
-      @sql={{mapplutoSql}}
+      @sql={{this.mapplutoSql}}
       @layer={{hash
         type="line"
         paint=(get-layer-style "bbls" "paint")
@@ -79,7 +79,7 @@
         @map={{map}}
         @layerId={{layer.layerId}}
         @filterById="bbl"
-        @featureIds={{selectedBbls}}
+        @featureIds={{this.selectedBbls}}
       />
     </carto-source.layer>
   </Mapbox::CartoVectorSource>

@@ -4,7 +4,7 @@
   </div>
   <p>
     If project build year is
-    {{analysis.maxProjection}}
+    {{this.analysis.maxProjection}}
     or later consult lead agency if additional residential projects need to be added.
   </p>
   <p>
@@ -12,27 +12,27 @@
     remove it by adding a project with a negative number of units.
   </p>
 </div>
-<div class="ui {{if analysis.futureResidentialDev "top attached"}} segment">
-  <form class="ui form" {{action "addResDev" resdev on="submit"}}>
+<div class="ui {{if this.analysis.futureResidentialDev "top attached"}} segment">
+  <form class="ui form" {{action "addResDev" this.resdev on="submit"}}>
     <div class="inline fields">
       <div class="field">
-        {{input type="string" value=resdev.name placeholder="Project Name"}}
+        {{input type="string" value=this.resdev.name placeholder="Project Name"}}
       </div>
       <div class="field">
-        {{input type="number" value=resdev.year placeholder="Est. Built Year"}}
+        {{input type="number" value=this.resdev.year placeholder="Est. Built Year"}}
       </div>
       <div class="field">
         <UiDropdown
           class="selection"
-          @selected={{resdev.subdistrict}}
-          @onChange={{action (mut resdev.subdistrict)}} as |execute mapper|
+          @selected={{this.resdev.subdistrict}}
+          @onChange={{action (mut this.resdev.subdistrict)}} as |execute mapper|
         >
           <div class="default text">
             Subdistrict
           </div>
           <i class="dropdown icon"></i>
           <div class="menu">
-            {{#each analysis.subdistricts as |sd|}}
+            {{#each this.analysis.subdistricts as |sd|}}
               <div data-value={{map-value mapper sd}} class="item">
                 District
                 {{sd.district}}
@@ -44,7 +44,7 @@
         </UiDropdown>
       </div>
       <div class="field">
-        {{input type="number" value=resdev.total_units placeholder="Total Units"
+        {{input type="number" value=this.resdev.total_units placeholder="Total Units"
         }}
       </div>
       <button type="submit" class="ui button primary">
@@ -53,7 +53,7 @@
     </div>
   </form>
 </div>
-{{#if analysis.futureResidentialDev}}
+{{#if this.analysis.futureResidentialDev}}
   <table class="ui bottom attached celled table">
     <thead>
       <tr>
@@ -79,7 +79,7 @@
       </tr>
     </thead>
     <tbody>
-      {{#each analysis.futureResidentialDev as |r|}}
+      {{#each this.analysis.futureResidentialDev as |r|}}
         <tr>
           <td>
             {{r.name}}

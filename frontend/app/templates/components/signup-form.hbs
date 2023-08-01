@@ -7,8 +7,8 @@
     </h2>
     <div class="ui segment">
       <form
-        class="ui large form {{if error "error"}}"
-        {{action "createUser" user on="submit"}}
+        class="ui large form {{if this.error "error"}}"
+        {{action "createUser" this.user on="submit"}}
       >
         <div class="field">
           <div class="ui left icon input">
@@ -16,7 +16,7 @@
             {{input
               type="text"
               name="email"
-              value=user.email
+              value=this.user.email
               placeholder="Email"
             }}
           </div>
@@ -27,7 +27,7 @@
             {{input
               type="password"
               name="password"
-              value=user.password
+              value=this.user.password
               placeholder="Password"
             }}
           </div>
@@ -37,7 +37,7 @@
             Error
           </div>
           <p>
-            {{error.message}}
+            {{this.error.message}}
           </p>
         </div>
         <button type="submit" class="ui fluid large primary submit button">

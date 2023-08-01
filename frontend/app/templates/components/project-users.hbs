@@ -12,13 +12,13 @@
     <div class="ui divided list">
       <div class="item">
         <div class="middle aligned content">
-          {{currentUser.user.email}}
+          {{this.currentUser.user.email}}
           <div class="right floated content">
             (you)
           </div>
         </div>
       </div>
-      {{#each projectEditors as |user|}}
+      {{#each this.projectEditors as |user|}}
         <div class="item">
           <div class="middle aligned content">
             {{user.email}}
@@ -47,9 +47,9 @@
     Viewers
   </h4>
   <div class="ui bottom attached segment">
-    {{#if projectViewers}}
+    {{#if this.projectViewers}}
       <div class="ui divided list">
-        {{#each projectViewers as |user|}}
+        {{#each this.projectViewers as |user|}}
           <div class="item">
             <div class="middle aligned content">
               {{user.email}}
@@ -81,14 +81,14 @@
 <div class="ui bottom attached segment">
   <form class="ui form" {{action "addUser" on="submit"}}>
     <div class="field">
-      {{input type="text" name="email" value=email placeholder="Email"}}
+      {{input type="text" name="email" value=this.email placeholder="Email"}}
     </div>
     <div class="two fields">
       <div class="field">
         <UiDropdown
           class="selection"
-          @selected={{permission}}
-          @onChange={{action (mut permission)}}
+          @selected={{this.permission}}
+          @onChange={{action (mut this.permission)}}
         >
           <div class="default text">
             Access Level
@@ -111,9 +111,9 @@
       </div>
     </div>
   </form>
-  {{#if error}}
+  {{#if this.error}}
     <div class="ui error message">
-      {{error.message}}
+      {{this.error.message}}
     </div>
   {{/if}}
 </div>

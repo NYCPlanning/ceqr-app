@@ -8,7 +8,7 @@
     </th>
     <th class="three wide">
       Zone
-      {{analysis.trafficZone}}
+      {{this.analysis.trafficZone}}
       Threshold
     </th>
     <th class="three wide">
@@ -16,82 +16,82 @@
     </th>
   </thead>
   <tbody>
-    {{#if analysis.residentialUnitsRatio}}
+    {{#if this.analysis.residentialUnitsRatio}}
       <tr>
         <td>
           Residential
         </td>
         <td>
-          {{analysis.residentialUnits}}
+          {{this.analysis.residentialUnits}}
           units
         </td>
         <td data-test-residential-threshold>
-          {{residentialThreshold}}
+          {{this.residentialThreshold}}
           units
         </td>
         <td>
-          {{round analysis.residentialUnitsRatio decimals=2}}
+          {{round this.analysis.residentialUnitsRatio decimals=2}}
         </td>
       </tr>
     {{/if}}
-    {{#if analysis.officeSqFtRatio}}
+    {{#if this.analysis.officeSqFtRatio}}
       <tr>
         <td>
           Office
         </td>
         <td>
-          {{analysis.officeSqFt}}
+          {{this.analysis.officeSqFt}}
           gsf
         </td>
         <td data-test-office-threshold>
-          {{officeThreshold}}
+          {{this.officeThreshold}}
           gsf
         </td>
         <td>
-          {{round analysis.officeSqFtRatio decimals=2}}
+          {{round this.analysis.officeSqFtRatio decimals=2}}
         </td>
       </tr>
     {{/if}}
-    {{#if analysis.regionalRetailSqFtRatio}}
+    {{#if this.analysis.regionalRetailSqFtRatio}}
       <tr>
         <td>
           Regional Retail
         </td>
         <td>
-          {{analysis.regionalRetailSqFt}}
+          {{this.analysis.regionalRetailSqFt}}
           gsf
         </td>
         <td data-test-regional-retail-threshold>
-          {{regionalRetailThreshold}}
+          {{this.regionalRetailThreshold}}
           gsf
         </td>
         <td>
-          {{round analysis.regionalRetailSqFtRatio decimals=2}}
+          {{round this.analysis.regionalRetailSqFtRatio decimals=2}}
         </td>
       </tr>
     {{/if}}
-    {{#if analysis.localRetailSqFtRatio}}
+    {{#if this.analysis.localRetailSqFtRatio}}
       <tr>
         <td>
           Local Retail
         </td>
         <td>
-          {{analysis.localRetailSqFt}}
+          {{this.analysis.localRetailSqFt}}
           gsf
         </td>
         <td data-test-local-retail-threshold>
-          {{localRetailThreshold}}
+          {{this.localRetailThreshold}}
           gsf
         </td>
         <td>
-          {{round analysis.localRetailSqFtRatio decimals=2}}
+          {{round this.analysis.localRetailSqFtRatio decimals=2}}
         </td>
       </tr>
     {{/if}}
-    {{#if analysis.restaurantSqFtRatio}}
+    {{#if this.analysis.restaurantSqFtRatio}}
       <tr>
-        <td class={{if analysis.hasFastFood "warning"}}>
-          {{#if analysis.hasFastFood}}
+        <td class={{if this.analysis.hasFastFood "warning"}}>
+          {{#if this.analysis.hasFastFood}}
             <UiPopup
               @title="Triggers Further Analysis"
               @content="Fast Food restaurant land use always triggers a preliminary trip generation analysis"
@@ -104,51 +104,51 @@
           {{/if}}
         </td>
         <td>
-          {{analysis.restaurantSqFt}}
+          {{this.analysis.restaurantSqFt}}
           gsf
         </td>
         <td data-test-restaurant-threshold>
-          {{restaurantThreshold}}
+          {{this.restaurantThreshold}}
           gsf
         </td>
         <td>
-          {{round analysis.restaurantSqFtRatio decimals=2}}
+          {{round this.analysis.restaurantSqFtRatio decimals=2}}
         </td>
       </tr>
     {{/if}}
-    {{#if analysis.communityFacilitySqFtRatio}}
+    {{#if this.analysis.communityFacilitySqFtRatio}}
       <tr>
         <td>
           Community Facilities
         </td>
         <td>
-          {{analysis.communityFacilitySqFt}}
+          {{this.analysis.communityFacilitySqFt}}
           gsf
         </td>
         <td data-test-community-facility-threshold>
-          {{communityFacilityThreshold}}
+          {{this.communityFacilityThreshold}}
           gsf
         </td>
         <td>
-          {{round analysis.communityFacilitySqFtRatio decimals=2}}
+          {{round this.analysis.communityFacilitySqFtRatio decimals=2}}
         </td>
       </tr>
     {{/if}}
-    {{#if analysis.offStreetParkingSpacesRatio}}
+    {{#if this.analysis.offStreetParkingSpacesRatio}}
       <tr>
         <td>
           Off-Street Parking Facilities
         </td>
         <td>
-          {{analysis.offStreetParkingSpaces}}
+          {{this.analysis.offStreetParkingSpaces}}
           spaces
         </td>
         <td data-test-off-street-parking-threshold>
-          {{offStreetParkingThreshold}}
+          {{this.offStreetParkingThreshold}}
           spaces
         </td>
         <td>
-          {{round analysis.offStreetParkingSpacesRatio decimals=2}}
+          {{round this.analysis.offStreetParkingSpacesRatio decimals=2}}
         </td>
       </tr>
     {{/if}}
@@ -157,7 +157,7 @@
     <th colspan="3">
       Sum of Ratios
     </th>
-    <th class={{if analysis.sumOfRatiosOver1 "warning"}}>
+    <th class={{if this.analysis.sumOfRatiosOver1 "warning"}}>
       {{!-- 
         TODO: Address issue #619:
         https://github.com/NYCPlanning/ceqr-app/issues/619
@@ -166,17 +166,17 @@
         explanation. Perhaps there should also be a test here that checks for some
         clarification in the UI.>
       --}}
-      {{#if analysis.sumOfRatiosOver1}}
+      {{#if this.analysis.sumOfRatiosOver1}}
         <UiPopup
           @title="Triggers Further Analysis"
-          @content={{detailedAnalysisPopupText}}
+          @content={{this.detailedAnalysisPopupText}}
           data-test-popup="detailed analysis"
         >
-          {{round analysis.sumOfRatios decimals=2}}
+          {{round this.analysis.sumOfRatios decimals=2}}
           <i class="yellow attention icon"></i>
         </UiPopup>
       {{else}}
-        {{round analysis.sumOfRatios decimals=2}}
+        {{round this.analysis.sumOfRatios decimals=2}}
       {{/if}}
     </th>
   </tfoot>

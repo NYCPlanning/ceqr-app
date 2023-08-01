@@ -11,11 +11,11 @@
     <div class="zone-dropdown">
       <UiCheckbox
         @label="Show"
-        @checked={{showZones}}
-        @onChange={{action (mut showZones)}}
+        @checked={{this.showZones}}
+        @onChange={{action (mut this.showZones)}}
        />
 
-      <UiDropdown @selected="ps" @onChange={{action (mut schoolZone)}}>
+      <UiDropdown @selected="ps" @onChange={{action (mut this.schoolZone)}}>
         <div class="default text"></div>
         <i class="dropdown icon"></i>
         <div class="menu">
@@ -31,9 +31,9 @@
         </div>
       </UiDropdown>
     </div>
-    {{#if zoneName}}
+    {{#if this.zoneName}}
       <div class="zone-text">
-        {{zoneName}}
+        {{this.zoneName}}
       </div>
     {{/if}}
   </div>
@@ -98,7 +98,7 @@
     </div>
   </div>
   <map.source
-    @options={{hash type="geojson" data=subdistrictsGeojson}} as |source|
+    @options={{hash type="geojson" data=this.subdistrictsGeojson}} as |source|
   >
     <source.layer
       @layer={{hash
@@ -114,7 +114,7 @@
   {{! Map Layers for Hovering }}
   <map.source
     @sourceId="schoolZones"
-    @options={{hash type="geojson" data=schoolZonesGeojson}} as |source|
+    @options={{hash type="geojson" data=this.schoolZonesGeojson}} as |source|
   >
     <source.layer
       @layer={{hash id="zones-hover" type="fill" paint=(hash fill-opacity=0)}}
@@ -147,7 +147,7 @@
 
 
   <map.source
-    @options={{hash type="geojson" data=project.bblsGeojson}} as |source|
+    @options={{hash type="geojson" data=this.project.bblsGeojson}} as |source|
   >
     <source.layer
       @layer={{hash
@@ -159,7 +159,7 @@
 
   </map.source>
   <map.source
-    @options={{hash type="geojson" data=project.publicSchoolsAnalysis.buildingsGeojson
+    @options={{hash type="geojson" data=this.project.publicSchoolsAnalysis.buildingsGeojson
     }} as |source|
   >
     <source.layer
@@ -177,7 +177,7 @@
         type="circle"
         filter=(array
           "case"
-          project.publicSchoolsAnalysis.hsAnalysis true
+          this.project.publicSchoolsAnalysis.hsAnalysis true
           (array "match" (array "get" "level") (array "ps" "is") true false)
         )
         paint=(hash
@@ -192,15 +192,15 @@
           circle-color=(array
             "case"
             (array "==" (array "get" "level") "ps")
-            mapColors.ps
+            this.mapColors.ps
             (array "==" (array "get" "level") "PSIS")
-            mapColors.psis
+            this.mapColors.psis
             (array "==" (array "get" "level") "is")
-            mapColors.is
+            this.mapColors.is
             (array "==" (array "get" "level") "ISHS")
-            mapColors.ishs
+            this.mapColors.ishs
             (array "==" (array "get" "level") "hs")
-            mapColors.hs
+            this.mapColors.hs
             "#333333"
           )
         )
@@ -210,7 +210,7 @@
   </map.source>
 
   <map.source
-    @options={{hash type="geojson" data=project.publicSchoolsAnalysis.scaProjectsGeojson
+    @options={{hash type="geojson" data=this.project.publicSchoolsAnalysis.scaProjectsGeojson
     }} as |source|
   >
     <source.layer
@@ -234,15 +234,15 @@
           circle-color=(array
             "case"
             (array "==" (array "get" "org_level") "PS")
-            mapColors.ps
+            this.mapColors.ps
             (array "==" (array "get" "org_level") "PSIS")
-            mapColors.psis
+            this.mapColors.psis
             (array "==" (array "get" "org_level") "IS")
-            mapColors.is
+            this.mapColors.is
             (array "==" (array "get" "org_level") "ISHS")
-            mapColors.ishs
+            this.mapColors.ishs
             (array "==" (array "get" "org_level") "HS")
-            mapColors.hs
+            this.mapColors.hs
             "#333333"
           )
         )

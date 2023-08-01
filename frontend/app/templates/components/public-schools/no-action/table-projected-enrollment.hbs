@@ -7,18 +7,18 @@
       </th>
       <th class="two wide">
         Projected
-        {{project.buildYear}}
+        {{this.project.buildYear}}
         Enrollment
-        {{#if analysis.projectionOverMax}}
+        {{#if this.analysis.projectionOverMax}}
           <div
             data-tooltip="Build year beyond maximum projections available. Using
-              {{analysis.maxProjection}}
+              {{this.analysis.maxProjection}}
                enrollment projection."
             data-inverted
             class="ui orange label"
           >
             <i class="warning icon"></i>
-            {{analysis.maxProjection}}
+            {{this.analysis.maxProjection}}
           </div>
         {{/if}}
       </th>
@@ -48,7 +48,7 @@
     </tr>
   </thead>
   <tbody>
-    {{#each analysis.psLevelTotals.subdistrictTotals as |p|}}
+    {{#each this.analysis.psLevelTotals.subdistrictTotals as |p|}}
       <tr>
         <td>
           {{p.sdName}}
@@ -75,7 +75,7 @@
       </tr>
     {{/each}}
   </tbody>
-  {{#if analysis.multiSubdistrict}}
+  {{#if this.analysis.multiSubdistrict}}
     <tr>
       <td>
         <em>
@@ -84,33 +84,33 @@
       </td>
       <td>
         <em>
-          {{analysis.psLevelTotals.enrollTotal}}
+          {{this.analysis.psLevelTotals.enrollTotal}}
         </em>
       </td>
       <td class="math--left">
         <i class="plus circle icon"></i>
         <em>
-          {{analysis.psLevelTotals.studentsTotal}}
+          {{this.analysis.psLevelTotals.studentsTotal}}
         </em>
       </td>
       <td>
         <em>
-          {{analysis.psLevelTotals.enrollNoActionTotal}}
+          {{this.analysis.psLevelTotals.enrollNoActionTotal}}
         </em>
       </td>
       <td>
         <em>
-          {{analysis.psLevelTotals.capacityNoActionTotal}}
+          {{this.analysis.psLevelTotals.capacityNoActionTotal}}
         </em>
       </td>
       <td>
         <em>
-          {{analysis.psLevelTotals.seatsNoActionTotal}}
+          {{this.analysis.psLevelTotals.seatsNoActionTotal}}
         </em>
       </td>
       <td>
         <em>
-          {{percentage analysis.psLevelTotals.utilizationNoActionTotal}}
+          {{percentage this.analysis.psLevelTotals.utilizationNoActionTotal}}
         </em>
       </td>
     </tr>
@@ -124,7 +124,7 @@
     </tr>
   </thead>
   <tbody>
-    {{#each analysis.isLevelTotals.subdistrictTotals as |p|}}
+    {{#each this.analysis.isLevelTotals.subdistrictTotals as |p|}}
       <tr>
         <td>
           {{p.sdName}}
@@ -151,7 +151,7 @@
       </tr>
     {{/each}}
   </tbody>
-  {{#if analysis.multiSubdistrict}}
+  {{#if this.analysis.multiSubdistrict}}
     <tr>
       <td>
         <em>
@@ -160,39 +160,39 @@
       </td>
       <td>
         <em>
-          {{analysis.isLevelTotals.enrollTotal}}
+          {{this.analysis.isLevelTotals.enrollTotal}}
         </em>
       </td>
       <td class="math--left">
         <i class="plus circle icon"></i>
         <em>
-          {{analysis.isLevelTotals.studentsTotal}}
+          {{this.analysis.isLevelTotals.studentsTotal}}
         </em>
       </td>
       <td>
         <em>
-          {{analysis.isLevelTotals.enrollNoActionTotal}}
+          {{this.analysis.isLevelTotals.enrollNoActionTotal}}
         </em>
       </td>
       <td>
         <em>
-          {{analysis.isLevelTotals.capacityNoActionTotal}}
+          {{this.analysis.isLevelTotals.capacityNoActionTotal}}
         </em>
       </td>
       <td>
         <em>
-          {{analysis.isLevelTotals.seatsNoActionTotal}}
+          {{this.analysis.isLevelTotals.seatsNoActionTotal}}
         </em>
       </td>
       <td>
         <em>
-          {{percentage analysis.isLevelTotals.utilizationNoActionTotal}}
+          {{percentage this.analysis.isLevelTotals.utilizationNoActionTotal}}
         </em>
       </td>
     </tr>
   {{/if}}
   
-  {{#if analysis.hsAnalysis}}
+  {{#if this.analysis.hsAnalysis}}
     <thead>
       <tr>
         <th colspan="7">
@@ -201,10 +201,10 @@
       </tr>
     </thead>
     <tbody>
-      {{#each analysis.hsLevelTotals.subdistrictTotals as |p|}}
+      {{#each this.analysis.hsLevelTotals.subdistrictTotals as |p|}}
         <tr>
           <td>
-            {{analysis.borough}}
+            {{this.analysis.borough}}
           </td>
           <td>
             {{p.enroll}}
@@ -238,7 +238,7 @@
         target="_blank" rel="noopener noreferrer" href="http://www.nycsca.org/Community/Capital-Plan-Reports-Data#Demographic-Projection-68"
       >
         Enrollment Projections for New York City Public Schools by the Statistical Forecasting [
-        {{school-year analysis.dataPackage.schemas.sca_e_projections_by_sd}}
+        {{school-year this.analysis.dataPackage.schemas.sca_e_projections_by_sd}}
         ]
         <i class="external alternate icon"></i>
       </a>
@@ -252,7 +252,7 @@
         target="_blank" rel="noopener noreferrer" href="http://www.nycsca.org/Community/Capital-Plan-Reports-Data#Housing-Projections-70"
       >
         Projected New Housing Starts as Used in Enrollment Projections [
-        {{school-year analysis.dataPackage.schemas.sca_housing_pipeline_by_sd}}
+        {{school-year this.analysis.dataPackage.schemas.sca_housing_pipeline_by_sd}}
         ]
         <i class="external alternate icon"></i>
       </a>

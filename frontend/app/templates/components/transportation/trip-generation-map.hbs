@@ -10,7 +10,7 @@
   <MapboxGlSource
     @sourceId="bbls_geojson"
     @map={{map.instance}}
-    @options={{hash type="geojson" data=project.bblsGeojson}} as |source|
+    @options={{hash type="geojson" data=this.project.bblsGeojson}} as |source|
   >
     <source.layer
       @layer={{hash

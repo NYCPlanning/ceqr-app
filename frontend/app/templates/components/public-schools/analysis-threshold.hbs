@@ -2,15 +2,15 @@
   <div class="row" style="margin-top: 10px">
     <div class="sixteen wide column">
       <div
-        class="ui {{if analysis.detailedAnalysis "yellow" "grey"}} segment"
+        class="ui {{if this.analysis.detailedAnalysis "yellow" "grey"}} segment"
       >
         <h3>
           Does this project require a detailed analysis of potential indirect effects on public school capacity?
           <div
             class="ui big horizontal label
-              {{if analysis.detailedAnalysis "yellow" "grey"}}"
+              {{if this.analysis.detailedAnalysis "yellow" "grey"}}"
           >
-            {{if analysis.detailedAnalysis "Yes" "No"}}
+            {{if this.analysis.detailedAnalysis "Yes" "No"}}
           </div>
         </h3>
       </div>
@@ -19,7 +19,7 @@
   <div class="row">
     <div class="sixteen wide column">
       <PublicSchools::AnalysisThreshold::ThresholdResult
-        @analysis={{analysis}}
+        @analysis={{this.analysis}}
         />
 
     </div>
@@ -27,18 +27,18 @@
 
   <div class="row">
     <div class="sixteen wide column">
-      {{#if (eq analysis.multiplierVersion "march-2014")}}
+      {{#if (eq this.analysis.multiplierVersion "march-2014")}}
         <PublicSchools::AnalysisThreshold::MarTwentyFourteenMultipliers
-          @analysis={{analysis}}
+          @analysis={{this.analysis}}
         />
-      {{else if (eq analysis.multiplierVersion "november-2018")}}
+      {{else if (eq this.analysis.multiplierVersion "november-2018")}}
         <PublicSchools::AnalysisThreshold::MultipliersByCsd
-          @analysis={{analysis}}
+          @analysis={{this.analysis}}
           @year="2018"
         />
-      {{else if (eq analysis.multiplierVersion "november-2019") }}
+      {{else if (eq this.analysis.multiplierVersion "november-2019") }}
         <PublicSchools::AnalysisThreshold::MultipliersByCsd
-          @analysis={{analysis}}
+          @analysis={{this.analysis}}
           @year="2019"
         />
       {{/if}}

@@ -1,6 +1,6 @@
 {{#if this.tiles}}
-  <MapboxGlLayer @map={{map.instance}} @layer={{mapboxLayerOptions}} />
+  <MapboxGlLayer @map={{this.map.instance}} @layer={{this.mapboxLayerOptions}} />
   {{#if (has-block)}}
-    {{yield (hash layerId=mapboxLayerOptions.id)}}
+    {{yield (hash layerId=this.mapboxLayerOptions.id)}}
   {{/if}}
 {{/if}}

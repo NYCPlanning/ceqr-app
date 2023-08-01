@@ -2,9 +2,9 @@
   <div class="ui grid">
     <div class="eight wide column">
       <div class="ui two item menu">
-        {{#each model.transportationPlanningFactors as |factor|}}
+        {{#each this.model.transportationPlanningFactors as |factor|}}
           {{#link-to
-            factorLink
+            this.factorLink
             factor.id
             class="item"
           }}
@@ -17,16 +17,16 @@
       </div>
     </div>
 
-    {{#if (eq tdfSection "planning-factors")}}
+    {{#if (eq this.tdfSection "planning-factors")}}
       <div class="four wide column middle aligned">
-        <div class="fluid ui positive button" data-test-button="saveFactors" onClick={{action saveFactors}}>
+        <div class="fluid ui positive button" data-test-button="saveFactors" onClick={{action this.saveFactors}}>
           Save
         </div>
       </div>
       <div class="four wide column middle aligned">
         {{#link-to
           "project.show.transportation.tdf.trip-results"
-          model.project.id
+          this.model.project.id
           class="fluid ui primary button"
         }}
           Next
@@ -36,7 +36,7 @@
       <div class="four wide column middle aligned">
         {{#link-to
           "project.show"
-          model.project.id
+          this.model.project.id
           class="fluid ui positive button"
         }}
         Save & Return to Dashboard

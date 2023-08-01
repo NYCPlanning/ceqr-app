@@ -1,8 +1,8 @@
-<div class="ui {{if analysisNeeded "yellow" "grey"}} segment">
+<div class="ui {{if this.analysisNeeded "yellow" "grey"}} segment">
   <h3>
     {{yield}}
-    <div class="ui big horizontal label {{if analysisNeeded "yellow" "grey"}}">
-      {{if analysisNeeded "Yes" "No"}}
+    <div class="ui big horizontal label {{if this.analysisNeeded "yellow" "grey"}}">
+      {{if this.analysisNeeded "Yes" "No"}}
     </div>
   </h3>
 </div>

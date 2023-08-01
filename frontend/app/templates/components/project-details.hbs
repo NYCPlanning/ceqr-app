@@ -9,7 +9,7 @@
           {{input
             type="text"
             name="name"
-            value=project.name
+            value=this.project.name
             placeholder="Project Name"
             data-test-new-project="project-name"
           }}
@@ -20,8 +20,8 @@
           </label>
           <UiDropdown
             class="selection"
-            @selected={{project.buildYear}}
-            @onChange={{action (mut project.buildYear)}}
+            @selected={{this.project.buildYear}}
+            @onChange={{action (mut this.project.buildYear)}}
             data-test-new-project="build-year"
           >
             <div class="default text">
@@ -29,7 +29,7 @@
             </div>
             <i class="dropdown icon"></i>
             <div class="menu">
-              {{#each buildYearRange as |year|}}
+              {{#each this.buildYearRange as |year|}}
                 <div
                   data-value={{year}}
                   class="item"
@@ -48,7 +48,7 @@
           {{input
             type="text"
             name="ceqrNumber"
-            value=project.ceqrNumber
+            value=this.project.ceqrNumber
             placeholder="CEQR Number"
             data-test-new-project="ceqr-number"
           }}
@@ -57,11 +57,11 @@
     </div>
   </form>
 </div>
-<Project::AnalysisFramework @project={{project}} @mapplutoVersions={{mapplutoVersions}} />
-{{#if project.isInvalid}}
+<Project::AnalysisFramework @project={{this.project}} @mapplutoVersions={{this.mapplutoVersions}} />
+{{#if this.project.isInvalid}}
   <div class="ui error message">
     <ul class="list">
-      {{#each project.errors as |errorSet|}}
+      {{#each this.project.errors as |errorSet|}}
         {{#each errorSet.validation as |error|}}
           <li>
             {{error}}
@@ -72,12 +72,12 @@
   </div>
 {{/if}}
 <div class="ui basic segment">
-  {{#if project.isNew}}
+  {{#if this.project.isNew}}
     <div class="sixteen wide column">
       <button
         data-test-create-project
         class="ui primary button
-          {{if project-orchestrator.projectTask.isRunning "loading"}}" type="button" {{action "saveProject"}}
+          {{if this.project-orchestrator.projectTask.isRunning "loading"}}" type="button" {{action "saveProject"}}
       >
         Create Project
         <i class="arrow right icon"></i>
@@ -90,7 +90,7 @@
       </button>
       <button 
         class="ui primary button
-          {{if project-orchestrator.projectTask.isRunning "loading"}}" type="button" {{action "saveProject"}}>
+          {{if this.project-orchestrator.projectTask.isRunning "loading"}}" type="button" {{action "saveProject"}}>
         Save Project
         <i class="arrow right icon"></i>
       </button>
