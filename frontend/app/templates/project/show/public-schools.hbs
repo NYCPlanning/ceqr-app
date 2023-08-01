@@ -26,7 +26,7 @@
 
     <div
       class="ui inverted dimmer
-        {{if this.project-orchestrator.projectTask.isRunning "active"}}"
+        {{if this.projectOrchestrator.projectTask.isRunning "active"}}"
     >
       <div class="ui text loader">
         Loading
@@ -35,7 +35,7 @@
   </div>
 {{/if}}
 
-{{#if (and this.showMap this.project-orchestrator.projectTask.isIdle)}}
+{{#if (and this.showMap this.projectOrchestrator.projectTask.isIdle)}}
   <div class="row">
     <div class="sixteen wide column">
       {{#with this.model.publicSchoolsAnalysis.subdistrictsGeojson.subdistrictsGeojson as |subdistricts|}}
@@ -56,6 +56,6 @@
   </div>
 {{/if}}
 
-{{#if this.project-orchestrator.projectTask.isIdle}}
+{{#if this.projectOrchestrator.projectTask.isIdle}}
   {{outlet}}
 {{/if}}
