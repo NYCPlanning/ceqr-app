@@ -9,7 +9,7 @@ module('Unit | Initializer | on-error', function (hooks) {
   setupTest(hooks);
 
   hooks.beforeEach(function () {
-    this.TestApplication = Application.extend();
+    this.TestApplication = class extends Application {};
     this.TestApplication.initializer({
       name: 'initializer under test',
       initialize,
