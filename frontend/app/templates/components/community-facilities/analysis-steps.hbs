@@ -1,9 +1,9 @@
 <div class="ui tiny steps fluid">
-  {{#link-to
-    "project.show.community-facilities.analysis-threshold"
-    this.project.id
+  <LinkTo
+    @route="project.show.community-facilities.analysis-threshold"
+    @model={{this.project.id}}
     class="step"
-  }}
+  >
     <div class="content">
       <div class="title">
         Analysis Threshold
@@ -12,38 +12,38 @@
         Need for detailed analysis
       </div>
     </div>
-  {{/link-to}}
-  {{#link-to
-    "project.show.community-facilities"
-    this.project.id
+  </LinkTo>
+  <LinkTo
+    @route="project.show.community-facilities"
+    @model={{this.project.id}}
     class="step disabled"
-  }}
+  >
     <div class="content">
       <div class="title">
         Existing Conditions
       </div>
     </div>
-  {{/link-to}}
-  {{#link-to
-    "project.show.community-facilities"
-    this.project.id
+  </LinkTo>
+  <LinkTo
+   @route="project.show.community-facilities"
+    @model={{this.project.id}}
     class="step disabled"
-  }}
+  >
     <div class="content">
       <div class="title">
         No Action Scenario
       </div>
     </div>
-  {{/link-to}}
-  {{#link-to
-    "project.show.community-facilities"
-    this.project.id
+  </LinkTo>
+  <LinkTo
+    @route="project.show.community-facilities"
+    @model={{this.project.id}}
     class="step disabled"
-  }}
+  >
     <div class="content">
       <div class="title">
         With Action Scenario
       </div>
     </div>
-  {{/link-to}}
+  </LinkTo>
 </div>

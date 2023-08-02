@@ -51,24 +51,24 @@
         </td>
 
         {{#if this.factor.temporalVehicleOccupancy}}
-          <td>{{input type="number" step=".01" min="0" value=this.vehicleOccupancy.auto.am}}</td>
-          <td>{{input type="number" step=".01" min="0" value=this.vehicleOccupancy.auto.md}}</td>
-          <td>{{input type="number" step=".01" min="0" value=this.vehicleOccupancy.auto.pm}}</td>
-          <td>{{input type="number" step=".01" min="0" value=this.vehicleOccupancy.auto.saturday}}</td>
+          <td><Input @type="number" step=".01" min="0" @value={{this.vehicleOccupancy.auto.am}} /></td>
+          <td><Input @type="number" step=".01" min="0" @value={{this.vehicleOccupancy.auto.md}}/></td>
+          <td><Input @type="number" step=".01" min="0" @value={{this.vehicleOccupancy.auto.pm}} /></td>
+          <td><Input @type="number" step=".01" min="0" @value={{this.vehicleOccupancy.auto.saturday}} /></td>
         {{else}}
-          <td>{{input type="number" step=".01" min="0" value=this.vehicleOccupancy.auto.allPeriods}}</td>
+          <td><Input @type="number" step=".01" min="0" @value={{this.vehicleOccupancy.auto.allPeriods}} /></td>
         {{/if}}
       </tr>
       <tr>
         <td>{{mode-label "taxi"}}</td>
 
         {{#if this.factor.temporalVehicleOccupancy}}
-          <td>{{input type="number" step=".01" min="0" value=this.vehicleOccupancy.taxi.am}}</td>
-          <td>{{input type="number" step=".01" min="0" value=this.vehicleOccupancy.taxi.md}}</td>
-          <td>{{input type="number" step=".01" min="0" value=this.vehicleOccupancy.taxi.pm}}</td>
-          <td>{{input type="number" step=".01" min="0" value=this.vehicleOccupancy.taxi.saturday}}</td>
+          <td><Input @type="number" step=".01" min="0" @value={{this.vehicleOccupancy.taxi.am}} /></td>
+          <td><Input @type="number" step=".01" min="0" @value={{this.vehicleOccupancy.taxi.md}} /></td>
+          <td><Input @type="number" step=".01" min="0" @value={{this.vehicleOccupancy.taxi.pm}} /></td>
+          <td><Input @type="number" step=".01" min="0" @value={{this.vehicleOccupancy.taxi.saturday}} /></td>
         {{else}}
-          <td>{{input type="number" step=".01" min="0" value=this.vehicleOccupancy.taxi.allPeriods}}</td>
+          <td><Input @type="number" step=".01" min="0" @value={{this.vehicleOccupancy.taxi.allPeriods}} /></td>
         {{/if}}
       </tr>
       <tr>

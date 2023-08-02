@@ -31,7 +31,7 @@
     <tr>
       <td>
         <div class="ui input transparent edit-cell" style="width: 100%">
-          {{input type="string" value=this.school.name placeholder="School Name"}}
+          <Input @type="string" @value={{this.school.name}} placeholder="School Name" />
         </div>
       </td>
       <td>
@@ -57,17 +57,17 @@
       </td>
       <td>
         <div class="ui input transparent edit-cell">
-          {{input type="number" value=this.school.ps_seats placeholder="0"}}
+          <Input @type="number" @value={{this.school.ps_seats}} placeholder="0"/>
         </div>
       </td>
       <td>
         <div class="ui input transparent edit-cell">
-          {{input type="number" value=this.school.is_seats placeholder="0"}}
+          <Input @type="number" @value={{this.school.is_seats}} placeholder="0" />
         </div>
       </td>
       <td>
         <div class="ui input transparent edit-cell">
-          {{input type="number" value=this.school.hs_seats placeholder="0"}}
+          <Input @type="number" @value={{this.school.hs_seats}} placeholder="0" />
         </div>
       </td>
       <td>

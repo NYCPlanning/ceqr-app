@@ -6,7 +6,6 @@ module.exports = {
   rules: {
     'no-inline-styles': 'warn',
     'no-action': 'warn',
-    'no-curly-component-invocation': 'warn',
     'no-invalid-interactive': 'warn',
     'require-input-label': 'warn',
     'no-link-to-positional-params': 'warn',

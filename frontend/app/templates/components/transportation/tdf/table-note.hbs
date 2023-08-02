@@ -17,12 +17,12 @@
 {{#if this.addingNote}}
   <div class="ui form">
     <div class="field">
-      {{textarea
+      <Textarea
         name="note"
-        value=this.tableNote
+        @value={{this.tableNote}}
         rows="4"
         data-test-text-area="table note"
-      }}
+     /> 
     </div>
   </div>
 {{else if (not this.emptyNote)}}

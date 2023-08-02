@@ -50,7 +50,7 @@
       <td>{{this.analysis.temporalDistributions.am.percent}}</td>
       <td>
         <div class="ui input fluid right labeled edit-cell">
-          {{input type="number" min=0 max=100 value=this.analysis.inOutDists.am.in change=(action "setInOutDist" "am" "in")}}
+          <Input @type="number" min={{0}} max={{100}} @value={{this.analysis.inOutDists.am.in}} {{on "change" (action "setInOutDist" "am" "in")}} />
           <div class="ui basic label">
             %
           </div>
@@ -58,7 +58,7 @@
       </td>
       <td>
         <div class="ui input fluid right labeled edit-cell">
-          {{input type="number" min=0 max=100 value=this.analysis.inOutDists.am.out change=(action "setInOutDist" "am" "out")}}
+          <Input @type="number" min={{0}} max={{100}} @value={{this.analysis.inOutDists.am.out}} {{on "change" (action "setInOutDist" "am" "out")}} />
           <div class="ui basic label">
             %
           </div>
@@ -71,7 +71,7 @@
       <td>{{this.analysis.temporalDistributions.md.percent}}</td>
       <td>
         <div class="ui input fluid right labeled edit-cell">
-          {{input type="number" min=0 max=100 value=this.analysis.inOutDists.md.in change=(action "setInOutDist" "md" "in")}}
+          <Input @type="number" min={{0}} max={{100}} @value={{this.analysis.inOutDists.md.in}} {{on "change" (action "setInOutDist" "md" "in")}} />
           <div class="ui basic label">
             %
           </div>
@@ -79,7 +79,7 @@
       </td>
       <td>
         <div class="ui input fluid right labeled edit-cell">
-          {{input type="number" min=0 max=100 value=this.analysis.inOutDists.md.out change=(action "setInOutDist" "md" "out")}}
+          <Input @type="number" min={{0}} max={{100}} @value={{this.analysis.inOutDists.md.out}} {{on "change" (this.setInOutDist "md" "out")}} />
           <div class="ui basic label">
             %
           </div>
@@ -92,7 +92,7 @@
       <td>{{this.analysis.temporalDistributions.pm.percent}}</td>
       <td>
         <div class="ui input fluid right labeled edit-cell">
-          {{input type="number" min=0 max=100 value=this.analysis.inOutDists.pm.in change=(action "setInOutDist" "pm" "in")}}
+          <Input @type="number" min={{0}} max={{100}} @value={{this.analysis.inOutDists.pm.in}} {{on "change" (action "setInOutDist" "pm" "in")}} />
           <div class="ui basic label">
             %
           </div>
@@ -100,7 +100,7 @@
       </td>
       <td>
         <div class="ui input fluid right labeled edit-cell">
-          {{input type="number" min=0 max=100 value=this.analysis.inOutDists.pm.out change=(action "setInOutDist" "pm" "out")}}
+          <Input @type="number" min={{0}} max={{100}} @value={{this.analysis.inOutDists.pm.out}} {{on "change" (action "setInOutDist" "pm" "out")}} />
           <div class="ui basic label">
             %
           </div>
@@ -115,7 +115,7 @@
       <td>{{this.analysis.temporalDistributions.saturday.percent}}</td>
       <td>
         <div class="ui input fluid right labeled edit-cell">
-          {{input type="number" min=0 max=100 value=this.analysis.inOutDists.saturday.in change=(action "setInOutDist" "saturday" "in")}}
+          <Input @type="number" min={{0}} max={{100}} @value={{this.analysis.inOutDists.saturday.in}} {{on "change" (action "setInOutDist" "saturday" "in")}} />
           <div class="ui basic label">
             %
           </div>
@@ -123,7 +123,7 @@
       </td>
       <td>
         <div class="ui input fluid right labeled edit-cell">
-          {{input type="number" min=0 max=100 value=this.analysis.inOutDists.saturday.out change=(action "setInOutDist" "saturday" "out")}}
+          <Input @type="number" min={{0}} max={{100}} @value={{this.analysis.inOutDists.saturday.out}} {{on "change" (action "setInOutDist" "saturday" "out")}} />
           <div class="ui basic label">
             %
           </div>

@@ -1,9 +1,9 @@
 <div class="ui top attached clearing segment">
-  {{#link-to "project.show" this.project.id class="ui left floated project title"}}
+  <LinkTo @route="project.show" @model={{this.project.id}} class="ui left floated project title">
     <h1>
       {{this.project.name}}
     </h1>
-  {{/link-to}}
+  </LinkTo>
   <div class="ui right floated horizontal list">
     <div class="item">
       {{#if this.project.ceqrNumber}}
@@ -33,13 +33,13 @@
     </div>
     {{#unless this.project.viewOnly}}
       <div class="item">
-        {{#link-to
-          "project.show.edit"
-          this.project.id
+        <LinkTo
+          @route="project.show.edit"
+          @model={{this.project.id}}
           class="ui primary compact basic icon button"
-        }}
+        > 
           <i class="edit icon"></i>Edit
-        {{/link-to}}
+        </LinkTo>
       </div>
     {{/unless}}
   </div>
@@ -51,29 +51,29 @@
   {{#if this.onPublicSchools}}
     <div class="ui right floated buttons">
       {{#unless this.project.viewOnly}}
-        {{#link-to
-          "project.show.public-schools"
-          this.project.id
-          class=(if
+        <LinkTo
+          @route="project.show.public-schools"
+          @model={{this.project.id}}
+          class="{{if
             this.onSummary
-            "ui right basic teal compact icon button"
-            "ui right teal compact icon button"
-          )
-        }}
+            'ui right basic teal compact icon button'
+            'ui right teal compact icon button'
+          }}"
+        > 
           <i class="calculator icon"></i>Workbook
-        {{/link-to}}
+        </LinkTo>
       {{/unless}}
-      {{#link-to
-        "project.show.public-schools.summary"
-        this.project.id
-        class=(if
+      <LinkTo
+        @route="project.show.public-schools.summary"
+        @model={{this.project.id}}
+        class="{{if
           this.onSummary
-          "ui right teal compact icon button"
-          "ui right basic teal compact icon button"
-        )
-      }}
+          'ui right teal compact icon button'
+          'ui right basic teal compact icon button'
+        }}"
+      >
         <i class="columns icon"></i>Summary
-      {{/link-to}}
+      </LinkTo>
     </div>
   {{/if}}
 </div>

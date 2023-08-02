@@ -24,15 +24,15 @@
       </td>
       <td class="math--bottom positive">
         <div class="ui input transparent edit-cell">
-          {{input
+          <Input
             id="total"
-            min=0
-            max=9999
-            type="number"
-            value=this.project.totalUnits
-            placeholder=0
-            data-test-housing-units-total=true
-          }}
+            min={{0}}
+            max={{9999}}
+            @type="number"
+            @value={{this.project.totalUnits}}
+            placeholder={{0}}
+            data-test-housing-units-total={{true}}
+          />
         </div>
       </td>
     </tr>
@@ -54,15 +54,15 @@
       </td>
       <td class="positive">
         <div class="ui input transparent edit-cell">
-          {{input
+          <Input
             id="senior"
-            min=0
-            max=9999
-            type="number"
-            value=this.project.seniorUnits
-            placeholder=0
-            data-test-housing-units-senior=true
-          }}
+            min={{0}}
+            max={{9999}}
+            @type="number"
+            @value={{this.project.seniorUnits}}
+            placeholder={{0}}
+            data-test-housing-units-senior={{true}}
+          /> 
         </div>
       </td>
     </tr>
@@ -96,15 +96,15 @@
       </td>
       <td class="positive">
         <div class="ui input transparent edit-cell">
-          {{input
+          <Input
             id="affordable"
-            min=0
-            max=9999
-            type="number"
-            value=this.project.affordableUnits
-            placeholder=0
-            data-test-housing-units-affordable=true
-          }}
+            min={{0}}
+            max={{9999}}
+            @type="number"
+            @value={{this.project.affordableUnits}}
+            placeholder={{0}}
+            data-test-housing-units-affordable={{true}}
+          />
         </div>
       </td>
     </tr>
@@ -156,13 +156,13 @@
         </td>
         <td class="four wide positive">
           <div class="ui input transparent edit-cell">
-            {{input
-              type="number"
-              min=0
-              value=this.commercialLandUse.grossSqFt
-              placeholder=0
+            <Input
+              @type="number"
+              min={{0}}
+              @value={{this.commercialLandUse.grossSqFt}}
+              placeholder={{0}}
               data-test-commercial-use="sq-ft"
-            }}
+            /> 
             <strong>
               sq. ft.
             </strong>
@@ -249,13 +249,13 @@
         </td>
         <td class="four wide positive">
           <div class="ui input transparent edit-cell">
-            {{input
-              type="number"
-              min=0
-              value=this.communityFacilityLandUse.grossSqFt
-              placeholder=0
+            <Input
+              @type="number"
+              min={{0}}
+              @value={{this.communityFacilityLandUse.grossSqFt}}
+              placeholder={{0}}
               data-test-community-facility="sq-ft"
-            }}
+            /> 
             <strong>
               sq. ft.
             </strong>
@@ -345,13 +345,13 @@
         </td>
         <td class="four wide positive">
           <div class="ui input transparent edit-cell">
-            {{input
-              type="number"
-              min=0
-              value=this.industrialLandUse.grossSqFt
-              placeholder=0
+            <Input
+              @type="number"
+              min={{0}}
+              @value={{this.industrialLandUse.grossSqFt}}
+              placeholder={{0}}
               data-test-industrial-use="sq-ft"
-            }}
+            /> 
             <strong>
               sq. ft.
             </strong>
@@ -438,13 +438,13 @@
         </td>
         <td class="four wide positive">
           <div class="ui input transparent edit-cell">
-            {{input
-              type="number"
-              min=0
-              value=this.parkingLandUse.spaces
-              placeholder=0
+            <Input
+              @type="number"
+              min={{0}}
+              @value={{this.parkingLandUse.spaces}}
+              placeholder={{0}}
               data-test-parking="spaces"
-            }}
+            /> 
             <strong>
               spaces
             </strong>
