@@ -1,44 +1,46 @@
 import Component from '@ember/component';
 import { inject as service } from '@ember/service';
+import { set } from '@ember/object';
 
-export default Component.extend({
-  tablehover: service(),
+export default class TrHoverComponent extends Component {
+  @service() tablehover;
   /* eslint-disable-next-line ember/require-tagless-components */
-  tagName: 'tr',
-  classNameBindings: ['hover'],
-  hover: false,
+  tagName = 'tr';
+  classNameBindings = ['hover'];
+  hover = false;
 
-  init() {
-    this._super(...arguments);
+  constructor() {
+    super(...arguments);
     this.tablehover.on('hover', this, 'setHover');
     this.tablehover.on('unhover', this, 'removeHover');
-  },
+  }
 
   willDestroyElement() {
-    this._super(...arguments);
+    super.willDestroyElement(...arguments);
+    super.willDestroyElement(...arguments);
     this.tablehover.off('hover', this, 'setHover');
     this.tablehover.off('unhover', this, 'removeHover');
-  },
+  }
 
   setHover({ source, id }) {
-    if (id === this.id && source === this.source) this.set('hover', true);
-  },
+    if (id === this.id && source === this.source) set(this, 'hover', true);
+  }
 
   removeHover() {
-    this.set('hover', false);
-  },
+    set(this, 'hover', false);
+  }
 
   mouseEnter() {
     this.tablehover.trigger('hover', {
       source: this.source,
       id: this.id,
     });
-  },
+  }
 
   mouseLeave() {
     this.tablehover.trigger('unhover', {
       source: this.source,
       id: this.id,
     });
-  },
-});
+  }
+}

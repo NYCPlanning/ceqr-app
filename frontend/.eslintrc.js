@@ -25,6 +25,7 @@ module.exports = {
   rules: {
     'ember/no-get': 'warn',
     'ember/no-classic-components': 'warn',
+    'ember/no-classic-classes': 'warn',
     'ember/no-jquery': 'warn',
     'ember/no-mixins': 'warn',
     'ember/no-computed-properties-in-native-classes': 'warn',
