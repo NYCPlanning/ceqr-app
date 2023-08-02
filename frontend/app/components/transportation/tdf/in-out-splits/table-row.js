@@ -2,7 +2,6 @@ import Component from '@ember/component';
 import { action, set } from '@ember/object';
 
 export default class TransportationTdfInOutSplitsTableRowComponent extends Component {
-  /* eslint-disable-next-line ember/require-tagless-components */
   tagName = 'tr';
 
   @action

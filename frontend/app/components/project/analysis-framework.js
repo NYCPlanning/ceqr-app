@@ -14,13 +14,11 @@ export default class ProjectAnalysisFrameworkComponent extends Component {
 
   @computed('project.{totalUnits,seniorUnits}')
   get unitsForPublicSchools() {
-    /* eslint-disable-next-line ember/no-get */
     return get(this, 'project.totalUnits') - get(this, 'project.seniorUnits');
   }
 
   @computed('project.affordableUnits')
   get unitsForChildCare() {
-    /* eslint-disable-next-line ember/no-get */
     return get(this, 'project.affordableUnits');
   }
 
@@ -28,7 +26,6 @@ export default class ProjectAnalysisFrameworkComponent extends Component {
 
   @computed('project.commercialLandUse.[]')
   get totalCommercialSqFt() {
-    /* eslint-disable-next-line ember/no-get */
     return get(this, 'project.commercialLandUse')
       .mapBy('grossSqFt')
       .reduce((a, b) => a + b, 0);
@@ -59,7 +56,6 @@ export default class ProjectAnalysisFrameworkComponent extends Component {
 
   @computed('_commercialLandUseTypes', 'project.commercialLandUse.[]')
   get commercialUseTypes() {
-    /* eslint-disable-next-line ember/no-get */
     const existing = get(this, 'project.commercialLandUse').mapBy('type');
 
     return this._commercialLandUseTypes.filter(
@@ -71,7 +67,6 @@ export default class ProjectAnalysisFrameworkComponent extends Component {
 
   @computed('project.communityFacilityLandUse.[]')
   get totalCommunityFacilitySqFt() {
-    /* eslint-disable-next-line ember/no-get */
     return get(this, 'project.communityFacilityLandUse')
       .mapBy('grossSqFt')
       .reduce((a, b) => a + b, 0);
@@ -89,7 +84,6 @@ export default class ProjectAnalysisFrameworkComponent extends Component {
     'project.communityFacilityLandUse.[]'
   )
   get communityFacilityUseTypes() {
-    /* eslint-disable-next-line ember/no-get */
     const existing = get(this, 'project.communityFacilityLandUse').mapBy(
       'type'
     );
@@ -103,7 +97,6 @@ export default class ProjectAnalysisFrameworkComponent extends Component {
 
   @computed('project.industrialLandUse.[]')
   get totalIndustrialSqFt() {
-    /* eslint-disable-next-line ember/no-get */
     return get(this, 'project.industrialLandUse')
       .mapBy('grossSqFt')
       .reduce((a, b) => a + b, 0);
@@ -122,7 +115,6 @@ export default class ProjectAnalysisFrameworkComponent extends Component {
 
   @computed('_industrialLandUseTypes', 'project.industrialLandUse.[]')
   get industrialUseTypes() {
-    /* eslint-disable-next-line ember/no-get */
     const existing = get(this, 'project.industrialLandUse').mapBy('type');
 
     return this._industrialLandUseTypes.filter(
@@ -133,7 +125,6 @@ export default class ProjectAnalysisFrameworkComponent extends Component {
   // Parking Land Use
   @computed('project.parkingLandUse.[]')
   get totalParkingSpaces() {
-    /* eslint-disable-next-line ember/no-get */
     return get(this, 'project.parkingLandUse')
       .mapBy('spaces')
       .reduce((a, b) => a + b, 0);
@@ -152,7 +143,6 @@ export default class ProjectAnalysisFrameworkComponent extends Component {
 
   @computed('_parkingLandUseTypes', 'project.parkingLandUse.[]')
   get parkingUseTypes() {
-    /* eslint-disable-next-line ember/no-get */
     const existing = get(this, 'project.parkingLandUse').mapBy('type');
 
     return this._parkingLandUseTypes.filter(
@@ -164,9 +154,7 @@ export default class ProjectAnalysisFrameworkComponent extends Component {
 
   @action
   addLandUse({ type, grossSqFt }, use) {
-    /* eslint-disable-next-line ember/no-get */
     const landuses = get(this, `project.${use}`);
-    /* eslint-disable-next-line ember/no-get */
     const useType = get(this, `_${use}Types`).findBy('type', type);
 
     landuses.pushObject({
@@ -180,7 +168,6 @@ export default class ProjectAnalysisFrameworkComponent extends Component {
 
   @action
   addParkingLandUse({ type, spaces }, use) {
-    /* eslint-disable-next-line ember/no-get */
     const landuses = get(this, 'project.parkingLandUse');
     const useType = this._parkingLandUseTypes.findBy('type', type);
 
@@ -195,7 +182,6 @@ export default class ProjectAnalysisFrameworkComponent extends Component {
 
   @action
   removeLandUse(type, use) {
-    /* eslint-disable-next-line ember/no-get */
     const newArray = get(this, `project.${use}`).rejectBy('type', type);
 
     set(this, `project.${use}`, newArray);

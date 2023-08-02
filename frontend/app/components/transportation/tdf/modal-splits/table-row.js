@@ -2,7 +2,6 @@ import Component from '@ember/component';
 import { computed } from '@ember/object';
 
 export default class TransportationTdfModalSplitsTableRowComponent extends Component {
-  /* eslint-disable-next-line ember/require-tagless-components */
   tagName = 'tr';
 
   @computed('modeSplits', 'mode')

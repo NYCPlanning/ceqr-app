@@ -4,7 +4,6 @@ import { set } from '@ember/object';
 
 export default class TrHoverComponent extends Component {
   @service() tablehover;
-  /* eslint-disable-next-line ember/require-tagless-components */
   tagName = 'tr';
   classNameBindings = ['hover'];
   hover = false;

@@ -5,7 +5,6 @@ import { isEqual } from 'lodash';
 
 export default class TdHoverComponent extends Component {
   @service() tablehover;
-  /* eslint-disable-next-line ember/require-tagless-components */
   tagName = 'td';
   classNameBindings = ['hover'];
   attributeBindings = ['rowspan'];

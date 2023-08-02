@@ -152,11 +152,9 @@ export default class TransportationPlanningFactorModel extends Model {
   )
   get units() {
     if (this.landUse === 'residential') {
-      /* eslint-disable-next-line ember/no-get */
       return get(this, 'transportationAnalysis.project.totalUnits');
     }
     if (this.landUse === 'office') {
-      /* eslint-disable-next-line ember/no-get */
       const commercialLandUse = get(
         this,
         'transportationAnalysis.project.commercialLandUse'
@@ -199,7 +197,6 @@ export default class TransportationPlanningFactorModel extends Model {
       inOutSplits: this.inOutSplits,
       truckInOutSplits: this.truckInOutSplits,
       vehicleOccupancy: this.vehicleOccupancy,
-      /* eslint-disable-next-line ember/no-get */
       project: get(this, 'transportationAnalysis.project'),
       manualModeSplits: this.manualModeSplits,
       temporalModeSplits: this.temporalModeSplits,

@@ -1,4 +1,3 @@
-/* eslint-disable ember/no-private-routing-service */
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render } from '@ember/test-helpers';

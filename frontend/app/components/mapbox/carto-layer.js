@@ -11,9 +11,8 @@ import { guidFor } from '@ember/object/internals';
  */
 export default class MapboxMapboxAnonymousMapLayerComponent extends Component {
   tagName = '';
-  /* eslint-disable-next-line ember/classic-decorator-hooks */
-  init(...args) {
-    super.init(...args);
+  constructor(...args) {
+    super(...args);
 
     this.registerWithParent(this);
   }

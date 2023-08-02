@@ -99,7 +99,6 @@ export default class TransportationAnalysisModel extends Model {
   // Office sq ft
   @computed('project.commercialLandUse.[]')
   get officeSqFt() {
-    /* eslint-disable-next-line ember/no-get */
     const type = get(this, 'project.commercialLandUse').findBy(
       'type',
       'office'
@@ -115,7 +114,6 @@ export default class TransportationAnalysisModel extends Model {
   // Regional Retail sq ft
   @computed('project.commercialLandUse.[]')
   get regionalRetailSqFt() {
-    /* eslint-disable-next-line ember/no-get */
     const type = get(this, 'project.commercialLandUse').findBy(
       'type',
       'regional-retail'
@@ -131,7 +129,6 @@ export default class TransportationAnalysisModel extends Model {
   // Local Retail sq ft
   @computed('project.commercialLandUse.[]')
   get localRetailSqFt() {
-    /* eslint-disable-next-line ember/no-get */
     const type = get(this, 'project.commercialLandUse').findBy(
       'type',
       'local-retail'
@@ -147,7 +144,6 @@ export default class TransportationAnalysisModel extends Model {
   // Restaurant sq ft
   @computed('project.commercialLandUse.[]')
   get restaurantSqFt() {
-    /* eslint-disable-next-line ember/no-get */
     const resturants = get(this, 'project.commercialLandUse').filter(
       (r) => r.type === 'restaurant' || r.type === 'fast-food'
     );
@@ -165,7 +161,6 @@ export default class TransportationAnalysisModel extends Model {
   // currently suggests only one fast-food land use can be created per project.
   @computed('project.commercialLandUse.[]')
   get fastFoodSqFt() {
-    /* eslint-disable-next-line ember/no-get */
     return get(this, 'project.commercialLandUse')
       .filter((landUse) => landUse.type === 'fast-food')
       .reduce(
@@ -178,7 +173,6 @@ export default class TransportationAnalysisModel extends Model {
   // Community Facility sq ft
   @computed('project.communityFacilityLandUse.[]')
   get communityFacilitySqFt() {
-    /* eslint-disable-next-line ember/no-get */
     const type = get(this, 'project.communityFacilityLandUse').findBy(
       'type',
       'community-facility'
@@ -194,7 +188,6 @@ export default class TransportationAnalysisModel extends Model {
   // Off Street Parking spaces
   @computed('project.parkingLandUse.[]')
   get offStreetParkingSpaces() {
-    /* eslint-disable-next-line ember/no-get */
     return get(this, 'project.parkingLandUse').reduce(
       (a, p) => a + p.spaces,
       0
