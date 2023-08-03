@@ -16,10 +16,10 @@
   <form class="ui form" {{action "addResDev" this.resdev on="submit"}}>
     <div class="inline fields">
       <div class="field">
-        <Input @type="string" @value={{this.resdev.name}} placeholder="Project Name" />
+        <Input aria-label="residental development name" @type="string" @value={{this.resdev.name}} placeholder="Project Name" />
       </div>
       <div class="field">
-        <Input @type="number" @value={{this.resdev.year}} placeholder="Est. Built Year"/>
+        <Input aria-label="residential development year" @type="number" @value={{this.resdev.year}} placeholder="Est. Built Year"/>
       </div>
       <div class="field">
         <UiDropdown
@@ -44,7 +44,7 @@
         </UiDropdown>
       </div>
       <div class="field">
-        <Input @type="number" @value={{this.resdev.total_units}} placeholder="Total Units" />
+        <Input aria-label="residential development total units" @type="number" @value={{this.resdev.total_units}} placeholder="Total Units" />
       </div>
       <button type="submit" class="ui button primary">
         Add

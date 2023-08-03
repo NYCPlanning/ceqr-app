@@ -3,10 +3,11 @@
     <div class="field">
       <div class="two fields">
         <div class="twelve wide required field">
-          <label>
+          <label for="project-details-name">
             Project Name
           </label>
           <Input
+            id="project-details-name"
             @type="text"
             name="name"
             @value={{this.project.name}}
@@ -42,10 +43,11 @@
           </UiDropdown>
         </div>
         <div class="six wide field">
-          <label>
+          <label for="project-details-ceqr-number">
             CEQR Number
           </label>
           <Input
+            id="project-details-ceqr-number"
             @type="text"
             name="ceqrNumber"
             @value={{this.project.ceqrNumber}}

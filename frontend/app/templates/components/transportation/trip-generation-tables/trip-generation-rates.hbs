@@ -50,7 +50,7 @@
       <td>{{this.analysis.temporalDistributions.am.percent}}</td>
       <td>
         <div class="ui input fluid right labeled edit-cell">
-          <Input @type="number" min={{0}} max={{100}} @value={{this.analysis.inOutDists.am.in}} {{on "change" (action "setInOutDist" "am" "in")}} />
+          <Input aria-label="morning in distribution" @type="number" min={{0}} max={{100}} @value={{this.analysis.inOutDists.am.in}} {{on "change" (action "setInOutDist" "am" "in")}} />
           <div class="ui basic label">
             %
           </div>
@@ -58,7 +58,7 @@
       </td>
       <td>
         <div class="ui input fluid right labeled edit-cell">
-          <Input @type="number" min={{0}} max={{100}} @value={{this.analysis.inOutDists.am.out}} {{on "change" (action "setInOutDist" "am" "out")}} />
+          <Input aria-label="morning out distribution" @type="number" min={{0}} max={{100}} @value={{this.analysis.inOutDists.am.out}} {{on "change" (action "setInOutDist" "am" "out")}} />
           <div class="ui basic label">
             %
           </div>
@@ -71,7 +71,7 @@
       <td>{{this.analysis.temporalDistributions.md.percent}}</td>
       <td>
         <div class="ui input fluid right labeled edit-cell">
-          <Input @type="number" min={{0}} max={{100}} @value={{this.analysis.inOutDists.md.in}} {{on "change" (action "setInOutDist" "md" "in")}} />
+          <Input aria-label="mid-day in distribution" @type="number" min={{0}} max={{100}} @value={{this.analysis.inOutDists.md.in}} {{on "change" (action "setInOutDist" "md" "in")}} />
           <div class="ui basic label">
             %
           </div>
@@ -79,7 +79,7 @@
       </td>
       <td>
         <div class="ui input fluid right labeled edit-cell">
-          <Input @type="number" min={{0}} max={{100}} @value={{this.analysis.inOutDists.md.out}} {{on "change" (this.setInOutDist "md" "out")}} />
+          <Input aria-label="mid-day out distribution" @type="number" min={{0}} max={{100}} @value={{this.analysis.inOutDists.md.out}} {{on "change" (this.setInOutDist "md" "out")}} />
           <div class="ui basic label">
             %
           </div>
@@ -92,7 +92,7 @@
       <td>{{this.analysis.temporalDistributions.pm.percent}}</td>
       <td>
         <div class="ui input fluid right labeled edit-cell">
-          <Input @type="number" min={{0}} max={{100}} @value={{this.analysis.inOutDists.pm.in}} {{on "change" (action "setInOutDist" "pm" "in")}} />
+          <Input aria-label="afternoon in distribution" @type="number" min={{0}} max={{100}} @value={{this.analysis.inOutDists.pm.in}} {{on "change" (action "setInOutDist" "pm" "in")}} />
           <div class="ui basic label">
             %
           </div>
@@ -100,7 +100,7 @@
       </td>
       <td>
         <div class="ui input fluid right labeled edit-cell">
-          <Input @type="number" min={{0}} max={{100}} @value={{this.analysis.inOutDists.pm.out}} {{on "change" (action "setInOutDist" "pm" "out")}} />
+          <Input aria-label="afternoon out distribution" @type="number" min={{0}} max={{100}} @value={{this.analysis.inOutDists.pm.out}} {{on "change" (action "setInOutDist" "pm" "out")}} />
           <div class="ui basic label">
             %
           </div>
@@ -115,7 +115,7 @@
       <td>{{this.analysis.temporalDistributions.saturday.percent}}</td>
       <td>
         <div class="ui input fluid right labeled edit-cell">
-          <Input @type="number" min={{0}} max={{100}} @value={{this.analysis.inOutDists.saturday.in}} {{on "change" (action "setInOutDist" "saturday" "in")}} />
+          <Input aria-label="saturday in distributions" @type="number" min={{0}} max={{100}} @value={{this.analysis.inOutDists.saturday.in}} {{on "change" (action "setInOutDist" "saturday" "in")}} />
           <div class="ui basic label">
             %
           </div>
@@ -123,7 +123,7 @@
       </td>
       <td>
         <div class="ui input fluid right labeled edit-cell">
-          <Input @type="number" min={{0}} max={{100}} @value={{this.analysis.inOutDists.saturday.out}} {{on "change" (action "setInOutDist" "saturday" "out")}} />
+          <Input aria-label="saturday out distributions" @type="number" min={{0}} max={{100}} @value={{this.analysis.inOutDists.saturday.out}} {{on "change" (action "setInOutDist" "saturday" "out")}} />
           <div class="ui basic label">
             %
           </div>

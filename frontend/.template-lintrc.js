@@ -7,7 +7,6 @@ module.exports = {
     'no-inline-styles': 'warn',
     'no-action': 'warn',
     'no-invalid-interactive': 'warn',
-    'require-input-label': 'warn',
     'no-link-to-positional-params': 'warn',
     'link-href-attributes': 'warn',
     'no-duplicate-id': 'warn',
