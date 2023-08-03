@@ -29,6 +29,7 @@
         </div>
         {{#each this.analysis.doeUtilChangesPerBldg as |t|}}
           <a
+            role="button"
             class="item {{if (eq this.bldg_id this.t.bldg_id) "active"}}"
             {{action "showBldg" t.bldg_id}}
           >

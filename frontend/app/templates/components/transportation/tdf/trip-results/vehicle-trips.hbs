@@ -23,7 +23,7 @@
           <tr>
             <td>
               {{mode-label row.mode}} 
-              <div class="ui small label" style="cursor: pointer;" onClick={{action this.toggleBalancedTaxi}}>Balanced</div>
+              <div role="button" class="ui small label" style="cursor: pointer;" onClick={{action this.toggleBalancedTaxi}}>Balanced</div>
             </td>
             <td>{{row.in}}</td>
             <td>{{row.out}}</td>
@@ -33,7 +33,7 @@
           <tr>
             <td>
               {{mode-label row.mode}} 
-              <div class="ui small red label" style="cursor: pointer;" onClick={{action this.toggleBalancedTaxi}}>Unbalanced</div>
+              <div role="button" class="ui small red label" style="cursor: pointer;" onClick={{action this.toggleBalancedTaxi}}>Unbalanced</div>
             </td>
             <td class="error">{{row.unbalancedIn}}</td>
             <td class="error">{{row.unbalancedOut}}</td>

@@ -27,12 +27,13 @@
                 <i class="cog icon"></i>
                 <div class="menu">
                   <div
+                    role="button"
                     class="item"
                     onclick={{action "changeAccess" user "viewer"}}
                   >
                     Make Viewer
                   </div>
-                  <div class="item" onclick={{action "removeUser" user}}>
+                  <div role="button" class="item" onclick={{action "removeUser" user}}>
                     Remove
                   </div>
                 </div>
@@ -58,12 +59,13 @@
                   <i class="cog icon"></i>
                   <div class="menu">
                     <div
+                      role="button"
                       class="yellow item"
                       onclick={{action "changeAccess" user "editor"}}
                     >
                       Make Editor
                     </div>
-                    <div class="red item" onclick={{action "removeUser" user}}>
+                    <div role="button" class="red item" onclick={{action "removeUser" user}}>
                       Remove
                     </div>
                   </div>

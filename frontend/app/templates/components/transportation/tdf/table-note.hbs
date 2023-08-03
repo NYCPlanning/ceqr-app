@@ -1,14 +1,14 @@
 <strong>
   {{#if (and this.emptyNote (not this.addingNote))}}
-    <a style="cursor: pointer" class="ui link blue" data-test-button="add note" onClick={{action (mut this.addingNote) true}}>
+    <a role="button" style="cursor: pointer" class="ui link blue" data-test-button="add note" onClick={{action (mut this.addingNote) true}}>
       Add Note
     </a>
   {{else if this.addingNote}}
-    <a style="cursor: pointer" class="ui link blue" data-test-button="save note" onClick={{action this.saveNote}}>
+    <a role="button" style="cursor: pointer" class="ui link blue" data-test-button="save note" onClick={{action this.saveNote}}>
       Save Note
     </a>
   {{else}}
-    <a style="cursor: pointer" class="ui link blue" onClick={{action (mut this.addingNote) true}}>
+    <a role="button" style="cursor: pointer" class="ui link blue" onClick={{action (mut this.addingNote) true}}>
       Edit Note
     </a>
   {{/if}}

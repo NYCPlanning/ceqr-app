@@ -45,11 +45,11 @@
           <th class="four wide">
             <span style="color: #2185D0;">Mode</span>
               {{#if this.editModes}}
-                <div class="ui tiny blue button" onClick={{action "toggleEditModes"}} data-test-button="exit edit mode">
+                <div role="button" class="ui tiny blue button" onClick={{action "toggleEditModes"}} data-test-button="exit edit mode">
                   Ok
                 </div>
               {{else}}
-                <i class="icon blue pencil alternate" onClick={{action "toggleEditModes"}} style="cursor: pointer;" data-test-button="enter edit mode"></i>
+                <i role="button" class="icon blue pencil alternate" onClick={{action "toggleEditModes"}} style="cursor: pointer;" data-test-button="enter edit mode"></i>
               {{/if}}
           </th>
           {{#if this.factor.temporalModeSplits}}
@@ -178,11 +178,11 @@
           <th class="four wide">
             <span style="color: #2185D0;">Mode</span>
               {{#if this.editModes}}
-                <div class="ui tiny blue button" onClick={{action "toggleEditModes"}}>
+                <div role="button" class="ui tiny blue button" onClick={{action "toggleEditModes"}}>
                   Ok
                 </div>
               {{else}}
-                <i class="icon blue pencil alternate" onClick={{action "toggleEditModes"}} style="cursor: pointer;"></i>
+                <i role="button" class="icon blue pencil alternate" onClick={{action "toggleEditModes"}} style="cursor: pointer;"></i>
               {{/if}}
           </th>
           <th class="four wide">
@@ -200,7 +200,7 @@
               <th>
                 <div class="ui label" style="display: flex;" data-test-census-tract={{humanize-geoid geoid}}>
                   {{humanize-geoid geoid}}
-                  <i class="delete icon" onclick={{action this.removeCensusTract geoid}} data-test-census-tract-delete></i>
+                  <i role="button" class="delete icon" onclick={{action this.removeCensusTract geoid}} data-test-census-tract-delete></i>
                 </div>
               </th>
             {{/each}}
@@ -215,7 +215,7 @@
               {{#each this.analysis.censusTractsSelection as |geoid|}}
                 <div class="ui label">
                   {{humanize-geoid geoid}}
-                  <i class="delete icon" onclick={{action this.removeCensusTract geoid}}></i>
+                  <i role="button" class="delete icon" onclick={{action this.removeCensusTract geoid}}></i>
                 </div>
               {{/each}}
             </th>

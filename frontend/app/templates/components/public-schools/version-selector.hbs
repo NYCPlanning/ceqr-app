@@ -21,6 +21,7 @@
           <div class="menu">
             {{#each this.availablePackages as |package|}}
               <div
+                role="button"
                 data-value={{package.version}}
                 class="item"
                 onClick={{action "changeDataPackage" package}}
