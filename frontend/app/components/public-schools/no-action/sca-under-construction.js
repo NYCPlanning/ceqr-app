@@ -3,7 +3,6 @@ import { computed, action, set } from '@ember/object';
 import { isEmpty } from '@ember/utils';
 
 export default class PublicSchoolsNoActionSCAComponent extends Component {
-  tagName = '';
   didRender() {
     super.didRender(...arguments);
     this.$('.progress').progress();
