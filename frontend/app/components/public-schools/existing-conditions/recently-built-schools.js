@@ -1,7 +1,7 @@
 import Component from '@ember/component';
 import { computed, action, set } from '@ember/object';
 
-export default class PublicSchoolsExistingConditionsRecentBuiltComponent extends Component.extend {
+export default class PublicSchoolsExistingConditionsRecentBuiltComponent extends Component {
   tagName = '';
   // ceqr_school_buildings dataset is a combination of two datasets with different metadata: lcgms dataset and bluebook dataset
   @computed(
