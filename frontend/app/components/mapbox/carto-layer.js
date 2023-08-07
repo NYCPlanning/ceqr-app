@@ -11,8 +11,8 @@ import { guidFor } from '@ember/object/internals';
  */
 export default class MapboxMapboxAnonymousMapLayerComponent extends Component {
   tagName = '';
-  constructor(...args) {
-    super(...args);
+  init(...args) {
+    super.init(...args);
 
     this.registerWithParent(this);
   }
