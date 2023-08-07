@@ -1,4 +1,5 @@
 import Component from '@ember/component';
+import { action, set } from '@ember/object';
 
 export default class TransportationCensusTractsMapFeaturesComponent extends Component {
   tagName = '';
@@ -11,6 +12,16 @@ export default class TransportationCensusTractsMapFeaturesComponent extends Comp
    * Flag for optionally displaying land use
    */
   showLandUse = false;
+
+  @action
+  updateShowTransitZones(shouldShow) {
+    set(this, 'showTransitZones', shouldShow);
+  }
+
+  @action
+  updateShowLandUse(shouldShow) {
+    set(this, 'showLandUse', shouldShow);
+  }
 
   /**
    * Lookup hash of descriptions for land use types for map legend

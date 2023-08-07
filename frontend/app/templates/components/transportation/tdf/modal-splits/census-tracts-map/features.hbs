@@ -2,15 +2,17 @@
   <div data-test-tz-checkbox class="transit-zone-dropdown">
     <UiCheckbox
       @label="Show Transit Zones"
-      @checked={{this.showTransitZones}}
-      @onChange={{action (mut this.showTransitZones)}}
+      @checked={{false}}
+      @onChecked={{fn this.updateShowTransitZones true}}
+      @onUnchecked={{fn this.updateShowTransitZones false}}
     />
   </div>
   <div data-test-lu-checkbox class="land-use-dropdown">
     <UiCheckbox
       @label="Show Land Use"
-      @checked={{this.showLandUse}}
-      @onChange={{action (mut this.showLandUse)}}
+      @checked={{false}}
+      @onChecked={{fn this.updateShowLandUse true}}
+      @onUnchecked={{fn this.updateShowLandUse false}}
     />
   </div>
 </div>

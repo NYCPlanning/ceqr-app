@@ -99,14 +99,14 @@ export default class TransportationTdfModalSplitsComponent extends Component {
   }
 
   @action
-  addActiveMode(event) {
-    this.analysis.modesForAnalysis.push(event.value);
+  addActiveMode(mode) {
+    this.analysis.modesForAnalysis.push(mode);
     this.analysis.save();
   }
 
   @action
-  removeActiveMode(event) {
-    const modes = this.analysis.modesForAnalysis.without(event.value);
+  removeActiveMode(mode) {
+    const modes = this.analysis.modesForAnalysis.without(mode);
 
     this.analysis.set('modesForAnalysis', modes);
     this.analysis.save();

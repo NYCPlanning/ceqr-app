@@ -3,8 +3,8 @@
     <UiCheckbox
       @checked={{this.modeActive}}
       @value={{this.mode}}
-      @onChecked={{action this.addActiveMode}}
-      @onUnchecked={{action this.removeActiveMode}}
+      @onChecked={{fn this.addActiveMode this.mode}}
+      @onUnchecked={{fn this.removeActiveMode this.mode}}
       data-test-checkbox={{this.mode}}
     />  
   {{/if}}
