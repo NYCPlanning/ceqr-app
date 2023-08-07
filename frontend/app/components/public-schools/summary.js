@@ -1,15 +1,16 @@
 import Component from '@ember/component';
-import { computed, action, toggleProperty } from '@ember/object';
+import { computed, action } from '@ember/object';
+import { tracked } from '@glimmer/tracking';
 
 export default class PublicSchoolsSummaryComponent extends Component {
   tagName = '';
   activeSchoolsLevel = 'ps';
 
-  EC_active = false;
-  NA_resdev = false;
-  NA_schools = false;
-  NA_utilchange = false;
-  WA_schools = false;
+  @tracked EC_active = false;
+  @tracked NA_resdev = false;
+  @tracked NA_schools = false;
+  @tracked NA_utilchange = false;
+  @tracked WA_schools = false;
 
   @computed(
     'activeSchoolsLevel',
@@ -119,6 +120,6 @@ export default class PublicSchoolsSummaryComponent extends Component {
 
   @action
   toggle(prop) {
-    toggleProperty(this, prop);
+    this[prop] = !this[prop];
   }
 }

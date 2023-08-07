@@ -152,7 +152,7 @@
     {{! New Schools }}
     <tr
       role="button"
-      onclick={{action "toggle" "EC_active"}}
+      {{on "click" (fn this.toggle "EC_active")}}
       class="highlight
         {{unless this.EC_newSchoolsOpened.schools "disabled"}}
 
@@ -190,7 +190,7 @@
     {{! New Residential Development }}
     <tr
     role="button"
-      onclick={{action "toggle" "NA_resdev"}}
+      {{on "click" (fn this.toggle "NA_resdev")}}
       class="highlight
         {{unless this.NA_newResidentialDevelopment.developments "disabled"}}
 
@@ -228,7 +228,7 @@
     {{! Planned Schools }}
     <tr
     role="button"
-      onclick={{action "toggle" "NA_schools"}}
+      {{on "click" (fn this.toggle "NA_schools")}}
       class="highlight
         {{unless this.NA_plannedSchools.schools "disabled"}}
 
@@ -266,7 +266,7 @@
     {{! Significant Utilization Changes }}
     <tr
     role="button"
-      onclick={{action "toggle" "NA_utilchanges"}}
+      {{on "click" (fn this.toggle "NA_utilchanges")}}
       class="highlight
         {{unless this.NA_significantUtilChanges.schools "disabled"}}
 
@@ -304,7 +304,7 @@
     {{! With Action New Schools }}
     <tr
       role="button"
-      onclick={{action "toggle" "WA_schools"}}
+      {{on "click" (fn this.toggle "WA_schools")}}
       class="highlight
         {{unless this.WA_newSchools.capacity "disabled"}}
 

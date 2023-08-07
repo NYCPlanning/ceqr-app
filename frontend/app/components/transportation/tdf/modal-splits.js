@@ -1,13 +1,14 @@
 import Component from '@ember/component';
 import { alias } from '@ember/object/computed';
-import { action, computed, set, toggleProperty } from '@ember/object';
+import { action, computed, set } from '@ember/object';
 import { task, taskGroup } from 'ember-concurrency-decorators';
+import { tracked } from '@glimmer/tracking';
 
 export default class TransportationTdfModalSplitsComponent extends Component {
   tagName = '';
   classNames = ['row'];
 
-  editModes = false;
+  @tracked editModes = false;
 
   seeCensusTracts = false;
 
@@ -89,13 +90,12 @@ export default class TransportationTdfModalSplitsComponent extends Component {
 
   @action
   toggleEditModes() {
-    toggleProperty(this, 'editModes');
+    this.editModes = !this.editModes;
   }
 
   @action
   toggleSeeCensusTracts(bool) {
     set(this, 'seeCensusTracts', bool);
-    // this.toggleProperty("seeCensusTracts");
   }
 
   @action

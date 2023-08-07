@@ -1,9 +1,11 @@
 import Component from '@ember/component';
-import { computed, action, toggleProperty } from '@ember/object';
+import { computed, action } from '@ember/object';
+import { tracked } from '@glimmer/tracking';
 
 export default class TransportationTdfTripResultsVehicleTripsComponent extends Component {
   tagName = '';
-  balancedTaxi = true;
+
+  @tracked balancedTaxi = true;
 
   @computed('vehicleTrips')
   get rows() {
@@ -22,6 +24,6 @@ export default class TransportationTdfTripResultsVehicleTripsComponent extends C
 
   @action
   toggleBalancedTaxi() {
-    toggleProperty(this, 'balancedTaxi');
+    this.balancedTaxi = !this.balancedTaxi;
   }
 }
