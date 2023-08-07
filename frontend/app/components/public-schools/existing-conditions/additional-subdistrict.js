@@ -11,8 +11,8 @@ export default class PublicSchoolsExistingConditionsAdditionalSubdistrictCompone
   @service() projectOrchestrator;
   @service() store;
 
-  constructor(...args) {
-    super(...args);
+  init(...args) {
+    super.init(...args);
     this.fetchSubdistricts.perform();
 
     this.districts = [];
