@@ -1,15 +1,16 @@
 import Component from '@ember/component';
 import { computed, action, set } from '@ember/object';
 import { isEmpty } from '@ember/utils';
+import { tracked } from '@glimmer/tracking';
 
 export default class TransportationTdfTableNoteComponent extends Component {
   tagName = '';
   didUpdateAttrs() {
     super.didUpdateAttrs();
-    set(this, 'addingNote', false);
+    this.setIsAddingNote(false);
   }
 
-  addingNote = false;
+  @tracked addingNote = false;
 
   @computed('factor.tableNotes', 'tableName')
   get tableNote() {
@@ -28,6 +29,11 @@ export default class TransportationTdfTableNoteComponent extends Component {
   @action
   saveNote() {
     this.factor.save();
-    set(this, 'addingNote', false);
+    this.setIsAddingNote(false);
+  }
+
+  @action
+  setIsAddingNote(isAdding) {
+    set(this, 'addingNote', isAdding);
   }
 }

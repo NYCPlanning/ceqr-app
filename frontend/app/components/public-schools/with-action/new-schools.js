@@ -27,4 +27,9 @@ export default class PublicSchoolsWithActionNewSchoolComponent extends Component
     this.analysis.schoolsWithAction.removeObject(school);
     this.analysis.save();
   }
+
+  @action
+  changeSchoolSubdistrict(subdistrict){
+    set(this, 'school.subdistrict', subdistrict);
+  }
 }

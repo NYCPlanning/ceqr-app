@@ -5,12 +5,14 @@ export default class TransportationTdfInOutSplitsTableRowComponent extends Compo
   tagName = 'tr';
 
   @action
-  syncIn(value) {
+  syncIn(e) {
+    const { value } = e.target;
     set(this, 'data.in', 100 - value);
   }
 
   @action
-  syncOut(value) {
+  syncOut(e) {
+    const { value } = e.target;
     set(this, 'data.out', 100 - value);
   }
 }

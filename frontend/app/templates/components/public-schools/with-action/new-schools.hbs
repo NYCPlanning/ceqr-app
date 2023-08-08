@@ -37,7 +37,8 @@
       <td>
         <UiDropdown
           @selected={{this.school.subdistrict}}
-          @onChange={{action (mut this.school.subdistrict)}} as |execute mapper|
+          {{!-- template-lint-disable "no-action" --}}
+          @onChange={{action this.changeSchoolSubdistrict}} as |execute mapper|
         >
           <div class="default text">
             Subdistrict
@@ -71,7 +72,7 @@
         </div>
       </td>
       <td>
-        <button class="ui button blue" type="button" {{action "addSchool" this.school}}>
+        <button class="ui button blue" type="button" {{on "click" (fn this.addSchool this.school)}}>
           Add
         </button>
       </td>
@@ -97,7 +98,7 @@
           {{s.hs_seats}}
         </td>
         <td>
-          <button class="ui button red" type="button" {{action "removeSchool" s}}>
+          <button class="ui button red" type="button" {{on "click" (fn this.removeSchool s)}}>
             Delete
           </button>
         </td>

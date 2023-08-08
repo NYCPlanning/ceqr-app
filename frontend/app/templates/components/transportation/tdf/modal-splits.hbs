@@ -13,11 +13,11 @@
         <tr>
           <td class="four wide">
             <div class="ui small buttons">
-              <button class="ui button {{if this.factor.manualModeSplits "positive"}}" onClick={{action this.toggleManualModeSplits}} type="button">Manual</button>
+              <button class="ui button {{if this.factor.manualModeSplits "positive"}}" {{on "click" this.toggleManualModeSplits}} type="button">Manual</button>
               <div class="or"></div>
               <button 
                 class="ui button {{unless this.factor.manualModeSplits "positive"}}" 
-                onClick={{action this.toggleCensusTractModeSplits}}
+                {{on "click" this.toggleCensusTractModeSplits}}
                 data-test-button="census tracts tab" type="button">
                 Census Tracts
               </button>
@@ -27,14 +27,14 @@
             <div class="ui small buttons">
               <button 
                 class="ui button {{if this.factor.temporalModeSplits "positive"}}" 
-                onClick={{action this.toggleTemporalModeSplits true}}
+                {{on "click" (fn this.toggleTemporalModeSplits true)}}
                 data-test-button="temporal splits tab" type="button">
                 Temporal Splits
               </button>
               <div class="or"></div>
               <button 
                 class="ui button {{unless this.factor.temporalModeSplits "positive"}}" 
-                onClick={{action this.toggleTemporalModeSplits false}}
+                {{on "click" (fn this.toggleTemporalModeSplits false)}}
                 data-test-button="all periods tab" type="button">
                 All Periods
               </button>
@@ -143,12 +143,12 @@
             <div class="ui small buttons">
               <button 
                 class="ui button {{if this.factor.manualModeSplits "positive"}}" 
-                onClick={{action this.toggleManualModeSplits}}
+                {{on "click" this.toggleManualModeSplits}}
                 data-test-button="manual tab" type="button">
                 Manual
               </button>
               <div class="or"></div>
-              <button class="ui button {{unless this.factor.manualModeSplits "positive"}}" onClick={{action this.toggleCensusTractModeSplits}} type="button">Census Tracts</button>
+              <button class="ui button {{unless this.factor.manualModeSplits "positive"}}" {{on "click" this.toggleCensusTractModeSplits}} type="button">Census Tracts</button>
             </div>
           </td>
           <td>
@@ -156,11 +156,11 @@
           </td>
           <td colspan={{if this.seeCensusTracts (add this.this.analysis.censusTractsSelection.length this.analysis.requiredCensusTractsSelection.length) 1}}>
             <div class="ui small buttons">
-              <button class="ui button {{unless this.seeCensusTracts "positive"}}" onClick={{action this.toggleSeeCensusTracts false}} type="button">Map</button>
+              <button class="ui button {{unless this.seeCensusTracts "positive"}}" {{on "click" (fn this.toggleSeeCensusTracts false)}} type="button">Map</button>
               <div class="or"></div>
               <button 
                 class="ui button {{if this.seeCensusTracts "positive"}}" 
-                onClick={{action this.toggleSeeCensusTracts true}}
+                {{on "click" (fn this.toggleSeeCensusTracts true)}}
                 data-test-census-tracts-table-tab type="button">
                 Table
               </button>
@@ -170,7 +170,7 @@
               style="display: inline-block;"
               @currentPackage={{this.factor.dataPackage}}
               @availablePackages={{this.availablePackages}}
-              @changeDataPackageAction={{action this.changeDataPackage}}
+              @changeDataPackageAction={{this.changeDataPackage}}
             />
           </td>
         </tr>
@@ -200,7 +200,7 @@
               <th>
                 <div class="ui label" style="display: flex;" data-test-census-tract={{humanize-geoid geoid}}>
                   {{humanize-geoid geoid}}
-                  <i role="button" class="delete icon" onclick={{action this.removeCensusTract geoid}} data-test-census-tract-delete></i>
+                  <i role="button" class="delete icon" {{on "click" (fn this.removeCensusTract geoid)}} data-test-census-tract-delete></i>
                 </div>
               </th>
             {{/each}}
@@ -215,7 +215,7 @@
               {{#each this.analysis.censusTractsSelection as |geoid|}}
                 <div class="ui label">
                   {{humanize-geoid geoid}}
-                  <i role="button" class="delete icon" onclick={{action this.removeCensusTract geoid}}></i>
+                  <i role="button" class="delete icon" {{on "click" (fn this.removeCensusTract geoid)}}></i>
                 </div>
               {{/each}}
             </th>
@@ -242,8 +242,8 @@
                   @analysis={{this.analysis}}
                   @project={{this.project}}
                   @factor={{this.factor}}
-                  @addCensusTract={{action this.addCensusTract}}
-                  @removeCensusTract={{action this.removeCensusTract}}
+                  @addCensusTract={{this.addCensusTract}}
+                  @removeCensusTract={{this.removeCensusTract}}
                 />
               </td>
             {{/if}}

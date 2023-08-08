@@ -1,3 +1,3 @@
 <td>{{this.label}}</td>
-<td><Input aria-label="sync in" @type="number" max="100" min="0" @value={{this.data.in}} data-test-in-out-split="in" {{on "input" (action "syncOut" this.data.in)}} /></td>
-<td><Input aria-label="sync out" @type="number" max="100" min="0" @value={{this.data.out}} {{on "input" (action "syncIn" this.data.out)}} /></td>
+<td><Input aria-label="in" @type="number" max={{100}} min={{0}} @value={{this.data.in}} data-test-in-out-split="in" {{on "input" this.syncOut}} /></td>
+<td><Input aria-label="out" @type="number" max="100" min="0" @value={{this.data.out}} {{on "input" this.syncIn}} /></td>

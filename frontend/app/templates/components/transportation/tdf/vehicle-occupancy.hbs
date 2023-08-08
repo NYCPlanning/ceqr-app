@@ -9,9 +9,9 @@
         <td class="six wide"></td>
         <td class="three wide" colspan={{if this.factor.temporalVehicleOccupancy "4" "1"}}>
           <div class="ui small buttons">
-            <button class="ui button {{if this.factor.temporalVehicleOccupancy "positive"}}" onClick={{action this.toggleTemporalVehicleOccupancy true}} type="button">Temporal Splits</button>
+            <button class="ui button {{if this.factor.temporalVehicleOccupancy "positive"}}" {{on "click" (fn this.toggleTemporalVehicleOccupancy true)}} type="button">Temporal Splits</button>
             <div class="or"></div>
-            <button class="ui button {{unless this.factor.temporalVehicleOccupancy "positive"}}" onClick={{action this.toggleTemporalVehicleOccupancy false}} type="button">All Periods</button>
+            <button class="ui button {{unless this.factor.temporalVehicleOccupancy "positive"}}" {{on "click" (fn this.toggleTemporalVehicleOccupancy false)}} type="button">All Periods</button>
           </div>
         </td>
       </tr>
