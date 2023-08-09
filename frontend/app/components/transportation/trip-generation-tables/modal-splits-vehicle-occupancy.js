@@ -10,6 +10,7 @@ export default class TransportationTripGenerationTablesModalSplitsVehicleOccupan
 
   @action
   saveAnalysis() {
+    console.info('saveAnalysis');
     this.analysis.save();
   }
 

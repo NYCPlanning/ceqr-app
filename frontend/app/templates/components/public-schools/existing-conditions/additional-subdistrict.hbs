@@ -81,6 +81,7 @@
       <UiDropdown
         class="selection"
         @selected={{this.district}}
+        {{!-- template-lint-disable no-action --}}
         @onChange={{action "setDistrict"}}
       >
         <div class="default text">
@@ -98,6 +99,7 @@
       <UiDropdown
         class="selection {{unless this.district "disabled"}}"
         @selected={{this.subdistrict}}
+        {{!-- template-lint-disable no-action --}}
         @onChange={{action "setSubdistrict"}}
       >
         <div class="default text">

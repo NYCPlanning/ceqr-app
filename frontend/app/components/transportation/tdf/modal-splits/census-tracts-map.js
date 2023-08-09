@@ -88,6 +88,7 @@ export default class TransportationCensusTractsMapComponent extends Component {
    */
   @action
   mapLoaded(map) {
+    console.log("maploaded", map);
     map.on('data', onMapStyleLoaded);
 
     map.addControl(

@@ -13,6 +13,8 @@ export default class TransportationTripGenerationTablesTripGenerationRatesCompon
    */
   @action
   setInOutDist(time, inOut) {
+    console.info('time', time);
+    console.info('inOut', inOut);
     const dists = this.analysis.inOutDists;
     if (dists[time][inOut] > 100) {
       this.analysis.set(`inOutDists.${time}.${inOut}`, 100);

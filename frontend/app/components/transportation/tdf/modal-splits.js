@@ -114,12 +114,14 @@ export default class TransportationTdfModalSplitsComponent extends Component {
 
   @action
   addCensusTract(tract) {
+    console.info('addCensusTract', tract);
     this.analysis.censusTractsSelection.push(tract);
     this.saveAnalysisAndRefreshFactor.perform();
   }
 
   @action
   removeCensusTract(tract) {
+    console.info("remove census tract", tract);
     this.analysis.set(
       'censusTractsSelection',
       this.analysis.censusTractsSelection.without(tract)
@@ -129,6 +131,7 @@ export default class TransportationTdfModalSplitsComponent extends Component {
 
   @action
   changeDataPackage(dp) {
+    console.log('change data package', dp);
     this.factor.set('dataPackage', dp);
     this.saveFactorAndRefresh.perform();
   }

@@ -22,6 +22,8 @@
         <div class="column">
           <form
             class="ui form {{if this.error "error"}}"
+            {{!-- forms seem to blow up when using "on fn" --}}
+            {{!-- template-lint-disable no-action --}}
             {{action "logIn" this.login on="submit"}}
           >
             <div class="field">

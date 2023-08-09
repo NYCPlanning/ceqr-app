@@ -93,6 +93,7 @@ export default class PublicSchoolsProjectMapComponent extends Component {
 
   @action
   zoneHover(e) {
+    console.info("zoneHover")
     if (this.showZones && e.features[0].layer.id === 'zones-hover') {
       if (e.features[0].properties.remarks === 'null') {
         set(this, 'zoneName', e.features[0].properties.dbn);
@@ -167,6 +168,7 @@ export default class PublicSchoolsProjectMapComponent extends Component {
 
   @action
   handleMapLoad(map) {
+    console.info("public schools map load", map);
     map.addControl(
       new mapboxgl.ScaleControl({ unit: 'imperial' }),
       'bottom-right'

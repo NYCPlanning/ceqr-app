@@ -16,6 +16,7 @@ export default class PublicSchoolsExistingConditionsRecentBuiltComponent extends
 
   @action
   save() {
+    console.log("save recently built schools");
     set(this, 'saving', true);
     this.project.save().then(() => set(this, 'saving', false));
   }
