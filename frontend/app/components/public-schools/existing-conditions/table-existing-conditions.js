@@ -1,10 +1,11 @@
 import Component from '@ember/component';
 import { computed, action, set } from '@ember/object';
 import mapColors from '../../../utils/mapColors';
+import { tracked } from "@glimmer/tracking";
 
 export default class PublicSchoolsTableExistingConditionsComponent extends Component {
   tagName = '';
-  activeSchoolsLevel = 'ps';
+  @tracked activeSchoolsLevel = 'ps';
   activeSdId = null;
   mapColors;
 
@@ -65,5 +66,10 @@ export default class PublicSchoolsTableExistingConditionsComponent extends Compo
   @action
   setSdId(sdId) {
     set(this, 'activeSdId', sdId);
+  }
+
+  @action
+  setActiveSchoolsLevel(level) {
+    this.activeSchoolsLevel = level;
   }
 }

@@ -31,4 +31,10 @@ export default class PublicSchoolsNoActionSCAComponent extends Component {
     set(this, 'saving', true);
     this.analysis.save().then(() => set(this, 'saving', false));
   }
+
+  /*Impure function- modifies the buildings object passed into it by reference */
+  @action
+  setIncludeInCapacity(buildings, shouldInclude) {
+    buildings.includeInCapacity = shouldInclude;
+  }
 }

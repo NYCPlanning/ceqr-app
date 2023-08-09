@@ -5,6 +5,7 @@ import { task } from 'ember-concurrency';
 import fetch from 'fetch';
 import mapboxgl from 'mapbox-gl';
 import mapColors from 'labs-ceqr/utils/mapColors';
+import { tracked } from "@glimmer/tracking";
 
 import ENV from 'labs-ceqr/config/environment';
 
@@ -45,8 +46,8 @@ export default class PublicSchoolsProjectMapComponent extends Component {
   }
 
   // UI attributes
-  showZones = false;
-  schoolZone = 'ps';
+  @tracked showZones = false;
+  @tracked schoolZone = 'ps';
   hsAnalysis = false;
   zoneName = null;
   mapColors = mapColors;
@@ -178,5 +179,17 @@ export default class PublicSchoolsProjectMapComponent extends Component {
     this.mapservice.fitToSubdistricts(this.subdistrictsGeojson);
 
     set(this, 'map', map);
+  }
+
+  @action
+  setShowZones(shouldShow) {
+    console.info("shouldShow", shouldShow);
+    this.showZones = shouldShow;
+  }
+
+  @action
+  setSchoolZone(zone) {
+    console.info("schoolZone", zone);
+    this.schoolZone = zone;
   }
 }

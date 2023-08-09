@@ -31,7 +31,7 @@
           <a
             role="button"
             class="item {{if (eq this.bldg_id this.t.bldg_id) "active"}}"
-            {{action "showBldg" t.bldg_id}}
+            {{on "click" (fn this.showBldg t.bldg_id)}}
           >
             {{t.bldg_id}}
           </a>
@@ -124,7 +124,7 @@
           <div class="ui clearing attached segment">
             <button
               class="ui right floated button compact primary
-                {{if this.saving "loading"}}" type="button" {{action "save"}}
+                {{if this.saving "loading"}}" type="button" {{on "click" this.save}}
             >
               Save
             </button>

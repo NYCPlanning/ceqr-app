@@ -115,7 +115,8 @@
             <td>
               <UiCheckbox
                 @checked={{b.includeInCapacity}}
-                @onChange={{action (mut b.includeInCapacity)}}
+                @onChecked={{fn this.setIncludeInCapacity b true}}
+                @onUnchecked={{fn this.setIncludeInCapacity b false}}
                />
 
             </td>
@@ -126,7 +127,7 @@
   {{/each}}
   <div class="ui clearing attached segment">
     <button
-      class="ui right floated button compact primary {{if this.saving "loading"}}" type="button" {{action "save"}}
+      class="ui right floated button compact primary {{if this.saving "loading"}}" type="button" {{on "click" this.save}}
     >
       Save
     </button>

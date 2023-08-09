@@ -7,7 +7,7 @@
       <i class="dropdown icon"></i>
       <div class="menu">
         {{#each this.analysis.subdistricts as |sd|}}
-          <a role="button" class="item" {{action "setSdId" sd.id}}>
+          <a role="button" class="item" {{on "click" (fn this.setSdId sd.id)}}>
             {{sd.sdName}}
           </a>
         {{/each}}
@@ -16,14 +16,14 @@
     <a
       role="button"
       class="item {{if (eq this.activeSchoolsLevel "ps") "active"}}"
-      {{action (mut this.activeSchoolsLevel) "ps"}}
+      {{on "click" (fn this.setActiveSchoolsLevel "ps")}}
     >
       Primary Schools
     </a>
     <a
       role="button"
       class="item {{if (eq this.activeSchoolsLevel "is") "active"}}"
-      {{action (mut this.activeSchoolsLevel) "is"}}
+      {{on "click" (fn this.setActiveSchoolsLevel "is")}}
     >
       Intermediate Schools
     </a>
@@ -33,7 +33,7 @@
         <a
           role="button"
           class="item {{if (eq this.activeSchoolsLevel "hs") "active"}}"
-          {{action (mut this.activeSchoolsLevel) "hs"}}
+          {{on "click" (fn this.setActiveSchoolsLevel "hs")}}
         >
           High Schools (
           {{this.analysis.borough}}

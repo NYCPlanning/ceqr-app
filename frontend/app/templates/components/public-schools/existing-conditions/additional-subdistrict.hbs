@@ -73,7 +73,7 @@
           <div class="item">
             <div class="ui blue label">
               {{sd.sdName}}
-              <i role="button" class="delete icon" {{action "removeSubdistrict" sd}}></i>
+              <i role="button" class="delete icon" {{on "click" (fn this.removeSubdistrict sd)}}></i>
             </div>
           </div>
         {{/each}}
@@ -110,7 +110,7 @@
           {{/each}}
         </div>
       </UiDropdown>
-      <button class="ui button {{unless this.subdistrict "disabled"}}" type="button" {{action "addSubdistrict"}}>
+      <button class="ui button {{unless this.subdistrict "disabled"}}" type="button" {{on "click" this.addSubdistrict}}>
         Add
       </button>
     </div>

@@ -4,8 +4,8 @@ import { tracked } from '@glimmer/tracking';
 
 export default class PublicSchoolsSummaryComponent extends Component {
   tagName = '';
-  activeSchoolsLevel = 'ps';
 
+  @tracked activeSchoolsLevel = 'ps';
   @tracked EC_active = false;
   @tracked NA_resdev = false;
   @tracked NA_schools = false;
@@ -121,5 +121,10 @@ export default class PublicSchoolsSummaryComponent extends Component {
   @action
   toggle(prop) {
     this[prop] = !this[prop];
+  }
+
+  @action
+  setActiveSchoolsLevel(level){
+    this.activeSchoolsLevel = level;
   }
 }

@@ -1,6 +1,6 @@
 <MapboxGl
   @id="study-area-map"
-  @mapLoaded={{action "handleMapLoad"}}
+  @mapLoaded={{this.handleMapLoad}}
   @initOptions={{hash
     style="https://layers-api.planninglabs.nyc/v1/base/style.json"
     zoom=9.2
@@ -11,11 +11,12 @@
     <div class="zone-dropdown">
       <UiCheckbox
         @label="Show"
-        @checked={{this.showZones}}
-        @onChange={{action (mut this.showZones)}}
+        @checked={{false}}
+        @onChecked={{fn this.setShowZones true}}
+        @onUnchecked={{fn this.setShowZones false}}
        />
 
-      <UiDropdown @selected="ps" @onChange={{action (mut this.schoolZone)}}>
+      <UiDropdown @selected="ps" @onChange={{action this.setSchoolZone}}>
         <div class="default text"></div>
         <i class="dropdown icon"></i>
         <div class="menu">

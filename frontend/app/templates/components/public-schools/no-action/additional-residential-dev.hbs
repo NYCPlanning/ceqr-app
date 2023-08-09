@@ -105,7 +105,7 @@
             {{r.hs_students}}
           </td>
           <td>
-            <button class="ui button red" type="button" {{action "removeResDev" r}}>
+            <button class="ui button red" type="button" {{on "click" (fn this.removeResDev r)}}>
               Delete
             </button>
           </td>
