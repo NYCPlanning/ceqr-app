@@ -20,7 +20,7 @@
             role="button"
             data-value={{package.version}}
             class="item"
-            onClick={{action "changeDataPackage" package}}
+            {{on "click" (fn this.changeDataPackage package)}}
           >
             {{package.name}}
           </div>

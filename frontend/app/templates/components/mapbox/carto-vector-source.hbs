@@ -1,5 +1,5 @@
 <Mapbox::LayerRegistry
-  @didUpdateLayersRegistry={{action "handleUpdatedLayersRegistry"
+  @didUpdateLayersRegistry={{this.handleUpdatedLayersRegistry
   }} as |registry|
 >
   {{! if tiles URLs exist, begin rendering }}
@@ -16,8 +16,8 @@
     (hash
       layer=(component
         "mapbox/carto-layer"
-        registerWithParent=(action registry.registerLayer)
-        unregisterWithParent=(action registry.unregisterLayer)
+        registerWithParent=registry.registerLayer
+        unregisterWithParent=registry.unregisterLayer
         map=this.map
         tiles=this.mapboxSourceOptions.tiles
         _parentElementId=(if this.sourceId this.sourceId this.elementId)

@@ -1,13 +1,13 @@
 {{! binds a map event with an action using mapbox-gl's on method }}
 <MapboxGlOn
   @event="mousemove"
-  @action={{action "handleMouseMove"}}
+  @action={{this.handleMouseMove}}
   @eventSource={{this.map.instance}}
  />
 
 <MapboxGlOn
   @event="mouseout"
-  @action={{action "handleMouseLeave"}}
+  @action={{this.handleMouseLeave}}
   @eventSource={{this.map.instance}}
  />
 

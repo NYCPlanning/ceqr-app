@@ -8,7 +8,7 @@
       <Analysis::DataPackageSelector 
         @currentPackage={{this.project.dataPackage}}
         @availablePackages={{this.mapplutoVersions}}
-        @changeDataPackageAction={{action "changeDataPackage"}}
+        @changeDataPackageAction={{this.changeDataPackage}}
       />
     </div>
     
@@ -25,7 +25,7 @@
                   @value={{this.bbl}}
                   placeholder="BBL (ex 1001440001)"
                   maxlength={{10}}
-                  {{on "enter" (action "addBbl")}}
+                  {{on "enter" this.addBbl}}
                   data-test-bbl-list="bbl-input"
                 />
                 <button
@@ -57,7 +57,7 @@
               >
                 {{bbl}}
               </a>
-              <i role="button" class="close link icon" {{action "removeBbl" bbl}}></i>
+              <i role="button" class="close link icon" {{on "click" (fn this.removeBbl bbl)}}></i>
             </div>
           </div>
         {{/each}}
