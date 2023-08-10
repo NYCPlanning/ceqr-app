@@ -34,7 +34,7 @@ export default class TransportationTrafficZoneMapComponent extends Component {
 
   @action
   zoneHover(e) {
-    console.info("zoneHover", e);
+    console.info('zoneHover', e);
     this.map.getCanvas().style.cursor = 'default';
 
     this.zonePopup
@@ -55,7 +55,7 @@ export default class TransportationTrafficZoneMapComponent extends Component {
 
   @action
   handleMapLoad(map) {
-    console.info("handleMapLoad", map);
+    console.info('handleMapLoad', map);
     map.addControl(
       new mapboxgl.ScaleControl({ unit: 'imperial' }),
       'bottom-right'

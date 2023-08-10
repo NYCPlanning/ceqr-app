@@ -80,6 +80,7 @@ export default class MapboxCartoLayersComponent extends Component {
   // local callback function used to update layers
   @action
   handleUpdatedLayersRegistry(registeredLayers) {
+    console.info('handleUpdatedLayersRegistry', registeredLayers);
     set(this, '_registeredLayers', registeredLayers);
   }
 

@@ -15,12 +15,15 @@ export default class MapboxCurrentMousePositionComponent extends Component {
 
   @action
   handleMouseMove(e) {
-    set(this, 'currentMapMouseEvent', e);
+    const mouseEvent = e !== undefined ? e : null;
+    console.info('handleMouseMove', mouseEvent);
+    set(this, 'currentMapMouseEvent', mouseEvent);
     this._passPositionToParent();
   }
 
   @action
   handleMouseLeave() {
+    console.info('handleMouseLeave');
     set(this, 'currentMapMouseEvent', null);
     this._passPositionToParent();
   }

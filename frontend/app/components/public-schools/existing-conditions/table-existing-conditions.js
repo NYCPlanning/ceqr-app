@@ -1,7 +1,7 @@
 import Component from '@ember/component';
 import { computed, action, set } from '@ember/object';
 import mapColors from '../../../utils/mapColors';
-import { tracked } from "@glimmer/tracking";
+import { tracked } from '@glimmer/tracking';
 
 export default class PublicSchoolsTableExistingConditionsComponent extends Component {
   tagName = '';

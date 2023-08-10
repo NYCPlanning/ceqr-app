@@ -30,6 +30,7 @@ export default class SignupFormComponent extends Component {
 
   @action
   createUser(user) {
+    console.info('create user', user);
     fetch(`${ENV.host}/auth/v1/signup`, {
       method: 'POST',
       headers: {

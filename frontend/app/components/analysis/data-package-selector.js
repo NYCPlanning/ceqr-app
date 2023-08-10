@@ -20,6 +20,7 @@ export default class AnalysisDataPackageSelectorComponent extends Component {
 
   @action
   changeDataPackage(dp) {
+    console.info('changeDataPackage in analysis', dp);
     this.changeDataPackageAction(dp);
   }
 }

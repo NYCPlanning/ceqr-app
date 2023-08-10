@@ -14,6 +14,7 @@ export default class TopBarComponent extends Component {
 
   @action
   logOut() {
+    console.info('logOut');
     this.session.invalidate();
   }
 }

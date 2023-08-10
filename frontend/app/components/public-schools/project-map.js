@@ -5,7 +5,7 @@ import { task } from 'ember-concurrency';
 import fetch from 'fetch';
 import mapboxgl from 'mapbox-gl';
 import mapColors from 'labs-ceqr/utils/mapColors';
-import { tracked } from "@glimmer/tracking";
+import { tracked } from '@glimmer/tracking';
 
 import ENV from 'labs-ceqr/config/environment';
 
@@ -93,7 +93,7 @@ export default class PublicSchoolsProjectMapComponent extends Component {
 
   @action
   zoneHover(e) {
-    console.info("zoneHover")
+    console.info('zoneHover for project map');
     if (this.showZones && e.features[0].layer.id === 'zones-hover') {
       if (e.features[0].properties.remarks === 'null') {
         set(this, 'zoneName', e.features[0].properties.dbn);
@@ -110,6 +110,7 @@ export default class PublicSchoolsProjectMapComponent extends Component {
 
   @action
   displayPopup(e) {
+    console.info("displayPopup in public schools", e);
     this.map.getCanvas().style.cursor = 'default';
     const features = this.map.queryRenderedFeatures(e.point, {
       layers: ['buildings', 'scaprojects'],
@@ -168,7 +169,7 @@ export default class PublicSchoolsProjectMapComponent extends Component {
 
   @action
   handleMapLoad(map) {
-    console.info("public schools map load", map);
+    console.info('public schools map load', map);
     map.addControl(
       new mapboxgl.ScaleControl({ unit: 'imperial' }),
       'bottom-right'
@@ -185,13 +186,13 @@ export default class PublicSchoolsProjectMapComponent extends Component {
 
   @action
   setShowZones(shouldShow) {
-    console.info("shouldShow", shouldShow);
+    console.info('shouldShow', shouldShow);
     this.showZones = shouldShow;
   }
 
   @action
   setSchoolZone(zone) {
-    console.info("schoolZone", zone);
+    console.info('schoolZone', zone);
     this.schoolZone = zone;
   }
 }

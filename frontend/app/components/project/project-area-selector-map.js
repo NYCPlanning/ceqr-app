@@ -44,6 +44,7 @@ export default class ProjectProjectAreaSelectorMapComponent extends Component {
 
   @action
   mapLoaded(map) {
+    console.info("project area selector map loaded", map);
     map.on('data', onMapStyleLoaded);
 
     map.addControl(new mapboxgl.NavigationControl(), 'top-right');

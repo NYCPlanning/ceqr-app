@@ -24,6 +24,7 @@ export default class MapboxLayerRegistryComponent extends Component {
   // passed to child layers for storing their references
   @action
   _registerLayer(layer) {
+    console.info('register layer', layer);
     this.__registeredLayers.add(layer);
 
     this._didUpdateLayersRegistry();

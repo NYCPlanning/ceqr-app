@@ -23,6 +23,7 @@ export default class UserProjectsRoute extends Route {
 
   @action
   deleteModal(id) {
+    console.info('delete modal', id);
     set(this, 'deleteProjectId', id);
     $('.mini.modal').modal('show');
   }

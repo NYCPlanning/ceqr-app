@@ -121,7 +121,7 @@ export default class TransportationTdfModalSplitsComponent extends Component {
 
   @action
   removeCensusTract(tract) {
-    console.info("remove census tract", tract);
+    console.info('remove census tract', tract);
     this.analysis.set(
       'censusTractsSelection',
       this.analysis.censusTractsSelection.without(tract)

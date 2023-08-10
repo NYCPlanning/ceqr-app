@@ -29,7 +29,7 @@ export default class PublicSchoolsWithActionNewSchoolComponent extends Component
   }
 
   @action
-  changeSchoolSubdistrict(subdistrict){
+  changeSchoolSubdistrict(subdistrict) {
     set(this, 'school.subdistrict', subdistrict);
   }
 }

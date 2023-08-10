@@ -12,11 +12,13 @@ export default class ProjectDetailsComponent extends Component {
 
   @action
   saveProject() {
+    console.info('saveProject');
     this.save(this.project);
   }
 
   @action
   back() {
+    console.info('back');
     history.back();
   }
 }

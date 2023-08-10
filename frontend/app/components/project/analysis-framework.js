@@ -154,6 +154,7 @@ export default class ProjectAnalysisFrameworkComponent extends Component {
 
   @action
   addLandUse({ type, grossSqFt }, use) {
+    console.info('addLandUse', type, grossSqFt);
     const landuses = get(this, `project.${use}`);
     const useType = get(this, `_${use}Types`).findBy('type', type);
 

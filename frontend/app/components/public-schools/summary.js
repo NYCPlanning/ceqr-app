@@ -124,7 +124,7 @@ export default class PublicSchoolsSummaryComponent extends Component {
   }
 
   @action
-  setActiveSchoolsLevel(level){
+  setActiveSchoolsLevel(level) {
     this.activeSchoolsLevel = level;
   }
 }

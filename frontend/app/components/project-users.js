@@ -84,6 +84,7 @@ export default class ProjectUsersCompoent extends Component {
 
   @action
   async changeAccess(user, permission) {
+    console.info('change access', user, permission);
     set(this, 'error', null);
 
     const permissions = await this.project.projectPermissions;

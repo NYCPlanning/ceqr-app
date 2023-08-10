@@ -53,7 +53,7 @@ export default class PublicSchoolsExistingConditionsAdditionalSubdistrictCompone
 
   @action
   setDistrict(district) {
-    console.info("setDistrict", district);
+    console.info('setDistrict', district);
     set(this, 'district', parseFloat(district));
     set(this, 'subdistrict', null);
   }
@@ -65,7 +65,7 @@ export default class PublicSchoolsExistingConditionsAdditionalSubdistrictCompone
 
   @action
   addSubdistrict() {
-    console.log("add subdistrict");
+    console.log('add subdistrict');
     const subdistricts = this.analysis.subdistrictsFromUser;
     subdistricts.pushObject({
       district: parseFloat(this.district),
@@ -94,7 +94,7 @@ export default class PublicSchoolsExistingConditionsAdditionalSubdistrictCompone
 
   @action
   removeSubdistrict(sd) {
-    console.info("removeSubdistric", sd);
+    console.info('removeSubdistric', sd);
     const subdistricts = this.analysis.subdistrictsFromUser;
     set(this, 'analysis.subdistrictsFromUser', subdistricts.removeObject(sd));
 

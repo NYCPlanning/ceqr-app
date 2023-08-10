@@ -9,7 +9,7 @@ export default class PublicSchoolsSummaryVersionSelector extends Component {
 
   @action
   async changeDataPackage(dataPackage) {
-    console.info("changeDataPackage", dataPackage);
+    console.info('changeDataPackage', dataPackage);
     const analysis = await this.analysis;
 
     analysis.set('dataPackage', dataPackage);

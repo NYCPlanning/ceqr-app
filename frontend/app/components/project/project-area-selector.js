@@ -20,11 +20,13 @@ export default class ProectAreaSelectorComponent extends Component {
 
   @action
   changeDataPackage(dp) {
+    console.info("change data package in pas", dp);
     set(this.project, 'dataPackage', dp);
   }
 
   @action
   toggleBbl(_bbl) {
+    console.info("toggleBbl", _bbl);
     const bbl = _bbl.toString();
 
     if (this.project.get('bbls').includes(bbl)) {
@@ -36,6 +38,7 @@ export default class ProectAreaSelectorComponent extends Component {
 
   @action
   async addBbl(_bbl) {
+    console.info("addBbl", _bbl);
     set(this, 'error', null);
     const bbl = _bbl.toString();
 
@@ -83,6 +86,7 @@ export default class ProectAreaSelectorComponent extends Component {
 
   @action
   removeBbl(bbl) {
+    console.info("removeBbl", bbl);
     this.project.get('bbls').removeObject(bbl);
   }
 }

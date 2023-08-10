@@ -8,6 +8,7 @@ export default class MapboxCurrentMouseEventComponent extends Component {
 
   @action
   handleEvent(e) {
+    console.info('handleMouseEvent', e);
     set(this, 'currentMapMouseEvent', e);
   }
 }
