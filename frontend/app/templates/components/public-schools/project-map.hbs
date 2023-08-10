@@ -16,7 +16,10 @@
         @onUnchecked={{fn this.setShowZones false}}
        />
 
-      <UiDropdown @selected="ps" @onChange={{action this.setSchoolZone}}>
+      <UiDropdown
+        {{!-- Dropdowns cannot pass functions without the linter auto-removing them --}}
+        {{!-- template-lint-disable no-action --}}
+       @selected="ps" @onChange={{action this.setSchoolZone}}>
         <div class="default text"></div>
         <i class="dropdown icon"></i>
         <div class="menu">
@@ -135,6 +138,8 @@
   <MapboxGlOn
     @event="mousemove"
     @layerId="zones-hover"
+    {{!-- Cannot reach component to test refactor --}}
+    {{!-- template-lint-disable no-action --}}
     @action={{action "zoneHover"}}
     @eventSource={{map.instance}}
    />
@@ -142,6 +147,8 @@
   <MapboxGlOn
     @event="mouseleave"
     @layerId="zones-hover"
+    {{!-- Cannot reach component to test refactor --}}
+    {{!-- template-lint-disable no-action --}}
     @action={{action "zoneUnhover"}}
     @eventSource={{map.instance}}
    />
@@ -251,5 +258,5 @@
      />
 
   </map.source>
-  {{map.on "mousemove" (action "displayPopup")}}
+  {{map.on "mousemove" this.displayPopup}}
 </MapboxGl>

@@ -46,6 +46,8 @@
                       <i class="edit icon"></i>Edit
                     </LinkTo>
                     <button
+                      {{!-- Cannot use fn because exists on route and not component --}}
+                      {{!-- template-lint-disable no-action --}}
                       class="ui compact small negative icon button" type="button" {{action "deleteModal" project.id}}
                     >
                       <i class="trash icon"></i>
@@ -95,6 +97,8 @@
     </div>
     <div
       class="ui negative right labeled icon button"
+      {{!-- Cannot use fn because exists on route and not component --}}
+      {{!-- template-lint-disable no-action --}}
       {{action "deleteProject"}}
       role="button"
     >

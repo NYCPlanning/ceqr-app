@@ -4,6 +4,8 @@
       role="button"
       class="item {{unless this.switch "active"}}"
       data-test-censustracts-table-isrjtw="false"
+      {{!-- Switch is defined through components attributes and is difficult to refactor --}}
+      {{!-- template-lint-disable no-action --}}
       {{action (mut this.switch) false}}
     >
       {{this.falseLabel}}
@@ -12,6 +14,8 @@
       role="button"
       class="item {{if this.switch "active"}}"
       data-test-censustracts-table-isrjtw="true"
+      {{!-- Switch is defined through components attributes and is difficult to refactor --}}
+      {{!-- template-lint-disable no-action --}}
       {{action (mut this.switch) true}}
     >
       {{this.trueLabel}}

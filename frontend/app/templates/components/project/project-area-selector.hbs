@@ -14,7 +14,10 @@
     
     <div class="row">
       <div class="ui action input">
-        <form class="ui form" {{action "addBbl" this.bbl on="submit"}}>
+        <form class="ui form"
+        {{!-- forms seem to blow up when using "on fn" --}}
+        {{!-- template-lint-disable no-action --}}
+         {{action "addBbl" this.bbl on="submit"}}>
           <div class="inline fields">
             <div class="field">
               <div class="ui action input">
@@ -69,6 +72,8 @@
   <div class="ten wide column">
     <Project::ProjectAreaSelectorMap 
       @project={{this.project}}
+      {{!-- Cannot reach component to test a refactor --}}
+      {{!-- template-lint-disable no-action --}}
       @toggleBbl={{action "toggleBbl"}}
     />
   </div>

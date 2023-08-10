@@ -37,6 +37,7 @@
       <td>
         <UiDropdown
           @selected={{this.school.subdistrict}}
+          {{!-- Dropdowns cannot pass functions without the linter auto-removing them --}}
           {{!-- template-lint-disable "no-action" --}}
           @onChange={{action this.changeSchoolSubdistrict}} as |execute mapper|
         >
