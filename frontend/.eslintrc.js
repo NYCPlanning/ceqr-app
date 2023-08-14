@@ -23,15 +23,15 @@ module.exports = {
     browser: true,
   },
   rules: {
-    'ember/no-get': 'warn',
-    'ember/no-classic-components': 'warn',
-    'ember/no-jquery': 'warn',
-    'no-undef': 'warn',
     'ember/classic-decorator-hooks': 'warn',
-    'ember/no-computed-properties-in-native-classes': 'warn',
-    'ember/no-private-routing-service': 'warn',
+    'ember/no-classic-components': 'warn',
     'ember/no-component-lifecycle-hooks': 'warn',
+    'ember/no-computed-properties-in-native-classes': 'warn',
+    'ember/no-get': 'warn',
+    'ember/no-jquery': 'warn',
+    'ember/no-private-routing-service': 'warn',
     'ember/require-tagless-components': 'warn',
+    'no-undef': 'warn',
   },
   overrides: [
     // node files
