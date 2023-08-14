@@ -22,8 +22,6 @@
           <UiDropdown
             class="selection"
             @selected={{this.project.buildYear}}
-            {{!-- Dropdowns cannot pass functions without the linter auto-removing them --}}
-            {{!-- template-lint-disable "no-action" --}}
             @onChange={{action (mut this.project.buildYear)}}
             data-test-new-project="build-year"
           >

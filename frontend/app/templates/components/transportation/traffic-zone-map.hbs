@@ -1,7 +1,6 @@
 <MapboxGl
   @id="transportation-zone-map"
   {{!-- Can't find the runtime example for this file --}}
-  {{!-- template-lint-disable no-action --}}
   @mapLoaded={{action "handleMapLoad"}}
   @initOptions={{hash
     style="mapbox://styles/mapbox/light-v9"
@@ -43,7 +42,7 @@
   <MapboxGlOn
     @event="mousemove"
     @layerId="transportation-zones"
-    {{!-- template-lint-disable no-action --}}
+    {{!-- Can't find the runtime example for this file --}}
     @action={{action "zoneHover"}}
     @eventSource={{map.instance}}
    />
@@ -51,7 +50,7 @@
   <MapboxGlOn
     @event="mouseleave"
     @layerId="transportation-zones"
-    {{!-- template-lint-disable no-action --}}
+    {{!-- Can't find the runtime example for this file --}}
     @action={{action "zoneUnhover"}}
     @eventSource={{map.instance}}
    />

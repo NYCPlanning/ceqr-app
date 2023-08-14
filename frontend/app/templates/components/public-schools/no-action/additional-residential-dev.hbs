@@ -13,7 +13,7 @@
   </p>
 </div>
 <div class="ui {{if this.analysis.futureResidentialDev "top attached"}} segment">
-  <form class="ui form" {{!-- template-lint-disable no-action --}} {{action "addResDev" this.resdev on="submit"}}>
+  <form class="ui form" {{action "addResDev" this.resdev on="submit"}}>
     <div class="inline fields">
       <div class="field">
         <Input aria-label="residental development name" @type="string" @value={{this.resdev.name}} placeholder="Project Name" />
@@ -25,8 +25,6 @@
         <UiDropdown
           class="selection"
           @selected={{this.resdev.subdistrict}}
-          {{!-- Dropdowns cannot pass functions without the linter auto-removing them --}}
-          {{!-- template-lint-disable no-action --}}
           @onChange={{action (mut this.resdev.subdistrict)}} as |execute mapper|
         >
           <div class="default text">

@@ -3,7 +3,6 @@
   {{!-- Action and mutation affect a value that should be private. 
   Refactoring it to have a public modifier would further muddy the waters
   on its architecture --}}
-  {{!-- template-lint-disable no-action --}}
   @handleMousePosition={{action (mut this._point)}}
 as |mousePoint|>
   <Mapbox::IntersectingFeatures

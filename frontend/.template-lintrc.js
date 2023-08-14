@@ -4,6 +4,7 @@
 module.exports = {
   extends: 'recommended',
   rules: {
+    'no-action': 'warn',
     'no-inline-styles': 'warn',
     'no-invalid-interactive': 'warn',
     'link-href-attributes': 'warn',

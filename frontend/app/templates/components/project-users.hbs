@@ -31,7 +31,6 @@
                     class="item"
                     {{!-- Editors are not appearing in application and this state
                     cannot be tested --}}
-                    {{!-- template-lint-disable no-action --}}
                     onclick={{action "changeAccess" user "viewer"}}
                   >
                     Make Viewer
@@ -39,7 +38,6 @@
                   <div role="button" 
                   {{!-- Editors are not appearing in application and this state
                   cannot be tested --}}
-                  {{!-- template-lint-disable no-action --}}
                   class="item" onclick={{action "removeUser" user}}>
                     Remove
                   </div>
@@ -70,7 +68,6 @@
                       class="yellow item"
                       {{!-- Viewers are not appearing in application and this state
                       cannot be tested --}}
-                      {{!-- template-lint-disable no-action --}}
                       onclick={{action "changeAccess" user "editor"}}
                     >
                       Make Editor
@@ -78,7 +75,6 @@
                     <div 
                     {{!-- Viewers are not appearing in application and this state
                     cannot be tested --}}
-                    {{!-- template-lint-disable no-action --}}
                     role="button" class="red item" onclick={{action "removeUser" user}}>
                       Remove
                     </div>
@@ -96,8 +92,6 @@
 </div>
 <div class="ui bottom attached segment">
   <form
-   {{!-- forms seem to blow up when using "on fn" --}}
-   {{!-- template-lint-disable no-action --}}
    class="ui form" {{action "addUser" on="submit"}}>
     <div class="field">
       <Input aria-label="email" @type="text" name="email" @value={{this.email}} placeholder="Email" />
@@ -107,8 +101,6 @@
         <UiDropdown
           class="selection"
           @selected={{this.permission}}
-          {{!-- Dropdowns cannot pass functions without the linter auto-removing them --}}
-          {{!-- template-lint-disable no-action --}}
           @onChange={{action (mut this.permission)}}
         >
           <div class="default text">

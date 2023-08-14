@@ -110,7 +110,7 @@ export default class PublicSchoolsProjectMapComponent extends Component {
 
   @action
   displayPopup(e) {
-    console.info("displayPopup in public schools", e);
+    console.info('displayPopup in public schools', e);
     this.map.getCanvas().style.cursor = 'default';
     const features = this.map.queryRenderedFeatures(e.point, {
       layers: ['buildings', 'scaprojects'],
