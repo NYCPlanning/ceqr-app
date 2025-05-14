@@ -1,5 +1,5 @@
 $gray: #828892;
-$menu-bar-top: 21px;
+$menu-bar-top: 100px;
 
 // Body & containter
 
@@ -18,7 +18,7 @@ body .ui.fixed.menu.top-bar {
 }
 
 body .ui.grid.container {
-  margin: 70px 0 40px;
+  margin: 170px 0 40px;
 }
 
 body {
@@ -63,6 +63,28 @@ body {
         }
       }
     }
+  }
+}
+
+div.banner {
+  position: fixed;
+  display: inline-flex;
+  width: 100%;
+  background-color: #D13823;
+  color: white;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  height: 100px;
+  z-index: 101;
+  padding: 0 1rem;
+  span {
+    font-weight: bold;
+  }
+  a {
+    color: white;
+    text-decoration: underline;
   }
 }
 
