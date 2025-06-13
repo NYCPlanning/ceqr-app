@@ -1,8 +1,8 @@
 /* eslint-env node */
-'use strict';
+
 
 module.exports = {
-  extends: 'recommended',
+  extends: 'octane',
 
   rules: {
     'attribute-indentation': false,
@@ -10,6 +10,6 @@ module.exports = {
 
     // Should probably apply these eventually
     'no-invalid-interactive': false,
-    'no-inline-styles': false
-  }
+    'no-inline-styles': false,
+  },
 };

@@ -5,8 +5,14 @@
 #   git config --global core.excludesfile '~/.gitignore_global'
 
 # Ignore .env
-.env
+.env*
+.env-dev
+.env-examples
+.env-prod
+.env-staging
 node_modules
+**/.DS_Store
+
 
 # optional database backup to load prod data into docker postgis
 backend/db/backup

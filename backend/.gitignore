@@ -30,6 +30,7 @@
 
 # Ignore .env
 .env
+.env_*
 
 # Ignore test coverage
 /coverage

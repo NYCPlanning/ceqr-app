@@ -11,10 +11,18 @@
    cd frontend  
    yarn
    ```
-1. **Create a local .env file from [backend/.env-example](backend/.env-example)**.  In your `.env` copy that is `.gitignore`'d, update the variables as needed (see in-file comments for instructions)
+1. **Create a local .env file from [backend/.env-example](backend/.env-example)**.  In your `.env` copy that is `.gitignore`'d, update the variables (descriptions of each are below) as follows:
+
+
+- `DATABASE_URL` - Postgres url string to the `ceqr_rails` database. For local development, this should point to your development database. Rails will automatically swap to `ceqr_test` when the test suite is run. Remember to use `postgis://` as the prefix.
+- `CEQR_DATA_DB_URL` - Postgres url string to the read-only production `ceqr_data`  running on Digital Ocean. Remember to use `postgis://` as the prefix. See 1Password for database connection string.
+- `JWT_SALT` - salt for the JSON Web Token used for user sessions. Necessary, but only really important in production.
+- `ADMIN_EMAILS` - A comma seperated list (no spaces) of email addresses used for admin emails (example: user account in need of verification.)
+- `SENDGRID_KEY` - Sendgrid key for sending emails. Can be found in Heroku account.
+
    ```sh
    cd backend
-   cp .env-example .env
+   cat .env-example > .env
    ```
 1. _Optional_:  Instantiate the app with production or staging ceqr_rails data
    ```sh
@@ -25,6 +33,9 @@
 1. **Start up the ceqr app**, with environment defined and all deps installed, and bring up the postgis with all dbs created and migrations applied:
     ```sh
     docker-compose up # append "-d" if you'd like it to run in background, as a daemon
+
+    # alternatively, you can run and `cd` into the frontend folder and run `yarn start-with-backend`
+    docker compose up postgis backend migrate
     ```
 1. **Confirm everything is OK** 
     ```sh
@@ -32,12 +43,12 @@
 
     # should output =>
 
-        Name                   Command              State            Ports
-    -------------------------------------------------------------------------------
+        Name                   Command                      State                          Ports
+    ----------------------------------------------------------------------------------------------------------------------------
     ceqr-app_frontend_1   ./frontend-entrypoint.sh        Up(health: starting)  0.0.0.0:4200->4200/tcp, 7020/tcp, 7357/tcp
-    ceqr-app_backend_1    ./service-entrypoint.sh         Up(healthy)       0.0.0.0:3000->3000/tcp
-    ceqr-app_migrate_1   ./migrate.sh                    Exit 0
-    ceqr-app_postgis_1   docker-entrypoint.sh postgres   Up       0.0.0.0:5432->5432/tcp
+    ceqr-app_backend_1    ./service-entrypoint.sh         Up(healthy)           0.0.0.0:3000->3000/tcp
+    ceqr-app_migrate_1    ./migrate.sh                    Exit 0
+    ceqr-app_postgis_1    docker-entrypoint.sh postgres   Up                    0.0.0.0:5432->5432/tcp
     ```
     _Note:_
      - `migrate` service is a short-lived container that sets up your backend for you. That's why it is State: Exit 0
@@ -49,14 +60,18 @@
 5.  🥳 **That's IT!!!!!!** 🥳
 
 ##### Docker Tips
-- When you `docker-compose up` for the first time (or if you cleanup the `postgis` volume that contains `ceqr_rails`), you'll have to Create an Account in CEQR App, then create a test project(s):  
-  - Create Account  
-  ![](docs/images/2019-12-12-12-27-32.png)
-  ![](docs/images/2019-12-12-12-24-37.png)
-  - Check your terminal console for the email URL to validate.  Copy and paste the `http://localhost:4200...` url in your browser to validate.  
-  ![](docs/images/2019-12-12-12-25-05.png)
-  - Successful validation:
-  ![](docs/images/2019-12-12-12-25-59.png)  
+If you are starting with a new local `ceqr_rails` db, running `docker-compose up` for the first time (or if you cleanup the `postgis` volume that contains `ceqr_rails`), you may need to the following:
+
+  * Set up the App
+    - populate db with table data: run `rails db:seed` in the rails console accessed via the docker backend container: `docker exec -it ceqr-app-backend-1 /bin/bash`
+    - create an account in CEQR App:
+        - Select **Signup** then **Create Account**
+        ![](docs/images/2019-12-12-12-27-32.png)
+        ![](docs/images/2019-12-12-12-24-37.png)
+    - Check your terminal console for the email URL to validate.  Copy and paste the `http://localhost:4200...` url in your browser to validate.
+    ![](docs/images/2019-12-12-12-25-05.png)
+    - After successful validation, login and start creating projects 🎉:
+    ![](docs/images/2019-12-12-12-25-59.png)
 
 - If you want to stop the containers, click `CTRL + C`
   - Your `ceqr-rails` database (the user you created and projects) will be persisted in a docker volume connected to the `postgis` container.  
@@ -69,9 +84,9 @@
 ### Local Development
 If you don't want to run the ember frontend inside the docker container, that's fine! It's slow! I feel ya! You can run the ember frontend on your local machine, hooked up to the docker backend like:
 ```sh
-docker-compose stop frontend
+docker-compose stop frontend # if the frontend is running in the Docker container
 cd frontend
-HOST=http://localhost:3000 DISABLE_MIRAGE=true ember s
+yarn start-with-backend  # which will run: HOST=http://localhost:3000 DISABLE_MIRAGE=true ember s
 ```
 
 If you have updated backend packages, you can run the install/updates on your local machine or inside the docker containers (nice if you don't have bundler installed, for instance) like:
@@ -84,7 +99,7 @@ Alternatively, if you delete `Gemfile.lock`, bringing up the containers will re-
 Ember server will live-reload changes to the frontend app for you, so there is no need to restart the docker services when making changes to files in `frontend/`
 
 
-Rails reloads the entire server on every request by default in development more, so there is no need to restart the docker services when making changes to files in `backend/`, altho configuration changes require restart
+Rails reloads the entire server on every request by default in development mode, so there is no need to restart the docker services when making changes to files in `backend/`, although configuration changes require restart
 
 ### Running Migrations
 Rails migrations are stored in /backend/app/db/migrate. 
